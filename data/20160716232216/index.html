@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js rgba borderradius boxshadow textshadow opacity cssanimations cssgradients csstransitions fontface generatedcontent video audio js" prefix="og: http://ogp.me/ns#">
+<!--<![endif]--><!-- BEGIN head --><head><div class="fit-vids-style">­</div>
+
+	<!-- Title -->
+	
+	
+	<!-- Meta Tags -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Favicon & Mobileicon -->
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="apple-touch-icon" href="http://jbcdn2.b0.upaiyun.com/2013/12/jobbole-blog-logo-mobile.png">
+	
+	<!-- RSS, Atom & Pingbacks -->
+		<link rel="alternate" title="文章 – 伯乐在线 RSS Feed" href="http://blog.jobbole.com/feed/">
+		<link rel="alternate" title="RSS .92" href="http://blog.jobbole.com/feed/rss/">
+	<link rel="alternate" title="Atom 0.3" href="http://blog.jobbole.com/feed/atom/">
+	<link rel="pingback" href="http://blog.jobbole.com/xmlrpc.php">
+	
+	<!-- Theme Hook -->
+	
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<title>Cheat—— 给Linux初学者和管理员一个终极命令行"备忘单" - 文章 - 伯乐在线</title>
+<meta name="description" content="当你不确定你所运行的命令，尤其是那些使用了许多选项的复杂命令时，你会怎么做？在这种情况下，我们使用man pages来获取帮助。还有一些其它的选择可能包括像‘help’，‘whereis’和‘whatis’这样的命令。但是所有的这些既有优点，也有缺点。">
+<link rel="canonical" href="http://blog.jobbole.com/97626/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cheat—— 给Linux初学者和管理员一个终极命令行&quot;备忘单&quot; - 文章 - 伯乐在线">
+<meta property="og:description" content="当你不确定你所运行的命令，尤其是那些使用了许多选项的复杂命令时，你会怎么做？在这种情况下，我们使用man pages来获取帮助。还有一些其它的选择可能包括像‘help’，‘whereis’和‘whatis’这样的命令。但是所有的这些既有优点，也有缺点。">
+<meta property="og:url" content="http://blog.jobbole.com/97626/">
+<meta property="og:site_name" content="文章 - 伯乐在线">
+<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2016/01/08f524826aed3a997aefab94d084eb0f.png">
+<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2016/01/d5d2619af25cf69718fd36d784e0e56b.jpeg">
+<meta property="og:image" content="https://camo.githubusercontent.com/96250682158db1bb3c9889531d4f8589e109c1fd/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f68656c702d636f6d6d616e642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/f94b1fe991d7b95fd99a505c53baebe955ea71ad/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f776865726569732d636f6d6d616e642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/d1f2b2d8a830108b1d8c38650649b6d2fbc4b1c0/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f7768617469732d636f6d6d616e642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/7b4f156caaa898c7c9c9655143773f7fbd747a61/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d73686565742e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/7952f8f5083052f6b4a776c0d361d0b8af56d629/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d7461722e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/21cfa4c8f30ce6d2b53bf641979b101c7824ac5e/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d64642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/6e18d6f64123dca16aea36c090d0766057082720/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f756e616d652d636f6d6d616e642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/74d764202dc1d59949d8f6f96716c0e02b665cb0/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6966636f6e6669672d636f6d6d616e642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/f4862dbe1db99c1adf5b2f2fb169706e8ba4edc5/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f746f702d636f6d6d616e642e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/5a5ab67a3bd0afaacec1f7d26129a12629d9f376/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6c696e75782d636f6d6d616e64732e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/45360ea72bcf8ccea7d3db000f003dfe6b8a5d4c/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f7365617263682d63686561742d73686565742e6a706567">
+<meta property="og:image" content="https://camo.githubusercontent.com/5e30737c90821b1c4c4fb9d7e2a57d40e4f6570a/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6c696e75782d6761672e6a706567">
+<!-- / Yoast WordPress SEO plugin. -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="https://api.w.org/" href="http://blog.jobbole.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.jobbole.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.jobbole.com/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="http://blog.jobbole.com/?p=97626">
+<link rel="alternate" type="application/json+oembed" href="http://blog.jobbole.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://blog.jobbole.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F&amp;format=xml">
+
+    
+	
+	<!-- CSS -->
+    
+	
+
+	<!--[if IE 8]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
+
+	<!-- Links: RSS + Atom Syndication + Pingback etc. -->
+	<link rel="alternate" type="application/rss+xml" title="文章 – 伯乐在线 RSS Feed" href="http://blog.jobbole.com/feed/">
+	<link rel="alternate" type="text/xml" title="RSS .92" href="http://blog.jobbole.com/feed/rss/">
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://blog.jobbole.com/feed/atom/">
+	<link rel="pingback" href="http://blog.jobbole.com/xmlrpc.php">
+
+<!-- END head -->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<!-- BEGIN body -->
+<body class="single single-post postid-97626 single-format-standard gecko"><iframe src="index_1.html" style="position: fixed; display: none; opacity: 0;" frameborder="0"></iframe><div style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;" class="jiathis_style"></div><div style="position: absolute; z-index: 1000000000; display: none; overflow: auto;" class="jiathis_style"></div><iframe src="index_2.html" style="display: none;" frameborder="0"></iframe>
+
+		
+	    <nav id="top-nav" class="menu-nav">
+
+        <!-- BEGIN .container -->
+        <div class="container">
+
+            <div class="grid-7 hide-on-480 hide-on-767">
+                <ul id="menu-main-menu" class="menu left sf-js-enabled">
+                    <li class="menu-item">
+                        <a href="http://www.jobbole.com/">首页</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="http://top.jobbole.com/">资讯</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="http://blog.jobbole.com/">文章</a>
+                    </li>
+                    <li class="menu-item">
+                        <span><a href="#">频道 <i class="fa fa-angle-double-down"></i></a></span>
+                        <ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+                            <li class="menu-item"><a href="http://design.jobbole.com/">设计频道</a></li>
+                            <li class="menu-item"><a href="http://web.jobbole.com/">Web前端</a></li>
+                            <li class="menu-item"><a href="http://python.jobbole.com/">Python开发</a></li>
+                            <li class="menu-item"><a href="http://www.importnew.com/?utm_source=home-top-nav">Java技术</a></li>
+                            <li class="menu-item"><a href="http://android.jobbole.com/">Android应用</a></li>
+                            <li class="menu-item"><a href="http://ios.jobbole.com/">iOS应用</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="http://hao.jobbole.com/">资源</a>
+                    </li>
+
+                    
+                    <li class="menu-item">
+                        <a href="http://group.jobbole.com/">小组</a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="http://date.jobbole.com/"><i class="fa fa-heart-o pinkiconcolor"></i> 相亲</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="grid-5">
+                <ul id="menu-main-menu" class="menu sf-js-enabled">
+                    <li class="menu-item hide-on-768-wider left">
+                        <span><a href="#">频道 <i class="fa fa-angle-double-down"></i></a></span>
+                        <ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+                            <li class="menu-item"><a href="http://www.jobbole.com/">首页</a></li>
+                            <li class="menu-item"><a href="http://top.jobbole.com/">资讯</a></li>
+                            <li class="menu-item"><a href="http://blog.jobbole.com/">文章</a></li>
+                            <li class="menu-item"><a href="http://group.jobbole.com/">小组</a></li>
+                            <li class="menu-item"><a href="http://date.jobbole.com/">相亲 <i class="fa fa-heart-o pinkiconcolor"></i></a></li>
+                            <li class="menu-item"><a href="http://hao.jobbole.com/">资源</a></li>
+                            <li class="menu-item"><a href="http://design.jobbole.com/">设计</a></li>
+                            <li class="menu-item"><a href="http://web.jobbole.com/">前端</a></li>
+                            <li class="menu-item"><a href="http://python.jobbole.com/">Python</a></li>
+                            <li class="menu-item"><a href="http://www.importnew.com/">Java</a></li>
+                            <li class="menu-item"><a href="http://android.jobbole.com/">安卓</a></li>
+                            <li class="menu-item"><a href="http://ios.jobbole.com/">iOS</a></li>
+
+                                                    </ul>
+                    </li>
+
+                                            <li class="menu-item"><a href="http://www.jobbole.com/login?redirect=http%3A%2F%2Fblog.jobbole.com%2F97626%2F"><i class="fa fa-sign-in"></i> 登录</a></li>
+                        <li class="menu-item"><a href="http://www.jobbole.com/register"><i class="fa fa-user-plus"></i> 注册</a></li>
+                    
+                    
+                    <li class="menu-item"><a title="帮助" href="http://blog.jobbole.com/87622/"><i class="fa fa-question-circle fa-lg"></i></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+
+        </div>
+        <!-- END .container -->
+
+    </nav>
+    <!-- END #top-nav -->
+  	
+	<!-- BEGIN #wrapper -->
+	<div id="wrapper" class="container">
+
+		<!-- BEGIN header -->
+		<header>
+		
+						
+			<div class="header-wrapper">
+								
+				<!-- BEGIN #logo -->
+				<div id="logo" class="leaderboard-true">
+                    <a href="http://blog.jobbole.com/"><img src="jobbole-logo.png" alt="文章 – 伯乐在线"></a>
+				</div>
+				<!-- END #logo -->
+				
+				<!-- BEGIN #leaderboard -->
+				<div id="leaderboard">
+				
+					<a href="http://www.magedu.com/" target="_blank"><img src="bfdcef89gw1f3zdnqbs1qj20k902igmq.jpg" height="90" width="728"></a>				
+				</div>
+				<!-- END #leaderboard -->
+				
+				<div class="clear"></div>
+			
+			</div>
+			
+						
+			<div class="clear"></div>
+
+            			<!-- BEGIN #main-nav -->
+			<nav id="main-nav" class="grid-12 menu-nav">
+                <div class="menu-sub-menu-container"><ul id="main-nav-menu" class="menu sf-js-enabled"><li id="menu-item-33290" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33290"><a href="http://blog.jobbole.com/">首页</a></li>
+<li id="menu-item-33406" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-33406"><a href="http://blog.jobbole.com/all-posts/">最新文章</a></li>
+<li id="menu-item-56111" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-56111"><a href="http://blog.jobbole.com/tag/featuredpost/">经典回顾</a></li>
+<li id="menu-item-33319" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-33319"><a href="http://blog.jobbole.com/category/programmer/">开发</a>
+<ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+	<li id="menu-item-81047" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81047"><a href="http://web.jobbole.com/">Web前端</a></li>
+	<li id="menu-item-81218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81218"><a href="http://python.jobbole.com/">Python</a></li>
+	<li id="menu-item-81220" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81220"><a href="http://android.jobbole.com/">Android</a></li>
+	<li id="menu-item-81219" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81219"><a href="http://ios.jobbole.com/">iOS</a></li>
+	<li id="menu-item-53194" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-53194"><a href="http://www.importnew.com/">Java</a></li>
+	<li id="menu-item-57616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-57616"><a href="http://blog.jobbole.com/category/c-cpp/">C/C++</a></li>
+	<li id="menu-item-57003" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-57003"><a href="http://blog.jobbole.com/category/php-programmer/">PHP</a></li>
+	<li id="menu-item-97173" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-97173"><a href="http://blog.jobbole.com/tag/net/">.NET</a></li>
+	<li id="menu-item-55603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55603"><a href="http://blog.jobbole.com/category/ruby/">Ruby</a></li>
+	<li id="menu-item-70347" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-70347"><a href="http://blog.jobbole.com/category/go/">Go</a></li>
+</ul>
+</li>
+<li id="menu-item-95935" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-95935"><a href="http://design.jobbole.com/">设计</a>
+<ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+	<li id="menu-item-55608" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55608"><a href="http://design.jobbole.com/category/ui-design/">UI设计</a></li>
+	<li id="menu-item-55610" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55610"><a href="http://design.jobbole.com/category/web-design/">网页设计</a></li>
+	<li id="menu-item-55609" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55609"><a href="http://design.jobbole.com/category/inter-design/">交互设计</a></li>
+	<li id="menu-item-55611" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55611"><a href="http://design.jobbole.com/category/ue-design/">用户体验</a></li>
+	<li id="menu-item-95936" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-95936"><a href="http://design.jobbole.com/category/guide/">设计教程</a></li>
+	<li id="menu-item-95937" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-95937"><a href="http://design.jobbole.com/category/design-career/">设计职场</a></li>
+</ul>
+</li>
+<li id="menu-item-33313" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-33313"><a href="http://blog.jobbole.com/category/it-tech/">IT技术</a>
+<ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+	<li id="menu-item-55604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55604"><a href="http://blog.jobbole.com/tag/linux/">Linux</a></li>
+	<li id="menu-item-55607" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55607"><a href="http://blog.jobbole.com/tag/unix/">UNIX</a></li>
+	<li id="menu-item-55605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55605"><a href="http://blog.jobbole.com/tag/mysql/">MySQL</a></li>
+	<li id="menu-item-55621" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55621"><a href="http://blog.jobbole.com/tag/nosql/">NoSQL</a></li>
+	<li id="menu-item-55622" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55622"><a href="http://blog.jobbole.com/tag/database/">数据库</a></li>
+	<li id="menu-item-55606" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55606"><a href="http://blog.jobbole.com/tag/git/">Git</a></li>
+	<li id="menu-item-89963" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-89963"><a href="http://blog.jobbole.com/tag/machinelearning/">机器学习</a></li>
+	<li id="menu-item-55635" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55635"><a href="http://blog.jobbole.com/tag/algorithm/">算法</a></li>
+	<li id="menu-item-55612" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55612"><a href="http://blog.jobbole.com/tag/%e6%b5%8b%e8%af%95/">测试</a></li>
+	<li id="menu-item-55618" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55618"><a href="http://blog.jobbole.com/tag/%e5%ae%89%e5%85%a8/">信息安全</a></li>
+	<li id="menu-item-55636" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55636"><a href="http://blog.jobbole.com/tag/vim/">Vim</a></li>
+</ul>
+</li>
+<li id="menu-item-33390" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33390"><a href="http://blog.jobbole.com/category/career/">职场</a></li>
+<li id="menu-item-95977" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-95977"><a href="http://top.jobbole.com/category/news/">业界</a></li>
+<li id="menu-item-97313" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-97313"><a href="http://blog.jobbole.com/category/geeks/">极客</a></li>
+<li id="menu-item-33317" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33317"><a href="http://blog.jobbole.com/category/startup/">创业</a></li>
+<li id="menu-item-56094" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56094"><a href="http://blog.jobbole.com/category/interview/">访谈</a></li>
+<li id="menu-item-56110" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56110"><a href="http://blog.jobbole.com/category/overseas/">在国外</a></li>
+</ul><select class="selectnav" id="selectnav1"><option value="">- 导航条 -</option><option value="http://blog.jobbole.com/">首页</option><option value="http://blog.jobbole.com/all-posts/">最新文章</option><option value="http://blog.jobbole.com/tag/featuredpost/">经典回顾</option><option value="http://blog.jobbole.com/category/programmer/">开发</option><option value="http://web.jobbole.com/">- Web前端</option><option value="http://python.jobbole.com/">- Python</option><option value="http://android.jobbole.com/">- Android</option><option value="http://ios.jobbole.com/">- iOS</option><option value="http://www.importnew.com/">- Java</option><option value="http://blog.jobbole.com/category/c-cpp/">- C/C++</option><option value="http://blog.jobbole.com/category/php-programmer/">- PHP</option><option value="http://blog.jobbole.com/tag/net/">- .NET</option><option value="http://blog.jobbole.com/category/ruby/">- Ruby</option><option value="http://blog.jobbole.com/category/go/">- Go</option><option value="http://design.jobbole.com/">设计</option><option value="http://design.jobbole.com/category/ui-design/">- UI设计</option><option value="http://design.jobbole.com/category/web-design/">- 网页设计</option><option value="http://design.jobbole.com/category/inter-design/">- 交互设计</option><option value="http://design.jobbole.com/category/ue-design/">- 用户体验</option><option value="http://design.jobbole.com/category/guide/">- 设计教程</option><option value="http://design.jobbole.com/category/design-career/">- 设计职场</option><option value="http://blog.jobbole.com/category/it-tech/">IT技术</option><option value="http://blog.jobbole.com/tag/linux/">- Linux</option><option value="http://blog.jobbole.com/tag/unix/">- UNIX</option><option value="http://blog.jobbole.com/tag/mysql/">- MySQL</option><option value="http://blog.jobbole.com/tag/nosql/">- NoSQL</option><option value="http://blog.jobbole.com/tag/database/">- 数据库</option><option value="http://blog.jobbole.com/tag/git/">- Git</option><option value="http://blog.jobbole.com/tag/machinelearning/">- 机器学习</option><option value="http://blog.jobbole.com/tag/algorithm/">- 算法</option><option value="http://blog.jobbole.com/tag/%e6%b5%8b%e8%af%95/">- 测试</option><option value="http://blog.jobbole.com/tag/%e5%ae%89%e5%85%a8/">- 信息安全</option><option value="http://blog.jobbole.com/tag/vim/">- Vim</option><option value="http://blog.jobbole.com/category/career/">职场</option><option value="http://top.jobbole.com/category/news/">业界</option><option value="http://blog.jobbole.com/category/geeks/">极客</option><option value="http://blog.jobbole.com/category/startup/">创业</option><option value="http://blog.jobbole.com/category/interview/">访谈</option><option value="http://blog.jobbole.com/category/overseas/">在国外</option></select></div>				<div class="clear"></div>
+			</nav>
+			<!-- END #main-nav -->
+                        <div class="clear"></div>
+
+		</header>
+		<!-- END header -->
+		
+		<div id="breadcrumb" class="grid-12 margin-20"><div class="breadcrumb-wrapper"><!-- Breadcrumb NavXT 4.4.0 -->
+<a title="Go to 伯乐在线." href="http://www.jobbole.com/" class="main-home">伯乐在线</a> &gt; <a href="http://blog.jobbole.com/" class="home">首页</a> &gt; <a href="http://blog.jobbole.com/all-posts/" class="post-root post-post">所有文章</a> &gt; <a href="http://blog.jobbole.com/category/it-tech/" class="category">IT技术</a> &gt; Cheat—— 给Linux初学者和管理员一个终极命令行"备忘单"</div></div><div class="clear"></div>
+
+<!-- BEGIN .grid-8 -->
+<div class="grid-8">
+
+		
+	<!-- BEGIN .post -->
+<div class="post-97626 post type-post status-publish format-standard hentry category-it-tech tag-cheat tag-linux odd" id="post-97626">
+	
+	<!-- BEGIN .entry-header -->
+	<div class="entry-header">
+	
+				
+		<h1>Cheat—— 给Linux初学者和管理员一个终极命令行"备忘单"</h1>
+		
+							
+	</div>
+	<!-- BEGIN .entry-header -->
+	
+	<!-- BEGIN .entry-meta -->
+	<div class="entry-meta">
+	
+		<p class="entry-meta-hide-on-mobile">
+
+            2016/01/24 ·  <a href="http://blog.jobbole.com/category/it-tech/" rel="category tag">IT技术</a>
+            
+            
+
+            
+             ·  <a href="http://blog.jobbole.com/tag/cheat/">Cheat</a>, <a href="http://blog.jobbole.com/tag/linux/">Linux</a>
+            
+</p>
+
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style" style="display: block; margin: 0px; clear: both;"><span class="jiathis_txt">分享到：</span>
+<a title="分享到微博" class="jiathis_button_tsina"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+<a title="分享到微信" class="jiathis_button_weixin"><span class="jiathis_txt jtico jtico_weixin"></span></a>
+<a title="分享到QQ空间" class="jiathis_button_qzone"><span class="jiathis_txt jtico jtico_qzone"></span></a>
+<a title="分享到Facebook" class="jiathis_button_fb"><span class="jiathis_txt jtico jtico_fb"></span></a>
+<a title="分享到豆瓣" class="jiathis_button_douban"><span class="jiathis_txt jtico jtico_douban"></span></a>
+<a class="jiathis_button_readitlater"></a>
+<a title="分享到印象笔记" class="jiathis_button_evernote"><span class="jiathis_txt jtico jtico_evernote"></span></a>
+<a title="分享到有道云笔记" class="jiathis_button_ydnote"><span class="jiathis_txt jtico jtico_ydnote"></span></a>
+<a href="http://www.jiathis.com/share?uid=1745061" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+<a class="jiathis_counter_style"><span title="累计分享10次" id="jiathis_counter_87" class="jiathis_button_expanded jiathis_counter jiathis_bubble_style">10</span></a>
+</div>
+<!-- JiaThis Button END -->
+
+
+	</div>
+	<!-- END .entry-meta -->
+
+	<!-- BEGIN .entry -->
+	<div class="entry">
+
+        			<div class="textwidget"><p></p><div class="imooc"><ul><li><a target="_blank" title="Hibernate初探之一对多映射" href="http://www.imooc.com/view/334?from=jobboleblog">Hibernate初探之一对多映射</a></li><li><a target="_blank" title="走近大数据之Hive入门" href="http://www.imooc.com/view/387?from=jobboleblog">走近大数据之Hive入门</a></li><li><a target="_blank" title="iOS-五子棋大战" href="http://www.imooc.com/view/646?from=jobboleblog">iOS-五子棋大战</a></li><li><a target="_blank" title="Canvas玩儿转红包照片" href="http://www.imooc.com/view/601?from=jobboleblog">Canvas玩儿转红包照片</a></li></ul></div><span style="display: block; margin-bottom: 10px;"></span><p></p>
+</div>
+		
+		<div class="copyright-area">原文出处： <a ref="nofollow" target="_blank" href="http://www.tecmint.com/cheat-command-line-cheat-sheet-for-linux-users/">Avishek Kumar</a>&nbsp;&nbsp;&nbsp;译文出处：<a target="_blank" href="http://linux.cn/article-3760-1.html">su-kaiyao</a>&nbsp;&nbsp;&nbsp;</div><p>当你不确定你所运行的命令，尤其是那些使用了许多选项的复杂命令时，你会怎么做？在这种情况下，我们使用man pages来获取帮助。还有一些其它的选择可能包括像‘<strong>help</strong>’，‘<strong>whereis</strong>’和‘<strong>whatis</strong>’这样的命令。但是所有的这些既有优点，也有缺点。</p>
+<p><img alt="" src="08f524826aed3a997aefab94d084eb0f.png"></p>
+<p>当我们浏览<strong>man pages</strong>来查看选项和帮助的时候，里面的描述实在太冗长了，我们无法在短的时间里理解它的意思。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/ce202326bd23b7839db919896d3548dc91ccc992/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f4c696e75782d4d616e2d50616765732e6a706567" target="_blank"><img alt="Linux Man Pages" src="d5d2619af25cf69718fd36d784e0e56b.jpeg"></a>Linux Man Pages</p>
+<p>同样，‘<strong>help</strong>’命令可能也不会给你期待的答案。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/96250682158db1bb3c9889531d4f8589e109c1fd/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f68656c702d636f6d6d616e642e6a706567" target="_blank"><img alt="Help Command" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f68656c702d636f6d6d616e642....dat"></a>Help Command</p>
+<p>‘<strong>whereis</strong>’命令几乎不给你任何信息，除了安装二进制文件的位置（有些时候可能是重要的）</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/f94b1fe991d7b95fd99a505c53baebe955ea71ad/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f776865726569732d636f6d6d616e642e6a706567" target="_blank"><img alt="Whereis Command" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f776865726569732d636f6d6d6....dat"></a>Whereis Command</p>
+<p>‘<strong>whatis</strong>’命令给出一套很严格的答案，它除了说出所查询命令的作用，并没有什么太大帮助。而且，它从来不说明可用的选项。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/d1f2b2d8a830108b1d8c38650649b6d2fbc4b1c0/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f7768617469732d636f6d6d616e642e6a706567" target="_blank"><img alt="Whatis Command" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f7768617469732d636f6d6d616....dat"></a>Whatis Command</p>
+<p>直到在困难中解决问题前，我们已经使用了以上全部选项，但是现在来了一个交互式的备忘录应用程序‘<strong>cheat</strong>’，它将在其余的命令中脱颖而出。</p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#%E4%BB%80%E4%B9%88%E6%98%AFcheat" name="user-content-什么是cheat"></a>什么是cheat?</h3>
+<p><strong>cheat</strong>是在GNU通用公共许可证下，为Linux命令行用户发行的交互式备忘单应用程序。它提供显示Linux命令使用案例，包括该命令所有的选项和简短但尚可理解的功能。</p>
+<p><a href="https://camo.githubusercontent.com/7b4f156caaa898c7c9c9655143773f7fbd747a61/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d73686565742e6a706567" target="_blank"><img alt="Cheat: Provides Easy Command Options" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d73686565742e6....dat"></a></p>
+<p>Cheat：提供简单命令选项</p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#%E5%9C%A8linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%AE%89%E8%A3%85cheat" name="user-content-在linux系统中安装cheat"></a>在Linux系统中安装‘Cheat’</h3>
+<p>‘<strong>Cheat</strong>’有两个主要的依赖——‘<strong>python</strong>’ 和 ‘<strong>pip</strong>’，在安装‘<strong>cheat</strong>’之前，确保你的系统安装了python和pip。</p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#install-python" name="user-content-install-python"></a>Install Python</h3>
+<p></p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df311d3119796566" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># apt-get install Python (基于Debian的系统)
+# yum install python (基于小红帽的系统)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df311d3119796566-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df311d3119796566-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df311d3119796566-1"><span class="crayon-c"># apt-get install Python (基于Debian的系统)</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df311d3119796566-2"><span class="crayon-c"># yum install python (基于小红帽的系统)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>Install Pip</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df311d3555916976" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># apt-get install python-pip (基于Debian的系统)
+# yum install python-pip (基于小红帽的系统)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df311d3555916976-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df311d3555916976-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df311d3555916976-1"><span class="crayon-c"># apt-get install python-pip (基于Debian的系统)</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df311d3555916976-2"><span class="crayon-c"># yum install python-pip (基于小红帽的系统)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p><strong>Note</strong>：pip是一个简单的安装替代，是一个有极大改进的Python第三方包安装器。</p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85cheat" name="user-content-下载并安装cheat"></a>下载并安装Cheat</h3>
+<p>我们将通过Git下载‘Cheat’，确保你安装了‘git’包，如果没有最好安装一下。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df311f8675442726" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># apt-get install git (基于Debian的系统)
+# yum install git (基于小红帽的系统)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df311f8675442726-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df311f8675442726-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df311f8675442726-1"><span class="crayon-c"># apt-get install git (基于Debian的系统)</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df311f8675442726-2"><span class="crayon-c"># yum install git (基于小红帽的系统)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>接下来，通过运行下面的命令来安装所需要的python依赖包。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31200319853357" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># pip install docopt pygments</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31200319853357-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31200319853357-1"><span class="crayon-c"># pip install docopt pygments</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>现在，复制cheat的<a href="http://www.tecmint.com/install-git-to-create-and-share-your-own-projects-on-github-repository/">Git库</a></p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203459385687" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># git clone https://github.com/chrisallenlane/cheat.git</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203459385687-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203459385687-1"><span class="crayon-c"># git clone https://github.com/chrisallenlane/cheat.git</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>进入cheat目录，运行‘<strong>setup.py</strong>’（一个python脚本）。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203596371710" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># cd cheat
+# python setup.py install</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203596371710-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df31203596371710-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203596371710-1"><span class="crayon-c"># cd cheat</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df31203596371710-2"><span class="crayon-c"># python setup.py install</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>如果安装很顺利，你就能够看到安装在系统上的cheat版本了。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203370768315" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># cheat -v
+cheat 2.0.9</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203370768315-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df31203370768315-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203370768315-1"><span class="crayon-c"># cheat -v</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df31203370768315-2"><span class="crayon-i">cheat</span><span class="crayon-h"> </span><span class="crayon-cn">2.0.9</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p></p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#cheat%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BF%85%E8%A6%81%E9%85%8D%E7%BD%AE" name="user-content-cheat的一些必要配置"></a>cheat的一些必要配置</h3>
+<p>你必须在‘~/.bashrc’文件里设置‘<strong>EDITOR</strong>’环境变量，打开用户‘<strong>.bashrc</strong>’文件，然后把下面这行加入到里面：</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203859532953" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;">export EDITOR = /usr/bin/nano</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203859532953-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203859532953-1"><span class="crayon-e">export </span><span class="crayon-v">EDITOR</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">usr</span><span class="crayon-o">/</span><span class="crayon-v">bin</span><span class="crayon-o">/</span><span class="crayon-v">nano</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>你可以使用你喜欢的编辑器来替代‘<strong>nano</strong>’。保存文件然后退出，再次登录以确保修改生效。</p>
+<p>接下来，添加cheat的自动补全特性，来确保不同解释器下命令行的自动补全。为了到达该功能要求，简单地将‘<strong>cheat.bash</strong>’脚本clone下来，然后复制到你系统正确的路径下。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203113772021" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># wget https://github.com/chrisallenlane/cheat/raw/master/cheat/autocompletion/cheat.bash 
+# mv cheat.bash /etc/bash_completion.d/</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203113772021-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df31203113772021-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203113772021-1"><span class="crayon-c"># wget https://github.com/chrisallenlane/cheat/raw/master/cheat/autocompletion/cheat.bash </span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df31203113772021-2"><span class="crayon-c"># mv cheat.bash /etc/bash_completion.d/</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p><strong>NOTE</strong>：团队已经在Git上上传了其他解释器的自动补全脚本，这些都可以被克隆，然后用在不同的解释器上。使用下面的链接，以找到其余解释器的自动补全脚本：</p>
+<ul>
+<li><a href="https://github.com/chrisallenlane/cheat/tree/master/cheat/autocompletion">Auto Completion Script for Various Shells</a></li>
+</ul>
+<p>不仅如此，如果需要的话，你也可以使用语法高亮。要想做到这一点，在你的‘<strong>.bashrc</strong>’文件中添加‘<strong>CHEATCOLORS</strong>’环境变量。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203117967023" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;">export CHEATCOLOR=true</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203117967023-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203117967023-1"><span class="crayon-e">export </span><span class="crayon-v">CHEATCOLOR</span><span class="crayon-o">=</span><span class="crayon-t">true</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>Cheat应用默认只提供最基本和最常用的命令。cheat备忘单的内容保存在<strong>~/.cheat/.</strong>目录里，我们可以手动在这个目录添加备忘单里面的内容，这样，我们的cheat应用将更强大。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203757929711" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># cheat -xyz</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203757929711-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203757929711-1"><span class="crayon-c"># cheat -xyz</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+<p>这将打开xyz备忘单，如果没有的话就会创建一个。备忘单将使用<strong>.bashrc</strong>里设置的默认<strong>编辑器</strong>打开，默认编辑器就是在上面<strong>.bashrc</strong>所设置的。</p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#%E4%B8%80%E4%BA%9Bcheat%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8" name="user-content-一些cheat命令的使用"></a>一些Cheat命令的使用</h3>
+<p>一个包可以是 *.gz , *.bz2 , *.zip , *.xz，可是什么情况下用哪些选项呢？</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/7952f8f5083052f6b4a776c0d361d0b8af56d629/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d7461722e6a706567" target="_blank"><img alt="tar command options" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d7461722e6a706567.dat"></a>tar命令选项</p>
+<p>除非在不同的地方咨询和核对后，我才使用<strong>dd</strong>命令，在此之前，无论我对这个命令多么的肯定，我从不使用它。现在，事情就变得简单多了。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/21cfa4c8f30ce6d2b53bf641979b101c7824ac5e/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d64642e6a706567" target="_blank"><img alt="dd command options" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f63686561742d64642e6a706567.dat"></a>dd命令选项</p>
+<p>‘<strong>uname</strong>’命令帮助</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/6e18d6f64123dca16aea36c090d0766057082720/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f756e616d652d636f6d6d616e642e6a706567" target="_blank"><img alt="uname command options" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f756e616d652d636f6d6d616e6....dat"></a>uname命令选择</p>
+<p>一个简短的<strong>ifconfig</strong>命令操作教程</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/74d764202dc1d59949d8f6f96716c0e02b665cb0/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6966636f6e6669672d636f6d6d616e642e6a706567" target="_blank"><img alt="ifconfig command options" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6966636f6e6669672d636f6d6....dat"></a>ifconfig命令选项</p>
+<p>‘top’命令，对管理员和普通用户来说，是最重要的命令之一。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/f4862dbe1db99c1adf5b2f2fb169706e8ba4edc5/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f746f702d636f6d6d616e642e6a706567" target="_blank"><img alt="top command options" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f746f702d636f6d6d616e642e6....dat"></a>top命令选项</p>
+<p>我们来骗骗cheat命令，如何（尽管别有意义）？得到一个可用命令的列表，其实就是安装在你系统里的cheat备忘录。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/5a5ab67a3bd0afaacec1f7d26129a12629d9f376/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6c696e75782d636f6d6d616e64732e6a706567" target="_blank"><img alt="List All Linux Commands" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6c696e75782d636f6d6d616e6....dat"></a>列出所有Linux命令</p>
+<p>使用关键字搜索备忘单。</p>
+<p style="text-align: center;"><a href="https://camo.githubusercontent.com/45360ea72bcf8ccea7d3db000f003dfe6b8a5d4c/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f7365617263682d63686561742d73686565742e6a706567" target="_blank"><img alt="Search Cheat Sheet" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f7365617263682d63686561742....dat"></a>搜索备忘单</p>
+<p>来看看包含所有命令的内置备忘单。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203532573517" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;">$ cheat -d
+
+/home/avi/.cheat
+/usr/local/lib/python2.7/dist-packages/cheat/cheatsheets</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203532573517-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df31203532573517-2">2</div><div class="crayon-num" data-line="crayon-578a50df31203532573517-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-578a50df31203532573517-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203532573517-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-v">cheat</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">d</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df31203532573517-2">&nbsp;</div><div class="crayon-line" id="crayon-578a50df31203532573517-3"><span class="crayon-o">/</span><span class="crayon-v">home</span><span class="crayon-o">/</span><span class="crayon-v">avi</span><span class="crayon-o">/</span><span class="crayon-e">.cheat</span></div><div class="crayon-line crayon-striped-line" id="crayon-578a50df31203532573517-4"><span class="crayon-o">/</span><span class="crayon-v">usr</span><span class="crayon-o">/</span><span class="crayon-v">local</span><span class="crayon-o">/</span><span class="crayon-v">lib</span><span class="crayon-o">/</span><span class="crayon-v">python2</span><span class="crayon-sy">.</span><span class="crayon-cn">7</span><span class="crayon-o">/</span><span class="crayon-v">dist</span><span class="crayon-o">-</span><span class="crayon-v">packages</span><span class="crayon-o">/</span><span class="crayon-v">cheat</span><span class="crayon-o">/</span><span class="crayon-v">cheatsheets</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>复制内置的备忘单到你的本地目录。</p><!-- Crayon Syntax Highlighter v2.7.1.1 -->
+
+		<div id="crayon-578a50df31203399896291" class="crayon-syntax crayon-theme-github crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-always" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px ! important; height: 19.5px ! important; line-height: 19.5px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="复制代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px ! important; line-height: 18.2px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="-moz-tab-size: 4; font-size: 13px ! important; line-height: 15px ! important; z-index: 0; opacity: 0;"># cp /usr/local/lib/python2.7/dist-packages/cheat/cheatsheets/* /home/avi/.cheat/</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-578a50df31203399896291-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px ! important; line-height: 15px ! important; -moz-tab-size: 4;"><div class="crayon-line" id="crayon-578a50df31203399896291-1"><span class="crayon-c"># cp /usr/local/lib/python2.7/dist-packages/cheat/cheatsheets/* /home/avi/.cheat/</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p></p>
+<h3><a href="https://github.com/LCTT/TranslateProject/blob/master/translated/tech/20140804%20Cheat--An%20Ultimate%20Command%20Line%20%27Cheat-Sheet%27%20for%20Linux%20Beginners%20and%20Administrators.md#%E7%BB%93%E8%AE%BA" name="user-content-结论"></a>结论</h3>
+<p>这个超棒的工具在许多情况下担任“救世主”的角色，它给予你需要的信息，信息不冗余，不模糊，相反地，却击中要点。这是每个人都会需要的工具，很简单就能创建、安装，使用和理解，这个工具前途无量。</p>
+<p>这个Git仓库已经添加了一个精彩的<strong>gag</strong>，这里我不打算去解释它，而留给各位来解释。</p>
+<p><a href="https://camo.githubusercontent.com/5e30737c90821b1c4c4fb9d7e2a57d40e4f6570a/687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6c696e75782d6761672e6a706567" target="_blank"><img alt="Linux Gag" src="687474703a2f2f7777772e7465636d696e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031342f30372f6c696e75782d6761672e6a706567.dat"></a>&nbsp;Linux Gag</p>
+<p>好了，文章就要结束了，我会带着下一篇你们喜欢的有趣文章回到这里的，在此之前，要时刻关注我们。别忘了在下面的评论部分给我们留下您宝贵的反馈信息。</p>
+
+        <div id="single-page-inner-widget">程序员专属极客T恤，你喜欢哪款？ -&gt; <a target="_blank" href="https://fanpinshe.taobao.com/category-1240220550.htm">第2件八折，从这里抢购</a></div>
+        
+        
+    <div class="post-adds">
+        <span data-post-id="97626" class=" btn-bluet-bigger href-style vote-post-up   register-user-only "><i class="fa  fa-thumbs-o-up"></i> <h10 id="97626votetotal">8</h10> 赞</span>
+        <span data-book-type="1" data-site-id="2" data-item-id="97626" data-item-type="1" class=" btn-bluet-bigger href-style bookmark-btn  register-user-only "><i class="fa fa-bookmark-o  "></i> 12 收藏</span>
+
+                    <a href="#article-comment"><span class="btn-bluet-bigger href-style hide-on-480"><i class="fa fa-comments-o"></i>  评论</span></a>
+        
+        
+        
+        <!-- JiaThis Button BEGIN -->
+        <div class="jiathis_style_24x24" style="display: inline-flex; position: relative; margin: 0px; clear: both; float: right;">
+            <a title="分享到微博" class="jiathis_button_tsina"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+            <a title="分享到微信" class="jiathis_button_weixin"><span class="jiathis_txt jtico jtico_weixin"></span></a>
+            <a title="分享到QQ空间" class="jiathis_button_qzone"><span class="jiathis_txt jtico jtico_qzone"></span></a>
+            <a title="分享到Facebook" class="jiathis_button_fb hide-on-480"><span class="jiathis_txt jtico jtico_fb"></span></a>
+            <a href="http://www.jiathis.com/share?uid=1745061" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+        </div>
+
+    </div>
+
+
+
+
+        <!-- BEGIN #author-bio -->
+
+
+<!-- END #author-bio -->
+	</div>
+	<!-- END .entry -->
+
+
+
+
+<!-- JiaThis Button END -->
+			<div class="textwidget"><p><a href="http://blog.jobbole.com/84342/?utm_source=blog.jobbole.com&amp;utm_medium=articleBanner&amp;utm_content=2015.9.16" target="_blank"><img src="e5298966gw1evykwqsj8wj20h802smxh.jpg"></a></p>
+</div>
+		
+</div>
+<!-- END .post -->
+    
+<div class="wp_rp_wrap  wp_rp_plain" id="wp_rp_first"><div class="wp_rp_content"><h3 class="related_post_title">相关文章</h3><ul class="related_post wp_rp" style="visibility: visible;"><li><a href="http://blog.jobbole.com/93132/" class="wp_rp_title">Linux Shell 管道命令(pipe)使用及与 Shell 重定向区别</a></li><li><a href="http://blog.jobbole.com/97676/" class="wp_rp_title">基于 JavaScript 的操作系统你听说过吗？</a></li><li><a href="http://blog.jobbole.com/92792/" class="wp_rp_title">Linux Shell 创建序列数组</a></li><li><a href="http://blog.jobbole.com/90357/" class="wp_rp_title">Linux中通过命令行监控股票报价</a></li><li><a href="http://blog.jobbole.com/86954/" class="wp_rp_title">一大波你可能不知道的 Linux 网络工具</a></li><li><a href="http://blog.jobbole.com/88757/" class="wp_rp_title">Linux mkdir、tar 和 kill 命令的 4 个有用小技巧</a></li><li><a href="http://blog.jobbole.com/93406/" class="wp_rp_title">Linux 打造 man 中文帮助手册图解</a></li><li><a href="http://blog.jobbole.com/77663/" class="wp_rp_title">Linux后门入侵检测工具，附bash漏洞解决方法</a></li><li><a href="http://blog.jobbole.com/88707/" class="wp_rp_title">LINUX 101: 让你的 SHELL 更强大</a></li><li><a href="http://blog.jobbole.com/78595/" class="wp_rp_title">全能冠军：Linux系统性能和使用活动监控工具 sysstat</a></li></ul></div></div>
+
+    
+<div style="text-align: left;">
+    <h3>可能感兴趣的话题</h3>
+    <ul style="font-size: 13px; list-style: disc inside none;">
+                        <li>
+                    <a href="http://group.jobbole.com/21036/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="不加班的程序媛和程序猿们" target="_blank">不加班的程序媛和程序猿们</a>
+                     · <a href="http://group.jobbole.com/21036/#comments" target="_blank"><i class="fa fa-comments-o"></i> 77</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/20945/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="又是一个周末，说说大家怎么度过" target="_blank">又是一个周末，说说大家怎么度过</a>
+                     · <a href="http://group.jobbole.com/20945/#comments" target="_blank"><i class="fa fa-comments-o"></i> 18</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21335/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="如何了解一些计算机底层的知识？" target="_blank">如何了解一些计算机底层的知识？</a>
+                     · <a href="http://group.jobbole.com/21335/#comments" target="_blank"><i class="fa fa-comments-o"></i> 7</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21372/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="观《不可不信缘 》" target="_blank">观《不可不信缘 》</a>
+                                    </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21370/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="window2008  64  位   框架协议安装包地址在哪下载" target="_blank">window2008  64  位   框架协议安...</a>
+                                    </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21346/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="收到白盒测试 Offer，面试官说这个岗位和开发没有太大区别。大家帮看看" target="_blank">收到白盒测试 Offer，面试官说这个岗位...</a>
+                     · <a href="http://group.jobbole.com/21346/#comments" target="_blank"><i class="fa fa-comments-o"></i> 2</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/19939/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="不要在浮躁的世界里迷失自己（长篇大论请慢慢读，或许正好说中了你的现状）" target="_blank">不要在浮躁的世界里迷失自己（长篇大论请...</a>
+                     · <a href="http://group.jobbole.com/19939/#comments" target="_blank"><i class="fa fa-comments-o"></i> 13</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21343/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="聊聊大家所在的城市实现财务自由的成本？" target="_blank">聊聊大家所在的城市实现财务自由的成本？</a>
+                     · <a href="http://group.jobbole.com/21343/#comments" target="_blank"><i class="fa fa-comments-o"></i> 6</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21191/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="一个公司只有一个程序员是什么样的体验" target="_blank">一个公司只有一个程序员是什么样的体验</a>
+                     · <a href="http://group.jobbole.com/21191/#comments" target="_blank"><i class="fa fa-comments-o"></i> 17</a>                </li>
+                            <li>
+                    <a href="http://group.jobbole.com/21251/?utm_source=blog.jobbole.com&amp;utm_medium=article-related-group-topic" title="从事开发几年了，开始遇到技术瓶颈了。怎么破？" target="_blank">从事开发几年了，开始遇到技术瓶颈了。怎...</a>
+                     · <a href="http://group.jobbole.com/21251/#comments" target="_blank"><i class="fa fa-comments-o"></i> 4</a>                </li>
+                </ul>
+</div>
+    
+        <!-- BEGIN .navigation -->
+        <div class="navigation margin-20">
+
+            <div class="alignleft"><a href="http://blog.jobbole.com/97616/" rel="prev">« Linux主流架构运维工作简单剖析</a></div>
+            <div class="alignright"><a href="http://blog.jobbole.com/97290/" rel="next">不要再强迫我设置复杂密码 »</a></div>
+            <div class="clear"></div>
+
+        </div>
+        <!-- END .navigation -->
+
+    
+	
+            <div id="article-comment" class="dot-box center-align">
+
+                        <a href="http://www.jobbole.com/login?redirect=http://blog.jobbole.com/97626/"><button type="button" class="btn btn-non-transparent">登录后评论</button></a>
+            
+            <a target="_blank" href="http://www.jobbole.com/register"><button type="button" class="btn btn-primary">新用户注册</button></a>
+
+            <br><br>
+            <span>直接登录</span>
+            <!-- 使用社交帐号登录 来自 WordPress连接微博 插件 --><span class="connectBox1 t_login_button"><a href="http://blog.jobbole.com/wp-content/plugins/wp-connect/login.php?go=weixin&amp;redirect_url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F" title="微信" rel="nofollow"><img src="btn_weixin.png"></a><a href="http://blog.jobbole.com/wp-content/plugins/wp-connect/login.php?go=qzone&amp;redirect_url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F" title="QQ" rel="nofollow"><img src="btn_qzone.png"></a><a href="http://blog.jobbole.com/wp-content/plugins/wp-connect/login.php?go=sina&amp;redirect_url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F" title="新浪微博" rel="nofollow"><img src="btn_sina.png"></a><a href="http://blog.jobbole.com/wp-content/plugins/wp-connect/login.php?go=douban&amp;redirect_url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F" title="豆瓣" rel="nofollow"><img src="btn_douban.png"></a><a href="http://blog.jobbole.com/wp-content/plugins/wp-connect/login.php?go=github&amp;redirect_url=http%3A%2F%2Fblog.jobbole.com%2F97626%2F" title="GitHub" rel="nofollow"><img src="btn_github.png"></a></span>        </div>
+    
+
+    <div id="comment_list" class="comments">
+
+        
+    </div>
+		
+
+	
+</div>
+<!-- END .grid-8 -->
+
+<!-- BEGIN #sidebar -->
+<div id="sidebar" class="grid-4">
+
+	    <div class="nav-search-box ">
+                <form method="get" id="searchform" action="http://blog.jobbole.com/">
+            <select id="searchselect">
+                                    <option selected="" value="http://blog.jobbole.com">文章</option>
+                                    <option value="http://hao.jobbole.com">资源</option>
+                                    <option value="http://design.jobbole.com">设计</option>
+                                    <option value="http://web.jobbole.com">WEB前端</option>
+                                    <option value="http://ios.jobbole.com">IOS</option>
+                                    <option value="http://python.jobbole.com">Python</option>
+                                    <option value="http://android.jobbole.com">安卓</option>
+                                    <option value="http://top.jobbole.com">资讯</option>
+                                    <option value="http://group.jobbole.com">小组</option>
+                                    <option value="http://date.jobbole.com">面向对象</option>
+                            </select>
+            <div class="input-wrapper">
+                <input value="" name="s" id="s" placeholder="输入搜索关键字" type="text">
+            </div>
+            <input id="searchsubmit" value="搜索" type="submit">
+        </form>
+    </div>
+<div id="text-103" class="widget widget_text">			<div class="textwidget"><p><a href="https://fanpinshe.taobao.com/category-1240220550.htm" target="_blank"><img src="4a47b8f3f21d775ef3c754d3eca8da63.jpg"></a></p>
+</div>
+		</div><div class="tabs tabbed_widget"><ul class="nav clearfix"><li class="active"><a id="link-tab1" href="#tab1" title="本周热门文章">本周热门文章</a></li><li><a id="link-tab2" href="#tab2" title="本月热门文章">本月热门文章</a></li><li><a id="link-tab3" href="#tab3" title="热门标签">热门标签</a></li></ul><div style="display: block;" id="tab1" class="tab"><div class="floated-thumb">
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">0</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103464/" title="程序员离职后的代码没人敢接手 ：15 张令人喷饭的 IT 趣图（第4季）">程序员离职后的代码没人敢接手 ：15...</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">1</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103427/" title="编程老手的哪些特点，是值得新手程序员学习的？">编程老手的哪些特点，是值得新手程序...</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">2</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103482/" title="在泰国曼谷做开发是怎样一种体验？">在泰国曼谷做开发是怎样一种体验？</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">3</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103538/" title="魔都 3 年，从程序员到 CTO">魔都 3 年，从程序员到 CTO</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">4</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103511/" title="Linux 系统结构详解">Linux 系统结构详解</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">5</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103442/" title="Linux 多线程编程（不限Linux）">Linux 多线程编程（不限Linux）</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">6</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103454/" title="如何轻松给网站安装免费 SSL 证书？">如何轻松给网站安装免费 SSL 证...</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">7</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103386/" title="暴雪游戏开发趣闻">暴雪游戏开发趣闻</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">8</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103503/" title="能够提高开发效率的Eclipse实用操作">能够提高开发效率的Eclipse实用操作</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">9</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103456/" title="八大排序算法">八大排序算法</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                </div></div><div style="display: none;" id="tab2" class="tab"><div class="floated-thumb">
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">0</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/87995/" title="AngularJS 入门教学视频【完结】">AngularJS 入门教学视频【完结】</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">1</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103464/" title="程序员离职后的代码没人敢接手 ：15 张令人喷饭的 IT 趣图（第4季）">程序员离职后的代码没人敢接手 ：15...</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">2</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/101501/" title="国内程序员的办公桌是什么样的？">国内程序员的办公桌是什么样的？</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">3</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103343/" title="学 Vim 时希望早点知道的建议">学 Vim 时希望早点知道的建议</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">4</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/102957/" title="30 分钟 git 命令入门到放弃">30 分钟 git 命令入门到放弃</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">5</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103342/" title="自学的程序员通常缺少哪些技能？">自学的程序员通常缺少哪些技能？</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">6</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103098/" title="一个知乎重度用户眼中的知乎">一个知乎重度用户眼中的知乎</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">7</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/102601/" title="身份证号码验证算法">身份证号码验证算法</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">8</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/102415/" title="DNS 原理入门">DNS 原理入门</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                
+                    
+                    <!-- BEGIN .post-meta -->
+                    <div class="post-meta  no-thumb">
+
+                        <p>
+                            <span class="numb">9</span>
+                            <a class="meta-title" target="_blank" href="http://blog.jobbole.com/103205/" title="国外程序员的办公桌是什么样的？">国外程序员的办公桌是什么样的？</a><br>
+                        </p>
+
+                    </div>
+                    <!-- END .post-meta -->
+
+                    <div class="clear"></div>
+
+                </div></div><div style="display: none;" id="tab3" class="tab"><p><a href="http://blog.jobbole.com/tag/net/" class="tag-link-1636 tag-link-position-1" title="268个话题" style="font-size: 16.7111px;">.Net</a>
+<a href="http://blog.jobbole.com/tag/android/" class="tag-link-4884 tag-link-position-2" title="149个话题" style="font-size: 14.1185px;">Android</a>
+<a href="http://blog.jobbole.com/tag/app/" class="tag-link-1941 tag-link-position-3" title="92个话题" style="font-size: 11.9407px;">App</a>
+<a href="http://blog.jobbole.com/tag/bug/" class="tag-link-218 tag-link-position-4" title="67个话题" style="font-size: 10.4889px;">Bug</a>
+<a href="http://blog.jobbole.com/tag/cpp/" class="tag-link-807 tag-link-position-5" title="79个话题" style="font-size: 11.2148px;">C++</a>
+<a href="http://blog.jobbole.com/tag/c-sharp/" class="tag-link-2197 tag-link-position-6" title="99个话题" style="font-size: 12.2519px;">C sharp</a>
+<a href="http://blog.jobbole.com/tag/css/" class="tag-link-711 tag-link-position-7" title="68个话题" style="font-size: 10.5926px;">CSS</a>
+<a href="http://blog.jobbole.com/tag/c/" class="tag-link-757 tag-link-position-8" title="198个话题" style="font-size: 15.363px;">C语言</a>
+<a href="http://blog.jobbole.com/tag/facebook/" class="tag-link-164 tag-link-position-9" title="109个话题" style="font-size: 12.6667px;">Facebook</a>
+<a href="http://blog.jobbole.com/tag/featuredpost/" class="tag-link-2241 tag-link-position-10" title="622个话题" style="font-size: 20.4444px;">featuredpost</a>
+<a href="http://blog.jobbole.com/tag/git/" class="tag-link-885 tag-link-position-11" title="81个话题" style="font-size: 11.3185px;">Git</a>
+<a href="http://blog.jobbole.com/tag/github/" class="tag-link-1253 tag-link-position-12" title="67个话题" style="font-size: 10.4889px;">Github</a>
+<a href="http://blog.jobbole.com/tag/go/" class="tag-link-4888 tag-link-position-13" title="41个话题" style="font-size: 8.31111px;">Go</a>
+<a href="http://blog.jobbole.com/tag/google/" class="tag-link-198 tag-link-position-14" title="284个话题" style="font-size: 16.9185px;">Google</a>
+<a href="http://blog.jobbole.com/tag/hadoop/" class="tag-link-862 tag-link-position-15" title="38个话题" style="font-size: 8px;">Hadoop</a>
+<a href="http://blog.jobbole.com/tag/html5/" class="tag-link-182 tag-link-position-16" title="84个话题" style="font-size: 11.5259px;">HTML5</a>
+<a href="http://blog.jobbole.com/tag/ios/" class="tag-link-4887 tag-link-position-17" title="232个话题" style="font-size: 16.0889px;">iOS</a>
+<a href="http://blog.jobbole.com/tag/it/" class="tag-link-513 tag-link-position-18" title="43个话题" style="font-size: 8.51852px;">IT</a>
+<a href="http://blog.jobbole.com/tag/java/" class="tag-link-457 tag-link-position-19" title="163个话题" style="font-size: 14.4296px;">java</a>
+<a href="http://blog.jobbole.com/tag/javascript/" class="tag-link-683 tag-link-position-20" title="276个话题" style="font-size: 16.8148px;">Javascript</a>
+<a href="http://blog.jobbole.com/tag/jquery/" class="tag-link-459 tag-link-position-21" title="56个话题" style="font-size: 9.76296px;">jQuery</a>
+<a href="http://blog.jobbole.com/tag/linux/" class="tag-link-190 tag-link-position-22" title="371个话题" style="font-size: 18.163px;">Linux</a>
+<a href="http://blog.jobbole.com/tag/mysql/" class="tag-link-191 tag-link-position-23" title="113个话题" style="font-size: 12.8741px;">MySQL</a>
+<a href="http://blog.jobbole.com/tag/nginx/" class="tag-link-1172 tag-link-position-24" title="40个话题" style="font-size: 8.20741px;">Nginx</a>
+<a href="http://blog.jobbole.com/tag/node-js/" class="tag-link-896 tag-link-position-25" title="45个话题" style="font-size: 8.72593px;">Node.js</a>
+<a href="http://blog.jobbole.com/tag/nosql/" class="tag-link-967 tag-link-position-26" title="48个话题" style="font-size: 9.03704px;">NoSQL</a>
+<a href="http://blog.jobbole.com/tag/php/" class="tag-link-168 tag-link-position-27" title="147个话题" style="font-size: 14.0148px;">php</a>
+<a href="http://blog.jobbole.com/tag/python/" class="tag-link-4886 tag-link-position-28" title="172个话题" style="font-size: 14.7407px;">Python</a>
+<a href="http://blog.jobbole.com/tag/redis/" class="tag-link-2221 tag-link-position-29" title="48个话题" style="font-size: 9.03704px;">Redis</a>
+<a href="http://blog.jobbole.com/tag/ruby/" class="tag-link-4885 tag-link-position-30" title="39个话题" style="font-size: 8.1037px;">Ruby</a>
+<a href="http://blog.jobbole.com/tag/shell/" class="tag-link-1714 tag-link-position-31" title="63个话题" style="font-size: 10.2815px;">shell</a>
+<a href="http://blog.jobbole.com/tag/soho/" class="tag-link-153 tag-link-position-32" title="40个话题" style="font-size: 8.20741px;">soho</a>
+<a href="http://blog.jobbole.com/tag/sql/" class="tag-link-857 tag-link-position-33" title="57个话题" style="font-size: 9.76296px;">SQL</a>
+<a href="http://blog.jobbole.com/tag/sql-server/" class="tag-link-2681 tag-link-position-34" title="93个话题" style="font-size: 11.9407px;">SQL Server</a>
+<a href="http://blog.jobbole.com/tag/ui/" class="tag-link-1143 tag-link-position-35" title="55个话题" style="font-size: 9.65926px;">UI</a>
+<a href="http://blog.jobbole.com/tag/ui%e8%ae%be%e8%ae%a1/" class="tag-link-2548 tag-link-position-36" title="142个话题" style="font-size: 13.9111px;">UI设计</a>
+<a href="http://blog.jobbole.com/tag/web/" class="tag-link-404 tag-link-position-37" title="46个话题" style="font-size: 8.82963px;">Web</a>
+<a href="http://blog.jobbole.com/tag/web-fundamentals/" class="tag-link-3560 tag-link-position-38" title="38个话题" style="font-size: 8px;">web fundamentals</a>
+<a href="http://blog.jobbole.com/tag/web%e5%bc%80%e5%8f%91/" class="tag-link-493 tag-link-position-39" title="118个话题" style="font-size: 13.0815px;">Web开发</a>
+<a href="http://blog.jobbole.com/tag/book/" class="tag-link-1022 tag-link-position-40" title="52个话题" style="font-size: 9.34815px;">书籍</a>
+<a href="http://blog.jobbole.com/tag/%e4%ba%92%e8%81%94%e7%bd%91/" class="tag-link-40 tag-link-position-41" title="85个话题" style="font-size: 11.5259px;">互联网</a>
+<a href="http://blog.jobbole.com/tag/%e4%ba%a4%e4%ba%92%e8%ae%be%e8%ae%a1/" class="tag-link-648 tag-link-position-42" title="121个话题" style="font-size: 13.1852px;">交互设计</a>
+<a href="http://blog.jobbole.com/tag/%e4%ba%a7%e5%93%81/" class="tag-link-522 tag-link-position-43" title="92个话题" style="font-size: 11.9407px;">产品</a>
+<a href="http://blog.jobbole.com/tag/%e4%ba%a7%e5%93%81%e7%bb%8f%e7%90%86/" class="tag-link-549 tag-link-position-44" title="57个话题" style="font-size: 9.76296px;">产品经理</a>
+<a href="http://blog.jobbole.com/tag/%e4%bb%a3%e7%a0%81/" class="tag-link-489 tag-link-position-45" title="110个话题" style="font-size: 12.7704px;">代码</a>
+<a href="http://blog.jobbole.com/tag/startup/" class="tag-link-4878 tag-link-position-46" title="207个话题" style="font-size: 15.5704px;">创业</a>
+<a href="http://blog.jobbole.com/tag/%e5%89%8d%e7%ab%af/" class="tag-link-1138 tag-link-position-47" title="68个话题" style="font-size: 10.5926px;">前端</a>
+<a href="http://blog.jobbole.com/tag/%e5%9b%a2%e9%98%9f/" class="tag-link-551 tag-link-position-48" title="64个话题" style="font-size: 10.2815px;">团队</a>
+<a href="http://blog.jobbole.com/tag/%e5%a4%a7%e6%95%b0%e6%8d%ae/" class="tag-link-884 tag-link-position-49" title="55个话题" style="font-size: 9.65926px;">大数据</a>
+<a href="http://blog.jobbole.com/tag/%e5%a5%b3%e7%a8%8b%e5%ba%8f%e5%91%98/" class="tag-link-1460 tag-link-position-50" title="54个话题" style="font-size: 9.55556px;">女程序员</a>
+<a href="http://blog.jobbole.com/tag/%e5%a8%81%e5%ae%a2/" class="tag-link-129 tag-link-position-51" title="40个话题" style="font-size: 8.20741px;">威客</a>
+<a href="http://blog.jobbole.com/tag/%e5%ad%a6%e4%b9%a0/" class="tag-link-442 tag-link-position-52" title="47个话题" style="font-size: 8.93333px;">学习</a>
+<a href="http://blog.jobbole.com/tag/%e5%ae%89%e5%85%a8/" class="tag-link-1214 tag-link-position-53" title="145个话题" style="font-size: 13.9111px;">安全</a>
+<a href="http://blog.jobbole.com/tag/%e5%ae%89%e5%8d%93%e5%bc%80%e5%8f%91/" class="tag-link-3362 tag-link-position-54" title="59个话题" style="font-size: 9.97037px;">安卓开发</a>
+<a href="http://blog.jobbole.com/tag/%e5%ae%a2%e6%88%b7/" class="tag-link-174 tag-link-position-55" title="53个话题" style="font-size: 9.45185px;">客户</a>
+<a href="http://blog.jobbole.com/tag/%e5%b7%a5%e5%85%b7/" class="tag-link-18 tag-link-position-56" title="131个话题" style="font-size: 13.4963px;">工具</a>
+<a href="http://blog.jobbole.com/tag/%e5%b7%a5%e7%a8%8b%e5%b8%88/" class="tag-link-470 tag-link-position-57" title="38个话题" style="font-size: 8px;">工程师</a>
+<a href="http://blog.jobbole.com/tag/%e5%bc%80%e5%8f%91%e4%ba%ba%e5%91%98/" class="tag-link-370 tag-link-position-58" title="121个话题" style="font-size: 13.1852px;">开发人员</a>
+<a href="http://blog.jobbole.com/tag/%e5%bc%80%e6%ba%90/" class="tag-link-196 tag-link-position-59" title="95个话题" style="font-size: 12.0444px;">开源</a>
+<a href="http://blog.jobbole.com/tag/%e5%be%ae%e8%bd%af/" class="tag-link-429 tag-link-position-60" title="93个话题" style="font-size: 11.9407px;">微软</a>
+<a href="http://blog.jobbole.com/tag/%e6%8a%80%e6%9c%af%e9%9d%a2%e8%af%95/" class="tag-link-1876 tag-link-position-61" title="58个话题" style="font-size: 9.86667px;">技术面试</a>
+<a href="http://blog.jobbole.com/tag/%e6%8b%9b%e8%81%98/" class="tag-link-326 tag-link-position-62" title="45个话题" style="font-size: 8.72593px;">招聘</a>
+<a href="http://blog.jobbole.com/tag/%e6%95%88%e7%8e%87/" class="tag-link-415 tag-link-position-63" title="59个话题" style="font-size: 9.97037px;">效率</a>
+<a href="http://blog.jobbole.com/tag/%e6%95%99%e7%a8%8b/" class="tag-link-600 tag-link-position-64" title="53个话题" style="font-size: 9.45185px;">教程</a>
+<a href="http://blog.jobbole.com/tag/%e6%95%b0%e5%ad%a6/" class="tag-link-495 tag-link-position-65" title="39个话题" style="font-size: 8.1037px;">数学</a>
+<a href="http://blog.jobbole.com/tag/database/" class="tag-link-353 tag-link-position-66" title="338个话题" style="font-size: 17.7481px;">数据库</a>
+<a href="http://blog.jobbole.com/tag/time-management/" class="tag-link-271 tag-link-position-67" title="53个话题" style="font-size: 9.45185px;">时间管理</a>
+<a href="http://blog.jobbole.com/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8/" class="tag-link-311 tag-link-position-68" title="46个话题" style="font-size: 8.82963px;">服务器</a>
+<a href="http://blog.jobbole.com/tag/machinelearning/" class="tag-link-1910 tag-link-position-69" title="78个话题" style="font-size: 11.2148px;">机器学习</a>
+<a href="http://blog.jobbole.com/tag/architecture/" class="tag-link-603 tag-link-position-70" title="110个话题" style="font-size: 12.7704px;">架构</a>
+<a href="http://blog.jobbole.com/tag/%e6%b5%8b%e8%af%95/" class="tag-link-678 tag-link-position-71" title="92个话题" style="font-size: 11.9407px;">测试</a>
+<a href="http://blog.jobbole.com/tag/%e6%b5%8f%e8%a7%88%e5%99%a8/" class="tag-link-63 tag-link-position-72" title="52个话题" style="font-size: 9.34815px;">浏览器</a>
+<a href="http://blog.jobbole.com/tag/%e6%b8%b8%e6%88%8f/" class="tag-link-797 tag-link-position-73" title="75个话题" style="font-size: 11.0074px;">游戏</a>
+<a href="http://blog.jobbole.com/tag/%e7%94%a8%e6%88%b7/" class="tag-link-460 tag-link-position-74" title="59个话题" style="font-size: 9.97037px;">用户</a>
+<a href="http://blog.jobbole.com/tag/%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c/" class="tag-link-580 tag-link-position-75" title="197个话题" style="font-size: 15.363px;">用户体验</a>
+<a href="http://blog.jobbole.com/tag/%e7%95%8c%e9%9d%a2/" class="tag-link-4190 tag-link-position-76" title="47个话题" style="font-size: 8.93333px;">界面</a>
+<a href="http://blog.jobbole.com/tag/%e7%a0%81%e5%86%9c%e6%95%85%e4%ba%8b/" class="tag-link-2863 tag-link-position-77" title="54个话题" style="font-size: 9.55556px;">码农故事</a>
+<a href="http://blog.jobbole.com/tag/%e7%a7%bb%e5%8a%a8%e5%ba%94%e7%94%a8/" class="tag-link-654 tag-link-position-78" title="70个话题" style="font-size: 10.6963px;">移动应用</a>
+<a href="http://blog.jobbole.com/tag/%e7%a7%bb%e5%8a%a8%e7%ab%af/" class="tag-link-3904 tag-link-position-79" title="45个话题" style="font-size: 8.72593px;">移动端</a>
+<a href="http://blog.jobbole.com/tag/%e7%a8%8b%e5%ba%8f%e5%91%98/" class="tag-link-368 tag-link-position-80" title="867个话题" style="font-size: 22px;">程序员</a>
+<a href="http://blog.jobbole.com/tag/algorithm/" class="tag-link-650 tag-link-position-81" title="242个话题" style="font-size: 16.2963px;">算法</a>
+<a href="http://blog.jobbole.com/tag/management/" class="tag-link-4880 tag-link-position-82" title="42个话题" style="font-size: 8.41481px;">管理</a>
+<a href="http://blog.jobbole.com/tag/%e7%bc%96%e7%a8%8b/" class="tag-link-389 tag-link-position-83" title="140个话题" style="font-size: 13.8074px;">编程</a>
+<a href="http://blog.jobbole.com/tag/%e7%bc%96%e7%a8%8b%e8%af%ad%e8%a8%80/" class="tag-link-596 tag-link-position-84" title="119个话题" style="font-size: 13.0815px;">编程语言</a>
+<a href="http://blog.jobbole.com/tag/%e7%bd%91%e7%ab%99/" class="tag-link-150 tag-link-position-85" title="83个话题" style="font-size: 11.4222px;">网站</a>
+<a href="http://blog.jobbole.com/tag/%e7%bd%91%e9%a1%b5%e8%ae%be%e8%ae%a1/" class="tag-link-454 tag-link-position-86" title="243个话题" style="font-size: 16.2963px;">网页设计</a>
+<a href="http://blog.jobbole.com/tag/%e8%81%8c%e5%9c%ba/" class="tag-link-253 tag-link-position-87" title="383个话题" style="font-size: 18.2667px;">职场</a>
+<a href="http://blog.jobbole.com/tag/%e8%87%aa%e7%94%b1%e8%81%8c%e4%b8%9a/" class="tag-link-315 tag-link-position-88" title="131个话题" style="font-size: 13.4963px;">自由职业</a>
+<a href="http://blog.jobbole.com/tag/translation/" class="tag-link-4882 tag-link-position-89" title="39个话题" style="font-size: 8.1037px;">英语</a>
+<a href="http://blog.jobbole.com/tag/%e8%8b%b9%e6%9e%9c/" class="tag-link-183 tag-link-position-90" title="52个话题" style="font-size: 9.34815px;">苹果</a>
+<a href="http://blog.jobbole.com/tag/%e8%ae%be%e8%ae%a1/" class="tag-link-431 tag-link-position-91" title="132个话题" style="font-size: 13.4963px;">设计</a>
+<a href="http://blog.jobbole.com/tag/%e8%ae%be%e8%ae%a1%e5%b8%88/" class="tag-link-436 tag-link-position-92" title="208个话题" style="font-size: 15.5704px;">设计师</a>
+<a href="http://blog.jobbole.com/tag/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f/" class="tag-link-1845 tag-link-position-93" title="63个话题" style="font-size: 10.2815px;">设计模式</a>
+<a href="http://blog.jobbole.com/tag/%e8%b6%a3%e6%96%87/" class="tag-link-2105 tag-link-position-94" title="56个话题" style="font-size: 9.76296px;">趣文</a>
+<a href="http://blog.jobbole.com/tag/%e8%bd%af%e4%bb%b6%e5%b7%a5%e7%a8%8b%e5%b8%88/" class="tag-link-400 tag-link-position-95" title="38个话题" style="font-size: 8px;">软件工程师</a>
+<a href="http://blog.jobbole.com/tag/%e8%bd%af%e4%bb%b6%e5%bc%80%e5%8f%91/" class="tag-link-38 tag-link-position-96" title="91个话题" style="font-size: 11.837px;">软件开发</a>
+<a href="http://blog.jobbole.com/tag/%e9%9d%a2%e8%af%95/" class="tag-link-173 tag-link-position-97" title="111个话题" style="font-size: 12.7704px;">面试</a>
+<a href="http://blog.jobbole.com/tag/%e9%a1%b9%e7%9b%ae/" class="tag-link-177 tag-link-position-98" title="38个话题" style="font-size: 8px;">项目</a>
+<a href="http://blog.jobbole.com/tag/%e9%a1%b9%e7%9b%ae%e7%bb%8f%e7%90%86/" class="tag-link-1049 tag-link-position-99" title="38个话题" style="font-size: 8px;">项目经理</a>
+<a href="http://blog.jobbole.com/tag/%e9%bb%91%e5%ae%a2/" class="tag-link-617 tag-link-position-100" title="61个话题" style="font-size: 10.0741px;">黑客</a></p></div></div><div id="text-100" class="widget widget_text">			<div class="textwidget"><p><a href="http://blog.jobbole.com/99322/?utm_source=blog.jobbole.com&amp;utm_medium=sidebarBanner&amp;utm_content=2016.4.5" target="_blank"><img src="bfdcef89jw1f2lmtdfiyxj208c03cglx.jpg"></a></p>
+</div>
+		</div>
+        <h3 class="widget-title">
+            <a target="_blank" href="http://top.jobbole.com/category/news/">业界热点资讯</a>
+            <span style="float: right;"><a target="_blank" href="http://top.jobbole.com/category/news/">更多 »</a></span>
+        </h3>
+        <!-- BEGIN .container -->
+        <div class="container">
+            
+                <!-- BEGIN .grid-4 -->
+                <div class="grid-4 floated-thumb">
+
+                    
+                        <!-- BEGIN .post-thumb -->
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://top.jobbole.com/35298/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news"><img src="345027cd2abc490604b3c0904d5b4a66.jpg" alt="" height="50" width="50"></a>
+                        </div>
+                        <!-- END .post-thumb -->
+
+                        <!-- BEGIN .post-meta -->
+                        <div class="post-meta">
+
+                            <p>
+                                <a class="meta-title" title="微软为Visual Studio开发助手拓展C++支持" target="_blank" href="http://top.jobbole.com/35298/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news">微软为Visual Studio开发助手拓展C++支持</a><br>
+                                1 天前                                · <i class="fa fa-thumbs-o-up"></i> 5                                                                    ·  <a href="http://top.jobbole.com/35298/#comments" target="_blank"><i class="fa fa-comments-o"></i> 2</a>
+                                
+                            </p>
+
+                        </div>
+                        <!-- END .post-meta -->
+
+                        <div class="clear"></div>
+
+                    
+                        <!-- BEGIN .post-thumb -->
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://top.jobbole.com/35300/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news"><img src="cf6ec3fdac299f0049352ff3bccc1c20.jpg" alt="" height="50" width="50"></a>
+                        </div>
+                        <!-- END .post-thumb -->
+
+                        <!-- BEGIN .post-meta -->
+                        <div class="post-meta">
+
+                            <p>
+                                <a class="meta-title" title="Facebook针对iOS开发者推出Swift开发者工具包" target="_blank" href="http://top.jobbole.com/35300/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news">Facebook针对iOS开发者推出Swift开发者工具包</a><br>
+                                13 小时前                                · <i class="fa fa-thumbs-o-up"></i> 3                                
+                            </p>
+
+                        </div>
+                        <!-- END .post-meta -->
+
+                        <div class="clear"></div>
+
+                    
+                        <!-- BEGIN .post-thumb -->
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://top.jobbole.com/35289/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news"><img src="565719730ba5cef93633ac3fb10cd4e5.jpg" alt="" height="50" width="50"></a>
+                        </div>
+                        <!-- END .post-thumb -->
+
+                        <!-- BEGIN .post-meta -->
+                        <div class="post-meta">
+
+                            <p>
+                                <a class="meta-title" title="Linus Torvalds因内核注解标点格式发飙" target="_blank" href="http://top.jobbole.com/35289/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news">Linus Torvalds因内核注解标点格式发飙</a><br>
+                                3 天前                                · <i class="fa fa-thumbs-o-up"></i> 25                                                                    ·  <a href="http://top.jobbole.com/35289/#comments" target="_blank"><i class="fa fa-comments-o"></i> 7</a>
+                                
+                            </p>
+
+                        </div>
+                        <!-- END .post-meta -->
+
+                        <div class="clear"></div>
+
+                    
+                        <!-- BEGIN .post-thumb -->
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://top.jobbole.com/35296/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news"><img src="c0ffbda6275e7a8c8720fd9a50a7904f.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <!-- END .post-thumb -->
+
+                        <!-- BEGIN .post-meta -->
+                        <div class="post-meta">
+
+                            <p>
+                                <a class="meta-title" title="FreeDOS如何维持DOS的生命力" target="_blank" href="http://top.jobbole.com/35296/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news">FreeDOS如何维持DOS的生命力</a><br>
+                                2 天前                                · <i class="fa fa-thumbs-o-up"></i> 3                                
+                            </p>
+
+                        </div>
+                        <!-- END .post-meta -->
+
+                        <div class="clear"></div>
+
+                    
+                        <!-- BEGIN .post-thumb -->
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://top.jobbole.com/35287/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news"><img src="cd550c665f997aa3dbb7cc2a2f06b096.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <!-- END .post-thumb -->
+
+                        <!-- BEGIN .post-meta -->
+                        <div class="post-meta">
+
+                            <p>
+                                <a class="meta-title" title="Mozilla将在Firefox 48正式版中引入Rust Component" target="_blank" href="http://top.jobbole.com/35287/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-top-news">Mozilla将在Firefox 48正式版中引入Rust Component</a><br>
+                                3 天前                                · <i class="fa fa-thumbs-o-up"></i> 6                                
+                            </p>
+
+                        </div>
+                        <!-- END .post-meta -->
+
+                        <div class="clear"></div>
+
+                    
+                </div>
+                <!-- END .grid-4 -->
+
+            
+            <div class="clear"></div>
+
+        </div>
+        <!-- END .container -->
+                    <h3 class="widget-title">
+                <a href="http://hao.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources-more" target="_blank">精选工具资源</a>
+                <span style="float: right;"><a target="_blank" href="http://hao.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources-more">更多资源 »</a></span>
+            </h3>
+            <div class="container">
+                <div class="grid-4">
+                
+                    <div class="floated-thumb">
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://hao.jobbole.com/encrypted-core-data/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="encrypted-core-data：使用 SQLClipher 对 CoreData 的 SQLite 存储进行加密"><img src="93bb239fece09a41dcc895549dc2c4e7.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <div class="post-meta">
+                            <p>
+                                <a class="meta-title" target="_blank" href="http://hao.jobbole.com/encrypted-core-data/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="encrypted-core-data：使用 SQLClipher 对 CoreData 的 SQLite 存储进行加密">encrypted-core-data：使用 SQLClipher 对 CoreDat...</a><br>
+                                <a href="http://hao.jobbole.com/category/ios/ios-libraries-and-frameworks/ios-core-data/" rel="category tag">Core Data</a>, <a href="http://hao.jobbole.com/category/ios/" rel="category tag">iOS</a>
+                            </p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                
+                    <div class="floated-thumb">
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://hao.jobbole.com/python-recsys/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="python-recsys：一款实现推荐系统的python库"><img src="768a03d0c1bf96ce66579c707cbc779d.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <div class="post-meta">
+                            <p>
+                                <a class="meta-title" target="_blank" href="http://hao.jobbole.com/python-recsys/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="python-recsys：一款实现推荐系统的python库">python-recsys：一款实现推荐系统的python库</a><br>
+                                <a href="http://hao.jobbole.com/category/python-tools/" rel="category tag">Python</a>, <a href="http://hao.jobbole.com/category/python-tools/python-machine-learning/" rel="category tag">机器学习</a>
+                            </p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                
+                    <div class="floated-thumb">
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://hao.jobbole.com/corestore/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="CoreStore：使用Swift包装Core Data框架"><img src="4b4fcfd7b0ee30ff645ae052d2851eea.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <div class="post-meta">
+                            <p>
+                                <a class="meta-title" target="_blank" href="http://hao.jobbole.com/corestore/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="CoreStore：使用Swift包装Core Data框架">CoreStore：使用Swift包装Core Data框架</a><br>
+                                <a href="http://hao.jobbole.com/category/ios/ios-libraries-and-frameworks/ios-core-data/" rel="category tag">Core Data</a>, <a href="http://hao.jobbole.com/category/ios/" rel="category tag">iOS</a>
+                            </p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                
+                    <div class="floated-thumb">
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://hao.jobbole.com/mediu-css/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="Medium的CSS 方案：简直完美"><img src="3eeb09805dd101a31d62a4482b06c918.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <div class="post-meta">
+                            <p>
+                                <a class="meta-title" target="_blank" href="http://hao.jobbole.com/mediu-css/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="Medium的CSS 方案：简直完美">Medium的CSS 方案：简直完美</a><br>
+                                <a href="http://hao.jobbole.com/category/css/" rel="category tag">CSS</a>, <a href="http://hao.jobbole.com/category/css/css-development-at-large-scale-websites/" rel="category tag">大型网站的CSS开发</a>
+                            </p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                
+                    <div class="floated-thumb">
+                        <div class="post-thumb">
+                            <a target="_blank" href="http://hao.jobbole.com/youcompleteme/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="YouCompleteMe：一款Vim代码补全引擎"><img src="4f15ef8efb3985d36bd29a219fa87404.png" alt="" height="50" width="50"></a>
+                        </div>
+                        <div class="post-meta">
+                            <p>
+                                <a class="meta-title" target="_blank" href="http://hao.jobbole.com/youcompleteme/?utm_source=blog.jobbole.com&amp;utm_medium=sidebar-resources" title="YouCompleteMe：一款Vim代码补全引擎">YouCompleteMe：一款Vim代码补全引擎</a><br>
+                                <a href="http://hao.jobbole.com/category/c-lang/" rel="category tag">C语言</a>, <a href="http://hao.jobbole.com/category/python-tools/" rel="category tag">Python</a>, <a href="http://hao.jobbole.com/category/c-lang/c-text-editor-extensions/c-vim/" rel="category tag">Vim</a>, <a href="http://hao.jobbole.com/category/c-lang/c-text-editor-extensions/" rel="category tag">文本编辑器扩展</a>, <a href="http://hao.jobbole.com/category/python-tools/python-editor-plugin/" rel="category tag">编辑器插件</a>
+                            </p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                                </div>
+            </div>
+        		<h3 class="widget-title">最新评论</h3>
+		<ul>
+		
+					
+			<li id="rc-comment-157570" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/gtgtgt"><img class="rc-avatar rc-left" alt="" src="8fbdaaa5ea6d3b49c8c1c825aafeb5d9.png" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="魔都 3 年，从程序员到 CTO" href="http://blog.jobbole.com/103538/#comment-157570" rel="nofollow">魔都 3 年，从程序员到 CTO</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				3年确实厉害。				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157569" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/lcy23022"><img class="rc-avatar rc-left" alt="" src="8fbdaaa5ea6d3b49c8c1c825aafeb5d9.png" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="C#设计模式(17)——观察者模式（Observer Pattern）" href="http://blog.jobbole.com/78119/#comment-157569" rel="nofollow">C#设计模式(17)——观察者模式（Obser...</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				一直对UML图中Observer对Subcriber的直接联系关系不太理解，Observer应该有一...				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157568" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/joychen1579"><img class="rc-avatar rc-left" alt="" src="8fbdaaa5ea6d3b49c8c1c825aafeb5d9.png" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="魔都 3 年，从程序员到 CTO" href="http://blog.jobbole.com/103538/#comment-157568" rel="nofollow">魔都 3 年，从程序员到 CTO</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				3年成长成CTO厉害! &nbsp;加油！				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157567" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/xuelang"><img class="rc-avatar rc-left" alt="" src="83ec11e49744cc5efb656f4f927c44c8.jpg" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="什么是堆和栈，它们在哪儿？" href="http://blog.jobbole.com/75321/#comment-157567" rel="nofollow">什么是堆和栈，它们在哪儿？</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				不好意思，刚看了前面就问了，没看到后面备注。。				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157566" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/xuelang"><img class="rc-avatar rc-left" alt="" src="83ec11e49744cc5efb656f4f927c44c8.jpg" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="什么是堆和栈，它们在哪儿？" href="http://blog.jobbole.com/75321/#comment-157566" rel="nofollow">什么是堆和栈，它们在哪儿？</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				bookkeeping 数据块 是指什么呢				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157565" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/disasm"><img class="rc-avatar rc-left" alt="" src="100.dat" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="学 Vim 时希望早点知道的建议" href="http://blog.jobbole.com/103343/#comment-157565" rel="nofollow">学 Vim 时希望早点知道的建议</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				相对行号到手。				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157564" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/shuqi888"><img class="rc-avatar rc-left" alt="" src="7b44eb0baad0d9722a54f0ecb0bd5edb-bpfull.jpg" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="在泰国曼谷做开发是怎样一种体验？" href="http://blog.jobbole.com/103482/#comment-157564" rel="nofollow">在泰国曼谷做开发是怎样一种体验？</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				这哥们儿没有透露他的薪水水平啊，在曼谷生活的是否财务自由				</div>
+			</li>
+			
+					
+			<li id="rc-comment-157563" class="rc-item rc-comment rc-clearfix">
+				<a target="_blank" href="http://www.jobbole.com/members/1352316220"><img class="rc-avatar rc-left" alt="" src="1.dat" height="34" width="34"></a>
+				<div class="rc-info">
+				Re:
+				<a class="rc-post" target="_blank" title="魔都 3 年，从程序员到 CTO" href="http://blog.jobbole.com/103538/#comment-157563" rel="nofollow">魔都 3 年，从程序员到 CTO</a>
+				</div>
+				<div class="rc-timestamp"></div>
+				<div class="rc-excerpt">
+				同样是工作3年，在所谓的大公司做着螺丝钉，慢慢的没了激情。看着你的经历，感觉自愧不如。我想我需要改变...				</div>
+			</li>
+			
+				
+		</ul>
+        	
+	<!-- BEGIN .container -->
+	<div class="container">
+	
+		<!-- BEGIN .grid-2 -->
+		<div class="grid-2">
+			
+						
+		</div>
+		<!-- END .grid-2 -->
+		
+		<!-- BEGIN .grid-2 -->
+		<div class="grid-2">
+			
+						
+		</div>
+		<!-- END .grid-2 -->
+		
+		<div class="clear"></div>
+			
+	</div>
+	<!-- END .container -->
+
+</div>
+<!-- END #sidebar -->
+<div class="clear"></div>	
+
+
+</div>
+<!-- END #wrapper -->
+
+<!-- BEGIN footer -->
+
+    <footer>
+
+        <!-- BEGIN .container -->
+        <div class="container">
+
+            <!-- BEGIN .grid-4 -->
+            <div class="grid-4">
+
+                <div id="text-3" class="widget widget_text"><h3 class="widget-title">关于伯乐在线博客</h3>			<div class="textwidget"><p>在这个信息爆炸的时代，人们已然被大量、快速并且简短的信息所包围。然而，我们相信：过多“快餐”式的阅读只会令人“虚胖”，缺乏实质的内涵。伯乐在线内容团队正试图以我们微薄的力量，把优秀的原创文章和译文分享给读者，为“快餐”添加一些“营养”元素。</p>
+<p><b>快速链接</b><br>
+<a target="_blank" href="http://group.jobbole.com/category/feedback/thanks">问题反馈与求助 » </a><br>
+<a target="_blank" href="http://group.jobbole.com/category/feedback/trans-team/">加入伯乐翻译小组 » </a><br>
+<a target="_blank" href="http://blog.jobbole.com/99322">加入专栏作者 » </a></p>
+</div>
+		</div>
+            </div>
+            <!-- END .grid-4 -->
+
+            <!-- BEGIN .grid-4 -->
+            <div class="grid-4">
+
+                <div id="text-4" class="widget widget_text"><h3 class="widget-title">关注我们</h3>			<div class="textwidget"><p>新浪微博：<a href="http://weibo.com/jobbole" target="_blank">@伯乐在线官方微博</a><br>
+RSS：<a href="http://blog.jobbole.com/feed/" target="_blank">订阅地址</a><br>
+推荐微信号 <br>
+<img src="iprogrammer_weixin.png" height="110" width="100"><img src="ui_weixin.png" height="110" width="100"><img src="geekfan_weixin.png" height="110" width="100"></p>
+<p><strong>合作联系</strong><br>
+Email：<a href="mailto:bd@jobbole.com">bd@Jobbole.com</a><br>
+QQ： 2302462408  （加好友请注明来意）</p>
+</div>
+		</div>
+            </div>
+            <!-- END .grid-4 -->
+
+            <!-- BEGIN .grid-4 -->
+            <div class="grid-4">
+
+                <div id="text-7" class="widget widget_text"><h3 class="widget-title">更多频道</h3>			<div class="textwidget"><p><a href="http://group.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">小组</a> – 好的话题、有启发的回复、值得信赖的圈子<br>
+<a href="http://top.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">头条</a> – 分享和发现有价值的内容与观点<br>
+<a href="http://date.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">相亲</a> – 为IT单身男女服务的征婚传播平台<br>
+<a href="http://hao.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">资源</a> – 优秀的工具资源导航<br>
+<a href="http://fanyi.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">翻译</a> – 翻译传播优秀的外文文章<br>
+<a href="http://blog.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">文章</a> – 国内外的精选文章<br>
+<a href="http://design.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">设计</a> – UI,网页，交互和用户体验<br>
+<a href="http://ios.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">iOS</a> – 专注iOS技术分享<br>
+<a href="http://android.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">安卓</a> – 专注Android技术分享<br>
+<a href="http://web.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">前端</a> – JavaScript, HTML5, CSS<br>
+<a href="http://www.importnew.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">Java</a> – 专注Java技术分享<br>
+<a href="http://python.jobbole.com/?utm_source=blog.jobbole.com&amp;utm_medium=bottomText" target="_blank">Python</a> – 专注Python技术分享</p>
+</div>
+		</div>
+            </div>
+            <!-- END .grid-4 -->
+
+            <div class="clear"></div>
+
+        </div>
+        <!-- END .container -->
+
+        <!-- BEGIN #bottom -->
+        <div id="bottom">
+
+            <!-- BEGIN .container -->
+            <div class="container">
+
+                <!-- BEGIN .grid-12 -->
+                <div class="grid-12">
+
+                    <p>© 2016 伯乐在线
+                    <span style="margin-left: 40px;">
+                        <a href="http://www.jobbole.com/">首页</a>&nbsp;&nbsp;
+                        <a href="http://blog.jobbole.com/">博客</a>&nbsp;&nbsp;
+                        <a href="http://hao.jobbole.com/">资源</a>&nbsp;&nbsp;
+                        <a href="http://group.jobbole.com/">小组</a>&nbsp;&nbsp;
+                        <a href="http://date.jobbole.com/">相亲</a>&nbsp;&nbsp;
+                        <a href="http://group.jobbole.com/category/feedback/thanks/"><i class="fa fa-bullhorn"></i> 反馈</a>
+                    </span>
+                    </p>
+
+                </div>
+                <!-- END .grid-12 -->
+
+                <div class="clear"></div>
+
+            </div>
+            <!-- END .container -->
+
+        </div>
+        <!-- END #bottom -->
+    </footer>
+
+    
+<!-- END footer -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="full-btm">
+<a><img src="back-btm.png" alt="跳到底部" title="跳到底部" border="0" width="20"></a>
+</div>
+
+
+
+<div id="full-top">
+<a><img src="back-top.png" alt="返回顶部" title="返回顶部" border="0" width="20"></a>
+</div>
+
+
+
+
+
+
+
+<div style="display: none;" id="cboxOverlay"></div><div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox"><div id="cboxWrapper"><div><div style="float: left;" id="cboxTopLeft"></div><div style="float: left;" id="cboxTopCenter"></div><div style="float: left;" id="cboxTopRight"></div></div><div style="clear: left;"><div style="float: left;" id="cboxMiddleLeft"></div><div style="float: left;" id="cboxContent"><div style="float: left;" id="cboxTitle"></div><div style="float: left;" id="cboxCurrent"></div><button id="cboxPrevious" type="button"></button><button id="cboxNext" type="button"></button><button id="cboxSlideshow"></button><div style="float: left;" id="cboxLoadingOverlay"></div><div style="float: left;" id="cboxLoadingGraphic"></div></div><div style="float: left;" id="cboxMiddleRight"></div></div><div style="clear: left;"><div style="float: left;" id="cboxBottomLeft"></div><div style="float: left;" id="cboxBottomCenter"></div><div style="float: left;" id="cboxBottomRight"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div></body><!-- END body -->
+</html>
