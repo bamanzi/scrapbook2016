@@ -1,0 +1,557 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Linux进程管理工具——supervisor - jihite - 博客园</title>
+
+
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/kaituorensheng/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/kaituorensheng/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/kaituorensheng/wlwmanifest.xml">
+  
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><div style="display: none;" id="MathJax_Message"></div>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/kaituorensheng/">jihite</a></div>
+<div class="subtitle">没有总结就没有进步</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/jihite">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/kaituorensheng/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/kaituorensheng/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-461&nbsp;
+文章-0&nbsp;
+评论-336&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="#">Linux进程管理工具——supervisor</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><a name="_labelTop"></a><div id="navCategory"><p style="font-size: 18px;"><b>阅读目录</b></p><ul><li><a href="#_label0">介绍</a></li><li><a href="#_label1">安装</a></li><li><a href="#_label2">生成默认配置文件</a></li><li><a href="#_label3">修改默认配置文件</a></li><li><a href="#_label4">启动</a></li><li><a href="#_label5">管理</a></li><li><a href="#_label6">异常</a></li></ul></div><div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label0"></a></div><h3>介绍</h3>
+<p>Supervisord是用Python实现的一款非常实用的进程管理工具</p>
+<div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label1"></a></div><h3>安装</h3>
+<p>这里用源码</p>
+<div class="cnblogs_code">
+<pre>supervisor-<span style="color: rgb(128, 0, 128);">3.1</span>.<span style="color: rgb(128, 0, 128);">3</span>.<span style="color: rgb(0, 0, 255);">tar</span><span style="color: rgb(0, 0, 0);">.gz
+</span><span style="color: rgb(0, 0, 255);">tar</span> -zxvf supervisor-<span style="color: rgb(128, 0, 128);">3.1</span>.<span style="color: rgb(128, 0, 128);">3</span>.<span style="color: rgb(0, 0, 255);">tar</span><span style="color: rgb(0, 0, 0);">.gz
+cd supervisor</span>-<span style="color: rgb(128, 0, 128);">3.1</span>.<span style="color: rgb(128, 0, 128);">3</span>
+<span style="color: rgb(0, 0, 255);">sudo</span> python setup.py <span style="color: rgb(0, 0, 255);">install</span></pre>
+</div>
+<div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label2"></a></div><h3>生成默认配置文件</h3>
+<div class="cnblogs_code">
+<pre>echo_supervisord_conf &gt; /etc/supervisord.conf  </pre>
+</div>
+<div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label3"></a></div><h3>修改默认配置文件</h3>
+<p>如需允许web界面和命令行访问，修改inet_http_server配置</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgb(0, 0, 0);">[inet_http_server]  
+port</span>=*:<span style="color: rgb(128, 0, 128);">9001</span>     ;这里*<span style="color: rgb(0, 0, 0);">表示可以让其他终端访问supervisor web界面
+username</span>=<span style="color: rgb(0, 0, 0);">username ;  用户名  
+password</span>=password  ;  密码  </pre>
+</div>
+<p><span style="background-color: rgb(255, 0, 0);">未知 &nbsp;具体功能，需修复</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: rgb(0, 0, 0);">[supervisorctl]
+serverurl</span>=unix:<span style="color: rgb(128, 128, 128);">///</span><span style="color: rgb(0, 128, 0);">tmp/supervisor.sock ; use a unix:// URL  for a unix socket</span>
+serverurl=http:<span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">127.0.0.1:9001 ; use an http:</span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> url to specify an inet socket</span></pre>
+</div>
+<p>修改进程</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgb(0, 0, 0);">[program:test_http]
+command</span>=python test_http.py <span style="color: rgb(128, 0, 128);">501</span><span style="color: rgb(0, 0, 0);">  ; 被监控的进程路径
+directory</span>=/home/admin/soft/supervisor-<span style="color: rgb(128, 0, 128);">3.1</span>.<span style="color: rgb(128, 0, 128);">3</span><span style="color: rgb(0, 0, 0);">                ; 执行前要不要先cd到目录去，一般不用
+priority</span>=<span style="color: rgb(128, 0, 128);">1                    ;数字越高，优先级越高</span><span style="color: rgb(0, 0, 0);">
+numprocs</span>=<span style="color: rgb(128, 0, 128);">1</span><span style="color: rgb(0, 0, 0);">                    ; 启动几个进程
+autostart</span>=<span style="color: rgb(0, 0, 255);">true</span><span style="color: rgb(0, 0, 0);">                ; 随着supervisord的启动而启动
+autorestart</span>=<span style="color: rgb(0, 0, 255);">true</span><span style="color: rgb(0, 0, 0);">              ; 自动重启。。当然要选上了
+startretries</span>=<span style="color: rgb(128, 0, 128);">10</span><span style="color: rgb(0, 0, 0);">               ; 启动失败时的最多重试次数
+exitcodes</span>=<span style="color: rgb(128, 0, 128);">0</span><span style="color: rgb(0, 0, 0);">                   ; 正常退出代码（是说退出代码是这个时就不再重启了吗？待确定）
+stopsignal</span>=<span style="color: rgb(0, 0, 0);">KILL               ; 用来杀死进程的信号
+stopwaitsecs</span>=<span style="color: rgb(128, 0, 128);">10</span><span style="color: rgb(0, 0, 0);">               ; 发送SIGKILL前的等待时间
+redirect_stderr</span>=<span style="color: rgb(0, 0, 255);">true</span>          ; 重定向stderr到stdout<br>stdout_logfile=/home/jihite/log/supervisor.log</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div></div>
+<p>这里test_http.py 位于directory（/home/admin/soft/supervisor-3.1.3）目录下</p>
+<p>test_http.py</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgb(0, 0, 0);">import sys  
+import BaseHTTPServer  
+from SimpleHTTPServer import SimpleHTTPRequestHandler  
+HandlerClass </span>=<span style="color: rgb(0, 0, 0);"> SimpleHTTPRequestHandler  
+ServerClass </span>=<span style="color: rgb(0, 0, 0);"> BaseHTTPServer.HTTPServer  
+Protocol </span>= <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">HTTP/1.0</span><span style="color: rgb(128, 0, 0);">"</span>  
+  
+<span style="color: rgb(0, 0, 255);">if</span> __name__ == <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">__main__</span><span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(0, 0, 0);">:
+    </span><span style="color: rgb(0, 0, 255);">if</span> sys.argv[<span style="color: rgb(128, 0, 128);">1</span><span style="color: rgb(0, 0, 0);">:]:  
+        port </span>= <span style="color: rgb(0, 0, 255);">int</span>(sys.argv[<span style="color: rgb(128, 0, 128);">1</span><span style="color: rgb(0, 0, 0);">])  
+    </span><span style="color: rgb(0, 0, 255);">else</span><span style="color: rgb(0, 0, 0);">:  
+        port </span>= <span style="color: rgb(128, 0, 128);">8000</span><span style="color: rgb(0, 0, 0);">  
+
+    server_address </span>= (<span style="color: rgb(128, 0, 0);">'</span><span style="color: rgb(128, 0, 0);">10.125.24.105</span><span style="color: rgb(128, 0, 0);">'</span><span style="color: rgb(0, 0, 0);">, port)  
+    HandlerClass.protocol_version </span>=<span style="color: rgb(0, 0, 0);"> Protocol  
+    httpd </span>=<span style="color: rgb(0, 0, 0);"> ServerClass(server_address, HandlerClass)  
+    
+    sa </span>=<span style="color: rgb(0, 0, 0);"> httpd.socket.getsockname()  
+    print </span><span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Serving HTTP on</span><span style="color: rgb(128, 0, 0);">"</span>, sa[<span style="color: rgb(128, 0, 128);">0</span>], <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">port</span><span style="color: rgb(128, 0, 0);">"</span>, sa[<span style="color: rgb(128, 0, 128);">1</span>], <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">...</span><span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(0, 0, 0);">  
+    httpd.serve_forever() </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div></div>
+<div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label4"></a></div><h3>启动</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgb(0, 0, 255);">sudo</span>  supervisord -c /etc/supervisord.conf</pre>
+</div>
+<div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label5"></a></div><h3>管理</h3>
+<p>命令管理</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgb(0, 0, 255);">sudo</span><span style="color: rgb(0, 0, 0);"> supervisorctl
+status: 查看当前运行的进程列表
+stop xxx: 停止某一个进程(xxx)，xxx为[program:theprogramname]里配置的值。
+start xxx: 启动某个进程
+restart xxx: 重启某个进程
+stop groupworker: 重启所有属于名为groupworker这个分组的进程(start,restart同理)
+stop all，停止全部进程，注：start、restart、stop都不会载入最新的配置文件。
+</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div></div>
+<p>重新加载配置文件</p>
+<div class="cnblogs_code">
+<pre>sudo  supervisorctl -c /etc/supervisord.conf</pre>
+</div>
+<p>界面管理</p>
+<p><img src="408927-20151204230302127-2059030678.png" alt=""></p>
+<div style="text-align: right;"><a href="#_labelTop">回到顶部</a><a name="_label6"></a></div><h3>异常</h3>
+<p>1.&nbsp;Error: Another program is already listening on a port that one of our HTTP servers is configured to use. Shut this program down first before starting supervisord.</p>
+<p><em id="__mceDel">For help, use /home/admin/idcp-check/virtualenv/bin/supervisord -h</em></p>
+<p>解决：(<a href="http://serverfault.com/questions/114477/supervisor-http-server-port-issue" target="_blank">参考</a>)</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgb(0, 0, 255);">sudo</span> <span style="color: rgb(0, 0, 255);">unlink</span> /tmp/<span style="color: rgb(0, 0, 0);">supervisor.sock<br>or
+</span><span style="color: rgb(0, 0, 255);">sudo</span> <span style="color: rgb(0, 0, 255);">unlink</span> /var/run/supervisor.sock</pre>
+</div>
+<p>2. 启动不起来</p>
+<p>$sudo supervisorctl <br>create_roadnet_tasks3            FATAL     Exited too quickly (process log may have details)<br>解决：（<a href="http://stackoverflow.com/questions/29421832/how-should-laravel-queues-set-up-properly-for-production-with-supervisor" target="_blank">参考</a>）</p>
+<p>Check if supervisor&nbsp;<code>startsecs=0 &nbsp; #被监控程序启动时持续时间</code></p>
+<p>3. 启动不起来，日志提示不能用root用户启动</p>
+<p>Running a worker with superuser privileges when the<br>worker accepts messages serialized with pickle is a very bad idea!</p>
+<p>If you really want to continue then you have to set the C_FORCE_ROOT<br>environment variable (but please think about this before you do).</p>
+<p>解决</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgb(0, 0, 255);">from</span> celery <span style="color: rgb(0, 0, 255);">import</span><span style="color: rgb(0, 0, 0);"> Celery, platforms
+app </span>= Celery(<span style="color: rgb(128, 0, 0);">'</span><span style="color: rgb(128, 0, 0);">tasks</span><span style="color: rgb(128, 0, 0);">'</span>, broker=<span style="color: rgb(128, 0, 0);">'</span><span style="color: rgb(128, 0, 0);">amqp://myuser:</span>
+mypassword@localhost :5672/vhost<span style="color: rgb(128, 0, 0);">'</span><span style="color: rgb(128, 0, 0);">)</span>
+platforms.C_FORCE_ROOT = True        <span style="color: rgb(0, 128, 0);">#</span><span style="color: rgb(0, 128, 0);">加上这一行<br><br></span>
+<span style="color: rgb(0, 0, 0);">@app.task
+</span><span style="color: rgb(0, 0, 255);">def</span><span style="color: rgb(0, 0, 0);"> add(x, y):
+</span><span style="color: rgb(0, 0, 255);">    return</span> x + y</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码"><img src="copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/kaituorensheng/category/713922.html">运维</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+<a id="green_channel_digg">好文要顶</a>
+<a id="green_channel_follow">关注我</a>
+<a id="green_channel_favorite">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/jihite" target="_blank">联系我</a>
+<a id="green_channel_weibo" title="分享至新浪微博"><img src="icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" title="分享至微信"><img src="wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/kaituorensheng/" target="_blank"><img src="u408927.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/kaituorensheng/">jihite</a><br>
+<a href="http://home.cnblogs.com/u/kaituorensheng/followees">关注 - 42</a><br>
+<a href="http://home.cnblogs.com/u/kaituorensheng/followers">粉丝 - 568</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a>+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/kaituorensheng/p/4985767.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/kaituorensheng/p/4985767.html" title="发布于2015-11-29 17:44">消息队列Rabbitmq</a><br><a href="http://www.cnblogs.com/kaituorensheng/p/5071500.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/kaituorensheng/p/5071500.html" title="发布于2015-12-23 22:12">python 环境问题</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-12-04 23:08</span> <a href="http://www.cnblogs.com/kaituorensheng/">jihite</a> 阅读(<span id="post_view_count">930</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=5020793" rel="nofollow">编辑</a> <a href="#">收藏</a></div>
+	</div>
+	
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container">
+<div id="commentform_title">发表评论</div>
+<span id="tip_comment" style="color: Red;"></span>
+<p>
+昵称：<input id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="巴蛮子" type="text">
+</p>
+<div class="commentbox_main">
+<div class="commentbox_title">
+<div class="commentbox_title_left">评论内容：</div>
+<div class="commentbox_title_right">
+<img id="ubb_quote" class="comment_icon" src="quote.gif" alt="引用" title="添加引用">
+<img id="ubb_bold" class="comment_icon" src="b.png" alt="粗体" title="添加粗体">
+<img id="ubb_url" class="comment_icon" src="lk.png" alt="链接" title="添加链接">
+<img id="ubb_indent" class="comment_icon" src="indent.png" alt="缩进" title="添加首行缩进">
+<img id="ubb_code" class="comment_icon" src="InsertCode.gif" alt="代码" title="添加代码">
+<img id="ubb_img" class="comment_icon" src="img.gif" alt="图片" title="上传图片">
+</div>
+</div>
+<div class="clear"></div>
+<textarea id="tbCommentBody" class="comment_textarea"></textarea>
+</div>
+<p id="commentbox_opt">
+<input id="btn_comment_submit" class="comment_btn" value="提交评论" type="button">
+<span id="span_comment_canceledit" style="display: none;"><a>不改了</a></span>
+<a>退出登录</a>
+        <a id="commentbox_opt_sub" title="订阅后有新评论时会邮件通知您">订阅评论</a>
+</p>
+<div id="tip_comment2" style="color: Red;"></div>
+<p>
+[Ctrl+Enter快捷键提交]
+</p>
+<div style="display: none;">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+<span id="span_parent_id"></span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+</div>
+</div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－豆果美食、Faceu等亿级APP都在用</a><br><a href="http://group.cnblogs.com/topic/75069.html" target="_blank">【福利】你是我的好朋友，我要送你个天猫红包</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/spreadjs/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank"><img src="24442-20160630110700952-722310635.gif" alt="" height="250" width="300"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/549541/" target="_blank">跨界项目：基于Intel平台的Chromebook有望运行Windows软件</a><br> ·  <a href="http://news.cnblogs.com/n/549540/" target="_blank">微软：升级Win10失败 免费送笔记本一台！</a><br> ·  <a href="http://news.cnblogs.com/n/549539/" target="_blank">2016机器人世界杯：不容错过的精彩摔倒瞬间</a><br> ·  <a href="http://news.cnblogs.com/n/549538/" target="_blank">微信Windows 10应用现身Windows商店</a><br> ·  <a href="http://news.cnblogs.com/n/549537/" target="_blank">微软iOS应用迁移工具再进化：全新UIKit API</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/?from=cnblogs01" target="_blank"><img src="24442-20160613130538213-1713265809.jpg" alt="" height="60" width="468"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/548394/" target="_blank">如何给变量取个简短且无歧义的名字</a><br> ·  <a href="http://kb.cnblogs.com/page/549080/" target="_blank">编程的智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/549049/" target="_blank">写给初学前端工程师的一封信</a><br> ·  <a href="http://kb.cnblogs.com/page/544641/" target="_blank">抽象：程序员必备的能力</a><br> ·  <a href="http://kb.cnblogs.com/page/213197/" target="_blank">编程同写作，写代码只是在码字</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2014-12-04 <a href="http://www.cnblogs.com/kaituorensheng/p/4143477.html">谷歌</a><br>2012-12-04 <a href="http://www.cnblogs.com/kaituorensheng/archive/2012/12/04/2802140.html">隐马尔可夫模型（五）——隐马尔可夫模型的解码问题(维特比算法）</a><br></div>
+
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="clustrmaps-widget"></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/kaituorensheng/">jihite</a><br>园龄：<a href="http://home.cnblogs.com/u/kaituorensheng/" title="入园时间：2012-05-14">4年2个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/kaituorensheng/followers/">568</a><br>关注：<a href="http://home.cnblogs.com/u/kaituorensheng/followees/">42</a><div id="p_b_follow"><a>+加关注</a></div></div></div>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display: none;"></div></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/kaituorensheng/category/465181.html">c++/c(66)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/kaituorensheng/category/788331.html">celery(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/kaituorensheng/category/588221.html">Django(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/kaituorensheng/category/774435.html">Flask(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/kaituorensheng/category/694257.html">gis(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/kaituorensheng/category/835024.html">Git</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/kaituorensheng/category/548132.html">Hadoop(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/kaituorensheng/category/586157.html">java(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/kaituorensheng/category/693663.html">JavaScript/Html(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/kaituorensheng/category/571749.html">LeetCode(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/kaituorensheng/category/398604.html">linux(52)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/kaituorensheng/category/787904.html">MongoDB(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/kaituorensheng/category/613525.html">Postgresql(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/kaituorensheng/category/386335.html">Python每日小灶(81)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/kaituorensheng/category/795238.html">Redis(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/kaituorensheng/category/545970.html">STL(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/kaituorensheng/category/482211.html">tools(21)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/kaituorensheng/category/512789.html">产品(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/kaituorensheng/category/386337.html">成长经历(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/kaituorensheng/category/404673.html">读书(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/kaituorensheng/category/783834.html">服务(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/kaituorensheng/category/600422.html">互联网(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/kaituorensheng/category/484221.html">机器学习(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/kaituorensheng/category/611937.html">计算机网络(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/kaituorensheng/category/560927.html">计算机原理(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/kaituorensheng/category/758599.html">开源(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/kaituorensheng/category/566787.html">数学之美(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/kaituorensheng/category/445233.html">算法&amp;&amp;数据结构(72)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/kaituorensheng/category/526037.html">统计学习方法(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/kaituorensheng/category/576792.html">网络爬虫(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/kaituorensheng/category/622147.html">文学艺术(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/kaituorensheng/category/404670.html">学术创新</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/kaituorensheng/category/517963.html">英语(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/kaituorensheng/category/713922.html">运维(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/kaituorensheng/category/386336.html">自然语言处理(26)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/kaituorensheng/archive/2016/07.html">2016年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/kaituorensheng/archive/2016/06.html">2016年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/kaituorensheng/archive/2016/05.html">2016年5月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/kaituorensheng/archive/2016/04.html">2016年4月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/kaituorensheng/archive/2016/03.html">2016年3月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/kaituorensheng/archive/2016/02.html">2016年2月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/kaituorensheng/archive/2016/01.html">2016年1月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/kaituorensheng/archive/2015/12.html">2015年12月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/kaituorensheng/archive/2015/11.html">2015年11月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/kaituorensheng/archive/2015/10.html">2015年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/kaituorensheng/archive/2015/09.html">2015年9月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/kaituorensheng/archive/2015/08.html">2015年8月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/kaituorensheng/archive/2015/07.html">2015年7月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/kaituorensheng/archive/2015/06.html">2015年6月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/kaituorensheng/archive/2015/05.html">2015年5月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/kaituorensheng/archive/2015/04.html">2015年4月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/kaituorensheng/archive/2015/03.html">2015年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/kaituorensheng/archive/2015/01.html">2015年1月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/kaituorensheng/archive/2014/12.html">2014年12月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/kaituorensheng/archive/2014/11.html">2014年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/kaituorensheng/archive/2014/10.html">2014年10月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/kaituorensheng/archive/2014/09.html">2014年9月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/kaituorensheng/archive/2014/08.html">2014年8月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/kaituorensheng/archive/2014/07.html">2014年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/kaituorensheng/archive/2014/06.html">2014年6月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/kaituorensheng/archive/2014/05.html">2014年5月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/kaituorensheng/archive/2014/04.html">2014年4月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/kaituorensheng/archive/2014/03.html">2014年3月 (45)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/kaituorensheng/archive/2014/02.html">2014年2月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/kaituorensheng/archive/2014/01.html">2014年1月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/kaituorensheng/archive/2013/12.html">2013年12月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/kaituorensheng/archive/2013/11.html">2013年11月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/kaituorensheng/archive/2013/10.html">2013年10月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/kaituorensheng/archive/2013/09.html">2013年9月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/kaituorensheng/archive/2013/08.html">2013年8月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/kaituorensheng/archive/2013/07.html">2013年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/kaituorensheng/archive/2013/06.html">2013年6月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/kaituorensheng/archive/2013/05.html">2013年5月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/kaituorensheng/archive/2013/04.html">2013年4月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/kaituorensheng/archive/2013/03.html">2013年3月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/kaituorensheng/archive/2013/02.html">2013年2月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/kaituorensheng/archive/2013/01.html">2013年1月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/kaituorensheng/archive/2012/12.html">2012年12月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/kaituorensheng/archive/2012/11.html">2012年11月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/kaituorensheng/archive/2012/10.html">2012年10月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/kaituorensheng/archive/2012/09.html">2012年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/kaituorensheng/archive/2012/08.html">2012年8月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/kaituorensheng/archive/2012/07.html">2012年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/kaituorensheng/archive/2012/06.html">2012年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/kaituorensheng/archive/2012/05.html">2012年5月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	456905
+	</li>
+	<li class="liRank">
+		排名 -	216
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kaituorensheng/p/4591937.html#3465793">1. Re:jQuery学习笔记</a></li>
+        <li class="recent_comment_body">@jihite括号里面也需要改， 应该改为 $("#id") # 表示取id...</li>
+        <li class="recent_comment_author">--zhiqingzhang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kaituorensheng/p/4591937.html#3465779">2. Re:jQuery学习笔记</a></li>
+        <li class="recent_comment_body">@zhiqingzhang改了...</li>
+        <li class="recent_comment_author">--jihite</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kaituorensheng/p/4591937.html#3464986">3. Re:jQuery学习笔记</a></li>
+        <li class="recent_comment_body">虽说是总结，但是复制粘贴能不能也用点心呢，第四条标题都是错的，不过你持之以恒是值得我们学习的。</li>
+        <li class="recent_comment_author">--zhiqingzhang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kaituorensheng/p/3776527.html#3463533">4. Re:URL中“#” “？” &amp;“”号的作用</a></li>
+        <li class="recent_comment_body">不错!</li>
+        <li class="recent_comment_author">--魔炉中的天使</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kaituorensheng/archive/2013/02/28/2937865.html#3463417">5. Re:数据结构之队列</a></li>
+        <li class="recent_comment_body">@ruizhi我把对象换成Q了，q-&gt;q[q-&gt;tail] = key;==》Q-&gt;q[Q-&gt;tail] = key;明白？...</li>
+        <li class="recent_comment_author">--jihite</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/kaituorensheng/archive/2012/08/06/2625752.html">1. python find()用法(63499)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/p/3980334.html">2. linux后台运行和关闭、查看后台任务(53052)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/archive/2012/08/14/2638935.html">3. python 遍历文件夹 文件(49096)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/archive/2012/08/07/2627386.html">4. python 字典排序(48387)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/p/3877382.html">5. python解析json(38017)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/kaituorensheng/p/4445418.html">1. Python多进程编程(8)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/p/3287652.html">2. pyhon之Tkinter实例化学习(8)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/archive/2012/10/23/2736069.html">3. char *a 与char a[] 的区别(6)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/archive/2013/03/26/2983573.html">4. Linux  文件属性(6)</a></li><li><a href="http://www.cnblogs.com/kaituorensheng/archive/2013/03/02/2939690.html">5. 两个栈实现队列        两个队列实现栈(6)</a></li></ul></div>
+</div></div></div></div>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 jihite
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+
+<!--PageEndHtml Block End-->
+
+
+</body>
+</html>

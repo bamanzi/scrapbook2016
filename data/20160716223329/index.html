@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+
+
+
+
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="pingback" href="http://linoxide.com/xmlrpc.php">
+
+
+
+<!--[if lt IE 9]>
+
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+
+<![endif]-->
+
+
+
+
+
+
+
+<!-- This site is optimized with the Yoast SEO plugin v3.3.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network</title>
+<meta name="description" content="How to install and configure Monit , a small linux utility designed to manage and monitor processes, programs, filesystems, directories and files.">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="http://linoxide.com/monitoring-2/monit-linux/">
+<link rel="publisher" href="https://plus.google.com/Linoxide/posts">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network">
+<meta property="og:description" content="How to install and configure Monit , a small linux utility designed to manage and monitor processes, programs, filesystems, directories and files.">
+<meta property="og:url" content="http://linoxide.com/monitoring-2/monit-linux/">
+<meta property="og:site_name" content="LinOxide">
+<meta property="article:section" content="LINUX HOWTO">
+<meta property="article:published_time" content="2014-09-26T11:00:19+01:00">
+<meta property="article:modified_time" content="2014-09-26T18:10:35+01:00">
+<meta property="og:updated_time" content="2014-09-26T18:10:35+01:00">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2014/09/Ubuntu-2014-09-24-18-57-59-e1411577289595.png">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2014/09/Ubuntu-2014-09-24-20-11-06-e1411578689947.png">
+<meta property="og:image" content="http://blog.linoxide.com/wp-content/uploads/2014/09/Ubuntu-2014-09-24-20-11-19-e1411578734101.png">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="LinOxide » Feed" href="http://linoxide.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="LinOxide » Comments Feed" href="http://linoxide.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="LinOxide » Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network Comments Feed" href="http://linoxide.com/monitoring-2/monit-linux/feed/">
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="https://api.w.org/" href="http://linoxide.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://linoxide.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://linoxide.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="shortlink" href="http://linoxide.com/?p=8426">
+<link rel="alternate" type="application/json+oembed" href="http://linoxide.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flinoxide.com%2Fmonitoring-2%2Fmonit-linux%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://linoxide.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flinoxide.com%2Fmonitoring-2%2Fmonit-linux%2F&amp;format=xml">
+
+
+
+<!-- Alternate Stylesheet -->
+
+
+<!-- Custom Styles from Theme Setting Page -->
+
+
+<!-- Styles from custom.css -->
+
+
+				<!-- WordPress Popular Posts v3.3.3 -->
+				
+				<!-- End WordPress Popular Posts v3.3.3 -->
+				
+<!-- Dynamic Widgets by QURL - http://www.qurl.nl //-->
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+
+<body class="single single-post postid-8426 single-format-standard c-sw">
+
+
+
+
+
+
+<div id="outer-wrap">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="wrap">
+
+
+
+		<div id="header">
+
+			<div id="head-content" class="clearfix">
+
+				
+					<div id="logo">
+
+						<a href="http://linoxide.com/" title="LinOxide"><img src="linoxide-banner.jpg" alt="LinOxide"></a>
+
+					</div>
+
+				
+				
+			</div>
+
+		</div>
+
+
+
+		<div id="topnav">
+
+			<div class="limit clearfix">
+
+				
+					<ul class="clearfix">
+
+						<li id="menu-item-3838" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3838"><a href="http://www.linoxide.com/">HOME</a></li>
+<li id="menu-item-3855" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3855"><a href="http://linoxide.com/category/linux-how-to/">LINUX HOWTO</a></li>
+<li id="menu-item-10470" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10470"><a href="http://linoxide.com/category/linux-command/">LINUX COMMANDS</a></li>
+<li id="menu-item-3856" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3856"><a href="http://linoxide.com/category/ubuntu-how-to/">UBUNTU HOWTO</a></li>
+<li id="menu-item-5784" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5784"><a href="http://linoxide.com/category/linux-shell-script/">SHELL SCRIPTS</a></li>
+
+						<li class="searchform"><form id="searchform" method="get" action="http://linoxide.com/"><input value="Enter Search Terms" size="18" maxlength="50" name="s" id="searchfield" type="text"><input value="search" id="submitbutton" type="submit"></form>
+</li>
+
+					</ul>
+
+				
+			</div>
+
+		</div>
+
+
+
+		
+
+
+<p></p>
+
+
+
+<div class="breadcrumbs">
+
+
+
+    <!-- Breadcrumb NavXT 5.4.0 -->
+<a title="Go to the LINUX HOWTO category archives." href="http://linoxide.com/category/linux-how-to/" class="taxonomy category">LINUX HOWTO</a> &gt; Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network
+
+
+</div>
+
+
+	
+
+
+	
+
+
+	<div id="page" class="clearfix">
+
+
+
+		<div id="contentleft">
+
+
+
+			
+
+
+			
+
+
+			
+
+
+			<div id="content" class="maincontent">
+
+
+
+				
+
+
+				
+
+
+
+
+
+				<div class="singlepost">
+
+
+
+					<div class="post" id="post-main-8426">
+
+
+
+						<div class="entry">
+
+
+
+							<h1 class="post-title single"><a href="#" rel="bookmark" title="Permanent Link to Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network">Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network</a></h1>
+
+
+
+							<div class="meta single">
+
+	<span class="meta-date">
+		September 26, 2014 | 
+	</span> 
+
+	<span class="meta-author">
+		By <a href="http://linoxide.com/author/adriand/" title="Posts by Adrian Dinu" rel="author">Adrian Dinu</a> in <a href="http://linoxide.com/category/linux-how-to/" rel="category tag">LINUX HOWTO</a>, <a href="http://linoxide.com/category/monitoring-2/" rel="category tag">MONITORING</a>, <a href="http://linoxide.com/category/tools/" rel="category tag">OPEN SOURCE TOOLS</a>	</span>
+
+<div class="metasocialicons">
+
+
+<span class="metaicons-fbook"><a href="http://www.facebook.com/sharer.php?u=http://linoxide.com/monitoring-2/monit-linux/&amp;t=Monit%20-%20Monitor%20Linux%20Daemon,%20Filesystem,%20CPU%20,%20Files%20and%20Network" title="Share to Facebook"><i class="cs c-icon-cresta-facebook"></i></a></span>
+
+
+<span class="metaicons-twitter"><a href="http://twitter.com/share?url=http://linoxide.com/monitoring-2/monit-linux/&amp;text=Monit%20-%20Monitor%20Linux%20Daemon,%20Filesystem,%20CPU%20,%20Files%20and%20Network" title="Share to Twitter"><i class="cs c-icon-cresta-twitter"></i></a></span>
+
+  
+<span class="metaicons-gplus"><a href="https://plus.google.com/share?url=http://linoxide.com/monitoring-2/monit-linux/" title="Share to Google Plus"><i class="cs c-icon-cresta-gplus"></i></a></span>
+
+
+<span class="metaicons-linkedin"><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://linoxide.com/monitoring-2/monit-linux/&amp;title=Monit%20-%20Monitor%20Linux%20Daemon,%20Filesystem,%20CPU%20,%20Files%20and%20Network" title="Share to LinkedIn"><i class="cs c-icon-cresta-linkedin"></i></a></span>
+
+
+
+  
+  </div>
+
+		<span class="meta-comments">
+		 | <a href="#comments" rel="bookmark" title="Comments for Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network">1 Reply</a>
+	</span>
+	
+	<span class="readmore">
+		<a href="#" rel="nofollow" title="Permanent Link to Monit - Monitor Linux Daemon, Filesystem, CPU , Files and Network">More</a>
+	</span>
+
+</div>
+
+
+							
+
+
+							<p><strong>Monit</strong> is a small linux utility designed to manage and monitor processes, programs, filesystems, directories and files. You can have it run automatic maintenance and repair and can execute meaningful causal actions in error situations. You can use Monit to monitor files, directories and filesystems for changes, such as timestamps changes, checksum changes or size changes. Monit logs to syslog or to its own log file and notifies you about error conditions via customizable alert messages. It can also perform various TCP/IP network checks, protocol checks and can utilize SSL for such checks.</p>
+<!-- Quick Adsense WordPress Plugin: http://quicksense.net/ -->
+<div style="float: none; margin: 10px 0px; text-align: center;">
+
+<!-- Rectangle 336x280- Linux - After First Paragraph -->
+<ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px;" data-ad-client="ca-pub-1379683195607621" data-ad-slot="9372698901"></ins>
+
+</div>
+
+<p>Monit can be used via a web interface that you can access via your favorite web browser.</p>
+<h2>How to Install Monit</h2>
+<p>To install monit on Debian / Ubuntu distribution you can use apt-get like so:</p>
+<blockquote><p># apt-get install monit</p></blockquote>
+<p>On Fedora you can use yum to install it from the repository:</p>
+<blockquote><p># yum install monit</p></blockquote>
+<p>To install it on CentOS / RHEL you will have to use <a href="http://pkgs.repoforge.org/monit/">Dag Rpmforge</a> and then install it with the same yum command.</p>
+<h2>Configuration File</h2>
+<p><a href="https://mmonit.com/monit/documentation/">Monit is configured</a> and controlled via a control file called monitrc. The default location for this file is ~/.monitrc if unavailable it will use /etc/monit/monitrc. The execution script in /etc/init.d/monit will also use /etc/monit/monitrc. To protect the security of your control file and passwords the control file must have permissions no more than 0700; Monit will complain and exit otherwise.</p>
+<p>Currently, eight types of check statements are supported:</p>
+<p><strong>CHECK PROCESS &lt;unique name&gt; &lt;PIDFILE &lt;path&gt; | MATCHING &lt;regex&gt;&gt;</strong><br>
+&lt;path&gt; is the absolute path to the program's pidfile.</p>
+<p><strong>CHECK FILE &lt;unique name&gt; PATH &lt;path&gt;</strong><br>
+&lt;path&gt; is the absolute path to the file.</p>
+<p><strong>CHECK FIFO &lt;unique name&gt; PATH &lt;path&gt;</strong><br>
+&lt;path&gt; is the absolute path to the fifo.</p>
+<p><strong>CHECK FILESYSTEM &lt;unique name&gt; PATH &lt;path&gt;</strong><br>
+&lt;path&gt; is the path to the filesystem block special device, mount point, file or a directory which is part of a filesystem.</p>
+<p><strong>CHECK DIRECTORY &lt;unique name&gt; PATH &lt;path&gt;</strong><br>
+&lt;path&gt; is the absolute path to the directory.</p>
+<p><strong>CHECK HOST &lt;unique name&gt; ADDRESS &lt;host address&gt;</strong><br>
+The host address can be specified as a hostname string or as an ip-address string on a dotted decimal format.</p>
+<p><strong>CHECK SYSTEM &lt;unique name&gt;</strong><br>
+The system name is usually hostname, but any descriptive name can be used. This test allows one to check general system resources such as CPU usage (percent of time spent in user, system and wait), total memory usage or load average.</p>
+<p><strong>CHECK PROGRAM &lt;unique name&gt; PATH &lt;executable file&gt; [TIMEOUT &lt;number&gt; SECONDS]</strong><br>
+&lt;path&gt; is the absolute path to the executable program or script. The status test allows one to check the program's exit status.</p>
+<h2>Using Monit web interface</h2>
+<p>Monit comes with an easy to use web interface you can access in your browser, to enable it you will have to add the following lines to your monitrc file:</p>
+<blockquote><p>set httpd port 2812<br>
+allow myuser:mypassword</p></blockquote>
+<p>Then you can use the IP of the server to access it, it should look like this:</p>
+<p><a href="http://blog.linoxide.com/wp-content/uploads/2014/09/Ubuntu-2014-09-24-18-57-59-e1411577289595.png"><img class="alignnone size-full wp-image-8432" src="Ubuntu-2014-09-24-18-57-59-e1411577289595.png" alt="monit" height="452" width="800"></a></p>
+<h2>Examples :&nbsp;Monitor Daemon, Filesystem, CPU , Files and Network</h2>
+<p><strong>1.</strong> To monitor a daemon you can add the following lines to your monitrc file:</p>
+<blockquote><p>check process apache with pidfile /var/run/apache2/apache2.pid<br>
+start program = "/etc/init.d/apache2 start" with timeout 60 seconds<br>
+stop program = "/etc/init.d/apache2 stop"</p></blockquote>
+<p><strong>2.</strong> To send an alert in case of high CPU usage you can use this in your monitrc file:</p>
+<blockquote><p>check process apache with pidfile /var/run/apache2/apache2.pid<br>
+start program = "/etc/init.d/apache2 start" with timeout 60 seconds<br>
+stop program = "/etc/init.d/apache2 stop"<br>
+if cpu &gt; 60% for 2 cycles then alert<br>
+if cpu &gt; 80% for 5 cycles then restart</p></blockquote>
+<p><strong>3.</strong> Restart in case of high memory usage:</p>
+<blockquote><p>check process apache with pidfile /var/run/apache2/apache2.pid<br>
+start program = "/etc/init.d/apache2 start" with timeout 60 seconds<br>
+stop program = "/etc/init.d/apache2 stop"<br>
+if totalmem &gt; 200.0 MB for 5 cycles then restart</p></blockquote>
+<p><strong>4.</strong> To check a filesystem:</p>
+<blockquote><p>check filesystem datafs with path /dev/sda1<br>
+start program = "/bin/mount /data"<br>
+stop program = "/bin/umount /data"</p></blockquote>
+<p><strong>5.</strong> To check a directory:</p>
+<blockquote><p>check directory bin with path /bin<br>
+if failed permission 755 then alert</p></blockquote>
+<p><strong>6.</strong> To check a host on the network</p>
+<blockquote><p>check host server2 with address 192.168.1.2<br>
+if failed icmp type echo count 3 with timeout 3 seconds then alert</p></blockquote>
+<p>All the services that Monit monitors will be included on the web interface and it will look like this:</p>
+<p><a href="http://blog.linoxide.com/wp-content/uploads/2014/09/Ubuntu-2014-09-24-20-11-06-e1411578689947.png"><img class="alignnone size-full wp-image-8433" src="Ubuntu-2014-09-24-20-11-06-e1411578689947.png" alt="monit services" height="452" width="800"></a></p>
+<p>Also if you click a service name you will get even more details about it:</p>
+<p><a href="http://blog.linoxide.com/wp-content/uploads/2014/09/Ubuntu-2014-09-24-20-11-19-e1411578734101.png"><img class="alignnone size-full wp-image-8434" src="Ubuntu-2014-09-24-20-11-19-e1411578734101.png" alt="monit details" height="452" width="800"></a></p>
+
+<div style="font-size: 0px; height: 0px; line-height: 0px; margin: 0px; padding: 0px; clear: both;"></div>
+<div class="wp_rp_wrap  wp_rp_vertical_m" id="wp_rp_first"><div class="wp_rp_content"><h3 class="related_post_title">You might also like</h3><ul class="related_post wp_rp"><li data-position="0" data-poid="in-11178" data-post-type="none"><a href="http://linoxide.com/monitoring-2/setup-smokeping-latency-monitoring-ubuntu-15-04/" class="wp_rp_title">How to Setup smokePing for Latency Monitoring on Ubuntu 15.04</a></li><li data-position="1" data-poid="in-8390" data-post-type="none"><a href="http://linoxide.com/linux-command/linux-pidstat-monitor-statistics-procesess/" class="wp_rp_title">pidstat – Monitor and Find Statistics for Linux Procesess</a></li><li data-position="2" data-poid="in-11581" data-post-type="none"><a href="http://linoxide.com/tools/install-setup-zpanel-linux-centos-6/" class="wp_rp_title">How to Setup ZPanel CP on Linux CentOS 6</a></li><li data-position="3" data-poid="in-11203" data-post-type="none"><a href="http://linoxide.com/monitoring-2/configure-zenoss-core-4-2-5-centos-6/" class="wp_rp_title">How to Configure Zenoss Core 4.2.5 on CentOS 6</a></li><li data-position="4" data-poid="in-12598" data-post-type="none"><a href="http://linoxide.com/monitoring-2/setup-munin-monitoring-centos-7/" class="wp_rp_title">How to Setup Munin Monitoring System on CentOS 7</a></li><li data-position="5" data-poid="in-11437" data-post-type="none"><a href="http://linoxide.com/monitoring-2/configure-cacti-fedora-22-centos-7/" class="wp_rp_title">How to Configure Cacti on Fedora 22 / CentOS 7.0</a></li><li data-position="6" data-poid="in-10251" data-post-type="none"><a href="http://linoxide.com/monitoring-2/vector-netflix-install/" class="wp_rp_title">Install Vector an Opensource Performance Monitoring Tool from Netflix</a></li><li data-position="7" data-poid="in-6185" data-post-type="none"><a href="http://linoxide.com/monitoring-2/ntopng-network-monitoring-tool/" class="wp_rp_title">Linux ntopng – Network Monitoring Tool Installation (Screenshots)</a></li><li data-position="8" data-poid="in-1097" data-post-type="none"><a href="http://linoxide.com/monitoring-2/easy-mrtg-installation-centos-5/" class="wp_rp_title">How To Install / Configure MRTG On CentOS 5</a></li><li data-position="9" data-poid="in-13287" data-post-type="none"><a href="http://linoxide.com/monitoring-2/install-aide-centos-7/" class="wp_rp_title">How to Install AIDE on CentOS 7</a></li></ul></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+
+
+
+
+							<div style="clear: both;"></div>
+
+
+
+							
+
+
+							
+							<p class="cats"><strong>Category</strong>: <a href="http://linoxide.com/category/linux-how-to/" rel="category tag">LINUX HOWTO</a>, <a href="http://linoxide.com/category/monitoring-2/" rel="category tag">MONITORING</a>, <a href="http://linoxide.com/category/tools/" rel="category tag">OPEN SOURCE TOOLS</a></p>
+
+
+
+						</div>
+<h3 class="post_share_title">Share This : </h3>
+<!--www.crestaproject.com Social Button in Content Start--><div id="crestashareiconincontent" class="cresta-share-icon first_style"><div class="sbutton crestaShadow facebook-cresta-share" id="facebook-cresta-c"><a rel="nofollow" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Flinoxide.com%2Fmonitoring-2%2Fmonit-linux%2F&amp;t=Monit+-+Monitor+Linux+Daemon%2C+Filesystem%2C+CPU+%2C+Files+and+Network" title="Share to Facebook"><i class="cs c-icon-cresta-facebook"></i></a></div><div class="sbutton crestaShadow twitter-cresta-share" id="twitter-cresta-c"><a rel="nofollow" href="http://twitter.com/share?text=Monit+-+Monitor+Linux+Daemon%2C+Filesystem%2C+CPU+%2C+Files+and+Network&amp;url=http%3A%2F%2Flinoxide.com%2Fmonitoring-2%2Fmonit-linux%2F&amp;via=LinOxide" title="Share to Twitter"><i class="cs c-icon-cresta-twitter"></i></a></div><div class="sbutton crestaShadow googleplus-cresta-share" id="googleplus-cresta-c"><a rel="nofollow" href="https://plus.google.com/share?url=http%3A%2F%2Flinoxide.com%2Fmonitoring-2%2Fmonit-linux%2F" title="Share to Google Plus"><i class="cs c-icon-cresta-gplus"></i></a></div><div class="sbutton crestaShadow linkedin-cresta-share" id="linkedin-cresta-c"><a rel="nofollow" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flinoxide.com%2Fmonitoring-2%2Fmonit-linux%2F&amp;title=Monit+-+Monitor+Linux+Daemon%2C+Filesystem%2C+CPU+%2C+Files+and+Network&amp;source=http://linoxide.com/" title="Share to LinkedIn"><i class="cs c-icon-cresta-linkedin"></i></a></div><div style="clear: both;"></div></div><div style="clear: both;"></div><!--www.crestaproject.com Social Button in Content End-->
+
+						
+<div class="linoxidebooks">
+<h1>Free Linux Ebook to Download</h1>
+<div class="lb bookcontainer">
+<a target="_blank" href="http://linoxide.tradepub.com/free/w_pacb32/prgm.cgi"><img src="understandingdocker.jpg"></a>
+</div>
+<div class="lb bookcontainer">
+   <a target="_blank" href="http://linoxide.tradepub.com/free/w_mach01/prgm.cgi"><img src="introlinux.jpg"></a>
+</div>
+<div class="lb bookcontainer">
+   <a href="http://linoxide.tradepub.com/free/w_wile48/prgm.cgi" target="_blank"><img src="shellscripting.jpg"></a>
+</div>
+
+<div class="lb bookcontainer">
+   <a target="_blank" href="http://linoxide.tradepub.com/free/w_pacb28/"><img src="docker.jpg"></a>
+</div>
+
+</div>
+
+						
+
+
+<div class="navigation clearfix">
+	<div class="alignleft single">
+		<div>Previous Article</div>  <a href="http://linoxide.com/security/use-arptables-linux/" rel="prev">Arptables - Manage ARP Packet Filter Rules with Examples</a>	</div>
+	<div class="alignright single">
+		<div>Next Article</div>  <a href="http://linoxide.com/security/shellshock-bug-bash-fix/" rel="next">Find / Patch Shellshock Bash Bug in RedHat / CentOS, Fedora &amp; Ubuntu</a> 	</div>
+</div>
+						
+<!-- You can start editing here. -->
+
+<div class="allcomments">
+
+
+	<h3 id="comments">Comments (1)</h3>
+
+	<p class="comments-number"><a href="http://linoxide.com/monitoring-2/monit-linux/trackback/" title="Trackback URL">Trackback URL</a> | <a title="Comments RSS Feed for This Entry" href="http://linoxide.com/monitoring-2/monit-linux/feed">Comments RSS Feed</a></p>
+
+	<div class="comments-navigation clearfix">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+	
+	<ol class="commentlist">
+				<li class="comment even thread-even depth-1" id="comment-2106">
+				<div id="div-comment-2106" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="752593ac0f661babb1cc84d1b3d010f6.dat" srcset="752593ac0f661babb1cc84d1b3d010f6_001.dat 2x" class="avatar avatar-60 photo" height="60" width="60">			<cite class="fn">Neog J.</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="#comment-2106">
+			January 10, 2016 at 8:06 pm</a>		</div>
+
+		<p>Hello, how to config reboot if host fail instead of alert?</p>
+<p>i.e if ip address fails, reboot the network/ip address or reboot the server via monit.</p>
+
+		<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-2106" aria-label="Reply to Neog J.">Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+	</ol>
+
+ 
+</div>
+
+
+	<div id="respond">
+
+						<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display: none;">Cancel reply</a></small></h3>				<form action="http://linoxide.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<p class="comment-form-comment"><textarea id="comment" name="comment" tabindex="4" cols="100%" rows="10" aria-required="true"></textarea></p><p class="comment-form-author"><input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" id="author" name="author" tabindex="1" value="" size="40" type="text"><label for="author">Name( required )</label> </p>
+<p class="comment-form-email"><input id="email" name="email" tabindex="2" value="" size="40" type="text"><label for="email">Email ( required; will not be published )</label> </p>
+<p class="comment-form-url"><input id="url" name="url" tabindex="3" value="" size="40" type="text"><label for="url">Website</label></p>
+<p id="commentquiz" style="clear: both;">
+<strong>Commenting Policy:</strong><br>
+Promotion of your products ? Comment gets deleted. <br>
+All comments are subject to moderation. <br>
+<label for="quiz">What is linoxide based on ? Windows or Linux ? Type your answer into the box </label><input name="quiz" id="quiz" size="22" tabindex="4" value="" type="text">
+</p><p class="form-submit"><input name="submit" id="submit" class="submit" value="Submit Comment" type="submit"> <input name="comment_post_ID" value="8426" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p>				</form>
+					</div><!-- #respond -->
+			</div>
+
+
+
+
+					</div>
+
+
+
+					
+
+
+				</div>
+
+
+
+
+
+
+			</div>
+
+
+
+			
+
+
+		</div>
+
+
+
+
+		<div id="contentright">
+
+			<div id="sidebar" class="clearfix">
+				<div id="banner300-widget-28" class="widget banner300"><div class="widget-wrap">
+<!-- Rectangle 336x280 - Linux - Blog Sidebar Right Top -->
+<ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px;" data-ad-client="ca-pub-1379683195607621" data-ad-slot="8461483700"></ins>
+
+</div></div><div id="text-9" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow">
+    <div class="textwidget">
+        <div class="feedwidgetdiv">
+            <h4>GET ARTICLES BY EMAIL</h4>
+            <p>Join <b style="color: rgb(236, 156, 59);">10000+</b> Linux Fans</p>
+            <div>
+
+
+                <input name="email" placeholder="Enter Your Email *" required="required" type="email">
+                <input class="feedsubmit" value="Subscribe" type="submit">
+    <input value="linoxideblog" name="uri" type="hidden">
+    <input name="loc" value="en_US" type="hidden">
+
+            </div>
+        </div>
+    </div>
+    
+</form></div>
+		</div></div><div id="banner300-widget-25" class="widget banner300"><div class="widget-wrap">
+<!-- Wide Skyscraper 300 x 600 Linux -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px;" data-ad-client="ca-pub-1379683195607621" data-ad-slot="5506076901"></ins>
+</div></div>
+<!-- WordPress Popular Posts Plugin v3.3.3 [W] [all] [comments] [regular] -->
+<div id="wpp-2" class="widget popular-posts"><div class="widget-wrap">
+<h3 class="widgettitle"><span>Popular Posts</span></h3>
+<ul class="wpp-list">
+<li><a href="http://linoxide.com/linux-command/linux-commands-cheat-sheet/" title="Linux Commands Cheat Sheet in Black &amp; White" class="wpp-post-title" target="_self">Linux Commands Cheat Sheet in Black &amp; White</a> </li>
+<li><a href="http://linoxide.com/linux-shell-script/shell-script-check-linux-system-health/" title="Shell Script to Check Linux System Health" class="wpp-post-title" target="_self">Shell Script to Check Linux System Health</a> </li>
+<li><a href="http://linoxide.com/linux-command/systemd-vs-sysvinit-cheatsheet/" title="Colourful ! systemd vs sysVinit Linux Cheatsheet" class="wpp-post-title" target="_self">Colourful ! systemd vs sysVinit Linux Cheatsheet</a> </li>
+<li><a href="http://linoxide.com/how-tos/ipsec-vpn-gateway-gateway-using-strongswan/" title="Intro to Configure IPsec VPN (Gateway-to-Gateway ) using Strongswan" class="wpp-post-title" target="_self">Intro to Configure IPsec VPN (Gateway-to-Gateway ) using Strongswan</a> </li>
+<li><a href="http://linoxide.com/monitoring-2/ntopng-network-monitoring-tool/" title="Linux ntopng - Network Monitoring Tool Installation (Screenshots)" class="wpp-post-title" target="_self">Linux ntopng - Network Monitoring Tool Installation (Screenshots)</a> </li>
+<li><a href="http://linoxide.com/tools/install-setup-asterisk-13-pbx-centos-7/" title="How to Install and Setup Asterisk 13 (PBX) on Centos 7.x" class="wpp-post-title" target="_self">How to Install and Setup Asterisk 13 (PBX) on Centos 7.x</a> </li>
+<li><a href="http://linoxide.com/ubuntu-how-to/setup-rtorrent-rutorrent/" title="How to Install / Setup rtorrent and rutorrent in CentOS / Ubuntu" class="wpp-post-title" target="_self">How to Install / Setup rtorrent and rutorrent in CentOS / Ubuntu</a> </li>
+<li><a href="http://linoxide.com/linux-how-to/install-gnome-3-16-ubuntu-mint-arch-linux/" title="How to Install GNOME 3.16 On Ubuntu, Mint and Arch Linux" class="wpp-post-title" target="_self">How to Install GNOME 3.16 On Ubuntu, Mint and Arch Linux</a> </li>
+<li><a href="http://linoxide.com/linux-how-to/vivaldi-multi-platform-browser-linux/" title="Install Vivaldi in Linux - Awesome Multi Platform Browser" class="wpp-post-title" target="_self">Install Vivaldi in Linux - Awesome Multi Platform Browser</a> </li>
+<li><a href="http://linoxide.com/how-tos/centos-7-step-by-step-screenshots/" title="How to Install CentOS 7 Step by Step with Screenshots" class="wpp-post-title" target="_self">How to Install CentOS 7 Step by Step with Screenshots</a> </li>
+<li><a href="http://linoxide.com/linux-command/use-ip-command-linux/" title="How To Use Ip Command In Linux with Examples" class="wpp-post-title" target="_self">How To Use Ip Command In Linux with Examples</a> </li>
+<li><a href="http://linoxide.com/linux-how-to/upgrade-linux-kernel-stable-3-18-4-centos/" title="How to Upgrade Linux Kernel to Stable 3.18.4 on CentOS 7.x" class="wpp-post-title" target="_self">How to Upgrade Linux Kernel to Stable 3.18.4 on CentOS 7.x</a> </li>
+<li><a href="http://linoxide.com/linux-command/change-hostname-in-rhel-centos-7/" title="How to Change Hostname in RHEL / CentOS 7.0" class="wpp-post-title" target="_self">How to Change Hostname in RHEL / CentOS 7.0</a> </li>
+<li><a href="http://linoxide.com/storage/scandetect-luns-redhat-linux-outputs-remember/" title="How To Scan / Detect New Luns In Redhat Linux &amp; Outputs To Remember" class="wpp-post-title" target="_self">How To Scan / Detect New Luns In Redhat Linux &amp; Outputs To Remember</a> </li>
+<li><a href="http://linoxide.com/how-tos/d-bus-ipc-mechanism-linux/" title="A Good Understanding of D-BUS - An IPC Mechanism in Linux" class="wpp-post-title" target="_self">A Good Understanding of D-BUS - An IPC Mechanism in Linux</a> </li>
+
+</ul>
+</div></div>
+<!-- End WordPress Popular Posts Plugin v3.3.3 -->
+<div id="banner300-widget-21" class="widget banner300"><div class="widget-wrap">
+
+<div class="g-page" data-width="301" data-href="//plus.google.com/u/0/116824676284814557701" data-theme="dark" data-layout="landscape" data-rel="publisher"></div></div></div>			</div>
+
+			<div id="sidebar-bottom" class="clearfix">
+
+				<div id="sidebar-bottom-left">
+														</div>
+
+				<div id="sidebar-bottom-right">
+														</div>
+
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+
+
+
+	
+
+
+</div>
+
+
+
+
+
+
+<div id="footer">
+
+<div class="footerwidgets">
+
+<div class="footerwidgetdiv">
+<h4>About</h4>
+<div>
+<ul class="footer-links"><li><a href="http://linoxide.com/about/">About us</a></li>
+<li><a href="http://linoxide.com/contact-us/">Contact Us</a></li>
+<li><a href="http://linoxide.com/privacy-policy/">Privacy</a></li>
+<li><a href="http://linoxide.com/tos/">Terms</a></li>
+</ul>
+					</div>
+
+</div>
+<div class="footerwidgetdiv">
+
+<h4>Categories</h4>
+
+<ul class="footer-links"><li><a href="http://linoxide.com/category/monitoring-2/">Monitoring</a></li>
+<li><a href="http://linoxide.com/category/firewall/">Firewall</a></li>
+<li><a href="http://linoxide.com/category/tools/">Opensource Tools</a></li>
+<li><a href="http://linoxide.com/category/webserver/">Web Servers</a></li>
+</ul>
+
+
+
+</div>
+
+<div class="footerwidgetdiv">
+ <form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow">
+            <div class="textwidget">
+                <div class="feedwidgetdiv">
+                    <h4>GET ARTICLES BY EMAIL</h4>
+                    <p>Join <b style="color: rgb(236, 156, 59);">10000+</b> Linux Fans</p>
+                    <div>
+
+
+                        <input name="email" placeholder="Enter Your Email *" required="required" type="email">
+                        <input class="feedsubmit" value="Subscribe" type="submit">
+    <input value="linoxideblog" name="uri" type="hidden">
+    <input name="loc" value="en_US" type="hidden">
+						
+
+                    </div>
+                </div>
+            </div>
+           
+        </form></div>
+</div>
+
+
+
+<div class="footersocial">
+
+<div class="followustxt">Follow Linoxide</div>
+<div class="linoxidesocial clearfix"><span><a title="RSS Feed" href="http://linoxide.com/feed/" target="_blank" id="iconRSS"><img src="webicon-rss-m.png"></a></span><span><a title="Follow on Twitter" href="https://twitter.com/LinOxide" target="_blank" id="iconTwitter"><img src="webicon-twitter-m.png"></a></span><span><a title="Facebook Page" href="https://www.facebook.com/Linoxide" target="_blank" id="iconFacebook"><img src="webicon-facebook-m.png"></a></span><span><a title="Google Plus" href="https://plus.google.com/+Linoxide/posts" target="_blank" id="icongoogle"><img src="webicon-googleplus-m.png"></a></span></div>
+
+
+</div>
+
+	<div class="limit clearfix">
+
+
+
+		<div class="sub-icons clearfix">
+
+	
+
+
+
+
+
+
+
+
+
+</div>
+
+
+		
+
+
+		©  2016 LinOxide. All rights reserved.
+<a href="http://linoxide.com/privacy-policy/">Privacy</a> - <a href="http://linoxide.com/tos/">Terms of Service</a>
+
+
+
+
+	</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

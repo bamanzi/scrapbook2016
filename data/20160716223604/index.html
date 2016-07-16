@@ -1,0 +1,771 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Chapter&nbsp;6.&nbsp;Building the package</title>
+    
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="home" href="https://www.debian.org/doc/manuals/maint-guide/index.en.html" title="Debian New Maintainers' Guide">
+    <link rel="up" href="https://www.debian.org/doc/manuals/maint-guide/index.en.html" title="Debian New Maintainers' Guide">
+    <link rel="prev" href="https://www.debian.org/doc/manuals/maint-guide/dother.en.html" title="Chapter&nbsp;5.&nbsp;Other files under the debian directory">
+    <link rel="next" href="https://www.debian.org/doc/manuals/maint-guide/checkit.en.html" title="Chapter&nbsp;7.&nbsp;Checking the package for errors">
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+  <body>
+    <div class="navheader">
+      <table summary="Navigation header" width="100%">
+        <tbody><tr>
+          <th colspan="3" align="center">Chapter&nbsp;6.&nbsp;Building the package</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="https://www.debian.org/doc/manuals/maint-guide/dother.en.html"><img src="prev.png" alt="Prev"></a>&nbsp;</td>
+          <th align="center" width="60%">&nbsp;</th>
+          <td align="right">&nbsp;<a accesskey="n" href="https://www.debian.org/doc/manuals/maint-guide/checkit.en.html"><img src="next.png" alt="Next"></a></td>
+        </tr>
+      </tbody></table>
+      <hr>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="build">Chapter&nbsp;6.&nbsp;Building the package</a></h1><a id="build">
+          </a></div><a id="build">
+        </a></div><a id="build">
+      </a></div><a id="build">
+      </a><div class="toc"><a id="build">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        </a><dl class="toc"><a id="build">
+          </a><dt><a id="build">
+            <span class="section">
+              </span></a><a href="#completebuild">6.1. Complete (re)build</a>
+            
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="#autobuilder">6.2. Autobuilder</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="#debuild">6.3. <span class="command"><strong>debuild</strong></span> command</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="#pbuilder">6.4. <code class="systemitem">pbuilder</code> package</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="#git-buildpackage">6.5. <span class="command"><strong>git-buildpackage</strong></span> command and similars</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="#quickrebuild">6.6. Quick rebuild</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="#hierarchy">6.7. Command hierarchy</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+We should now be ready to build the package.
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="completebuild">6.1.&nbsp;Complete (re)build</a></h2><a id="completebuild">
+            </a></div><a id="completebuild">
+          </a></div><a id="completebuild">
+        </a></div><a id="completebuild">
+        <p>
+In order to perform a complete (re)build of a package properly, you
+need to make sure you have installed
+</p>
+        </a><div class="itemizedlist"><a id="completebuild">
+          </a><ul class="itemizedlist"><a id="completebuild">
+            <li class="listitem">
+              <p>
+the <code class="systemitem">build-essential</code> package,
+</p>
+            </li>
+            </a><li class="listitem"><a id="completebuild">
+              </a><p><a id="completebuild">
+packages listed in the <code class="literal">Build-Depends</code> field (see </a><a class="xref" href="https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control" title="4.1.&nbsp;control">Section&nbsp;4.1, “<code class="filename">control</code>”</a>), and
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+packages listed in the <code class="literal">Build-Depends-indep</code> field (see <a class="xref" href="https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control" title="4.1.&nbsp;control">Section&nbsp;4.1, “<code class="filename">control</code>”</a>).
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+Then you issue the following command in the source directory:
+</p>
+        <pre class="screen">$ dpkg-buildpackage -us -uc
+</pre>
+        <p>
+This will do everything to make full binary and source packages for you.  It
+will:
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+clean the source tree (<code class="literal">debian/rules clean</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+build the source package (<code class="literal">dpkg-source -b</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+build the program (<code class="literal">debian/rules build</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+build binary packages (<code class="literal">fakeroot debian/rules binary</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+make the <code class="filename">.dsc</code> file
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+make the <code class="filename">.changes</code> file, using
+<span class="command"><strong>dpkg-genchanges</strong></span>
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+If the build result is satisfactory one, sign the <code class="filename">.dsc</code> and
+<code class="filename">.changes</code> files with your private GPG key using the
+<span class="command"><strong>debsign</strong></span>  command.  You need to enter your secret pass
+phrase, twice.
+<a href="#ftn.idp40458336" class="footnote" id="idp40458336"><sup class="footnote">[64]</sup></a>
+</p>
+        <p>
+For a non-native Debian package, e.g.,
+<code class="systemitem">gentoo</code>, you will see the following
+files in the parent directory (<code class="filename">~/gentoo</code>) after building
+packages:
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+<code class="filename">gentoo_0.9.12.orig.tar.gz</code>
+</p>
+              <p>
+This is the original upstream source code tarball, merely renamed to the above so that
+it adheres to the Debian standard.  Note that this was created initially by the
+<code class="literal">dh_make -f ../gentoo-0.9.12.tar.gz</code>.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+<code class="filename">gentoo_0.9.12-1.dsc</code>
+</p>
+              <p>
+This is a summary of the contents of the source code.  The file is generated
+from your <code class="filename">control</code> file, and is used when unpacking the
+source with <span class="citerefentry"><span class="refentrytitle">dpkg-source</span>(1)</span>.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+<code class="filename">gentoo_0.9.12-1.debian.tar.gz</code>
+</p>
+              <p>
+This compressed tarball contains your <code class="filename">debian</code> directory
+contents.  Each and every addition you made to the original source code is
+stored as a <span class="command"><strong>quilt</strong></span> patch in
+<code class="filename">debian/patches</code>.
+</p>
+              <p>
+If someone else wants to re-create your package from scratch, they can easily
+do so using the above three files.  The extraction procedure is trivial: just
+copy the three files somewhere else and run <code class="literal">dpkg-source -x
+gentoo_0.9.12-1.dsc</code>.  <a href="#ftn.idp40472672" class="footnote" id="idp40472672"><sup class="footnote">[65]</sup></a>
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+<code class="filename">gentoo_0.9.12-1_i386.deb</code>
+</p>
+              <p>
+This is your completed binary package.  You can use <span class="command"><strong>dpkg</strong></span> to
+install and remove this just like any other package.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+<code class="filename">gentoo_0.9.12-1_i386.changes</code>
+</p>
+              <p>
+This file describes all the changes made in the current package revision;
+it is used by the Debian FTP archive maintenance programs to install the binary
+and source packages.  It is partly generated from the
+<code class="filename">changelog</code> file and the <code class="filename">.dsc</code> file.
+</p>
+              <p>
+As you keep working on the package, its behavior will change and new features will
+be added.  People downloading your package can look at this file and quickly
+see what has changed.  Debian archive maintenance programs will also post the
+contents of this file to the <a class="ulink" href="http://lists.debian.org/debian-devel-changes/">debian-devel-changes@lists.debian.org</a>
+mailing list.
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+The <code class="filename">gentoo_0.9.12-1.dsc</code> and
+<code class="filename">gentoo_0.9.12-1_i386.changes</code> files must be signed using
+the <span class="command"><strong>debsign</strong></span> command with your private GPG key in the
+<code class="filename">~/.gnupg/</code> directory, before uploading them to the Debian
+FTP archive. The GPG signature provides the proof that these files are really
+yours using your public GPG key.
+</p>
+        <p>
+The <span class="command"><strong>debsign</strong></span> command can be made to sign with your specified secret GPG key ID (good for
+sponsoring packages) with the following in the <code class="filename">~/.devscripts</code>:
+</p>
+        <pre class="screen">DEBSIGN_KEYID=Your_GPG_keyID
+</pre>
+        <p>
+The long strings of numbers in the <code class="filename">.dsc</code> and
+<code class="filename">.changes</code> files are SHA1/SHA256 checksums for the files
+mentioned.  Anyone downloading your files can test them with <span class="citerefentry"><span class="refentrytitle">sha1sum</span>(1)</span> or <span class="citerefentry"><span class="refentrytitle">sha256sum</span>(1)</span> and if the numbers don't match,
+they'll know the file is corrupt or has been tampered with.
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="autobuilder">6.2.&nbsp;Autobuilder</a></h2><a id="autobuilder">
+            </a></div><a id="autobuilder">
+          </a></div><a id="autobuilder">
+        </a></div><a id="autobuilder">
+        </a><p><a id="autobuilder">
+Debian supports many </a><a class="ulink" href="http://www.debian.org/ports/">ports</a>
+with the <a class="ulink" href="http://www.debian.org/devel/buildd/">autobuilder
+network</a> running <span class="command"><strong>buildd</strong></span> daemons on computers
+of many different architectures.  Although you do not need to do this yourself, you
+should be aware of what will happen to your packages.  Let's look into roughly
+how they rebuild your packages for multiple architectures.
+<a href="#ftn.idp40493552" class="footnote" id="idp40493552"><sup class="footnote">[66]</sup></a>
+</p>
+        <p>
+For <code class="literal">Architecture: any</code> packages, the autobuilder system
+performs a rebuild.  It ensures the installation of
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+the <code class="systemitem">build-essential</code> package, and
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+packages listed in the <code class="literal">Build-Depends</code> field (see <a class="xref" href="https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control" title="4.1.&nbsp;control">Section&nbsp;4.1, “<code class="filename">control</code>”</a>).
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+Then it issues the following command in the source directory:
+</p>
+        <pre class="screen">$ dpkg-buildpackage -B
+</pre>
+        <p>
+This will do everything to make architecture dependent binary packages on
+another architecture.  It will:
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+clean the source tree (<code class="literal">debian/rules clean</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+build the program (<code class="literal">debian/rules build</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+build architecture dependent binary packages (<code class="literal">fakeroot debian/rules
+binary-arch</code>)
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+sign the source <code class="filename">.dsc</code> file, using <span class="command"><strong>gpg</strong></span>
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+create and sign the upload <code class="filename">.changes</code> file, using
+<span class="command"><strong>dpkg-genchanges</strong></span> and <span class="command"><strong>gpg</strong></span>
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+This is why you see your package for other architectures.
+</p>
+        <p>
+Although packages listed in the <code class="literal">Build-Depends-Indep</code> field
+are required to be installed for our normal packaging work (see
+<a class="xref" href="#completebuild" title="6.1.&nbsp;Complete (re)build">Section&nbsp;6.1, “Complete (re)build”</a>), they are not required to be installed for the
+autobuilder system since it builds only architecture dependent binary packages.
+<a href="#ftn.idp40510176" class="footnote" id="idp40510176"><sup class="footnote">[67]</sup></a> This distinction between normal packaging and autobuilding
+procedures is what dictates whether you should record such required
+packages in the <code class="literal">Build-Depends</code> or
+<code class="literal">Build-Depends-Indep</code> fields of the
+<code class="filename">debian/control</code> file (see <a class="xref" href="https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#control" title="4.1.&nbsp;control">Section&nbsp;4.1, “<code class="filename">control</code>”</a>).
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="debuild">6.3.&nbsp;<span class="command"><strong>debuild</strong></span> command</a></h2><a id="debuild">
+            </a></div><a id="debuild">
+          </a></div><a id="debuild">
+        </a></div><a id="debuild">
+        <p>
+You can automate the build activity around executing the <span class="command"><strong>dpkg-buildpackage</strong></span> command
+package further with the <span class="command"><strong>debuild</strong></span> command.  See <span class="citerefentry"><span class="refentrytitle">debuild</span>(1)</span>.
+</p>
+        <p>
+The <span class="command"><strong>dbuild</strong></span> command executes the <span class="command"><strong>lintian</strong></span> command to make the static check after building the Debian package.
+The <span class="command"><strong>lintian</strong></span> command can be customized with the following in the <code class="filename">~/.devscripts</code>:
+</p>
+        <pre class="screen">DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc -I -i"
+DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
+</pre>
+        <p>
+Cleaning the source and rebuilding the package from your user account is as simple as:
+</p>
+        <pre class="screen">$ debuild
+</pre>
+        <p>
+You can clean the source tree as simply as:
+</p>
+        <pre class="screen">$ debuild clean
+</pre>
+      </a></div><a id="debuild">
+      </a><div class="section"><a id="debuild">
+        </a><div class="titlepage"><a id="debuild">
+          </a><div><a id="debuild">
+            </a><div><a id="debuild">
+              </a><h2 class="title"><a id="debuild"></a><a id="pbuilder">6.4.&nbsp;<code class="systemitem">pbuilder</code> package</a></h2><a id="pbuilder">
+            </a></div><a id="pbuilder">
+          </a></div><a id="pbuilder">
+        </a></div><a id="pbuilder">
+        </a><p><a id="pbuilder">
+For a clean room (<span class="command"><strong>chroot</strong></span>) build environment to verify the
+build dependencies, the <code class="systemitem">pbuilder</code>
+package is very useful.  </a><a href="#ftn.idp40526368" class="footnote" id="idp40526368"><sup class="footnote">[68]</sup></a> This ensures a clean build from the source
+under the <code class="literal">sid</code> auto-builder for different architectures and
+avoids a severity serious FTBFS (Fails To Build From Source) bug which is
+always in the RC (release critical) category. 
+<a href="#ftn.idp40528496" class="footnote" id="idp40528496"><sup class="footnote">[69]</sup></a>
+</p>
+        <p>
+Let's customize the <code class="systemitem">pbuilder</code> package as
+follows:
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+setting the <code class="filename">/var/cache/pbuilder/result</code> directory writable by your user account.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+creating a directory, e.g.
+<code class="filename"><em class="replaceable"><code>/var/cache/pbuilder/hooks</code></em></code>,
+writable by the user, to place hook scripts in.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+configuring <code class="filename">~/.pbuilderrc</code> or
+<code class="filename">/etc/pbuilderrc</code> to include the following.
+</p>
+              <pre class="screen">AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
+HOOKDIR=<em class="replaceable"><code>/var/cache/pbuilder/hooks</code></em>
+</pre>
+            </li>
+          </ul>
+        </div>
+        <p>
+First let's initialize the local <code class="systemitem">pbuilder</code> <span class="command"><strong>chroot</strong></span> system as
+follows:
+</p>
+        <pre class="screen">$ sudo pbuilder create
+</pre>
+        <p>
+If you already have a completed source package, issue the following commands
+in the directory where the
+<code class="filename"><em class="replaceable"><code>foo</code></em>.orig.tar.gz</code>,
+<code class="filename"><em class="replaceable"><code>foo</code></em>.debian.tar.gz</code>, and
+<code class="filename"><em class="replaceable"><code>foo</code></em>.dsc</code> files exist to update
+the local <code class="systemitem">pbuilder</code>
+<span class="command"><strong>chroot</strong></span> system and to build binary packages in it:
+</p>
+        <pre class="screen">$ sudo pbuilder --update
+$ sudo pbuilder --build <em class="replaceable"><code>foo_version</code></em>.dsc
+</pre>
+        <p>
+The newly built packages without the GPG signatures will be located in
+<code class="filename">/var/cache/pbuilder/result/</code> with non-root ownership.
+</p>
+        <p>
+The GPG signatures on the <code class="filename">.dsc</code> file and the
+<code class="filename">.changes</code> file can be generated as:
+</p>
+        <pre class="screen">$ cd /var/cache/pbuilder/result/
+$ debsign <em class="replaceable"><code>foo_version_arch</code></em>.changes
+</pre>
+        <p>
+If you have an updated source tree but have not generated the matching
+source package, issue the following commands in the source directory where the
+<code class="filename">debian</code> directory exists, instead:
+</p>
+        <pre class="screen">$ sudo pbuilder --update
+$ pdebuild
+</pre>
+        <p>
+You can log into its <span class="command"><strong>chroot</strong></span> environment with the
+<code class="literal">pbuilder --login --save-after-login</code> command and configure it
+as you wish.  This environment can be saved by leaving its shell prompt with
+<code class="literal">^D</code> (Control-D).
+</p>
+        <p>
+The latest version of the <span class="command"><strong>lintian</strong></span> command can be executed in
+the <code class="literal">chroot</code> environment using the hook script
+<code class="filename"><em class="replaceable"><code>/var/cache/pbuilder/hooks</code></em>/B90lintian</code>
+configured as follows:  <a href="#ftn.idp40551808" class="footnote" id="idp40551808"><sup class="footnote">[70]</sup></a>
+</p>
+        <pre class="screen">#!/bin/sh
+set -e
+install_packages() {
+        apt-get -y --force-yes install "$@"
+        }
+install_packages lintian
+echo "+++ lintian output +++"
+su -c "lintian -i -I --show-overrides /tmp/buildd/*.changes" - pbuilder
+# use this version if you don't want lintian to fail the build
+#su -c "lintian -i -I --show-overrides /tmp/buildd/*.changes; :" - pbuilder
+echo "+++ end of lintian output +++"
+</pre>
+        <p>
+You need to have access to the latest <code class="literal">sid</code> environment to
+build packages properly for <code class="literal">sid</code>.  In practice,
+<code class="literal">sid</code> may be experiencing issues which makes it undesirable
+for you to migrate your whole system.  The <code class="systemitem">pbuilder</code> package can help you to cope with this
+kind of situation.
+</p>
+        <p>
+You may need to update your <code class="literal">stable</code> packages after their
+release for <code class="literal">stable-proposed-updates</code>,
+<code class="literal">stable/updates</code>, etc.  <a href="#ftn.idp40558560" class="footnote" id="idp40558560"><sup class="footnote">[71]</sup></a> For such occasions, the fact you may be running a <code class="literal">sid</code>
+system is not a good enough excuse for failing to update them promptly.  The <code class="systemitem">pbuilder</code> package can help you to access
+environments of almost any Debian derivative distribution of the same 
+architecture.
+</p>
+        <p>
+See <a class="ulink" href="http://www.netfort.gr.jp/~dancer/software/pbuilder.html">http://www.netfort.gr.jp/~dancer/software/pbuilder.html</a>,
+<span class="citerefentry"><span class="refentrytitle">pdebuild</span>(1)</span>, <span class="citerefentry"><span class="refentrytitle">pbuilderrc</span>(5)</span>, and <span class="citerefentry"><span class="refentrytitle">pbuilder</span>(8)</span>.
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="git-buildpackage">6.5.&nbsp;<span class="command"><strong>git-buildpackage</strong></span> command and similars</a></h2><a id="git-buildpackage">
+            </a></div><a id="git-buildpackage">
+          </a></div><a id="git-buildpackage">
+        </a></div><a id="git-buildpackage">
+        </a><p><a id="git-buildpackage">
+If your upstream uses a source code management system (VCS)
+</a><a href="#ftn.idp40567328" class="footnote" id="idp40567328"><sup class="footnote">[72]</sup></a>
+to maintain their code, you should consider using it as well.  This makes merging
+and cherry-picking upstream patches much easier.  There are several specialized
+wrapper script packages for Debian package building for each VCS.
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+<code class="systemitem">git-buildpackage</code>: a suite to help with
+Debian packages in Git repositories.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+<code class="systemitem">svn-buildpackage</code>: helper programs to
+maintain Debian packages with Subversion.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+<code class="systemitem">cvs-buildpackage</code>: a set of Debian
+package scripts for CVS source trees.
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+Use of <code class="systemitem">git-buildpackage</code> is becoming quite popular for Debian Developers to manage Debian packages with the Git server on <a class="ulink" href="http://alioth.debian.org/">alioth.debian.org</a>. <a href="#ftn.idp40575920" class="footnote" id="idp40575920"><sup class="footnote">[73]</sup></a> This package offers many commands to <span class="emphasis"><em>automate</em></span> packaging activities:
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p> <span class="citerefentry"><span class="refentrytitle">git-import-dsc</span>(1)</span>: import a previous Debian package to a Git repository.</p>
+            </li>
+            <li class="listitem">
+              <p> <span class="citerefentry"><span class="refentrytitle">git-import-orig</span>(1)</span>: import a new upstream tar to a Git repository.</p>
+            </li>
+            <li class="listitem">
+              <p> <span class="citerefentry"><span class="refentrytitle">git-dch</span>(1)</span>: generate the Debian changelog from Git commit messages.</p>
+            </li>
+            <li class="listitem">
+              <p> <span class="citerefentry"><span class="refentrytitle">git-buildpackage</span>(1)</span>: build Debian packages from a Git repository.</p>
+            </li>
+            <li class="listitem">
+              <p> <span class="citerefentry"><span class="refentrytitle">git-pbuilder</span>(1)</span>: build Debian packages from a Git repository using <span class="command"><strong>pbuilder</strong></span>/<span class="command"><strong>cowbuilder</strong></span>.</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+These commands use 3 branches to track packaging activity:
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p> <code class="literal">main</code> for Debian package source tree.</p>
+            </li>
+            <li class="listitem">
+              <p> <code class="literal">upstream</code> for upstream source tree.</p>
+            </li>
+            <li class="listitem">
+              <p> <code class="literal">pristine-tar</code> for upstream tarball generated by the <code class="literal">--pristine-tar</code> option.<a href="#ftn.idp40594336" class="footnote" id="idp40594336"><sup class="footnote">[74]</sup></a> </p>
+            </li>
+          </ul>
+        </div>
+        <p>
+You can configure <code class="systemitem">git-buildpackage</code> with <code class="filename">~/.gbp.conf</code>. See <span class="citerefentry"><span class="refentrytitle">gbp.conf</span>(5)</span>.
+<a href="#ftn.idp40599296" class="footnote" id="idp40599296"><sup class="footnote">[75]</sup></a>
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="quickrebuild">6.6.&nbsp;Quick rebuild</a></h2><a id="quickrebuild">
+            </a></div><a id="quickrebuild">
+          </a></div><a id="quickrebuild">
+        </a></div><a id="quickrebuild">
+        </a><p><a id="quickrebuild">
+With a large package, you may not want to rebuild from scratch every time while
+you're tuning details in <code class="filename">debian/rules</code>.  For testing purposes,
+you can make a <code class="filename">.deb</code> file without rebuilding the upstream
+sources like this</a><a href="#ftn.idp40610640" class="footnote" id="idp40610640"><sup class="footnote">[76]</sup></a>:
+</p>
+        <pre class="screen">$ fakeroot debian/rules binary
+</pre>
+        <p>
+Or simply do the following to see if it builds or not:
+</p>
+        <pre class="screen">$ fakeroot debian/rules build
+</pre>
+        <p>
+Once you are finished with your tuning, remember to rebuild following the
+proper procedure.  You may not be able to upload correctly if you try to upload
+<code class="filename">.deb</code> files built this way.
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="hierarchy">6.7.&nbsp;Command hierarchy</a></h2><a id="hierarchy">
+            </a></div><a id="hierarchy">
+          </a></div><a id="hierarchy">
+        </a></div><a id="hierarchy">
+        <p>
+Here is a quick summary of how many commands to build packages fit together in the command hierarchy. There are many ways to do the same thing.
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p><code class="filename">debian/rules</code> = maintainer script for the package building</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>dpkg-buildpackage</strong></span> = core of the package building tool</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>debuild</strong></span> = <span class="command"><strong>dpkg-buildpackage</strong></span> + <span class="command"><strong>lintian</strong></span> (build under the sanitized environment variables)</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>pbuilder</strong></span> = core of the Debian chroot environment tool</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>pdebuild</strong></span> = <span class="command"><strong>pbuilder</strong></span> + <span class="command"><strong>dpkg-buildpackage</strong></span> (build in the chroot)</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>cowbuilder</strong></span> = speed up the <span class="command"><strong>pbuilder</strong></span> execution</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>git-pbuilder</strong></span> = the easy-to-use commandline syntax for <span class="command"><strong>pdebuild</strong></span> (used by <span class="command"><strong>gbp buildpackage</strong></span>)</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>gbp</strong></span> = manage the Debian source under the git repo</p>
+            </li>
+            <li class="listitem">
+              <p><span class="command"><strong>gbp buildpackage</strong></span> = <span class="command"><strong>pbuilder</strong></span> + <span class="command"><strong>dpkg-buildpackage</strong></span> + <span class="command"><strong>gbp</strong></span></p>
+            </li>
+          </ul>
+        </div>
+        <p>
+Although use of higher level commands such as <span class="command"><strong>gbp buildpackage</strong></span> and <span class="command"><strong>pbuilder</strong></span> ensures the perfect package building environment, it is essential to understand how lower level commands such as <code class="filename">debian/rules</code>  and <span class="command"><strong>dpkg-buildpackage</strong></span> are executed under them.
+</p>
+      </a></div><a id="hierarchy">
+      </a><div class="footnotes"><a id="hierarchy">
+        <br>
+        <hr>
+        </a><div id="ftn.idp40458336" class="footnote"><a id="hierarchy">
+          </a><p><a id="hierarchy"></a><a href="#idp40458336" class="para"><sup class="para">[64] </sup></a>
+This GPG key must be signed by a Debian developer to get connected to the web
+of trust and must be registered to <a class="ulink" href="http://keyring.debian.org/">the Debian
+keyring</a>.  This enables your uploaded packages to be accepted to the
+Debian archives.  See 
+<a class="ulink" href="http://keyring.debian.org/creating-key.html">Creating a new GPG key</a> and
+<a class="ulink" href="http://wiki.debian.org/Keysigning">Debian Wiki on Keysigning</a>.
+</p>
+        </div>
+        <div id="ftn.idp40472672" class="footnote">
+          <p><a href="#idp40472672" class="para"><sup class="para">[65] </sup></a> You can avoid applying
+<span class="command"><strong>quilt</strong></span> patches in the <code class="literal">3.0 (quilt)</code> source
+format at the end of the extraction with the <code class="literal">--skip-patches</code>
+option.  Alternatively, you can run <code class="literal">dquilt pop -a</code> after
+normal operation.  </p>
+        </div>
+        <div id="ftn.idp40493552" class="footnote">
+          <p><a href="#idp40493552" class="para"><sup class="para">[66] </sup></a> The actual autobuilder system involves much more complicated
+schemes than the one documented here.  Such details are beyond the scope of
+this document.  </p>
+        </div>
+        <div id="ftn.idp40510176" class="footnote">
+          <p><a href="#idp40510176" class="para"><sup class="para">[67] </sup></a> Unlike under the <code class="systemitem">pbuilder</code> package, the <span class="command"><strong>chroot</strong></span>
+environment under the <code class="systemitem">sbuild</code> package
+used by the autobuilder system does not enforce the use of a minimal
+system and may have many leftover packages installed.  </p>
+        </div>
+        <div id="ftn.idp40526368" class="footnote">
+          <p><a href="#idp40526368" class="para"><sup class="para">[68] </sup></a> Since the <code class="systemitem">pbuilder</code> package is still evolving, you should
+check the actual configuration situation by consulting the latest official
+documentation.</p>
+        </div>
+        <div id="ftn.idp40528496" class="footnote">
+          <p><a href="#idp40528496" class="para"><sup class="para">[69] </sup></a>See <a class="ulink" href="http://buildd.debian.org/">http://buildd.debian.org/</a> for more on
+Debian package auto-building.</p>
+        </div>
+        <div id="ftn.idp40551808" class="footnote">
+          <p><a href="#idp40551808" class="para"><sup class="para">[70] </sup></a> This assumes
+<code class="literal">HOOKDIR=/var/cache/pbuilder/hooks</code>.  You can find many
+examples of hook scripts in the
+<code class="filename">/usr/share/doc/pbuilder/examples</code> directory.  </p>
+        </div>
+        <div id="ftn.idp40558560" class="footnote">
+          <p><a href="#idp40558560" class="para"><sup class="para">[71] </sup></a> There are some
+restrictions for such updates of your <code class="literal">stable</code> package.
+</p>
+        </div>
+        <div id="ftn.idp40567328" class="footnote">
+          <p><a href="#idp40567328" class="para"><sup class="para">[72] </sup></a>See <a class="ulink" href="http://www.debian.org/doc/manuals/debian-reference/ch10#_version_control_systems">Version control systems</a> for more.</p>
+        </div>
+        <div id="ftn.idp40575920" class="footnote">
+          <p><a href="#idp40575920" class="para"><sup class="para">[73] </sup></a><a class="ulink" href="http://wiki.debian.org/Alioth">Debian wiki Alioth</a> documents how to use the <a class="ulink" href="http://alioth.debian.org/">alioth.debian.org</a>  service.</p>
+        </div>
+        <div id="ftn.idp40594336" class="footnote">
+          <p><a href="#idp40594336" class="para"><sup class="para">[74] </sup></a>The <code class="literal">--pristine-tar</code> option invokes the <span class="command"><strong>pristine-tar</strong></span> command which can regenerate an exact copy of a pristine upstream tarball using only a small binary delta file and the contents of the tarball, which are typically kept in an <code class="literal">upstream</code> branch in the VCS. </p>
+        </div>
+        <div id="ftn.idp40599296" class="footnote">
+          <p><a href="#idp40599296" class="para"><sup class="para">[75] </sup></a> Here are some web resources available for advanced audiences.  </p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist">
+              <li class="listitem">
+                <p> Building Debian Packages with git-buildpackage (<code class="filename">/usr/share/doc/git-buildpackage/manual-html/gbp.html</code>)</p>
+              </li>
+              <li class="listitem">
+                <p> <a class="ulink" href="https://honk.sigxcpu.org/piki/development/debian_packages_in_git/">debian packages in git</a> </p>
+              </li>
+              <li class="listitem">
+                <p> <a class="ulink" href="http://www.eyrie.org/~eagle/notes/debian/git.html">Using Git for Debian Packaging</a> </p>
+              </li>
+              <li class="listitem">
+                <p> <a class="ulink" href="http://git-dpm.alioth.debian.org/">git-dpm: Debian packages in Git manager</a> </p>
+              </li>
+              <li class="listitem">
+                <p> <a class="ulink" href="http://git.debian.org/?p=collab-maint/topgit.git;a=blob_plain;f=debian/HOWTO-tg2quilt;hb=HEAD">Using TopGit to generate quilt series for Debian packaging</a> </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="ftn.idp40610640" class="footnote">
+          <p><a href="#idp40610640" class="para"><sup class="para">[76] </sup></a> Environment variables which are normally
+configured to proper values are not set by this method.  Never create real
+packages to be uploaded using this <span class="strong"><strong>quick</strong></span>
+method.  </p>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr>
+      <table summary="Navigation footer" width="100%">
+        <tbody><tr>
+          <td align="left"><a accesskey="p" href="https://www.debian.org/doc/manuals/maint-guide/dother.en.html"><img src="prev.png" alt="Prev"></a>&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="right">&nbsp;<a accesskey="n" href="https://www.debian.org/doc/manuals/maint-guide/checkit.en.html"><img src="next.png" alt="Next"></a></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">Chapter&nbsp;5.&nbsp;Other files under the <code class="filename">debian</code> directory&nbsp;</td>
+          <td align="center">
+            <a accesskey="h" href="https://www.debian.org/doc/manuals/maint-guide/index.en.html">
+              <img src="home.png" alt="Home">
+            </a>
+          </td>
+          <td align="right" valign="top">&nbsp;Chapter&nbsp;7.&nbsp;Checking the package for errors</td>
+        </tr>
+      </tbody></table>
+    </div>
+  
+
+</body>
+</html>

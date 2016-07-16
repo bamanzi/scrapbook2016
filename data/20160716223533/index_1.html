@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+
+		<title>Monit Presentation</title>
+
+		<meta name="description" content="Easy, proactive monitoring of processes, programs, files, directories and filesystems">
+		<meta name="author" content="Tildeslash">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		
+		
+
+		<!-- For syntax highlighting -->
+		
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	
+<link rel="stylesheet" type="text/css" href="index_1.css" media="all">
+</head>
+
+	<body>
+
+		<div data-background-transition="slide" data-transition-speed="default" id="slideshow" class="reveal linear center">
+			<!-- Any section element inside of this container is displayed as a slide -->
+
+            <!-- Slides exported from https://slid.es/tildeslash/monit -->
+
+<div style="width: 1024px; height: 700px; transform: translate(-50%, -50%) scale(0.793286) translate(50%, 50%);" class="slides">
+    
+    <section class="present" style="top: -275.5px; display: block;" data-background-size="cover" data-background-color="#ecf0f1" data-background-image="img/logo2.jpg" data-background-position="0px">
+        <div style="margin-left: 30%; margin-top: -4%; text-align: left;">
+            <h3 style="color: rgb(17, 17, 17); font-size: 48px;">Up and running in 15 minutes!</h3>
+            <p style="color: rgb(149, 165, 166); font-size: 34px; text-shadow: none;">
+                With all features needed for system monitoring and error recovery. It's like having a watchdog with a toolbox on your server
+            </p>
+        </div>
+        <div class="paginate-right" style="top: 41%;"></div>
+        <div style="margin-left: 30%; margin-top: 15%; text-align: left;">
+            <div style="display: inline-block;">
+                <h1 style="margin-bottom: 0px; display: inline-block;">
+                    MONIT
+                </h1>
+                <p style="color: rgb(149, 165, 166); text-shadow: none; font-size: 34px; text-align: right;">
+                    Barking at daemons
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="future" style="top: -174px; display: block;" hidden="">
+        <h2>
+            A birds-eye view of Monit
+        </h2>
+        <p style="margin-top: 60px;"></p>
+        <p>
+            Use your keyboard arrows to navigate or swipe on mobile
+        </p>
+        <br>
+        <p style="font-size: 22px; width: 90%; margin: auto; color: rgb(153, 153, 153);">
+            Some examples in this presentation might only work with a recent version of Monit. Please download Monit below or use your
+            package manager to install the latest version.
+        </p>
+    </section>
+    
+    <!-- <section>
+        <a href="http://mmonit.com/monit/#download"><img src="img/down.png"></a>
+        <p style="margin-top:20px">
+            Download either source or binary below, or use your package manager to install a recent version of Monit.
+        </p>
+    </section> -->
+    
+    <section class="future" style="top: -177.5px; display: block;" hidden="">
+        <h2>What to monitor?</h2>
+        <p style="margin-top: 70px;"></p>
+        <img src="services.png">
+    </section>
+    
+    <section class="future" style="top: -198.5px; display: block;" data-background-size="contain" data-background-color="rgba( 50, 200, 90, 0.4 )" hidden="">
+        <h2 class="inverted">
+            How to monitor?
+        </h2>
+        <p style="margin-top: 60px;">
+            Monit is controlled via an easy to configure control file with a simple syntax. The file is called <font color="#ffffff">monitrc</font> and
+            resides in your home directory.
+        </p>
+        <p style="text-align: center;">
+            <font style="font-size: 18px;">
+                An example <span style="color: rgb(255, 255, 255);">monitrc</span> file is included with the Monit download. Open it in your favourite editor and follow along..
+            </font>
+        </p>
+    </section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>Starting and stopping</h2>
+        <p style="margin-top: 50px;"></p>
+<div class="page" title="Page 6">
+    <div class="layoutArea">
+        <div class="column">
+            <div class="page" title="Page 6">
+                <div class="layoutArea">
+                    <div class="column">
+                        <p style="text-align: left;">
+                            Start Monit from the command line:
+                            </p>
+                            <p style="text-align: left; margin: 25px 0px;">
+                                <span style="font-family: Courier;">$ </span>
+                                <span style="font-family: Courier;">
+<font color="#980000">monit</font>
+</span>
+                            </p>
+                            <div style="text-align: justify;">
+                                <span>Monit will detach from the terminal and run as a&nbsp;daemon process (background process). As
+                                a daemon, Monit runs in cycles; It monitors services, then goes to sleep for a configured period,
+                                wakes up and start monitoring again in an endless loop until you choose to stop monit by this
+                                command:</span>
+                                </div>
+                                <p style="text-align: left; margin: 25px 0px;">
+                                    <span style="font-family: Courier;">$ </span>
+                                    <span style="font-family: Courier;">
+<font color="#980000">monit quit</font>
+</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+    <!-- <section>
+            <h2>Test your configuration</h2>
+        <p style="margin-top:60px;text-align: left">
+            Before monit is started the first time, you can test the control file for syntax errors, using the -t switch:
+        </p>
+        <p style="text-align: left; margin:20px auto;">
+              <span style="font-family:Courier;color:#980000;font-size:32px;"><font color="black">$</font>  monit -t</span></br>
+             <span style="font-family:Courier;font-size:32px;">$ Control file syntax OK</span>
+         </p>
+        <p style="text-align: left; ">
+            If there was an error, monit will print an error message to the console, including the line number in the control file from where the error was found.
+            Testing the control file like this, is also useful whenever it has been modified
+        </p>
+    </section> -->
+
+
+    <section class="future" style="top: -20px; display: none;" hidden="">
+        <h2>
+            User Interface
+        </h2>
+        <p style="margin-top: 60px;">
+            In addition to the command line interface, Monit also provides a super lightweight Web-Interface you can use to check the status of
+            all monitored services
+        </p>
+        <img src="webui.png">
+    </section>
+
+
+<section class="future" style="top: -20px; display: none;" data-background-color="rgba( 12, 25, 77, 0.6)" data-background-image="img/map.png" hidden="">
+    <h2 style="border: 8px solid white; padding: 30px; display: inline-block;">
+    <font color="#ffffff">Configuration Examples</font>
+</h2>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2 style="text-align: center;">Is your website up?</h2>
+    <p style="margin-top: 60px;"></p>
+    <pre style="margin: 30px auto;"><code>(1) check host mmonit.com with address mmonit.com
+(3)       if failed port 80 protocol <font color="#ffd966">http</font> then alert
+(4)       if failed port 443 protocol <font color="#ffd966">https</font> then alert</code></pre>
+    <ol>
+        <li>Connects to and test the host mmonit.com</li>
+        <li>Test using the HTTP protocol, if this fails, raise an alert</li>
+        <li>Do the same test using HTTPS</li>
+    </ol>
+    <p style="margin-top: 40px; text-align: justify;">
+        You can add as many host checks as you need. Basically you can create your own <a href="https://www.pingdom.com/" target="_blank"> pingdom</a> and if you
+        use <a href="http://mmonit.com/" target="_blank">M/Monit</a> you will also get the ping and response-time charts.
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>Check a section on your site</h2>
+        <p style="margin-top: 60px;"></p>
+<pre style="margin: 30px auto;"><code>check host mmonit.com with address mmonit.com
+      if failed
+         port 80 protocol <font color="#ffd966">http</font>
+         and status = 200
+         and request /monit/ with content = "Monit [0-9.]+"
+      then alert</code></pre>
+<div style="text-align: center;">Same as before, connect to mmonit.com on the HTTP port, but this time we check the HTTP status code returned
+by the server and request a specific page,&nbsp;<font color="#980000">/monit/</font>&nbsp;and test if a text string is present in the page. Note that you can use <font color="#980000">regular
+expression</font> in the test. If any of the above checks fails, we raise an alert</div>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+<h2 style="text-align: center;">..and your mail server?</h2>
+        <p style="margin-top: 60px;"></p>
+<pre style="margin: 50px auto;"><code>check host smtp.example.com with address smtp.example.com
+      if failed port 25 with protocol <font color="#ffd966">smtp</font> then alert</code></pre>
+<p>See the pattern? A simple check against a host address on the <a href="http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers" target="_blank">service port</a> and then the protocol to test.
+Here's another example where we check a MySQL server on localhost. In this case we also
+ping the host first to check that it is up
+</p>
+<pre style="margin: 50px auto;"><code>check host localhost with address 127.0.0.1
+      if failed ping then alert        
+      if failed port 3306 protocol <font color="#ffd966">mysql</font> then alert</code></pre>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="rgba( 22, 152, 213, 0.6 )" hidden="">
+    <h2 class="inverted">Protocols</h2>
+        <p style="margin-top: 50px;"></p>
+<div style="text-align: justify; margin-bottom: 30px;">Monit supports many of the most popular protocols on the internet today, such as HTTP, SMTP, FTP, LDAP,
+NTP, SSH, SIP, IMAP, POP, DNS etc. Testing a server at the protocol level is <i>important</i> to determine if the server is working properly. Monit also provides a general <font color="#ffffff">send/expect</font> test for sending bytes to the
+server and testing the response. Here, for instance, we use send/expect to test a mail server:</div>
+<pre><code>if failed port 25 and
+    <font color="#ffd966">expect</font>  "^220.*"
+    <font color="#ffd966">send</font>    "HELO localhost.localdomain\r\n"
+    <font color="#ffd966">expect</font>  "^250.*"
+    <font color="#ffd966">send</font>    "QUIT\r\n"
+then alert</code></pre>
+<p style="text-align: left;">
+<br>
+</p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#e7ecee" hidden="">
+<h2 style="text-align: center;">Check SSL certificate</h2>
+        <p style="margin-top: 60px;"></p>
+<pre style="margin: 50px auto;"><code>check host mmonit.com with address mmonit.com
+      if failed
+         port 443
+         with protocol https
+         and certificate valid &gt; <font color="#ffd966">30</font> days
+         use ssl options {verify: enable}
+      then alert</code></pre>
+<p style="text-align: left;">I almost always forget to renew our SSL certificate, although I use the calendar to remind me. With
+the above test, Monit will remind me if the certificate at mmonit.com will expire within the next 30 days and continue to remind me with
+a red color in the UI. For good measure I also verify the SSL certificate so I know I'm testing the mmonit.com server</p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#2c3e50" hidden="">
+    <h2 style="border: 8px solid white; padding: 30px 40px; display: inline-block;">
+<font color="#ffffff">Processes</font>
+</h2>
+</section>
+
+
+<section class="future" data-background-color="white" style="color: rgb(127, 140, 141); top: -20px; display: none;" hidden="">
+<div style="text-align: center;">
+    If your web-site is down, getting an alert is all well and good, <font color="#34495e"> but it is much more useful if you can also have it
+    automatically fixed, especially at 04 AM. Monit can do that. </font>
+</div>
+</section>
+
+    <section class="future" style="top: -20px; display: none;" hidden="">
+        <h2>Checking a Process</h2>
+        <p style="margin-top: 50px;"></p>
+<p style="text-align: left;">For this example, let us assume that your web-server is Apache, if not, no worries, the same applies to any process. Here is how we can check if Apache is running</p>
+<pre style="margin: 30px auto;"><code>check <font color="#66ccff">process</font> apache with pidfile /var/run/httpd.pid </code></pre>
+<p style="text-align: left;">That's all, Monit will check the process id (pid) in the given pid file and consult the system's process table and check if the process exist. If not,&nbsp;Monit will raise an alert. Next, we'll see how Monit can be configured to automatically start or restart Apache if it is not running.</p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>Automatically start a Process</h2>
+    <p style="margin-top: 50px;"></p>
+<pre style="margin: 30px auto;"><code>check process apache with pidfile /var/run/httpd.pid
+      <font color="#66ccff">start program</font> = "/etc/init.d/apache2 start"
+      <font color="#66ccff">stop  program</font> = "/etc/init.d/apache2 stop"</code></pre>
+<p style="text-align: left;">Tell Monit which program it should use to start the process if it is not running. We also add a stop
+program in case we would like to use Monit to stop the Apache process. What is useful here is that these programs
+already exist on your system as <font color="#980000">init, upstart </font> or <font color="#980000">systemd</font> scripts and you do not have
+to write them yourself.</p> <p style="text-align: left; margin-top: 30px;">Now, if the Apache process should stop for some reason, Monit will
+call the start program to automatically start Apache again.
+</p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>Restart a Process</h2>
+        <p style="margin-top: 50px;"></p>
+<div style="text-align: left;">If you call help desk, the first thing they will tell you, is to restart your machine. It sounds silly,
+but more often than not, it works. Monit can do the same and try to restart a process if it does not work as expected. Here we add a
+restart program and we use this to restart Apache if it runs, but for some reasons Apache has stopped accepting new connections or no longer speaks HTTP </div> <p style="margin-top: 30px;"></p>
+<pre><code>check process apache with pidfile /var/run/httpd.pid
+      <font color="#66ccff">restart program</font>  = "/etc/init.d/apache2 restart"
+      if failed port 80 protocol http then <font color="#f6b26b">restart</font></code></pre>
+<div style="text-align: left; color: rgb(119, 119, 119);">
+If we already have start and stop defined, we can call restart without having to add a restart program. Monit will then call stop and then start. Although a dedicated restart program is often desired as it might be a different operation 
+</div>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>
+    Avoid false positives
+</h2>
+        <p style="margin-top: 50px;"></p>
+<div style="text-align: left;">Before we restart a process, we <i>might</i> want to be certain that it has a problem and not just a
+fluke. This can be done by telling Monit that the problem must exist over multiple checks before a restart is performed.</div>
+<pre style="margin: 30px auto;"><code>if failed port 80 protocol http <font color="#f6b26b">for 2 cycles</font> then restart</code></pre>
+<div style="text-align: left;">
+    Remember that Monit runs in check-sleep <font color="#980000">cycles</font>. In the above example we tell Monit that the connection or
+    protocol test has to fail at least 2 consecutive times before the process is restarted
+</div>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>Checked Resource Usage</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        You can check resources used by a process and perform actions if values goes outside specific bounds
+    </p>
+    <pre style="margin: 30px auto;"><code>check process apache with pidfile /var/run/httpd.pid
+      &lt;...&gt;
+      if <font color="#66ccff">cpu</font> &gt; 95% for 2 cycles then alert
+      if <font color="#66ccff">total cpu</font> &gt; 99% for 5 cycles then restart
+      if <font color="#66ccff">memory</font> &gt; 50 MB then alert
+      if <font color="#66ccff">total memory</font> &gt; 500 MB then restart</code></pre>
+    <p style="text-align: left;">
+        In the above example we check the following resources, <i>cpu, memory, total cpu</i> (this, plus child processes cpu usage) and <i>total memory</i> (the
+        combined memory used by this and child processes). See the manual for even more resources that can be checked.
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" hidden="">
+    <h2>Managing Services</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+    Having start, stop and restart programs defined for a service is convenient if Monit is used from the command line. For instance to
+    shutdown a set of services graceful at once we can use
+    </p>
+    <p style="text-align: left; margin: 30px auto;">
+        <span style="font-family: Courier;">$&nbsp;<font color="#980000">monit -g www stop</font>
+    </span>
+    </p>
+    <p style="text-align: left;"> The above command line will call the stop program of all services belonging to the group <font color="980000">www</font>, which is quite useful for system administration. You can of course do the same to start or restart a single service or a group
+    of services.</p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="rgba( 200, 50, 30, 0.6 )" hidden="">
+    <h2 class="inverted">
+        Avoid alert spam
+    </h2>
+    <p style="margin-top: 50px;"></p>
+<p style="text-align: left;">Monit, like any monitoring system really, can be noisy and send a lot of email alerts. This can be very
+annoying, but luckily you can take steps to prevent this. Your primary tool for tuning Monit is the <font color="#ffffff">for n cycles</font>
+statement</p>
+<pre style="margin: 30px auto;"><code>if total memory &gt; 500 MB <font color="#66ccff">for 3 cycles</font> then alert </code></pre>
+
+<p style="text-align: left;">
+    Use this statement with <i>if-tests</i> that produces too many alerts. How many cycles you should wait, if any, depends
+    on the importance and stability of the service and how long a cycle is
+</p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#2c3e50" data-transition="fade" hidden="">
+    <h2 style="border: 8px solid white; padding: 30px; display: inline-block;">
+        <font color="#ffffff">Files, Directories and Disks</font>
+    </h2>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#a1daac" hidden="">
+    <h2 class="inverted">Monitoring Files</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        To keep with the Apache example. Let's say we want to test and perform a
+        log rotate if Apache's <i>access.log</i> becomes too large
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">file</font> access.log with path /var/log/apache2/access_log
+      if size &gt; 250 MB then exec "/usr/sbin/logrotate -f apache"</code></pre>
+    <p style="text-align: left;">
+        Normally you will run the logrotate program once per day from <i>crond</i>, but if the log file suddenly should grow very large, Monit can perform an
+        “emergency” rotate.
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#73dd8b" hidden="">
+    <h2 class="inverted">Checked File Changes</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        For security reasons you may want to monitor files for changes and get a notification if a file was tampered with (i.e. changed). The
+        way to do this is to use the check file statement and utilize a checksum test. You can also test other attributes, such as file owner and
+        file access permissions</p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">file</font> apache with path /usr/sbin/httpd
+      if failed <font color="#f6b26b">checksum</font> then alert 
+      if failed <font color="#f6b26b">uid</font> root then alert
+      if failed <font color="#f6b26b">gid</font> root then alert
+      if failed <font color="#f6b26b">permission</font> 755 then alert</code></pre>
+    <p style="text-align: left;">
+        Here we test the  apache binary. The checksum test in line 2 will raise an alert if the binary was changed
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#75bcdc" hidden="">
+    <h2 class="inverted">Monitoring directories</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        Directories can be monitored for changes. In this example we use timestamp to alert if content was added or removed
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">directory</font> certificates with path /etc/ssl/certs/
+      if changed timestamp then alert</code></pre>
+    <p style="text-align: left;">
+        You can also turn the table and monitor a directory that <i>should</i> change 
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">directory</font> incomming with path /var/data/ftp
+      if timestamp &gt; 1 hour then alert</code></pre>
+    <p style="text-align: left;">
+        If your server spool incomming data on a regular basis, an alert can be raised if no new data has arrived in the last hour
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#f5f5f5" hidden="">
+    <h2>Monitoring Filesystems</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        Monitor a hard disk or a filesystem and raise alerts if the device is about to run out of available space
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">filesystem</font> disk2 with path /dev/disk2
+      if space usage &gt; 95% then alert</code></pre>
+    <p style="text-align: left;">
+        Using <a href="http://mmonit.com/" target="_blank">M/Monit</a> you can then also view charts of your disks and predict when it is time to invest in
+        more space
+    </p>
+    <img src="mmonit-disk.png">
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#2c3e50" hidden="">
+    <h2 style="border: 8px solid white; padding: 30px; display: inline-block;">
+        <font color="#ffffff">Network</font>
+    </h2>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#f1c40f" hidden="">
+    <h2>Check Network Interfaces</h2>
+    <p style="margin-top: 50px;"></p>
+    <p style="text-align: left; color: black;">
+        Monitor your network interfaces to be the first to know what is going in and out. Get an alert if the interface is down, or if the capacity
+        changes. Monitor saturation, current upload and download bandwidth usage and total data transfers within the last 24 hours.
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">network</font> eth0 with <font color="orange">interface</font> eth0
+      if failed link then alert
+      if changed link then alert</code></pre>
+    <p style="text-align: left; color: black;">
+        The above will check if the network interface is up and if the link capacity is stable (for example if the mode unexpectedly drops from
+        1Gb/s to 10Mb/s, you will know).
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#f1c40f" hidden="">
+    <h2>Network Problems?</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left; color: black;">
+        In case of a problem you can add a start and stop program to automatically restart the interface which might help. (Substitute with the relevant network commands for your system)
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">network</font> eth0 with <font color="orange">address</font> 10.0.1.3
+      start program = '/sbin/ifup eth0'
+      stop program = '/sbin/ifdown eth0'
+      if failed link then restart</code></pre>
+    <p style="text-align: left; color: black;">
+        If the interface should fail, Monit will now automatically attempt restart and alert you. By adding a start and a stop program you can also restart the network interface from the Monit GUI.
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#f39c12" hidden="">
+    <h2 style="color: black;">Network Usage</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left; color: black;">
+        Check network utilization, bandwidth usage, current transfer rate and total data transferred within the last 24 hours.
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">network</font> en0 with <font color="orange">address</font> "fe80::aa20:66ff:fe50:4f6%en0"
+      if failed link then alert
+      if changed link then alert
+      if saturation &gt; 80% then alert
+      if total upload &gt; 10 GB in last hour then exec "/usr/local/bin/script.sh"</code></pre>
+    <p style="text-align: left; color: black;">
+        Monit maintains a rolling count of total uploaded and downloaded bytes for the last 24 hours. In the above example we also show that instead of just sending an alert, you can execute a script if you choose. If you use <a href="http://mmonit.com/">M/Monit</a> together with Monit, you can view time-serie charts of your network which can be very useful
+    </p>
+</section>
+
+<section class="future" style="top: -20px; display: none;" data-background-color="#2c3e50" hidden="">
+    <h2 style="border: 8px solid white; padding: 30px; display: inline-block;">
+        <font color="#ffffff">Programs</font>
+    </h2>
+</section>
+
+<section class="future" style="top: -347.5px; display: block;" hidden="">
+    <h2>Check Programs</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        Monit can execute a program and perform an action if the exit value indicates an error. This means that you can use Monit to perform
+        basically any type of check you can write a script for. For instance, lets say you have a script that connects to MySQL and runs a
+        query. If everything is okay, the script exit with 0 otherwise with 1
+    </p>
+    <pre style="margin: 30px auto;"><code>check <font color="#66ccff">program</font> salesreport with path /var/monit/programs/sales.sh
+      every "* 8 * * 1-5"
+      if status != 0 then alert</code></pre>
+    <p style="text-align: left;">
+        This will run the sales report check every weekday between 8AM and 9AM. Please see the manual for more information
+    </p>
+</section>
+
+
+<section class="future" style="position: relative; top: -350px; display: block;" hidden="">
+    <h2>Output from check program</h2>
+        <p style="margin-top: 50px;"></p>
+    <p style="text-align: left;">
+        The output from your <i>check program</i> script is displayed in the Monit UI. In the <i>dashboard</i>, only the first line is displayed.
+    </p>
+    <img src="output-dashboard.png">
+    <p style="text-align: left;">
+        In the <i>service details</i> page, up to 1kB is displayed and if output goes over several lines, a mono-spaced font is used to retain
+        formating. Here for example, we display the output of running top and sensors (press right-arrow).
+    </p>
+    <img data-fragment-index="0" class="fragment roll-in" src="output-details.png" style="position: absolute; top: 120px; left: 64px;" width="906">
+    <img data-fragment-index="1" class="fragment roll-in" src="output-2.png" style="position: absolute; top: 120px; left: 64px;" width="906">
+</section>
+
+
+<section class="future" style="top: -117.5px; display: block;" data-background-image="img/iceberg.jpg" hidden="">
+    <h2 style="border: 8px solid white; padding: 30px 40px; display: inline-block;">
+<font color="#ffffff">just the tip</font>
+</h2>
+</section>
+
+
+</div>
+
+		<div class="backgrounds"><div style="background-size: cover; background-image: url(&quot;logo2.jpg&quot;); background-color: rgb(236, 240, 241); background-position: 0px center;" data-background-hash="nullcoverimg/logo2.jpg#ecf0f1null0pxnull" class="slide-background present"></div><div class="slide-background future"></div><div class="slide-background future"></div><div style="background-size: contain; background-color: rgba(50, 200, 90, 0.4);" data-background-hash="nullcontainnullrgba( 50, 200, 90, 0.4 )nullnullnull" class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div style="background-image: url(&quot;map.png&quot;); background-color: rgba(12, 25, 77, 0.6);" data-background-hash="0img/map.pngrgba( 12, 25, 77, 0.6)nullnullnull" class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div style="background-color: rgba(22, 152, 213, 0.6);" data-background-hash="0rgba( 22, 152, 213, 0.6 )nullnullnull" class="slide-background future"></div><div style="background-color: rgb(231, 236, 238);" data-background-hash="0#e7eceenullnullnull" class="slide-background future"></div><div style="background-color: rgb(44, 62, 80);" data-background-hash="0#2c3e50nullnullnull" class="slide-background future"></div><div style="background-color: white;" data-background-hash="0whitenullnullnull" class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div style="background-color: rgba(200, 50, 30, 0.6);" data-background-hash="0rgba( 200, 50, 30, 0.6 )nullnullnull" class="slide-background future"></div><div style="background-color: rgb(44, 62, 80);" data-background-hash="0#2c3e50nullnullnull" class="slide-background future"></div><div style="background-color: rgb(161, 218, 172);" data-background-hash="0#a1daacnullnullnull" class="slide-background future"></div><div style="background-color: rgb(115, 221, 139);" data-background-hash="0#73dd8bnullnullnull" class="slide-background future"></div><div style="background-color: rgb(117, 188, 220);" data-background-hash="0#75bcdcnullnullnull" class="slide-background future"></div><div style="background-color: rgb(245, 245, 245);" data-background-hash="0#f5f5f5nullnullnull" class="slide-background future"></div><div style="background-color: rgb(44, 62, 80);" data-background-hash="0#2c3e50nullnullnull" class="slide-background future"></div><div style="background-color: rgb(241, 196, 15);" data-background-hash="0#f1c40fnullnullnull" class="slide-background future"></div><div style="background-color: rgb(241, 196, 15);" data-background-hash="0#f1c40fnullnullnull" class="slide-background future"></div><div style="background-color: rgb(243, 156, 18);" data-background-hash="0#f39c12nullnullnull" class="slide-background future"></div><div style="background-color: rgb(44, 62, 80);" data-background-hash="0#2c3e50nullnullnull" class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div style="background-image: url(&quot;iceberg.jpg&quot;);" data-background-hash="0img/iceberg.jpgnullnullnullnull" class="slide-background future"></div></div><div style="display: block;" class="progress"><span style="width: 0px;"></span></div><aside style="display: none;" class="controls"><div class="navigate-left"></div><div class="navigate-right enabled"></div><div class="navigate-up"></div><div class="navigate-down"></div></aside><div class="slide-number"></div><div class="state-background"></div><div class="pause-overlay"></div></div>
+
+		
+		
+        
+        
+        
+        
+        
+	
+
+
+</body>
+</html>
