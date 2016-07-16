@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!-- No not edit this page in the web directory. --><head>
+<meta charset="UTF-8">
+
+<title>UMLGraph - Declarative Drawing of UML Diagrams</title>
+<meta name="AUTHOR" content="Diomidis Spinellis">
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<table>
+<tbody><tr>
+<td valign="top">
+<img alt="UMLGraph banner" src="umlgraph-banner.png" align="left" border="0" hspace="12">
+<br clear="left">
+<br>
+<br>
+<p class="menu"><br></p>
+<p class="selmenu"><a class="menu" href="http://www.umlgraph.org/index.html">About</a></p>
+<p class="menu"><a class="menu" href="http://www.umlgraph.org/download.html">Download</a></p>
+<p class="menu"><a class="menu" href="http://www.umlgraph.org/doc.html">Documentation</a></p>
+<p class="menu"><a class="menu" href="http://www.umlgraph.org/faq.html">FAQ</a></p>
+<p class="menu"><a class="menu" href="http://www.umlgraph.org/ver.html">History</a></p>
+<p class="menu"><a class="menu" href="http://www.umlgraph.org/deriv.html">Links</a></p>
+<p class="menu"><a class="menu" href="http://www.umlgraph.org/ack.html">Credits</a></p>
+<p class="menu"><br></p>
+</td><td>
+</td><td>
+<h1>Automated Drawing of UML Diagrams</h1>
+<a href="https://github.com/dspinellis/UMLGraph"> <img style="position: absolute; top: 0px; right: 0px; border: 0px none;" src="forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
+ <!-- Introduction {{{1 -->
+<p>
+UMLGraph allows the declarative specification and drawing of
+UML class and sequence diagrams.
+The current features
+are part of an ongoing effort aiming to provide support for
+all types UML diagrams.
+An <em>IEEE Software</em> article titled
+<a href="http://www.spinellis.gr/pubs/jrnl/2003-IEEESW-umlgraph/html/article.html">On the declarative specification of models</a>
+explains the rationale behind this approach.
+The tehnology behind UMLGraph was used to draw many of the diagrams
+appearing in the award-winning books
+<a href="http://www.spinellis.gr/codequality">Code Quality: The Open Source Perspective</a> (Addison Wesley, 2006) and
+<a href="http://www.spinellis.gr/codereading">Code Reading: The Open Source Perspective</a> (Addison Wesley, 2003).
+In addition,
+the <em>UMLGraphDoc</em> doclet included in this distribution automatically
+adds UML diagrams to javadoc documentation.
+</p>
+
+<p>
+Many programs build on UMLGraph; follow <a href="http://www.umlgraph.org/doc/deriv.html">this link</a>
+for more details.
+</p>
+
+<div style="clear: both;">
+<p>
+<a href="http://www.amazon.com/exec/obidos/ASIN/020165783X/dds-20"><img src="umld.jpg" alt="UML Distilled" style="float: left; vertical-align: middle; margin-right: 2em; border-width: thin;" border="0"></a>
+<a href="http://martinfowler.com/">Martin Fowler</a>, the author of
+<a href="http://www.amazon.com/exec/obidos/ASIN/020165783X/dds-20">UML Distilled</a>, writes:
+</p>
+<blockquote>
+I thought I'd send you a note saying how much I enjoyed discovering UML Graph.
+I've <a href="http://martinfowler.com/bliki/UmlSketchingTools.html">long fancied a text based way of describing UML diagrams</a>,
+but never felt sufficiently time-rich to develop anything.
+</blockquote>
+</div>
+
+<p style="clear: both;">
+<a href="http://www.amazon.com/dp/0596527934/?tag=dds-20"><img src="jpt.jpg" alt="Java Power Tools" style="float: left; vertical-align: middle; margin-right: 2em; border-width: thin;" border="0"></a>
+UMLGraph is also described in O'Reilly's <a href="http://www.amazon.com/dp/0596527934/?tag=dds-20">Java Power Tools</a> book.
+</p>
+
+<p style="clear: both;"></p>
+<h2>Class Diagrams</h2> <!-- {{{1 -->
+One specifies a class diagram using the Java syntax complemented by
+<a href="https://en.wikipedia.org/wiki/Javadoc"><em>javadoc</em></a>
+tags.
+Running the UmlGraph doclet on the specification will generate
+a
+<a href="http://www.graphviz.org/">Graphviz</a>
+diagram specification that can be automatically processed to
+create Postscript, GIF, SVG, JPEG, fig, or Framemaker drawings.
+<p>
+The following is an example of a class diagram specification and the resulting UML
+diagram:
+</p><table>
+<tbody><tr><td>
+<pre>class Person {
+	String Name;
+}
+
+class Employee extends Person {}
+
+class Client extends Person {}
+</pre>
+</td><td>
+<img src="class-eg.gif" alt="Simple UML class diagram">
+</td></tr></tbody></table>
+
+<h2>Sequence Diagrams</h2> <!-- {{{1 -->
+One specifies a sequence diagram using <em>pic</em> macros to define
+objects and method invocations.
+The <a href="http://www.gnu.org/software/plotutils/plotutils.html">GNU plotutils</a>
+<em>pic2plot</em> program can then process the sequence diagram to create a
+PNG, PNM, (pseudo)GIF, SVG, AI, Postscript, CGM, FIG, PCL, HPGL, Regis, or TEK
+drawing.
+<p>
+The following is an example of a sequence diagram specification and the
+resulting UML diagram:
+</p><table>
+<tbody><tr><td>
+<pre># Define the objects
+object(O,"o:Toolkit");
+placeholder_object(P);
+step();
+
+# Activation and messages
+active(O);
+message(O,O,"callbackLoop()");
+create_message(O,P,"p:Peer");
+message(O,P,"handleExpose()");
+active(P);
+return_message(P,O,"");
+inactive(P);
+destroy_message(O,P);
+inactive(O);
+
+# Complete the lifeline of O
+step();
+complete(O);
+</pre>
+</td><td>
+<img src="seq-eg.gif" alt="Simple UML sequence diagram">
+</td></tr></tbody></table>
+
+</td></tr></tbody></table>
+<hr>
+<p class="footer">
+<a href="http://validator.w3.org/check/referer"><img src="valid-xhtml10.png" alt="Valid XHTML 1.0!" align="left" border="0" height="31" hspace="4" width="88"></a>
+<a href="http://www.w3.org/WAI/WCAG1AAA-Conformance" title="Explanation of Level Triple-A Conformance"><img src="wcag1AAA.gif" alt="Level Triple-A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0" align="left" border="0" height="32" hspace="4" width="88"></a>
+<!--Creative Commons License--><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/gr/deed.en"><img alt="Creative Commons License" style="border-width: 0px;" src="somerights20.png" align="left" hspace="4"></a>
+Unless otherwise expressly stated, all original material on this page created by Diomidis Spinellis is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/gr/deed.en">Creative Commons Attribution-Share Alike 3.0 Greece  License</a>.
+<br>
+Last modified: Wed Oct 29 09:23:04 2014 +0200
+</p>
+
+
+</body>
+</html>
