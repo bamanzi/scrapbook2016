@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- 2016-05-20 Fri 12:12 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Source Code Blocks in Org Mode</title>
+<meta name="generator" content="Org-mode">
+<meta name="author" content="Gary Oberbrunner">
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<div id="preamble" class="status">
+
+</div>
+<div id="content">
+<h1 class="title">Python Source Code Blocks in Org Mode</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">Introduction</a></li>
+<li><a href="#orgheadline2">Requirements and Setup</a></li>
+<li><a href="#orgheadline8">Org Mode Features for Python Source Code Blocks</a>
+<ul>
+<li><a href="#orgheadline5">Header Arguments</a></li>
+<li><a href="#orgheadline6">Sessions</a></li>
+<li><a href="#orgheadline7">Result Types</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">Examples of Use</a></li>
+<li><a href="#orgheadline10">Caveats</a>
+<ul>
+<li><a href="#orgheadline11">passing utf-8 strings to python</a></li>
+<li><a href="#orgheadline12">passing utf-8 strings to python with workaround</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="subtitle" style="text-align: center;">
+<p>
+Org Mode support for <a href="http://python.org/">Python</a>
+</p>
+<p>
+<a href="http://python.org/">
+<img src="python-logo.gif">
+</a>
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Introduction</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+Python is a high-level, readable, interpreted language which can be
+used for many common computing tasks.  It runs on most modern
+operating systems.  Python source code blocks are fully supported in
+Org Mode with a wide variety of Python-specific header arguments.
+</p>
+
+<p>
+Python source code blocks in Org Mode can be used to define functions,
+filter and analyze data, create graphics and figures, and produce
+reproducible research papers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">Requirements and Setup</h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<p>
+Python source code blocks in Org Mode require a working python installation.
+Python is included in Mac OS X and often in Gnu/Linux, and is easily
+available for Windows.  Python installers are located at
+the <a href="http://www.python.org/download/">Python download site</a>.
+</p>
+
+<p>
+Org Mode supports graphical output for LaTeX and HTML documents using
+<a href="http://matplotlib.org/">Matplotlib</a>.
+</p>
+
+<p>
+To configure your emacs org-mode to use python, you'll need to ensure
+that <code>org-babel-load-languages</code> includes an entry for it.
+Typically, <code>org-babel-load-languages</code> will contain many entries.  The
+example below omits other languages.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8">Org Mode Features for Python Source Code Blocks</h2>
+<div class="outline-text-2" id="text-orgheadline8">
+</div><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Header Arguments</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+</div><div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3">Language-Specific Header Arguments</h4>
+<div class="outline-text-4" id="text-orgheadline3">
+<ul class="org-ul">
+<li><code>:results {output, value}</code>: Value mode is the default (as with
+other languages).  In value mode you can use the following subtypes:
+<ul class="org-ul">
+<li><code>raw</code>: value is inserted directly</li>
+<li><code>pp</code>: value is pretty-printed by python using <code>pprint.pformat(%s)</code>, then inserted</li>
+<li><code>file</code>: value is interpreted as a filename to be interpolated
+when exporting; commonly used for graphics output.</li>
+</ul></li>
+<li><code>:preamble</code>: Preamble code, inserted before the body (not commonly
+used).  Default is none.</li>
+<li><code>:return</code>: Value to return (only when result-type is value, and not
+in session mode; not commonly used).  Default is None; in
+non-session mode use return() to return a value.</li>
+<li><code>:python</code>: Name of the command for executing Python code.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">Common Header Arguments</h4>
+<div class="outline-text-4" id="text-orgheadline4">
+<ul class="org-ul">
+<li><code>:session [name]</code>: default is no session.</li>
+<li><code>:var data=data-table</code>: Variables can be passed into python from org-mode tables as
+scalars or lists.  See the org-mode manual for more details.</li>
+<li><code>:exports {code, results, both, none}</code>: Standard babel option for what to export.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Sessions</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<p>
+Session mode is fully supported in python, including named sessions.
+In session mode, each block is run in the same long-running python
+interactive interpreter session, as if you had typed that block into
+python.  You can have multiple sessions, all independent.
+</p>
+
+<p>
+Sessions can be used to define functions, set up variables, and share
+code between source blocks.
+</p>
+
+<p>
+Session mode in python is slightly different from non-session mode,
+because in session mode you are talking to a single "interactive"
+python session.  In python's interactive mode, blank lines are
+special: they indicate the end of an indented block.  So you have to
+write your org-mode python a little differently when using session
+mode.
+</p>
+
+<p>
+Also, in non-session mode, the python code block will be wrapped in a
+function, so to return a value (in <code>:results value</code> mode) you have to
+use a <code>return</code> statement.  In session mode, the python code is
+evaluated directly by the interpreter, not in a function context, and
+the last statement's value will be automatically returned, so you must
+<span class="underline">not</span> use a <code>return</code> statement.
+</p>
+
+<ul class="org-ul">
+<li>Session mode:</li>
+</ul>
+<pre class="example"># blank lines not OK in indented blocks, and don't use return()
+# Source block is passed directly to interactive python;
+# value is value of _ at end.
+#+begin_src python :session
+def foo(x):
+  if x&gt;0:
+    return x+1
+  else:
+    return x-1
+
+foo(1)
+#+end_src
+
+#+RESULTS:
+: 2
+</pre>
+
+<ul class="org-ul">
+<li>Non-session mode:</li>
+</ul>
+<pre class="example"># blank lines OK in indented blocks, and use return()
+# Entire source block will get indented and used as the body of main()
+#+begin_src python
+def foo(x):
+  if x&gt;0:
+    return x+1
+
+  else:
+    return x-1
+
+return foo(5)
+#+end_src
+
+#+RESULTS:
+: 6
+</pre>
+
+<p>
+Finally, if you are using matplotlib for graphics, matplotlib uses an
+"interactive" backend when started from an interactive python (as you
+might expect).  So you have to set the backend explicitly to a PDF or
+PNG or other file-exporting backend when using session mode.  See the
+example at
+</p>
+
+<pre class="example">#+begin_src python :session :results file
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+fig=plt.figure(figsize=(3,2))
+plt.plot([1,3,2])
+fig.tight_layout()
+plt.savefig('images/myfig.pdf')
+'images/myfig.pdf' # return this to org-mode
+#+end_src
+
+#+RESULTS:
+[[file:images/myfig.pdf]]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">Result Types</h3>
+<div class="outline-text-3" id="text-orgheadline7">
+<ul class="org-ul">
+<li><code>value</code>: Value results are the value of the last expression
+evaluated in the code block.  This is found in session mode using
+using the "_" special python interpreter variable.</li>
+
+<li><code>output</code>: Output results come from whatever the python code prints on stdout.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9">Examples of Use</h2>
+<div class="outline-text-2" id="text-orgheadline9">
+<ul class="org-ul">
+<li>Hello World!</li>
+</ul>
+<pre class="example">#+begin_src python :results output
+print "Hello, world!"
+#+end_src python
+
+#+RESULTS:
+: Hello, world!
+</pre>
+
+<ul class="org-ul">
+<li>Inline calling:</li>
+</ul>
+<pre class="example">Two plus two equals src_python{return(2+2)}
+</pre>
+<p>
+when exported, e.g. to HTML or LaTeX/PDF, becomes:
+</p>
+<pre class="example">Two plus two equals 4
+</pre>
+
+
+<ul class="org-ul">
+<li>Extracting data from an org-mode table</li>
+</ul>
+<pre class="example">#+tblname: data_table
+| a | 1 |
+| b | 2 |
+| c | 3 |
+#+begin_src python :var val=1 :var data=data_table
+# Return row specified by val.
+# In non-session mode, use return to return results.
+return(data[val])
+#+end_src
+
+#+RESULTS:
+| b | 2 |
+</pre>
+
+<ul class="org-ul">
+<li>Plotting</li>
+</ul>
+<pre class="example">#+begin_src python :results file
+import matplotlib, numpy
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+fig=plt.figure(figsize=(4,2))
+x=numpy.linspace(-15,15)
+plt.plot(numpy.sin(x)/x)
+fig.tight_layout()
+plt.savefig('images/python-matplot-fig.png')
+return 'images/python-matplot-fig.png' # return filename to org-mode
+#+end_src
+
+#+RESULTS:
+[[file:images/python-matplot-fig.png]]
+</pre>
+
+<div class="figure">
+<p><img src="python-matplot-fig.png" alt="python-matplot-fig.png">
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10">Caveats</h2>
+<div class="outline-text-2" id="text-orgheadline10">
+<p>
+You need some care in order to pass utf-8 strings to python.
+</p>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11">passing utf-8 strings to python</h3>
+<div class="outline-text-3" id="text-orgheadline11">
+<pre class="example">#+NAME: unicode_str
+#+BEGIN_EXAMPLE
+“this string is not ascii!”
+#+END_EXAMPLE
+</pre>
+
+<pre class="example">#+NAME: error-in-passing-var
+#+BEGIN_SRC python :var data=unicode_str
+return data
+#+END_SRC
+</pre>
+
+<pre class="example">#+RESULTS: error-in-passing-var
+</pre>
+
+<p>
+Will produce no output and prints the following message in the buffer
+<code>*Org-Babel Error Output*</code>:
+</p>
+
+<pre class="example">  File "&lt;stdin&gt;", line 3
+SyntaxError: Non-ASCII character '\xe2' in file &lt;stdin&gt; on line 3, but no encoding declared; see http://www.python.org/peps/pep-0263.html for details
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">passing utf-8 strings to python with workaround</h3>
+<div class="outline-text-3" id="text-orgheadline12">
+<p>
+A workaround is to use <code>:preamble</code> with the value <code># -*- coding:utf-8 -*-</code>
+</p>
+
+<pre class="example">#+NAME: ok-in-passing-var
+#+BEGIN_SRC python :preamble "# -*- coding: utf-8 -*-" :var data=unicode_str
+return data
+#+END_SRC
+</pre>
+
+<pre class="example">#+RESULTS: ok-in-passing-var
+: “this string is not ascii!”
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="show_source"><input value="Show Org source" type="button"></div><div id="license"><p>Documentation from the http://orgmode.org/worg/ website (either in its HTML format or in its Org format) is licensed under the <a href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License version 1.3</a> or later.  The code examples and css stylesheets are licensed under the <a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License v3</a> or later.</p></div>
+</div>
+
+
+</body>
+</html>
