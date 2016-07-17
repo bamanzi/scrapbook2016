@@ -1,0 +1,591 @@
+/* ::::: https://addons.cdn.mozilla.net/static/css/tabzilla/tabzilla.css ::::: */
+
+#tabzilla { position: relative; float: right; }
+#tabzilla a { position: relative; display: block; width: 147px; height: 37px; text-indent: 120%; white-space: nowrap; overflow: hidden; background-image: url("tabzilla-static.png"); background-repeat: no-repeat; z-index: 2; }
+@media not all, (min--moz-device-pixel-ratio: 1.5), not all, (min-resolution: 1.5dppx) {
+  #tabzilla a { background-image: url("tabzilla-static-high-res.png"); background-size: 147px 37px; }
+}
+#tabzilla:before { position: absolute; display: block; left: 28px; top: 0px; width: 88px; height: 26px; content: ""; background-color: rgb(77, 78, 83); z-index: 1; }
+/* ::::: https://addons.cdn.mozilla.net/static/css/zamboni/impala-min.css?build=c6c4604 (@media all) ::::: */
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video { margin: 0px; padding: 0px; border: 0px none; font: inherit; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, masthead, menu, nav, section { display: block; }
+body { line-height: 1; }
+ol, ul { list-style: none outside none; }
+b, strong { font-weight: 700; }
+.c:after { content: "."; display: block; height: 0px; clear: both; visibility: hidden; }
+.c { display: block; }
+* { word-wrap: break-word; }
+body, html { height: 100%; }
+body { background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); }
+#main-wrapper { background: url("bg-header.png") repeat-x scroll 0% 0% rgb(255, 255, 255); border-top: 2px solid rgb(255, 255, 255); }
+#page { max-width: 960px; height: auto; width: 960px; margin: 0px auto; position: relative; min-height: 404px; }
+a { text-decoration: none; color: rgb(68, 123, 196); }
+a:hover { text-decoration: underline; }
+a:not([href]) { cursor: pointer; }
+.island { background: linear-gradient(rgb(252, 253, 254), rgb(244, 248, 252)) repeat scroll 0% 0% rgb(252, 253, 254); border: 1px solid rgb(201, 221, 242); border-radius: 5px 5px 5px 5px; box-shadow: 0px -2px 0px rgba(204, 223, 243, 0.3) inset, 0px 0px 1px rgba(0, 0, 0, 0.1); display: block; float: left; margin-bottom: 15px; padding: 14px 14px 16px; }
+.island > section { border-bottom: 1px solid rgb(201, 221, 242); border-top: 1px solid transparent; margin: 0px -14px; padding: 14px; float: left; width: 100%; }
+.island > section:first-child { border-top: 0px none; padding-top: 0px; }
+.island > section:last-child { border-bottom: 0px none; }
+.secondary + .primary .island { box-sizing: border-box; width: 100%; }
+.primary { margin-left: 210px; position: relative; }
+.secondary { float: left; width: 180px; }
+.gutter .primary, .html-rtl .primary { margin-left: 0px; margin-right: 210px; }
+.gutter .secondary, .html-rtl .secondary { float: right; }
+.gutter .island { float: none; }
+.secondary ol, .secondary section, .secondary ul { color: rgb(102, 102, 102); font-size: 12px; line-height: 16px; margin-bottom: 28px; }
+.secondary li { border-style: solid; border-color: rgba(0, 0, 0, 0.2); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; border-width: 0px 0px 1px; position: relative; }
+.secondary li:first-child { border-top-width: 1px; }
+.secondary li a { color: rgb(51, 99, 162); }
+.secondary li a.selected, .secondary li a:hover { background: none repeat scroll 0% 0% rgb(236, 245, 254); }
+.secondary h2, .secondary li a { display: block; padding: 6px; text-decoration: none; }
+#breadcrumbs { font-family: Georgia,serif; color: rgb(102, 102, 102); }
+#breadcrumbs li { display: inline; }
+#breadcrumbs li:before { content: "»"; font-size: 1.3em; font-weight: 700; }
+#breadcrumbs li a.home { background: url("breadcrumb-home.png") no-repeat scroll 0% 0% transparent; display: block; float: left; height: 13px; overflow: hidden; text-indent: -9999px; text-decoration: none; width: 15px; margin: 2px 2px 0px 0px; }
+#breadcrumbs li a.home:hover { opacity: 0.7; }
+#breadcrumbs li:first-child:before { content: none; }
+#breadcrumbs, #breadcrumbs + h1 { margin-bottom: 15px; }
+#popup-staging, .hidden, .js-hidden { display: none; }
+a.more-info { float: right; font-size: 12px; color: rgb(68, 123, 196); }
+a.more-info:after { content: " »"; }
+.g-recaptcha { margin-bottom: 1em; }
+@font-face {
+  font-family: "MetaBlack";
+  font-style: normal;
+  font-weight: 700;
+  src: url("MetaWebPro-Black.woff") format("woff");
+}
+body { font-family: "Helvetica Neue",Arial,sans-serif; font-style: normal; font-size: 13px; }
+h1 { font: italic 24px Georgia,serif; color: rgb(198, 55, 23); margin-bottom: 16px; }
+.sidebar-breakout h3, h2 { font: italic 18px Georgia,serif; color: rgb(51, 51, 51); }
+h4 { font-size: 14px; }
+.modal ol, .modal p, .modal ul, .primary ol, .primary p, .primary ul { line-height: 1.3em; }
+.modal p, .primary p { margin-top: 1em; }
+.gutter .secondary h3, .modal em, .primary em { font-style: italic; }
+.addon-details .primary, .addon-details .secondary { font-family: Georgia,serif; }
+.island .sidebar-breakout h3, .island h2, .modal .sidebar-breakout h3, .modal h2, .popup .sidebar-breakout h3, .popup h2 { margin-bottom: 0.5em; }
+.secondary h3 { font-family: "Helvetica Neue",Arial,sans-serif; color: rgb(51, 51, 51); }
+#footer { clear: both; color: rgb(71, 111, 190); display: block; font-family: Georgia,serif; min-width: 978px; }
+#footer a:link, #footer a:visited { color: rgb(102, 155, 225); text-decoration: none; }
+#footer a:active, #footer a:hover { color: rgb(255, 255, 255); text-decoration: underline; }
+#footer #lang_form label, #footer-menu li a, #footer-menu li a:link, #footer-menu li a:visited { color: rgb(255, 255, 255); font-family: MetaBlack,"Trebuchet MS",sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; }
+#footer #lang_form { margin: 0px 0px 15px 27px; }
+#footer #lang_form label { display: block; margin: 10px 0px 4px; }
+#footer #lang_form select { font-family: sans-serif; font-size: 11px; width: 140px; }
+#footer #copyright p { font-size: 85%; margin-bottom: 0.5em; }
+#footer #copyright a:active, #footer #copyright a:hover { text-decoration: underline; }
+#footer #footer-links { font-size: 85%; }
+input[type="color"], input[type="password"], input[type="text"], select, textarea { border: 1px solid rgb(88, 117, 160); color: rgb(102, 102, 102); font-family: inherit; line-height: 1.3; padding: 2px 5px; }
+input:-moz-placeholder { color: rgb(170, 170, 170); }
+select { padding: 0px; }
+label { cursor: pointer; font-weight: 700; }
+textarea { box-sizing: border-box; display: block; width: 100%; }
+.amo-header { font-family: "Trebuchet MS",sans-serif; margin-bottom: 25px; }
+#masthead { padding-top: 45px; max-width: 600px; }
+#masthead h1 { font: 400 40px/40px MetaBlack; letter-spacing: -1px; text-transform: uppercase; margin-bottom: 7px; }
+#aux-nav { float: right; }
+.site-title img { float: left; margin-right: 10px; }
+.site-title { margin-bottom: 7px; }
+.site-title a { color: rgb(51, 51, 51); text-decoration: none; }
+.site-title a:focus, .site-title a:hover { color: rgb(4, 59, 132); text-shadow: 0px 0px 40px rgb(255, 255, 255), 0px 0px 20px rgb(255, 255, 255), 0px 0px 10px rgb(255, 255, 255); }
+.menu-nav { font-size: 12px; margin-left: 64px; z-index: 50; }
+.menu-nav > ul > li { float: left; position: relative; }
+.menu-nav > ul > li > a { position: relative; font-weight: 700; z-index: 60; border-style: solid; border-radius: 3px 3px 0px 0px; border-color: transparent; border-width: 1px 1px 0px; }
+.menu-nav > ul > li:hover > a { background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(152, 178, 201) rgb(152, 178, 201) rgb(255, 255, 255); box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4); }
+.menu-nav > ul > li:hover > div, .menu-nav > ul > li:hover > ul { display: block; }
+.menu-nav > ul > li:hover:after { content: ""; width: 200px; z-index: 62; height: 5px; background: none repeat scroll 0% 0% rgb(255, 255, 255); position: absolute; top: 18px; left: 1px; }
+.menu-nav > ul > li > div, .menu-nav > ul > li > ul { display: none; position: absolute; z-index: 59; }
+.menu-nav > ul > li > ul { width: 190px; top: 17px; z-index: 59; padding: 8px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 1px solid rgb(152, 178, 201); border-radius: 0px 3px 3px 3px; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4), 0px -2px 0px rgba(152, 178, 201, 0.3) inset; }
+.menu-nav > ul > li > ul a { text-decoration: none; display: block; padding: 6px 8px; word-wrap: break-word; }
+.menu-nav > ul > li > ul a:hover { background: none repeat scroll 0% 0% rgb(235, 244, 254); }
+.menu-nav > ul > li > ul.two-col { -moz-column-count: 2; -moz-column-gap: 8px; width: 340px; }
+.menu-nav > ul em a:hover { background: none repeat scroll 0% 0% rgb(225, 237, 251); }
+.menu-nav hr { border-right: 0px none; border-width: 1px 0px 0px; border-style: dotted none none; border-color: rgb(204, 204, 204) -moz-use-text-color -moz-use-text-color; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; margin: 6px 8px; }
+.menu-nav em { background: none repeat scroll 0% 0% rgb(244, 248, 252); display: block; font-weight: 700; }
+#site-nav > ul > li { border-left: 1px solid rgb(159, 167, 175); left: -9px; }
+#site-nav > ul > li:first-child { border: 0px none; }
+#site-nav > ul > li > a { padding: 4px 8px; line-height: 12px; text-transform: uppercase; }
+#site-nav #themes ul.two-col { height: 216px; padding-bottom: 39px; }
+#site-nav #themes ul.two-col + div { top: 250px; }
+#site-nav a.complete-themes { background-color: rgb(245, 245, 245); border-top: 1px solid rgb(221, 221, 221); color: rgb(102, 102, 102); display: block; line-height: 28px; margin: 0px 1px 1px; padding: 0px 8px; text-align: center; width: 190px; }
+#site-nav a.complete-themes b { color: rgb(68, 123, 196); }
+#site-nav a.complete-themes:hover { background-color: rgb(238, 238, 238); color: rgb(51, 51, 51); text-decoration: none; }
+#site-nav a.complete-themes:hover b { color: rgb(51, 99, 162); }
+#site-nav .two-col + div a.complete-themes { width: 340px; }
+#aux-nav > ul > li:not(:first-child):before { content: ""; display: block; position: absolute; top: 0px; left: -1px; width: 1px; height: 32px; background: linear-gradient(rgb(159, 167, 175), transparent) repeat scroll 0% 0% / 1px 100% transparent; }
+#aux-nav > ul > li { margin-left: 1px; }
+#aux-nav > ul > li > a { display: block; line-height: 32px; height: 32px; padding: 0px 1em; border-radius: 0px 0px 0px 0px; }
+#aux-nav > ul > li > a:after { display: inline-block; vertical-align: middle; top: 12px; left: 4px; margin: 0px 0px 0px 4px; content: " "; width: 0px; height: 0px; border-width: 4px; border-right: 4px solid transparent; border-color: rgb(102, 102, 102) transparent transparent; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; border-style: solid; }
+#aux-nav > ul > li:hover { z-index: 63; }
+#aux-nav > ul > li:hover:after { left: auto; right: 1px; }
+#aux-nav > ul > li:after { top: 32px; }
+#aux-nav > ul > li > ul { top: 31px; right: 0px; }
+#aux-nav > ul > li.nomenu a { display: inline-block; }
+#aux-nav > ul > li.nomenu a:after { display: none; }
+#aux-nav > ul > li.nomenu:hover a { background: none repeat scroll 0px 0px transparent; box-shadow: 0px 0px inset; border-color: transparent; }
+#aux-nav > ul > li.nomenu:hover:after { display: none; }
+#aux-nav > ul > li.login:before, #aux-nav > ul > li.logout:before { background: none repeat scroll 0px center transparent; }
+#aux-nav > ul > li.login a, #aux-nav > ul > li.logout a { font-weight: 400; }
+#aux-nav > ul > li.login.legacy a, #aux-nav > ul > li.logout.legacy a { padding-left: 0.5em; }
+#aux-nav > ul > li.login.legacy a:first-child, #aux-nav > ul > li.logout.legacy a:first-child { padding-right: 0.5em; }
+#aux-nav .other-apps a { padding-left: 24px; background-repeat: no-repeat; background-position: left 4px; background-image: url("sprite.png"); }
+#aux-nav .thunderbird a { background-position: left -28px; }
+#aux-nav .seamonkey a { background-position: left -60px; }
+#aux-nav .android a { background-position: left -124px; }
+.header-search { position: absolute; top: 63px; right: 0px; background: linear-gradient(rgb(46, 137, 202), rgb(27, 88, 152)) repeat scroll 0% 0% rgb(27, 88, 152); border-radius: 5px 5px 5px 5px; box-shadow: 0px -2px 0px rgba(0, 0, 0, 0.5) inset, 0px 2px 0px rgba(0, 0, 0, 0.1); padding: 5px 7px 7px; width: 280px; }
+.header-search #search-q, .header-search .search-button { height: 30px; }
+button.search-button { background-color: rgb(132, 198, 60); background-repeat: no-repeat; background-attachment: scroll; background-position: center center; background-clip: border-box; background-origin: padding-box; background-size: auto auto; background-image: url("go-arrow.png"), linear-gradient(rgb(132, 198, 60), rgb(72, 150, 21)); border: 0px none; float: right; cursor: pointer; width: 36px; border-radius: 6px 6px 6px 6px; box-shadow: 0px 1px rgba(0, 0, 0, 0.1), 0px -2px rgba(0, 0, 0, 0.1) inset; }
+.header-search input { box-sizing: border-box; background: url("search.png") no-repeat scroll 8px 50% rgb(255, 255, 255); border: 0px none; border-radius: 4px 4px 4px 4px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4) inset; float: left; font: 14px "Trebuchet MS",sans-serif; text-overflow: ellipsis; padding: 6px 6px 6px 32px; width: calc(100% - 42px); }
+.site-balloon, .site-tip { border: 2px solid rgb(227, 135, 59); border-radius: 10px 10px 10px 10px; display: none; font: 14px/16px Arial,sans-serif; position: relative; margin-top: 22px; }
+.site-balloon h3, .site-balloon p, .site-tip h3, .site-tip p { display: inline; }
+.site-balloon p a, .site-tip p a { font-weight: 700; }
+.site-balloon { background-color: rgb(252, 239, 183); color: rgb(51, 51, 51); padding: 15px 45px 15px 15px; }
+.site-balloon h3, .site-balloon strong { font-weight: 700; }
+.site-balloon:after, .site-balloon:before { content: ""; display: block; width: 0px; height: 0px; position: absolute; border-left: 18px solid rgb(227, 135, 59); border-top: 18px solid transparent; }
+.site-balloon:before { left: 34px; top: -18px; }
+.site-balloon:after { left: 36px; top: -13px; border-left-color: rgb(252, 239, 183); }
+.site-balloon p a { color: rgb(196, 0, 0); }
+#lightbox .close, .is-impala .modal .close, .site-balloon .close, .site-tip .close { position: absolute; overflow: hidden; right: 1em; top: 1em; width: 25px; height: 25px; margin: 0px; border-radius: 4px 4px 4px 4px; background: url("banner-close.png") no-repeat scroll 0px 0px transparent; text-indent: -1000em; cursor: pointer; }
+#lightbox .close:hover, .is-impala .modal .close:hover, .site-balloon .close:hover, .site-tip .close:hover { background-color: rgb(196, 0, 0); background-position: -25px 0px; }
+.site-balloon .close, .site-tip .close { margin: auto; top: 0px; bottom: 0px; }
+#mobile-banner { font-size: 1.3em; }
+@media (max-width: 500px) {
+  #mobile-banner { display: inline-block; }
+}
+#footer { background: url("bg-footer.png") repeat-x scroll 0% 0% rgb(51, 85, 155); line-height: 20px; padding: 123px 0px 5px; z-index: -1; }
+#footer .section { max-width: 960px; margin: 0px auto; position: relative; }
+#copyright { margin: 0px 17px; }
+.footerlogo { position: absolute; right: 0px; top: -64px; }
+#footer .section { min-height: 0px; padding-bottom: 5px; }
+#footer-content { margin-top: 10px; }
+.footer-devhub-link { width: 25%; }
+.links-footer { height: 68px; margin-bottom: 4px; display: table; font-size: 18px; font-style: italic; width: 80%; color: rgb(255, 255, 255); }
+.links-footer a:after { content: " »"; }
+.links-footer a:link, .links-footer a:visited { color: rgb(255, 255, 255); }
+.links-footer ul { display: table-row; }
+.links-footer ul li { display: table-cell; vertical-align: middle; text-align: center; }
+.links-footer ul li:first-child { line-height: 1.2em; font-size: 17px; width: 128px; }
+.links-footer ul li b { display: block; font-family: MetaBlack; font-style: normal; font-size: 22px; text-transform: uppercase; }
+#footer #copyright { clear: none; padding-top: 10px; }
+#lang_form { float: right; }
+.listing-grid li { overflow: visible; float: left; height: 66px; }
+.listing-grid.cols-3 li { width: 33.3333%; }
+.listing-grid section { display: none; position: relative; }
+.listing-grid section:first-child { display: block; }
+.hovercard { position: relative; border: 1px solid transparent; z-index: 20; }
+.hovercard .desc, .hovercard .more { font-family: "Helvetica Neue",Arial,sans-serif; color: rgb(51, 51, 51); font-size: 12px; z-index: 29; margin-top: 0px; }
+.hovercard h3 { color: rgb(68, 123, 196); font-weight: 700; margin: 0px 0px 2px; font-size: 13px; line-height: 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 200px; }
+.hovercard .more { display: none; position: relative; padding: 0px 14px 8px 12px; }
+.hovercard .more p:first-child { margin-top: 0px; }
+.hovercard a { text-decoration: none; }
+.hovercard .adu { color: rgb(51, 153, 0); font-size: 11px; }
+.hovercard .byline { margin-top: 8px; font-size: 11px; font-style: italic; }
+.hovercard .byline a { display: inline; color: inherit; }
+.hovercard:hover { z-index: 25; background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(204, 204, 204); box-shadow: 2px 2px 6px -2px rgba(0, 0, 0, 0.4); }
+.hovercard:hover .more { background: none repeat scroll 0% 0% rgb(255, 255, 255); display: block; z-index: 28; }
+.hovercard:hover h3 { text-decoration: underline; }
+.hovercard.addon .more .vitals, .hovercard.theme:hover .more + .vitals { border-top: 1px dotted rgb(204, 204, 204); padding: 8px 0px 0px; margin: 8px 0px 4px; }
+.hovercard.addon { margin: 5px 5px 5px 61px; }
+.hovercard.addon .icon, .hovercard.addon .summary { position: relative; padding: 8px; }
+.hovercard.addon .summary { height: 55px; z-index: 21; overflow: hidden; }
+.hovercard.addon .summary div { white-space: nowrap; }
+.hovercard.addon .icon { position: absolute; left: -57px; top: -1px; padding-right: 0px; height: 48px; width: 48px; border-width: 1px 0px 1px 1px; border-style: solid; z-index: 22; border-color: transparent; }
+.hovercard.addon .icon img { margin: 8px; max-width: 32px; max-height: 32px; border: 0px none; padding: 0px; }
+.hovercard.addon:before { content: ""; display: block; position: absolute; height: 66px; width: 56px; top: -1px; left: -57px; z-index: 1; }
+.hovercard.addon:hover { float: left; z-index: 25; background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(204, 204, 204); box-shadow: 2px 2px 6px -2px rgba(0, 0, 0, 0.4); }
+.hovercard.addon:hover .summary { background: none repeat scroll 0% 0% rgb(255, 255, 255); z-index: 26; height: auto; min-height: 48px; }
+.hovercard.addon:hover .icon { background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(204, 204, 204); z-index: 27; }
+.hovercard.addon:hover:before { box-shadow: 2px 2px 6px -2px rgba(0, 0, 0, 0.4); }
+.hovercard .category, .hovercard .vital { color: rgb(102, 102, 102); font-size: 11px; line-height: 10px; white-space: nowrap; }
+.hovercard .summary .vital { margin-top: 4px; font-size: 10px; line-height: 12px; }
+.slider { white-space: nowrap; position: relative; left: 0px; transition-duration: 0.3s; transition-property: left, right; }
+.pages > li, .slider > li { width: 100%; white-space: normal; display: inline-block; vertical-align: top; top: 0px; }
+#reviews .review { border-bottom: 1px dotted rgb(201, 221, 242); overflow: hidden; padding: 1em 0px; }
+#reviews .review.no-reviews { border-bottom: 0px none; }
+#reviews .review.no-reviews h3 { font-style: normal; }
+#reviews .review h3, #reviews .review h4 { color: rgb(51, 51, 51); font-size: 16px; line-height: 16px; font-style: italic; }
+#reviews .review:first-child { padding-top: 0px; }
+.stars { display: inline-block; vertical-align: middle; width: 63px; height: 12px; background: url("stars.png") no-repeat scroll left top transparent; text-indent: -9999px; margin-right: 4px; }
+.button, button, input[type="submit"] { position: relative; font: 700 13px/1em "Trebuchet MS",sans-serif; padding: 6px 10px 7px; text-align: center; text-decoration: none; color: rgb(255, 255, 255); cursor: pointer; background: linear-gradient(rgb(102, 155, 225), rgb(87, 132, 191)) repeat scroll 0% 0% rgb(87, 132, 191); text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5); border-radius: 6px 6px 6px 6px; box-shadow: 0px 1px rgba(0, 0, 0, 0.1), 0px -2px rgba(0, 0, 0, 0.1) inset; border: 0px none; }
+.button.add, .button.good, button.good { background: linear-gradient(rgb(132, 198, 60), rgb(72, 150, 21)) repeat scroll 0% 0% rgb(72, 150, 21); }
+.button { display: inline-block; }
+.button.prominent { padding: 8px 16px 12px; font-size: 16px; box-shadow: 0px 3px rgba(0, 0, 0, 0.1), 0px -4px rgba(0, 0, 0, 0.1) inset; }
+.button.add span { padding-left: 16px; background: url("button-icons.png") no-repeat scroll 0px 3px transparent; }
+.button.add.prominent span { padding-left: 24px; background-position: 0px -189px; }
+.button.add.prominent.caution.concealed span, .button.add.prominent.concealed span, .button.add.prominent.disabled span { background-position: 0px -253px; }
+.button.add.caution.concealed, .button.add.concealed, .button.add.disabled { top: 0px; }
+.button.add.caution.concealed span, .button.add.concealed span, .button.add.disabled span { background-position: 0px -61px; }
+.button.selected, .button:active, .button:focus, .button:hover { text-decoration: none; box-shadow: 0px 1px rgba(0, 0, 0, 0.1), 0px -2px rgba(0, 0, 0, 0.1) inset, 0px 0px 100px rgba(255, 255, 255, 0.2) inset; }
+.install.clickHijack a * { pointer-events: none; }
+.button.selected, .button:active { box-shadow: 0px 0px rgba(0, 0, 0, 0.1), 0px -2px rgba(0, 0, 0, 0.1) inset, 0px 0px 100px rgba(255, 255, 255, 0.2) inset; }
+.button.prominent.selected, .button.prominent:active, .button.selected, .button:active { top: 2px; }
+.button.prominent.selected:before, .button.prominent:active:before, .button.selected:before, .button:active:before { content: ""; display: block; height: 2px; position: absolute; top: -2px; left: 0px; width: 100%; }
+.button.prominent.selected, .button.prominent:active, .button.prominent:focus, .button.prominent:hover { box-shadow: 0px 3px rgba(0, 0, 0, 0.1), 0px -4px rgba(0, 0, 0, 0.1) inset, 0px 0px 100px rgba(255, 255, 255, 0.2) inset; }
+.button.prominent.selected, .button.prominent:active { box-shadow: 0px 1px rgba(0, 0, 0, 0.1), 0px -4px rgba(0, 0, 0, 0.1) inset, 0px 0px 100px rgba(255, 255, 255, 0.2) inset; }
+.install-shell .install { display: inline-block; }
+.install-shell .extra { margin-top: 8px; }
+.listing-grid .hovercard .install-button { margin: 0px; }
+.listing-grid .hovercard .button.concealed, .listing-grid .hovercard .button.disabled { display: none ! important; }
+.listing-grid .hovercard .addon-summary { line-height: 16px; }
+.button.caution.concealed, .button.concealed, .button.disabled, button[disabled] { background: linear-gradient(rgb(209, 212, 215), rgb(193, 197, 202)) repeat scroll 0% 0% rgb(193, 197, 202); color: rgb(145, 148, 151); box-shadow: 0px 3px rgba(0, 0, 0, 0.05), 0px -4px rgba(0, 0, 0, 0.05) inset; text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5); }
+.button.caution.concealed, .button.disabled, button[disabled] { pointer-events: none; }
+@keyframes hand-moving {
+0% { background-position: 0px 0px; }
+25%, 5% { background-position: 5px -5px; }
+30%, 50% { background-position: 0px -10px; }
+55%, 95% { background-position: 10px -10px; }
+100% { background-position: 0px 0px; }
+}
+@keyframes eye-moving {
+0% { background-position: 0px 0px; }
+25%, 5% { background-position: -2px 0px; }
+30%, 65% { background-position: 2px 0px; }
+66%, 67% { background-position: 2px 4px; }
+68%, 95% { background-position: 2px 0px; }
+100% { background-position: 0px 0px; }
+}
+@media not all, screen and (min--moz-device-pixel-ratio: 2), not all {
+}
+@font-face {
+  font-family: "Yellowtail";
+  font-style: normal;
+  font-weight: 400;
+  src: url("Yellowtail.woff") format("woff");
+}
+@font-face {
+  font-family: "MontserratRegular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("montserrat-regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "MontserratBold";
+  font-style: normal;
+  font-weight: 400;
+  src: url("montserrat-regular-webfont.woff") format("woff");
+}
+#addon { margin-bottom: 0px; position: relative; padding: 20px 20px 20px 104px; }
+#addon .icon { position: absolute; top: 20px; left: 20px; margin: 0px 12px 1em 0px; }
+#addon #addon-summary { font-size: 16px; line-height: 21px; }
+#addon h1 { color: rgb(51, 51, 51); margin: 0px 0px 2px; padding-right: 54px; }
+#addon .install-shell { font-family: "Helvetica Neue",Arial,sans-serif; }
+#addon-description, #addon-summary, h1.addon { overflow: hidden; }
+.version-number { color: rgb(153, 153, 153); font-size: 0.8em; }
+.addon-vitals { font-size: 16px; line-height: 1.4em; }
+.addon-vitals .widgets { margin: 23px 0px 8px; font-size: 14px; }
+.addon-vitals .widgets .widget { color: rgb(153, 153, 153); display: block; }
+.addon-vitals .stats { padding-right: 20px; color: rgb(102, 102, 102); background: url("stats.png") no-repeat scroll right top transparent; }
+.addon-vitals .stats:hover { color: rgb(68, 123, 196); background-position: right -20px; }
+.gutter aside { color: rgb(102, 102, 102); padding-top: 1em; }
+.addon-details .more-island > section { float: none; }
+.addon-reviews > div { margin-bottom: 1em; font-size: 14px; }
+.widget { padding-left: 21px; background: url("widgets.png") no-repeat scroll 0px 4px transparent; white-space: nowrap; }
+.widget:hover { color: rgb(68, 123, 196); }
+.widget.collection-add { background-position: 0px -56px; }
+.widget.collection-add:hover { background-position: 0px -76px; }
+.previews { background: radial-gradient(ellipse farthest-side at center top , rgba(16, 83, 130, 0.5), rgba(16, 83, 130, 0)) no-repeat scroll 0px 0px / 100% 5px, radial-gradient(ellipse farthest-side at center bottom , rgba(16, 83, 130, 0.5), rgba(16, 83, 130, 0)) no-repeat scroll 0px bottom / 100% 5px, linear-gradient(to right, rgb(244, 248, 252), rgba(255, 255, 255, 0), rgb(244, 248, 252)) no-repeat scroll 0px 0px, linear-gradient(rgba(255, 255, 255, 0), rgb(244, 248, 252) 50px, rgb(244, 248, 252) 180px, rgba(255, 255, 255, 0)) no-repeat scroll 0px 0px transparent; overflow: hidden; clear: both; position: relative; margin: 0px 0px 2em; padding: 30px 5%; }
+.previews li a { transition-duration: 0.3s; transition-property: top, border-color, -moz-box-shadow; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1); border: 1px solid rgb(204, 204, 204); display: block; margin: 0px auto; text-align: center; height: 150px; width: 200px; background: none repeat scroll 0% 0% rgb(255, 255, 255); padding: 5px; position: relative; top: 0px; }
+.previews li a:hover { border-color: rgb(68, 123, 196); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1); top: -4px; }
+.previews li a img { display: inline-block; vertical-align: middle; }
+.previews .panel { width: 33.3333%; }
+.previews .panel a { display: block; text-align: center; }
+.previews .control.next { background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%) repeat scroll 0% 0% transparent; }
+.previews .control.prev { background: linear-gradient(to right, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0)) repeat scroll 0% 0% transparent; }
+.metadata li { line-height: 1.4em; border: 0px none; }
+.metadata li a { padding: 0px; display: inline; line-height: 1; }
+.metadata li a:hover { background: none repeat scroll 0px 0px transparent; text-decoration: underline; }
+.metadata .links { font-size: 14px; margin-bottom: 1em; }
+.metadata .links li { margin-bottom: 4px; }
+.metadata .links a { padding-left: 18px; }
+.metadata .links .home, .metadata .links .support { background: url("home.png") no-repeat scroll left -18px transparent; }
+#tagbox a, #tagbox li { border: 0px none; display: inline; padding: 0px 1px 0px 0px; line-height: 1.2em; word-wrap: break-word; }
+#tagbox li:not(:last-child):after { content: "·"; }
+.expando .content { display: none; }
+.island .expando h2 { position: relative; margin-bottom: 0px; }
+.island .expando .toggle { position: absolute; top: -14px; right: -14px; left: -14px; bottom: -14px; }
+.island .expando .toggle b { position: absolute; top: 14px; right: 14px; width: 20px; height: 20px; background: url("expando-large.png") no-repeat scroll right 0px transparent; }
+.island .expando .toggle:hover b { background-position: right -64px; }
+.island .expando:last-child { padding-bottom: 0px; }
+.install { position: relative; }
+.install-note, .modal, .popup { position: absolute; left: -15px; line-height: 15px; margin-top: 5px; background: none repeat scroll 0% 0% rgb(255, 255, 255); padding: 10px; border: 3px solid rgb(46, 81, 134); border-radius: 8px 8px 8px 8px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35); z-index: 2001; }
+.modal { width: 300px; }
+.modal, .popup { padding: 1em; }
+.modal form, .popup form { margin: 0px; }
+.modal h2, .modal h3, .popup h2, .popup h3 { margin-top: 0px; color: rgb(46, 81, 134); }
+.popup ul:last-child { margin-bottom: 0px; }
+.install-note:before, .popup:before { content: " "; display: block; position: absolute; width: 0px; height: 0px; left: 50px; top: -20px; border-width: 10px; border-style: solid; border-color: transparent transparent rgb(46, 81, 134); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; pointer-events: none; }
+.install-note:after, .popup:after { content: " "; display: block; position: absolute; left: 55px; width: 0px; height: 0px; top: -10px; border-width: 5px; border-style: solid; border-color: transparent transparent rgb(255, 255, 255); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; pointer-events: none; }
+.d2c-reasons-popup { display: none; }
+.d2c-reasons-popup ul { margin: 1em 0px 0px 20px; list-style: disc outside none; }
+#lightbox { background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.1); position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; display: none; z-index: 9000; text-align: center; opacity: 0; overflow: hidden; pointer-events: none; transition: opacity 0.5s ease 0s; }
+#lightbox .close { display: block; background-color: rgb(255, 255, 255); position: absolute; margin: 0px; z-index: 20; top: 5px; right: 5px; box-shadow: 0px 0px 5px rgb(0, 0, 0); }
+#lightbox section { box-sizing: border-box; border-radius: 20px 20px 20px 20px; border: 15px solid rgba(0, 0, 0, 0.5); position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; margin: auto; width: 100%; max-width: 740px; height: 100%; max-height: 640px; overflow: hidden; padding-bottom: 70px; }
+#lightbox .content, #lightbox .controls { position: relative; overflow: hidden; text-align: center; display: block; background: none repeat scroll 0% 0% rgb(0, 0, 0); }
+#lightbox .control { color: rgb(255, 255, 255); }
+#lightbox .content { height: 570px; max-height: 100%; }
+#lightbox .controls { height: 70px; position: absolute; bottom: 0px; width: 100%; color: rgb(255, 255, 255); }
+#lightbox .caption { font-size: 18px; margin: auto 40px; height: 64px; line-height: 53px; }
+#lightbox .caption span { display: block; line-height: 20px; vertical-align: middle; }
+#lightbox .control, .previews .control { display: block; position: absolute; height: 100%; width: 96px; text-decoration: none; font-size: 48px; font-family: Georgia,serif; text-align: center; line-height: 48px; top: 0px; z-index: 30; transition: color 0.3s ease 0s; }
+#lightbox .control.next, .previews .control.next { right: 0px; }
+#lightbox .control.prev, .previews .control.prev { left: 0px; }
+#lightbox .control.disabled, .previews .control.disabled { color: rgb(204, 204, 204); }
+.previews .control { line-height: 200px; }
+.prose { color: rgb(51, 51, 51); line-height: 1.4em; font-family: Georgia,serif; }
+.prose ol, .prose ul { margin: 1em 0px 0px 20px; }
+.prose ul { list-style: disc outside none; }
+.prose li { margin-left: 1em; margin-bottom: 1em; }
+.prose > ol:first-child, .prose > p:first-child, .prose > ul:first-child { margin-top: 0px; }
+.prose b, .prose strong { font-weight: 700; }
+.abuse { border: 0px none; line-height: 1.3; position: relative; }
+.abuse ol { list-style: none outside none; margin: 0px; }
+.abuse ol p { margin: 0px; }
+.abuse textarea { border: 1px solid rgb(88, 117, 160); width: 100%; margin: 1em 0px; }
+#report-abuse { font-size: 12px; margin: 1em 0px 0px; }
+.listing .item, .listing .items { width: 100%; }
+.listing .items { display: table; }
+.listing .item { color: rgb(153, 153, 153); display: table-row; }
+.listing .item.static, .listing .item:hover { background-color: rgba(201, 221, 242, 0.1); }
+.listing .item.static .install-shell, .listing .item:hover .install-shell { visibility: visible; }
+.listing .item h3 { font-size: 16px; font-weight: 700; line-height: 18px; }
+.listing .item .desc, .listing .item h3 { margin: 0px 0px 5px; }
+.listing .item p { font-size: 12px; }
+.listing .item .action, .listing .item .info { border-top: 1px dotted rgb(201, 221, 242); display: table-cell; padding: 20px 0px; vertical-align: top; }
+.listing .item .info { overflow: hidden; padding-left: 58px; max-width: 470px; }
+.listing .item .install-shell { padding: 0px 10px; text-align: right; visibility: hidden; }
+.listing .item .install-shell .install { margin: 0px 0px 6px; }
+.listing .item .install-shell p.install-button { margin: 0px; text-align: left; }
+.listing .item .install-shell .extra { margin: 0px 0px 6px; }
+.version .action, .version .info { font-family: "Helvetica Neue",Arial,sans-serif; }
+.version h3 { font: 700 16px/18px "Helvetica Neue",Arial,sans-serif; margin: 1em 0px; }
+.version .desc { color: rgb(51, 51, 51); }
+.version .meta, .version .source { color: rgb(153, 153, 153); font: 11px/1.3 "Helvetica Neue",Arial,sans-serif; }
+.version .meta { display: block; }
+.version .filesize { display: inline-block; margin-left: 3px; }
+.version .filesize:before { content: "·"; margin-right: 3px; }
+.version .source { list-style: none outside none; margin: 1em 0px 0px; }
+.version .source li { display: inline-block; margin: 0px 3px 0px 0px; }
+.version .source li:after { content: "·"; margin-left: 3px; }
+.version .source li:last-child { margin: 0px; }
+.version .source li:last-child:after { content: ""; margin: 0px; }
+.version .install-shell { margin-bottom: 1em; }
+.version .install-shell .install { display: inline-block; }
+.listing .item.version .info { padding-left: 10px; }
+.listing .item.version .info h3 { font-weight: 400; margin-bottom: 1em; }
+.listing .item.version .info h3 a { font-weight: 700; }
+#detail-relnotes .items { border-bottom: 1px dotted rgb(201, 221, 242); }
+#detail-relnotes .items .item.static, #detail-relnotes .items .item:hover { background: inherit; }
+#detail-relnotes .items .action, #detail-relnotes .items .info { border: 0px none; padding: 20px 0px ! important; }
+#detail-relnotes .items .install-shell { padding-right: 0px; visibility: visible; }
+img.icon { padding: 4px; }
+#add-to-collection { padding: 1em; }
+#add-to-collection .register-button { margin: 1em 0px; }
+#tooltip { display: none; background: none repeat scroll 0% 0% rgb(42, 67, 100); color: rgb(255, 255, 255); font-size: 11px; border: 1px solid rgb(255, 255, 255); border-radius: 0.8em 0.8em 0.8em 0.8em; max-width: 300px; text-align: center; position: absolute; padding: 1em; pointer-events: none; }
+#tooltip span { display: block; line-height: 1.2em; }
+#tooltip:before { content: " "; display: block; position: absolute; width: 0px; height: 0px; margin-left: -6px; left: 50%; bottom: -16px; border-style: solid; border-right: 6px solid transparent; border-color: rgb(42, 67, 100) transparent transparent; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; border-width: 8px 6px; pointer-events: none; }
+#site-search-suggestions { transition-property: bottom, opacity, visibility; transition-duration: 0.3s; font: 13px/26px "Helvetica Neue",Arial,sans-serif; height: 0px; opacity: 0; position: absolute; right: -10px; bottom: -5px; left: -10px; visibility: hidden; z-index: 53; }
+#site-search-suggestions .wrap { background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 1px solid rgb(152, 178, 201); border-radius: 4px 4px 4px 4px; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2), 0px -2px 0px rgba(152, 178, 201, 0.3) inset; position: absolute; top: 0px; right: 0px; left: 0px; }
+#site-search-suggestions .wrap:before { background: url("search-stem.png") no-repeat scroll 50% 100% transparent; content: ""; display: block; height: 20px; position: absolute; top: -20px; left: 14px; width: 40px; }
+#site-search-suggestions ul { margin: 0px 16px 10px; }
+#site-search-suggestions p { margin: 10px 16px 0px; }
+#site-search-suggestions a { display: block; text-decoration: none; }
+#site-search-suggestions a:after { clear: both; content: "."; display: block; height: 0px; visibility: hidden; }
+#site-search-suggestions a .subtitle, #site-search-suggestions a span { display: block; float: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#site-search-suggestions a span { box-sizing: border-box; background: none no-repeat scroll 4px 50% / 20px auto transparent; max-width: 280px; padding: 2px 2px 2px 32px; }
+#site-search-suggestions a.sel, #site-search-suggestions a:hover, #site-search-suggestions.sel a.sel:hover { background-color: rgb(235, 244, 254); color: rgb(68, 123, 196); }
+/* ::::: https://addons.cdn.mozilla.net/static/css/restyle/css-min.css?build=e17c98d (@media all) ::::: */
+
+.listing-grid li { overflow: visible; float: left; height: 66px; }
+.listing-grid.cols-3 li { width: 33.3333%; }
+.listing-grid section { display: none; position: relative; }
+.listing-grid section:first-child { display: block; }
+.hovercard { position: relative; border: 1px solid transparent; z-index: 20; }
+.hovercard .desc, .hovercard .more { font-family: "Helvetica Neue",Arial,sans-serif; color: rgb(51, 51, 51); font-size: 12px; z-index: 29; margin-top: 0px; }
+.hovercard h3 { color: rgb(68, 123, 196); font-weight: 700; margin: 0px 0px 2px; font-size: 13px; line-height: 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 200px; }
+.hovercard .more { display: none; position: relative; padding: 0px 14px 8px 12px; }
+.hovercard .more p:first-child { margin-top: 0px; }
+.hovercard a { text-decoration: none; }
+.hovercard .adu { color: rgb(51, 153, 0); font-size: 11px; }
+.hovercard .byline { margin-top: 8px; font-size: 11px; font-style: italic; }
+.hovercard .byline a { display: inline; color: inherit; }
+.hovercard:hover { z-index: 25; background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(204, 204, 204); box-shadow: 2px 2px 6px -2px rgba(0, 0, 0, 0.4); }
+.hovercard:hover .more { background: none repeat scroll 0% 0% rgb(255, 255, 255); display: block; z-index: 28; }
+.hovercard:hover h3 { text-decoration: underline; }
+.hovercard.addon .more .vitals, .hovercard.theme:hover .more + .vitals { border-top: 1px dotted rgb(204, 204, 204); padding: 8px 0px 0px; margin: 8px 0px 4px; }
+.hovercard.addon { margin: 5px 5px 5px 61px; }
+.hovercard.addon .icon, .hovercard.addon .summary { position: relative; padding: 8px; }
+.hovercard.addon .summary { height: 55px; z-index: 21; overflow: hidden; }
+.hovercard.addon .summary div { white-space: nowrap; }
+.hovercard.addon .icon { position: absolute; left: -57px; top: -1px; padding-right: 0px; height: 48px; width: 48px; border-width: 1px 0px 1px 1px; border-style: solid; z-index: 22; border-color: transparent; }
+.hovercard.addon .icon img { margin: 8px; max-width: 32px; max-height: 32px; border: 0px none; padding: 0px; }
+.hovercard.addon:before { content: ""; display: block; position: absolute; height: 66px; width: 56px; top: -1px; left: -57px; z-index: 1; }
+.hovercard.addon:hover { float: left; z-index: 25; background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(204, 204, 204); box-shadow: 2px 2px 6px -2px rgba(0, 0, 0, 0.4); }
+.hovercard.addon:hover .summary { background: none repeat scroll 0% 0% rgb(255, 255, 255); z-index: 26; height: auto; min-height: 48px; }
+.hovercard.addon:hover .icon { background: none repeat scroll 0% 0% rgb(255, 255, 255); border-color: rgb(204, 204, 204); z-index: 27; }
+.hovercard.addon:hover:before { box-shadow: 2px 2px 6px -2px rgba(0, 0, 0, 0.4); }
+.hovercard .category, .hovercard .vital { color: rgb(102, 102, 102); font-size: 11px; line-height: 10px; white-space: nowrap; }
+.hovercard .summary .vital { margin-top: 4px; font-size: 10px; line-height: 12px; }
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"), url("OpenSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("OpenSans-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: local("Open Sans BoldItalic"), local("OpenSans-BoldItalic"), url("OpenSans-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Open Sans Italic"), local("OpenSans-Italic"), url("OpenSans-Italic.ttf") format("truetype");
+}
+h1, h2, h3, h4, h5 { line-height: 1.5; font-family: 'Open Sans',X-LocaleSpecific,sans-serif ! important; font-style: normal ! important; font-weight: 400; }
+* { font-family: 'Open Sans',X-LocaleSpecific,sans-serif ! important; }
+#tabzilla:before { background: none repeat scroll 0px 0px transparent; }
+html { font-size: 13px; }
+body.restyle { background: none repeat scroll 0px 0px rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: 'Open Sans',X-LocaleSpecific,sans-serif; font-style: normal; line-height: 1.5; min-width: 1018px; }
+#masthead h1, h1 { font-family: 'Open Sans',X-LocaleSpecific,sans-serif; }
+#masthead h1 a { color: rgb(255, 255, 255); }
+h2 { margin-top: 1em; }
+.island h2, .primary h1 { margin-top: 0px; }
+.developer-hub #homepage h2, .developer-hub header h2, .personas-featured h3, .primary h2, h1, hgroup h2.addon, hgroup h2.collection { color: rgb(51, 51, 51); font-size: 1.692rem; font-style: normal; }
+.addon-description-header, .addon-details .secondary.addon-vitals { background: none repeat scroll 0px 0px transparent; }
+.addon-details h2 { color: inherit; font-size: 1.75rem; }
+.more-info, .more-info:active, .more-info:focus, .more-info:hover, .more-info:link, .more-info:visited, a, a:active, a:focus, a:hover, a:link, a:visited { color: rgb(9, 150, 248); }
+a.button, a.delete-button, a.delete-button:hover, button.link:active span, button.link:focus span, button.link:hover span { color: rgb(255, 255, 255); }
+.amo-header:after, .primary:not(.more-island):after, .secondary:after { clear: both; content: ""; display: block; height: 0px; width: 100%; }
+.primary, .secondary { background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+.header-bg { background-color: rgb(12, 153, 213); background-image: linear-gradient(to bottom, transparent 0px, transparent 100px), linear-gradient(to bottom, rgba(12, 153, 213, 0) 0px, rgb(12, 153, 213) 500px, rgb(255, 255, 255) 0px), repeating-linear-gradient(118deg, rgba(12, 153, 213, 0) 0px, rgb(0, 167, 224) 550px, rgba(12, 153, 213, 0) 550px, rgb(0, 167, 224) 800px, rgba(12, 153, 213, 0) 800px, rgb(0, 167, 224) 950px); background-position: 0px 416px, 0px 0px, 0px 0px; margin: 0px 0px 12px calc(-1 * ((100vw - 100%) / 2)); min-width: 1018px; width: 100vw; }
+.addon-details .header-bg, .home .header-bg { background-image: linear-gradient(to bottom, transparent 0px, transparent 100px), linear-gradient(to bottom, rgba(12, 153, 213, 0) 0px, rgb(12, 153, 213) 500px, rgb(12, 153, 213) 0px), repeating-linear-gradient(118deg, rgba(12, 153, 213, 0) 0px, rgb(0, 167, 224) 550px, rgba(12, 153, 213, 0) 550px, rgb(0, 167, 224) 800px, rgba(12, 153, 213, 0) 800px, rgb(0, 167, 224) 950px); background-position: 0px 416px, 0px 0px, 0px 0px; }
+.amo-header { margin-bottom: 0px; }
+.amo-header-wrapper { margin: 0px auto; max-width: 960px; }
+.amo-header { font-family: inherit; }
+.addon-details .header-bg, .home .header-bg, body:not(.home) .amo-header { min-height: 130px; }
+#site-nav ul, .addon-details .header-bg { margin-bottom: 0px; }
+.menu-nav { color: rgb(255, 255, 255); }
+.amo-header ul a { color: rgb(255, 255, 255); font-family: inherit; }
+#masthead h1 { font-size: 4.308rem; line-height: 3.692rem; letter-spacing: -1px; text-transform: none; }
+.site-title { margin-bottom: 0px; padding-bottom: 7px; }
+.site-title a { color: rgb(255, 255, 255); text-decoration: none; }
+.site-title a:focus, .site-title a:hover { color: rgb(255, 255, 255); text-shadow: none; }
+.site-title a img { width: 70px; }
+#site-nav > ul > li, .secondary .categories > ul > li { border-left: 0px none; left: -9px; }
+#site-nav > ul > li > a, .secondary .categories > ul > li > a { padding-bottom: 8px; }
+#site-nav > ul > li > ul:after, .secondary .categories > ul > li > ul:after { left: 10px; }
+#site-nav > ul > li:hover:after, .secondary .categories > ul > li:hover:after { top: 25px; left: 1px; height: 10px; }
+#site-nav #themes ul.two-col, .secondary .categories #themes ul.two-col { height: 293px; padding: 8px; }
+#site-nav #themes ul.two-col + div, .secondary .categories #themes ul.two-col + div { left: -1px; top: 305px; }
+#aux-nav, #site-nav { line-height: inherit; }
+.menu-nav a { color: rgb(0, 0, 0); }
+.menu-nav > ul > li > ul { background-color: rgb(255, 255, 255); border: 0px none; border-radius: 0px 0px 0px 0px; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4); top: 25px; }
+.menu-nav > ul > li > ul a { color: rgb(0, 0, 0); }
+.menu-nav > ul > li > ul:after { box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.1); content: ""; display: block; position: absolute; top: -6px; z-index: 1; transform: rotate(45deg); background-color: rgb(255, 255, 255); width: 12px; height: 12px; }
+.menu-nav > ul > li:hover > a, .menu-nav > ul > li > a { background: none repeat scroll 0px 0px transparent; border: 0px none; box-shadow: none; }
+.menu-nav > ul > li:hover:after { background: none repeat scroll 0% 0% rgb(255, 255, 255); content: ""; height: 16px; position: absolute; width: 200px; z-index: 62; }
+#aux-nav > ul > li > ul:after { right: 10px; }
+#aux-nav > ul > li:hover:after { top: 32px; right: 1px; height: 10px; }
+#aux-nav > ul > li ul:after { left: auto; right: 15px; }
+#aux-nav > ul > li a:after { display: none; }
+#aux-nav > ul > li:not(:first-child):before { background: linear-gradient(to bottom, transparent 0px, transparent 20%, rgb(255, 255, 255) 20%, rgb(255, 255, 255) 80%, transparent 80%) repeat scroll 0% 0% transparent; }
+.header-search { background: none repeat scroll 0px 0px transparent; border-radius: 0px 0px 0px 0px; box-shadow: none; }
+.header-search input { border-radius: 0px 0px 0px 0px; box-shadow: none; font: inherit; height: 30px; }
+#site-search-suggestions a span { color: rgb(9, 150, 248); }
+#main-wrapper { background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+.restyle .notification-box, .restyle .site-balloon { background: none repeat scroll 0% 0% rgb(251, 251, 251); border: 2px solid rgb(31, 56, 110); border-radius: 6px 6px 6px 6px; color: rgb(51, 51, 51); margin-top: 22px; padding: 15px 45px 15px 15px; }
+.restyle .notification-box:after, .restyle .notification-box:before, .restyle .site-balloon:after, .restyle .site-balloon:before { display: none; }
+.restyle .notification-box .close, .restyle .site-balloon .close { background-image: url("banner-close-style-refresh.png"); color: rgb(51, 51, 51); }
+.restyle .notification-box .close:focus, .restyle .notification-box .close:hover, .restyle .site-balloon .close:focus, .restyle .site-balloon .close:hover { background-color: rgb(51, 51, 51); }
+.island { background: none repeat scroll 0px 0px transparent; border: 0px none; border-radius: 0px 0px 0px 0px; box-shadow: none; }
+.restyle .primary.island { border-top: 1px solid rgb(235, 235, 235); }
+.island > section { border-bottom: 1px solid rgb(235, 235, 235); }
+#detail-relnotes .items, #reviews .review { border: 0px none; }
+#detail-relnotes a.more-info, #reviews a.more-info { float: none; }
+#promos .control:hover, .carousel > a:hover { background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.3); }
+#promos .control:after, .carousel > a:after { background: none repeat scroll 0px 0px transparent; border: 0px none; border-radius: 0px 0px 0px 0px; box-shadow: none; color: rgb(255, 255, 255); font-family: 'Open Sans',X-LocaleSpecific,sans-serif; height: 100%; line-height: 260px; vertical-align: middle; }
+.restyle .control { font-family: 'Open Sans',X-LocaleSpecific,sans-serif; }
+.button, button { display: inline-block; }
+#promos .view-button a, #upload-file-finish.button, #upload-file-widget .button.prominent, .button, .cta a.button:link, .linux .button.linux, .mac .button.mac, .other .button.bsd, .other .button.solaris, .persona-install button, .sidebar a.button, .sidebar button, .theme .choices button, .theme-queue a.button, .theme-queue button, .windows .button.windows, a.button:link, a.delete-button.delete-addon, button, button.button, input[type="submit"]:not(.upvotes):not(.downvotes) { background: none repeat scroll 0% 0% rgb(87, 132, 191); border: 0px none; border-radius: 3px 3px 3px 3px; box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(0, 0, 0, 0.1) inset; box-sizing: border-box; color: rgb(255, 255, 255); font-family: 'Open Sans',X-LocaleSpecific,sans-serif; font-size: 1rem; height: auto; line-height: 1.5; padding: 8px 14px 9px; position: relative; text-shadow: none; transition: box-shadow 0.25s linear 0s; }
+#promos .view-button a.add, #promos .view-button a.download, #upload-file-finish.button.add, #upload-file-finish.button.download, #upload-file-widget .button.prominent.add, #upload-file-widget .button.prominent.download, .button.add, .button.download, .cta a.button.add:link, .cta a.button.download:link, .linux .button.linux.add, .linux .button.linux.download, .mac .button.mac.add, .mac .button.mac.download, .other .button.bsd.add, .other .button.bsd.download, .other .button.solaris.add, .other .button.solaris.download, .persona-install button.add, .persona-install button.download, .sidebar a.button.add, .sidebar a.button.download, .sidebar button.add, .sidebar button.download, .theme .choices button.add, .theme .choices button.download, .theme-queue a.button.add, .theme-queue a.button.download, .theme-queue button.add, .theme-queue button.download, .windows .button.windows.add, .windows .button.windows.download, a.button.add:link, a.button.download:link, a.delete-button.delete-addon.add, a.delete-button.delete-addon.download, button.add, button.button.add, button.button.download, button.download, input.add[type="submit"]:not(.upvotes):not(.downvotes), input.download[type="submit"]:not(.upvotes):not(.downvotes) { background: none repeat scroll 0% 0% rgb(87, 189, 53); box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(56, 136, 30, 0.5) inset; }
+#promos .view-button a.add span:not(.os), #promos .view-button a.download span:not(.os), #upload-file-finish.button.add span:not(.os), #upload-file-finish.button.download span:not(.os), #upload-file-widget .button.prominent.add span:not(.os), #upload-file-widget .button.prominent.download span:not(.os), .button.add span:not(.os), .button.download span:not(.os), .cta a.button.add:link span:not(.os), .cta a.button.download:link span:not(.os), .linux .button.linux.add span:not(.os), .linux .button.linux.download span:not(.os), .mac .button.mac.add span:not(.os), .mac .button.mac.download span:not(.os), .other .button.bsd.add span:not(.os), .other .button.bsd.download span:not(.os), .other .button.solaris.add span:not(.os), .other .button.solaris.download span:not(.os), .persona-install button.add span:not(.os), .persona-install button.download span:not(.os), .sidebar a.button.add span:not(.os), .sidebar a.button.download span:not(.os), .sidebar button.add span:not(.os), .sidebar button.download span:not(.os), .theme .choices button.add span:not(.os), .theme .choices button.download span:not(.os), .theme-queue a.button.add span:not(.os), .theme-queue a.button.download span:not(.os), .theme-queue button.add span:not(.os), .theme-queue button.download span:not(.os), .windows .button.windows.add span:not(.os), .windows .button.windows.download span:not(.os), a.button.add:link span:not(.os), a.button.download:link span:not(.os), a.delete-button.delete-addon.add span:not(.os), a.delete-button.delete-addon.download span:not(.os), button.add span:not(.os), button.button.add span:not(.os), button.button.download span:not(.os), button.download span:not(.os), input.add[type="submit"]:not(.upvotes):not(.downvotes) span:not(.os), input.download[type="submit"]:not(.upvotes):not(.downvotes) span:not(.os) { border: 0px none; margin: 0px; background: url("button-icons.png") no-repeat scroll 0px -191px transparent; padding: 0px 0px 0px 24px; }
+#promos .view-button a.concealed, #promos .view-button a.disabled, #promos .view-button a:disabled, #upload-file-finish.button.concealed, #upload-file-finish.button.disabled, #upload-file-finish.button:disabled, #upload-file-widget .button.prominent.concealed, #upload-file-widget .button.prominent.disabled, #upload-file-widget .button.prominent:disabled, .button.concealed, .button.disabled, .button:disabled, .cta a.button.concealed:link, .cta a.button.disabled:link, .cta a.button:link:disabled, .linux .button.linux.concealed, .linux .button.linux.disabled, .linux .button.linux:disabled, .mac .button.mac.concealed, .mac .button.mac.disabled, .mac .button.mac:disabled, .other .button.bsd.concealed, .other .button.bsd.disabled, .other .button.bsd:disabled, .other .button.solaris.concealed, .other .button.solaris.disabled, .other .button.solaris:disabled, .persona-install button.concealed, .persona-install button.disabled, .persona-install button:disabled, .sidebar a.button.concealed, .sidebar a.button.disabled, .sidebar a.button:disabled, .sidebar button.concealed, .sidebar button.disabled, .sidebar button:disabled, .theme .choices button.concealed, .theme .choices button.disabled, .theme .choices button:disabled, .theme-queue a.button.concealed, .theme-queue a.button.disabled, .theme-queue a.button:disabled, .theme-queue button.concealed, .theme-queue button.disabled, .theme-queue button:disabled, .windows .button.windows.concealed, .windows .button.windows.disabled, .windows .button.windows:disabled, a.button.concealed:link, a.button.disabled:link, a.button:link:disabled, a.delete-button.delete-addon.concealed, a.delete-button.delete-addon.disabled, a.delete-button.delete-addon:disabled, button.button.concealed, button.button.disabled, button.button:disabled, button.concealed, button.disabled, button:disabled, input.concealed[type="submit"]:not(.upvotes):not(.downvotes), input.disabled[type="submit"]:not(.upvotes):not(.downvotes), input[type="submit"]:disabled:not(.upvotes):not(.downvotes) { background: none repeat scroll 0% 0% rgb(204, 204, 204); box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(136, 136, 136, 0.5) inset; text-shadow: none; }
+#promos .view-button a.concealed:hover, #promos .view-button a.disabled:hover, #promos .view-button a:disabled:hover, #upload-file-finish.button.concealed:hover, #upload-file-finish.button.disabled:hover, #upload-file-finish.button:disabled:hover, #upload-file-widget .button.prominent.concealed:hover, #upload-file-widget .button.prominent.disabled:hover, #upload-file-widget .button.prominent:disabled:hover, .button.concealed:hover, .button.disabled:hover, .button:disabled:hover, .cta a.button.concealed:link:hover, .cta a.button.disabled:link:hover, .cta a.button:link:disabled:hover, .linux .button.linux.concealed:hover, .linux .button.linux.disabled:hover, .linux .button.linux:disabled:hover, .mac .button.mac.concealed:hover, .mac .button.mac.disabled:hover, .mac .button.mac:disabled:hover, .other .button.bsd.concealed:hover, .other .button.bsd.disabled:hover, .other .button.bsd:disabled:hover, .other .button.solaris.concealed:hover, .other .button.solaris.disabled:hover, .other .button.solaris:disabled:hover, .persona-install button.concealed:hover, .persona-install button.disabled:hover, .persona-install button:disabled:hover, .sidebar a.button.concealed:hover, .sidebar a.button.disabled:hover, .sidebar a.button:disabled:hover, .sidebar button.concealed:hover, .sidebar button.disabled:hover, .sidebar button:disabled:hover, .theme .choices button.concealed:hover, .theme .choices button.disabled:hover, .theme .choices button:disabled:hover, .theme-queue a.button.concealed:hover, .theme-queue a.button.disabled:hover, .theme-queue a.button:disabled:hover, .theme-queue button.concealed:hover, .theme-queue button.disabled:hover, .theme-queue button:disabled:hover, .windows .button.windows.concealed:hover, .windows .button.windows.disabled:hover, .windows .button.windows:disabled:hover, a.button.concealed:link:hover, a.button.disabled:link:hover, a.button:link:disabled:hover, a.delete-button.delete-addon.concealed:hover, a.delete-button.delete-addon.disabled:hover, a.delete-button.delete-addon:disabled:hover, button.button.concealed:hover, button.button.disabled:hover, button.button:disabled:hover, button.concealed:hover, button.disabled:hover, button:disabled:hover, input.concealed[type="submit"]:hover:not(.upvotes):not(.downvotes), input.disabled[type="submit"]:hover:not(.upvotes):not(.downvotes), input[type="submit"]:disabled:hover:not(.upvotes):not(.downvotes) { box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(0, 0, 0, 0.1) inset; }
+#promos .view-button a.concealed:active, #promos .view-button a.disabled:active, #promos .view-button a:disabled:active, #upload-file-finish.button.concealed:active, #upload-file-finish.button.disabled:active, #upload-file-finish.button:disabled:active, #upload-file-widget .button.prominent.concealed:active, #upload-file-widget .button.prominent.disabled:active, #upload-file-widget .button.prominent:disabled:active, .button.concealed:active, .button.disabled:active, .button:disabled:active, .cta a.button.concealed:link:active, .cta a.button.disabled:link:active, .cta a.button:link:disabled:active, .linux .button.linux.concealed:active, .linux .button.linux.disabled:active, .linux .button.linux:disabled:active, .mac .button.mac.concealed:active, .mac .button.mac.disabled:active, .mac .button.mac:disabled:active, .other .button.bsd.concealed:active, .other .button.bsd.disabled:active, .other .button.bsd:disabled:active, .other .button.solaris.concealed:active, .other .button.solaris.disabled:active, .other .button.solaris:disabled:active, .persona-install button.concealed:active, .persona-install button.disabled:active, .persona-install button:disabled:active, .sidebar a.button.concealed:active, .sidebar a.button.disabled:active, .sidebar a.button:disabled:active, .sidebar button.concealed:active, .sidebar button.disabled:active, .sidebar button:disabled:active, .theme .choices button.concealed:active, .theme .choices button.disabled:active, .theme .choices button:disabled:active, .theme-queue a.button.concealed:active, .theme-queue a.button.disabled:active, .theme-queue a.button:disabled:active, .theme-queue button.concealed:active, .theme-queue button.disabled:active, .theme-queue button:disabled:active, .windows .button.windows.concealed:active, .windows .button.windows.disabled:active, .windows .button.windows:disabled:active, a.button.concealed:link:active, a.button.disabled:link:active, a.button:link:disabled:active, a.delete-button.delete-addon.concealed:active, a.delete-button.delete-addon.disabled:active, a.delete-button.delete-addon:disabled:active, button.button.concealed:active, button.button.disabled:active, button.button:disabled:active, button.concealed:active, button.disabled:active, button:disabled:active, input.concealed[type="submit"]:active:not(.upvotes):not(.downvotes), input.disabled[type="submit"]:active:not(.upvotes):not(.downvotes), input[type="submit"]:disabled:active:not(.upvotes):not(.downvotes) { top: 0px; }
+#promos .view-button a b, #upload-file-finish.button b, #upload-file-widget .button.prominent b, .button b, .cta a.button:link b, .linux .button.linux b, .mac .button.mac b, .other .button.bsd b, .other .button.solaris b, .persona-install button b, .sidebar a.button b, .sidebar button b, .theme .choices button b, .theme-queue a.button b, .theme-queue button b, .windows .button.windows b, a.button:link b, a.delete-button.delete-addon b, button b, button.button b, input[type="submit"]:not(.upvotes):not(.downvotes) b { display: none; }
+#promos .view-button a.selected, #promos .view-button a:focus, #promos .view-button a:hover, #upload-file-finish.button.selected, #upload-file-finish.button:focus, #upload-file-finish.button:hover, #upload-file-widget .button.prominent.selected, #upload-file-widget .button.prominent:focus, #upload-file-widget .button.prominent:hover, .button.selected, .button:focus, .button:hover, .cta a.button.selected:link, .cta a.button:link:focus, .cta a.button:link:hover, .linux .button.linux.selected, .linux .button.linux:focus, .linux .button.linux:hover, .mac .button.mac.selected, .mac .button.mac:focus, .mac .button.mac:hover, .other .button.bsd.selected, .other .button.bsd:focus, .other .button.bsd:hover, .other .button.solaris.selected, .other .button.solaris:focus, .other .button.solaris:hover, .persona-install button.selected, .persona-install button:focus, .persona-install button:hover, .sidebar a.button.selected, .sidebar a.button:focus, .sidebar a.button:hover, .sidebar button.selected, .sidebar button:focus, .sidebar button:hover, .theme .choices button.selected, .theme .choices button:focus, .theme .choices button:hover, .theme-queue a.button.selected, .theme-queue a.button:focus, .theme-queue a.button:hover, .theme-queue button.selected, .theme-queue button:focus, .theme-queue button:hover, .windows .button.windows.selected, .windows .button.windows:focus, .windows .button.windows:hover, a.button.selected:link, a.button:link:focus, a.button:link:hover, a.delete-button.delete-addon.selected, a.delete-button.delete-addon:focus, a.delete-button.delete-addon:hover, button.button.selected, button.button:focus, button.button:hover, button.selected, button:focus, button:hover, input.selected[type="submit"]:not(.upvotes):not(.downvotes), input[type="submit"]:focus:not(.upvotes):not(.downvotes), input[type="submit"]:hover:not(.upvotes):not(.downvotes) { box-shadow: 0px 2px rgba(0, 0, 0, 0.1), 0px -2px rgba(0, 0, 0, 0.1) inset, 0px 0px 100px rgba(255, 255, 255, 0.2) inset; }
+#promos .view-button a:active, #upload-file-finish.button:active, #upload-file-widget .button.prominent:active, .button:active, .cta a.button:link:active, .linux .button.linux:active, .mac .button.mac:active, .other .button.bsd:active, .other .button.solaris:active, .persona-install button:active, .sidebar a.button:active, .sidebar button:active, .theme .choices button:active, .theme-queue a.button:active, .theme-queue button:active, .windows .button.windows:active, a.button:link:active, a.delete-button.delete-addon:active, button.button:active, button:active, input[type="submit"]:active:not(.upvotes):not(.downvotes) { top: 2px; box-shadow: none; }
+.header-search .search-button { background-color: rgb(87, 189, 53); background-image: url("go-arrow.png"); border-radius: 0px 0px 0px 0px; box-shadow: none; height: 30px; }
+.header-search .search-button:active, .header-search .search-button:focus, .header-search .search-button:hover { box-shadow: 0px 0px 100px rgba(255, 255, 255, 0.2) inset; }
+.header-search .search-button:active { top: 1px; }
+.item .install { background: none repeat scroll 0px 0px transparent; }
+.addon-details .secondary, .category-landing .secondary, .reviews .secondary, body:not(.developer-hub) section.secondary { width: 180px; }
+.secondary { margin: 0px 0px 12px; width: 21.49%; }
+.secondary h2, .secondary h3 { color: rgb(170, 170, 170); font-family: inherit; font-size: 14px; font-style: normal; font-weight: 700; line-height: 1.2; margin: 0px; padding: 6px; text-transform: uppercase; }
+.secondary li { border: 0px none; }
+#footer { background-color: rgb(255, 255, 255); background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0px, rgb(255, 255, 255) 123px, rgb(12, 153, 213) 123px, rgb(12, 153, 213) 200px, rgb(255, 255, 255) 200px, rgba(12, 153, 213, 0) 400px); color: rgb(102, 102, 102); font-family: inherit; font-style: normal; width: 100%; }
+#footer .links-footer a { color: rgb(255, 255, 255) ! important; }
+#footer #lang_form { margin-top: 12px; }
+#footer #lang_form label { color: rgb(9, 150, 248); font-family: 'Open Sans',X-LocaleSpecific,sans-serif; text-transform: none; }
+#breadcrumbs { display: none; }
+.addon-details .primary, .addon-details .secondary { background: none repeat scroll 0px 0px transparent; font-family: 'Open Sans',X-LocaleSpecific,sans-serif; }
+#addon h1 { color: rgb(255, 255, 255); }
+.version-number { color: rgb(204, 204, 204); font-size: 0.5em; }
+.addon-details .primary:first-of-type { min-height: 257px; padding-bottom: 1em; }
+.addon-details .secondary.addon-vitals { position: relative; }
+#addon-description.prose, #devhub-promo h2 strong { font-family: 'Open Sans',X-LocaleSpecific,sans-serif; }
+#masthead h1 { margin-top: -5px; }
+.addon-vitals .widgets .widget { color: rgb(255, 255, 255); }
+.addon-details .primary .notice, .addon-details .secondary.addon-vitals { color: rgb(255, 255, 255); z-index: 1; }
+#footer a:link, #footer a:visited, .addon-details .hovercard.addon .rating a, .hovercard a h3, .secondary li a { color: rgb(9, 150, 248); }
+h3.author a, h4.author a { color: rgb(51, 51, 51); text-decoration: underline; }
+.addon-details #addon-summary, .addon-details #daily-users a, .addon-details #reviews-link, .addon-details #weekly-downloads .stats, .addon-details .notice h3, .addon-details .notice p, .addon-details .notice p a, .addon-details .notice p b, .addon-details .version-number, .addon-details .warning a, .addon-details a.eula, .addon-details a.privacy-policy, .addon-details h4.author, .addon-details h4.author a { color: rgb(255, 255, 255); }
+.addon-details #contribution.notice p a, .addon-details #reviews-link, .addon-details .vital a, .addon-details .warning a, .addon-details a.eula, .addon-details a.privacy-policy, .addon-details h4.author a { text-decoration: underline; }
+.addon-details .version-number { font-size: 0.39em; }
+.addon-details .addon-vitals .stats { background: none repeat scroll 0px 0px transparent; }
+.addon-details .widgets { display: none; }
+#background-wrapper, #main-wrapper { border-top: 1px solid rgb(255, 255, 255); }
+.restyle .previews { background: none repeat scroll 0% 0% rgb(245, 245, 245); margin-left: calc(-1 * ((100vw - 100%) / 2)); padding: 30px 0px; width: 100vw; }
+.restyle .previews .carousel { margin: 0px auto; max-width: 960px; padding: 6px 20px; overflow-x: hidden; overflow-y: visible; position: relative; }
+.restyle .previews .control { color: rgb(9, 150, 248); height: 170px; line-height: 3.5; }
+.restyle .previews .control:hover { color: rgb(9, 150, 248); }
+.restyle .previews .control.prev { background: linear-gradient(to right, rgb(245, 245, 245) 50%, rgba(245, 245, 245, 0)) repeat scroll 0% 0% transparent; }
+.restyle .previews .control.next { background: linear-gradient(to left, rgb(245, 245, 245) 50%, rgba(245, 245, 245, 0)) repeat scroll 0% 0% transparent; }
+.restyle .previews .control.disabled { opacity: 0; transition: opacity 100ms linear 0s; }
+@media (max-width: 960px) {
+  .restyle .previews { margin-left: 0px; width: 100%; }
+}
+@media (max-width: 1018px) {
+  .header-bg { margin-left: -29px; }
+}
+#lightbox { background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.75); }
+#lightbox section { border: 0px none; border-radius: 0px 0px 0px 0px; }
+#lightbox .close { border-radius: 0px 0px 0px 0px; }
+.extra .button.disabled.not-available { background-color: rgb(255, 255, 255); border: 1px solid rgb(235, 235, 235); border-radius: 0px 0px 0px 0px; box-shadow: none; color: rgb(51, 51, 51); font-size: 1rem; font-weight: 400; padding: 5px 14px 5px 28px; }
+.addon-description-header .extra .button.disabled.not-available { border: 0px none; }
+.addon.hovercard .extra .button.disabled.not-available { border: 1px solid rgb(235, 235, 235); }
+.extra .button.not-available { background: url("no.png") no-repeat scroll 6px 50% rgb(251, 251, 251); border: 1px solid rgb(177, 177, 177); border-radius: 3px 3px 3px 3px; box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.1), 0px -2px 0px 0px rgba(30, 30, 30, 0.25) inset; color: rgb(177, 177, 177); cursor: default; font-size: 14px; padding-left: 20px; padding-right: 5px; pointer-events: all; margin-bottom: 5px; white-space: normal; text-shadow: none; }
+.addon.hovercard .extra .button.not-available, .items .item.incompatible .extra .button.not-available { display: none; float: right; }
+.addon.hovercard:focus .extra .button.not-available, .addon.hovercard:hover .extra .button.not-available, .items .item.incompatible:focus .extra .button.not-available, .items .item.incompatible:hover .extra .button.not-available { display: block ! important; }
+.addon.hovercard .install-shell .install, .items .item.incompatible .install-shell .install { display: inline-block; }
+#downloadAnyway { color: rgb(255, 255, 255); }
+#contribute-box, .install-note, .modal, .popup { border: 1px solid grey; border-radius: 0px 0px 0px 0px; box-shadow: none; }
+.primary.island { border: 1px solid rgb(235, 235, 235); margin-top: 10px; }
+.listing .item .desc { color: rgb(119, 119, 119); font-size: 1rem; }
+/* ::::: [internal] ::::: */
+
+@media screen {
+}
+@media print {
+}
+/* ::::: [internal] ::::: */
+
