@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml" class="Public NoJs LoggedOut Sidebar Responsive" dir="LTR" id="XenForo">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="">
+
+<title>Mounting Remote Directories With SSHFS On Debian Squeeze</title>
+<meta name="keywords" content="security,debian,storage">
+<meta name="description" content="Mounting Remote Directories With SSHFS On Debian Squeeze
+
+This tutorial explains how you can mount a directory from a remote server on the local ser... ">
+<meta name="og:title" content="Mounting Remote Directories With SSHFS On Debian Squeeze">
+<meta name="og:description" content="Mounting Remote Directories With SSHFS On Debian Squeeze
+
+This tutorial explains how you can mount a directory from a remote server on the local ser... ">
+<meta name="og:site_name" content="Howtoforge">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.howtoforge.com/images/teaser/debian.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="howtoforgecom">
+<meta name="twitter:creator" content="howtoforgecom">
+<meta name="twitter:title" content="Mounting Remote Directories With SSHFS On Debian Squeeze">
+<meta name="twitter:description" content="Mounting Remote Directories With SSHFS On Debian Squeeze
+
+This tutorial explains how you can mount a directory from a remote server on the local ser... ">
+<link rel="alternate" href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze" hreflang="en">
+<link rel="next" href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze-p2">
+<link rel="canonical" href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze">
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS-Feed für Howtoforge" href="https://www.howtoforge.com/feed.rss">
+
+
+
+
+
+
+ 
+
+
+ 
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<div id="loginBar">
+<div class="pageWidth">
+<div class="pageContent">
+<h3 id="loginBarHandle">
+<label for="LoginControl"><a href="https://www.howtoforge.com/community/login/" class="concealed noOutline">Log in or Sign up</a></label>
+</h3>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+<header>
+<div id="header">
+<div id="logoBlock">
+<div class="pageWidth">
+<div class="pageContent">
+<div id="logo"><a href="https://www.howtoforge.com/">
+<span></span>
+<img src="howtoforge_logo_trans.gif" alt="Howtoforge" style="margin-left: 20px;" pagespeed_url_hash="639055748">
+</a></div>
+<span class="helper"></span>
+<div class="langSwitch">
+<b><img src="gb.png" alt="HowtoForge - Linux Tutorials in English" pagespeed_url_hash="3664605987"> English</b> | <a href="https://www.howtoforge.de/" title="HowtoForge.de - Linux Tutorials auf Deutsch"><img src="de.png" alt="HowtoForge.de - Linux Tutorials auf Deutsch" pagespeed_url_hash="478786493"> Deutsch</a>
+</div>
+</div>
+</div>
+</div>
+<div id="navigation" class="pageWidth withSearch">
+<div class="pageContent">
+<nav>
+<div class="navTabs">
+<ul class="publicTabs">
+ 
+<li class="navTab forums selected">
+<a href="https://www.howtoforge.com/" class="navLink">Tutorials</a>
+<div class="tabLinks forumsTabLinks">
+<ul class="secondaryContent blockLinksList">
+<li><a href="https://www.howtoforge.com/search/">Tutorial search</a></li>
+</ul>
+</div>
+</li>
+<li class="navTab forums PopupClosed">
+<a href="https://www.howtoforge.com/tutorials/" class="navLink">Tags</a>
+</li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/community/" class="navLink">Forums</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/contribute/" class="navLink">Contribute</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/subscription/" class="navLink">Subscribe</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.ispconfig.org/" class="navLink">ISPConfig</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.lxer.com/" class="navLink">News</a></li>
+</ul>
+</div>
+<span class="helper"></span>
+</nav>
+</div>
+</div>
+<div id="searchBar" class="pageWidth">
+<span id="QuickSearchPlaceholder" title=" Search..."> Search</span>
+<fieldset id="QuickSearch">
+<form action="https://www.howtoforge.com/" method="post" class="formPopup">
+<div class="primaryControls">
+ 
+<input name="q" value="" class="textCtrl" placeholder="Search..." results="0" title="Enter your search and hit enter..." id="QuickSearchQuery" type="search">
+ 
+</div>
+<input name="_xfToken" value="" type="hidden">
+</form>
+</fieldset>
+</div>
+</div>
+</header>
+<div id="content" class="forum_list">
+<div class="pageWidth">
+<div class="pageContent">
+ 
+<div class="mainContainer">
+<div class="mainContent">
+ 
+<div class="breadBoxTop">
+<nav>
+<fieldset class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Mounting Remote Directories With SSHFS On Debian Squeeze</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+ 
+<div id="htfContentPage">
+<div class="bsa-apiads"><a href="https://srv.buysellads.com/ads/click/x/GTND423NFTSIC23UCTS4YKQWCYAD527LCVYDEZ3JCESDE27JCW7ICKJKC6BDK53UCWSDEK3EHJNCLSIZ" target="_blank" rel="nofollow">Quickly pinpoint what's broken and why. Get the context and insights to defeat all application errors.</a><img class="kijmnzepbheoljfminbt" src="11341-6478-111.dat" pagespeed_url_hash="1583730418"></div>
+<div class="contributeEdit" style="float: right; width: 450px; max-width: 100%;">
+ 
+<div id="tocContainer">
+<h3>On this page</h3>
+<ol class="toc">
+<li><a href="#mounting-remote-directories-with-sshfs-on-debian-squeeze-">Mounting Remote Directories With SSHFS On Debian Squeeze</a>
+<ol>
+<li><a href="#-preliminary-note">1 Preliminary Note</a></li>
+<li><a href="#-installing-sshfs">2 Installing SSHFS</a></li>
+<li><a href="#-using-sshfs-as-root">3 Using SSHFS As root</a>
+<ol>
+<li><a href="#-creating-a-privatepublic-key-pair-on-server-">3.1 Creating A Private/Public Key Pair On server1</a></li>
+<li><a href="#-mounting-the-remote-share-automatically-at-boot-time">3.2 Mounting The Remote Share Automatically At Boot Time</a>
+</li></ol>
+</li></ol></li>
+</ol>
+</div>
+</div>
+<h2 id="mounting-remote-directories-with-sshfs-on-debian-squeeze-">Mounting Remote Directories With SSHFS On Debian Squeeze </h2>
+<p>Version 1.0 <br>
+Author: Falko Timme <br>
+<a mce_real_href="http://twitter.com/howtoforgecom" href="http://twitter.com/howtoforgecom" target="_blank"></a><a class="fancybox" id="img-twitter" href="https://www.howtoforge.com/images/socialmedia/big/twitter.png"><img mce_real_src="https://www.howtoforge.com/images/socialmedia/twitter.png" src="twitter.png" alt="" pagespeed_url_hash="2328183429" height="16px" border="0" width="16px"></a> <a mce_real_href="http://twitter.com/howtoforgecom" href="http://twitter.com/howtoforgecom" target="_blank">Follow me on Twitter</a><br>
+</p>
+<p>This tutorial explains how you can mount a directory from a remote server on the local server securely using SSHFS. SSHFS (<b>S</b>ecure <b>SH</b>ell <b>F</b>ile<b>S</b>ystem) is a filesystem that serves files/directories securely over SSH, and local users can use them just as if the were local files/directories. On the local computer, the remote share is mounted via FUSE (Filesystem in Userspace). I will use Debian Squeeze for both the local and the remote server. </p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p>I do not issue any guarantee that this will work for you!</p>
+<p>&nbsp;</p>
+<h3 id="-preliminary-note">1 Preliminary Note</h3>
+<p>I'm using the following two systems in this tutorial:</p>
+<ul>
+<li>Local system: <span class="system">server1.example.com</span>, IP address: <span class="system">192.168.0.100</span></li>
+<li>Remote system: <span class="system">server2.example.com</span>, IP address: <span class="system">192.168.0.101</span> </li>
+</ul>
+<p>I will show how to use SSHFS as root and also as a normal user. </p>
+<p>&nbsp;</p>
+<h3 id="-installing-sshfs">2 Installing SSHFS</h3>
+<p class="highlight">server1:</p>
+<p>On the local system, SSHFS must be installed as follows:</p>
+<p class="command">apt-get install sshfs</p>
+<p>Afterwards, make sure that the <span class="system">fuse</span> kernel module is loaded:</p>
+<p class="command">lsmod | grep fuse</p>
+<p class="system">root@server1:~#&nbsp;lsmod&nbsp;|&nbsp;grep&nbsp;fuse<br>
+fuse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50625&nbsp;&nbsp;1<br>
+root@server1:~#</p>
+<p>&nbsp;</p>
+<h3 id="-using-sshfs-as-root">3 Using SSHFS As root</h3>
+<p class="highlight">server1:</p>
+<p>Now I want to mount the remote directory <span class="system">/home/backup</span> (on <span class="system">server2</span>, owned by <span class="system">server2</span>'s root user) to the local <span class="system">/backup</span> directory as the local root user.</p>
+<p>First add root to the <span class="system">fuse</span> group:</p>
+<p class="command">adduser root fuse</p>
+<p>Create the local <span class="system">/backup</span> directory and make sure it's owned by root (it should be anyway as you are running these commands as root):</p>
+<p class="command">mkdir /backup<br>
+chown root /backup</p>
+<p>Then mount the remote <span class="system">/home/backup</span> directory to <span class="system">/backup</span>:</p>
+<p class="command">sshfs -o idmap=user root@192.168.0.101:/home/backup /backup</p>
+<p>(You can use a full path for the remote system, as sown above, or a relative path, like this:</p>
+<p class="command">sshfs -o idmap=user root@192.168.0.101:backup /backup</p>
+<p>If you use a relative path, this path is relative to the remote user's home directory, so in this case it would be <span class="system">/root/backup</span>. You can even leave out the remote directory, as follows:</p>
+<p class="command">sshfs -o idmap=user root@192.168.0.101: /backup</p>
+<p>This would then translate to the remote user's home directory - <span class="system">/root</span> in this case. </p>
+<p>)</p>
+<p><span class="system">-o idmap=user</span> makes that it does not matter if the local and the remote system use different user IDs - files owned by the remote user are also owned by the local user. If you don't use this, you might get permission problems. </p>
+<p>If you connect to the remote host for the first time, you will see a warning about the authenticity of the remote host (if you have connected to the remote host before using ssh or scp, you will not see the warning). In any case, you will be asked for the root password for <span class="system">server2</span>:</p>
+<p><span class="system">root@server1:~# sshfs -o idmap=user root@192.168.0.101:/home/backup /backup<br>
+The authenticity of host '192.168.0.101 (192.168.0.101)' can't be established.<br>
+RSA key fingerprint is 25:d8:7a:ee:c2:4b:1d:92:a7:3d:16:26:95:56:62:4e.<br>
+Are you sure you want to continue connecting (yes/no)?</span> <span class="highlight">&lt;-- yes</span><br>
+<span class="system">root@192.168.0.101's password:</span> <span class="highlight">&lt;-- server2_root_password</span><br>
+<span class="system">root@server1:~#</span></p>
+<p>Let's check if the remote directory got mounted to <span class="system">/backup</span>:</p>
+<p class="command">mount</p>
+<p class="system">root@server1:~# mount<br>
+/dev/sda1 on / type ext3 (rw,errors=remount-ro)<br>
+tmpfs on /lib/init/rw type tmpfs (rw,nosuid,mode=0755)<br>
+proc on /proc type proc (rw,noexec,nosuid,nodev)<br>
+sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)<br>
+udev on /dev type tmpfs (rw,mode=0755)<br>
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)<br>
+devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=620)<br>
+fusectl on /sys/fs/fuse/connections type fusectl (rw)<br>
+root@192.168.0.101:/home/backup on /backup type fuse.sshfs (rw,nosuid,nodev,max_read=65536)<br>
+root@server1:~#</p>
+<p class="command">df -h</p>
+<p class="system">root@server1:~#&nbsp;df&nbsp;-h<br>
+Filesystem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Size&nbsp;&nbsp;Used&nbsp;Avail&nbsp;Use%&nbsp;Mounted&nbsp;on<br>
+/dev/sda1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;29G&nbsp;&nbsp;1.2G&nbsp;&nbsp;&nbsp;26G&nbsp;&nbsp;&nbsp;5%&nbsp;/<br>
+tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;249M&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;249M&nbsp;&nbsp;&nbsp;0%&nbsp;/lib/init/rw<br>
+udev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;244M&nbsp;&nbsp;100K&nbsp;&nbsp;244M&nbsp;&nbsp;&nbsp;1%&nbsp;/dev<br>
+tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;249M&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;249M&nbsp;&nbsp;&nbsp;0%&nbsp;/dev/shm<br>
+root@192.168.0.101:/home/backup<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;29G&nbsp;&nbsp;1.2G&nbsp;&nbsp;&nbsp;27G&nbsp;&nbsp;&nbsp;5%&nbsp;/backup<br>
+root@server1:~#</p>
+<p>Looks good!</p>
+<p>To unmount the share, run</p>
+<p class="command">fusermount -u /backup</p>
+<p>&nbsp;</p>
+<h4 id="-creating-a-privatepublic-key-pair-on-server-">3.1 Creating A Private/Public Key Pair On server1 </h4>
+<p>Of course, we don't want to type in a password every time we try to mount the remote share. Therefore we create a private/public key pair and transfer the public key to <span class="system">server2</span> so that we will not be asked for a password anymore.</p>
+<p class="highlight">server1: </p>
+<p> Create a private/public key pair on <span class="system">server1.example.com</span>: </p>
+<p class="command">ssh-keygen</p>
+<p><span class="system">root@server1:~#&nbsp;ssh-keygen<br>
+Generating&nbsp;public/private&nbsp;rsa&nbsp;key&nbsp;pair.<br>
+Enter&nbsp;file&nbsp;in&nbsp;which&nbsp;to&nbsp;save&nbsp;the&nbsp;key&nbsp;(/root/.ssh/id_rsa):</span>&nbsp;<span class="highlight">&lt;--&nbsp;ENTER</span><br>
+<span class="system">Enter&nbsp;passphrase&nbsp;(empty&nbsp;for&nbsp;no&nbsp;passphrase):</span>&nbsp;<span class="highlight">&lt;--&nbsp;ENTER</span><br>
+<span class="system">Enter&nbsp;same&nbsp;passphrase&nbsp;again:</span>&nbsp;<span class="highlight">&lt;--&nbsp;ENTER</span><br>
+<span class="system">Your&nbsp;identification&nbsp;has&nbsp;been&nbsp;saved&nbsp;in&nbsp;/root/.ssh/id_rsa.<br>
+Your&nbsp;public&nbsp;key&nbsp;has&nbsp;been&nbsp;saved&nbsp;in&nbsp;/root/.ssh/id_rsa.pub.<br>
+The&nbsp;key&nbsp;fingerprint&nbsp;is:<br>
+b4:22:48:21:99:72:65:3e:1d:93:6f:9a:5c:5f:70:61&nbsp;root@server1.example.com<br>
+The&nbsp;key's&nbsp;randomart&nbsp;image&nbsp;is:<br>
++--[&nbsp;RSA&nbsp;2048]----+<br>
+|.o..o&nbsp;o.&nbsp;&nbsp;&nbsp;&nbsp;E.&nbsp;&nbsp;&nbsp;|<br>
+|+..+&nbsp;..o&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|...&nbsp;o&nbsp;...&nbsp;&nbsp;o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;.&nbsp;.&nbsp;.&nbsp;.+.&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;.&nbsp;...=S.&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.+.&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
++-----------------+<br>
+root@server1:~#</span></p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p> It is important that you do not enter a passphrase otherwise mounting will not work without human interaction so simply hit <span class="system">ENTER</span>! </p>
+<p>Next, we copy our public key to <span class="system">server2.example.com</span>: </p>
+<p class="command">ssh-copy-id -i $HOME/.ssh/id_rsa.pub root@192.168.0.101</p>
+<p>Now check on <span class="system">server2</span> if <span class="system">server1</span>'s public key has correctly been transferred: </p>
+<p class="highlight">server2: </p>
+<p class="command">cat $HOME/.ssh/authorized_keys</p>
+<table class="" align="center" bgcolor="#CCCCCC" border="1" bordercolor="#000000" cellpadding="2" cellspacing="0" width="90%">
+<tbody><tr>
+<td class="">
+<pre>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVdvyYlzgTkjZhDK8S+EZ1fVU/lvLlayKya/u+NY9w6WerYlCxX6nMN9beTXddmlTXg6uXGYAEEnFA36JlOcXz0cr7D8KEzW1vwRtZFJzZ/oH71aDKgrY7M4yRaCsKdElrF+pbq1JT84pEmlOKluVlqGSGvn1Y0W/vrDgl9/j852tkqqIwUg+RjxRbxf13IwWhNOrIiNAFnxhKT9kMVXl9m5Gv5EYk130JNC/uSKTo8uxk5Z+Rq4m7vaIqx0hk8zfLodZ5h4vDnUpwjIhEH+L+3OogeC5bm4zbAYTf4L/5dfobuSsWF88kO/6jAurKmoHShSA5n1YyJoE6ODAgvbpb root@server1.example.com</pre>
+</td>
+</tr>
+</tbody></table>
+<p>Now back on <span class="system">server1</span>, try to mount the remote share again (make sure it's unmounted before you run the command):</p>
+<p class="highlight">server1:</p>
+<p class="command">sshfs -o idmap=user root@192.168.0.101:/home/backup /backup</p>
+<p>If all goes well, you should not be prompted for a password:</p>
+<p class="system">root@server1:~# sshfs -o idmap=user root@192.168.0.101:/home/backup /backup<br>
+root@server1:~#</p>
+<p>&nbsp;</p>
+<h4 id="-mounting-the-remote-share-automatically-at-boot-time">3.2 Mounting The Remote Share Automatically At Boot Time</h4>
+<p class="highlight">server1:</p>
+<p>If you don't want to mount the remote share manually, it is possible to have it mounted automatically when the system boots (provided you have followed chapter 3.1 because otherwise an automatic mount is not possible because you will be asked for a password). Normally we would modify <span class="system">/etc/fstab</span> to achieve this, but unfortunately the network isn't up yet when <span class="system">/etc/fstab</span> is processed in the boot process, which means that the remote share cannot be mounted.</p>
+<p>To circumvent this, we simply add our mount command to <span class="system">/etc/rc.local</span>, which is the last file to be processed in the boot process, and at that time the network is up and running:</p>
+<p class="command">vi /etc/rc.local</p>
+<table class="" align="center" bgcolor="#CCCCCC" border="1" bordercolor="#000000" cellpadding="2" cellspacing="0" width="90%">
+<tbody><tr>
+<td class="">
+<pre>#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+/usr/bin/sshfs -o idmap=user root@192.168.0.101:/home/backup /backup
+exit 0</pre>
+</td>
+</tr>
+</tbody></table>
+<p>You can test this by simply rebooting your system:</p>
+<p class="command">reboot</p>
+<p>After the reboot, you can check with</p>
+<p class="command">mount</p>
+<p>and </p>
+<p class="command">df -h</p>
+<p>if the remote share got mounted.</p>
+<nav>
+<div id="articlePrevNextContainer">
+<div id="articlePrevLink"></div>
+<div id="articleNextLink"><a href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze-p2">Next &gt;&gt;</a></div>
+</div>
+</nav>
+<div style="height: 30px; margin-top: 20px;">
+<p style="text-align: right;"><img src="pdficon_small.png" pagespeed_url_hash="1813355361"> <a href="https://www.howtoforge.com/subscription/">view as pdf</a> | <img src="print.gif" pagespeed_url_hash="3731829194"> <a href="https://www.howtoforge.com/subscription/">print</a></p>
+</div>
+<div style="height: 30px; margin-top: 20px;">
+<div style="float: left;"><b>Share this page:</b></div>
+<div style="float: left; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze" data-via="howtoforgecom">Tweet</a> <a class="twitter-follow-button" href="https://twitter.com/howtoforgecom">Follow</a></div>
+<div style="float: left; margin-left: 20px;"><fb:like href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like></div>
+<div style="float: left; margin-left: 50px;"><div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze"></div></div>
+</div>
+</div>
+ 
+ 
+<div id="htfContentPagePaging">
+<h2>Sub pages</h2>
+<nav>
+<ul>
+<li><a href="#"><b>Mounting Remote Directories With SSHFS On Debian Squeeze</b></a></li><li><a href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze-p2">Mounting Remote Directories With SSHFS On Debian Squeeze - Page 2</a></li> </ul>
+</nav>
+</div>
+ 
+ 
+<div id="htfContentPageComment">
+<a name="comments"></a>
+<h2>0 Comment(s)</h2>
+ 
+<div id="commentform">
+<div class="commentContainerHead" style="font-size: 18px;">Add comment</div>
+<div class="commentContainer">
+<form method="post" action="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze/#comments">
+<input name="reply_to" id="reply-to-comment" value="0" type="hidden">
+<div id="commentFormDetail">
+<div style="width: 48%; float: left; margin-right: 3%;">
+<label for="commentname">Name *</label>
+<input id="commentname" name="commentname" value="">
+</div>
+<div style="width: 48%; float: left;">
+<label for="commentname">Email *</label>
+<input id="commentemail" name="commentemail" value="">
+</div>
+<div style="clear: both;"></div>
+</div>
+<textarea id="commentedit" name="commentedit" style="width: auto;"></textarea>
+<div>
+<div style="float: left;">
+<div class="g-recaptcha" data-sitekey="6LdX9fUSAAAAALWwVoPdeXScMSketz4npF-0QcQ1"></div>
+
+</div>
+<div style="margin-top: 10px; margin-bottom: 10px;">
+<input name="submit" class="button primary" style="float: right;" value="Submit comment" type="submit">
+</div>
+<div style="clear: both;"></div>
+</div>
+ 
+
+</form>
+</div>
+</div>
+ 
+</div>
+ 
+<div class="breadBoxBottom">
+<nav>
+<fieldset class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Mounting Remote Directories With SSHFS On Debian Squeeze</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+ 
+<center>
+ 
+ 
+
+ 
+</center>
+ </div>
+ 
+ 
+<form action="https://www.howtoforge.com/community/login/login?redirect=/mounting-remote-directories-with-sshfs-on-debian-squeeze" method="post" class="xenForm eAuth" id="login" style="display: none;">
+<ul id="eAuthUnit">
+<li><a href="https://www.howtoforge.com/community/register/facebook?reg=1" class="fbLogin" tabindex="110"><span>Log in with Facebook</span></a></li>
+<li><a href="https://www.howtoforge.com/community/register/twitter?reg=1" class="twitterLogin" tabindex="110"><span>Log in with Twitter</span></a></li>
+<li><span class="googleLogin GoogleLogin JsOnly" tabindex="110" data-client-id="198773272284-b6tfk0c28bje81p774prrcrkq9jb3o44.apps.googleusercontent.com" data-redirect-url="/community/register/google?code=__CODE__&amp;csrf=hVMXbW_3rnrmq4Em"><span>Log in with Google</span></span></li>
+</ul>
+<div class="ctrlWrapper">
+<dl class="ctrlUnit">
+<dt><label for="LoginControl">Your name or email address:</label></dt>
+<dd><input name="login" id="LoginControl" class="textCtrl" tabindex="101" type="text"></dd>
+</dl>
+<dl class="ctrlUnit">
+<dt>
+<label for="ctrl_password">Do you already have an account?</label>
+</dt>
+<dd>
+<ul>
+<li><label for="ctrl_not_registered"><input name="register" value="1" id="ctrl_not_registered" tabindex="105" type="radio">
+No, create an account now.</label></li>
+<li><label for="ctrl_registered"><input name="register" value="0" id="ctrl_registered" tabindex="105" checked="checked" class="Disabler" type="radio">
+Yes, my password is:</label></li>
+<li id="ctrl_registered_Disabler">
+<input name="password" class="textCtrl" id="ctrl_password" tabindex="102" type="password">
+<div class="lostPassword"><a href="https://www.howtoforge.com/community/lost-password/" tabindex="106">Forgot your password?</a></div>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="ctrlUnit submitUnit">
+<dt></dt>
+<dd>
+<input class="button primary" value="Log in" tabindex="104" data-loginphrase="Log in" data-signupphrase="Sign up" type="submit">
+<label for="ctrl_remember" class="rememberPassword"><input name="remember" value="1" id="ctrl_remember" tabindex="103" type="checkbox"> Stay logged in</label>
+</dd>
+</dl>
+</div>
+<input name="cookie_check" value="1" type="hidden">
+<input name="redirect" value="/community/" type="hidden">
+<input name="_xfToken" value="" type="hidden">
+</form>
+ 
+</div>
+</div>
+ 
+<aside>
+<div class="sidebar">
+<div class="section loginButton">
+<div class="secondaryContent">
+<label for="LoginControl" id="SignupButton"><a href="https://www.howtoforge.com/community/login/" class="inner">Sign up now!</a></label>
+</div>
+</div>
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-2">
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent socialMediaIcon">
+<a href="https://twitter.com/howtoforgecom" target="_blank"><img src="twitter_001.png" pagespeed_url_hash="1158659234"></a>
+<a href="https://www.facebook.com/howtoforge" target="_blank"><img src="facebook.png" pagespeed_url_hash="1073237413"></a>
+<a href="https://plus.google.com/+howtoforge/posts" target="_blank"><img src="googleplus.png" pagespeed_url_hash="2111806198"></a>
+<a href="https://www.howtoforge.com/feed" target="_blank"><img src="rss.png" pagespeed_url_hash="2255810733"></a>
+</div>
+</div>
+</div>
+<div class="section widget-group-no-name widget-container">
+<div class="secondaryContent widget WidgetFramework_WidgetRenderer_Stats" id="widget-3">
+<h3>Tutorial Info</h3>
+<div class="pairsJustified">
+<dl class="discussionCount">
+<dt>Author:</dt>
+<dd>falko</dd>
+</dl>
+<dl class="discussionCount">
+<dt>Tags:</dt>
+<dd><a href="https://www.howtoforge.com/tutorials/security/" rel="tag">security</a>, <a href="https://www.howtoforge.com/tutorials/debian/" rel="tag">debian</a>, <a href="https://www.howtoforge.com/tutorials/storage/" rel="tag">storage</a></dd>
+</dl>
+</div>
+</div>
+</div>
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent">
+<h3>Share This Page</h3>
+<div class="tweet shareControl">
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze" data-via="howtoforgecom">Tweet</a>
+</div>
+<div class="facebookLike shareControl">
+<fb:like href="http://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like>
+</div>
+<div class="plusone shareControl">
+<div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/mounting-remote-directories-with-sshfs-on-debian-squeeze"></div>
+</div>
+</div>
+</div>
+</div>
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<footer>
+<div class="footer">
+<div class="pageWidth">
+<div class="pageContent">
+<div class="skin_branding"><a href="http://www.xenfocus.com/" rel="nofollow">Xenforo skin</a><span> by <a href="http://www.xenfocus.com/" rel="nofollow">Xenfocus</a></span></div>
+<ul class="footerLinks">
+<li><a href="https://www.howtoforge.com/community/misc/contact">Contact</a></li>
+<li><a href="https://www.howtoforge.com/community/help/">Help</a></li>
+<li><a href="https://www.howtoforge.com/imprint/">Imprint</a></li>
+<li><a href="https://www.howtoforge.com/" class="homeLink">Tutorials</a></li>
+<li><a href="#navigation" class="topLink">Top</a></li>
+<li><a href="https://www.howtoforge.com/feed" rel="alternate" class="globalFeed" target="_blank" title="RSS-Feed for Howtoforge">RSS-Feed</a></li>
+</ul>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+<div class="footerLegal">
+<div class="pageWidth">
+<div class="pageContent">
+<ul id="legal">
+<li><a href="https://www.howtoforge.com/community/help/terms">Terms</a></li>
+</ul>
+<div id="copyright"><a href="https://www.howtoforge.com/" class="concealed">Howtoforge <span>© projektfarm GmbH.</span></a></div>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+</footer>
+<div style="height: 100px;"></div>
+
+
+
+
+</body>
+</html>

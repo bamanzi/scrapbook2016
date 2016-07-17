@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml" class="Public LoggedOut Sidebar Responsive hasJs NoTouch HasDragDrop" dir="LTR" id="XenForo">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="">
+
+<title>Use SSHFS With rdiff-backup.</title>
+<meta name="keywords" content="backup">
+<meta name="description" content="Use SSHFS With rdiff-backup
+
+
+An excellent tool to create backups is rdiff-backup. It is based on SSH, and the
+feature of SSH to execute a command... ">
+<meta name="og:title" content="Use SSHFS With rdiff-backup.">
+<meta name="og:description" content="Use SSHFS With rdiff-backup
+
+
+An excellent tool to create backups is rdiff-backup. It is based on SSH, and the
+feature of SSH to execute a command... ">
+<meta name="og:site_name" content="Howtoforge">
+<meta name="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="howtoforgecom">
+<meta name="twitter:creator" content="howtoforgecom">
+<meta name="twitter:title" content="Use SSHFS With rdiff-backup.">
+<meta name="twitter:description" content="Use SSHFS With rdiff-backup
+
+
+An excellent tool to create backups is rdiff-backup. It is based on SSH, and the
+feature of SSH to execute a command... ">
+<link rel="alternate" href="https://www.howtoforge.com/sshfs_rdiff_backup" hreflang="en">
+<link rel="canonical" href="https://www.howtoforge.com/sshfs_rdiff_backup">
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS-Feed für Howtoforge" href="https://www.howtoforge.com/feed.rss">
+
+
+
+
+
+
+ 
+
+
+ 
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><div class="cc_banner-wrapper "><div class="cc_banner cc_container cc_container--open"><a href="#null" data-cc-event="click:dismiss" class="cc_btn cc_btn_accept_all">Got it!</a><p class="cc_message">This website uses cookies to ensure you get the best experience on our website <a data-cc-if="options.link" class="cc_more_info" href="https://www.howtoforge.com/community/help/cookies">More info</a></p><a class="cc_logo" target="_blank" href="http://silktide.com/cookieconsent">Cookie Consent plugin for the EU cookie law</a></div></div>
+<div id="loginBar">
+<div class="pageWidth">
+<div class="pageContent">
+<h3 id="loginBarHandle">
+<label for="LoginControl"><a href="https://www.howtoforge.com/community/login/" class="concealed noOutline">Log in or Sign up</a></label>
+</h3>
+<span class="helper"></span>
+<form action="https://www.howtoforge.com/community/login/login?redirect=/sshfs_rdiff_backup" method="post" class="xenForm eAuth" id="login" style="display: none;">
+<ul id="eAuthUnit">
+<li><a href="https://www.howtoforge.com/community/register/facebook?reg=1" class="fbLogin" tabindex="110"><span>Log in with Facebook</span></a></li>
+<li><a href="https://www.howtoforge.com/community/register/twitter?reg=1" class="twitterLogin" tabindex="110"><span>Log in with Twitter</span></a></li>
+<li><span class="googleLogin GoogleLogin JsOnly" tabindex="110" data-client-id="198773272284-b6tfk0c28bje81p774prrcrkq9jb3o44.apps.googleusercontent.com" data-redirect-url="/community/register/google?code=__CODE__&amp;csrf=hVMXbW_3rnrmq4Em"><span>Log in with Google</span></span></li>
+</ul>
+<div class="ctrlWrapper">
+<dl class="ctrlUnit">
+<dt><label for="LoginControl">Your name or email address:</label></dt>
+<dd><input name="login" id="LoginControl" class="textCtrl" tabindex="101" type="text"></dd>
+</dl>
+<dl class="ctrlUnit">
+<dt>
+<label for="ctrl_password">Do you already have an account?</label>
+</dt>
+<dd>
+<ul>
+<li><label for="ctrl_not_registered"><input name="register" value="1" id="ctrl_not_registered" tabindex="105" type="radio">
+No, create an account now.</label></li>
+<li><label for="ctrl_registered"><input name="register" value="0" id="ctrl_registered" tabindex="105" checked="checked" class="Disabler" type="radio">
+Yes, my password is:</label></li>
+<li id="ctrl_registered_Disabler">
+<input name="password" class="textCtrl" id="ctrl_password" tabindex="102" type="password">
+<div class="lostPassword"><a href="https://www.howtoforge.com/community/lost-password/" tabindex="106">Forgot your password?</a></div>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="ctrlUnit submitUnit">
+<dt></dt>
+<dd>
+<input class="button primary" value="Log in" tabindex="104" data-loginphrase="Log in" data-signupphrase="Sign up" type="submit">
+<label for="ctrl_remember" class="rememberPassword"><input name="remember" value="1" id="ctrl_remember" tabindex="103" type="checkbox"> Stay logged in</label>
+</dd>
+</dl>
+</div>
+<input name="cookie_check" value="1" type="hidden">
+<input name="redirect" value="/community/" type="hidden">
+<input name="_xfToken" value="" type="hidden">
+</form></div>
+</div>
+</div>
+<header>
+<div id="header">
+<div id="logoBlock">
+<div class="pageWidth">
+<div class="pageContent">
+<div id="logo"><a href="https://www.howtoforge.com/">
+<span></span>
+<img src="howtoforge_logo_trans.gif" alt="Howtoforge" style="margin-left: 20px;" pagespeed_url_hash="639055748">
+</a></div>
+<span class="helper"></span>
+<div class="langSwitch">
+<b><img src="gb.png" alt="HowtoForge - Linux Tutorials in English" pagespeed_url_hash="3664605987"> English</b> | <a href="https://www.howtoforge.de/" title="HowtoForge.de - Linux Tutorials auf Deutsch"><img src="de.png" alt="HowtoForge.de - Linux Tutorials auf Deutsch" pagespeed_url_hash="478786493"> Deutsch</a>
+</div>
+</div>
+</div>
+</div>
+<div id="navigation" class="pageWidth withSearch">
+<div class="pageContent">
+<nav>
+<div class="navTabs">
+<ul class="publicTabs">
+ 
+<li class="navTab forums selected">
+<a href="https://www.howtoforge.com/" class="navLink">Tutorials</a>
+<div class="tabLinks forumsTabLinks">
+<ul class="secondaryContent blockLinksList">
+<li><a href="https://www.howtoforge.com/search/">Tutorial search</a></li>
+</ul>
+</div>
+</li>
+<li class="navTab forums PopupClosed">
+<a href="https://www.howtoforge.com/tutorials/" class="navLink">Tags</a>
+</li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/community/" class="navLink">Forums</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/contribute/" class="navLink">Contribute</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/subscription/" class="navLink">Subscribe</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.ispconfig.org/" class="navLink">ISPConfig</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.lxer.com/" class="navLink">News</a></li>
+</ul>
+</div>
+<span class="helper"></span>
+</nav>
+</div>
+</div>
+<div id="searchBar" class="pageWidth">
+<span id="QuickSearchPlaceholder" title=" Search..."> Search</span>
+<fieldset id="QuickSearch">
+<form action="https://www.howtoforge.com/" method="post" class="formPopup">
+<div class="primaryControls">
+ 
+<input name="q" value="" class="textCtrl" placeholder="Search..." results="0" title="Enter your search and hit enter..." id="QuickSearchQuery" type="search">
+ 
+</div>
+<input name="_xfToken" value="" type="hidden">
+</form>
+</fieldset>
+</div>
+</div>
+</header>
+<div id="content" class="forum_list">
+<div class="pageWidth">
+<div class="pageContent">
+ 
+<div class="mainContainer">
+<div class="mainContent">
+ 
+<div class="breadBoxTop">
+<nav>
+<fieldset style="" class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Use SSHFS With rdiff-backup.</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+ 
+<div id="htfContentPage">
+<div class="bsa-apiads"><a href="https://srv.buysellads.com/ads/click/x/GTND423NFTSIC23UCTS4YKQWCYAD527LCVYITZ3JCESDE27JCW7IC27KC6BDK53UCWSDEK3EHJNCLSIZ" target="_blank" rel="nofollow">Automate from SCM to Production with BuildMaster! 100+ Integrations; Free for 5 Users</a><img class="pwkgetxfifjicidydcyq" src="11341-5894-111.dat" pagespeed_url_hash="2261613668"></div>
+<div class="contributeEdit" style="float: right; width: 450px; max-width: 100%;">
+ 
+<div id="tocContainer">
+<h3>On this page</h3>
+<ol class="toc">
+<li><a href="#use-sshfs-with-rdiffbackup">Use SSHFS With rdiff-backup</a>
+<ol>
+<li><a href="#-links">Links:</a>
+</li></ol></li>
+</ol>
+</div>
+</div>
+<h2 id="use-sshfs-with-rdiffbackup">Use SSHFS With rdiff-backup</h2>
+<p>
+An excellent tool to create backups is rdiff-backup. It is based on SSH, and the
+feature of SSH to execute a command on a remote system, as long as you can log in
+to this machine with SSH.</p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p>
+Now I've been experimenting with SSHFS, and one of the things it can be used for
+is rdiff-Backup. Sshfs is a FUSE module, which allows you to mount the remote system.
+A normal backup looks like (assuming ssh access is ok):</p>
+<p class="command">
+rdiff-backup --preserve-numerical-ids 192.168.0.10::/home/sbon /srv/rdiff/backup/192.168.0.10/home/sbon
+</p>
+<p>
+Now with SSHFS it looks like:
+</p>
+<p class="command">
+install --directory /srv/rdiff/mounts/192.168.0.10<br>
+sshfs -o ro 192.168.0.10:/ /srv/rdiff/mounts/192.168.0.10<br>
+rdiff-backup --preserve-numerical-ids /srv/rdiff/mounts/192.168.0.10/home/sbon /srv/rdiff/backup/192.168.0.10/home/sbon
+</p>
+<p>
+It looks like this construction has only advantages:</p>
+<p>
+- the backup process is slightly faster. I've done some testing and all of my cases the backup over sshfs was a little bit faster (5 a 10 %).<br>
+- with sshfs it is possible to mount the remote system <i>read-only</i>, which increases the security. This
+is not an optimal security measurement: this readonly flag should not be controlled on this system (where the backup is made)
+, but on the remote system. I've tried to find out how, but there is no way in the Ssh server to make access read-only. Somebody knowing a way to do it, please let me know.<br>
+- it is possible to make more than one backup using only one SSHFS mount. When all backups are done,
+the sshfs connection with the remote system can be caunmounted.<br>
+- there is no need for rdiff-backup to be installed on the remote system.
+</p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p>
+One possible disadvantage (I'm not sure yet) is that sshfs does not support extended attributes. At this moment [26 august 2007] I'm trying to find out for sure.<br>
+September 2007:<br>
+I've send an email about this to Miklos Szeredi, the writer of SSHFS. SSHFS lacks support of ACL's because
+the sftp-server in OpenSSH doesn't support it. According to M. Szeredi "the OpenSSH developers have been reluctant
+to add support for newer protocol versions".<br>
+</p>
+<h3 id="-links">
+Links:</h3>
+<p>SSHFS: <a mce_real_href="http://fuse.sourceforge.net/sshfs.html" href="http://fuse.sourceforge.net/sshfs.html">http://fuse.sourceforge.net/sshfs.html</a><br>
+rdiff-backup: <a mce_real_href="http://www.nongnu.org/rdiff-backup/" href="http://www.nongnu.org/rdiff-backup/">http://www.nongnu.org/rdiff-backup</a></p>
+<div style="height: 30px; margin-top: 20px;">
+<p style="text-align: right;"><img src="pdficon_small.png" pagespeed_url_hash="1813355361"> <a href="https://www.howtoforge.com/subscription/">view as pdf</a> | <img src="print.gif" pagespeed_url_hash="3731829194"> <a href="https://www.howtoforge.com/subscription/">print</a></p>
+</div>
+<div style="height: 30px; margin-top: 20px;">
+<div style="float: left;"><b>Share this page:</b></div>
+<div style="float: left; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/sshfs_rdiff_backup" data-via="howtoforgecom">Tweet</a> <a class="twitter-follow-button" href="https://twitter.com/howtoforgecom">Follow</a></div>
+<div style="float: left; margin-left: 20px;"><fb:like href="https://www.howtoforge.com/sshfs_rdiff_backup" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like></div>
+<div style="float: left; margin-left: 50px;"><div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/sshfs_rdiff_backup"></div></div>
+</div>
+</div>
+ 
+ 
+<div id="htfContentPageComment">
+<a name="comments"></a>
+<h2>4 Comment(s)</h2>
+ 
+<div id="commentform">
+<div class="commentContainerHead" style="font-size: 18px;">Add comment</div>
+<div class="commentContainer">
+<form method="post" action="https://www.howtoforge.com/sshfs_rdiff_backup/#comments">
+<input name="reply_to" id="reply-to-comment" value="0" type="hidden">
+<div id="commentFormDetail">
+<div style="width: 48%; float: left; margin-right: 3%;">
+<label for="commentname">Name *</label>
+<input id="commentname" name="commentname" value="">
+</div>
+<div style="width: 48%; float: left;">
+<label for="commentname">Email *</label>
+<input id="commentemail" name="commentemail" value="">
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="visibility: hidden; border-width: 1px;" id="mceu_5" class="mce-tinymce mce-container mce-panel" hidefocus="1" tabindex="-1" role="application"><div id="mceu_5-body" class="mce-container-body mce-stack-layout"><div id="mceu_6" class="mce-toolbar-grp mce-container mce-panel mce-first mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group"><div id="mceu_6-body" class="mce-container-body mce-stack-layout"><div id="mceu_7" class="mce-container mce-toolbar mce-first mce-last mce-stack-layout-item" role="toolbar"><div id="mceu_7-body" class="mce-container-body mce-flow-layout"><div role="group" id="mceu_8" class="mce-container mce-first mce-flow-layout-item mce-btn-group"><div id="mceu_8-body"><div aria-disabled="true" aria-label="Undo" role="button" id="mceu_0" class="mce-widget mce-btn mce-first mce-disabled" tabindex="-1" aria-labelledby="mceu_0"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-undo"></i></button></div><div aria-disabled="true" aria-label="Redo" role="button" id="mceu_1" class="mce-widget mce-btn mce-last mce-disabled" tabindex="-1" aria-labelledby="mceu_1"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-redo"></i></button></div></div></div><div role="group" id="mceu_9" class="mce-container mce-last mce-flow-layout-item mce-btn-group"><div id="mceu_9-body"><div aria-label="Bold" role="button" id="mceu_2" class="mce-widget mce-btn mce-first" tabindex="-1" aria-labelledby="mceu_2"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-bold"></i></button></div><div aria-label="Italic" role="button" id="mceu_3" class="mce-widget mce-btn" tabindex="-1" aria-labelledby="mceu_3"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-italic"></i></button></div><div aria-label="Insert/edit link" role="button" id="mceu_4" class="mce-widget mce-btn mce-last" tabindex="-1" aria-labelledby="mceu_4"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-link"></i></button></div></div></div></div></div></div></div><div style="border-width: 1px 0px 0px;" id="mceu_10" class="mce-edit-area mce-container mce-panel mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group"><iframe src="index_1.html" style="width: 100%; height: 100px; display: block;" title="Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help" allowtransparency="true" id="commentedit_ifr" frameborder="0"></iframe></div><div style="border-width: 1px 0px 0px;" id="mceu_11" class="mce-statusbar mce-container mce-panel mce-last mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group"><div id="mceu_11-body" class="mce-container-body mce-flow-layout"><div id="mceu_12" class="mce-path mce-first mce-flow-layout-item"><div role="button" class="mce-path-item mce-last" data-index="0" tabindex="-1" id="mceu_12-0" aria-level="0">p</div></div><div id="mceu_13" class="mce-last mce-flow-layout-item mce-resizehandle"><i class="mce-ico mce-i-resize"></i></div></div></div></div></div><textarea aria-hidden="true" id="commentedit" name="commentedit" style="width: auto; display: none;"></textarea>
+<div>
+<div style="float: left;">
+<div class="g-recaptcha" data-sitekey="6LdX9fUSAAAAALWwVoPdeXScMSketz4npF-0QcQ1"><div style="width: 304px; height: 78px;"><div><iframe name="undefined" scrolling="no" role="presentation" title="recaptcha widget" src="index_2.html" frameborder="0" height="78" width="304"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div></div>
+
+</div>
+<div style="margin-top: 10px; margin-bottom: 10px;">
+<input name="submit" class="button primary" style="float: right;" value="Submit comment" type="submit">
+</div>
+<div style="clear: both;"></div>
+</div>
+ 
+
+</form>
+</div>
+</div>
+ 
+<h3>Comments</h3>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> </div>
+<div class="floatRight"><a href="#" data-comment="10016" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment10016" class="commentContainer commentLevel0">
+<p></p><p>Thanks for this article on rdiff-backup and sshfs.&nbsp; I'm already a fan of both but hadn't thought of using them together.</p>
+<p>A note on installing sshfs on Debian (and maybe other distrols) that isn't mentioned in the docs or on the program's FAQ.&nbsp; Your user account must be a member of the fuse group or you'll get </p>
+<p><span class="system">fusermount: failed to open /dev/fuse: Permission denied</span></p>
+<p>So, do:</p>
+<p class="command">sudo adduser &lt;username&gt; fuse</p>
+<p class="command">newgrp fuse</p>
+<p class="command">sudo adduser &lt;username&gt; fuse</p>
+<p class="command">newgrp fuse</p><p></p>
+</div>
+<div class="commentContainerHead commentLevel1">
+<div class="floatLeft"><b>From:</b> </div>
+<div class="floatRight"><a href="#" data-comment="10017" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment10017" class="commentContainer commentLevel1">
+<p></p><p>Hello,</p>
+<p>&nbsp;you're right about this. The user using sshfs must have enough permissions to write and to read /dev/fuse. There are various ways do that, you name one. Another is to change&nbsp; the permissions of /dev/fuse:</p>
+<p>crw-rw-rw- /dev/fuse</p>
+<p>I prefer the latest, fuse is meant to be used by anyone. But that's my opinion. Anyway thanks for your comment,</p>
+<p>&nbsp;</p>
+<p>Stef Bon</p>
+<p>the Netherlands&nbsp;</p><p></p>
+</div>
+<div class="commentContainerHead commentLevel2">
+<div class="floatLeft"><b>From:</b> Joost Ringoot </div>
+<div class="floatRight"><a href="#" data-comment="10019" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment10019" class="commentContainer commentLevel2">
+<p></p><p>Hi,</p>
+<p>I agree with you stef: " <i>fuse is meant to be used by anyone</i>"</p>
+<p>Thanks for pointing somewhat in the right direction. <br></p>
+<p>But I found your suggestion insufficient, further the device /dev/fuse is on my system (centos 5.3) belongs to user and group root. </p>
+<p>So the group fuse got nothing to do there. <br></p>
+<p>After poking around a bit(=looking for files that have fuser as group) I found that the solution is undocumented but quite simple: give other excecute rights on the command that performs the actual usermount:<br>Standard it is like this:<br>-rwsr-x--- 1 root fuse 23544 Sep&nbsp; 3 21:18 /bin/fusermount<br>we change it: </p>
+<p>chmod +x&nbsp; /bin/fusermount<br>to <br>-rwsr-x--x 1 root fuse 23544 Sep&nbsp; 3 21:18 /bin/fusermount<br>&nbsp;</p>
+<p>&nbsp;Joost Ringoot</p>
+<p>The Universe :-) <br></p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> /dev/kev </div>
+<div class="floatRight"><a href="#" data-comment="10018" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment10018" class="commentContainer commentLevel0">
+<p>I'm somewhat amazed that you found rdiff-backup to be faster over sshfs than rdiff-backup directly over ssh.
+</p><p>When rdiff-backup is running at each end of the ssh link, then the rdiff-backup processes can compute rolling checksums and exchange those to determine which files have changed (and where in the file the changes are). This is the main advantage (and the whole point, really) of the rsync algorithm.
+</p><p>But when using sshfs, rdiff-backup sees only two "local" files. It will then compute these rolling checksums on both files itself, by reading in each file. Surely this causes the entire file to be fetched by sshfs? And surely this will (in general) be slower than with an rdiff-backup process at the other end which is sending only checksums, not the whole file...
+</p><p>About the only time I can figure that sshfs access might be faster is during an initial backup, when none of the files actually exist in the backup, and so there are no rolling checksums to compute and compare.</p><p></p>
+</div>
+</div>
+ 
+<div class="breadBoxBottom">
+<nav>
+<fieldset style="" class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Use SSHFS With rdiff-backup.</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+ 
+<center>
+ 
+ 
+
+ 
+</center>
+ </div>
+ 
+ 
+
+ 
+</div>
+</div>
+ 
+<aside>
+<div class="sidebar">
+<div class="section loginButton">
+<div class="secondaryContent">
+<label for="LoginControl" id="SignupButton"><a href="https://www.howtoforge.com/community/login/" class="inner">Sign up now!</a></label>
+</div>
+</div>
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-2">
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent socialMediaIcon">
+<a href="https://twitter.com/howtoforgecom" target="_blank"><img src="twitter.png" pagespeed_url_hash="1158659234"></a>
+<a href="https://www.facebook.com/howtoforge" target="_blank"><img src="facebook.png" pagespeed_url_hash="1073237413"></a>
+<a href="https://plus.google.com/+howtoforge/posts" target="_blank"><img src="googleplus.png" pagespeed_url_hash="2111806198"></a>
+<a href="https://www.howtoforge.com/feed" target="_blank"><img src="rss.png" pagespeed_url_hash="2255810733"></a>
+</div>
+</div>
+</div>
+<div class="section widget-group-no-name widget-container">
+<div class="secondaryContent widget WidgetFramework_WidgetRenderer_Stats" id="widget-3">
+<h3>Tutorial Info</h3>
+<div class="pairsJustified">
+<dl class="discussionCount">
+<dt>Author:</dt>
+<dd>stefbon</dd>
+</dl>
+<dl class="discussionCount">
+<dt>Tags:</dt>
+<dd><a href="https://www.howtoforge.com/tutorials/backup/" rel="tag">backup</a></dd>
+</dl>
+</div>
+</div>
+</div>
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent">
+<h3>Share This Page</h3>
+<div class="tweet shareControl">
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/sshfs_rdiff_backup" data-via="howtoforgecom">Tweet</a>
+</div>
+<div class="facebookLike shareControl">
+<fb:like href="http://www.howtoforge.com/sshfs_rdiff_backup" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like>
+</div>
+<div class="plusone shareControl">
+<div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/sshfs_rdiff_backup"></div>
+</div>
+</div>
+</div>
+</div>
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<footer>
+<div class="footer">
+<div class="pageWidth">
+<div class="pageContent">
+<div class="skin_branding"><a href="http://www.xenfocus.com/" rel="nofollow">Xenforo skin</a><span> by <a href="http://www.xenfocus.com/" rel="nofollow">Xenfocus</a></span></div>
+<ul class="footerLinks">
+<li><a href="https://www.howtoforge.com/community/misc/contact">Contact</a></li>
+<li><a href="https://www.howtoforge.com/community/help/">Help</a></li>
+<li><a href="https://www.howtoforge.com/imprint/">Imprint</a></li>
+<li><a href="https://www.howtoforge.com/" class="homeLink">Tutorials</a></li>
+<li><a href="#navigation" class="topLink">Top</a></li>
+<li><a href="https://www.howtoforge.com/feed" rel="alternate" class="globalFeed" target="_blank" title="RSS-Feed for Howtoforge">RSS-Feed</a></li>
+</ul>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+<div class="footerLegal">
+<div class="pageWidth">
+<div class="pageContent">
+<ul id="legal">
+<li><a href="https://www.howtoforge.com/community/help/terms">Terms</a></li>
+</ul>
+<div id="copyright"><a href="https://www.howtoforge.com/" class="concealed">Howtoforge <span>© projektfarm GmbH.</span></a></div>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+</footer>
+<div style="height: 100px;"></div>
+
+
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body>
+</html>
