@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Termux and Linux</title>
+    <meta name="description" content="Help page for Termux - terminal emulator and Linux environment for Android.
+">
+    
+    <link rel="canonical" href="https://termux.com/linux.html">
+  
+<link rel="stylesheet" type="text/css" href="linux.css" media="all">
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://termux.com/help.html">Termux Help</a>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  
+  <header class="post-header">
+    <h1 class="post-title">Termux and Linux</h1>
+  </header>
+  
+
+  <article class="post-content">
+    <p>The environment setup in Termux is similar to that of a modern Linux distribution. However, running on Android implies several important differences:</p>
+
+<ul>
+  <li>Common folders such as /bin, /usr/, /var and /etc does not exist.</li>
+  <li>The Android system provides a basic non-standard file system hierarchy, where e.g. /system/bin contains some system binaries.</li>
+  <li>The user folder <code class="highlighter-rouge">$HOME</code> is inside the private file area exposed to Termux as an ordinary Android app. Uninstalling Termux will cause this file area to be wiped - so save important files outside this area such as in /sdcard or use a version control system such as git.</li>
+  <li>Termux installs its packages in a folder exposed through the <code class="highlighter-rouge">$PREFIX</code> environment variable (with e.g. binaries in <code class="highlighter-rouge">$PREFIX/bin</code>, and configuration in <code class="highlighter-rouge">$PREFIX/etc</code>).</li>
+  <li>The normal <code class="highlighter-rouge">#!/usr/bin/...</code> she-bangs will not work. Use the <code class="highlighter-rouge">termux-fix-shebang</code> script to modify these files before executing.</li>
+  <li>Shared libraries are installed in <code class="highlighter-rouge">$PREFIX/lib</code>, which are available from binaries due to Termux setting the <code class="highlighter-rouge">$LD_LIBRARY_PATH</code> environment variable. These may clash with Android system binaries in /system/bin, which may force <code class="highlighter-rouge">LD_LIBRARY_PATH</code> to be cleared before running system binaries.</li>
+  <li>Besides the file system being different, Termux is running as a single-user system without root - each Android app is running as its own Linux user, so running commands inside Termux may not interfere with other installed applications.</li>
+</ul>
+
+<p>Running as non-root implies that ports below 1024 cannot be bound to. Many packages have been configured to have compatible default values - the ftpd, httpd, and sshd servers default to 8021, 8080 and 8022, respectively.</p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+  
+
+
+</body>
+</html>

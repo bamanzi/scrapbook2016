@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta charset="UTF-8">
+
+    <title>Re: Using source blocks instead of Ansible</title>
+    
+    <link rel="SHORTCUT ICON" href="favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="main" bgcolor="white" text="black">
+  <table class="main" cellpadding="5" cellspacing="10">
+  <tbody><tr valign="top">
+  <td class="maintd">
+  <div class="tdiv">
+  <div>
+  <a href="http://gmane.org/">Home</a><br>
+  <a href="http://dir.gmane.org/">Reading</a><br>
+  <a href="http://search.gmane.org/">Searching</a><br>
+  <a href="http://gmane.org/subscribe.php">Subscribe</a><br>
+  <a href="http://gmane.org/sponsors.php">Sponsors</a><br>
+  <a href="http://gmane.org/stats.php">Statistics</a><br>
+  <a href="http://gmane.org/post.php">Posting</a><br>
+  <a href="http://gmane.org/contact.php">Contact</a><br>
+  <a href="http://gmane.org/spam-control.php">Spam</a><br>
+  <a href="http://gmane.org/find.php">Lists</a><br>
+  <a href="http://gmane.org/links.php">Links</a><br>
+<a href="http://gmane.org/about.php">About</a><br>
+<a href="http://gmane.org/host.php">Hosting</a><br>
+<a href="http://gmane.org/filter.php">Filtering</a><br>
+<a href="http://gmane.org/features.php">Features</a>
+<a href="http://gmane.org/dist.php">Download</a><br>
+<a href="http://gmane.org/logo.php">Marketing</a><br>
+<a href="http://gmane.org/import.php">Archives</a><br>
+<a href="http://weaver.gmane.org/">Weaver</a><br>
+  <a href="http://gmane.org/faq.php">FAQ</a><br>
+  &nbsp;<br>
+  </div>
+  <div class="ltd">
+  <!-- <img src="http://gmane.org/img/gmane-25.png" width=25 height=25 alt="Gmane"> -->
+  </div>
+  </div>
+  </td>
+  <td class="maintd" align="center">
+  <a href="http://gmane.org/"><img src="gmane-rot.png" alt="Gmane" border="0"></a>
+  </td>
+  <td class="bodytd">  
+<div class="headers">
+<div class="face">
+<a target="_top" href="http://ftp.cs.indiana.edu/pub/faces/picons/"><img alt="Picon" src="106892-picon-001.gif" border="0"></a>
+</div>
+From: Karl Voit &lt;devnull &lt;at&gt; Karl-Voit.at&gt;<br>
+Subject: <a target="_top" rel="nofollow" href="http://news.gmane.org/find-root.php?message_id=2016%2d05%2d05T22%2d49%2d08%40devnull.Karl%2dVoit.at">Re: Using source blocks instead of Ansible</a><br>
+Newsgroups: <a href="http://news.gmane.org/gmane.emacs.orgmode" target="_top">gmane.emacs.orgmode</a><br>
+Date: 2016-05-05 21:02:28 GMT
+ (10 weeks, 2 days, 11 hours and 54 minutes ago)<br></div>
+<pre>* William Denton &lt;wtd &lt;at&gt; pobox.com&gt; wrote:
+&gt;
+&gt; Is anyone using Org for remote configuration management instead of a tool=
+&gt;  like=20
+&gt; Ansible?
+
+Yes. I do.
+
+A month ago, I had to set up three Xubuntu machines from scratch
+with a very similar setup. Not everything worked perfectly. Some
+steps required manual changing to the running ssh/shell-session and
+entering passwords and so on directly before I could continue with
+C-c C-c of the next block.
+
+Overall, I was happy with my approach. It did not require as much of
+a learning (and setup) effort as Ansible which I don't know yet.
+IMHO the effort-value-ratio was quite good.
+
+My approach:
+
+* SYSTEM SETUP
+:PROPERTIES:
+:VAR: system="myhostname" host="192.168.1.2" user="user" gitname="git name"
+gitemail="user &lt;at&gt; gmx.at" server="192.168.1.1"
+:SESSION: 2016-03-22-remote-Linux-setup
+:results: output
+:tangle: ~/2016-03-22-remote-Linux-setup.sh
+:shebang: #!/bin/sh
+:comments: org
+:END:
+
+Setting defining myexit() and set_variable_equalsign()
+#+BEGIN_SRC sh
+
+myexit()
+{
+    [ "x$2" == "x" ] || echo "ERROR: $2"
+    [ "$1" -lt 1 ] &amp;&amp; echo "$FILENAME done."
+    [ "$1" -gt 0 ] &amp;&amp; echo "$FILENAME aborted with errorcode $1."
+    exit $1
+}
+
+set_variable_root_equalsign()
+{
+    FILE="${1}"
+    KEY="${2}"
+    VALUE="${3}"
+
+    [ "x${VALUE}" == "x" ] &amp;&amp; myexit 42 "set_variable_equalsign did not receive three arguments"
+
+    sudo sed -i "s/^\(${KEY}\s*=\s*\).*\$/\1$VALUE/" "${FILE}"
+    return_value=$?
+    [ ${return_value} -eq 0 ] || echo "Could not set \"$KEY\" to \"$VALUE\" in \"$FILE\": error code ${return_value}"
+}
+
+#+END_SRC
+
+#+BEGIN_SRC sh
+echo "ssh-copy-id $user &lt;at&gt; $host"
+#+END_SRC
+
+Create ssh connection:
+#+BEGIN_SRC sh
+ssh $user &lt;at&gt; $host
+#+END_SRC
+
+Testing user, host, and sudo: *enter sudo Password in session* buffer!
+#+BEGIN_SRC sh
+date
+echo "my new host: $HOSTNAME"
+echo "my username: $USER"
+sudo head -n 1 /etc/shadow &amp;&amp; echo "success"
+#+END_SRC
+
+#+BEGIN_SRC sh
+echo "$0: install ssh and related ..."
+DEBPACKAGES="openssh-server ssh-askpass ssh autossh"
+sudo apt-get install --yes ${DEBPACKAGES}
+#+END_SRC
+
+#+BEGIN_SRC sh
+echo "$0: setup git for root ..."
+sudo git config --global user.name "$gitname"
+sudo git config --global user.email "$gitemail"
+#+END_SRC
+
+#+BEGIN_SRC sh
+FILE="/etc/etckeeper/etckeeper.conf"
+KEY="VCS"
+VALUE="git"
+set_variable_root_equalsign "${FILE}" "${KEY}" "${VALUE}"
+cd /etc
+sudo etckeeper init
+sudo etckeeper commit "Initial commit of Org-mode setup script"
+#+END_SRC
+
+#+BEGIN_SRC sh
+echo "$0: get my emacs config ..."
+DOTEMACSSRC="$server:.emacs.d"
+cd $HOME
+scp -qr ${DOTEMACSSRC} .
+
+echo "$0: create host-specific init.el ..."
+cd .emacs.d
+cp init-gary.el init-${hostname}.el
+rm init.el
+ln -s init-${hostname}.el init.el
+
+#+END_SRC
+
+Scale fonts in Xfce:
+#+BEGIN_SRC sh
+
+export DISPLAY=:0.0
+
+## query current value:
+xfconf-query -c xsettings -p /Xft/DPI
+
+## set new value:
+xfconf-query -c xsettings -p /Xft/DPI -n -t int -s 140
+
+## query new value:
+xfconf-query -c xsettings -p /Xft/DPI
+#+END_SRC
+
+switch CAPSLOCK to Ctrl:
+
+Make permanent:
+/usr/bin/setxkbmap -option '' -option 'ctrl:nocaps'
+... add to Session &amp; Startup &gt; Application Autostart &gt; Add ...
+
+For current session only:
+#+BEGIN_SRC sh
+export DISPLAY=:0.0
+setxkbmap -option '' -option 'ctrl:nocaps'W
+#+END_SRC
+
+... and so forth ...
+
+-- 
+mail|git|SVN|photos|postings|SMS|phonecalls|RSS|CSV|XML to Org-mode:
+       &gt; get Memacs from <a rel="nofollow" href="https://github.com/novoid/Memacs" target="_top">https://github.com/novoid/Memacs</a> &lt;
+
+<a rel="nofollow" href="https://github.com/novoid/extract_pdf_annotations_to_orgmode" target="_top">https://github.com/novoid/extract_pdf_annotations_to_orgmode</a> + more on github
+
+</pre>
+
+</td><td rowspan="2" class="listid">
+<a href="http://dir.gmane.org/gmane.emacs.orgmode">
+<img rel="nofollow" src="paint-list-id.php" border="0">
+</a>
+</td> 
+  
+  </tr>
+  </tbody></table>
+  
+
+</body>
+</html>

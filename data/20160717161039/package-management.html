@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Package management</title>
+    <meta name="description" content="Help page for Termux - terminal emulator and Linux environment for Android.
+">
+    
+    <link rel="canonical" href="https://termux.com/package-management.html">
+  
+<link rel="stylesheet" type="text/css" href="package-management.css" media="all">
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://termux.com/help.html">Termux Help</a>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  
+  <header class="post-header">
+    <h1 class="post-title">Package management</h1>
+  </header>
+  
+
+  <article class="post-content">
+    <p>A minimal base system consisting of the Apt package manager and the busybox collection of system utilities is installed when first starting Termux. Additional packages are available using the apt command:</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">apt update</code></dt>
+  <dd>Updates the list of available packages. This commands <strong>needs to be run initially directly after installation and regularly afterwards to receive updates</strong>.</dd>
+  <dt><code class="highlighter-rouge">apt search &lt;query&gt;</code></dt>
+  <dd>Search among available packages.</dd>
+  <dt><code class="highlighter-rouge">apt install &lt;package&gt;</code></dt>
+  <dd>Install a new package.</dd>
+  <dt><code class="highlighter-rouge">apt upgrade</code></dt>
+  <dd>Upgrade outdated packages. For Apt to know about newer packages you will need to update the package index, so you will normally want to run apt update before upgrading.</dd>
+  <dt><code class="highlighter-rouge">apt show &lt;package&gt;</code></dt>
+  <dd>Show information about a package.</dd>
+  <dt><code class="highlighter-rouge">apt list</code></dt>
+  <dd>List all available packages.</dd>
+  <dt><code class="highlighter-rouge">apt list --installed</code></dt>
+  <dd>List all installed packages.</dd>
+  <dt><code class="highlighter-rouge">apt remove &lt;package&gt;</code></dt>
+  <dd>Remove an installed package.</dd>
+</dl>
+
+<p>Apt as a package manager uses a package format named dpkg. Normally direct use of dpkg is not necessary, but the following two commands may be of use:</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">dpkg -L &lt;package&gt;</code></dt>
+  <dd>List installed files of a package.</dd>
+  <dt><code class="highlighter-rouge">dpkg --verify</code></dt>
+  <dd>Verify the integrity of installed packages.</dd>
+</dl>
+
+<p>View the apt manual page (execute <code class="highlighter-rouge">apt install man</code> to install a man page viewer first) for more information.</p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+  
+
+
+</body>
+</html>

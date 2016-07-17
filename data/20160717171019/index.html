@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta charset="UTF-8">
+
+  <title>Blog</title>
+  
+  
+ 
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+ <body bgcolor="BBBBBB">
+ 
+<center><h1>Blog</h1></center>
+
+<table border="0" cellpadding="10" cellspacing="10" width="100%">
+<tbody><tr><td bgcolor="#AAAAAA" valign="top" width="10%">
+<a href="http://www.bundesbrandschatzamt.de/~baron/">HOME</a><br>
+
+
+
+	<hr>
+	<ul class="org-ul">
+	
+		<li><a href="#">20160614-org tables</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/20160312-no%20production%20change%20on%20friday%20and%20git">20160312-no production change on friday and git</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/20150812-Emacs%20Keyboard%20Map">20150812-Emacs Keyboard Map</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/20150602-Literate%20DevOps">20150602-Literate DevOps</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/20150520-literate%20oracle">20150520-literate oracle</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/20150519-Emacs%20into%20the%20beyond">20150519-Emacs into the beyond</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/bbabookmarks">bbabookmarks</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/Emacs">Emacs</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/Partitioning">Partitioning</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/Booting%20DVD%20from%20a%20USB%20stick">Booting DVD from a USB stick</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/port%20based%20routing">port based routing</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/Webcaching">Webcaching</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/IPMI">IPMI</a></li>
+	
+		<li><a href="http://www.bundesbrandschatzamt.de/~baron/blog/git">git</a></li>
+	
+	</ul>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="http://www.bundesbrandschatzamt.de/~baron/feed/rss/blog"><img src="rssfeed.png" alt="rss" border="0" width="20"></a>RSS<br>
+
+
+<hr>
+      <a href="http://validator.w3.org/check?uri=referer"><img src="valid-html401.dat" alt="Valid HTML 4.01!" border="0" height="31" width="88"></a><br>
+<a href="http://www.xemacs.org/"><img src="xemacs.gif" alt="xemacs powered" border="0"></a>
+
+</td><td valign="top" width="80%">
+
+
+
+
+
+
+
+
+<br>
+
+
+
+<h2>20160614-org tables</h2>
+<p>
+If you use org mode to do literate devops you probably know that you
+can use tables like in the following example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: rgb(223, 113, 20);">#+NAME: foo</span>
+<span style="color: rgb(135, 206, 250);">| hostname |</span>
+<span style="color: rgb(135, 206, 250);">|----------|</span>
+<span style="color: rgb(135, 206, 250);">| host1    |</span>
+<span style="color: rgb(135, 206, 250);">| host2    |</span>
+
+
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+BEGIN_SRC sh :session client :var HOSTS=foo</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">[</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">,0</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">]</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);"> :cache no :results verbatim drawer</span>
+
+<span style="color: rgb(179, 179, 179);">for HOST in $HOSTS; do</span>
+<span style="color: rgb(179, 179, 179);">echo "----------------------------------------"</span>
+<span style="color: rgb(179, 179, 179);">echo $</span><span style="color: rgb(140, 140, 140);">{</span><span style="color: rgb(179, 179, 179);">HOST</span><span style="color: rgb(140, 140, 140);">}</span>
+<span style="color: rgb(179, 179, 179);">echo "----------------------------------------"</span>
+<span style="color: rgb(179, 179, 179);">done</span>
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+END_SRC</span>
+
+<span style="color: rgb(223, 113, 20);">#+RESULTS:</span>
+<span style="color: rgb(251, 73, 52);">:RESULTS:</span>
+
+----------------------------------------
+host1
+----------------------------------------
+----------------------------------------
+host2
+----------------------------------------
+<span style="color: rgb(251, 73, 52);">:END:</span>
+</pre>
+</div>
+
+<p>
+The problem: My tables like any tables have usually more than one
+column. And I need access to all of them.
+Here you see an example where I achieved that:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: rgb(223, 113, 20);">#+NAME: mysql-hosts</span>
+<span style="color: rgb(135, 206, 250);">| hostname       | instance-id         | ElasticIP allocation-id |          eth0 |</span>
+<span style="color: rgb(135, 206, 250);">|----------------+---------------------+-------------------------+---------------|</span>
+<span style="color: rgb(135, 206, 250);">| mysql-stage001 | i-0515f26034190fdd0 | eipalloc-3aba7b43       | 192.168.42.11 |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-stage002 | i-e944eff8440427030 | eipalloc-30c10049       | 192.168.42.12 |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-stage003 | i-0d3d55b5feec1c0af | eipalloc-75b4750c       | 192.168.42.13 |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-stage004 | i-ba39c83390d815730 | eipalloc-a8af6ed1       | 192.168.42.14 |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-stage005 | i-c9e117eb59ac4c304 | eipalloc-caac6db3       | 192.168.42.15 |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-stage006 | i-093edb05426675c24 | eipalloc-b4bd7ccd       | 192.168.42.16 |</span>
+
+Set ec2 tag Name for all instances in above table:
+
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+BEGIN_SRC sh :session client :var HOSTS=mysql-hosts</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">[</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">,0</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">]</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);"> INSTANCEIDS=mysql-hosts</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">[</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">,1</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">]</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);"> :cache no :results verbatim drawer</span>
+<span style="color: rgb(179, 179, 179);">  HOSTS=</span><span style="color: rgb(140, 140, 140);">(</span><span style="color: rgb(179, 179, 179);">$HOSTS</span><span style="color: rgb(140, 140, 140);">)</span>
+<span style="color: rgb(179, 179, 179);">  INSTANCEIDS=</span><span style="color: rgb(140, 140, 140);">(</span><span style="color: rgb(179, 179, 179);">$INSTANCEIDS</span><span style="color: rgb(140, 140, 140);">)</span>
+<span style="color: rgb(179, 179, 179);">  export AWS_DEFAULT_PROFILE=test</span>
+
+<span style="color: rgb(179, 179, 179);">  for INDEX in $</span><span style="color: rgb(140, 140, 140);">{</span><span style="color: rgb(179, 179, 179);">!HOSTS</span><span style="color: rgb(147, 168, 198);">[</span><span style="color: rgb(179, 179, 179);">@</span><span style="color: rgb(147, 168, 198);">]</span><span style="color: rgb(140, 140, 140);">}</span><span style="color: rgb(179, 179, 179);">; do</span>
+<span style="color: rgb(179, 179, 179);">      aws ec2 create-tags --resources $</span><span style="color: rgb(140, 140, 140);">{</span><span style="color: rgb(179, 179, 179);">INSTANCEIDS</span><span style="color: rgb(147, 168, 198);">[</span><span style="color: rgb(179, 179, 179);">$</span><span style="color: rgb(176, 177, 163);">{</span><span style="color: rgb(179, 179, 179);">INDEX</span><span style="color: rgb(176, 177, 163);">}</span><span style="color: rgb(147, 168, 198);">]</span><span style="color: rgb(140, 140, 140);">}</span><span style="color: rgb(179, 179, 179);"> --tags Key=Name,Value=$</span><span style="color: rgb(140, 140, 140);">{</span><span style="color: rgb(179, 179, 179);">HOSTS</span><span style="color: rgb(147, 168, 198);">[</span><span style="color: rgb(179, 179, 179);">$</span><span style="color: rgb(176, 177, 163);">{</span><span style="color: rgb(179, 179, 179);">INDEX</span><span style="color: rgb(176, 177, 163);">}</span><span style="color: rgb(147, 168, 198);">]</span><span style="color: rgb(140, 140, 140);">}</span>
+<span style="color: rgb(179, 179, 179);">  done</span>
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+At first you have to name the table. Then you can access the columns.
+In your code block - bash in my example - you convert the space
+seperated values in the variables into arrays.
+Then you use a <code>for</code> loop over the index. Now you can access all columns
+of the table. Sure you have to name each column separately in you src
+block. But that is something at least I can live with.
+</p>
+
+<p>
+Here is another example were we use the output of one src block as the
+input for the next src block:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: rgb(223, 113, 20);">#+NAME:start-stage-instances-mysql-test</span>
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+BEGIN_SRC sh :results table</span>
+<span style="color: rgb(179, 179, 179);">  aws --profile=test --region=us-east-1 ec2 describe-instances \</span>
+<span style="color: rgb(179, 179, 179);">      --query 'Reservations</span><span style="color: rgb(140, 140, 140);">[]</span><span style="color: rgb(179, 179, 179);">.Instances</span><span style="color: rgb(140, 140, 140);">[]</span><span style="color: rgb(179, 179, 179);">.</span><span style="color: rgb(140, 140, 140);">[</span><span style="color: rgb(179, 179, 179);">join</span><span style="color: rgb(147, 168, 198);">(</span><span style="color: rgb(179, 179, 179);">`,`,Tags</span><span style="color: rgb(176, 177, 163);">[</span><span style="color: rgb(179, 179, 179);">?Key==`Name`</span><span style="color: rgb(176, 177, 163);">]</span><span style="color: rgb(179, 179, 179);">.Value</span><span style="color: rgb(147, 168, 198);">)</span><span style="color: rgb(179, 179, 179);">,join</span><span style="color: rgb(147, 168, 198);">(</span><span style="color: rgb(179, 179, 179);">`,`,Tags</span><span style="color: rgb(176, 177, 163);">[</span><span style="color: rgb(179, 179, 179);">?Key==`Schedule`</span><span style="color: rgb(176, 177, 163);">]</span><span style="color: rgb(179, 179, 179);">.Value</span><span style="color: rgb(147, 168, 198);">)</span><span style="color: rgb(179, 179, 179);">,InstanceId, State.Name, PrivateIpAddress, PublicDnsName, InstanceType,Placement.AvailabilityZone,LaunchTime</span><span style="color: rgb(140, 140, 140);">]</span><span style="color: rgb(179, 179, 179);">' \</span>
+<span style="color: rgb(179, 179, 179);">      --output text --filters "Name=tag:Name,Values=mysql-test00*" | sort</span>
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+END_SRC</span>
+
+<span style="color: rgb(223, 113, 20);">#+RESULTS: start-stage-instances-mysql-test</span>
+<span style="color: rgb(135, 206, 250);">| mysql-test001 |   | i-11e377f61f20b7410 | stopped | 192.168.42.1 | ec2-66-66-42-1.compute-1.amazonaws.com | r3.4xlarge | us-east-1a | 2016-06-10T12:28:16.000Z |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-test002 |   | i-a5d8a2262050900c6 | stopped | 192.168.42.2 | ec2-66-66-42-2.compute-1.amazonaws.com | r3.4xlarge | us-east-1a | 2016-06-10T12:28:16.000Z |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-test003 |   | i-5da6d60990701576d | stopped | 192.168.42.3 | ec2-66-66-42-3.compute-1.amazonaws.com | r3.4xlarge | us-east-1a | 2016-06-10T12:28:16.000Z |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-test004 |   | i-05060c9940a07762e | stopped | 192.168.42.4 | ec2-66-66-42-4.compute-1.amazonaws.com | r3.4xlarge | us-east-1a | 2016-06-10T12:28:16.000Z |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-test005 |   | i-83b07766d8a0f720b | stopped | 192.168.42.5 | ec2-66-66-42-5.compute-1.amazonaws.com | r3.4xlarge | us-east-1a | 2016-06-10T12:28:16.000Z |</span>
+<span style="color: rgb(135, 206, 250);">| mysql-test006 |   | i-eb9718fcb210c39c3 | stopped | 192.168.42.6 | ec2-66-66-42-6.compute-1.amazonaws.com | r3.4xlarge | us-east-1a | 2016-06-10T12:28:16.000Z |</span>
+
+
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+BEGIN_SRC sh :results verbatim drawer :var INSTANCEIDS=start-stage-instances-mysql-test</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">[</span><span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">,2</span><span style="color: rgb(140, 140, 140); background-color: rgb(41, 117, 156);">]</span>
+<span style="color: rgb(179, 179, 179);">  aws --profile=test --region=us-east-1 ec2 stop-instances --instance-ids $</span><span style="color: rgb(140, 140, 140);">{</span><span style="color: rgb(179, 179, 179);">INSTANCEIDS</span><span style="color: rgb(140, 140, 140);">}</span>
+<span style="color: rgb(132, 203, 239); background-color: rgb(41, 117, 156);">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+I hope I could help you a little bit to improve your literate devops.
+Recently I found <a href="https://github.com/stig/ox-jira.el/blob/master/ox-jira.org">ox-jira</a>. Since then the tickets I am working on
+improved heavily.
+</p>
+
+
+
+
+
+
+
+
+
+</td>
+
+<td valign="top" width="10%">
+<iframe src="index_1.html" scrolling="no" marginwidth="0" marginheight="0" border="0" style="border: medium none;" frameborder="0" height="600" width="120"></iframe>
+</td>
+
+</tr></tbody></table>
+
+    <hr>
+<i><!-- Created: Thu Feb 24 13:48:40 CET 2005 -->
+Andreas Gerler <a href="mailto:baronNOSPAMbundesbrandschatzamt.de">&lt;baronNOSPAMbundesbrandschatzamt.de&gt;</a>
+</i><br>
+ 
+
+</body>
+</html>

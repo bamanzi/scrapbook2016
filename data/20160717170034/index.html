@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" class=" js csstransforms csstransforms3d csstransitions">
+<head>
+<meta charset="UTF-8">
+<title>Install Ubuntu on the Intel Compute Stick (Windows version)</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="OBKey" content="9eWLEBBibK0YXuB0ZXaHdw==">
+
+<!-- This site is optimized with the Yoast SEO plugin v3.3.4 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="ingStep-by-step guide for install Ubuntu 14.04.2 LTS on the Intel Compute Stick mini PC with 2GB of RAM and 32GB of storage.">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html">
+<link rel="publisher" href="https://plus.google.com/Liliputing">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install Ubuntu on the Intel Compute Stick (Windows version)">
+<meta property="og:description" content="ingStep-by-step guide for install Ubuntu 14.04.2 LTS on the Intel Compute Stick mini PC with 2GB of RAM and 32GB of storage.">
+<meta property="og:url" content="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html">
+<meta property="og:site_name" content="Liliputing">
+<meta property="article:publisher" content="https://www.facebook.com/Liliputing">
+<meta property="article:tag" content="compute stick">
+<meta property="article:tag" content="ian morrison">
+<meta property="article:tag" content="intel compute stick">
+<meta property="article:tag" content="linuxium">
+<meta property="article:tag" content="mini-pc">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:section" content="featured">
+<meta property="article:published_time" content="2015-07-22T18:00:18-04:00">
+<meta property="article:modified_time" content="2016-06-22T17:32:49-04:00">
+<meta property="og:updated_time" content="2016-06-22T17:32:49-04:00">
+<meta property="fb:admins" content="648557080">
+<meta property="og:image" content="http://liliputing.com/wp-content/uploads/2015/07/cstick-install.jpg">
+<meta property="og:image:width" content="680">
+<meta property="og:image:height" content="487">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="ingStep-by-step guide for install Ubuntu 14.04.2 LTS on the Intel Compute Stick mini PC with 2GB of RAM and 32GB of storage.">
+<meta name="twitter:title" content="Install Ubuntu on the Intel Compute Stick (Windows version)">
+<meta name="twitter:site" content="@liliputingnews">
+<meta name="twitter:image" content="http://liliputing.com/wp-content/uploads/2015/07/cstick-install.jpg">
+<meta name="twitter:creator" content="@liliputingnews">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Liliputing » Feed" href="http://feeds.feedburner.com/Liliputing">
+<link rel="alternate" type="application/rss+xml" title="Liliputing » Comments Feed" href="http://liliputing.com/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="Liliputing » Install Ubuntu 14.04 LTS on the 2GB Intel Compute Stick Comments Feed" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html/feed">
+		
+		
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://cdn.liliputing.com/wp-content/themes/genesis/lib/js/html5shiv.min.js?ver=3.7.3' defer onload=''></script>
+<![endif]-->
+<link rel="https://api.w.org/" href="http://liliputing.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://liliputing.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://liliputing.com/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="http://liliputing.com/?p=77921">
+<link rel="alternate" type="application/json+oembed" href="http://liliputing.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fliliputing.com%2F2015%2F07%2Finstall-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html">
+<link rel="alternate" type="text/xml+oembed" href="http://liliputing.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fliliputing.com%2F2015%2F07%2Finstall-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html&amp;format=xml">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta property="og:image" content="http://liliputing.com/wp-content/uploads/2015/07/cstick-install.jpg" data-id="sfsi"><meta property="og:image:type" content="" data-id="sfsi"><meta property="og:image:width" content="680" data-id="sfsi"><meta property="og:image:height" content="487" data-id="sfsi"><meta property="og:url" content="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html" data-id="sfsi"><meta property="og:description" content="The Intel Compute Stick is a tiny computer that lets you run desktop apps on a TV when you plug the stick into an HDMI port. Intel offers Windows and Ubuntu Linux versions of the Compute Stick: but the operating system isn't the only thing that makes one model different from the other.
+
+If you buy the Intel Compute Stick with Windows, you get a model with 2GB of RAM and 32GB of storage. The Ubuntu model has just 1GB of RAM and 8GB of built-in storage.
+
+
+
+The good news is that the Ubuntu model sells for about $50 less than the Windows model. The bad news is that there's so little built-in storage space that as soon as you turn on the computer you'll note that there's less than 1GB of free space for files and apps.
+
+So can you install Ubuntu on the Windows model?
+
+Yep. And now it's easier than ever.
+
+
+Background
+When I first reviewed the Intel Compute Stick, I noted that you could install Ubuntu yourself... but WiFi and Bluetooth wouldn't work properly.
+
+
+As Intel prepared to release the Ubuntu model of the Compute Stick, I asked the company if there were any plans to release a downloadable version of Ubuntu that would let users install the operating system on their own.
+
+The answer? Nope... but you could sort of build your own software by downloading the software from Ubuntu.com, getting the latest Intel graphics drivers, and then writing to Realtek to ask for wireless drivers.
+
+I don't know anyone that has actually managed to get a response from Realtek though.
+
+Enter Ian Morrison. For the past few years, he's been working on porting Ubuntu to run on a variety of mini PCs and a little while ago he enlisted my help in testing various builds for the Intel Compute Stick.
+
+Recently Liliputing published an article explaining how to download Morrison's build of Ubuntu 14.10 and install it on a Compute Stick and then jump through some hoops to get wireless connections and audio to work properly. But to be honest, it was a bit complicated.
+
+Then something funny happened: while Intel had announced that the Compute Stick with Ubuntu would launch in mid-July, it has yet to go on sale in the United States. But Morrison found one in Australia.
+
+
+
+After examining the software running on the 1GB/8GB Compute Stick, he figured out how to get Ubuntu 14.04 LTS 64-bit to run on the 2GB/32GB model.
+
+Best of all, you don't need to jump through any extra hoops to modify the bootloader. You can boot his build of Ubuntu 14.04 from a USB flash drive to try the software before installing it. And if you're happy with what you see, just click the Install Ubuntu icon on the desktop and follow the instructions to either install the operating system.
+
+You can overwrite Windows if you'd like, or repartition the built-in storage to leave Windows in place and create a setup with both operating systems on the same storage . You can even install Ubuntu to a microSD card if you don't want to touch the built-in storage (although you will need to write the bootloader to built-in storage).
+
+Keep in mind, this setup will not create a dual-boot system. Since Windows only boots with a 32-bit bootloader and you're installing a 64-bit version of Ubuntu and a 64-bit bootloader, the only way to switch between Ubuntu and Windows is to delete the ubuntu bootloader&nbsp;as described below&nbsp;(which should automatically restore the Windows bootloader), and change the operating system type from Ubuntu 64-bit to Windows 32-bit in the UEFI settings.
+
+You could also follow our guide for installing Ubuntu 14.10 64-bit with a 32-bit bootloader to create a true dual-boot setup. But if you don't care about running Windows, the steps below should be simpler and quicker to follow.
+
+Also note that Intel doesn't officially support installing Ubuntu on the Windows model. This mean you may void your warranty if you break anything... and Ian's disk image isn't&nbsp;exactly&nbsp;the same as the software that runs on the Ubuntu model. Instead, he's compiled a build of Ubuntu based on Canonical's open source software and software that Canonical and Intel have worked on together.
+
+Note that while these instructions worked for Ian and for me, there's no guarantee that they'll work for you, and just like Intel, we take no responsibility if something goes wrong.
+
+Update: There are also now several other methods for installing Ubuntu. The simplest involves downloading Ian Morrison's unofficial official Ubuntu 14.04 disc image, writing it to a USB flash drive, and using that to install the operating system.
+
+The other method would be to install Ubuntu using the official Ubuntu 14.04 ISO and then apply Ian Morrison's patch script.
+
+There's also a script that simplifies the process of booting Ubuntu 14.04 64-bit from a 32-bit bootloader.&nbsp;
+
+Unlike the method outlined below, this will result in the GRUB bootloader hiding the Windows boot option altogether.&nbsp;
+
+But the good news is that the unofficial official Ubuntu ROM includes software packages from Canonical, which means that they're officially supported and don't rely on a custom kernel.&nbsp;
+
+This means that you can upgrade the kernel without losing access to the software that allows the WiFi, Bluetooth, and audio to work properly.
+How to Boot Ubuntu 14.04 from a liveUSB
+1. Download Ian Morrison's&nbsp;ISO disk image&nbsp;or his unofficial official build for Ubuntu 14.04.2 LTS (Update: Or you can grab a newer build based on Ubuntu 14.04.3 LTS).&nbsp;&nbsp;Either will work, but the latter doesn't have a modified kernel, which makes it easier for users to update the kernel themselves.
+
+2. If you're using Linux, use the dd command to transfer the disc image to a USB flash drive. Windows users can download the Rufus bootable USB drive utility and use it for this step.
+
+
+
+3. Connect a USB hub to the USB 2.0 port on the Compute Stick and plug in a keyboard, mouse, and the USB flash drive you just prepared.
+
+
+
+4. Connect a power cable to turn on the Compute Stick and quickly press the F2 key to enter the UEFI/BIOS setup utility.
+
+5. Use the arrow keys on your keyboard to navigate to the Configuration menu and then move down to the Select Operating System section and change the selected OS from Windows 32-bit to Ubuntu 64-bit.
+
+
+
+6. Hit the right-arrow key to go to the Exit menu and choose to save your changes and exit.
+
+7. Now the computer will reboot. Press F10 right away to get to the boot options menu.
+
+8. Choose the USB flash drive.
+
+
+
+9. The GRUB bootloader should appear, asking if you'd like to Try Ubuntu without installing or if you'd like to install Ubuntu. Select the first options, which will let you run the OS from the USB flash drive without writing anything to your device's built-in storage.
+
+That's pretty much it. Wait a few minutes and the Ubuntu desktop should load. You can connect to a wireless network, surf the web, and even install apps. Just keep in mind that nothing you do will be saved.
+
+If you're happy with what you see, you can install Ubuntu. There are a few different options for doing that, but here's one of the safest:
+Installing Ubuntu to a microSD card
+Note: If you've previously installed Ubuntu or another operating system, make sure to remove any changes to your bootloader before proceeding. This tutorial assumes you're starting from a system that boots to Windows automatically. If you already have GRUB installed, you'll probably run into problems... but the troubleshooting section below may help.&nbsp;
+
+1. Prepare a liveUSB as described in the section above and use it to boot into Ubuntu.
+
+2. Double-click the install Ubuntu icon on the desktop.
+
+3. Follow the on-screen instructions and when you're asked if you'd like to unmount any disks, select yes.
+
+4. When you get to the Installation Type option, choose something else and scroll down until you find&nbsp;“/dev/mmcblk1″ which should be your microSD card.
+
+
+
+4. Choose the New Partition Tablet option for mmcblk1 and click the + icon to create a new partition. Choose / as the mount point and Ext4 for the file system.
+
+Note that you should not change the location of the bootloader. It should be set to mmcblk0, which means the bootloader will be written to your Compute Stick's internal storage (you can undo this if you decide to remove Ubuntu later).
+
+
+
+Also note that you may see a message alerting you that you have not selected any Swap space. You can set some up if you want, but I didn't bother.
+
+5. Follow the rest of the instructions, entering your time zone, keyboard layout, and username and password when asked.
+
+6. The installer may take 10 - 30 minutes to complete. When it's finished, you can reboot your device and remove the USB flash drive.
+
+7. The GRUB bootloader will now appear when the computer boots, giving you an option to boot Ubuntu.
+
+If you don't see GRUB or if it doesn't work, you can also hit F10 while the computer is booting to bring up the boot options menu. From here, choose the option that says Ubuntu. Sometimes this works better.
+
+That's it: you should now have a working version of Ubuntu 14.04 that you can run at any time. If you followed my steps, Ubuntu is running from a microSD card and Windows is still hanging out on the internal storage of your Compute Stick.
+
+Alternately, you could overwrite Windows or repartition the built-in storage. I felt more comfortable using a microSD card and leaving the original software untouched. Either way, you get an Ubuntu Compute Stick with 2GB of RAM, which is twice as much as you'd get if you bought the version of the Compute Stick that comes with Ubuntu pre-installed.
+
+From time to time the Compute Stick did lock up on me when running from the microSD card. I suspect heat may be a factor: the Compute Stick can get rather warm when it's in use, and when I eject the microSD card it feels hot to the touch. It's possible that you may get better performance if you install Ubuntu to built-in storage... or stick a big fan or air conditioner next to the Compute Stick.
+How to remove the GRUB bootloader
+Want to uninstall Ubuntu and go back to using only Windows?
+
+Just boot into Ubuntu, open a terminal window, and type efibootmgr to see a list of boot entries.
+
+
+
+Then type “sudo efibootmgr -b [the number of the entry you want to remove] -B” to remove.
+
+For example, if you see Boot0000 ubuntu, you would type “sudo efibootmgr -b 0000 -B” to remove Ubuntu.
+
+You should remove every listing you see. This should cause the Windows bootloader to automatically re-appear when you reboot the Compute Stick. If it doesn't work, see the troubleshooting section below.
+
+When you've finished you should be able to remove the microSD card, change the UEFI/BIOS settings so that the computer is set to boot Windows 32-bit, and the Intel Compute Stick should boot to Windows every time.
+What if I want to upgrade to a newer version of Ubuntu?
+To be honest, that's beyond the scope of this article. Ubuntu 14.04 is an LTS release, which means that Canonical will supported through April, 2019.
+
+Right now you can upgrade from Ubuntu 14.04 to a newer version of the operating system, but you may lose support for WiFi, Bluetooth, or audio if Canonical hasn't released official packages for the version of Ubuntu that you're using yet.
+
+Advanced users may be able to re-enable the drivers manually. But for most casual users, it's probably best to stick with Ian Morrison's unofficial official&nbsp;LTS release, which should allow you to get the latest kernel and driver updates from Canonical.
+Troubleshooting
+Did something go wrong? Here are a few things to try:
+
+Help! I rebooted my system and now GRUB doesn't show up and I can't get past the bootloader at all!
+
+1. Turn on the computer and hit F2 to enter the UEFI setup utility.
+
+2. Enable the Internal UEFI Shell option, save, and reboot.
+
+3. Now hit F10 when the computer boots, and select UEFI Shell.
+
+4. Type the following (without quotes): FS0:
+
+5. Type cd EFI\ubuntu and then grubx64.efi
+
+This should bring up the GRUB bootloader and give you the option to boot into Ubuntu. If it doesn't work or you only see a GRUB command line, you might want to reboot and try again.
+
+Once you've booted Ubuntu, you might want to clean out the EFI settings and try re-installing. Here's how to do that:
+
+1. Open a terminal window and type sudo efibootmgr -v
+
+2. You may or may not see a list of boot entries. Or you might get an error that says efibootmgr isn't available. In that case, type sudo apt-get install efibootmgr to install it.
+
+3. Now, whether you see any EFI entries or not, type sudo efibootmgr -b 0005 -B and hit return.&nbsp;You'll probably get an error message. That's fine. Now we're going to do a little countdown: enter the following commands one after the other:
+
+	sudo efibootmgr -b 0004 -B
+	sudo efibootmgr -b 0003 -B
+	sudo efibootmgr -b 0002 -B
+	sudo efibootmgr -b 0001 -B
+	sudo efibootmgr -b 0000 -B
+
+That should get rid of any pesky entries that are causing problems. Of course, now you don't have a bootloader at all, so let's set one up.
+
+4. Type efibootmgr -c -d /dev/mmcblk0 -p 1 -l \\EFI\\ubuntu\\grubx64.efi -L ubuntu
+
+If you want to double-check before rebooting, you can type sudo efibootmgr -v again, and you should see an entry marked ubuntu.
+
+Now when you reboot your Compute Stick, it should automatically load GRUB and let you boot Ubuntu. If the system freezes, try hitting F10 at boot and choosing the ubuntu option from the boot menu.
+
+Help! I want to remove Ubuntu, but following the steps above did not restore the Windows bootloader!
+
+OK, don't panic. Just use the steps I just outlined to enable the UEFI Shell, navigate to the EFI/ubuntu menu, and manually run grubx64.efi in order to boot Ubuntu again.
+
+This time, once Ubuntu is loaded, go ahead and delete any EFI entries again using the sudo efibootmgr -b [number] -B command again.
+
+When you're done, run this command: efibootmgr -c -d /dev/mmcblk0 -p 1 -l \\EFI\\Boot\\bootia32.efi -L Windows and reboot the computer, change the UEFI settings so that the Compute Stick uses a 32-bit bootloader, and you should be all set." data-id="sfsi"><meta property="og:title" content="Install Ubuntu 14.04 LTS on the 2GB Intel Compute Stick" data-id="sfsi">    	
+        
+	
+<link rel="dns-prefetch" href="http://v0.wordpress.com/">
+
+<!-- SHARETHROUGH CORE TECHNOLOGY -->
+
+
+
+
+
+
+
+
+
+<link rel="amphtml" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html/amp"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-77921 single-format-standard custom-header header-image content-sidebar eleven40-pro-blue sfsi_1.52" itemscope="" itemtype="http://schema.org/WebPage">
+
+<div id="fb-root"></div>
+
+
+
+<div class="site-container"><header class="site-header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="wrap"><div class="title-area"><p class="site-title" itemprop="headline"><a href="http://liliputing.com/">Liliputing</a></p></div><div class="widget-area header-widget-area"><section id="nav_menu-3" class="widget widget_nav_menu"><div class="widget-wrap"><nav class="nav-header" itemscope="" itemtype="http://schema.org/SiteNavigationElement"><ul id="menu-nav" class="menu genesis-nav-menu"><li id="menu-item-83728" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83728"><a rel="nofollow" href="http://lpxshow.com/" itemprop="url"><span itemprop="name">LPX Show</span></a></li>
+<li id="menu-item-59018" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-59018"><a href="http://liliputing.com/category/reviews" itemprop="url"><span itemprop="name">Reviews</span></a></li>
+<li id="menu-item-44420" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-44420"><a href="http://liliputing.com/category/deals" itemprop="url"><span itemprop="name">Deals</span></a></li>
+<li id="menu-item-44423" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-44423"><a href="http://liliputing.com/tag/mini-pc" itemprop="url"><span itemprop="name">Mini PCs</span></a></li>
+<li id="menu-item-66650" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-66650"><a rel="nofollow" href="http://www.amazon.com/Best-Sellers-Computers-Accessories/zgbs/pc/ref=as_li_ss_tl?_encoding=UTF8&amp;linkCode=ll2&amp;tag=liliputing_shop-20&amp;linkId=93aaf7ba4e36ed56d46003558471548d" itemprop="url"><span itemprop="name">Shop</span></a></li>
+<li id="menu-item-72206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-72206"><a itemprop="url"><span itemprop="name">About</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-44422" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-44422"><a href="http://liliputing.com/contact" itemprop="url"><span itemprop="name">Contact us</span></a></li>
+	<li id="menu-item-72207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-72207"><a href="http://liliputing.com/advertise-on-liliputing" itemprop="url"><span itemprop="name">Advertise on Liliputing</span></a></li>
+	<li id="menu-item-72208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-72208"><a href="http://liliputing.com/about" itemprop="url"><span itemprop="name">About Liliputing</span></a></li>
+	<li id="menu-item-72209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-72209"><a href="http://liliputing.com/privacy-statement" itemprop="url"><span itemprop="name">Privacy Statement</span></a></li>
+</ul>
+</li>
+</ul></nav></div></section>
+</div></div></header><div class="site-inner"><div class="wrap"><div class="content-sidebar-wrap"><div class="widget_before_content"><section id="text-391998701" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><p></p><div data-ns="billboard"></div></div>
+		</div></section>
+</div><main class="content"><article class="post-77921 post type-post status-publish format-standard has-post-thumbnail category-featured category-news tag-compute-stick tag-ian-morrison tag-intel-compute-stick tag-linuxium tag-mini-pc tag-ubuntu entry" itemscope="" itemtype="http://schema.org/CreativeWork"><header class="entry-header"><h1 class="entry-title" itemprop="headline">Install Ubuntu 14.04 LTS on the 2GB Intel Compute Stick</h1> 
+<p class="entry-meta"><time class="entry-time" itemprop="datePublished" datetime="2015-07-22T18:00:18+00:00">07/22/2015</time> at <time class="entry-time" itemprop="datePublished" datetime="2015-07-22T18:00:18+00:00">6:00 PM</time> by <span class="entry-author" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://liliputing.com/author/admin" class="entry-author-link" itemprop="url" rel="author"><span class="entry-author-name" itemprop="name">Brad Linder</span></a></span>  </p></header><aside class="wpselect_before_post_content widget-area"><section id="text-391998734" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><center>
+
+
+<!-- LP Responsive Content top -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-2998039209070153" data-ad-slot="9973754732" data-ad-format="auto"></ins>
+</center></div>
+		</div></section>
+</aside><div class="entry-content" itemprop="text"><p>The <a href="http://www.intel.com/content/www/us/en/compute-stick/intel-compute-stick.html">Intel Compute Stick</a> is a tiny computer that lets you run desktop apps on a TV when you plug the stick into an HDMI port. Intel offers Windows and Ubuntu Linux versions of the Compute Stick: but the operating system isn’t the only thing that makes one model different from the other.</p>
+<p>If you buy the Intel Compute Stick with Windows, you get a model with 2GB of RAM and 32GB of storage. The Ubuntu model has just 1GB of RAM and 8GB of built-in storage.</p>
+<p><img data-lazy-loaded="true" style="display: block;" class="aligncenter size-large wp-image-77925" src="cstick-install-680x487.jpg" alt="cstick install" srcset="cstick-install.jpg 680w, cstick-install-125x90.jpg 125w, cstick-install-200x143.jpg 200w, cstick-install-150x107.jpg 150w" sizes="(max-width: 680px) 100vw, 680px" height="487" width="680"></p>
+<p>The good news is that the Ubuntu model sells for about $50 less than the Windows model. The bad news is that there’s so little built-in storage space that as soon as you turn on the computer you’ll note that there’s less than 1GB of free space for files and apps.</p>
+<p>So can you install Ubuntu on the Windows model?</p>
+<p>Yep. And now it’s easier than ever.</p>
+<p><iframe src="index_1.html" allowfullscreen="allowfullscreen" frameborder="0" height="360" width="640"></iframe></p>
+<h3>Background</h3>
+<p>When I first <a href="http://liliputing.com/2015/04/intel-compute-stick-mini-computer-with-windows-review.html">reviewed the Intel Compute Stick</a>, I noted that you could install Ubuntu yourself… but WiFi and Bluetooth wouldn’t work properly.</p>
+<p><iframe style="float: right; width: 120px; height: 240px;" src="index_2.html" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="150" width="300"><br />
+</iframe>As Intel prepared to release the Ubuntu model of the Compute Stick, I asked the company if there were any plans to release a downloadable version of Ubuntu that would let users install the operating system on their own.</p>
+<p>The answer? Nope… but you could <a href="http://liliputing.com/2015/07/ubuntu-on-the-32gb-intel-compute-stick-you-have-to-install-it-yourself.html">sort of build your own software</a> by downloading the software from Ubuntu.com, getting the latest Intel graphics drivers, and then writing to Realtek to ask for wireless drivers.</p>
+<p>I don’t know anyone that has actually managed to get a response from Realtek though.</p>
+<p>Enter <a href="https://plus.google.com/+IanMORRISON/posts">Ian Morrison</a>. For the past few years, he’s been working on porting Ubuntu to run on a variety of mini PCs and a little while ago he enlisted my help in testing various builds for the Intel Compute Stick.</p>
+<p>Recently Liliputing published an article explaining how to download Morrison’s build of Ubuntu 14.10 and <a href="http://liliputing.com/2015/07/simplest-way-to-load-ubuntu-on-intel-compute-stick-with-windows-so-far.html">install it on a Compute Stick</a> and then jump through some hoops to get wireless connections and audio to work properly. But to be honest, it was a bit complicated.</p>
+<p>Then something funny happened: while Intel had announced that the Compute Stick with Ubuntu would launch in mid-July, it has yet to go on sale in the United States. But Morrison found one in Australia.</p>
+<p><img class="aligncenter size-full wp-image-77926" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/compute-stick-ubuntu-au.jpg" alt="compute stick ubuntu au" srcset="compute-stick-ubuntu-au.jpg 375w, compute-stick-ubuntu-au-94x125.jpg 94w, compute-stick-ubuntu-au-150x200.jpg 150w, compute-stick-ubuntu-au-113x150.jpg 113w" sizes="(max-width: 375px) 100vw, 375px" height="500" width="375"></p>
+<p>After examining the software running on the 1GB/8GB Compute Stick, he figured out how to get Ubuntu 14.04 LTS 64-bit to run on the 2GB/32GB model.</p>
+<p>Best of all, you don’t need to jump through any extra hoops to modify the bootloader. You can boot his build of Ubuntu 14.04 from a USB flash drive to try the software before installing it. And if you’re happy with what you see, just click the Install Ubuntu icon on the desktop and follow the instructions to either install the operating system.</p>
+<p>You can overwrite Windows if you’d like, or repartition the built-in storage to leave Windows in place and create a setup with both operating systems on the same storage . You can even install Ubuntu to a microSD card if you don’t want to touch the built-in storage (although you will need to write the bootloader to built-in storage).</p>
+<p>Keep in mind, this setup will not create a dual-boot system. Since Windows only boots with a 32-bit bootloader and you’re installing a 64-bit version of Ubuntu and a 64-bit bootloader, the only way to switch between Ubuntu and Windows is to delete the ubuntu bootloader&nbsp;as described below&nbsp;(which should automatically restore the Windows bootloader), and change the operating system type from Ubuntu 64-bit to Windows 32-bit in the UEFI settings.</p>
+<p>You could also follow our guide for <a href="http://liliputing.com/2015/07/simplest-way-to-load-ubuntu-on-intel-compute-stick-with-windows-so-far.html">installing Ubuntu 14.10 64-bit with a 32-bit bootloader</a> to create a true dual-boot setup. But if you don’t care about running Windows, the steps below should be simpler and quicker to follow.</p>
+<p>Also note that Intel doesn’t officially support installing Ubuntu on the Windows model. This mean you may void your warranty if you break anything… and Ian’s disk image isn’t&nbsp;<em>exactly&nbsp;</em>the same as the software that runs on the Ubuntu model. Instead, he’s compiled a build of Ubuntu based on Canonical’s open source software and software that Canonical and Intel have worked on together.</p>
+<p>Note that while these instructions worked for Ian and for me, there’s no guarantee that they’ll work for you, and just like Intel, we take no responsibility if something goes wrong.</p>
+<p><em><strong>Update</strong>: There are also now several other methods for installing Ubuntu. The simplest involves downloading Ian Morrison’s <a href="https://plus.google.com/109451178006683865932">“unofficial official” Ubuntu 14.04 disc image</a>, writing it to a USB flash drive, and using that to install the operating system.</em></p>
+<p><em>The other method would be to install Ubuntu using the official Ubuntu 14.04 ISO and then <a href="https://plus.google.com/+IanMORRISON/posts/UNWdwRMqy3j">apply Ian Morrison’s patch script</a>.</em></p>
+<p><em>There’s also a <a href="https://plus.google.com/+IanMORRISON/posts/UNWdwRMqy3j">script that simplifies the process</a> of booting Ubuntu 14.04 64-bit from a 32-bit bootloader.&nbsp;</em></p>
+<p><em>Unlike the method outlined below, this will result in the GRUB bootloader hiding the Windows boot option altogether.&nbsp;</em></p>
+<p><em>But the good news is that the “unofficial official” Ubuntu ROM includes software packages from Canonical, which means that they’re officially supported and don’t rely on a custom kernel.&nbsp;</em></p>
+<p><em>This means that you can upgrade the kernel without losing access to the software that allows the WiFi, Bluetooth, and audio to work properly.</em></p>
+<h3>How to Boot Ubuntu 14.04 from a liveUSB</h3>
+<p>1. Download <a href="https://plus.google.com/+IanMORRISON/posts/S7WHKnq4MQS">Ian Morrison’s&nbsp;ISO disk image</a>&nbsp;or his <a href="https://plus.google.com/+IanMORRISON/posts/fBSkiAYFvgF">unofficial “official” build</a> for Ubuntu 14.04.2 LTS (<strong>Update</strong>: Or you can grab a <a href="https://plus.google.com/+IanMORRISON/posts/igAkD5j3MAq">newer build based on Ubuntu 14.04.3 LTS</a>).&nbsp;&nbsp;Either will work, but the latter doesn’t have a modified kernel, which makes it easier for users to update the kernel themselves.</p>
+<p>2. If you’re using Linux, use the “dd” command to transfer the disc image to a USB flash drive. Windows users can download the <a href="https://rufus.akeo.ie/">Rufus bootable USB drive utility</a> and use it for this step.</p>
+<p><img class="aligncenter size-full wp-image-77923" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/cstick-ubuntu_02.jpg" alt="cstick ubuntu_02" srcset="cstick-ubuntu_02.jpg 369w, cstick-ubuntu_02-89x125.jpg 89w, cstick-ubuntu_02-142x200.jpg 142w, cstick-ubuntu_02-106x150.jpg 106w" sizes="(max-width: 369px) 100vw, 369px" height="520" width="369"></p>
+<p>3. Connect a USB hub to the USB 2.0 port on the Compute Stick and plug in a keyboard, mouse, and the USB flash drive you just prepared.</p>
+<p><img class="aligncenter size-large wp-image-77927" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/cstick-cables-680x546.jpg" alt="cstick cables" srcset="cstick-cables.jpg 680w, cstick-cables-125x100.jpg 125w, cstick-cables-200x161.jpg 200w, cstick-cables-187x150.jpg 187w, cstick-cables-150x120.jpg 150w" sizes="(max-width: 680px) 100vw, 680px" height="546" width="680"></p>
+<p>4. Connect a power cable to turn on the Compute Stick and quickly press the F2 key to enter the UEFI/BIOS setup utility.</p>
+<p>5. Use the arrow keys on your keyboard to navigate to the Configuration menu and then move down to the “Select Operating System” section and change the selected OS from Windows 32-bit to Ubuntu 64-bit.</p>
+<p><img class="aligncenter size-full wp-image-77791" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/stick-ubuntu_05.jpg" alt="stick ubuntu_05" srcset="stick-ubuntu_05.jpg 679w, stick-ubuntu_05-125x81.jpg 125w, stick-ubuntu_05-200x130.jpg 200w, stick-ubuntu_05-150x97.jpg 150w" sizes="(max-width: 679px) 100vw, 679px" height="440" width="679"></p>
+<p>6. Hit the right-arrow key to go to the Exit menu and choose to save your changes and exit.</p>
+<p>7. Now the computer will reboot. Press F10 right away to get to the boot options menu.</p>
+<p>8. Choose the USB flash drive.</p>
+<p><img class="aligncenter size-large wp-image-77792" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/stick-ubuntu_04-680x409.jpg" alt="stick ubuntu_04" srcset="stick-ubuntu_04.jpg 680w, stick-ubuntu_04-125x75.jpg 125w, stick-ubuntu_04-200x120.jpg 200w, stick-ubuntu_04-150x90.jpg 150w" sizes="(max-width: 680px) 100vw, 680px" height="409" width="680"></p>
+<p>9. The GRUB bootloader should appear, asking if you’d like to Try Ubuntu without installing or if you’d like to install Ubuntu. Select the first options, which will let you run the OS from the USB flash drive without writing anything to your device’s built-in storage.</p>
+<p>That’s pretty much it. Wait a few minutes and the Ubuntu desktop should load. You can connect to a wireless network, surf the web, and even install apps. Just keep in mind that nothing you do will be saved.</p>
+<p>If you’re happy with what you see, you can install Ubuntu. There are a few different options for doing that, but here’s one of the safest:</p>
+<h3>Installing Ubuntu to a microSD card</h3>
+<p><em><strong>Note</strong>: If you’ve previously installed Ubuntu or another operating system, make sure to remove any changes to your bootloader before proceeding. This tutorial assumes you’re starting from a system that boots to Windows automatically. If you already have GRUB installed, you’ll probably run into problems… but the troubleshooting section below may help.&nbsp;</em></p>
+<p>1. Prepare a liveUSB as described in the section above and use it to boot into Ubuntu.</p>
+<p>2. Double-click the “install Ubuntu” icon on the desktop.</p>
+<p>3. Follow the on-screen instructions and when you’re asked if you’d like to unmount any disks, select yes.</p>
+<p>4. When you get to the Installation Type option, choose “something else” and scroll down until you find&nbsp;“/dev/mmcblk1″ which should be your microSD card.</p>
+<p><img class="aligncenter size-large wp-image-77924" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/installation-type-680x356.jpg" alt="installation type" srcset="installation-type.jpg 680w, installation-type-125x65.jpg 125w, installation-type-200x105.jpg 200w, installation-type-150x79.jpg 150w" sizes="(max-width: 680px) 100vw, 680px" height="356" width="680"></p>
+<p>4. Choose the “New Partition Tablet” option for mmcblk1 and click the + icon to create a new partition. Choose / as the mount point and Ext4 for the file system.</p>
+<p>Note that you should not change the location of the bootloader. It should be set to mmcblk0, which means the bootloader will be written to your Compute Stick’s internal storage (you can undo this if you decide to remove Ubuntu later).</p>
+<p><img class="aligncenter size-full wp-image-77839" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/stick-ubuntu_09.jpg" alt="stick ubuntu_09" srcset="stick-ubuntu_09.jpg 479w, stick-ubuntu_09-125x80.jpg 125w, stick-ubuntu_09-200x129.jpg 200w, stick-ubuntu_09-150x96.jpg 150w" sizes="(max-width: 479px) 100vw, 479px" height="308" width="479"></p>
+<p>Also note that you may see a message alerting you that you have not selected any Swap space. You can set some up if you want, but I didn’t bother.</p>
+<p>5. Follow the rest of the instructions, entering your time zone, keyboard layout, and username and password when asked.</p>
+<p>6. The installer may take 10 – 30 minutes to complete. When it’s finished, you can reboot your device and remove the USB flash drive.</p>
+<p>7. The GRUB bootloader will now appear when the computer boots, giving you an option to boot Ubuntu.</p>
+<p>If you don’t see GRUB or if it doesn’t work, you can also hit F10 while the computer is booting to bring up the boot options menu. From here, choose the option that says Ubuntu. Sometimes this works better.</p>
+<p>That’s it: you should now have a working version of Ubuntu 14.04 that you can run at any time. If you followed my steps, Ubuntu is running from a microSD card and Windows is still hanging out on the internal storage of your Compute Stick.</p>
+<p>Alternately, you could overwrite Windows or repartition the built-in storage. I felt more comfortable using a microSD card and leaving the original software untouched. Either way, you get an Ubuntu Compute Stick with 2GB of RAM, which is twice as much as you’d get if you bought the version of the Compute Stick that comes with Ubuntu pre-installed.</p>
+<p>From time to time the Compute Stick did lock up on me when running from the microSD card. I suspect heat may be a factor: the Compute Stick can get rather warm when it’s in use, and when I eject the microSD card it feels hot to the touch. It’s possible that you may get better performance if you install Ubuntu to built-in storage… or stick a big fan or air conditioner next to the Compute Stick.</p>
+<h3>How to remove the GRUB bootloader</h3>
+<p>Want to uninstall Ubuntu and go back to using only Windows?</p>
+<p>Just boot into Ubuntu, open a terminal window, and type “efibootmgr” to see a list of boot entries.</p>
+<p><img class="aligncenter size-full wp-image-77965" src="1x1.trans.gif" data-lazy-src="http://cdn.liliputing.com/wp-content/uploads/2015/07/efi.jpg" alt="efi" srcset="efi.jpg 506w, efi-125x70.jpg 125w, efi-200x111.jpg 200w, efi-150x84.jpg 150w" sizes="(max-width: 506px) 100vw, 506px" height="282" width="506"></p>
+<p>Then type “sudo efibootmgr -b [the number of the entry you want to remove] -B” to remove.</p>
+<p>For example, if you see Boot0000 ubuntu, you would type “sudo efibootmgr -b 0000 -B” to remove Ubuntu.</p>
+<p>You should remove every listing you see. This should cause the Windows bootloader to automatically re-appear when you reboot the Compute Stick. If it doesn’t work, see the troubleshooting section below.</p>
+<p>When you’ve finished you should be able to remove the microSD card, change the UEFI/BIOS settings so that the computer is set to boot Windows 32-bit, and the Intel Compute Stick should boot to Windows every time.</p>
+<h3>What if I want to upgrade to a newer version of Ubuntu?</h3>
+<p>To be honest, that’s beyond the scope of this article. Ubuntu 14.04 is an LTS release, which means that Canonical will supported through April, 2019.</p>
+<p>Right now you can upgrade from Ubuntu 14.04 to a newer version of the operating system, but you may lose support for WiFi, Bluetooth, or audio if Canonical hasn’t released official packages for the version of Ubuntu that you’re using yet.</p>
+<p>Advanced users may be able to re-enable the drivers manually. But for most casual users, it’s probably best to stick with Ian Morrison’s “unofficial official”&nbsp;LTS release, which should allow you to get the latest kernel and driver updates from Canonical.</p>
+<h3>Troubleshooting</h3>
+<p>Did something go wrong? Here are a few things to try:</p>
+<p><em>Help! I rebooted my system and now GRUB doesn’t show up and I can’t get past the bootloader at all!</em></p>
+<p>1. Turn on the computer and hit F2 to enter the UEFI setup utility.</p>
+<p>2. Enable the Internal UEFI Shell option, save, and reboot.</p>
+<p>3. Now hit F10 when the computer boots, and select UEFI Shell.</p>
+<p>4. Type the following (without quotes): “FS0:”</p>
+<p>5. Type “cd EFI\ubuntu” and then “grubx64.efi”</p>
+<p>This should bring up the GRUB bootloader and give you the option to boot into Ubuntu. If it doesn’t work or you only see a GRUB command line, you might want to reboot and try again.</p>
+<p>Once you’ve booted Ubuntu, you might want to clean out the EFI settings and try re-installing. Here’s how to do that:</p>
+<p>1. Open a terminal window and type “sudo efibootmgr -v”</p>
+<p>2. You may or may not see a list of boot entries. Or you might get an error that says efibootmgr isn’t available. In that case, type “sudo apt-get install efibootmgr” to install it.</p>
+<p>3. Now, whether you see any EFI entries or not, type “sudo efibootmgr -b 0005 -B” and hit return.&nbsp;You’ll probably get an error message. That’s fine. Now we’re going to do a little countdown: enter the following commands one after the other:</p>
+<ul>
+<li>sudo efibootmgr -b 0004 -B</li>
+<li>sudo efibootmgr -b 0003 -B</li>
+<li>sudo efibootmgr -b 0002 -B</li>
+<li>sudo efibootmgr -b 0001 -B</li>
+<li>sudo efibootmgr -b 0000 -B</li>
+</ul>
+<p>That should get rid of any pesky entries that are causing problems. Of course, now you don’t have a bootloader at all, so let’s set one up.</p>
+<p>4. Type “efibootmgr -c -d /dev/mmcblk0 -p 1 -l \\EFI\\ubuntu\\grubx64.efi -L ubuntu”</p>
+<p>If you want to double-check before rebooting, you can type “sudo efibootmgr -v” again, and you should see an entry marked “ubuntu.”</p>
+<p>Now when you reboot your Compute Stick, it should automatically load GRUB and let you boot Ubuntu. If the system freezes, try hitting F10 at boot and choosing the ubuntu option from the boot menu.</p>
+<p><em>Help! I want to remove Ubuntu, but following the steps above did not restore the Windows bootloader!</em></p>
+<p>OK, don’t panic. Just use the steps I just outlined to enable the UEFI Shell, navigate to the EFI/ubuntu menu, and manually run grubx64.efi in order to boot Ubuntu again.</p>
+<p>This time, once Ubuntu is loaded, go ahead and delete any EFI entries again using the “sudo efibootmgr -b [number] -B” command again.</p>
+<p>When you’re done, run this command: “efibootmgr -c -d /dev/mmcblk0 -p 1 -l \\EFI\\Boot\\bootia32.efi -L Windows” and reboot the computer, change the UEFI settings so that the Compute Stick uses a 32-bit bootloader, and you should be all set.</p>
+
+		<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-77921" class="share-facebook sd-button share-icon" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-77921" class="share-twitter sd-button share-icon" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-77921" class="share-google-plus-1 sd-button share-icon" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-end"></li></ul></div></div></div></div><aside class="wpselect_after_post_content widget-area"><section id="text-391998731" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><div data-ns="native" data-sharethrough="7ebdf04f"></div></div>
+		</div></section>
+<section id="text-391998685" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><center><!-- /1018314/Below_the_post_2 -->
+<div id="div-gpt-ad-1440340887025-0" style="height: 250px; width: 300px;">
+
+</div></center></div>
+		</div></section>
+</aside><footer class="entry-footer"></footer></article></main><aside class="sidebar sidebar-primary widget-area" role="complementary" aria-label="Primary Sidebar" itemscope="" itemtype="http://schema.org/WPSideBar"><section id="sfsi-widget-2" class="widget sfsi"><div class="widget-wrap">            <div style="min-height: auto;" class="sfsi_widget" data-position="widget">   
+				<div id="sfsi_wDiv"></div>
+                    <div class="norm_row sfsi_wDiv" style="width: 280px; text-align: left; position: absolute;"><div style="width: 48px; height: 48px; margin-left: 8px; margin-bottom: 5px;" class="sfsi_wicons shuffeldiv "><div class="inerCnt"><a class=" sficn" effect="fade_in" target="_blank" href="https://twitter.com/liliputingnews" id="sfsiid_twitter" alt="Twitter" style="opacity: 0.6;"><img alt="Twitter" title="Twitter" src="flat_twitter.png" style="" class="sfcm sfsi_wicon" effect="fade_in" width="48"></a></div></div><div style="width: 48px; height: 48px; margin-left: 8px; margin-bottom: 5px;" class="sfsi_wicons shuffeldiv "><div class="inerCnt"><a class=" sficn" effect="fade_in" target="_blank" href="https://plus.google.com/u/0/b/106676686837148977188/+Liliputing/posts" id="sfsiid_google" alt="Google+" style="opacity: 0.6;"><img alt="Google+" title="Google+" src="flat_google.png" style="" class="sfcm sfsi_wicon" effect="fade_in" width="48"></a></div></div><div style="width: 48px; height: 48px; margin-left: 8px; margin-bottom: 5px;" class="sfsi_wicons shuffeldiv "><div class="inerCnt"><a class=" sficn" effect="fade_in" target="_blank" href="https://www.facebook.com/Liliputing" id="sfsiid_facebook" alt="Facebook" style="opacity: 0.6;"><img alt="Facebook" title="Facebook" src="flat_facebook.png" style="" class="sfcm sfsi_wicon" effect="fade_in" width="48"></a></div></div><div style="width: 48px; height: 48px; margin-left: 8px; margin-bottom: 5px;" class="sfsi_wicons shuffeldiv "><div class="inerCnt"><a class=" sficn" effect="fade_in" target="_blank" href="http://youtube.com/bradlinder" id="sfsiid_youtube" alt="YouTube" style="opacity: 0.6;"><img alt="YouTube" title="YouTube" src="flat_youtube.png" style="" class="sfcm sfsi_wicon" effect="fade_in" width="48"></a></div></div><div style="width: 48px; height: 48px; margin-left: 8px; margin-bottom: 5px;" class="sfsi_wicons shuffeldiv "><div class="inerCnt"><a class=" sficn" effect="fade_in" target="_blank" href="http://feeds.feedburner.com/Liliputing" id="sfsiid_rss" alt="RSS" style="opacity: 0.6;"><img alt="RSS" title="RSS" src="flat_rss.png" style="" class="sfcm sfsi_wicon" effect="fade_in" width="48"></a></div></div></div><div id="sfsi_holder" class="sfsi_holders" style="position: relative; float: left; width: 100%; z-index: -1; height: 74px;"></div>	      		<div style="clear: both;"></div>
+            </div>
+            </div></section>
+<section id="search-4" class="widget widget_search"><div class="widget-wrap"><form class="search-form" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="get" action="http://liliputing.com/" role="search"><meta itemprop="target" content="http://liliputing.com/?s={s}"><input itemprop="query-input" name="s" placeholder="Search this website …" type="search"><input value="Search" type="submit"></form></div></section>
+<section id="text-391998718" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><div data-ns="halfpage"></div>
+
+</div>
+		</div></section>
+<section id="featured-post-2" class="widget featured-content featuredpost"><div class="widget-wrap"><h4 class="widget-title widgettitle">Latest News</h4>
+<article class="post-88627 post type-post status-publish format-standard has-post-thumbnail category-news tag-acer tag-acer-liquid-jade-primo tag-continuum tag-continuum-for-phone tag-smartphone tag-windows-10-mobile tag-windows-phone entry"><a href="http://liliputing.com/2016/07/acer-liquid-jade-primo-windows-10-phone-now-available-s649-including-dock-keyboard-mouse.html" class="alignright" aria-hidden="true"><img src="ljp_01-125x70.jpg" class="entry-image attachment-post" alt="Acer Liquid Jade Primo Windows 10 phone now available for S649 (including dock, keyboard, and mouse)" itemprop="image" srcset="ljp_01-125x70.jpg 125w, ljp_01-200x113.jpg 200w, ljp_01-150x84.jpg 150w, ljp_01-560x315.jpg 560w, ljp_01.jpg 590w" sizes="(max-width: 125px) 100vw, 125px" height="70" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/acer-liquid-jade-primo-windows-10-phone-now-available-s649-including-dock-keyboard-mouse.html">Acer Liquid Jade Primo Windows 10 phone now available for S649 (including dock, keyboard, and mouse)</a></h2></header><div class="entry-content"><p>Acer's Liquid Jade Primo is a Windows 10 smartphone with support for Continuum … <a href="http://liliputing.com/2016/07/acer-liquid-jade-primo-windows-10-phone-now-available-s649-including-dock-keyboard-mouse.html" class="more-link">[Read More...]</a></p></div></article><article class="post-88615 post type-post status-publish format-standard has-post-thumbnail category-news tag-continuum tag-continuum-for-phone tag-europe tag-hp tag-hp-elite-x3 tag-smartphone entry"><a href="http://liliputing.com/2016/07/hp-elite-x3-price-at-799-windows-phone-for-enterprise.html" class="alignright" aria-hidden="true"><img src="hp-elite-x3_05-125x90.jpg" class="entry-image attachment-post" alt="HP Elite x3 price at $799 (Windows phone for enterprise)" itemprop="image" srcset="hp-elite-x3_05-125x90.jpg 125w, hp-elite-x3_05.jpg 680w, hp-elite-x3_05-200x144.jpg 200w, hp-elite-x3_05-150x108.jpg 150w, hp-elite-x3_05-560x403.jpg 560w" sizes="(max-width: 125px) 100vw, 125px" height="90" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/hp-elite-x3-price-at-799-windows-phone-for-enterprise.html">HP Elite x3 price at $799 (Windows phone for enterprise)</a></h2></header><div class="entry-content"><p>The HP Elite x3 is the Windows smartphone I think some people were hoping the … <a href="http://liliputing.com/2016/07/hp-elite-x3-price-at-799-windows-phone-for-enterprise.html" class="more-link">[Read More...]</a></p></div></article><article class="post-88606 post type-post status-publish format-standard has-post-thumbnail category-news tag-crowdfunding tag-gaming-pc tag-handheld tag-handheld-gaming tag-mini-pc tag-pgs entry"><a href="http://liliputing.com/2016/07/dubious-pgs-handheld-gaming-pc-concept-raises-300-thousand-kickstarter.html" class="alignright" aria-hidden="true"><img src="pgs_07-125x83.jpg" class="entry-image attachment-post" alt="Dubious PGS handheld gaming PC concept raises over $300 thousand on Kickstarter" itemprop="image" srcset="pgs_07-125x83.jpg 125w, pgs_07.jpg 680w, pgs_07-200x132.jpg 200w, pgs_07-150x99.jpg 150w, pgs_07-560x370.jpg 560w" sizes="(max-width: 125px) 100vw, 125px" height="83" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/dubious-pgs-handheld-gaming-pc-concept-raises-300-thousand-kickstarter.html">Dubious PGS handheld gaming PC concept raises over $300 thousand on Kickstarter</a></h2></header><div class="entry-content"><p>A group called Portable Solutions is running a Kickstarter campaign for a … <a href="http://liliputing.com/2016/07/dubious-pgs-handheld-gaming-pc-concept-raises-300-thousand-kickstarter.html" class="more-link">[Read More...]</a></p></div></article></div></section>
+<section id="text-391998717" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><center><!-- /1018314/Liliputing_middle_right -->
+<div id="div-gpt-ad-1440340887025-2" style="height: 250px; width: 300px;">
+
+</div></center></div>
+		</div></section>
+<section id="featured-post-4" class="widget featured-content featuredpost"><div class="widget-wrap"><h4 class="widget-title widgettitle">Deals</h4>
+<article class="post-88603 post type-post status-publish format-standard has-post-thumbnail category-deals tag-bargains tag-motorola-moto-g4 entry"><a href="http://liliputing.com/2016/07/deals-day-7-15-2016.html" class="alignright" aria-hidden="true"><img src="g4-125x107.jpg" class="entry-image attachment-post" alt="Deals of the Day (7-15-2016)" itemprop="image" srcset="g4-125x107.jpg 125w, g4-175x150.jpg 175w, g4-150x128.jpg 150w, g4-560x479.jpg 560w, g4.jpg 584w" sizes="(max-width: 125px) 100vw, 125px" height="107" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/deals-day-7-15-2016.html">Deals of the Day (7-15-2016)</a></h2></header><div class="entry-content"><p>Want to save $50 on the new Motorola Moto G4? Sure, you could buy an Amazon … <a href="http://liliputing.com/2016/07/deals-day-7-15-2016.html" class="more-link">[Read More...]</a></p></div></article></div></section>
+<section id="featured-post-5" class="widget featured-content featuredpost"><div class="widget-wrap"><h4 class="widget-title widgettitle">Featured articles</h4>
+<article class="post-88543 post type-post status-publish format-standard has-post-thumbnail category-featured category-news tag-acer tag-acer-chromebook-r11 tag-android tag-chromebook tag-google-chromebook-pixel tag-google-chromebook-pixel-2015 tag-google-play-store tag-laptop entry"><a href="http://liliputing.com/2016/07/android-apps-now-run-acer-chromebook-r11-google-chromebook-pixel-2015.html" class="alignright" aria-hidden="true"><img src="Chrome-r11-125x94.jpg" class="entry-image attachment-post" alt="Android apps now run on the Acer Chromebook R11, Google Chromebook Pixel (2015)" itemprop="image" srcset="Chrome-r11-125x94.jpg 125w, Chrome-r11-768x576.jpg 768w, Chrome-r11-e1468500437519.jpg 680w, Chrome-r11-200x150.jpg 200w, Chrome-r11-150x113.jpg 150w, Chrome-r11-560x420.jpg 560w" sizes="(max-width: 125px) 100vw, 125px" height="94" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/android-apps-now-run-acer-chromebook-r11-google-chromebook-pixel-2015.html">Android apps now run on the Acer Chromebook R11, Google Chromebook Pixel (2015)</a></h2></header><div class="entry-content"><p>There are now three Chromebooks that can run Android apps. About a month after … <a href="http://liliputing.com/2016/07/android-apps-now-run-acer-chromebook-r11-google-chromebook-pixel-2015.html" class="more-link">[Read More...]</a></p></div></article><article class="post-88173 post type-post status-publish format-standard has-post-thumbnail category-featured category-news category-reviews tag-android-box tag-emtec tag-emtec-gem-box tag-gamefly-streaming tag-gem-box tag-media-streamer tag-micro-console tag-mini-pc-2 entry"><a href="http://liliputing.com/2016/07/emtec-gem-box-review-micro-console-with-gamefly-streaming-support.html" class="alignright" aria-hidden="true"><img src="ports_05-125x92.jpg" class="entry-image attachment-post" alt="Emtec GEM Box review (micro-console with GameFly streaming support)" itemprop="image" srcset="ports_05-125x92.jpg 125w, ports_05.jpg 680w, ports_05-200x147.jpg 200w, ports_05-150x110.jpg 150w, ports_05-560x411.jpg 560w" sizes="(max-width: 125px) 100vw, 125px" height="92" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/emtec-gem-box-review-micro-console-with-gamefly-streaming-support.html">Emtec GEM Box review (micro-console with GameFly streaming support)</a></h2></header><div class="entry-content"><p>Gaming can be an expensive hobby. The latest&nbsp;Sony, Microsoft and Nintendo game … <a href="http://liliputing.com/2016/07/emtec-gem-box-review-micro-console-with-gamefly-streaming-support.html" class="more-link">[Read More...]</a></p></div></article><article class="post-88037 post type-post status-publish format-standard has-post-thumbnail category-featured category-news category-reviews tag-2-in-1 tag-acer tag-acer-switch-12-alpha tag-convertible tag-fanless tag-laptop tag-review tag-tablet entry"><a href="http://liliputing.com/2016/07/acer-switch-alpha-12-2-1-windows-tablet-review.html" class="alignright" aria-hidden="true"><img src="side_05-125x85.jpg" class="entry-image attachment-post" alt="Acer Switch Alpha 12 2-in-1 Windows tablet review" itemprop="image" srcset="side_05-125x85.jpg 125w, side_05.jpg 680w, side_05-200x136.jpg 200w, side_05-150x102.jpg 150w, side_05-560x382.jpg 560w" sizes="(max-width: 125px) 100vw, 125px" height="85" width="125"></a><header class="entry-header"><h2 class="entry-title"><a href="http://liliputing.com/2016/07/acer-switch-alpha-12-2-1-windows-tablet-review.html">Acer Switch Alpha 12 2-in-1 Windows tablet review</a></h2></header><div class="entry-content"><p>The Acer Switch Alpha 12 is a Windows tablet with a high-resolution display, … <a href="http://liliputing.com/2016/07/acer-switch-alpha-12-2-1-windows-tablet-review.html" class="more-link">[Read More...]</a></p></div></article></div></section>
+<section id="text-391998737" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><a href="https://www.patreon.com/bradlinder?ty=h"><img src="patreon_lpx.png" class="aligncenter" alt="LPX Patreon"></a></div>
+		</div></section>
+<section id="rss-2" class="widget widget_rss"><div class="widget-wrap"><h4 class="widget-title widgettitle"><a class="rsswidget" href="http://lpxshow.com/feed/"><img class="rss-widget-icon" style="border: 0px none;" src="rss.png" alt="RSS" height="14" width="14"></a> <a class="rsswidget" href="http://lpxshow.com/">Latest news from the LPX Show</a></h4>
+<ul><li><a class="rsswidget" href="http://lpxshow.com/lpx-episode-10-blocks-modular-smartwatch/">LPX Episode 10: BLOCKS modular smartwatch</a></li><li><a class="rsswidget" href="http://lpxshow.com/lpx-episode-9-funeral-for-an-atom-processor/">LPX Episode 9: Funeral for an Atom (processor)</a></li><li><a class="rsswidget" href="http://lpxshow.com/lpx-episode-8-designing-the-dragonbox-pyra-handheld-computer/">LPX Episode 8: Designing the DragonBox Pyra handheld computer</a></li></ul></div></section>
+<section id="text-391998736" class="widget widget_text"><div class="widget-wrap"><h4 class="widget-title widgettitle">Subscribe to the LPX Show</h4>
+			<div class="textwidget"><a href="http://lpxshow.com/subscribe/">Subscribe at LPXShow.com</a></div>
+		</div></section>
+<section id="text-391998727" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><center><div data-ns="skyscraper"></div></center></div>
+		</div></section>
+<section id="text-391998721" class="widget widget_text"><div class="widget-wrap">			<div class="textwidget"><center></center></div>
+		</div></section>
+</aside></div></div></div><footer class="site-footer" itemscope="" itemtype="http://schema.org/WPFooter"><div class="wrap"><div class="creds"><p>Copyright ©&nbsp;2016 Liliputing · <a href="#Top">Go to top of page</a></p></div></div></footer></div>   
+        <!--facebook like and share js -->
+        <div id="fb-root"></div>
+		
+		<!--<div id="fb-root"></div>
+        <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1425108201100352&version=v2.0";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>-->
+ 	         <!--google share and  like and e js -->
+        
+		
+		<!-- google share -->
+        
+			<!-- twitter JS End -->
+			
+	     
+     
+
+	
+		
+				
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sharing_email" style="display: none;">
+		<form action="http://liliputing.com/2015/07/install-ubuntu-14-04-lts-on-the-2gb-intel-compute-stick.html" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" value="" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" value="" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" value="" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off" type="text">
+			
+			
+			<img style="float: right; display: none;" class="loading" src="loading.gif" alt="loading" height="16" width="16">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body>
+</html>

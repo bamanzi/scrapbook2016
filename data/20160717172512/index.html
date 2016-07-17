@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html dir="ltr" class="v2">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<meta content="blogger" name="generator">
+<link href="favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="Window Maker and I: busprof's Blog - Atom" href="http://windowmakerandi.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="Window Maker and I: busprof's Blog - RSS" href="http://windowmakerandi.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="Window Maker and I: busprof's Blog - Atom" href="https://www.blogger.com/feeds/7126690870590324038/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="Window Maker and I: busprof's Blog - Atom" href="http://windowmakerandi.blogspot.com/feeds/5804308157967868580/comments/default">
+<!--[if IE]><script type="text/javascript" src="https://www.blogger.com/static/v1/jsbin/2193475453-ieretrofit.js"></script>
+<![endif]-->
+<link href="http://1.bp.blogspot.com/-CTae_jGbKGE/UQnf_BCgLiI/AAAAAAAAAMM/kVB34xGtOEk/s320/automenu1.png" rel="image_src">
+<meta content="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html" property="og:url">
+<meta content="http://1.bp.blogspot.com/-CTae_jGbKGE/UQnf_BCgLiI/AAAAAAAAAMM/kVB34xGtOEk/w1200-h630-p-nu/automenu1.png" property="og:image">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>How To Fix Window Maker's Menu Part 2: Automatic Menu Creation | Window Maker and I: busprof's Blog</title>
+<meta content="!" name="fragment">
+<meta content="dynamic" name="blogger-template">
+<meta content="IE=9,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
+
+
+
+
+
+
+
+
+
+
+
+<!-- Yo Dawg... --><meta name="meta" content="meta">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="variant-sidebar sidebar notouch viewitem-open"><div class="viewitem-panel">
+  <div class="viewitem-wrap">
+    <div class="viewitem-background"></div>
+    <div class="viewitem-header"></div>
+    <div class="viewitem-inner">
+      
+      
+      <div class="viewitem-content" tabindex="0">
+      
+  
+<div class="article hentry howto window_maker wmaker " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+    <meta itemprop="image_url" content="http://1.bp.blogspot.com/-CTae_jGbKGE/UQnf_BCgLiI/AAAAAAAAAMM/kVB34xGtOEk/s320/automenu1.png">
+    <meta itemprop="thumbnailUrl" content="http://1.bp.blogspot.com/-CTae_jGbKGE/UQnf_BCgLiI/AAAAAAAAAMM/kVB34xGtOEk/s320/automenu1.png">
+  
+  <meta itemprop="blogId" content="7126690870590324038">
+  <meta itemprop="postId" content="5804308157967868580">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="31st January 2013" href="#" itemprop="url">
+
+
+  <div class="top ribbon-piece">Jan</div>
+  <div class="bottom ribbon-piece">31</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="#" rel="bookmark" itemprop="url" data-item-type="post" data-id="5804308157967868580">
+
+
+
+How To Fix Window Maker's Menu Part 2: Automatic Menu Creation</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=7126690870590324038&amp;postID=5804308157967868580&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody">I discussed the process of manually generating an applications menu in Window Maker in a previous post. If you are running a Debian (or Debian-based) Window Maker installation, one thing you might miss is automatic menu updates whenever you add or remove applications.<br>
+<br>
+I'm going to provide a method for (nearly) automatic menu generation an updating in Debian Window Maker systems in this post.<br>
+<span style="color: red;"><br></span>
+<span style="color: red;">Step 1: <span style="color: white;">Install the packages "menu" and "menu-xdg."</span></span><br>
+<br>
+These two packages are available in all three divisions of the Debian repositories (i.e., stable, testing and experimental), so open a terminal and enter:<br>
+<br>
+sudo aptitude install menu menu-xdg<br>
+<br>
+<span style="color: red;">Step 2: <span style="color: white;">Make the file /etc/menu-methods/wmaker executable</span></span><br>
+<br>
+In a&nbsp; terminal, enter:<br>
+<br>
+sudo chmod +x /etc/menu-methods/wmaker<br>
+<span style="color: red;"><br></span>
+<span style="color: red;">Step 3:<span style="color: white;"> Run the update script</span></span><br>
+<br>
+In a terminal:<br>
+<br>
+update-menus<br>
+<br>
+If all went well, you should find your default Window Maker menu transformed into something like this:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://1.bp.blogspot.com/-CTae_jGbKGE/UQnf_BCgLiI/AAAAAAAAAMM/kVB34xGtOEk/s1600/automenu1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img src="automenu1.png" border="0" height="320" width="88"></a></div>
+Which will give you this sort of sub-menu:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://1.bp.blogspot.com/-ze63ny7Z5W0/UQngIWYW4OI/AAAAAAAAAMU/0F2RyFZoRWU/s1600/automenu2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img src="automenu2.png" border="0" height="320" width="234"></a></div>
+<br>
+Now, I mentioned that this method provides (nearly) automatic menu updates. The (nearly) part means that each time you add or remove software, you will need to remember to run the "update-menus" script. If you are so inclined, you could set this up to run at each session login, but that's up to you.<br>
+<br>
+The downside to this approach, as I mentioned in a previous post, is that you lose the ability to customize the menu manually using the WPrefs.app menu functions. I'm a bit torn on this - on the one hand, being able to manually tweak the menu by adding all sorts of commands and also being able to organize the menu items exactly as I see fit is nice. On the other hand, the manual approach takes a good deal of work - especially on a fresh install of Window Maker, and having to remember to add every application I install each time I install something can be a pain.<br>
+<br>
+I might also serve notice that I am not familiar with Window Maker's menu behavior outside the Debian world. I have run Window Maker on an Arch Linux installation, but I honestly don't remember the specifics for that distribution. If you are using anything but Debian, please look for information specific to your distribution.<br>
+<br>
+So I've covered two menu production approaches for Debian-based Window Maker instances. If you know of other - possibly better - approaches, please don't hesitate to let me know! <br>
+<br>
+<br></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2013-01-31T03:19:00.004Z" itemprop="datePublished">31st January 2013</abbr> by <a class="url fn" href="http://www.blogger.com/profile/11678815965526148744" rel="author" itemprop="author">busprof</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://windowmakerandi.blogspot.com/search/label/How-To" target="_self">How-To</a> <a class="label" href="http://windowmakerandi.blogspot.com/search/label/Window%20Maker" target="_self">Window Maker</a> <a class="label" href="http://windowmakerandi.blogspot.com/search/label/wmaker" target="_self">wmaker</a> 
+    </div>
+    
+    
+    
+<div class="share-controls  delay" data-defer="" data-delay="1000">
+<span class="share-plusone g-plusone  delay" data-href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html" data-hl="en" data-size="medium" data-source="blogger:blog:plusone" data-annotation="bubble" data-width="90" data-text="How To Fix Window Maker's Menu Part 2: Automatic Menu Creation"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button  delay" data-url="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html" data-count="" data-size="" data-text="How To Fix Window Maker's Menu Part 2: Automatic Menu Creation"><iframe src="index_1.html" scrolling="no" allowtransparency="true" frameborder="0"></iframe></span>
+
+
+<span class="share-facebook  delay" data-url="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html" data-count="" data-layout="" data-text="How To Fix Window Maker's Menu Part 2: Automatic Menu Creation"><iframe src="index_2.html" scrolling="no" allowtransparency="true" frameborder="0"></iframe></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="4 comments">
+  <span class="bubble-content">4</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: block;" class="comments-wrapper blogger-comments toggle-container" data-itemid="5804308157967868580">
+  <div class="comments-content"><div id="bc_0_1C" kind="c"><div id="bc_0_1CT"><div id="bc_0_0T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_0TB"><li id="bc_0_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="nuper.jpg"></div><div id="c3362367847183358200" class="comment-block"><div id="bc_0_2M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/03632086596290998359">Mafra</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?showComment=1360180188597#c3362367847183358200">2/06/2013 01:49:00 PM</a></span></div><p id="bc_0_2MC" class="comment-content">There is a utility called wmgenmenu which generates a WMRootMenu in your stdout by searching which applications are installed. For example,<br><br>wmgenmenu &gt; $HOME/GNUstep/Defaults/WMRootMenu<br><br>will create a menu automatically.<br><br>There is also another program called wmmenugen which understands about 'xdg'.</p><span id="bc_0_2MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-2145387564"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=7126690870590324038&amp;postID=3362367847183358200">Delete</a></span></span></div><div id="bc_0_2BR" class="comment-replies"></div><div id="bc_0_2B_box" class="comment-replybox-single"></div></li><li id="bc_0_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="b36-rounded.png"></div><div id="c4708765077628385023" class="comment-block"><div id="bc_0_3M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/02356434614985054511">Zeff</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?showComment=1362962982744#c4708765077628385023">3/10/2013 07:49:00 PM</a></span></div><p id="bc_0_3MC" class="comment-content">There is a way you can have the best of both worlds; a menu you can manually update with WPrefs which includes a submenu of applications which automatically updates every time applications are installed or un-installed.<br><br>Arch Linux includes a perl script xdg_menu which reads the xdg menu config files and generates a submenu formatted for Window Maker.  <br>Documentation is here: http://goo.gl/J33p7<br>Script can be downloaded from here: http://goo.gl/YWWTv<br><br>To use, in the WPrefs menu configuration use the "Generated Submenu" item to add a new submenu.  For the command use something like:  "xdg_menu --format WindowMaker --fullmenu --root-menu /etc/xdg/menus/applications.menu"<br>You may need to change the applications.menu file if that particular file isn't on your system.  On a Debian system debian-menu.menu will provide a very detailed menu.<br><br>NOTE: I have only been able  to get the "Generated Submenu" to work on Window Maker version 0.95.4.  It seems to crash the window manager on earlier versions.  If you are on an earlier version and can't, or don't want to, upgrade you can use the xdg_menu script to create a menu file and reference that file using the "External Submenu" in WPrefs.  You can then regularly update the file with a cron job or perhaps the autostart file if you regularly restart Window Maker.<br><br><br><br><br><br></p><span id="bc_0_3MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-1241409449"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=7126690870590324038&amp;postID=4708765077628385023">Delete</a></span></span></div><div id="bc_0_3BR" class="comment-replies"></div><div id="bc_0_3B_box" class="comment-replybox-single"></div></li><li id="bc_0_4B" class="comment" kind="b"><div class="avatar-image-container"><img src="anon36.png"></div><div id="c1497810020924284755" class="comment-block"><div id="bc_0_4M" class="comment-header" kind="m"><cite class="user">Anonymous</cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?showComment=1376026525723#c1497810020924284755">8/09/2013 12:35:00 AM</a></span></div><p id="bc_0_4MC" class="comment-content">You can use a custom menu and set the Debian menu as an external sub menu by pointing to ~/GNUstep/Library/WindowMaker/menu.hook.  I do that to add key bindings for things like the run dialogue and urxvt.</p><span id="bc_0_4MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-144152954"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=7126690870590324038&amp;postID=1497810020924284755">Delete</a></span></span></div><div id="bc_0_4BR" class="comment-replies"></div><div id="bc_0_4B_box" class="comment-replybox-single"></div></li><li id="bc_0_5B" class="comment" kind="b"><div class="avatar-image-container"><img src="_.dat"></div><div id="c4282596410574671752" class="comment-block"><div id="bc_0_5M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/14806921152687859284">Mack Allison</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?showComment=1423837394486#c4282596410574671752">2/13/2015 08:23:00 AM</a></span></div><p id="bc_0_5MC" class="comment-content">Thanks so much for this. Good to see there's a WindowMaker community reforming, and development resuming. Wasn't so long ago the WM scene was as lonely as a Mac newsgroup in 1998.</p><span id="bc_0_5MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-1511646568"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=7126690870590324038&amp;postID=4282596410574671752">Delete</a></span></span></div><div id="bc_0_5BR" class="comment-replies"></div><div id="bc_0_5B_box" class="comment-replybox-single"></div></li></ol><div style="display: none;" id="bc_0_0I" class="continue" kind="ci"><a target="_self">Add comment</a></div><div id="bc_0_0T_box" class="comment-replybox-thread"><iframe src="index_3.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=7126690870590324038&amp;postID=5804308157967868580" frameborder="0"></iframe></div><div style="display: none;" id="bc_0_0L" class="loadmore" kind="rb"><a target="_self">Load more</a></div></div></div></div></div>
+  <div class="comments-footer">
+    
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+
+      
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="header-container">
+  <div id="header" class="header">
+    <div class="header-bar">
+      
+<span class="title">
+  <a href="http://windowmakerandi.blogspot.com/" target="_self"><h1 title="Window Maker and I: busprof's Blog">Window Maker and I: busprof's Blog</h1></a>
+  <h3 title="Promoting the Window Maker window manager..">Promoting the Window Maker window manager..</h3>
+</span>
+<input id="search" autocomplete="off" placeholder="Search" type="text">
+
+      
+    </div>
+    <div class="header-drawer sticky open">
+      
+      <div id="views" class="tabs">
+        <span class="menu-heading">Sidebar<span class="indicator"></span></span>
+        <ul>
+          
+          <li class=""><span class="menu-background"></span><a class="menu-item" href="#" target="_self" data-view-name=""></a></li>
+          
+          <li class=""><span class="menu-background"></span><a class="menu-item" href="#" target="_self" data-view-name=""></a></li>
+          
+          <li class=""><span class="menu-background"></span><a class="menu-item" href="#" target="_self" data-view-name=""></a></li>
+          
+          <li class="Classic"><span class="menu-background"></span><a class="menu-item" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=classic" target="_self" data-view-name="classic">Classic</a></li>
+          
+          <li class="Flipcard"><span class="menu-background"></span><a class="menu-item" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=flipcard" target="_self" data-view-name="flipcard">Flipcard</a></li>
+          
+          <li class="Magazine"><span class="menu-background"></span><a class="menu-item" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=magazine" target="_self" data-view-name="magazine">Magazine</a></li>
+          
+          <li class="Mosaic"><span class="menu-background"></span><a class="menu-item" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=mosaic" target="_self" data-view-name="mosaic">Mosaic</a></li>
+          
+          <li class="Sidebar"><span class="menu-background"></span><a class="menu-item current" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=sidebar" target="_self" data-view-name="sidebar">Sidebar</a></li>
+          
+          <li class="Snapshot"><span class="menu-background"></span><a class="menu-item" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=snapshot" target="_self" data-view-name="snapshot">Snapshot</a></li>
+          
+          <li class="Timeslide"><span class="menu-background"></span><a class="menu-item" href="http://windowmakerandi.blogspot.com/2013/01/automatic-window-maker-menu-generation.html?view=timeslide" target="_self" data-view-name="timeslide">Timeslide</a></li>
+          
+        </ul>
+      </div>
+      
+      
+      <div style="" class="blog-admin admin-controls">
+        <a class="new-post" href="https://www.blogger.com/post-edit.g?blogID=7126690870590324038&amp;from=pencil" target="_self" title="New post"></a>
+        <a class="dashboard" href="https://www.blogger.com/home" target="_self" title="Dashboard"></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="main" class="hfeed" tabindex="0">
+  <div style="top: 100px;" id="sidebar">
+    <div class="items"><div data-id="2540393437923507879" class="item hentry howto window_maker wmaker has-comments selected" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="puppyslackowmaker2.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html" rel="bookmark" itemprop="url">Oh, Yes, You Can! (Put Window Maker on Puppy Linux)</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="2 comments">
+  <span class="bubble-content">2</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="1404544850029988917" class="item hentry howto" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="LO35example1.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/02/i-already-like-libreoffice-40.html" rel="bookmark" itemprop="url">I Already Like Libreoffice 4.0</a>
+    
+  </h3>
+  
+  
+  
+
+  
+
+
+
+</div><div data-id="1639300208790800724" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="2013-02-18-194435_655x428_scrot.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/02/num-lock-can-bork-your-keyboard.html" rel="bookmark" itemprop="url">Num Lock Can Bork Your Keyboard Shortcuts in Window Maker</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="4 comments">
+  <span class="bubble-content">4</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="7774141576229335116" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="keyboardshortcutsprefs.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/02/get-productive-in-window-maker-keyboard.html" rel="bookmark" itemprop="url">Get Productive in Window Maker: Keyboard Shortcuts for Fun and Profit</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="2 comments">
+  <span class="bubble-content">2</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="1808246202838875521" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="2013-02-09-175645_1024x768_scrot.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/02/my-window-maker-desktops-in-praise-of.html" rel="bookmark" itemprop="url">My Window Maker Desktops: In Praise of Plain</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="1 comment">
+  <span class="bubble-content">1</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="3131950078504539935" class="item hentry howto window_maker wmaker" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="wmclock.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/02/my-window-maker-dockapps-line-up.html" rel="bookmark" itemprop="url">My Window Maker Dockapps Line-Up</a>
+    
+  </h3>
+  
+  
+  
+
+  
+
+
+
+</div><div data-id="5804308157967868580" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="automenu1_001.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="#" rel="bookmark" itemprop="url">How To Fix Window Maker's Menu Part 2: Automatic Menu Creation</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="4 comments">
+  <span class="bubble-content">4</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="6412048707594014282" class="item hentry howto window_maker wmaker" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="MenuWarning.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/01/how-to-fix-window-makers-menu-part-1.html" rel="bookmark" itemprop="url">How To Fix Window Maker's Menu Part 1: Manual Menu Creation</a>
+    
+  </h3>
+  
+  
+  
+
+  
+
+
+
+</div><div data-id="8508128274862810750" class="item hentry howto window_maker wmaker" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="defaultwmakerdesk.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/01/window-maker-is-installed-now-what.html" rel="bookmark" itemprop="url">Window Maker is Installed - Now What?</a>
+    
+  </h3>
+  
+  
+  
+
+  
+
+
+
+</div><div data-id="6324112628340121245" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="netinstalldeskselect.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2013/01/installing-window-maker-debian-wheezy.html" rel="bookmark" itemprop="url">Installing Window Maker: a Debian Wheezy Netinstall Approach</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="4 comments">
+  <span class="bubble-content">4</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="4454750595974120838" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="wmakercomponents.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2011/11/theming-window-maker-part-1-window.html" rel="bookmark" itemprop="url">Theming Window Maker Part 1: Styles</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="1 comment">
+  <span class="bubble-content">1</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="7886442285764494131" class="item hentry howto window_maker wmaker has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="Screenshot+-+10072011+-+02-09-03+AM.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2011/10/how-to-get-window-maker.html" rel="bookmark" itemprop="url">How to Get Window Maker</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="6 comments">
+  <span class="bubble-content">6</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="1125667775730556631" class="item hentry  has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  <img class="thumbnail" src="AnnotDefaultWMDesktop.png" style="width: 30px; height: 30px;">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2011/10/ugly-duckling-dont-let-default-window.html" rel="bookmark" itemprop="url">Ugly Duckling: Don't Let the Default Window Maker Desktop Fool You!</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="5 comments">
+  <span class="bubble-content">5</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div><div data-id="910056442346574254" class="item hentry  has-comments" itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <h3 class="title entry-title" itemprop="name">
+    
+
+
+
+
+    
+    
+    <a href="http://windowmakerandi.blogspot.com/2011/10/why-am-i-doing-this.html" rel="bookmark" itemprop="url">Why am I doing this?</a>
+    
+  </h3>
+  
+  
+  
+
+  
+    
+<span class="bubble  comments-count light" title="1 comment">
+  <span class="bubble-content">1</span>
+  <span class="bubble-tail"></span>
+</span>
+
+  
+
+
+
+</div></div>
+  </div>
+  <div id="content"><div class="article hentry howto window_maker wmaker " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+    <meta itemprop="image_url" content="http://3.bp.blogspot.com/-j7MFx2ppcAc/UVTOQSbj_XI/AAAAAAAAAP0/kuYmsQpipNw/s320/puppyslackowmaker2.png">
+    <meta itemprop="thumbnailUrl" content="http://3.bp.blogspot.com/-j7MFx2ppcAc/UVTOQSbj_XI/AAAAAAAAAP0/kuYmsQpipNw/s320/puppyslackowmaker2.png">
+  
+  <meta itemprop="blogId" content="7126690870590324038">
+  <meta itemprop="postId" content="2540393437923507879">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="29th March 2013" href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Mar</div>
+  <div class="bottom ribbon-piece">29</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="2540393437923507879">
+
+
+
+Oh, Yes, You Can! (Put Window Maker on Puppy Linux)</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=7126690870590324038&amp;postID=2540393437923507879&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody">Anyone who has used Linux for more than six months has at least heard of Puppy Linux. In fact, Puppy Linux is often the first distribution people use. Puppy has been around for nearly 10 years (that's longer than Ubuntu, by the way) and I have used it off-and-on over the past decade as well. Periodically, I download the latest Puppy release and burn it to a CD or USB drive - just in case! Since Puppy can run entirely in RAM with no HDD installation needed, having a Puppy around the house to use when I've borked something on a system is nice. Also, I just flat like Puppy Linux, although it does have some quirks (at least, to me) compared with more "mainstream" Linux distributions.<br><br>A while back, a Puppy developer created an <a href="http://www.murga-linux.com/puppy/viewtopic.php?t=70758" target="_blank">experimental version of Puppy using Window Maker</a> as the default window manager. Puppy normally uses Joe's Window Manager (JWM) and offers the option to use ICEwm in many of its releases. Being a Window Maker user, seeing a version of Puppy with Window Maker as the default was exciting. Unfortunately, the experiment never resulted in a stable release.<br><br>Enter Puppy Linux developer 01micko, and <a href="http://01micko.com/slacko.html" target="_blank">"Slacko Puppy,"</a> a Puppy release that is "binary compatible" with Slackware's repositories. About a year ago, I downloaded Slacko Puppy 5.3.3, which is built to be compatible with Slackware version 13.37. I've had it on a CD and USB drive - and as a "frugal" install on one of my laptops - ever since. Occasionally I will boot into Slacko Puppy and make sure things are updated and still running well. One of these occaissions led me to poke around in the Slackware packages available for installation on Puppy, and behold! There was Window Maker!<br><br>So I did what any self-respecting Linux user would do - I immediately installed Window Maker and spent the next couple of hours figuring out how to set Slacko Puppy up to use it instead of JWM as the primary window manager. Not all that difficult, and reading through some of the posts on the Puppy Linux Forum (thanks, Google) helped me figure out what was needed. Here's the basic process:<br><br>1. Install Window Maker from the Slackware repositories using Puppy Package Manager.<br>2. Open a terminal and run wmaker.inst (a script that sets up Window Maker for use)<br>3. Open Rox Filer and see if wmaker.inst has provided a new ~/.xinitrc (it should have, and it should have renamed your original file to .xinitrc_original or .xinitrc_old).<br>4. Change the name of .xinitrc_original to .xinitrc_jwm (optional - helps me remember what's going on though).<br>5. Still in Rox - go to /etc and look for the file "windowmanager." This is a text file with just one line saying "jwm."<br>6. Rename /etc/windowmanager to /etc/windowmanager_old (or whatever you like).<br>7. Open /etc/windowmanager_old in an editor and change "jwm" to "wmaker" (no quotes) then save the file as /etc/windowmanager. This is necessary for Puppy's shutdown and reboot scripts to work. If you don't do this, you'll have to exit the session then fool around in a terminal to shut your system down (and Puppy doesn't recognize "shutdown -h now" or "shutdown -r now" for some reason, so this isn't trivial).<br>8. Reboot - you should find yourself in Window Maker instead of JWM.<br>
+9. Add a "shutdown" command to Window Maker's menu using WPrefs. You'll need to add a "run" line and use this command - wmpoweroff. Optionally, add a "reboot" command using wmreboot.<br><br>Here is my Slacko Puppy desktop with Window Maker:<br>
+<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://3.bp.blogspot.com/-j7MFx2ppcAc/UVTOQSbj_XI/AAAAAAAAAP0/kuYmsQpipNw/s1600/puppyslackowmaker2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img src="puppyslackowmaker2_001.png" border="0" height="200" width="320"></a></div>
+<br>
+<br>
+<br><br>I don't know how well you can see the open terminal - but I'm running htop and it's showing that Puppy is using only 70MB of memory - and that's with VLC media player running along with some background processes. At "idle," I'm seeing only 45-50MB of memory in use. Truly impressive!<br><br>You'll want some dockapps to go along with your new "Window Maker Puppy." Some of these are available here: <a href="http://ponce.cc/slackware/slackware-13.37/packages/" target="_blank">http://ponce.cc/slackware/slackware-13.37/packages/&nbsp;&nbsp;</a><br>
+<br>
+I had to compile wmsystemtray (from the Slackware 13.37 source) and there are other dockapps that would not install properly under Puppy and had to be compiled manually (for instance, wmtime). Because of this, you'll need to install the "devx" SFS package and load it at boot time. Best to do this while you're in a "vanilla" JWM session - although you can run Puppy Package Manager and the other utilities (including the "boot manager" that let's you load SFS packages on startup) from Window Maker. There is a decent tutorial on compiling in Puppy here: <a href="http://puppy.b0x.me/wiki/doku.php?id=compile">http://puppy.b0x.me/wiki/doku.php?id=compile</a><br><br>The other thing you'll need to do right away is to edit the menu using WPrefs. If you open your ~/.jwmrc file in a text editor you can find all of the needed commands to launch everything in Puppy's menu (and there's a BUNCH of stuff in Puppy's menu!).<br><br>So - not as simple as "apt-get install wmaker," but still very do-able.&nbsp; Cheers!</div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2013-03-28T23:21:00.000Z" itemprop="datePublished">29th March 2013</abbr> by <a class="url fn" href="http://www.blogger.com/profile/11678815965526148744" rel="author" itemprop="author">busprof</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://windowmakerandi.blogspot.com/search/label/How-To" target="_self">How-To</a> <a class="label" href="http://windowmakerandi.blogspot.com/search/label/Window%20Maker" target="_self">Window Maker</a> <a class="label" href="http://windowmakerandi.blogspot.com/search/label/wmaker" target="_self">wmaker</a> 
+    </div>
+    
+    
+    
+<div class="share-controls  delay" data-defer="" data-delay="1000">
+<span class="share-plusone g-plusone  delay" data-href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html" data-hl="en" data-size="medium" data-source="blogger:blog:plusone" data-annotation="bubble" data-width="90" data-text="Oh, Yes, You Can! (Put Window Maker on Puppy Linux)"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button  delay" data-url="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html" data-count="" data-size="" data-text="Oh, Yes, You Can! (Put Window Maker on Puppy Linux)"><iframe src="index_4.html" scrolling="no" allowtransparency="true" frameborder="0"></iframe></span>
+
+
+<span class="share-facebook  delay" data-url="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html" data-count="" data-layout="" data-text="Oh, Yes, You Can! (Put Window Maker on Puppy Linux)"><iframe src="index_5.html" scrolling="no" allowtransparency="true" frameborder="0"></iframe></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="2 comments">
+  <span class="bubble-content">2</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: block;" class="comments-wrapper blogger-comments toggle-container" data-itemid="2540393437923507879">
+  <div class="comments-content"><div id="bc_1_1C" kind="c"><div id="bc_1_1CT"><div id="bc_1_0T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_1_0TB"><li id="bc_1_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="b36-rounded.png"></div><div id="c8248208378476196797" class="comment-block"><div id="bc_1_2M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/10158208744726819926">Labac1975</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html?showComment=1364818908550#c8248208378476196797">4/01/2013 07:21:00 AM</a></span></div><p id="bc_1_2MC" class="comment-content">Hallo,<br><br>sorry for my bad english ( from germany... )<br>I'm using Ubuntu 12.10 and i installed WindowMaker.<br>Ubuntu uses pulseaudio and so the laptopkeys to regulate the sound volume doesn't work.<br>You know any solution ?</p><span id="bc_1_2MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-205961314"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=7126690870590324038&amp;postID=8248208378476196797">Delete</a></span></span></div><div id="bc_1_2BR" class="comment-replies"></div><div id="bc_1_2B_box" class="comment-replybox-single"></div></li><li id="bc_1_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="b36-rounded.png"></div><div id="c8388400577740513781" class="comment-block"><div id="bc_1_3M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/10158208744726819926">Labac1975</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html?showComment=1364845449322#c8388400577740513781">4/01/2013 02:44:00 PM</a></span></div><p id="bc_1_3MC" class="comment-content">...i found a solution: volti<br>After installing of this tool eerthing works fine</p><span id="bc_1_3MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-205961314"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=7126690870590324038&amp;postID=8388400577740513781">Delete</a></span></span></div><div id="bc_1_3BR" class="comment-replies"></div><div id="bc_1_3B_box" class="comment-replybox-single"></div></li></ol><div style="display: none;" id="bc_1_0I" class="continue" kind="ci"><a target="_self">Add comment</a></div><div id="bc_1_0T_box" class="comment-replybox-thread"><iframe src="index_6.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=7126690870590324038&amp;postID=2540393437923507879" frameborder="0"></iframe></div><div style="display: none;" id="bc_1_0L" class="loadmore" kind="rb"><a target="_self">Load more</a></div></div></div></div></div>
+  <div class="comments-footer">
+    
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div></div>
+</div>
+
+
+<div id="gadget-dock" class=""><div class="gadget-item" data-gadget-id="0">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAgUlEQVQ4y6XTwQ3AIAgFUEZyhI7gCIzuCGzwe9HWKhgo/2SUvBBFgi8XGQFAtBQ3AxEAxYPUvlkj0Iy05cDdUbQTFYrciQlpSCQCoGSRt6O+SEHUW8pAMm44A/H83n8gBrBNXwTi54mVMfZA/Bk241OdIF5qyYwBsVJHx0yQaMBAblcXSj0+j7awAAAAAElFTkSuQmCC">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAgklEQVQ4jaXSAQrAIAgAQJ8U9IE9YU/w6T2hH7gVWxPR0BlIUXJYBrVWcsQBxiAiAJHcDKTfUTzIOTbHHIE40vhBpKJoJSoUeRMT0pBITCiLfBU9ixQ0kJKE+tvSDIT8b/yBcD6s+GQRCFeL5XBC6woq4oCQ55rIBkKZt0UE1DXgRS6+HFtDSeJYlgAAAABJRU5ErkJggg==">
+    </div>
+    <span class="gadget-title">Tags</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">Tags</span>
+      <div class="gadget-content"><ul class="gadget-label gadget-label-list gadget-label-show-freq-numbers">
+  
+  
+<li class="gadget-label-item gadget-label-size-5">
+  <a href="http://windowmakerandi.blogspot.com/search/label/How-To">How-To</a><span class="gadget-label-count">12</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://windowmakerandi.blogspot.com/search/label/Window%20Maker">Window Maker</a><span class="gadget-label-count">11</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://windowmakerandi.blogspot.com/search/label/wmaker">wmaker</a><span class="gadget-label-count">11</span>
+</li>
+
+  
+</ul></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="1">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAIUlEQVQoz2P4jwQYoOA/iYBh8BgyeMBowI4GLD0CFmQGAJeZHQCjUvPAAAAAAElFTkSuQmCC">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAJ0lEQVQoz2MwNjb+D8MMUIAsRgxmGDyGDB4wGrCjAUuPgP3//z8DAG+r2iZzG/daAAAAAElFTkSuQmCC">
+    </div>
+    <span class="gadget-title">Links</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">Links</span>
+      <div class="gadget-content"><ul class="gadget-linklist">
+  
+  
+<li class="gadget-linklist-item">
+  <a href="http://windowmaker.org/">Window Maker</a>
+</li>
+
+  
+  
+<li class="gadget-linklist-item">
+  <a href="http://vsido.org/">VSIDO Linux</a>
+</li>
+
+  
+  
+<li class="gadget-linklist-item">
+  <a href="http://crunchbanglinux.org/">Crunchbang Linux</a>
+</li>
+
+  
+  
+<li class="gadget-linklist-item">
+  <a href="http://www.dedoimedo.com/">Dedoimedo</a>
+</li>
+
+  
+</ul></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="2">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAIUlEQVQoz2P4jwQYoOA/iYBh8BgyeMBowI4GLD0CFmQGAJeZHQCjUvPAAAAAAElFTkSuQmCC">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAJ0lEQVQoz2MwNjb+D8MMUIAsRgxmGDyGDB4wGrCjAUuPgP3//z8DAG+r2iZzG/daAAAAAElFTkSuQmCC">
+    </div>
+    <span class="gadget-title">My Blog List</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">My Blog List</span>
+      <div class="gadget-content"><ul class="gadget-bloglist
+    
+    
+    
+    ">
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="sKEur3k68NDrHzw_RKzBEbMUUYfA1VGmB4FYAhAzbpwcWRsTzLxi1hTuhxveYyIkgLNaITaIwNgsLNcIEuXr_g=s0-d.dat" height="16" width="16">
+    
+    <a href="https://djsroknrol.wordpress.com/">
+      @ Home with djsroknrol
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="https://djsroknrol.wordpress.com/2015/05/18/life-got-away-again/" class="gadget-bloglist-recent-title">Life got away again…..</a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet">So here we are, 4 months later and the girls and I have left Arizona and 
+moved to Oklahoma……daddyO took a job offer here in Altus, OK for the same 
+company ...</span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">1 year ago</div>
+    
+  </div>
+</li>
+
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="PFsWAJymPsDg_J26Pf_H1sHQAbFSQAc3IfDhbZNA_FIOqeA4a7hhtdsuDe0YXUqt4VK8qRwq3A=s0-d.dat" height="16" width="16">
+    
+    <a href="https://corenominal.org/">
+      corenominal
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="https://corenominal.org/2016/07/16/googles-undocumented-favicon-to-png-converter/" class="gadget-bloglist-recent-title">Google’s undocumented favicon to PNG converter</a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet">I came across this whilst looking for the best method of converting 
+favicons to PNG files in PHP. I’m not sure if I’ll use it for my project, 
+but I thought...</span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">1 day ago</div>
+    
+  </div>
+</li>
+
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="uhiazj7NsDUMP7rbaqQ_aj_hxQCS8wmzJQvtoTJ2hL_KZrCr9z0PAEUdCLJhFFSg8eGK9s4BemP7o0hMZa0=s0-d.dat" height="16" width="16">
+    
+    <a href="http://darthlukan.blogspot.com/">
+      Dark Grimoire
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="http://darthlukan.blogspot.com/2012/07/why-people-distro-hop-and-how-to-stop-it.html" class="gadget-bloglist-recent-title">Why People Distro Hop and How to Stop It.</a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet">
+
+*Disclaimer: *
+
+
+I'm not a "Human Interaction Specialist" nor am I a "Psycho-analyst".  I 
+did not use the *Scientific Method* to draw my conclusions, rath...</span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">4 years ago</div>
+    
+  </div>
+</li>
+
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="ukwUcCL-XPH4UMg5A0-TUnyzMFSO7J3U-Sb_YnhvmqtoPO-SBh7cKcnt7dQYDcqKLTyt1PCDhNUB-YwN-_4=s0-d.dat" height="16" width="16">
+    
+    <a href="http://debianandi.blogspot.com/">
+      debianandi
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="http://feedproxy.google.com/~r/debianandi/~3/P12s9IZ8OH4/debian-70-wheezy-to-be-final-on-4th5th.html" class="gadget-bloglist-recent-title">Debian 7.0 Wheezy to be Final on 4th/5th of May 2013</a>
+      
+      
+      
+      <a href="http://feedproxy.google.com/~r/debianandi/~3/P12s9IZ8OH4/debian-70-wheezy-to-be-final-on-4th5th.html" class="gadget-bloglist-recent-thumbnail">
+        <img src="gotwheezy.jpg" height="72" width="72">
+      </a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet"></span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">3 years ago</div>
+    
+  </div>
+</li>
+
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="kt4XHNQJsIYNZ9r5eqUfDW93TTEinr7kb_t7RIcXEyrNc4375xWtlhMLHRxxLZF7K-DF3AEnJX7IikvA=s0-d.dat" height="16" width="16">
+    
+    <a href="http://resalxh.wordpress.com/">
+      Resa's Blog
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="https://resalxh.wordpress.com/2013/10/31/running-bootstrap-locally-on-centosfedora/" class="gadget-bloglist-recent-title">Running Bootstrap locally on CentOS/Fedora</a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet">Within my job we are quite frequently faced with creating web pages and in 
+order to improve the look and feel we have made (intensively) use of 
+jQuery. Bec...</span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">2 years ago</div>
+    
+  </div>
+</li>
+
+  
+</ul></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="3">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAgMAAACdGdVrAAAACVBMVEX///8AAAD///9+749PAAAAAnRSTlMAAHaTzTgAAAAwSURBVHherYyxCQAwCAR/yhTZy8ZeC6c0BETU1msOjucBeyBF54s1FHEs5fZYWb12TL8307RAxVQAAAAASUVORK5CYII=">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAgMAAACdGdVrAAAACVBMVEX///8AAAAzMzMTx/ayAAAAAnRSTlMAAHaTzTgAAAAwSURBVHherYyxCQAwCAR/yhTZy8ZeC6c0BFS09pqD43nAHijR+WINZZxLuTN2Vq8dTL8301DjA9oAAAAASUVORK5CYII=">
+    </div>
+    <span class="gadget-title">Blog Archive</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">Blog Archive</span>
+      <div class="gadget-content"><div class="blogarchive-tree blogarchive-expanded">
+  <ul class="blogarchive-dates">
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/search?updated-min=2013-01-01T00:00:00-06:00&amp;updated-max=2014-01-01T00:00:00-06:00&amp;max-results=10">2013</a><span class="blogarchive-post-count">10</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+    
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/2013_03_01_archive.html">March</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+  
+<li class="blogarchive-post">
+  <a href="http://windowmakerandi.blogspot.com/2013/03/oh-yes-you-can-put-window-maker-on.html">Oh, Yes, You Can! (Put Window Maker on Puppy Linux...</a>
+</li>
+
+
+
+  </ul>
+</li>
+
+  
+    
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/2013_02_01_archive.html">February</a><span class="blogarchive-post-count">5</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+    
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/2013_01_01_archive.html">January</a><span class="blogarchive-post-count">4</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/search?updated-min=2011-01-01T00:00:00-06:00&amp;updated-max=2012-01-01T00:00:00-06:00&amp;max-results=4">2011</a><span class="blogarchive-post-count">4</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+    
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/2011_11_01_archive.html">November</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+    
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://windowmakerandi.blogspot.com/2011_10_01_archive.html">October</a><span class="blogarchive-post-count">3</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  </ul>
+</div></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="4">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAOCAMAAADt5EdyAAAAOVBMVEUAAAD///////////////////////////////////////////////////////////////////////8KOjVvAAAAEnRSTlMAAJAgv8DwsO+gjzDM0PKvYFDAi1LAAAAAbUlEQVR4Xn3MWw7DIAwFUWMDgbzazv4XW6xUkEql82NdHcky0px1rHADAP0SW1hMJAPkPl0SkEQKQOnTBW98w7skArHdtZR1TBeLRJOePXy6TBryqgcc9XmTTRPsJ5/OHZJuTSo/q0GY9E9mhTfujAptbRXCjQAAAABJRU5ErkJggg==">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAOCAMAAADt5EdyAAAAOVBMVEUAAAD///8zMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzOD4e4dAAAAEnRSTlMAAJAgv8DwsO+gjzDM0PKvYFDAi1LAAAAAbUlEQVR4Xn3M7QrDIAxG4Zio1X5tO/d/sTNQtIPZ8ye8PBAZac46VrgBgP6ILSwmkgFyny4JSCIFoPTpgje+XdMlArHdtZR1TBeLRJOevXy6TBryqQcc9X2TTRPsJ1fnDkm3JpW/1SBMepJZ4QvujAptJ0Z/hQAAAABJRU5ErkJggg==">
+    </div>
+    <span class="gadget-title">Followers</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">Followers</span>
+      <div class="gadget-content"><div id="gadget-followers" class="gadget-followers" width="300px"></div></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="5">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="cooking.png">
+      <img class="gadget-icon-selected" src="cooking.png">
+    </div>
+    <span class="gadget-title">About Me</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">About Me</span>
+      <div class="gadget-content"><div class="profile">
+  
+    
+    
+      
+<dl class="profile-data">
+  
+  <dt class="profile-name">
+  <a href="https://www.blogger.com/profile/11678815965526148744" class="profile-name-link g-profile" rel="author" style="background-image: url(&quot;logo-16.png&quot;);">busprof</a>
+  </dt>
+  
+  
+  
+    
+    <dd class="profile-photo">
+      <a href="https://www.blogger.com/profile/11678815965526148744">
+        <img src="cooking.png" alt="My Photo" height="80" width="72">
+      </a>
+    </dd>
+    
+  
+  
+  
+  
+  <dd class="profile-aboutme">I am an academic in the field of management, a Linux user and enthusiast.</dd>
+  
+</dl>
+
+    
+  
+</div></div>
+    </div>
+  </div></div></div>
+
+
+
+<div id="loading">
+  <span>Loading</span>
+</div>
+
+
+
+
+
+<div id="attribution-container"><div class="attribution">Dynamic Views template. Powered by <a href="https://www.blogger.com/" target="_blank">Blogger</a>.</div></div></body>
+</html>

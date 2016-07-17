@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="de" xml:lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Julius Plenz - Blog - zsh: complete words from tmux pane</title>
+    
+    <link href="https://blog.plenz.com/atom.xml" type="application/atom+xml" rel="alternate" title="Atom Feed">
+    <link href="https://blog.plenz.com/en/atom.xml" type="application/atom+xml" rel="alternate" title="Atom Feed (en)">
+    <link href="https://blog.plenz.com/de/atom.xml" type="application/atom+xml" rel="alternate" title="Atom Feed (de)">
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="language" content="de">
+    <meta name="author" content="Julius Plenz">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body>
+
+<h1>Julius Plenz – Blog</h1>
+<div id="posts">
+
+  <h2 class="blogtitle"><a href="#">zsh: complete words from tmux pane</a></h2>
+
+  <div id="blogpost">
+  <p>Today I wrote a rather cool Z-Shell completion function: It will
+present all words that are found in the current tmux pane in a zsh
+completion menu. That means you can actually complete words from the
+<em>output</em> of commands that you just executed. (In a way it's a little
+bit like the <a href="http://www.opensource.apple.com/source/zsh/zsh-53/zsh/Functions/Zle/keeper">keeper
+function</a>,
+without the overhead of remembering to call <code>keeper</code> in the first place.)</p>
+
+<p>The code below defines two keybindings:</p>
+
+<ul>
+<li><strong>Ctrl-X t</strong> to do a <em>prefix</em> completion: only words from the pane
+that share the same prefix will be presented</li>
+<li><strong>Ctrl-X Ctrl-X</strong> to do a "find stuff like crazy" completion. If you
+see the output and just enter something from the middle of the word,
+it'll just as well complete. For example, if you see <code>176.9.247.89</code>
+somewhere in the pane, try typing <code>.9</code> and hitting Ctrl-X twice.
+It'll complete to that IP address.</li>
+</ul>
+
+
+<p>Here's the code:</p>
+
+<pre><code>_tmux_pane_words() {
+  local expl
+  local -a w
+  if [[ -z "$TMUX_PANE" ]]; then
+    _message "not running inside tmux!"
+    return 1
+  fi
+  w=( ${(u)=$(tmux capture-pane \; show-buffer \; delete-buffer)} )
+  _wanted values expl 'words from current tmux pane' compadd -a w
+}
+
+zle -C tmux-pane-words-prefix   complete-word _generic
+zle -C tmux-pane-words-anywhere complete-word _generic
+bindkey '^Xt' tmux-pane-words-prefix
+bindkey '^X^X' tmux-pane-words-anywhere
+zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' completer _tmux_pane_words
+zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' ignore-line current
+zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a-zA-Z}'
+</code></pre>
+
+<p>How does it work? <code>_tmux_pane_words</code> will just capture the current
+pane's contents (<code>capture-pane</code>), print out the buffer that
+contains it (<code>show-buffer</code>) and then delete it again
+(<code>delete-buffer</code>). – The rest of the magic happens via Zsh's
+excellent completion mechanisms.</p>
+
+<p>See it in action (after typing <code>spm^X^X</code>):</p>
+
+<p><img src="2012-01-19-205829_508x163_scrot.png"></p>
+
+<p><strong>Update 2013-10-06:</strong> Daniel points out that since March ’13, there
+is a switch <code>-p</code> for <code>capture-pane</code> to print the contents to stdout;
+also, using the newly introduced <code>-J</code> switch, wrapped words will be
+joined. See his adaption <a href="https://gist.github.com/blueyed/6856354">here</a>.</p>
+
+  </div>
+
+  <p class="datetags">
+    posted 2012-01-19 <strong>∴</strong> tagged
+  <a href="https://blog.plenz.com/tags/zsh/">zsh</a>, <a href="https://blog.plenz.com/tags/tmux/">tmux</a> and <a href="https://blog.plenz.com/tags/linux/">linux</a>
+  </p>
+
+</div>
+
+<div id="sidebar">
+<h2 style="font-size: 1em;">Tagcloud</h2>
+<p id="tagcloud">
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/ipv6/">ipv6</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/firefox/">firefox</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/mutt/">mutt</a></span>
+<span style="font-size: 215%;"><a href="https://blog.plenz.com/tags/math/">math</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/latex/">latex</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/mplayer/">mplayer</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/neo/">neo</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/golang/">golang</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/pwmt/">pwmt</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/dubstep/">dubstep</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/musil/">musil</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/hack/">hack</a></span>
+<span style="font-size: 197%;"><a href="https://blog.plenz.com/tags/ccc/">ccc</a></span>
+<span style="font-size: 215%;"><a href="https://blog.plenz.com/tags/linkdump/">linkdump</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/food/">food</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/proust/">proust</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/libya/">libya</a></span>
+<span style="font-size: 233%;"><a href="https://blog.plenz.com/tags/sudan/">sudan</a></span>
+<span style="font-size: 197%;"><a href="https://blog.plenz.com/tags/blog/">blog</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/unix/">unix</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/excision/">excision</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/bahrain/">bahrain</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/pi/">pi</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/dubai/">dubai</a></span>
+<span style="font-size: 264%;"><a href="https://blog.plenz.com/tags/africa/">africa</a></span>
+<span style="font-size: 264%;"><a href="https://blog.plenz.com/tags/rant/">rant</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/domain/">domain</a></span>
+<span style="font-size: 197%;"><a href="https://blog.plenz.com/tags/sh/">sh</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/censorship/">censorship</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/rss/">rss</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/gps/">gps</a></span>
+<span style="font-size: 197%;"><a href="https://blog.plenz.com/tags/egypt/">egypt</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/entwicklungspolitik/">entwicklungspolitik</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/static-linking/">static-linking</a></span>
+<span style="font-size: 197%;"><a href="https://blog.plenz.com/tags/zsh/">zsh</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/curl/">curl</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/kernel/">kernel</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/twitter/">twitter</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/vi/">vi</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/bgp/">bgp</a></span>
+<span style="font-size: 597%;"><a href="https://blog.plenz.com/tags/life/">life</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/umts/">umts</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/jekyll/">jekyll</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/hiphop/">hiphop</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/gbs/">gbs</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/gitbuch/">gitbuch</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/nile/">nile</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/politics/">politics</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/donation/">donation</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/gnome/">gnome</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/strace/">strace</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/spam/">spam</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/religion/">religion</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/sed/">sed</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/imagemagick/">imagemagick</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/zathura/">zathura</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/kamusi/">kamusi</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/whitespace/">whitespace</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/openwrt/">openwrt</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/performance/">performance</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/en/">en</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/tanzania/">tanzania</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/documentary/">documentary</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/personal/">personal</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/ssh/">ssh</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/oneliner/">oneliner</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/pdf/">pdf</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/graffiti/">graffiti</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/kyrgyzstan/">kyrgyzstan</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/amazon/">amazon</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/x41/">x41</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/oman/">oman</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/cryptome/">cryptome</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/awesome/">awesome</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/chomsky/">chomsky</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/image/">image</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/gitolite/">gitolite</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/iptables/">iptables</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/liberia/">liberia</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/lighttpd/">lighttpd</a></span>
+<span style="font-size: 374%;"><a href="https://blog.plenz.com/tags/bookdump/">bookdump</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/svn/">svn</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/misc/">misc</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/oneliners/">oneliners</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/somalia/">somalia</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/vim/">vim</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/debian/">debian</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/congo/">congo</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/cgit/">cgit</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/marketing/">marketing</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/tmux/">tmux</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/recht/">recht</a></span>
+<span style="font-size: 278%;"><a href="https://blog.plenz.com/tags/c/">c</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/shambhala/">shambhala</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/x220/">x220</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/politik/">politik</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/nokia/">nokia</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/acpi/">acpi</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/kiswahili/">kiswahili</a></span>
+<span style="font-size: 422%;"><a href="https://blog.plenz.com/tags/git/">git</a></span>
+<span style="font-size: 197%;"><a href="https://blog.plenz.com/tags/perl/">perl</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/uni/">uni</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/jquery/">jquery</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/university/">university</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/pictures/">pictures</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/buch/">buch</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/terror/">terror</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/ubuntu/">ubuntu</a></span>
+<span style="font-size: 152%;"><a href="https://blog.plenz.com/tags/wikileaks/">wikileaks</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/media/">media</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/hook/">hook</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/rap/">rap</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/postfix/">postfix</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/dwm/">dwm</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/petition/">petition</a></span>
+<span style="font-size: 474%;"><a href="https://blog.plenz.com/tags/linux/">linux</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/dns/">dns</a></span>
+<span style="font-size: 124%;"><a href="https://blog.plenz.com/tags/google/">google</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/nomic/">nomic</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/thoughts/">thoughts</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/bufferbloat/">bufferbloat</a></span>
+<span style="font-size: 88%;"><a href="https://blog.plenz.com/tags/bishkek/">bishkek</a></span>
+<span style="font-size: 176%;"><a href="https://blog.plenz.com/tags/security/">security</a></span>
+
+</p>
+</div>
+
+
+
+</body>
+</html>

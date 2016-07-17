@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2016-03-30 Wed 21:51 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Literate Programming</title>
+<meta name="generator" content="Org-mode">
+
+            
+            
+            
+
+            
+            <link rel="icon" href="dragon.svg">
+            <link rel="shortcut icon" href="dragon-head.png">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px none; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div style="display: none;" id="MathJax_Message"></div>
+<div id="preamble" class="status">
+<div id="top-bar" class="gray-gradient">
+  <a href="http://www.howardabrams.com/" id="portrait">
+    <img src="me-circle.png" alt="www.howardism.org">
+  </a>
+  <div id="title">
+    <a href="http://www.howardism.org/">
+      Howardisms
+    </a>
+  </div>
+  <div id="subtitle">Ask me about my <code>.emacs</code> file.</div>
+  <div id="search-area">
+    <a href="http://howardism.org/Technical/Emacs/index.xml" id="rss-button" class="button">
+      <img src="rss.svg" alt="RSS" title="Get updates via my RSS Feed." width="32">
+    </a>
+    <a href="http://howardism.org/formmail/mail?to=howardism" id="mail-button" class="button" target="_new">
+      <img src="mail.svg" alt="Mail" title="Mail me a message comment." width="32">
+    </a>
+    <form method="get" id="searchform" action="http://www.google.com/search">
+      <input class="field" name="q" id="s" placeholder="Search" title="Use Google to search this site" type="text">
+      <input name="q" value="site:www.howardism.org" type="hidden">
+    </form>
+  </div>
+</div>
+</div>
+<div id="content">
+<header>
+<h1 class="title">Introduction to Literate Programming</h1>
+</header><p>
+Welcome to a brief tutorial on literate programming in org-mode.
+</p>
+
+<p>
+The following began as the basis for a workshop for the PDX Emacs
+Hackers meetup, but since everyone couldn’t attend, I decided to
+expand it into a tutorial.  I assume you understand the <a href="http://howardism.org/Technical/Emacs/getting-started.html">basics of
+Emacs</a> and as well as <a href="http://howardism.org/Technical/Emacs/learning-org-mode.html">familiarity with org-mode</a> for creating exported
+documents.
+</p>
+
+<p>
+As you probably know, Org is pretty large, and the features for
+writing, evaluating and connecting blocks of source code in a document
+are extensive, and documenting them all is a daunting task.  I hope
+this tutorial is a good start, but if I glossed over something you
+feel I should include, please <a href="http://howardism.org/formmail/mail?to=howardism">let me know</a>.
+</p>
+
+<p>
+<b>Warning:</b> The examples are pretty lame.
+</p>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Requirements</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+During my workshop, I mentioned needing version <code>v8.2.10</code> of <a href="http://orgmode.org/">org-mode</a>
+(or better). Since org comes with Emacs, you may already have a
+version, so type: <code>C-h v</code> and <code>org-version</code>, to see if everything in
+this tutorial will work (most things will, but…).
+</p>
+
+<p>
+If you need a newer version, use our ELPA friend by running this code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(181, 189, 104);">when</span> <span style="color: rgb(105, 105, 105);">(</span>&gt;= emacs-major-version 24<span style="color: rgb(105, 105, 105);">)</span>
+  <span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(181, 189, 104);">require</span> '<span style="color: rgb(129, 162, 190);">package</span><span style="color: rgb(105, 105, 105);">)</span>
+  <span style="color: rgb(105, 105, 105);">(</span>add-to-list 'package-archives
+               '<span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(138, 190, 183);">"org"</span> . <span style="color: rgb(138, 190, 183);">"http://orgmode.org/elpa/"</span><span style="color: rgb(105, 105, 105);">)</span>
+               t<span style="color: rgb(105, 105, 105);">)</span>
+  <span style="color: rgb(105, 105, 105);">(</span>package-initialize<span style="color: rgb(105, 105, 105);">)</span>
+  <span style="color: rgb(105, 105, 105);">(</span>package-refresh-contents<span style="color: rgb(105, 105, 105);">)</span>
+  <span style="color: rgb(105, 105, 105);">(</span>package-install <span style="color: rgb(138, 190, 183);">"org"</span><span style="color: rgb(105, 105, 105);">))</span>
+</pre>
+</div>
+
+<p>
+That should do it. You may want to also install <a href="http://orgmode.org/worg/org-contrib/">org-plus-contrib</a>.
+</p>
+
+<p>
+During this tutorial, I wanted to demonstrate many of the available
+language interfaces, but this means, you’d have to have a slew of
+interpreters installed locally, so in this tutorial, I hope you have
+the following:
+</p>
+
+<ul class="org-ul">
+<li>Shell (sorry, this might be hard for you Windows people)</li>
+<li>Python</li>
+<li>Ruby</li>
+</ul>
+
+<p>
+However, you’re a smart cookie, so feel free to translate these
+  silly examples into your favorite language.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">Background</h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<p>
+Before we dive into how <a href="http://orgmode.org/">org-mode</a> <i>does</i> literate programming, perhaps
+I should briefly describe literate programming.
+</p>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Why Literate Programming?</h3>
+<div class="outline-text-3" id="text-orgheadline3">
+<p>
+Literate Programming was first invented by Donald Knuth in 1980’s in an
+attempt to emphasize communication to other members on your team.
+As <a href="http://www.brainyquote.com/quotes/authors/d/donald_knuth.html#0RwBBIoWjqiKPb2Y.99">Donald Knuth</a> once wrote:
+</p>
+
+<blockquote>
+<p>
+“Let us change our traditional attitude to the construction of
+programs. Instead of imagining that our main task is to instruct a
+computer what to do, let us concentrate rather on explaining to
+human beings what we want a computer to do.”
+</p>
+</blockquote>
+
+<p>
+Wanting programs to be written for human understanding, with the
+order based on logic of the problem, and not constrained to deficiencies
+in the programming language, we create a <i>literate programming document</i>
+that generates a document for people <b>and</b> the source code files:
+</p>
+
+
+<figure>
+<p><img src="literate-programming-tangling.png" alt="literate-programming-tangling.png">
+</p>
+</figure>
+
+<p>
+The idea is to invert <i>code</i> peppered with <i>comments</i> to <i>prose</i>
+interjected with <i>code</i>.
+</p>
+
+<p>
+While the resulting source code <i>tangled</i> from a literate programming
+document, may look the same as a source file coded directly, this
+idea did not change our industry (although it is used, to various
+degrees, in niche circles).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">Why Org?</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<p>
+Knuth’s original <i>literate programming</i> approach was text with
+minimal editor support, as he only wrote the <code>noweb</code> program to
+create (<i>weave)</i> the documentation and write (<i>tangle)</i> the source
+code.
+</p>
+
+<p>
+From my perspective, literate programming can only be useful with
+help from an editor, for instance the <a href="http://ipython.org/notebook.html">iPython’s notebook</a>. Unlike
+iPython’s JSON storage of the files, I think everything should be
+readable text, as <a href="http://transcriptvids.com/v/oJTwQvgfgMM.html">Carsten Dominik</a> wrote:
+</p>
+
+<blockquote>
+<p>
+“In the third millennium, does it still make sense to work with
+text files? Text files are the only truly portable format for
+files. The data will never get lost.”
+</p>
+</blockquote>
+
+<p>
+So if you buy into literate programming, org-mode is fookin’
+brilliant, especially since we already use org-mode for everything
+else, right?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Advantages?</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+<p>
+Some of the advantages of using org-mode for your source code:
+</p>
+<ul class="org-ul">
+<li>Better documentation for your source code</li>
+<li>Great for team communication for issues and problems</li>
+<li>Clarification of your own thoughts of complicated situations</li>
+<li>Note-oriented REPL for investigating new libraries and APIs</li>
+<li>Inter-language facility for using the <i>best tool for the job</i> (for
+instance, querying a database, manipulating it with a general
+purpose language)</li>
+<li>Org’s <i>organizational</i> features, like Agendas and tasks</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">A Warning</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<p>
+The software world of the 1980s is quite different than our current
+landscape, as engineers are more connected and work in teams, but
+they don’t often use the same tools. Even if your team doesn’t use
+Emacs, you may still find org-mode’s approach useful.
+</p>
+
+<p>
+First, it is a good way to work through complicated algorithms, and
+once you have something good, commit the resulting source code (as
+the prose you write become comments in the code), or when you get
+stuck, you can send your notes to the rest of the team for feedback.
+</p>
+
+<p>
+Second, org-mode files can be a <i>thoughtful repl</i> as each block can
+be evaluated separately, and the results can be fed back to other
+blocks… but I’m getting a head of myself.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7">Exporting Documents</h2>
+<div class="outline-text-2" id="text-orgheadline7">
+<p>
+The goal of using an org-mode file, with the methods I present here,
+is <i>exporting</i> to some document, either HTML, mail messages, Wiki,
+etc. While Org is really good for technical papers, my focus here is
+on code and programming.
+</p>
+
+<p>
+I’ll just mention that you can use the LaTeX support to write things
+like the following:
+</p>
+
+<pre class="example">- Unicode References :: for instance, \alpha, \beta and \gamma.
+- Subscripts :: like Hydrogen atoms, H_2, and Water, H_{2}O.
+- Superscripts :: The mass of the sun is 1.989 x 10^30 kg.
+- Embedded Equations :: Surrounded with either single =$=, like $a^2=b$,
+  or escaped parenthesis, like: \( b=\frac{1}{2} \)
+- Separated equations :: Either in double =$$= or escaped brackets, like
+  this: $$ a=\frac{1}{2}\sqrt{2} $$ or this: \[ a=-\sqrt{2} \] or this:
+  \begin{equation}
+  x=\sqrt{b}
+  \end{equation}
+
+#+OPTIONS: tex:t
+</pre>
+
+<p>
+And turn that into this pretty HTML:
+</p>
+
+<dl class="org-dl">
+<dt>Unicode References</dt><dd>for instance, α, β and γ.</dd>
+<dt>Subscripts</dt><dd>like Hydrogen atoms, H<sub>2</sub>, and Water, H<sub>2</sub>O.</dd>
+<dt>Superscripts</dt><dd>The mass of the sun is 1.989 x 10<sup>30</sup> kg.</dd>
+<dt>Embedded Equations</dt><dd>Surrounded with either single <code>$</code>, like <span style="color: inherit;" class="MathJax_Preview"></span><span role="presentation" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><msup><mi>a</mi><mn>2</mn></msup><mo>=</mo><mi>b</mi></math>" style="position: relative;" tabindex="0" id="MathJax-Element-1-Frame" class="MathJax"><nobr aria-hidden="true"><span style="width: 3.141em; display: inline-block;" role="math" id="MathJax-Span-1" class="math"><span style="display: inline-block; position: relative; width: 2.694em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.699em, 1002.69em, 2.867em, -1000em); top: -2.694em; left: 0em;"><span id="MathJax-Span-2" class="mrow"><span id="MathJax-Span-3" class="msubsup"><span style="display: inline-block; position: relative; width: 0.958em; height: 0px;"><span style="position: absolute; clip: rect(3.384em, 1000.51em, 4.159em, -1000em); top: -3.987em; left: 0em;"><span style="font-family: MathJax_Math; font-style: italic;" id="MathJax-Span-4" class="mi">a</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; top: -4.35em; left: 0.529em;"><span style="font-size: 70.7%; font-family: MathJax_Main;" id="MathJax-Span-5" class="mn">2</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span></span><span style="font-family: MathJax_Main; padding-left: 0.278em;" id="MathJax-Span-6" class="mo">=</span><span style="font-family: MathJax_Math; font-style: italic; padding-left: 0.278em;" id="MathJax-Span-7" class="mi">b</span></span><span style="display: inline-block; width: 0px; height: 2.694em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.075em; border-left: 0px solid; width: 0px; height: 1.105em;"></span></span></nobr><span role="presentation" class="MJX_Assistive_MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>a</mi><mn>2</mn></msup><mo>=</mo><mi>b</mi></math></span></span>,
+or escaped parenthesis, like: <span style="color: inherit;" class="MathJax_Preview"></span><span role="presentation" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>b</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></math>" style="position: relative;" tabindex="0" id="MathJax-Element-2-Frame" class="MathJax"><nobr aria-hidden="true"><span style="width: 2.891em; display: inline-block;" role="math" id="MathJax-Span-8" class="math"><span style="display: inline-block; position: relative; width: 2.478em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.65em, 1002.48em, 3.238em, -1000em); top: -2.694em; left: 0em;"><span id="MathJax-Span-9" class="mrow"><span style="font-family: MathJax_Math; font-style: italic;" id="MathJax-Span-10" class="mi">b</span><span style="font-family: MathJax_Main; padding-left: 0.278em;" id="MathJax-Span-11" class="mo">=</span><span style="padding-left: 0.278em;" id="MathJax-Span-12" class="mfrac"><span style="display: inline-block; position: relative; width: 0.474em; height: 0px; margin-right: 0.12em; margin-left: 0.12em;"><span style="position: absolute; clip: rect(3.354em, 1000.3em, 4.149em, -1000em); top: -4.398em; left: 50%; margin-left: -0.177em;"><span style="font-size: 70.7%; font-family: MathJax_Main;" id="MathJax-Span-13" class="mn">1</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(3.354em, 1000.32em, 4.149em, -1000em); top: -3.605em; left: 50%; margin-left: -0.177em;"><span style="font-size: 70.7%; font-family: MathJax_Main;" id="MathJax-Span-14" class="mn">2</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(0.849em, 1000.47em, 1.239em, -1000em); top: -1.298em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 0.474em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.078em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.694em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.506em; border-left: 0px solid; width: 0px; height: 1.591em;"></span></span></nobr><span role="presentation" class="MJX_Assistive_MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></math></span></span></dd>
+<dt>Separated equations</dt><dd><p>
+Either in double <code>$$</code> or escaped brackets, like
+this: <span style="color: inherit;" class="MathJax_Preview"></span><div style="text-align: center;" class="MathJax_Display"><span role="presentation" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mi>a</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msqrt><mn>2</mn></msqrt></math>" style="position: relative;" tabindex="0" id="MathJax-Element-3-Frame" class="MathJax"><nobr aria-hidden="true"><span style="width: 4.703em; display: inline-block;" role="math" id="MathJax-Span-15" class="math"><span style="display: inline-block; position: relative; width: 4.041em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.19em, 1004.04em, 3.542em, -1000em); top: -2.694em; left: 0em;"><span id="MathJax-Span-16" class="mrow"><span style="font-family: MathJax_Math; font-style: italic;" id="MathJax-Span-17" class="mi">a</span><span style="font-family: MathJax_Main; padding-left: 0.278em;" id="MathJax-Span-18" class="mo">=</span><span style="padding-left: 0.278em;" id="MathJax-Span-19" class="mfrac"><span style="display: inline-block; position: relative; width: 0.62em; height: 0px; margin-right: 0.12em; margin-left: 0.12em;"><span style="position: absolute; clip: rect(3.159em, 1000.43em, 4.149em, -1000em); top: -4.664em; left: 50%; margin-left: -0.25em;"><span style="font-family: MathJax_Main;" id="MathJax-Span-20" class="mn">1</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(3.159em, 1000.45em, 4.149em, -1000em); top: -3.301em; left: 50%; margin-left: -0.25em;"><span style="font-family: MathJax_Main;" id="MathJax-Span-21" class="mn">2</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(0.849em, 1000.62em, 1.239em, -1000em); top: -1.298em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 0.62em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.078em;"></span></span></span></span><span id="MathJax-Span-22" class="msqrt"><span style="display: inline-block; position: relative; width: 1.333em; height: 0px;"><span style="position: absolute; clip: rect(3.159em, 1000.45em, 4.149em, -1000em); top: -3.987em; left: 0.833em;"><span id="MathJax-Span-23" class="mrow"><span style="font-family: MathJax_Main;" id="MathJax-Span-24" class="mn">2</span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(0.916em, 1000.5em, 1.307em, -1000em); top: -1.887em; left: 0.833em;"><span style="display: inline-block; overflow: hidden; vertical-align: -0.067em; border-top: 1.3px solid; width: 0.5em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.078em;"></span></span><span style="position: absolute; clip: rect(3.025em, 1000.85em, 4.349em, -1000em); top: -3.996em; left: 0em;"><span style="font-family: MathJax_Main;">√</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.694em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.858em; border-left: 0px solid; width: 0px; height: 2.478em;"></span></span></nobr><span role="presentation" class="MJX_Assistive_MathML MJX_Assistive_MathML_Block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>a</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msqrt><mn>2</mn></msqrt></math></span></span></div> or this: <span style="color: inherit;" class="MathJax_Preview"></span><div style="text-align: center;" class="MathJax_Display"><span role="presentation" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mi>a</mi><mo>=</mo><mo>&amp;#x2212;</mo><msqrt><mn>2</mn></msqrt></math>" style="position: relative;" tabindex="0" id="MathJax-Element-4-Frame" class="MathJax"><nobr aria-hidden="true"><span style="width: 4.578em; display: inline-block;" role="math" id="MathJax-Span-25" class="math"><span style="display: inline-block; position: relative; width: 3.933em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.723em, 1003.93em, 3.046em, -1000em); top: -2.694em; left: 0em;"><span id="MathJax-Span-26" class="mrow"><span style="font-family: MathJax_Math; font-style: italic;" id="MathJax-Span-27" class="mi">a</span><span style="font-family: MathJax_Main; padding-left: 0.278em;" id="MathJax-Span-28" class="mo">=</span><span style="font-family: MathJax_Main; padding-left: 0.278em;" id="MathJax-Span-29" class="mo">−</span><span id="MathJax-Span-30" class="msqrt"><span style="display: inline-block; position: relative; width: 1.333em; height: 0px;"><span style="position: absolute; clip: rect(3.159em, 1000.45em, 4.149em, -1000em); top: -3.987em; left: 0.833em;"><span id="MathJax-Span-31" class="mrow"><span style="font-family: MathJax_Main;" id="MathJax-Span-32" class="mn">2</span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(0.916em, 1000.5em, 1.307em, -1000em); top: -1.887em; left: 0.833em;"><span style="display: inline-block; overflow: hidden; vertical-align: -0.067em; border-top: 1.3px solid; width: 0.5em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.078em;"></span></span><span style="position: absolute; clip: rect(3.025em, 1000.85em, 4.349em, -1000em); top: -3.996em; left: 0em;"><span style="font-family: MathJax_Main;">√</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.694em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.284em; border-left: 0px solid; width: 0px; height: 1.285em;"></span></span></nobr><span role="presentation" class="MJX_Assistive_MathML MJX_Assistive_MathML_Block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>a</mi><mo>=</mo><mo>−</mo><msqrt><mn>2</mn></msqrt></math></span></span></div> or this:
+</p>
+<span style="color: inherit;" class="MathJax_Preview"></span><div class="MathJax_Display"><span role="presentation" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mtable minlabelspacing=&quot;.8em&quot; displaystyle=&quot;true&quot;><mlabeledtr><mtd id=&quot;mjx-eqn-1&quot;><mtext>(1)</mtext></mtd><mtd><mi>x</mi><mo>=</mo><msqrt><mi>b</mi></msqrt></mtd></mlabeledtr></mtable></math>" style="width: 100%; position: relative;" tabindex="0" id="MathJax-Element-5-Frame" class="MathJax"><nobr aria-hidden="true"><span style="width: 100%; display: inline-block; min-width: 7.324em;" role="math" id="MathJax-Span-33" class="math"><span style="display: inline-block; position: relative; width: 100%; height: 0px; font-size: 116%; min-width: 7.324em;"><span style="position: absolute; clip: rect(3.042em, 1003.17em, 4.433em, -1000em); top: -3.987em; left: 0em; width: 100%;"><span id="MathJax-Span-34" class="mrow"><span style="min-width: 7.324em;" id="MathJax-Span-35" class="mtable"><span style="display: inline-block; position: relative; width: 100%; height: 0px; min-width: 7.324em;"><span style="display: inline-block; position: absolute; width: 3.168em; height: 0px; clip: rect(-0.945em, 1003.17em, 0.445em, -1000em); top: 0em; left: 50%; margin-left: -1.584em;"><span style="position: absolute; clip: rect(3.042em, 1003.17em, 4.365em, -1000em); top: -3.987em; left: 0em;"><span style="display: inline-block; position: relative; width: 3.168em; height: 0px;"><span style="position: absolute; clip: rect(3.008em, 1003.17em, 4.331em, -1000em); top: -3.953em; left: 50%; margin-left: -1.584em;"><span id="MathJax-Span-39" class="mtd"><span id="MathJax-Span-40" class="mrow"><span style="font-family: MathJax_Math; font-style: italic;" id="MathJax-Span-41" class="mi">x</span><span style="font-family: MathJax_Main; padding-left: 0.278em;" id="MathJax-Span-42" class="mo">=</span><span style="padding-left: 0.278em;" id="MathJax-Span-43" class="msqrt"><span style="display: inline-block; position: relative; width: 1.262em; height: 0px;"><span style="position: absolute; clip: rect(3.131em, 1000.42em, 4.16em, -1000em); top: -3.987em; left: 0.833em;"><span id="MathJax-Span-44" class="mrow"><span style="font-family: MathJax_Math; font-style: italic;" id="MathJax-Span-45" class="mi">b</span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span><span style="position: absolute; clip: rect(0.916em, 1000.43em, 1.307em, -1000em); top: -1.895em; left: 0.833em;"><span style="display: inline-block; overflow: hidden; vertical-align: -0.067em; border-top: 1.3px solid; width: 0.429em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.078em;"></span></span><span style="position: absolute; clip: rect(3.025em, 1000.85em, 4.349em, -1000em); top: -4.005em; left: 0em;"><span style="font-family: MathJax_Main;">√</span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span><span style="display: inline-block; position: absolute; width: 1.278em; height: 0px; clip: rect(-0.878em, 1001.18em, 0.445em, -1000em); top: 0em; right: 0em; margin-right: 0em;"><span style="position: absolute; clip: rect(3.075em, 1001.18em, 4.399em, -1000em); top: -3.953em; right: 0em;"><span id="mjx-eqn-1" class="mtd"><span id="MathJax-Span-37" class="mrow"><span style="font-family: MathJax_Main;" id="MathJax-Span-38" class="mtext">(1)</span></span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.987em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.392em; border-left: 0px solid; width: 0px; height: 1.364em;"></span></span></nobr><span role="presentation" class="MJX_Assistive_MathML MJX_Assistive_MathML_Block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mtable minlabelspacing=".8em" displaystyle="true"><mlabeledtr><mtd id="mjx-eqn-1"><mtext>(1)</mtext></mtd><mtd><mi>x</mi><mo>=</mo><msqrt><mi>b</mi></msqrt></mtd></mlabeledtr></mtable></math></span></span></div></dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8">Basics</h2>
+<div class="outline-text-2" id="text-orgheadline8">
+<p>
+This tutorial is really a workshop, so fire up Emacs, and create an
+org-mode file, and let’s get cracking.
+</p>
+
+<p>
+Create the following <i>source code block</i> (no, case doesn’t matter):
+</p>
+<pre class="example">#+BEGIN_SRC emacs-lisp
+  (directory-files ".")
+#+END_SRC
+</pre>
+
+<ul class="org-ul">
+<li>Type <code>C-c C-c</code> to execute the command and note the results, are
+inserted back into your file… we’ll use that to our advantage later.</li>
+<li>Type <code>C-c ’</code> (apostrophe) to edit the block in the language’s
+<i>mode</i>. This allows you to gain benefit of paredit and whatnot.</li>
+</ul>
+
+<p>
+<b>Note:</b> When I’m wrong and something doesn’t work (notice I didn’t
+ use the term <i>if</i>), pop over to <a href="http://orgmode.org/org.html#toc_Working-with-source-code">the org-mode manual</a>, and then send
+ me an errata.
+</p>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">Shortcuts</h3>
+<div class="outline-text-3" id="text-orgheadline9">
+<p>
+If you are using a newer version of Emacs (not v22) or a later
+version of org-mode (installed from ELPA), use <a href="http://orgmode.org/org.html#Easy-templates">Org Templates</a>:
+</p>
+
+<ul class="org-ul">
+<li>Create a block quickly by typing: <code>&lt;s</code> and hit <code>TAB</code></li>
+<li>If not, you can try <a href="https://github.com/capitaomorte/yasnippet">yasnippets</a></li>
+<li>You can hit <code>C-c C-c</code> anywhere from <code>BEGIN</code> to <code>END</code></li>
+<li>Jump to next block in your file with <code>C-c M-f</code> and back <code>C-c M-b</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10">Good Configuration</h3>
+<div class="outline-text-3" id="text-orgheadline10">
+<p>
+To syntax highlight your code, set the following in your <code>.emacs</code>
+init file:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(181, 189, 104);">setq</span> org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t<span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+</div>
+
+<p>
+The last variable removes the annoying “Do you want to execute”
+your code when you type: <code>C-c C-c</code>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Language Support</h2>
+<div class="outline-text-2" id="text-orgheadline11">
+<p>
+While many programming languages <a href="http://orgmode.org/org.html#Languages">are supported</a>, not everything is
+(not too difficult to add your own, tho). Let me go through a few
+popular ones and note a few differences.
+</p>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Ruby Example</h3>
+<div class="outline-text-3" id="text-orgheadline12">
+<p>
+Let’s try re-creating our Lisp example in Ruby:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby
+  Dir.entries('.')
+#+END_SRC
+</pre>
+
+<p>
+If <code>C-c C-c</code> doesn’t work, you may have to pre-load the
+support:  <code>M-x load-library</code>  and then <code>ob-ruby</code>
+</p>
+
+<p>
+You can <i>load yer language</i> beforehand by adding the following to <code>.emacs</code>):
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(181, 189, 104);">require</span> '<span style="color: rgb(129, 162, 190);">ob-ruby</span><span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">Python Example</h3>
+<div class="outline-text-3" id="text-orgheadline13">
+<p>
+Notice that Ruby, like Lisp, uses the results of the <i>last expression</i>.
+Python, on the other hand, expects the results to come from an
+explicit <code>return</code>:
+</p>
+
+<pre class="example">#+BEGIN_SRC python
+  from os import listdir
+  return listdir(".")
+#+END_SRC
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">Shell Example</h3>
+<div class="outline-text-3" id="text-orgheadline14">
+<p>
+Most languages take the <i>resulting values</i> as the results. The shell,
+on the other hand, uses the results that are printed to standout
+out:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh
+  ls -1
+#+END_SRC
+</pre>
+
+<p>
+If <code>C-c C-c</code> doesn’t work, you may have to pre-load the
+support:  <code>M-x load-library</code>  and then <code>ob-sh</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">All Favorite Languages</h3>
+<div class="outline-text-3" id="text-orgheadline15">
+<p>
+If, like me, you are a polyglot programmer, you may want to
+add something like following to your <code>.emacs</code> file:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: rgb(105, 105, 105);">(</span>org-babel-do-load-languages
+ 'org-babel-load-languages
+ '<span style="color: rgb(105, 105, 105);">((</span>sh         . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>js         . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>emacs-lisp . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>perl       . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>scala      . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>clojure    . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>python     . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>ruby       . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>dot        . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>css        . t<span style="color: rgb(105, 105, 105);">)</span>
+   <span style="color: rgb(105, 105, 105);">(</span>plantuml   . t<span style="color: rgb(105, 105, 105);">)))</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16">Block Settings</h2>
+<div class="outline-text-2" id="text-orgheadline16">
+<p>
+Most of the interesting stuff happens by setting various <i>block
+parameters</i> (also called <i>header parameters</i>).
+Code blocks can have zero or more header parameters.
+</p>
+
+<p>
+First let’s dive into the various ways they can be defined, and then
+discuss most of the specific parameters after, but I need a
+parameter we can use.
+</p>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17">Example: dir</h3>
+<div class="outline-text-3" id="text-orgheadline17">
+<p>
+As an example of how to set a parameter, let’s look at the <a href="http://orgmode.org/org.html#dir">dir</a>
+parameter, which sets the directory/folder for where a code block
+executes:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh :dir /etc
+  ls
+#+END_SRC
+</pre>
+
+<p>
+Type <code>C-c C-c</code> to execute this, and you’ll notice a lot more entries
+in that directory… assuming, of course, you have a <code>/etc</code> directory.
+</p>
+
+<p>
+An interesting aspect of this parameter is when you use Tramp
+references to have code block remotely executed:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh
+  hostname -f
+#+END_SRC
+
+#+RESULTS:
+: blobfish
+
+#+BEGIN_SRC sh :dir /howardabrams.com:
+  hostname -f
+#+END_SRC
+
+#+RESULTS:
+: goblin.howardabrams.com
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18">Setting Parameter Locations</h3>
+<div class="outline-text-3" id="text-orgheadline18">
+<p>
+Parameters can be set in different locations. Here is the list
+from <i>most specific</i> to <i>most general</i>:
+</p>
+
+<ul class="org-ul">
+<li><b>Inline with Header Block</b>, or <b>above Header Block</b></li>
+<li><b>Defaults for Blocks in a Section</b></li>
+<li><b>Defaults for Blocks in entire Document</b></li>
+<li><b>Defaults for Every Document</b></li>
+</ul>
+
+<p>
+Having a particular parameter set for <i>all documents</i> isn’t very
+useful to me, but this can be done by setting either of these <i>list</i>
+variables:
+</p>
+
+<ul class="org-ul">
+<li><code>org-babel-default-header-args</code></li>
+<li><code>org-babel-default-header-args:&lt;lang&gt;</code></li>
+</ul>
+
+<p>
+<b>Note:</b> You can set parameters when a <i>block is called</i>, but
+we’ll talk about this later.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19">Too Many Parameters?</h3>
+<div class="outline-text-3" id="text-orgheadline19">
+<p>
+Setting parameters inline with Header Block is fine with few
+parameters, but org-mode supplies lots of parameters, and if you
+have too many, you can bring one or more up above block. For
+instance, the following are equivalent:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh :dir /etc :var USER="howard"
+  grep $USER passwd
+#+END_SRC
+
+#+HEADER: :dir /etc
+#+BEGIN_SRC sh :var USER="howard"
+  grep $USER passwd
+#+END_SRC
+
+#+HEADER: :dir /etc
+#+HEADER: :var USER="howard"
+#+BEGIN_SRC sh
+  grep $USER passwd
+#+END_SRC
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20">Section Default Parameters</h3>
+<div class="outline-text-3" id="text-orgheadline20">
+<p>
+Parameters that should be the same for <i>all source blocks</i> in a
+section can be placed in a <b>property drawer</b>. Perhaps, you should
+just run through this on your own by following these steps:
+</p>
+
+<ul class="org-ul">
+<li>Create a header section in your org file</li>
+<li>Type: <code>C-c C-x p</code></li>
+<li>For <code>Property</code> enter: <code>dir</code></li>
+<li>For <code>Value</code> enter: <code>/etc</code></li>
+</ul>
+
+<p>
+Jump to the <code>:PROPERTIES:</code> drawer, and hit <code>TAB</code> to see the contents,
+but it should look something like:
+</p>
+
+<pre class="example">* A New Section
+:PROPERTIES:
+:dir: /etc
+:END:
+
+#+BEGIN_SRC ruby
+  File.absolute_path(".")
+#+END_SRC
+
+#+RESULTS:
+: /etc
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21">Language-Specific Default Values</h3>
+<div class="outline-text-3" id="text-orgheadline21">
+<p>
+You can specify <a href="http://orgmode.org/org.html#Language-specific%20header%20arguments%20in%20Org%20mode%20properties">language-specific header arguments</a>. Try the following:
+</p>
+
+<ul class="org-ul">
+<li>Type: <code>C-c C-x p</code></li>
+<li>For <code>Property</code> enter: <code>header-args:sh</code></li>
+<li>For <code>Value</code> enter: <code>:dir /etc</code></li>
+<li>Type: <code>C-c C-x p</code></li>
+<li>For <code>Property</code> enter: <code>header-args:ruby</code></li>
+<li>For <code>Value</code> enter: <code>:dir /</code></li>
+</ul>
+
+<p>
+You should have something that looks like:
+</p>
+
+<pre class="example">* Another Section
+:PROPERTIES:
+:header-args:sh: :dir /etc
+:header-args:ruby: :dir /
+:END:
+
+#+BEGIN_SRC sh
+  ls -d $(pwd)
+#+END_SRC
+
+#+RESULTS:
+: /etc
+
+#+BEGIN_SRC ruby
+  File.absolute_path('.')
+#+END_SRC
+
+#+RESULTS:
+: /
+</pre>
+
+<p>
+<b>Note:</b> Some parameters can only be set with <code>header-args</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22">Default Parameters for Document</h3>
+<div class="outline-text-3" id="text-orgheadline22">
+<p>
+To set a parameter for all blocks in a document, use the
+<code>#+PROPERTY:</code> setting placed somewhere in your document.
+</p>
+
+<pre class="example">#+PROPERTY:    dir ~/Work
+</pre>
+
+<p>
+Notice these parameters do not have initial colon.
+</p>
+
+<p>
+Language specific ones, however, do:
+</p>
+
+<pre class="example">#+PROPERTY:    header-args:sh  :tangle no
+</pre>
+
+<p>
+<b>Note:</b> They <i>aren’t registered</i> until you hit <code>C-c C-c</code> on them.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23">Header Parameter Types</h2>
+<div class="outline-text-2" id="text-orgheadline23">
+<p>
+With the basics in place, the rest of this tutorial describes
+the source block controls done by parameter settings. I’ve separated
+and organized these based on its usage:
+</p>
+
+<dl class="org-dl">
+<dt>Evaluation Parameters</dt><dd>like <code>dir</code>, affects how a block is executed</dd>
+<dt>Export Parameters</dt><dd>affects how a block or the results from
+execution is shown when it is exported to HTML</dd>
+<dt>Literate Programming Parameters</dt><dd>connecting blocks together to
+change the actual source code</dd>
+<dt>Variable Parameters</dt><dd>variables for a source block can be set in
+various ways</dd>
+<dt>Miscellaneous Input/Output</dt><dd>of course, you have to have a
+collection of parameters that don’t fit elsewhere</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24">Evaluation Parameters</h2>
+<div class="outline-text-2" id="text-orgheadline24">
+<p>
+The following parameters affect how a block is evaluated.
+</p>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25">Results</h3>
+<div class="outline-text-3" id="text-orgheadline25">
+<p>
+When you execute a block, what do you want out of it?
+</p>
+<ul class="org-ul">
+<li>results of the expression?</li>
+<li>outputted results?</li>
+</ul>
+
+<p>
+Let’s look at this Ruby block. By default, you will get the results
+of the last expression:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby
+    puts 'Hello World'
+    5 * 6
+#+END_SRC
+
+#+RESULTS:
+: 30
+</pre>
+
+<p>
+Change the <a href="http://orgmode.org/org.html#Results%20of%20evaluation">:results</a> header argument to be <code>output</code>, and you’ll get
+everything that was printed:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby :results output
+    puts 'Hello World'
+    5 * 6
+#+END_SRC
+
+#+RESULTS:
+: Hello World
+</pre>
+
+<p>
+<b>Note:</b> Default for <code>sh</code> is <code>output</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26">Output Formatting</h3>
+<div class="outline-text-3" id="text-orgheadline26">
+<p>
+Results of code evaluation are re-inserted into your document.
+</p>
+
+<dl class="org-dl">
+<dt><code>table</code>   </dt><dd>Row for single array, full table for array of arrays</dd>
+<dt><code>list</code>    </dt><dd>Regular org-mode list exported as an un-ordered list</dd>
+<dt><code>verbatim</code></dt><dd>Raw output</dd>
+<dt><code>file</code>    </dt><dd>Writes the results to a file</dd>
+<dt><code>html</code>    </dt><dd>Assumes the output is HTML code, and that is what is exported</dd>
+<dt><code>code</code>    </dt><dd>Assumes output is source code in the same language</dd>
+<dt><code>silent</code>  </dt><dd>Only shown in the mini-buffer</dd>
+</dl>
+
+<p>
+The reasons for this variety is that the results can be exported
+(as in HTML, Email), as well as can help how the results are used
+as <i>input variables</i> to other code blocks. Yeah, that is really the
+most interesting stuff, but I need to save that for later in this
+document.
+</p>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-4">
+<h4 id="orgheadline27">Lists</h4>
+<div class="outline-text-4" id="text-orgheadline27">
+<p>
+Notice the previous output created a table. Let’s make a list:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby :results list
+  Dir.entries('.').sort.select do |file|
+     file[0] != '.'
+  end
+#+END_SRC
+
+#+RESULTS:
+- for-the-host.el
+- instructions.org
+- literate-programming-tangling.png
+- literate-programming-tangling2.png
+</pre>
+
+<p>
+The Ruby code above is just an example. Use your favorite language
+to pull out a list of files from a directory.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28">Raw Output</h4>
+<div class="outline-text-4" id="text-orgheadline28">
+<p>
+Shell commands and log output are good candidates for raw output,
+for example:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh :results verbatim :exports both
+  ssh -v goblin.howardabrams.com ls mossandcrow
+#+END_SRC
+
+#+RESULTS:
+OpenSSH_6.6.1, OpenSSL 1.0.1f 6 Jan 2014
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: Applying options for *
+debug1: Connecting to goblin.howardabrams.com [162.243.135.186] port 22.
+debug1: Connection established.
+debug1: identity file /home/howard/.ssh/id_rsa type 1
+debug1: identity file /home/howard/.ssh/id_rsa-cert type -1
+...
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29">Session</h3>
+<div class="outline-text-3" id="text-orgheadline29">
+<p>
+Each block re-starts its interpreter every time you evaluate a block.
+Use the <a href="http://orgmode.org/org.html#session">:session</a> header parameter as a label and have all blocks
+with that label use the same session. Why? Some issues with
+restarting your session include:
+</p>
+
+<ul class="org-ul">
+<li>Large start-up time with large REPLs … like Clojure</li>
+<li>Large start-up time on remote machines using Tramp</li>
+<li>Maintaining functions and other state between blocks</li>
+</ul>
+
+<p>
+<b>Note:</b> Values can be passed between code blocks, so this last
+feature isn’t necessary.
+</p>
+
+<p>
+To show that interpreters are restarted with each block:
+</p>
+
+<pre class="example">#+BEGIN_SRC python
+  avar = 42
+  return avar
+#+END_SRC
+
+#+RESULTS:
+: 42
+
+#+BEGIN_SRC python
+  return avar / 2
+#+END_SRC
+
+#+RESULTS:
+NameError: global name 'avar' is not defined
+</pre>
+
+<p>
+To prove that <code>:session</code>-based interpreters are <i>not</i> restarted with
+each block:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby :session foobar
+  avar = 42
+#+END_SRC
+
+#+RESULTS:
+: 42
+
+#+BEGIN_SRC ruby :session foobar
+  avar / 2
+#+END_SRC
+
+#+RESULTS:
+: 21
+</pre>
+
+<p>
+The <code>:session</code> is good to set as a section property.  Also note that
+you can switch to the <code>*foobar*</code> buffer to interact with the
+interpreter, set variables and other state before evaluating the
+code block.
+</p>
+
+<p>
+What’s wrong with the following?
+</p>
+
+<pre class="example">* Confusing Stuff
+:PROPERTIES:
+:session:  stateful
+:END:
+
+#+BEGIN_SRC sh :results silent
+  NUM_USERS=$(grep 'bash' /etc/passwd | wc -l --)
+#+END_SRC
+
+We have access to them:
+#+BEGIN_SRC sh
+  echo $NUM_USERS
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+This doesn't return... why?
+#+BEGIN_SRC ruby
+  21 * 2
+#+END_SRC
+</pre>
+
+<p>
+<b>Warning:</b> A <code>:session</code> setting for a section is shared for each
+block… <i>regardless of language!</i> Probably not what you want.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30">Writing Results to a File</h3>
+<div class="outline-text-3" id="text-orgheadline30">
+<p>
+Create and evaluate this block:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby :results output :file primes.txt
+  require 'prime'
+  Prime.each(5000) do |prime|
+    p prime
+  end
+#+END_SRC
+</pre>
+
+<p>
+Notice that the results of evaluation is a link to a file.
+Click on the link to load the file in a buffer.
+</p>
+
+<p>
+<b>Note:</b> The <code>:file</code> parameter needs <code>:results output</code>
+As it doesn't know how to format internal values
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-2">
+<h2 id="orgheadline31">Exporting</h2>
+<div class="outline-text-2" id="text-orgheadline31">
+<p>
+Hit <code>C-c C-e h o</code> to display your file in a browser.
+</p>
+
+<p>
+The <a href="http://orgmode.org/org.html#exports">:exports</a> header argument specifies what to export:
+</p>
+<ul class="org-ul">
+<li><code>code</code> for just the block</li>
+<li><code>results</code> for just the results to evaluating block</li>
+<li><code>both</code> for both code and results</li>
+<li><code>none</code> to ignore the block</li>
+</ul>
+
+<p>
+<b>Note:</b> The <code>:exports</code> is good to set as a document property.
+</p>
+
+<p>
+To get syntax highlight for HTML exports, simply
+include the <a href="https://www.emacswiki.org/emacs/Htmlize">htmlize</a> library:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(181, 189, 104);">require</span> '<span style="color: rgb(129, 162, 190);">htmlize</span><span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+</div>
+
+<p>
+Should come with recent versions of org-mode.
+Doesn’t load? Install it from ELPA.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-2">
+<h2 id="orgheadline32">Literate Programming</h2>
+<div class="outline-text-2" id="text-orgheadline32">
+<p>
+Some programming is useful in creating source code files from an
+org-mode file (called <i>tangling</i>).
+</p>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33">Tangling</h3>
+<div class="outline-text-3" id="text-orgheadline33">
+<p>
+The <code>:tangle</code> parameter takes all blocks of the same language, and
+writes them into the source file specified.
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby :tangle double-space.rb
+  while s = gets
+    print s ; puts
+  end
+#+END_SRC
+</pre>
+
+<p>
+Type: <code>C-c C-v t</code> to render <a href="http://howardism.org/Technical/Emacs/double-space.rb">double-space.rb</a>
+</p>
+
+<p>
+Multiple code blocks with the same value are all included in the
+same file <i>in order</i>. With a <code>:tangle</code> parameter value of <code>yes</code>, writes
+the block(s) to a file with same name as org file.
+</p>
+
+<p>
+Use <code>PROPERTY</code> to specify values for the <i>entire file</i>:
+</p>
+<pre class="example">#+PROPERTY:    tangle ~/.emacs.d/elisp/bling-mode.el
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34">Comments</h3>
+<div class="outline-text-3" id="text-orgheadline34">
+<p>
+If sharing source with others, have prose turned into <a href="http://orgmode.org/org.html#comments">comments</a>:
+</p>
+
+<pre class="example">Precede each line in the text from standard in (or file) with the
+current line number.
+See [[http://benoithamelin.tumblr.com/ruby1line][one liners]].
+
+#+BEGIN_SRC ruby
+  while s = gets
+    puts "#{$&lt;.file.lineno}: #{s}"
+  end
+#+END_SRC
+
+#+PROPERTY: tangle lineno.rb
+#+PROPERTY: comments org
+</pre>
+
+<p>
+Gets turned into this Ruby script:
+</p>
+
+<pre class="example"># Precede each line in the text from standard in (or file) with the
+# current line number.
+# See [[http://benoithamelin.tumblr.com/ruby1line][one liners]].
+
+while s = gets
+  puts "#{$&lt;.file.lineno}: #{s}"
+end
+</pre>
+
+<p>
+The <a href="http://orgmode.org/manual/comments.html#comments">:comments</a> parameter states how (and if) the prose should be
+inserted as comments. The <code>org</code> value specifies that the output
+should just be the prose formatted as org code.
+<b>Note:</b> Only prose <i>above</i> a block is written out as a comment.
+</p>
+
+<p>
+If you change the value to the <code>:dir</code> parameter to <code>link</code>, you end up
+with a link to the original org-mode file. Since most of my literate
+code, like my <a href="https://github.com/howardabrams/dot-files">.emacs files</a>, is the only thing I see (I often never
+look at the generated source code), I haven’t found this helpful.
+</p>
+
+<p>
+The default, is <code>no</code>, which doesn’t make any comments from the prose.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline35" class="outline-3">
+<h3 id="orgheadline35">Shebang</h3>
+<div class="outline-text-3" id="text-orgheadline35">
+<p>
+When creating scripts, we often need to give it the initial
+interpreter to use. Here is specify the <a href="http://orgmode.org/org.html#shebang">:shebang</a> parameter (either
+as a block header or a document property):
+</p>
+
+<pre class="example">Precede each line in the text from standard in (or file) with the
+current line number.
+See [[http://benoithamelin.tumblr.com/ruby1line][one liners]].
+
+#+BEGIN_SRC ruby :shebang "#!/usr/local/bin/ruby"
+  while s = gets
+    puts "#{$&lt;.file.lineno}: #{s}"
+  end
+#+END_SRC
+
+#+PROPERTY: shebang #!/bin/ruby
+#+PROPERTY: tangle lineno
+#+PROPERTY: comments org
+</pre>
+
+<p>
+Works as expected:
+</p>
+
+<pre class="example">#!/usr/local/bin/ruby
+# Precede each line in the text from standard in (or file) with the
+# current line number.
+# See [[http://benoithamelin.tumblr.com/ruby1line][one liners]].
+
+while s = gets
+  puts "#{$&lt;.file.lineno}: #{s}"
+end
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-3">
+<h3 id="orgheadline36">Noweb</h3>
+<div class="outline-text-3" id="text-orgheadline36">
+<p>
+If you <i>name</i> a block, you can <i>include</i> that block <b>inside</b> another
+block… as text, using <a href="http://orgmode.org/org.html#noweb">:noweb</a><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.  Consider this org-mode file:
+</p>
+
+<pre class="example">Print the last field of each line.
+
+#+NAME: the-script
+#+BEGIN_SRC ruby
+  puts $F.last
+#+END_SRC
+
+#+BEGIN_SRC sh :noweb yes :tangle last-col.sh
+  ruby -ane '&lt;&lt;the-script&gt;&gt;'
+#+END_SRC
+</pre>
+
+<p>
+Creates <code>last-col.sh</code> source code that contains:
+</p>
+
+<pre class="example">ruby -ane 'puts $F.last'
+</pre>
+
+<p>
+How useful is this?
+</p>
+
+<p>
+Older languages that Donald Knuth used, required all variables and
+functions to be defined before used. This meant, you always wrote
+code, <i>bottom-up</i>. However, some code may be better explained from a
+<i>top-down</i> approach.  The <i>web and tangling</i> approach could work well
+for some algorithms.
+</p>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37">Warning about Noweb</h4>
+<div class="outline-text-4" id="text-orgheadline37">
+<p>
+Suppose we had a block with multiple lines, as in:
+</p>
+
+<pre class="example">#+NAME: prime
+#+BEGIN_SRC ruby
+  require "prime"
+  Prime.prime?(ARG[0])
+#+END_SRC
+
+#+BEGIN_SRC ruby :noweb yes :tangle primes.sh
+  cat $* | xargs ruby -ne '&lt;&lt;prime&gt;&gt;'
+#+END_SRC
+</pre>
+
+<p>
+Treats the <i>preceding text</i> before the noweb reference like <i>initial
+comment characters</i>, as it will generate the following:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">cat $<span style="color: rgb(240, 198, 116);">*</span> | xargs ruby -ne <span style="color: rgb(138, 190, 183);">'require "prime"</span>
+<span style="color: rgb(138, 190, 183);">cat $* | xargs ruby -ne '</span>Prime.prime?(ARG[0])<span style="color: rgb(138, 190, 183);">'</span>
+</pre>
+</div>
+
+<p>
+This requires either <a href="http://ss64.com/bash/syntax-here.html">here docs</a> or single quotes in a shell, or
+triple quotes in Python:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">cat $<span style="color: rgb(240, 198, 116);">*</span> | xargs ruby -ne <span style="color: rgb(138, 190, 183);">'</span>
+<span style="color: rgb(138, 190, 183);">'</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-2">
+<h2 id="orgheadline38">Variables</h2>
+<div class="outline-text-2" id="text-orgheadline38">
+<p>
+Org can pass in one or move values <i>into your source block</i> as variables.
+This begin with an example where the variable is statically set:
+</p>
+
+<pre class="example">#+BEGIN_SRC python :var interest=13
+  return 313 * (interest / 100.0)
+#+END_SRC
+
+#+RESULTS:
+: 40.69
+</pre>
+
+<p>
+Of course, you can specify multiple variables, in one or more
+places, as in this example:
+</p>
+
+<pre class="example">#+HEADER: :var a=42 d=56 :var f=23
+#+HEADERS: :var b=79 e=79
+#+BEGIN_SRC ruby :var c=3 g=2
+  [ a, b, c, d, e, f, g ]
+#+END_SRC
+
+#+RESULTS:
+| 42 | 79 | 3 | 56 | 79 | 23 | 2 |
+</pre>
+
+<p>
+But how useful is there in setting static values for a variable?
+</p>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39">Block-to-Block Value Passing</h3>
+<div class="outline-text-3" id="text-orgheadline39">
+<p>
+Following along by creating a source block with a name, as in:
+</p>
+
+<pre class="example">#+NAME: twelve-primes
+#+BEGIN_SRC ruby
+  require 'prime'
+  Prime.first 12
+#+END_SRC
+
+#+RESULTS: twelve-primes
+| 2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 | 23 | 29 | 31 | 37 |
+</pre>
+
+<p>
+Notice the <code>RESULTS:</code> section has the same name as the block.
+We can pass this result into another code block as an <i>array</i> variable:
+</p>
+
+<pre class="example">#+BEGIN_SRC python :var primes=twelve-primes
+  return primes[-1]
+#+END_SRC
+
+#+RESULTS:
+: 37
+</pre>
+
+<p>
+Perhaps this is the first time Ruby and Python have worked together.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40">Tabular Variable Data</h3>
+<div class="outline-text-3" id="text-orgheadline40">
+<p>
+For this next example, I need a table of interesting numbers.
+A wee bit of Lisp will do handy, but feel free to re-write in your
+favorite language:
+</p>
+
+<pre class="example">#+NAME: cool-numbers
+#+BEGIN_SRC emacs-lisp
+  (mapcar (lambda (i)
+            (list i          (random 10)
+                  (expt i 2) (random 100)
+                  (expt i 3) (random 1000)))
+          (number-sequence 1 10))
+#+END_SRC
+
+#+RESULTS: cool-numbers
+|  1 | 1 |   1 | 14 |    1 |  74 |
+|  2 | 7 |   4 | 25 |    8 | 823 |
+|  3 | 2 |   9 | 68 |   27 | 402 |
+|  4 | 4 |  16 | 17 |   64 | 229 |
+|  5 | 6 |  25 |  4 |  125 | 208 |
+|  6 | 7 |  36 | 67 |  216 | 203 |
+|  7 | 0 |  49 | 96 |  343 | 445 |
+|  8 | 0 |  64 | 58 |  512 | 908 |
+|  9 | 2 |  81 | 15 |  729 | 465 |
+| 10 | 0 | 100 | 61 | 1000 | 798 |
+</pre>
+
+<p>
+Instead of copying the source code and running it, you could just
+store the table of numbers directly in your document, as in:
+</p>
+
+<pre class="example">#+NAME: cool-numbers
+|  1 | 1 |   1 | 14 |    1 |  74 |
+|  2 | 7 |   4 | 25 |    8 | 823 |
+|  3 | 2 |   9 | 68 |   27 | 402 |
+|  4 | 4 |  16 | 17 |   64 | 229 |
+|  5 | 6 |  25 |  4 |  125 | 208 |
+|  6 | 7 |  36 | 67 |  216 | 203 |
+|  7 | 0 |  49 | 96 |  343 | 445 |
+|  8 | 0 |  64 | 58 |  512 | 908 |
+|  9 | 2 |  81 | 15 |  729 | 465 |
+| 10 | 0 | 100 | 61 | 1000 | 798 |
+</pre>
+
+<p>
+How we use and process those numbers below doesn’t change with
+either approach. By the way, I often create data tables to use as
+parameters for testing some of my functions, let me show you how
+this works.
+</p>
+
+<p>
+The <code>cool-numbers</code> table becomes an array or arrays for our block, so
+let’s use a Python comprehension to spit out the values into one
+long array. And just to make it interesting, let’s increment each number:
+</p>
+
+<pre class="example">#+BEGIN_SRC python :var nums=cool-numbers :results list
+  return [ cell + 1 for row in nums for cell in row ]
+#+END_SRC
+
+#+RESULTS:
+- 2
+- 4
+- 2
+- 23
+- 2
+- 955
+- 3
+- 7
+- 5
+- 43
+- 9
+...
+</pre>
+</div>
+
+<div id="outline-container-orgheadline41" class="outline-4">
+<h4 id="orgheadline41">Slicing and Dicing Tables</h4>
+<div class="outline-text-4" id="text-orgheadline41">
+<p>
+We can get just a single row from a table, but giving an indexed
+number to the <code>cool-numbers</code> table reference. Check out this short
+Ruby block:
+</p>
+
+<pre class="example">#+BEGIN_SRC ruby :var fifth=cool-numbers[4]
+  fifth
+#+END_SRC
+
+#+RESULTS:
+| 5 | 9 | 25 | 93 | 125 | 524 |
+</pre>
+
+<p>
+We can also get just a single column in a similar way. In this
+case, the comma specifies that we want any row, but the <code>4</code> limits
+it to just the fifth column that contains our numbers raised to
+the third power:
+</p>
+
+<pre class="example">#+NAME: cubes
+#+BEGIN_SRC elisp :var cubes=cool-numbers[,4]
+  cubes
+#+END_SRC
+
+#+RESULTS: cubes
+| 1 | 8 | 27 | 64 | 125 | 216 | 343 | 512 | 729 | 1000 |
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-4">
+<h4 id="orgheadline42">Reprocessing</h4>
+<div class="outline-text-4" id="text-orgheadline42">
+<p>
+The <code>cool-numbers</code> was used in the <code>cubes</code> block (that we <i>named</i>), and
+we can use the results from that block in another block:
+</p>
+
+<pre class="example">#+NAME: roots_of_list
+#+BEGIN_SRC python :var lst=cubes :results list
+  import math
+  return [ math.sqrt(n) for n in lst ]
+#+END_SRC
+
+#+RESULTS: roots_of_list
+- 1.0
+- 2.8284271247461903
+- 5.196152422706632
+- 8.0
+- 11.180339887498949
+- 14.696938456699069
+- 18.520259177452136
+- 22.627416997969522
+- 27.0
+- 31.622776601683793
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-2">
+<h2 id="orgheadline43">Keeping your Blocks Clean</h2>
+<div class="outline-text-2" id="text-orgheadline43">
+<p>
+While a block of code <i>does</i> something, a block of code also
+<i>communicates</i> something. Code that is necessary to execute, but
+doesn’t not important to communicate with your teammates can be
+placed <i>outside</i> of the block. Here are few examples of how that can
+be done.
+</p>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44">Environment Setup</h3>
+<div class="outline-text-3" id="text-orgheadline44">
+<p>
+I often query OpenStack instances with its <code>nova</code> command.
+This command reads connection credentials from environment
+variables, and we often set these in resource files. A typical
+session would go like:
+</p>
+
+<pre class="example">$ source openrc
+$ nova list
+</pre>
+
+<p>
+The code in a block I want to <i>communicate</i> is the <code>nova list</code>,
+however, the <code>source</code> command is necessary if I want to execute it
+and include the results, but not something I want exported.  Put
+unsightly code in <a href="http://orgmode.org/org.html#prologue">:prologue</a> sections:
+</p>
+
+<pre class="example">#+HEADER: :prologue "source openrc"
+#+BEGIN_SRC sh
+  nova list
+#+END_SRC
+</pre>
+
+<p>
+Code in the <code>:prologue</code> will not be exported, and my team mates who
+receive my illustrious prose, will only see the <code>nova list</code> and
+possibly the results of executing it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45">Using RVM</h3>
+<div class="outline-text-3" id="text-orgheadline45">
+<p>
+Languages like Python and Ruby often want a <i>virtual machine</i> to
+specify how something should be processed. You can use <code>:prologue</code>
+with two backslashes to pre-pend it (for shell calls anyway):
+</p>
+
+<pre class="example">#+BEGIN_SRC sh :prologue "~/.rvm/bin/rvm 1.9.3@msw exec \\"
+  gem list
+#+END_SRC
+</pre>
+
+<p>
+<b>Note:</b> Execution of Ruby or Python code is based on the <a href="http://www.emacswiki.org/emacs/RvmEl">rvm</a>, or
+<a href="http://github.com/jorgenschaefer/pyvenv">pyvenv</a> or <a href="https://github.com/jorgenschaefer/elpy/wiki">ELPY</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46">Cleaning Results</h3>
+<div class="outline-text-3" id="text-orgheadline46">
+<p>
+Sometimes the results from an evaluation aren’t exactly what we
+want exported to our document. While we could probably change the
+code, perhaps our point is the code as written.
+</p>
+
+<p>
+For example, the shell command, <code>ls -l</code>, <i>pre-pends</i> an initial
+<code>Total</code> line:
+</p>
+
+<pre class="example">The =ls= command now takes a =time-style= parameter, as in:
+
+#+BEGIN_SRC sh
+  ls -lhG --time-style long-iso
+#+END_SRC
+
+#+RESULTS:
+| total      | 5.8M |        |      |            |       |                                     |
+| -rw-rw-r-- |    1 | howard | 6.0K | 2015-09-02 | 17:36 | emacs-init.org                      |
+| -rw-rw-r-- |    1 | howard | 22K  | 2015-07-05 | 11:13 | eshell-fun.org                      |
+| -rw-rw-r-- |    1 | howard | 3.0K | 2015-07-05 | 11:13 | eshell.org                          |
+| -rw-rw-r-- |    1 | howard | 4.3K | 2015-09-02 | 12:52 | getting-started2.org                |
+| -rw-rw-r-- |    1 | howard | 5.1K | 2015-03-30 | 18:08 | getting-started.org                 |
+...
+</pre>
+
+<p>
+This screws up our table. We <i>could</i> change our block to use the <code>tail</code>
+command, as in:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh
+  ls -lhG --time-style long-iso | tail -n +2
+#+END_SRC
+</pre>
+
+<p>
+However, in this example, I was <i>talking</i> about the <code>ls</code> command, not
+the <code>tail</code> command. It doesn’t belong.
+</p>
+
+<p>
+We can change the output from a code block using the <a href="http://orgmode.org/org.html#post">:post</a>
+parameter, this allows us to have the code block we wish to show,
+as well as the resulting output.
+</p>
+
+<p>
+In this example, to remove the first line, we create a <i>processor</i>
+code block to return all lines except the first. We specify <code>none</code> to
+the <code>:exports</code> parameter since I don’t want to have it included in
+any documents I may export. Notice, the variable, <code>data</code>:
+</p>
+
+<pre class="example">#+NAME: skip_first
+#+BEGIN_SRC elisp :var data="" :exports none
+  (cdr data)
+#+END_SRC
+</pre>
+
+<p>
+Now our code block can contain just the <code>ls -l</code>, but we sent the
+output to the <code>skip_first</code> block. We assign its <code>data</code> variable to
+<code>*this*</code> (which refers to our output), and now we only have files:
+</p>
+
+<pre class="example">#+BEGIN_SRC sh :post skip_first(data=*this*)
+  ls -lhG --time-style long-iso
+#+END_SRC
+
+#+RESULTS:
+| -rw-rw-r-- |    1 | howard | 6.0K | 2015-09-02 | 17:36 | emacs-init.org                      |
+| -rw-rw-r-- |    1 | howard | 22K  | 2015-07-05 | 11:13 | eshell-fun.org                      |
+| -rw-rw-r-- |    1 | howard | 3.0K | 2015-07-05 | 11:13 | eshell.org                          |
+| -rw-rw-r-- |    1 | howard | 4.3K | 2015-09-02 | 12:52 | getting-started2.org                |
+| -rw-rw-r-- |    1 | howard | 5.1K | 2015-03-30 | 18:08 | getting-started.org                 |
+...
+</pre>
+
+<p>
+The <code>:post</code> parameter comes in really helpful when we talk about the
+Tower of Babel below, as you can create a collection of these sorts
+of output processors and use them in other documents.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline47" class="outline-2">
+<h2 id="orgheadline47">Miscellaneous Features</h2>
+<div class="outline-text-2" id="text-orgheadline47">
+<p>
+The following are some parameters and other features that didn’t
+seem to fit before.
+</p>
+</div>
+
+<div id="outline-container-orgheadline48" class="outline-3">
+<h3 id="orgheadline48">Calling Blocks</h3>
+<div class="outline-text-3" id="text-orgheadline48">
+<p>
+So far, our code blocks have <i>pulled</i> values into their code blocks
+with the <code>:var</code> parameter, however, we can also <i>push</i> values into
+blocks by calling it elsewhere in our document.
+</p>
+
+<p>
+Remember our <code>roots_of_list</code> block we <a href="#orgheadline42">created above</a>?  It took a
+variable, <code>lst</code>, but here we re-call it with a different value for
+its variable:
+</p>
+
+<pre class="example">#+CALL: roots_of_list( lst='(16 144 81 61) )
+
+#+Results:
+| 4.0 | 12.0 | 9.0 | 7.810249675906654 |
+</pre>
+
+<p>
+We can also call it with values from the output of another code
+block. Here we pass in a column from our <code>cool-numbers</code> table:
+</p>
+
+<pre class="example">#+CALL: roots_of_list( lst=cool-numbers[,2] )
+
+#+RESULTS:
+| 1.0 | 2.0 | 3.0 | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 9.0 | 10.0 |
+</pre>
+
+<p>
+<b>Note:</b> You can set additional parameters for the block <i>inside brackets</i>.
+      See <a href="http://orgmode.org/org.html#Evaluating-code-blocks">Evaluating code blocks</a> for details.
+</p>
+
+<p>
+How does this look when exported? Depends on the results. If the
+block returned a single value, for instance, something like:
+</p>
+
+<pre class="example">#+NAME: cube
+#+BEGIN_SRC elisp :var n=0 :exports none
+  (* n n n)
+#+END_SRC
+</pre>
+
+<p>
+Calling it with a <i>table</i> does what you expect:
+</p>
+<pre class="example">#+CALL: cube[:results table](n=3)
+</pre>
+
+<p>
+But calling it with a list, seems to export it inside a <code>&lt;pre&gt;</code>
+block. YMMV, I suppose.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline49" class="outline-3">
+<h3 id="orgheadline49">Embedded Results</h3>
+<div class="outline-text-3" id="text-orgheadline49">
+<p>
+If you want a quickly evaluated result from a language, you can
+embed code in curlies. For instance, add the following to your org
+file, and type <code>C-c C-c</code> at the beginning of the line:
+</p>
+
+<pre class="example">src_ruby{ 5+6 } =11=
+</pre>
+
+<p>
+The answer, <i>11</i>, was appended to the line.
+When exported, only the <i>results</i> are shown (not the source).
+</p>
+
+<p>
+I suppose these would be most useful <i>within</i> the prose, as in:
+</p>
+
+<pre class="example">We will be bringing src_ruby{ 5+6 } children.
+</pre>
+
+<p>
+<b>Note:</b> The answer will be wrapped in HTML <code>&lt;code&gt;</code> tags.
+</p>
+
+<p>
+You can insert the results of a shell script:
+</p>
+<pre class="example">Why do I have src_sh{ ls /tmp | wc -l } files?
+</pre>
+
+<p>
+Or even the insert the results from an Emacs Lisp function:
+</p>
+<pre class="example">src_elisp{ org-agenda-files }
+</pre>
+
+<p>
+Also supports <i>calling</i> blocks too. For instance, we defined a block
+of code earlier and named it <code>roots_of_list</code>, and this can be called:
+</p>
+<pre class="example">call_roots_of_list( lst=cool-numbers[,2] )
+| 1.0 | 2.0 | 3.0 | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 9.0 | 10.0 |
+</pre>
+
+<p>
+<b>Warning:</b> During my workshop, when I was demonstrating this feature, we
+noticed that if you <code>C-c C-c</code> the <code>src_XYZ</code> feature to embed the
+answer, when you export it, you will have two answers. The one you
+embedded and the results of evaluating the code during the exporting.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50">Library of Babel</h3>
+<div class="outline-text-3" id="text-orgheadline50">
+<p>
+The <i>Library of Babel</i> is a collection of code blocks accessible to
+<i>any</i> org-mode file. Like the Gem resources for Ruby, you specify the
+files containing <i>named blocks</i> that should be accessible.
+</p>
+
+<p>
+Do this by following these steps:
+</p>
+
+<ul class="org-ul">
+<li>Create a new org-mode file with at least one named block</li>
+<li>Once in your Emacs session: <code>C-c C-v i</code></li>
+<li>Select your new file to specify that this should be added to
+<i>babel</i> collection.</li>
+</ul>
+
+<p>
+Try it out with a code block that might be nice to use:
+</p>
+
+<pre class="example">#+NAME: take
+#+BEGIN_SRC elisp :var data='() only=5
+  (require 'cl)
+  (flet ((take (remaining lst)
+               (if (&gt; remaining 0)
+                 (cons (car lst) (take (1- remaining) (cdr lst)))
+                 '("..."))))
+    (take only data))
+#+END_SRC
+</pre>
+
+<p>
+After you have saved this new file, and loaded it as a babel
+addition, let’s use it with a <code>:post</code> parameter:
+</p>
+
+<pre class="example">#+BEGIN_SRC python :post take(data=*this*, only=3)
+  return [x * x for x in range(1, 20)]
+#+END_SRC
+
+#+RESULTS:
+| 1 | 4 | 9 | ... |
+</pre>
+
+<p>
+This feature is really helpful with:
+</p>
+<ul class="org-ul">
+<li><code>:post</code> processing output</li>
+<li><code>#+CALL</code> where you want just the results on line</li>
+<li><code>call_XYZ()</code> where you want results embedded inline</li>
+</ul>
+
+<p>
+For a more permanent addition to your tower, add a call to
+<code>org-babel-lob-ingest</code> with each file to your Emacs init file.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline51" class="outline-2">
+<h2 id="orgheadline51">Specialized Languages</h2>
+<div class="outline-text-2" id="text-orgheadline51">
+<p>
+I’ve found a few <i>programming languages</i> that really add to an
+org-mode way of writing documents.
+</p>
+</div>
+
+<div id="outline-container-orgheadline52" class="outline-3">
+<h3 id="orgheadline52">SQL</h3>
+<div class="outline-text-3" id="text-orgheadline52">
+<p>
+The ability to query a database with SQL statements, and then
+manipulate the results in other languages is quite interesting, and
+if I felt I could have used them, would have made this
+<i>workshop-tutorial</i> less trivial (but also less accessible).
+</p>
+
+<p>
+Assuming that you have installed <a href="https://www.sqlite.org/">Sqlite</a>, and loaded the library in
+Emacs with: <code>M-x load-library</code> then <code>ob-sqlite</code>
+</p>
+
+<p>
+You can then specify a <code>:db</code> parameter to a database created by
+calling <code>.backup</code> in the Sqlite command line program. We can then
+write blocks like:
+</p>
+
+<pre class="example">#+BEGIN_SRC sqlite :db dolphins.db
+  SELECT gender,COUNT(gender) FROM oasis GROUP BY gender;
+#+END_SRC
+
+#+RESULTS:
+| f | 55 |
+| m | 89 |
+</pre>
+
+<p>
+Which renders a nice, simple table:
+</p>
+
+<table>
+
+
+<colgroup>
+<col class="org-left">
+
+<col class="org-right">
+</colgroup>
+<tbody>
+<tr class="even">
+<td class="org-left">f</td>
+<td class="org-right">55</td>
+</tr>
+
+<tr class="odd">
+<td class="org-left">m</td>
+<td class="org-right">89</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+If you like this idea, check out my <a href="http://howardism.org/Technical/Emacs/literate-database.html">Literate Database essay</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline53" class="outline-3">
+<h3 id="orgheadline53">Graphviz</h3>
+<div class="outline-text-3" id="text-orgheadline53">
+<p>
+If you have <a href="http://www.graphviz.org/">Graphviz</a> installed, we can create an diagram directly
+from your document:
+</p>
+
+<pre class="example">#+BEGIN_SRC dot :file some-illustration.png
+  digraph {
+    a -&gt; b;
+    b -&gt; c:
+    c -&gt; a;
+  }
+#+END_SRC
+</pre>
+
+
+<figure>
+<p><img src="literate-programming-graphviz.png" alt="literate-programming-graphviz.png">
+</p>
+</figure>
+
+<p>
+For these, I often set <code>:exports results</code> so that the code to
+generate the image isn’t exported.
+</p>
+
+<p>
+<b>Warning:</b> If you wish to execute the code block to generate an
+ image, the <i>language</i> needs to be set to <code>dot</code>, but if you want to
+ edit the code in a side buffer (with the <code>C-c ’</code> … apostrophe),
+ you need to change the language to <code>graphviz-dot</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54">PlantUML</h3>
+<div class="outline-text-3" id="text-orgheadline54">
+<p>
+If you have <a href="http://plantuml.sourceforge.net/download.html">PlantUML</a> installed, you can do something like:
+</p>
+
+<pre class="example">#+BEGIN_SRC plantuml :file sequence.png :exports results
+  @startuml sequence-diagram.png
+
+    Alice -&gt; Bob: synchronous call
+    Alice -&gt;&gt; Bob: asynchronous call
+
+  @enduml
+#+END_SRC
+</pre>
+
+
+<figure>
+<p><img src="literate-programming-plantuml.png" alt="literate-programming-plantuml.png">
+</p>
+</figure>
+
+<p>
+Hrm… have descriptive illustrations associated with your source code?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="orgheadline55">Calc</h3>
+<div class="outline-text-3" id="text-orgheadline55">
+<p>
+We have access the impressive <a href="http://howardism.org/Technical/Emacs/calc.html#Top">Emacs Calculator</a> as well to use a
+more normal mathematical syntax.
+</p>
+
+<pre class="example">#+BEGIN_SRC calc :var a=2 b=9 c=64 x=5
+  ((a+b)^3 + sqrt(c)) / (2x+1)
+#+END_SRC
+
+#+RESULTS:
+: 121.727272727
+</pre>
+
+<p>
+Let’s simplify a formula by leaving out some of the values for a variable:
+</p>
+
+<pre class="example">#+BEGIN_SRC calc :var a=4 b=2
+  ((a+b)^3 + sqrt(c)) / (2x+1)
+#+END_SRC
+
+#+RESULTS:
+: (sqrt(c) + 216) / (2 x + 1)
+</pre>
+
+<p>
+You may need to load it: <code>M-x load-library</code> and type: <code>ob-calc</code>
+</p>
+
+<p>
+Keep in mind that each line of each <code>calc</code> block is placed on the
+stack in the <code>Calc</code> mode buffer (see it with <code>C-x * *</code>).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline56" class="outline-2">
+<h2 id="orgheadline56">Summary</h2>
+<div class="outline-text-2" id="text-orgheadline56">
+<p>
+Here is a summary listing of the <a href="http://orgmode.org/org.html#Specific%20header%20arguments">header arguments</a>, separated based
+on your goal or needs:
+</p>
+
+<ul class="org-ul">
+<li><b>Code Evaluation?</b>
+<dl class="org-dl">
+<dt><a href="http://orgmode.org/org.html#dir">dir</a>     </dt><dd>specify directory the code should run … Tramp?</dd>
+<dt><a href="http://orgmode.org/org.html#session">session</a> </dt><dd>re-use interpreter between code blocks</dd>
+<dt><a href="http://orgmode.org/org.html#file">file</a>    </dt><dd>write results to the file system</dd>
+<dt><a href="http://orgmode.org/org.html#eval">eval</a>    </dt><dd>limit evaluation of specific code blocks</dd>
+<dt><a href="http://orgmode.org/org.html#cache">cache</a>   </dt><dd>cache eval results to avoid re-evaluation of blocks</dd>
+<dt><a href="http://orgmode.org/org.html#var">var</a>     </dt><dd>setting variables for a block (ignore with no-expand)</dd>
+</dl></li>
+
+<li><b>Exporting?</b>
+<dl class="org-dl">
+<dt><a href="http://orgmode.org/org.html#results">results</a> </dt><dd>either <code>output</code> or <code>value</code> and the formatting</dd>
+<dt><a href="http://orgmode.org/org.html#exports">exports</a> </dt><dd>how the code and results should be exported</dd>
+</dl></li>
+
+<li><b>Literate Programming?</b>
+<dl class="org-dl">
+<dt><a href="http://orgmode.org/org.html#tangle">tangle</a>  </dt><dd>how the source written to a script file … this is
+literate programming.</dd>
+<dt><a href="http://orgmode.org/org.html#mkdirp">mkdirp</a>  </dt><dd>create parent directory of tangled source file</dd>
+<dt><a href="http://orgmode.org/org.html#shebang">shebang</a> </dt><dd>the initial line written to tangled files</dd>
+<dt><a href="http://orgmode.org/org.html#noweb">noweb</a>   </dt><dd>toggle expansion of noweb references</dd>
+<dt><a href="http://orgmode.org/org.html#noweb-ref">noweb-ref</a></dt><dd>resolution target for noweb references</dd>
+</dl></li>
+
+<li>Special Input?
+<dl class="org-dl">
+<dt><a href="http://orgmode.org/org.html#prologue">prologue</a></dt><dd>text to prepend to code block body</dd>
+<dt><a href="http://orgmode.org/org.html#epilogue">epilogue</a></dt><dd>text to append to code block body</dd>
+</dl></li>
+
+<li>Special Output and Formatting?
+<dl class="org-dl">
+<dt><a href="http://orgmode.org/org.html#padline">padline</a> </dt><dd></dd>
+
+<dt><a href="http://orgmode.org/org.html#post">post</a>    </dt><dd>post processing of code block results</dd>
+<dt><a href="http://orgmode.org/org.html#wrap">wrap</a>    </dt><dd></dd>
+
+<dt>Misc.   </dt><dd><a href="http://orgmode.org/org.html#hlines">hlines</a>, <a href="http://orgmode.org/org.html#colnames">colnames</a>, <a href="http://orgmode.org/org.html#rownames">rownames</a></dd>
+</dl></li>
+</ul>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+The term <i>noweb</i> is from Knuth’s original program for tangling
+out source code. Since each code block could be <i>re-inserted</i> into other
+blocks, he saw this as creating a <i>tangled web</i> of connections.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<div id="bottom-section">
+  <ul>
+    <li>
+      <a href="http://howardism.org/formmail/mail?to=howardism" class="bottom-link" target="_blank">
+        <img src="mail.png" title="Message Me" alt="Message Me">
+      </a>
+    </li>
+    <li>
+      <a href="http://howardism.org/index.xml" class="bottom-link" target="_blank">
+        <img src="rss.png" title="RSS Feed for howardisms" alt="RSS">
+      </a>
+    </li>
+    <li>
+      <a href="http://github.com/howardabrams" class="bottom-link" target="_blank">
+        <img src="github.png" title="My Github Projects" alt="Github">
+      </a>
+    </li>
+    <li>
+      <a href="http://www.linkedin.com/in/howardeabrams" class="bottom-link" target="_blank">
+        <img src="linkedin.png" title="Connect via LinkedIn" alt="LinkedIn">
+      </a>
+    </li>
+    <li>
+      <a href="http://youtube.com/user/howardabrams" class="bottom-link" target="_blank">
+        <img src="youtube.png" title="View my lectures and instructional videos" alt="YouTube">
+      </a>
+    </li>
+    <li>
+      <a href="http://twitter.com/howardabrams" class="bottom-link" target="_blank">
+        <img src="twitter.png" title="Follow me: @howardabrams" alt="Twitter">
+      </a>
+    </li>
+  </ul>
+</div>
+</div>
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px none; margin: 0px;"><div style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px none; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-size-adjust: none; font-family: MathJax_Size4,sans-serif;" id="MathJax_Font_Test"></div></div></body>
+</html>

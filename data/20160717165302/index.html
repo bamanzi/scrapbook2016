@@ -1,0 +1,1176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:expr="http://www.google.com/2005/gml/expr" xmlns:data="http://www.google.com/2005/gml/data" xmlns:b="http://www.google.com/2005/gml/b" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<meta content="blogger" name="generator">
+<link href="favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://mbrisby.blogspot.com/2007/07/gnu-screen-w-ssh-agent.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="Carl's Whine Rack - Atom" href="http://mbrisby.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="Carl's Whine Rack - RSS" href="http://mbrisby.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="Carl's Whine Rack - Atom" href="https://www.blogger.com/feeds/21734857/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="Carl's Whine Rack - Atom" href="http://mbrisby.blogspot.com/feeds/5128671336811069582/comments/default">
+<meta content="http://mbrisby.blogspot.com/2007/07/gnu-screen-w-ssh-agent.html" property="og:url">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>Carl's Whine Rack: GNU screen w/ ssh-agent</title>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<div class="navbar section" id="navbar"><div class="widget Navbar" data-version="1" id="Navbar1">
+<div id="navbar-iframe-container"></div>
+
+
+</div></div>
+<div id="outer-wrapper"><div id="wrap2">
+<!-- skip links for text browsers -->
+<span id="skiplinks" style="display: none;">
+<a href="#main">skip to main </a> |
+      <a href="#sidebar">skip to sidebar</a>
+</span>
+<div id="header-wrapper">
+<div class="header section" id="header"><div class="widget Header" data-version="1" id="Header1">
+<div id="header-inner">
+<div class="titlewrapper">
+<h1 class="title">
+<a href="http://mbrisby.blogspot.com/">Carl's Whine Rack</a>
+</h1>
+</div>
+<div class="descriptionwrapper">
+<p class="description"><span>Using GNU/Linux through creative laziness (and other topics as they strike my fancy)</span></p>
+</div>
+</div>
+</div></div>
+</div>
+<div id="content-wrapper">
+<div id="crosscol-wrapper" style="text-align: center;">
+<div class="crosscol no-items section" id="crosscol"></div>
+</div>
+<div id="main-wrapper">
+<div class="main section" id="main"><div class="widget Blog" data-version="1" id="Blog1">
+<div class="blog-posts hfeed">
+
+          <div class="date-outer">
+        
+<h2 class="date-header"><span>21 July 2007</span></h2>
+
+          <div class="date-posts">
+        
+<div class="post-outer">
+<div class="post hentry uncustomized-post-template" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+<meta content="21734857" itemprop="blogId">
+<meta content="5128671336811069582" itemprop="postId">
+<a name="5128671336811069582"></a>
+<h3 class="post-title entry-title" itemprop="name">
+GNU screen w/ ssh-agent
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-5128671336811069582" itemprop="description articleBody">
+I maintain a lot of Linux servers, and I find it useful to keep an ssh session open to each one. But I don't want a terminal window open for each server, so GNU screen has been really helpful to me. I've used screen for years and I thought I knew most of its features, but I recently saw a post on polishlinux.org which has <a href="http://polishlinux.org/howtos/screen-tips-tricks">some really neat screen tricks</a> which were new to me.<br><br>One screen trick I've used a lot in the past is to run screen inside of an ssh-agent session, with each screen window being an ssh session to one of my servers. So if I generate a password-protected ssh key and share it to all my servers, I can do the following:<br><pre><br>$ screen -S wrapper -c .screenrc_escP<br>$ ssh-agent /bin/bash<br>$ ssh-add # supply ssh key password<br>$ screen -S ssh<br></pre><br>The first call to <code>screen</code> sets up a 'wrapper' session, so that the ssh-agent will work for adding new windows to the inner <code>screen</code> session, even if I re-attach from another terminal. The .screenrc_escP configuration file contains <code>escape ^Pp</code> so that the two nested <code>screen</code> sessions have different escape sequences.<br><br>Then within the inner <code>screen</code> session, I can ssh to my servers without passwords (because I've already given the ssh key password).<br><br>The tedious part of doing this was manually opening all those ssh sessions and naming the screen windows. But now (thanks to the polishlinux.org post) I see that I can save something like the following to a file called .screenrc_ssh:<br><pre><br>screen -t host1 ssh host1<br>screen -t host2 ssh host2<br>screen -t host3 ssh host3<br>screen -t host4 ssh host4<br></pre><br>And then I can instead do this:<br><pre><br>$ screen -S wrapper -c .screenrc_escP<br>$ ssh-agent /bin/bash<br>$ ssh-add # supply ssh key password<br>$ screen -S ssh -c .screenrc_ssh<br></pre><br>And all my ssh sessions open like magic.<br><br>Another interesting part of the polishlinux.org post is the discussion of regions. This feature lets you split a screen window into regions. I've done this several times by accident, and I always just found it annoying, because I'd have to look in the man page to see how to close a region. I never knew how to use the feature. But you could have an ssh session to two servers in the two regions of the same window--allowing you to run some long-running process on one server and keep an eye on it while you're working on another server in the other region.<br><br>Screen rocks.
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+Posted by
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+<meta content="https://www.blogger.com/profile/06111867459021395319" itemprop="url">
+<a class="g-profile" href="https://www.blogger.com/profile/06111867459021395319" rel="author" title="author profile">
+<span itemprop="name">mbrisby</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+at
+<meta content="http://mbrisby.blogspot.com/2007/07/gnu-screen-w-ssh-agent.html" itemprop="url">
+<a class="timestamp-link" href="#" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2007-07-21T14:00:00-05:00">7/21/2007 02:00:00 PM</abbr></a>
+</span>
+<span class="reaction-buttons">
+</span>
+<span class="post-comment-link">
+</span>
+<span class="post-backlinks post-comment-link">
+</span>
+<span class="post-icons">
+<span class="item-action">
+<a href="https://www.blogger.com/email-post.g?blogID=21734857&amp;postID=5128671336811069582" title="Email Post">
+<img alt="" class="icon-action" src="icon18_email.gif" height="13" width="18">
+</a>
+</span>
+<span class="item-control blog-admin pid-956744154">
+<a href="https://www.blogger.com/post-edit.g?blogID=21734857&amp;postID=5128671336811069582&amp;from=pencil" title="Edit Post">
+<img alt="" class="icon-action" src="icon18_edit_allbkg.gif" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="post-share-buttons goog-inline-block">
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<span class="post-labels">
+Labels:
+<a href="http://mbrisby.blogspot.com/search/label/linux" rel="tag">linux</a>
+</span>
+</div>
+<div class="post-footer-line post-footer-line-3">
+<span class="post-location">
+</span>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>1 comment:</h4>
+<div id="Blog1_comments-block-wrapper">
+<dl class="" id="comments-block">
+<dt class="comment-author blogger-comment-icon" id="c8824619275750875939">
+<a name="c8824619275750875939"></a>
+<a href="https://www.blogger.com/profile/11525658870805265228" rel="nofollow">John</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-8824619275750875939">
+<p>
+The auto ssh login frakin' rocks!
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://mbrisby.blogspot.com/2007/07/gnu-screen-w-ssh-agent.html?showComment=1185413220000#c8824619275750875939" title="comment permalink">
+8:27 PM
+</a>
+<span class="item-control blog-admin pid-676516503">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=21734857&amp;postID=8824619275750875939" title="Delete Comment">
+<img src="icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+</dl>
+</div>
+<p class="comment-footer">
+<a href="https://www.blogger.com/comment.g?blogID=21734857&amp;postID=5128671336811069582">Post a Comment</a>
+</p>
+<div id="backlinks-container">
+<div id="Blog1_backlinks-container"><a name="links"></a><h4>Links to this post</h4>
+<p class="comment-footer">
+<a class="comment-link" href="https://www.blogger.com/blog-this.g" id="Blog1_backlinks-create-link" target="_blank">Create a Link</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+        </div></div>
+      
+</div>
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="http://mbrisby.blogspot.com/2007/07/oscon-2007-arrival.html" id="Blog1_blog-pager-newer-link" title="Newer Post">Newer Post</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="http://mbrisby.blogspot.com/2007/07/xscreensaver-in-centos-5.html" id="Blog1_blog-pager-older-link" title="Older Post">Older Post</a>
+</span>
+<a class="home-link" href="http://mbrisby.blogspot.com/">Home</a>
+</div>
+<div class="clear"></div>
+<div class="post-feeds">
+<div class="feed-links">
+Subscribe to:
+<a class="feed-link" href="http://mbrisby.blogspot.com/feeds/5128671336811069582/comments/default" target="_blank" type="application/atom+xml">Post Comments (Atom)</a>
+</div>
+</div>
+
+</div></div>
+</div>
+<div id="sidebar-wrapper">
+<div class="sidebar section" id="sidebar"><div class="widget BlogArchive" data-version="1" id="BlogArchive1">
+<h2>Blog Archive</h2>
+<div class="widget-content">
+<div id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2014-01-01T00:00:00-06:00&amp;updated-max=2015-01-01T00:00:00-06:00&amp;max-results=3">
+2014
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2014_11_01_archive.html">
+November
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2014_10_01_archive.html">
+October
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2014_05_01_archive.html">
+May
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2013-01-01T00:00:00-06:00&amp;updated-max=2014-01-01T00:00:00-06:00&amp;max-results=2">
+2013
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2013_07_01_archive.html">
+July
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2013_01_01_archive.html">
+January
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2012-01-01T00:00:00-06:00&amp;updated-max=2013-01-01T00:00:00-06:00&amp;max-results=4">
+2012
+</a>
+<span class="post-count" dir="ltr">(4)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2012_12_01_archive.html">
+December
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2012_11_01_archive.html">
+November
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2011-01-01T00:00:00-06:00&amp;updated-max=2012-01-01T00:00:00-06:00&amp;max-results=3">
+2011
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2011_08_01_archive.html">
+August
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2011_07_01_archive.html">
+July
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2011_02_01_archive.html">
+February
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2010-01-01T00:00:00-06:00&amp;updated-max=2011-01-01T00:00:00-06:00&amp;max-results=2">
+2010
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2010_03_01_archive.html">
+March
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2010_01_01_archive.html">
+January
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2009-01-01T00:00:00-06:00&amp;updated-max=2010-01-01T00:00:00-06:00&amp;max-results=10">
+2009
+</a>
+<span class="post-count" dir="ltr">(10)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2009_11_01_archive.html">
+November
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2009_10_01_archive.html">
+October
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2009_05_01_archive.html">
+May
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2009_04_01_archive.html">
+April
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2009_03_01_archive.html">
+March
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2009_02_01_archive.html">
+February
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2008-01-01T00:00:00-06:00&amp;updated-max=2009-01-01T00:00:00-06:00&amp;max-results=50">
+2008
+</a>
+<span class="post-count" dir="ltr">(73)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_12_01_archive.html">
+December
+</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_09_01_archive.html">
+September
+</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_08_01_archive.html">
+August
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_07_01_archive.html">
+July
+</a>
+<span class="post-count" dir="ltr">(10)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_06_01_archive.html">
+June
+</a>
+<span class="post-count" dir="ltr">(10)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_05_01_archive.html">
+May
+</a>
+<span class="post-count" dir="ltr">(11)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_04_01_archive.html">
+April
+</a>
+<span class="post-count" dir="ltr">(9)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_03_01_archive.html">
+March
+</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_02_01_archive.html">
+February
+</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2008_01_01_archive.html">
+January
+</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle">
+<span class="zippy toggle-open">
+
+        ▼&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2007-01-01T00:00:00-06:00&amp;updated-max=2008-01-01T00:00:00-06:00&amp;max-results=50">
+2007
+</a>
+<span class="post-count" dir="ltr">(111)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_12_01_archive.html">
+December
+</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_11_01_archive.html">
+November
+</a>
+<span class="post-count" dir="ltr">(14)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_10_01_archive.html">
+October
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_09_01_archive.html">
+September
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_08_01_archive.html">
+August
+</a>
+<span class="post-count" dir="ltr">(10)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle">
+<span class="zippy toggle-open">
+
+        ▼&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_07_01_archive.html">
+July
+</a>
+<span class="post-count" dir="ltr">(27)</span>
+<ul class="posts">
+<li><a href="http://mbrisby.blogspot.com/2007/07/evil-advertisement.html">Evil advertisement</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/oscon-2007-friday.html">OSCON 2007: Friday</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/oscon-2007-thursday.html">OSCON 2007: Thursday</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/cloverfield-poster.html">Cloverfield poster</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/oscon-2007-wednesday.html">OSCON 2007: Wednesday</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/oscon-2007-tuesday.html">OSCON 2007: Tuesday</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/oscon-2007-monday.html">OSCON 2007: Monday</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/2007-oscon-hotel-internet-fee.html">2007 OSCON: hotel Internet fee</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/oscon-2007-arrival.html">OSCON 2007: arrival</a></li>
+<li><a href="#">GNU screen w/ ssh-agent</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/xscreensaver-in-centos-5.html">xscreensaver in CentOS 5</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/nuclear-materials-for-asking.html">Nuclear materials for the asking</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/gpg-based-password-wallet.html">gpg-based password wallet</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/no-more-oil-try-jatropha-and-miscanthus.html">No more oil: try jatropha and miscanthus</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/correspondent-inference-theory.html">Correspondent Inference Theory</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/google-earth-finds-new-chinese.html">Google Earth finds new Chinese submarine</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/php4-end-of-life.html">PHP4 end of life</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/screw-iphone.html">Screw the iPhone</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/photos-from-antarctica.html">Photos from Antarctica</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/end-of-sysadmin.html">the end of sysadmin</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/new-7-wonders.html">new 7 wonders</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/cosmologically-illogical.html">Cosmologically illogical</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/july-4-sunset.html">July 4 sunset</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/gplv3.html">GPLv3</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/e-voting-source-code-disclosures.html">e-voting source code disclosures</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/restrictions-on-photography-in-nyc.html">Restrictions on photography in NYC</a></li>
+<li><a href="http://mbrisby.blogspot.com/2007/07/dallas-world-acquarium.html">Dallas World Acquarium</a></li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_06_01_archive.html">
+June
+</a>
+<span class="post-count" dir="ltr">(17)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_05_01_archive.html">
+May
+</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_04_01_archive.html">
+April
+</a>
+<span class="post-count" dir="ltr">(7)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_03_01_archive.html">
+March
+</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_02_01_archive.html">
+February
+</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2007_01_01_archive.html">
+January
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/search?updated-min=2006-01-01T00:00:00-06:00&amp;updated-max=2007-01-01T00:00:00-06:00&amp;max-results=45">
+2006
+</a>
+<span class="post-count" dir="ltr">(45)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_12_01_archive.html">
+December
+</a>
+<span class="post-count" dir="ltr">(10)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_11_01_archive.html">
+November
+</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_10_01_archive.html">
+October
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_09_01_archive.html">
+September
+</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_08_01_archive.html">
+August
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_07_01_archive.html">
+July
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_06_01_archive.html">
+June
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_05_01_archive.html">
+May
+</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_04_01_archive.html">
+April
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_03_01_archive.html">
+March
+</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="http://mbrisby.blogspot.com/2006_01_01_archive.html">
+January
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=21734857&amp;widgetType=BlogArchive&amp;widgetId=BlogArchive1&amp;action=editWidget&amp;sectionId=sidebar" target="configBlogArchive1" title="Edit">
+<img alt="" src="icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget Profile" data-version="1" id="Profile1">
+<h2>About Me</h2>
+<div class="widget-content">
+<dl class="profile-datablock">
+<dt class="profile-data">
+<a class="profile-name-link g-profile" href="https://www.blogger.com/profile/06111867459021395319" rel="author" style="background-image: url(&quot;logo-16.png&quot;);">
+mbrisby
+</a>
+</dt>
+<dd class="profile-textblock"><a href="http://flickr.com/photos/93512143@N00/">my flickr photostream</a></dd>
+</dl>
+<a class="profile-link" href="https://www.blogger.com/profile/06111867459021395319" rel="author">View my complete profile</a>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=21734857&amp;widgetType=Profile&amp;widgetId=Profile1&amp;action=editWidget&amp;sectionId=sidebar" target="configProfile1" title="Edit">
+<img alt="" src="icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+</div>
+<!-- spacer for skins that want sidebar and main to be the same height-->
+<div class="clear">&nbsp;</div>
+</div>
+<!-- end content-wrapper -->
+<div id="footer-wrapper">
+<div class="footer no-items section" id="footer"></div>
+</div>
+</div></div>
+<!-- end outer-wrapper -->
+
+
+
+
+</body>
+</html>

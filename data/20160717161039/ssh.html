@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Using SSH</title>
+    <meta name="description" content="Help page for Termux - terminal emulator and Linux environment for Android.
+">
+    
+    <link rel="canonical" href="https://termux.com/ssh.html">
+  
+<link rel="stylesheet" type="text/css" href="ssh.css" media="all">
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://termux.com/help.html">Termux Help</a>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  
+  <header class="post-header">
+    <h1 class="post-title">Using SSH</h1>
+  </header>
+  
+
+  <article class="post-content">
+    <h2 id="using-the-ssh-client">Using the SSH client</h2>
+<p>By installing the <code class="highlighter-rouge">openssh</code> package (by executing <code class="highlighter-rouge">apt install openssh</code>) you may SSH into remote systems, optionally putting private keys or configuration under $HOME/.ssh/.</p>
+
+<p>If you wish to use an SSH agent to avoid entering passwords, the Termux openssh package provides a wrapper script named <code class="highlighter-rouge">ssha</code> (note the ‘a’ at the end) for ssh which:</p>
+
+<ol>
+  <li>Starts the ssh agent if necessary (or connect to it if already running).</li>
+  <li>Runs ssh-add if necessary.</li>
+  <li>Runs ssh with the provided arguments.</li>
+</ol>
+
+<p>This means that the agent will prompt for a key password at first run, but remember the authorization for subsequent runs.</p>
+
+<h2 id="using-the-ssh-server">Using the SSH server</h2>
+<p>The <code class="highlighter-rouge">sshd</code> server is included in the <code class="highlighter-rouge">openssh</code> package and allows you to connect to your Android device over ssh.</p>
+
+<p>Start the server by executing <code class="highlighter-rouge">sshd</code> (which will start it on the default port 8022) and run <code class="highlighter-rouge">logcat -s 'syslog:*'</code> to view the log output from the server process. Execute <code class="highlighter-rouge">pkill sshd</code> to stop the server.</p>
+
+<p>Since Termux is a single-user system you may connect as any user - regardless of your specified username you will login as the only Termux user available.</p>
+
+<p>The Termux <code class="highlighter-rouge">sshd</code> binary does not support password logins, so a key needs to be authorized in <code class="highlighter-rouge">~/.ssh/authorized_keys</code> before connecting. Use <code class="highlighter-rouge">ssh-keygen</code> to generate a new one if desired.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Terminal configuration</title>
+    <meta name="description" content="Help page for Termux - terminal emulator and Linux environment for Android.
+">
+    
+    <link rel="canonical" href="https://termux.com/configuration.html">
+  
+<link rel="stylesheet" type="text/css" href="configuration.css" media="all">
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://termux.com/help.html">Termux Help</a>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  
+  <header class="post-header">
+    <h1 class="post-title">Terminal configuration</h1>
+  </header>
+  
+
+  <article class="post-content">
+    <p>The Termux terminal may be configured by creating the file <code class="highlighter-rouge">~/.config/termux/termux.properties</code>. This file uses a simple <code class="highlighter-rouge">key=value</code> property syntax and allow configuring the properties listed below.</p>
+
+<p>After changing the properties file the changes will take effect either by executing <code class="highlighter-rouge">termux-reload-settings</code> (run <code class="highlighter-rouge">apt update &amp;&amp; apt upgrade</code> to ensure that this tool is installed) or by restarting the Termux app (closing all sessions before starting it again).</p>
+
+<h2 id="handling-the-bell-character">Handling the bell character</h2>
+<p>By setting the <code class="highlighter-rouge">bell-character</code> property the behaviour when the <a href="https://en.wikipedia.org/wiki/Bell_character">bell character</a> is received can be configured as follows:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Vibrate device (default).
+bell-character=vibrate
+
+# Beep with a sound.
+bell-character=beep
+
+# Ignore bell character.
+bell-character=ignore
+</code></pre>
+</div>
+
+<h2 id="handling-the-back-key">Handling the back key</h2>
+<p>By setting the <code class="highlighter-rouge">back-key</code> property the behaviour when the the back key is pressed can be configured as follows:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Send the Escape key.
+back-key=escape
+
+# Hide keyboard or leave app (default).
+back-key=back
+</code></pre>
+</div>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+  
+
+
+</body>
+</html>

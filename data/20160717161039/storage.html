@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Internal and external storage</title>
+    <meta name="description" content="Help page for Termux - terminal emulator and Linux environment for Android.
+">
+    
+    <link rel="canonical" href="https://termux.com/storage.html">
+  
+<link rel="stylesheet" type="text/css" href="storage.css" media="all">
+</head>
+
+  <body>
+
+    <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="https://termux.com/help.html">Termux Help</a>
+  </div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  
+  <header class="post-header">
+    <h1 class="post-title">Internal and external storage</h1>
+  </header>
+  
+
+  <article class="post-content">
+    <p>There are three main types of storage in Termux:</p>
+
+<ol>
+  <li>App-private storage: Files put in <code class="highlighter-rouge">$HOME</code>, available from inside Termux (or when explictly picked, when e.g. attaching a file to a mail).</li>
+  <li>Shared internal storage: Storage in the device available to all apps. On Android 6.0 this requires the user to explicitly grant access to
+for Termux to access it.</li>
+  <li>External storage: Storage on external SD cards. Each app has a private folder on the external SD card, and interchange between them needs
+to use a special API not yet available in Termux.</li>
+</ol>
+
+<p>Executing <code class="highlighter-rouge">termux-setup-storage</code> (run <code class="highlighter-rouge">apt update &amp;&amp; apt upgrade</code> to ensure that this tool is available) ensures:</p>
+
+<ol>
+  <li>That permission to shared storage is granted to Termux when running on Android 6.0 or later.</li>
+  <li>That an app-private folder on external storage is created (if external storage exists).</li>
+  <li>That a folder <code class="highlighter-rouge">$HOME/storage</code> is created.</li>
+</ol>
+
+<p>The contents of the created <code class="highlighter-rouge">$HOME/storage</code> folder are symlinks to different storage folders:</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">~/storage/shared</code></dt>
+  <dd>The root of the shared storage between all apps.</dd>
+  <dt><code class="highlighter-rouge">~/storage/downloads</code></dt>
+  <dd>The standard directory for downloads from e.g. the system browser.</dd>
+  <dt><code class="highlighter-rouge">~/storage/dcim</code></dt>
+  <dd>The traditional location for pictures and videos when mounting the device as a camera.</dd>
+  <dt><code class="highlighter-rouge">~/storage/pictures</code></dt>
+  <dd>Standard directory in which to place pictures that are available to the user.</dd>
+  <dt><code class="highlighter-rouge">~/storage/music</code></dt>
+  <dd>Standard directory in which to place any audio files that should be in the regular list of music for the user.</dd>
+  <dt><code class="highlighter-rouge">~/storage/movies</code></dt>
+  <dd>Standard directory in which to place movies that are available to the user.</dd>
+  <dt><code class="highlighter-rouge">~/storage/external</code></dt>
+  <dd>Symlink to a Termux-private folder on external storage (only if external storage is available).</dd>
+</dl>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+  
+
+
+</body>
+</html>
