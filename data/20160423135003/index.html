@@ -1,0 +1,2220 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/QAPage" itemscope="">
+<head>
+<meta charset="UTF-8">
+
+
+<title>Can't get SSH public key authentication to work - Server Fault</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png?v=6c3100d858bb">
+    <link rel="search" type="application/opensearchdescription+xml" title="Server Fault" href="http://serverfault.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@ServerFault">
+    <meta name="twitter:domain" content="serverfault.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon@2.png?v=9b1f48ae296b&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Can't get SSH public key authentication to work">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="My server is running CentOS 5.3. I'm on a Mac running Leopard. I don't know which is responsible for this:
+
+I can log on to my server just fine via password authentication. I've gone through all of...">
+    <meta property="og:url" content="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011">
+    <link rel="canonical" href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011">
+
+    
+    
+    
+    
+    
+
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        
+
+
+    
+    
+    
+        
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="question-page new-topbar">
+    
+    
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://serverfault.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://blog.serverfault.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+                    <a href="http://chat.stackexchange.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://serverfault.com/" class="current-site-link site-link js-gps-track" data-id="2" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-serverfault" title="Server Fault"></div>
+        Server Fault
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.serverfault.com/" class="site-link js-gps-track" data-id="78" data-gps-track="
+            site.switch({ target_site:78, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-serverfaultmeta" title="Meta Server Fault"></div>
+        Meta Server Fault
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track" href="http://careers.stackoverflow.com/?utm_source=serverfault.com&amp;utm_medium=site-ui&amp;utm_campaign=multicollider" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://serverfault.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f55343%2fcant-get-ssh-public-key-authentication-to-work%2f362011" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://serverfault.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f55343%2fcant-get-ssh-public-key-authentication-to-work%2f362011" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+            </div>
+    </div>
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 154 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display: none;"></span>
+    </a>
+    <a href="#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display: none;">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://serverfault.com/users/signup?ssrc=head&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f55343%2fcant-get-ssh-public-key-authentication-to-work%2f362011" class="login-link">sign up</a>
+                                <a href="https://serverfault.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f55343%2fcant-get-ssh-public-key-authentication-to-work%2f362011" class="login-link">log in</a>
+
+                        <a href="http://serverfault.com/tour">tour</a>
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://serverfault.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://serverfault.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.serverfault.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                        About Us
+                        <span class="item-summary">
+                            Learn more about Stack Overflow the company
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                        Business
+                        <span class="item-summary">
+                            Learn more about hiring developers or posting ads with us
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://serverfault.com/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://serverfault.com/">
+                    Server Fault
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://serverfault.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://serverfault.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://serverfault.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://serverfault.com/help/badges">Badges</a></li>
+                                                <li><a id="nav-unanswered" href="http://serverfault.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://serverfault.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png?v=6c3100d858bb">
+
+<div id="herobox">
+    <div id="hero-content">
+            <div id="close"><a title="click to minimize">_</a></div>
+        <div id="blurb">
+            Server Fault is a question and answer site for system and network administrators. It's 100% free, no registration required.
+            <br>
+            <br>
+            <a href="http://serverfault.com/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f55343%2fcant-get-ssh-public-key-authentication-to-work%2f362011" id="tell-me-more" class="button">Sign up</a>
+        </div>
+        <div id="desc">
+            <b>Here's how it works:</b>
+            <ol id="hiw">
+                <li id="q">Anybody can ask a question
+                </li>
+                <li id="an">Anybody can answer
+                </li>
+                <li id="b">The best answers are voted up and rise to the top
+                </li>
+            </ol>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    
+</div>
+			<div id="question-header">
+                <h1 itemprop="name"><a href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work" class="question-hyperlink">Can't get SSH public key authentication to work [closed]</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="55343" id="question">
+
+    
+                <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="55343" type="hidden">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">31</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>7</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>My server is running CentOS 5.3. I'm on a Mac running Leopard. I don't know which is responsible for this:</p>
+
+<p>I can log on to my server just fine via password authentication. I've gone through all of the steps for setting up PKA (as described at <a href="http://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-ssh-beyondshell.html">http://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-ssh-beyondshell.html</a>), but when I use SSH, it refuses to even attempt publickey verification. Using the command</p>
+
+<pre><code>ssh -vvv user@host
+</code></pre>
+
+<p>(where -vvv cranks up verbosity to the maximum level) I get the following relevant output:</p>
+
+<pre><code>debug2: key: /Users/me/.ssh/id_dsa (0x123456)
+debug1: Authentications that can continue: publickey,gssapi-with-mic,password
+debug3: start over, passed a different list publickey,gssapi-with-mic,password
+debug3: preferred keyboard-interactive,password
+debug3: authmethod_lookup password
+debug3: remaining preferred: ,password
+debug3: authmethod_is_enabled password
+debug1: Next authentication method: password
+</code></pre>
+
+<p>followed by a prompt for my password. If I try to force the issue with</p>
+
+<pre><code>ssh -vvv -o PreferredAuthentications=publickey user@host
+</code></pre>
+
+<p>I get</p>
+
+<pre><code>debug2: key: /Users/me/.ssh/id_dsa (0x123456)
+debug1: Authentications that can continue: publickey,gssapi-with-mic,password
+debug3: start over, passed a different list publickey,gssapi-with-mic,password
+debug3: preferred publickey
+debug3: authmethod_lookup publickey
+debug3: No more authentication methods to try.
+</code></pre>
+
+<p>So, even though the server says it accepts the publickey authentication method, and my SSH client insists on it, I'm rebutted. (Note the conspicuous absence of an "Offering public key:" line above.) Any suggestions?</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://serverfault.com/questions/tagged/ssh" class="post-tag js-gps-track" title="show questions tagged 'ssh'" rel="tag">ssh</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/q/55343" title="short permalink to this question" class="short-link" id="link-post-55343">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/55343/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2009-08-18 04:18:35Z" class="relativetime">Aug 18 '09 at 4:18</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        Trey Parkman
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                    <tr>
+            <td class="special-status" colspan="2">
+                <div class="question-status">
+        <h2>                    <b>closed</b> as off-topic by <a href="http://serverfault.com/users/118258/hopelessn00b">HopelessN00b</a> <span dir="ltr"><span title="2015-03-03 23:21:33Z" class="relativetime">Mar 3 '15 at 23:21</span></span>
+</h2>
+        <p></p><ul class="close-as-off-topic-status-list"><li>This question does not appear to be about server, networking, or related infrastructure administration within the scope defined in the <a href="http://serverfault.com/help/on-topic">help center</a>.</li></ul><span class="close-status-suffix">If this question can be reworded to fit the rules in the <a href="http://serverfault.com/help/closed-questions">help center</a>, please <a href="http://serverfault.com/posts/55343/edit">edit the question</a>.</span><p></p>
+    </div>
+            </td>
+        </tr>
+    
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-55343" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-43979" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">simply use "ssh -v" you do not need more verbosity and include the whole output not just the lines you think are important</span>
+                    –&nbsp;<a href="http://serverfault.com/users/6491/cstamas" title="5,065 reputation" class="comment-user">cstamas</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment43979_55343"><span title="2009-08-18 07:37:57Z" class="relativetime-clean">Aug 18 '09 at 7:37</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-823563" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This question is being closed because it is no longer answerable, and is attracting low quality answers.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/118258/hopelessn00b" title="42,517 reputation" class="comment-user">HopelessN00b</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment823563_55343"><span title="2015-03-03 23:21:33Z" class="relativetime-clean">Mar 3 '15 at 23:21</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-55343" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								12 Answers
+                                <span style="display: none;" itemprop="answerCount">12</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active">
+            active</a>
+        <a href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest">
+            oldest</a>
+        <a class="youarehere" href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="55458"></a>
+<div id="answer-55458" class="answer" data-answerid="55458" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="55458" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">35</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Check that your Centos machine has:</p>
+
+<pre><code>RSAAuthentication yes
+PubkeyAuthentication yes
+</code></pre>
+
+<p>in sshd_config</p>
+
+<p>and ensure that you have proper permission on the centos machine's ~/.ssh/ directory.</p>
+
+<pre><code>chmod 700 ~/.ssh/
+chmod 600 ~/.ssh/*
+</code></pre>
+
+<p>should do the trick.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/55458" title="short permalink to this answer" class="short-link" id="link-post-55458">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/55458/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-08-18 11:25:29Z" class="relativetime">Aug 18 '09 at 11:25</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/15777/pyhimys"><div class="gravatar-wrapper-32"><img src="377cb75f2ba2f107cb6b4434f060fe46.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/15777/pyhimys">pyhimys</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">937</span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-55458" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-366933" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">the correct rights and filenames (sometimes authorized_keys2, sometimes without the 2) is very important!</span>
+                    –&nbsp;<a href="http://serverfault.com/users/20283/brandstaetter" title="184 reputation" class="comment-user">brandstaetter</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment366933_55458"><span title="2012-02-23 20:25:44Z" class="relativetime-clean">Feb 23 '12 at 20:25</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-417281" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">4</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">The permission of file <b>authorized_keys</b> is very important hint. Thanks.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/75060/kane" title="101 reputation" class="comment-user">Kane</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment417281_55458"><span title="2012-06-20 09:59:08Z" class="relativetime-clean">Jun 20 '12 at 9:59</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-440682" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">4</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">You might also need to <code>chmod go-w ~/</code> if it isn't so already.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/6800/tylerl" title="9,320 reputation" class="comment-user">tylerl</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment440682_55458"><span title="2012-08-09 18:51:40Z" class="relativetime-clean">Aug 9 '12 at 18:51</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-563770" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Also check the ownership of <code>/root/</code>. I already faced a situation where <code>/root/</code> was belonging to another user and this was preventing password-less authentication.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/35747/ereon" title="394 reputation" class="comment-user">ereOn</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment563770_55458"><span title="2013-04-25 13:43:59Z" class="relativetime-clean">Apr 25 '13 at 13:43</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-626707" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Also check if your home dir on remote server has permissions <code>755</code> (as Jinyu Liu mentions below)</span>
+                    –&nbsp;<a href="http://serverfault.com/users/100857/attila-fulop" title="130 reputation" class="comment-user">Attila Fulop</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment626707_55458"><span title="2013-10-04 16:01:28Z" class="relativetime-clean">Oct 4 '13 at 16:01</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-55458" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+            <div class="everyonelovesstackoverflow" id="adzerk1256042347">
+            </div>
+  
+<a name="362011"></a>
+<div style="" id="answer-362011" class="answer" data-answerid="362011" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="362011" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">14</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I had a similar problem - remote PC couldn't use public key authentication to log in to CentOs 6 server.  The problem in my case was SELinux related - the home directory of the user trying to log in had message up security contexts.  I resolved this by using the <code>restorecon</code> tool thusly:</p>
+
+<pre><code>restorecon -Rv /home
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/362011" title="short permalink to this answer" class="short-link" id="link-post-362011">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/362011/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-02-20 23:02:30Z" class="relativetime">Feb 20 '12 at 23:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/111361/gareth"><div class="gravatar-wrapper-32"><img src="a091f99767993aaab0bd7de50fb864da.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/111361/gareth">Gareth</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">141</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-362011" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-504164" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thanks, Gareth! "restorecon -Rv /root/.ssh" did the trick nicely.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/150165/tbroberg" title="111 reputation" class="comment-user">tbroberg</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment504164_362011"><span title="2012-12-18 20:08:00Z" class="relativetime-clean">Dec 18 '12 at 20:08</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-612350" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">To explain further: this command is telling SELinux to reset the SELinux tags for files under <code>/home</code> to whatever they usually are in  the directory layout for <code>/home</code>.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/20217/rakslice" title="356 reputation" class="comment-user">rakslice</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment612350_362011"><span title="2013-08-27 22:20:57Z" class="relativetime-clean">Aug 27 '13 at 22:20</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-961262" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">If you're logging in as root, it should be <code>restorecon -Rv /root</code></span>
+                    –&nbsp;<a href="http://serverfault.com/users/161050/zhangyoufu" title="101 reputation" class="comment-user">zhangyoufu</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment961262_362011"><span title="2016-03-14 13:59:40Z" class="relativetime-clean">Mar 14 at 13:59</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-362011" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="55344"></a>
+<div id="answer-55344" class="answer" data-answerid="55344" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="55344" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">10</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Double check that your permissions are correct and file structure (specifically spelling) are correct, for both local and remote machines. The URL you refer to states them all, but it's worth checking that what you have matches. Normally permissions will throw a relevant error though.</p>
+
+<p>Have you checked that the sshd_config on your CentOS 5.3 box is set to allow PubkeyAuthentication or RSAAuthentication ?  </p>
+
+<p>Check the SSH server logs on the CentOS system - it may provide more information. I'm not sure if CentOS does the blacklisted ssh key checking that debian does, but I've seen ssh publickey rejections that are relatively silent as far as -vvv output goes, but the logs pretty clearly explained what was going on</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/55344" title="short permalink to this answer" class="short-link" id="link-post-55344">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/55344/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-08-18 04:26:05Z" class="relativetime">Aug 18 '09 at 4:26</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/5898/daniel-lawson"><div class="gravatar-wrapper-32"><img src="1649304998f4a11ea636be817d8ec12a.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/5898/daniel-lawson">Daniel Lawson</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">4,486</span><span title="10 silver badges"><span class="badge2"></span><span class="badgecount">10</span></span><span title="20 bronze badges"><span class="badge3"></span><span class="badgecount">20</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-55344" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-55344" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="297601"></a>
+<div id="answer-297601" class="answer" data-answerid="297601" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="297601" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">8</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>1- check your /etc/ssh/sshd_config, ensure you have </p>
+
+<pre>RSAAuthentication yes
+PubkeyAuthentication yes
+</pre>
+
+<p>2- check the secure log from remote machine, look-up the detail sshd daemon error log.
+e.g. in my Ubuntu</p>
+
+<pre># grep 'sshd' /var/log/secure | grep 'Authentication refused' | tail -5
+Aug  4 06:20:22 xxx sshd[16860]: Authentication refused: bad ownership or modes for directory /home/xxx
+Aug  4 06:20:22 xxx sshd[16860]: Authentication refused: bad ownership or modes for directory /home/xxx
+Aug  4 06:21:21 xxx sshd[17028]: Authentication refused: bad ownership or modes for directory /home/xxx
+Aug  4 06:21:21 xxx sshd[17028]: Authentication refused: bad ownership or modes for directory /home/xxx
+Aug  4 06:27:39 xxx sshd[20362]: Authentication refused: bad ownership or modes for directory /home/xxx
+</pre>
+
+<p>Then check the ownership and modes for directory /home/xxx, maybe you need run this</p>
+
+<pre>chmod 755 /home/xxx
+</pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/297601" title="short permalink to this answer" class="short-link" id="link-post-297601">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/297601/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-08-04 13:53:15Z" class="relativetime">Aug 4 '11 at 13:53</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/90382/jinyu-liu"><div class="gravatar-wrapper-32"><img src="13f2df027710283764231fa6d4610334.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/90382/jinyu-liu">Jinyu Liu</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">171</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-297601" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-417282" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Check log file of system is a very important hint.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/75060/kane" title="101 reputation" class="comment-user">Kane</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment417282_297601"><span title="2012-06-20 09:59:53Z" class="relativetime-clean">Jun 20 '12 at 9:59</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-544614" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">The home directory perms of 755 helped me - definitely required!</span>
+                    –&nbsp;<a href="http://serverfault.com/users/24110/ben" title="110 reputation" class="comment-user">Ben</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment544614_297601"><span title="2013-03-14 22:50:28Z" class="relativetime-clean">Mar 14 '13 at 22:50</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-297601" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="55658"></a>
+<div id="answer-55658" class="answer" data-answerid="55658" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="55658" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">5</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Got it! Turns out it was a client-side issue. (I think that any server-side issue would have yielded more useful debug output.) For reasons unknown to me, on my Mac, the file /etc/ssh_config had the line</p>
+
+<pre><code>PubkeyAuthentication = no
+</code></pre>
+
+<p>I commented out that one line, and now everything works fine.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/55658" title="short permalink to this answer" class="short-link" id="link-post-55658">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/55658/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-08-18 16:16:14Z" class="relativetime">Aug 18 '09 at 16:16</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        Trey Parkman
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-55658" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-55658" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="533384"></a>
+<div id="answer-533384" class="answer" data-answerid="533384" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="533384" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Besides the modes of files/directories, ensure that the ownership is correct! A user must own their own home directory, .ssh/, and files therein.</p>
+
+<p>I had to run <code>chown -R $user:$user /home/$user</code> to get past my ssh failures.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/533384" title="short permalink to this answer" class="short-link" id="link-post-533384">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/533384/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-08-23 22:34:44Z" class="relativetime">Aug 23 '13 at 22:34</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/186914/visser"><div class="gravatar-wrapper-32"><img src="cbdf8a764c2bd97108a3dccd673871c2.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/186914/visser">Visser</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">121</span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-533384" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-731647" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">+1, on one of my systems the permissions on .ssh were right but someone had made the account's home directory 777.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/85047/gargantuchet" title="250 reputation" class="comment-user">GargantuChet</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment731647_533384"><span title="2014-07-14 18:59:17Z" class="relativetime-clean">Jul 14 '14 at 18:59</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-533384" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="55522"></a>
+<div id="answer-55522" class="answer" data-answerid="55522" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="55522" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Also check that it can auto supply a key or not, use -i path/to/key if not or just to test</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/55522" title="short permalink to this answer" class="short-link" id="link-post-55522">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/55522/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-08-18 13:17:57Z" class="relativetime">Aug 18 '09 at 13:17</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/15952/jimsmithkka"><div class="gravatar-wrapper-32"><img src="1f9ef748f1bc8045bb97fb9a2944db0a.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/15952/jimsmithkka">Jimsmithkka</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">515</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="13 bronze badges"><span class="badge3"></span><span class="badgecount">13</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-55522" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-55522" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="55359"></a>
+<div id="answer-55359" class="answer" data-answerid="55359" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="55359" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Sounds like a configuration problem to me. Like Daniel suggested there are two things to check:</p>
+
+<ol>
+<li>The SSH keys in <code>$HOME/.ssh/authorized_keys</code> are readable; and</li>
+<li>SSHd is configured to allow public key login.</li>
+</ol>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/55359" title="short permalink to this answer" class="short-link" id="link-post-55359">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/55359/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://serverfault.com/posts/55359/revisions" title="show all edits to this post">edited <span title="2012-09-04 12:59:17Z" class="relativetime">Sep 4 '12 at 12:59</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/58024/khaled"><div class="gravatar-wrapper-32"><img src="66162b4f6348870bcb226d3b60e1bbc3.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/58024/khaled">Khaled</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 23,190" dir="ltr">23.2k</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="34 silver badges"><span class="badge2"></span><span class="badgecount">34</span></span><span title="58 bronze badges"><span class="badge3"></span><span class="badgecount">58</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-08-18 06:46:37Z" class="relativetime">Aug 18 '09 at 6:46</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/13726/sybreon"><div class="gravatar-wrapper-32"><img src="ad1c22980219007cf3414068c588960f.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/13726/sybreon">sybreon</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">6,431</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2"></span><span class="badgecount">10</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-55359" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-55359" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="360097"></a>
+<div id="answer-360097" class="answer" data-answerid="360097" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="360097" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>The output of the client as in <code>ssh -v</code> will reveal that there is a problem at a certain step in the protocol, but when it's due to something on the server the client won't be informed of the cause. Check the server log files to find out what's wrong. You likely need to be <code>root</code> in order to have permissions to do so. For example, for an <code>sshd</code> configured to log to syslog, you might find the messages in <code>/var/log/secure</code>. Like these ones:</p>
+
+<pre><code>Authentication refused: bad ownership or modes for directory /home/you/.ssh
+Authentication refused: bad ownership or modes for file /home/you/.ssh/authorized_keys
+</code></pre>
+
+<p>The reason in this case was a (stupid) default <code>default</code> of <code>0002</code>. That means, write access for the group. (Groupname = username, but still.) The SSH daemon won't trust files that can be tampered with by others than the user (well, and <code>root</code>, of course). You can solve the problem using <code>chmod</code>.</p>
+
+<pre><code>chmod 700 ~/.ssh # solve the issue
+chmod 720 ~/.ssh # reproduce the issue
+# or similar for a file
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/360097" title="short permalink to this answer" class="short-link" id="link-post-360097">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/360097/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-02-14 18:52:54Z" class="relativetime">Feb 14 '12 at 18:52</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/67956/lumi"><div class="gravatar-wrapper-32"><img src="3972f27da73a965749fe09e415d61130.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/67956/lumi">Lumi</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">127</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-360097" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-360097" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="375441"></a>
+<div id="answer-375441" class="answer" data-answerid="375441" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="375441" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>i just got trapped in the same problem accessing with fedora core 16 to cents 5.5</p>
+
+<p>the logs and verbose looked exactly the same</p>
+
+<p>the problem was the public key, it got some bogus data,regenerate it and post it in the sshd_server, you sshd_client is sending the key information but is not recognized by the server (it dint match any of the keys in authorized_keys)</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/375441" title="short permalink to this answer" class="short-link" id="link-post-375441">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/375441/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-03-31 02:26:04Z" class="relativetime">Mar 31 '12 at 2:26</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/115811/freaktor"><div class="gravatar-wrapper-32"><img src="72392e958758d5c13865cb319b021e10.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/115811/freaktor">Freaktor</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">186</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-375441" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-375441" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="507263"></a>
+<div id="answer-507263" class="answer" data-answerid="507263" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="507263" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Check username with wich you are trying to log in. By default it's your username on local machine.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/507263" title="short permalink to this answer" class="short-link" id="link-post-507263">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/507263/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-05-13 12:57:18Z" class="relativetime">May 13 '13 at 12:57</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/69174/creotiv"><div class="gravatar-wrapper-32"><img src="45d64a764385bcaa02a0b5cd1083083e.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/69174/creotiv">Creotiv</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">101</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-507263" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-507263" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="672846"></a>
+<div id="answer-672846" class="answer" data-answerid="672846" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="672846" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">-2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Another bitten by this. After a long search it turned out i was explicitly feeding ssh the public key (with the -i option) instead of the private key. 
+Doh!</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/672846" title="short permalink to this answer" class="short-link" id="link-post-672846">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/672846/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2015-03-03 22:46:40Z" class="relativetime">Mar 3 '15 at 22:46</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/253851/ellert-van-koperen"><div class="gravatar-wrapper-32"><img src="f67d4188b6731f12672354a7526ee301.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/253851/ellert-van-koperen">Ellert van Koperen</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1</span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-672846" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-672846" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+				
+
+
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key" title="2009-08-18 04:18:35Z"><b>6 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key">
+			                        <b>61767 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px;">
+			                        <p class="label-key"><b><a href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011?lastactivity" class="lastactivity-link" title="2015-03-03 22:46:40Z">1 year ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			
+            <div class="everyonelovesstackoverflow" id="adzerk832059512">
+            </div>
+        <div id="hireme">
+            
+        </div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://serverfault.com/q/539967?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">0</div>
+	</a>
+	<a href="http://serverfault.com/questions/539967/why-does-git-remote-repo-only-work-as-root?lq=1" class="question-hyperlink">Why does git remote repo only work as root?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/131228?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://serverfault.com/questions/131228/ssh-authentication-nfs?rq=1" class="question-hyperlink">ssh authentication nfs</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/172600?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://serverfault.com/questions/172600/how-do-you-manage-ssh-keys-to-add-a-second-user?rq=1" class="question-hyperlink">How do you manage ssh keys to add a second user?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/177109?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://serverfault.com/questions/177109/ssh-using-public-keys-is-not-working?rq=1" class="question-hyperlink">SSH using public keys is not working</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/220788?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://serverfault.com/questions/220788/ssh-keys-fail-for-one-user?rq=1" class="question-hyperlink">SSH keys fail for one user</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/221814?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">6
+    </div>
+</a><a href="http://serverfault.com/questions/221814/ssh-public-key-authentication-always-require-users-to-generate-their-own-keyp?rq=1" class="question-hyperlink">SSH public key authentication — always require users to generate their own keypair?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/290692?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">3
+    </div>
+</a><a href="http://serverfault.com/questions/290692/ssh-closes-connection-when-key-is-accepted?rq=1" class="question-hyperlink">SSH closes connection when key is accepted</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/320382?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://serverfault.com/questions/320382/ssh-public-key-authentication-issue?rq=1" class="question-hyperlink">SSH public key authentication issue</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/419516?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://serverfault.com/questions/419516/ssh-public-key-authentication-not-working-with-putty?rq=1" class="question-hyperlink">SSH Public Key Authentication not working with PuTTY</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/488495?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">3
+    </div>
+</a><a href="http://serverfault.com/questions/488495/cant-ssh-into-amazon-ec2?rq=1" class="question-hyperlink">Can't SSH into Amazon EC2</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://serverfault.com/q/718718?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://serverfault.com/questions/718718/ssh-authentication-doesnt-allow-public-key?rq=1" class="question-hyperlink">ssh authentication doesnt allow public key</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/65552/would-it-be-inappropriate-for-me-to-push-back-on-download-privileges-on-my-work" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would it be inappropriate for me to push back on download privileges on my work PC?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-expatriates" title="Expatriates Stack Exchange"></div><a href="http://expatriates.stackexchange.com/questions/8187/uk-citizen-implications-of-losing-my-uk-residency" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:546 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    UK Citizen, Implications of losing my UK Residency?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/65599/if-i-forget-to-invoice-a-customer-who-pays" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    If I forget to invoice a customer, who pays?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-android" title="Android Enthusiasts Stack Exchange"></div><a href="http://android.stackexchange.com/questions/143031/android-phone-charging-slowly-how-to-make-it-faster" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:139 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Android phone "charging slowly": How to make it faster
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/321044/is-it-conceivable-that-president-obama-might-use-the-word-queue" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it conceivable that President Obama might use the word "queue"?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/277793/why-would-i-tar-a-single-file" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why would I tar a single file?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="http://space.stackexchange.com/questions/14947/did-the-mars-rovers-actually-confirm-the-gravity-of-mars" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Did the mars rovers actually confirm the gravity of Mars?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/78255/how-many-minimum-days-will-he-take-to-complete-n-units-of-work" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How many minimum days will he take to complete N units of work?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/31332/youre-a-pretty-good-shot" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    You're a pretty good shot
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="http://dba.stackexchange.com/questions/136210/where-do-this-constant-scan-and-left-outer-join-come-from-in-a-trivial-select-qu" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Where do this Constant Scan and Left Outer Join come from in a trivial SELECT query plan?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/88119/on-the-oscar-night-or-on-oscar-night" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    "On the Oscar night" or "on Oscar night"?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/79152/do-different-monsters-cooperate-do-i-need-to-justify-it-when-they-do" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do different monsters cooperate? Do I need to justify it when they do?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/79136/what-are-turns-and-rounds-and-how-long-are-they-each" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are turns and rounds and how long are they each?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/125866/which-marvel-character-is-on-this-tie" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Which Marvel Character is on this tie?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="http://movies.stackexchange.com/questions/52101/frame-rates-of-early-movies" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Frame rates of early movies
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/277892/how-do-i-create-a-blank-pdf-from-the-command-line" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I create a blank PDF from the command line?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/67052/which-oyster-card-should-i-get-as-a-foreign-visitor-to-london" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Which Oyster card should I get as a foreign visitor to London?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mechanics" title="Motor Vehicle Maintenance &amp; Repair Stack Exchange"></div><a href="http://mechanics.stackexchange.com/questions/28503/how-can-i-keep-stray-cats-off-my-car" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:224 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I keep stray cats off my car?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/78210/regex-golf-verify-a-sudoku-solution" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Regex Golf: Verify a Sudoku Solution
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mechanics" title="Motor Vehicle Maintenance &amp; Repair Stack Exchange"></div><a href="http://mechanics.stackexchange.com/questions/28757/how-do-you-get-more-horsepower-out-of-a-1979-mazda-rx7" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:224 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do you get more horsepower out of a 1979 Mazda RX7?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="http://space.stackexchange.com/questions/14959/threefold-symmetry-in-non-landing-spacecraft" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Threefold-symmetry in non-landing spacecraft?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1754812/open-cover-why-is-the-following-open" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Open cover; why is the following open?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-skeptics" title="Skeptics Stack Exchange"></div><a href="http://skeptics.stackexchange.com/questions/32572/does-the-constitution-of-bhutan-state-that-60-of-bhutan-must-be-forested" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:212 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does the Constitution of Bhutan state that 60% of Bhutan must be forested?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-biology" title="Biology Stack Exchange"></div><a href="http://biology.stackexchange.com/questions/45502/is-it-possible-to-feel-pain-in-some-part-of-a-body-but-the-pain-feeling-is-in" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:375 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it possible to feel pain in some part of a body, but the pain "feeling" is introduced somewhere else?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+		
+<div style="display: none;" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://serverfault.com/tour">tour</a>
+                    <a href="http://serverfault.com/help">help</a>
+                    <a href="http://blog.serverfault.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a>mobile</a>
+                    <b><a href="http://serverfault.com/contact">contact us</a></b>
+                        <b><a href="http://meta.serverfault.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.4.22.3505
+            </div>
+        </div>
+    </div>
+    
+
+
+
+    
+        
+    
+    
+<img style="display: none;" src="to.gif"></body>
+</html>

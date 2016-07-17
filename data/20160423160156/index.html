@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml" class="Public LoggedOut Sidebar Responsive hasJs NoTouch HasDragDrop" dir="LTR" id="XenForo">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="">
+
+<title>Key-Based SSH Logins With PuTTY - Page 4 - Page 4</title>
+<meta name="keywords" content="linux,security">
+<meta name="description" content="This guide describes how to generate and use a private/public key pair to log in to a remote system with SSH using PuTTY. PuTTY is an SSH client that ...  - Page 4">
+<meta name="og:title" content="Key-Based SSH Logins With PuTTY - Page 4 - Page 4">
+<meta name="og:description" content="This guide describes how to generate and use a private/public key pair to log in to a remote system with SSH using PuTTY. PuTTY is an SSH client that ...  - Page 4">
+<meta name="og:site_name" content="Howtoforge">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.howtoforge.com/images/teaser/linux.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="howtoforgecom">
+<meta name="twitter:creator" content="howtoforgecom">
+<meta name="twitter:title" content="Key-Based SSH Logins With PuTTY - Page 4 - Page 4">
+<meta name="twitter:description" content="This guide describes how to generate and use a private/public key pair to log in to a remote system with SSH using PuTTY. PuTTY is an SSH client that ...  - Page 4">
+<link rel="alternate" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4" hreflang="en">
+<link rel="prev" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3">
+<link rel="canonical" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4">
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS-Feed für Howtoforge" href="https://www.howtoforge.com/feed.rss">
+
+
+
+
+
+
+ 
+
+
+ 
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><div class="cc_banner-wrapper "><div class="cc_banner cc_container cc_container--open"><a href="#null" data-cc-event="click:dismiss" class="cc_btn cc_btn_accept_all">Got it!</a><p class="cc_message">This website uses cookies to ensure you get the best experience on our website <a data-cc-if="options.link" class="cc_more_info" href="https://www.howtoforge.com/community/help/cookies">More info</a></p><a class="cc_logo" target="_blank" href="http://silktide.com/cookieconsent">Cookie Consent plugin for the EU cookie law</a></div></div>
+<div id="loginBar">
+<div class="pageWidth">
+<div class="pageContent">
+<h3 id="loginBarHandle">
+<label for="LoginControl"><a href="https://www.howtoforge.com/community/login/" class="concealed noOutline">Log in or Sign up</a></label>
+</h3>
+<span class="helper"></span>
+<form action="https://www.howtoforge.com/community/login/login?redirect=/ssh_key_based_logins_putty_p4" method="post" class="xenForm eAuth" id="login" style="display: none;">
+<ul id="eAuthUnit">
+<li><a href="https://www.howtoforge.com/community/register/facebook?reg=1" class="fbLogin" tabindex="110"><span>Log in with Facebook</span></a></li>
+<li><a href="https://www.howtoforge.com/community/register/twitter?reg=1" class="twitterLogin" tabindex="110"><span>Log in with Twitter</span></a></li>
+<li><span class="googleLogin GoogleLogin JsOnly" tabindex="110" data-client-id="198773272284-b6tfk0c28bje81p774prrcrkq9jb3o44.apps.googleusercontent.com" data-redirect-url="/community/register/google?code=__CODE__&amp;csrf=hVMXbW_3rnrmq4Em"><span>Log in with Google</span></span></li>
+</ul>
+<div class="ctrlWrapper">
+<dl class="ctrlUnit">
+<dt><label for="LoginControl">Your name or email address:</label></dt>
+<dd><input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);" name="login" id="LoginControl" class="textCtrl" tabindex="101" type="text"></dd>
+</dl>
+<dl class="ctrlUnit">
+<dt>
+<label for="ctrl_password">Do you already have an account?</label>
+</dt>
+<dd>
+<ul>
+<li><label for="ctrl_not_registered"><input name="register" value="1" id="ctrl_not_registered" tabindex="105" type="radio">
+No, create an account now.</label></li>
+<li><label for="ctrl_registered"><input name="register" value="0" id="ctrl_registered" tabindex="105" checked="checked" class="Disabler" type="radio">
+Yes, my password is:</label></li>
+<li id="ctrl_registered_Disabler">
+<input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);" name="password" class="textCtrl" id="ctrl_password" tabindex="102" type="password">
+<div class="lostPassword"><a href="https://www.howtoforge.com/community/lost-password/" tabindex="106">Forgot your password?</a></div>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="ctrlUnit submitUnit">
+<dt></dt>
+<dd>
+<input class="button primary" value="Log in" tabindex="104" data-loginphrase="Log in" data-signupphrase="Sign up" type="submit">
+<label for="ctrl_remember" class="rememberPassword"><input name="remember" value="1" id="ctrl_remember" tabindex="103" type="checkbox"> Stay logged in</label>
+</dd>
+</dl>
+</div>
+<input name="cookie_check" value="1" type="hidden">
+<input name="redirect" value="/community/" type="hidden">
+<input name="_xfToken" value="" type="hidden">
+</form></div>
+</div>
+</div>
+<header>
+<div id="header">
+<div id="logoBlock">
+<div class="pageWidth">
+<div class="pageContent">
+<div id="logo"><a href="https://www.howtoforge.com/">
+<span></span>
+<img src="howtoforge_logo_trans.gif" alt="Howtoforge" style="margin-left: 20px;" pagespeed_url_hash="639055748">
+</a></div>
+<span class="helper"></span>
+<div class="langSwitch">
+<b><img src="gb.png" alt="HowtoForge - Linux Tutorials in English" pagespeed_url_hash="3664605987"> English</b> | <a href="https://www.howtoforge.de/" title="HowtoForge.de - Linux Tutorials auf Deutsch"><img src="de.png" alt="HowtoForge.de - Linux Tutorials auf Deutsch" pagespeed_url_hash="478786493"> Deutsch</a>
+</div>
+</div>
+</div>
+</div>
+<div id="navigation" class="pageWidth withSearch">
+<div class="pageContent">
+<nav>
+<div class="navTabs">
+<ul class="publicTabs">
+ 
+<li class="navTab forums selected">
+<a href="https://www.howtoforge.com/" class="navLink">Tutorials</a>
+<div class="tabLinks forumsTabLinks">
+<ul class="secondaryContent blockLinksList">
+<li><a href="https://www.howtoforge.com/search/">Tutorial search</a></li>
+</ul>
+</div>
+</li>
+<li class="navTab forums PopupClosed">
+<a href="https://www.howtoforge.com/tutorials/" class="navLink">Tags</a>
+</li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/community/" class="navLink">Forums</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/contribute/" class="navLink">Contribute</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/subscription/" class="navLink">Subscribe</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.ispconfig.org/" class="navLink">ISPConfig</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.lxer.com/" class="navLink">News</a></li>
+</ul>
+</div>
+<span class="helper"></span>
+</nav>
+</div>
+</div>
+<div id="searchBar" class="pageWidth">
+<span id="QuickSearchPlaceholder" title=" Search..."> Search</span>
+<fieldset id="QuickSearch">
+<form action="https://www.howtoforge.com/" method="post" class="formPopup">
+<div class="primaryControls">
+ 
+<input name="q" value="" class="textCtrl" placeholder="Search..." results="0" title="Enter your search and hit enter..." id="QuickSearchQuery" type="search">
+ 
+</div>
+<input name="_xfToken" value="" type="hidden">
+</form>
+</fieldset>
+</div>
+</div>
+</header>
+<div id="content" class="forum_list">
+<div class="pageWidth">
+<div class="pageContent">
+ 
+<div class="mainContainer">
+<div class="mainContent">
+ 
+<div class="breadBoxTop">
+<nav>
+<fieldset style="" class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Key-Based SSH Logins With PuTTY - Page 4</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+ 
+<div id="htfContentPage">
+<h1>Key-Based SSH Logins With PuTTY - Page 4</h1>
+<div class="contributeEdit" style="float: right; width: 450px; max-width: 100%;">
+ 
+<div id="tocContainer">
+<h3>On this page</h3>
+<ol class="toc">
+<li><a href="#-disable-usernamepassword-logins">9 Disable Username/Password Logins</a></li>
+<li><a href="#-let-pageant-remember-your-key-passphrase">10 Let Pageant Remember Your Key Passphrase</a></li>
+<li><a href="#-links">11 Links</a></li>
+</ol>
+</div>
+</div>
+<h2 id="-disable-usernamepassword-logins">9 Disable Username/Password Logins</h2>
+<p>Up to now, you can log in with your private/public key pair and still with username/password logins, so if someone doesn't attach a private key to his PuTTY session, he will be asked for a username and password. So to achieve a better security, we must disable the username/password logins (you should do this only when you know that your key-based logins are working, because if they aren't and you disable username/password logins, then you have a problem...).</p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p>To disable the username/password logins, we must modify the sshd configuration file. On Debian/Ubuntu systems, it's <span class="system">/etc/ssh/sshd_config</span>. You should set <span class="system">Protocol</span> to <span class="system">2</span> (<span class="system">1</span> is insecure and should not be used!), <span class="system">PasswordAuthentication</span> to <span class="system">no</span>, and <span class="system">UsePAM</span> to <span class="system">no</span> (or comment out the <span class="system">UsePAM</span> line), e.g. like this:</p>
+<p class="command">vi /etc/ssh/sshd_config</p>
+<pre>[...]
+Protocol 2
+PasswordAuthentication no
+UsePAM no
+[...]</pre>
+<p>Then restart sshd. On Debian/Ubuntu, you can do it like this:</p>
+<p class="command">service&nbsp;ssh restart</p>
+<p>On Older versions, use the init script instead of the service command:</p>
+<p class="command">/etc/init.d ssh restart</p>
+<p>Now if you open a PuTTY session without your private key attached, you shouldn't be able to log in anymore.</p>
+<p>&nbsp;</p>
+<h2 id="-let-pageant-remember-your-key-passphrase">10 Let Pageant Remember Your Key Passphrase</h2>
+<p>Whenever you use your key-based login now, you stilll have to specify your key passphrase. This can be annoying if you connect to the SSH server multiple times a day. Fortunately, you can tell the passphrase to Pageant which will then provide the passphrase whenever you log in to your SSH server.</p>
+<p>You can start Pageant by double-clicking its executable file:</p>
+<p><a class="fancybox" id="img-22" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/22.png"><img src="22.png" pagespeed_url_hash="1496079559" width="111" height="143"></a></p>
+<p>Afterwards, you should see running Pageant in the taskbar:</p>
+<p><a class="fancybox" id="img-23" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/23.png"><img src="23.png" pagespeed_url_hash="1790579480" width="130" height="38"></a></p>
+<p>Now double-click the Pageant icon in the taskbar. The following window comes up. Click on <span class="system">Add Key</span>:</p>
+<p><a class="fancybox" id="img-24" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/24.png"><img src="24.png" pagespeed_url_hash="2085079401" width="500" height="349"></a></p>
+<p>Browse your filesystem and select your private key:</p>
+<p><a class="fancybox" id="img-25" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/25.png"><img src="25.png" pagespeed_url_hash="2379579322" width="550" height="398"></a></p>
+<p>Then enter the passphrase for the private key:</p>
+<p><a class="fancybox" id="img-26" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/26.png"><img src="26.png" pagespeed_url_hash="2674079243" width="500" height="349"></a></p>
+<p>The key is now listed in Pageant's key list. Click on <span class="system">Close</span>:</p>
+<p><a class="fancybox" id="img-27" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/27.png"><img src="27.png" pagespeed_url_hash="2968579164" width="500" height="349"></a></p>
+<p>As long as Pageant is running in the taskbar, you can log in to your SSH server without providing the passphrase - this is done by Pageant:</p>
+<p><a class="fancybox" id="img-28" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/28.png"><img src="28.png" pagespeed_url_hash="3263079085" width="550" height="341"></a></p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p>When you stop Pageant, it forgets all keys, so the next time you start Pageant you must add the keys again. This can also be annoying, but to prevent this, we can create a shortcut on the desktop to the Pageant executable. Right-click the Pageant executable and select <span class="system">Create Shortcut</span>:</p>
+<p><a class="fancybox" id="img-29" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/29.png"><img src="29.png" pagespeed_url_hash="3557579006" width="353" height="394"></a></p>
+<p>You should now find a shortcut. Right-click it and go to <span class="system">Properties</span>:</p>
+<p><a class="fancybox" id="img-30" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/30.png"><img src="30.png" pagespeed_url_hash="831863704" width="95" height="78"></a></p>
+<p>Under <span class="system">Target</span>, you will now find the path to <span class="system">pageant.exe</span>, e.g. <span class="system">"C:\Dokumente und Einstellungen\falko\Desktop\pageant.exe"</span> (if there are no spaces in your path, you don't need the quotation marks). You can now simply add the location of your private key to that line, for example if you private key is <span class="system">C:\putty\my_keys\private_key_192.168.0.100.ppk</span> then the line should look like this:</p>
+<p class="system">"C:\Dokumente und Einstellungen\falko\Desktop\pageant.exe" C:\putty\my_keys\private_key_192.168.0.100.ppk</p>
+<p>(if there are spaces in the path to your private key, you must wrap it in quotation marks again, e.g. like this:</p>
+<p class="system">"C:\Dokumente und Einstellungen\falko\Desktop\pageant.exe" "C:\directory with lots of spaces in name\my keys\private_key_192.168.0.100.ppk"</p>
+<p>)</p>
+<p>Then click on <span class="system">OK</span>:</p>
+<p><a class="fancybox" id="img-31" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/31.png"><img src="31.png" pagespeed_url_hash="1126363625" width="367" height="460"></a></p>
+<p>Now when you double-click on the Pageant shortcut, Pageant will automatically load your private key and ask you for the passphrase. Enter it, and that's it.</p>
+<p>&nbsp;</p>
+<h2 id="-links">11 Links</h2>
+<ul>
+<li>PuTTY: <a href="http://www.chiark.greenend.org.uk/%7Esgtatham/putty/download.html" target="_blank">http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</a></li>
+</ul>
+<nav>
+<div id="articlePrevNextContainer">
+<div id="articlePrevLink"><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3">&lt;&lt; Prev</a></div>
+<div id="articleNextLink"></div>
+</div>
+</nav>
+<div style="height: 30px; margin-top: 20px;">
+<p style="text-align: right;"><img src="pdficon_small.png" pagespeed_url_hash="1813355361"> <a href="https://www.howtoforge.com/subscription/">view as pdf</a> | <img src="print.gif" pagespeed_url_hash="3731829194"> <a href="https://www.howtoforge.com/subscription/">print</a></p>
+</div>
+<div style="height: 30px; margin-top: 20px;">
+<div style="float: left;"><b>Share this page:</b></div>
+<div style="float: left; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/ssh_key_based_logins_putty_p4" data-via="howtoforgecom">Tweet</a> <a class="twitter-follow-button" href="https://twitter.com/howtoforgecom">Follow</a></div>
+<div style="float: left; margin-left: 20px;"><fb:like href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like></div>
+<div style="float: left; margin-left: 50px;"><div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4"></div></div>
+</div>
+</div>
+ 
+ 
+<div id="htfContentPagePaging">
+<h2>Sub pages</h2>
+<nav>
+<ul>
+<li><a href="https://www.howtoforge.com/ssh_key_based_logins_putty">Key-Based SSH Logins With PuTTY - Page 4 - Page 1</a></li><li><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p2">Key-Based SSH Logins With PuTTY - Page 4 - Page 2</a></li><li><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3">Key-Based SSH Logins With PuTTY - Page 4 - Page 3</a></li><li><a href="#"><b>Key-Based SSH Logins With PuTTY - Page 4</b></a></li> </ul>
+</nav>
+</div>
+ 
+ 
+<div id="htfContentPageComment">
+<a name="comments"></a>
+<h2>20 Comment(s)</h2>
+ 
+<div id="commentform">
+<div class="commentContainerHead" style="font-size: 18px;">Add comment</div>
+<div class="commentContainer">
+<form method="post" action="https://www.howtoforge.com/ssh_key_based_logins_putty_p4/#comments">
+<input name="reply_to" id="reply-to-comment" value="0" type="hidden">
+<div id="commentFormDetail">
+<div style="width: 48%; float: left; margin-right: 3%;">
+<label for="commentname">Name *</label>
+<input id="commentname" name="commentname" value="">
+</div>
+<div style="width: 48%; float: left;">
+<label for="commentname">Email *</label>
+<input id="commentemail" name="commentemail" value="">
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="visibility: hidden; border-width: 1px;" id="mceu_5" class="mce-tinymce mce-container mce-panel" hidefocus="1" tabindex="-1" role="application"><div id="mceu_5-body" class="mce-container-body mce-stack-layout"><div id="mceu_6" class="mce-toolbar-grp mce-container mce-panel mce-first mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group"><div id="mceu_6-body" class="mce-container-body mce-stack-layout"><div id="mceu_7" class="mce-container mce-toolbar mce-first mce-last mce-stack-layout-item" role="toolbar"><div id="mceu_7-body" class="mce-container-body mce-flow-layout"><div role="group" id="mceu_8" class="mce-container mce-first mce-flow-layout-item mce-btn-group"><div id="mceu_8-body"><div aria-disabled="true" aria-label="Undo" role="button" id="mceu_0" class="mce-widget mce-btn mce-first mce-disabled" tabindex="-1" aria-labelledby="mceu_0"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-undo"></i></button></div><div aria-disabled="true" aria-label="Redo" role="button" id="mceu_1" class="mce-widget mce-btn mce-last mce-disabled" tabindex="-1" aria-labelledby="mceu_1"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-redo"></i></button></div></div></div><div role="group" id="mceu_9" class="mce-container mce-last mce-flow-layout-item mce-btn-group"><div id="mceu_9-body"><div aria-label="Bold" role="button" id="mceu_2" class="mce-widget mce-btn mce-first" tabindex="-1" aria-labelledby="mceu_2"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-bold"></i></button></div><div aria-label="Italic" role="button" id="mceu_3" class="mce-widget mce-btn" tabindex="-1" aria-labelledby="mceu_3"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-italic"></i></button></div><div aria-label="Insert/edit link" role="button" id="mceu_4" class="mce-widget mce-btn mce-last" tabindex="-1" aria-labelledby="mceu_4"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-link"></i></button></div></div></div></div></div></div></div><div style="border-width: 1px 0px 0px;" id="mceu_10" class="mce-edit-area mce-container mce-panel mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group"><iframe src="index_1.html" style="width: 100%; height: 100px; display: block;" title="Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help" allowtransparency="true" id="commentedit_ifr" frameborder="0"></iframe></div><div style="border-width: 1px 0px 0px;" id="mceu_11" class="mce-statusbar mce-container mce-panel mce-last mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group"><div id="mceu_11-body" class="mce-container-body mce-flow-layout"><div id="mceu_12" class="mce-path mce-first mce-flow-layout-item"><div role="button" class="mce-path-item mce-last" data-index="0" tabindex="-1" id="mceu_12-0" aria-level="0">p</div></div><div id="mceu_13" class="mce-last mce-flow-layout-item mce-resizehandle"><i class="mce-ico mce-i-resize"></i></div></div></div></div></div><textarea aria-hidden="true" id="commentedit" name="commentedit" style="width: auto; display: none;"></textarea>
+<div>
+<div style="float: left;">
+<div class="g-recaptcha" data-sitekey="6LdX9fUSAAAAALWwVoPdeXScMSketz4npF-0QcQ1"></div>
+
+</div>
+<div style="margin-top: 10px; margin-bottom: 10px;">
+<input name="submit" class="button primary" style="float: right;" value="Submit comment" type="submit">
+</div>
+<div style="clear: both;"></div>
+</div>
+ 
+
+</form>
+</div>
+</div>
+ 
+<h3>Comments</h3>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> </div>
+<div class="floatRight"><a href="#" data-comment="1374" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1374" class="commentContainer commentLevel0">
+<p>I've always wanted to do this, but have never known how. This tutorial told me exactly what I needed to know. Thanks!&nbsp;<img src="smiley-laughing.gif" mce_real_src="/modules/tinymce/tinymce/jscripts/tiny_mce/plugins/emotions/images/smiley-laughing.gif" pagespeed_url_hash="483060107"> </p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> </div>
+<div class="floatRight"><a href="#" data-comment="1375" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1375" class="commentContainer commentLevel0">
+<p>There is a version of PuTTY called <a href="http://socialistsushi.com/portaputty" target="_blank">PortaPuTTY</a> that can be installed to USB drives, without any Registry modifications.</p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Damian </div>
+<div class="floatRight"><a href="#" data-comment="1376" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1376" class="commentContainer commentLevel0">
+<p>Just been pulling my hair out trying to get Windows to talk nicely to Ubuntu and this nailed it. Cheers Damian</p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Anonymous </div>
+<div class="floatRight"><a href="#" data-comment="1377" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1377" class="commentContainer commentLevel0">
+<p></p><p>Thanks for this.</p>
+<p>&nbsp;This is a great site with lots of useful stuff explained in a clear and concise manner.<br></p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Mikeomillian </div>
+<div class="floatRight"><a href="#" data-comment="1378" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1378" class="commentContainer commentLevel0">
+<p>I was actually trying to admin my VPS without command line, because I had tried putty once and it didn't work. This got it working in about 10 minutes, thank you!<br></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Neil </div>
+<div class="floatRight"><a href="#" data-comment="1379" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1379" class="commentContainer commentLevel0">
+<p></p><p>Thank you so much. Easy, step by step, and it just works.</p>
+<p>&nbsp;Wonderful.</p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Thiago Cruz </div>
+<div class="floatRight"><a href="#" data-comment="1380" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1380" class="commentContainer commentLevel0">
+<p>Excelent step-by-step. I used it with <b>plink</b>. Thanks<br></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> TeHZomB </div>
+<div class="floatRight"><a href="#" data-comment="1381" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1381" class="commentContainer commentLevel0">
+<p>Thanks, this guide is great and really easy to follow! Even five years later, works like a charm.<br></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Mike G. </div>
+<div class="floatRight"><a href="#" data-comment="1382" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1382" class="commentContainer commentLevel0">
+<p></p><p>Excellent tutorial -- it was very clear and well written.</p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Angel S. Moreno </div>
+<div class="floatRight"><a href="#" data-comment="1383" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1383" class="commentContainer commentLevel0">
+<p>I've been using putty for a while but never made use of the tools or settings described. Super helpful.</p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> metazone </div>
+<div class="floatRight"><a href="#" data-comment="1384" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1384" class="commentContainer commentLevel0">
+<p>This should be a model for tutorials -- succinctly states why we need to do something and then provides a very nice explanation -- </p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Michael </div>
+<div class="floatRight"><a href="#" data-comment="1385" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1385" class="commentContainer commentLevel0">
+<p></p><p>Very clear and simple, thanks.</p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> uptoome </div>
+<div class="floatRight"><a href="#" data-comment="1386" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1386" class="commentContainer commentLevel0">
+<p>This worked right out of the box. Thank you.<br></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> KB </div>
+<div class="floatRight"><a href="#" data-comment="1387" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1387" class="commentContainer commentLevel0">
+<p></p><p>Very well done and easy to follow directions. <br><br>I had problems with the keys generated by putty for some unknown reason, possibly due to not adding the username, though I'm not sure. <br><br>Instead, I generated them on the server using <i>ssh-keygen -t rsa </i>then copied the .pub key over to <i>authorized_keys2</i>&nbsp;and downloaded the private key to my local machine (being sure to remove the private key from the server for security purposes afterward). I then was able to import the private key into PuttyGen and save it out as a .ppk file and work with the rest of your instructions.<br></p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Anonymous </div>
+<div class="floatRight"><a href="#" data-comment="1388" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1388" class="commentContainer commentLevel0">
+<p>Thanks for this great tutorial!&nbsp;</p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> DreadfullyDespized </div>
+<div class="floatRight"><a href="#" data-comment="1389" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1389" class="commentContainer commentLevel0">
+<p>This is a great article, thanks for this.&nbsp; It worked great on my WD My Book Live 2TB.<br></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Anonymous </div>
+<div class="floatRight"><a href="#" data-comment="1390" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1390" class="commentContainer commentLevel0">
+<p>Drove me nuts - Listening on the wrong port in sshd_config, changed it because work think it is a safer to use the known port...</p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> Fredy10 </div>
+<div class="floatRight"><a href="#" data-comment="1391" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1391" class="commentContainer commentLevel0">
+<p></p><p>Very good how to! its very easy and clear!</p><p>Thanks!</p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> krumov </div>
+<div class="floatRight"><a href="#" data-comment="1392" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1392" class="commentContainer commentLevel0">
+<p></p><p>This is really Good HowTo which is clear enough for everyone , even the newest people who are touching the mouse and the keyboard for the first time ever.</p><p>Great ! <br></p><p></p>
+</div>
+<div class="commentContainerHead commentLevel0">
+<div class="floatLeft"><b>From:</b> David Coll </div>
+<div class="floatRight"><a href="#" data-comment="1393" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment1393" class="commentContainer commentLevel0">
+<p></p><p>Doing this will result in most frequent Server resused your key.</p><p>&nbsp;You must create your private key on linux using "ssh-keygen", then import the private key in putty, save it on window for putty-use. </p><p>On server you do "cat id_rsa.pub &gt;&gt; authorized_keys2&nbsp; "</p><p>&nbsp;..and voila.<br></p><p></p>
+</div>
+</div>
+ 
+<div class="breadBoxBottom">
+<nav>
+<fieldset style="" class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Key-Based SSH Logins With PuTTY - Page 4</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+ 
+<center>
+ 
+ 
+
+ 
+</center>
+ </div>
+ 
+ 
+
+ 
+</div>
+</div>
+ 
+<aside>
+<div class="sidebar">
+<div class="section loginButton">
+<div class="secondaryContent">
+<label for="LoginControl" id="SignupButton"><a href="https://www.howtoforge.com/community/login/" class="inner">Sign up now!</a></label>
+</div>
+</div>
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-2">
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent socialMediaIcon">
+<a href="https://twitter.com/howtoforgecom" target="_blank"><img src="twitter.png" pagespeed_url_hash="1158659234"></a>
+<a href="https://www.facebook.com/howtoforge" target="_blank"><img src="facebook.png" pagespeed_url_hash="1073237413"></a>
+<a href="https://plus.google.com/+howtoforge/posts" target="_blank"><img src="googleplus.png" pagespeed_url_hash="2111806198"></a>
+<a href="https://www.howtoforge.com/feed" target="_blank"><img src="rss.png" pagespeed_url_hash="2255810733"></a>
+</div>
+</div>
+</div>
+<div class="section widget-group-no-name widget-container">
+<div class="secondaryContent widget WidgetFramework_WidgetRenderer_Stats" id="widget-3">
+<h3>Tutorial Info</h3>
+<div class="pairsJustified">
+<dl class="discussionCount">
+<dt>Author:</dt>
+<dd>falko</dd>
+</dl>
+<dl class="discussionCount">
+<dt>Tags:</dt>
+<dd><a href="https://www.howtoforge.com/tutorials/linux/" rel="tag">linux</a>, <a href="https://www.howtoforge.com/tutorials/security/" rel="tag">security</a></dd>
+</dl>
+</div>
+</div>
+</div>
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent">
+<h3>Share This Page</h3>
+<div class="tweet shareControl">
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/ssh_key_based_logins_putty_p4" data-via="howtoforgecom">Tweet</a>
+</div>
+<div class="facebookLike shareControl">
+<fb:like href="http://www.howtoforge.com/ssh_key_based_logins_putty_p4" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like>
+</div>
+<div class="plusone shareControl">
+<div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4"></div>
+</div>
+</div>
+</div>
+</div>
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<footer>
+<div class="footer">
+<div class="pageWidth">
+<div class="pageContent">
+<div class="skin_branding"><a href="http://www.xenfocus.com/" rel="nofollow">Xenforo skin</a><span> by <a href="http://www.xenfocus.com/" rel="nofollow">Xenfocus</a></span></div>
+<ul class="footerLinks">
+<li><a href="https://www.howtoforge.com/community/misc/contact">Contact</a></li>
+<li><a href="https://www.howtoforge.com/community/help/">Help</a></li>
+<li><a href="https://www.howtoforge.com/imprint/">Imprint</a></li>
+<li><a href="https://www.howtoforge.com/" class="homeLink">Tutorials</a></li>
+<li><a href="#navigation" class="topLink">Top</a></li>
+<li><a href="https://www.howtoforge.com/feed" rel="alternate" class="globalFeed" target="_blank" title="RSS-Feed for Howtoforge">RSS-Feed</a></li>
+</ul>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+<div class="footerLegal">
+<div class="pageWidth">
+<div class="pageContent">
+<ul id="legal">
+<li><a href="https://www.howtoforge.com/community/help/terms">Terms</a></li>
+</ul>
+<div id="copyright"><a href="https://www.howtoforge.com/" class="concealed">Howtoforge <span>© projektfarm GmbH.</span></a></div>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+</footer>
+<div style="height: 100px;"></div>
+
+
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body>
+</html>

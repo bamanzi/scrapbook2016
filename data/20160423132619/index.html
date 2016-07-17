@@ -1,0 +1,792 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" class="dj_gecko dj_contentbox">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SSH 安全性和配置入门</title>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM Corporation&nbsp;2011">
+<meta name="Keywords" content="UNIX, SSH, security, configuration, Roger Hill, 安全性, 配置, dddauca">
+<meta name="DC.Date" scheme="iso8601" content="2011-05-03">
+<meta name="Source" content="v17 delivery:developerWorks">
+<meta name="Security" content="Public">
+<meta name="Abstract" content="您是否是需要能够以尽可能最安全的方式通过网络进行通信的一个新 UNIX 管理员？重温基础知识、学习 SSH 的复杂细节，并深入研究 SSH 的高级功能，以安全地自动化您的日常系统维护、远程系统管理，并使用高级脚本管理多个主机。">
+<meta name="Description" content="您是否是需要能够以尽可能最安全的方式通过网络进行通信的一个新 UNIX 管理员？重温基础知识、学习 SSH 的复杂细节，并深入研究 SSH 的高级功能，以安全地自动化您的日常系统维护、远程系统管理，并使用高级脚本管理多个主机。">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2011-05-03">
+<meta name="Owner" content="developerWorks/China/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.Country" content="CN">
+<meta name="Robots" content="index,follow">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWG10">
+<meta name="dW.ContentArea" content="34">
+<meta name="dW.Topic" content="444,32,347,361,352">
+
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCAIXCN">
+
+<link rel="canonical" href="http://www.ibm.com/developerworks/cn/aix/library/au-sshsecurity/index.html">
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+
+
+<!-- Masthead/footer -->
+
+
+
+
+        
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+
+<!--END -->
+
+   
+
+  <!-- LEADSPACE_STYLES -->
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body aria-busy="false" class="dijit_a11y v17" id="ibm-com">
+<div style="opacity: 1; top: 0px;" id="dw-regbar" class="dw-home-band" aria-labelledby="dw-regbar-vp" role="complementary">
+    <div class="ibm-columns">
+        <div class="ibm-col-6-6">
+            <span id="dw-regbar-bluemix">IBM <strong>Bluemix</strong></span>
+            <span id="dw-regbar-vp">点击按钮，开始云上的开发！</span>
+            <p class="ibm-button-link-alternate dw-button-green">
+                <a id="article-rbar-bmix-home-regbar" class="dw-button-large dw-regbar-btn" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-au-sshsecurity-_-regbar-article">开始您的试用</a>
+            </p>
+        </div>
+    </div>
+    <span>
+        <a role="button">
+            <span id="dw-close-regbar" aria-label="Close the registration bar" title="Close the registration bar" role="button">
+        </span></a>
+    </span>
+</div>
+	<div style="margin-top: 42px;" id="ibm-top" class="ibm-landing-page ibm-no-scroll"><img src="ibm_logo_print.png" id="ibm-print-masthead" alt="IBM Print" width="43" height="15">
+
+<!-- MASTHEAD_BEGIN -->		
+<div role="banner" id="ibm-masthead"><img src="_hcontrast_head.png" id="ibm-hcontrast-head" width="100%" height="100%">
+
+    <!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar" aria-label="Masthead navigation">
+			<li id="dw-mast-top-4" role="presentation">
+				<a href="http://www.ibm.com/developerworks/cn/" tabindex="0"><img src="dwn-dw-badge.png" alt="dW" aria-label="dW" width="43" height="22"></a>
+			</li>
+			<li id="dw-mast-top-0" role="presentation">
+				<div id="dw-mast-signin">
+					<a id="dw-mf-signin-link" class="" href="http://www.ibm.com/developerworks/dwwi/jsp/ssologin.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="2">登录</a>
+					<span class="dw-mf-signin-spacer">|</span>
+					<a id="dw-mf-reg-link" class="" href="http://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="3">注册</a>
+				</div>
+				<div id="dw-mast-auth-link" class="dw-mf-hide">
+					<a class="authenticated ibm-active" href="#" role="button" tabindex="2"></a>
+					<ul id="dw-mast-auth-menu" class="dw-mf-hide">
+						<li class="dw-mast-auth-menu-title" aria-hidden="true">developerWorks 社区</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=zh" tabindex="3">我的概要信息</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=zh" tabindex="4">我的社区</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/news/?lang=zh" tabindex="5">设置</a>
+						</li>
+						<li class="dw-mast-auth-menu-divider"><hr></li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a id="dw-mast-signout-link" href="http://www.ibm.com/developerworks/dwwi/jsp/ssologout.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2F&amp;a=dwmav" tabindex="6">退出</a>
+						</li>
+					</ul>				
+				</div>
+			</li>
+			<li id="dw-mast-top-1">
+				<div></div>
+			</li>
+			<li id="dw-mast-top-3" role="presentation">
+				<a href="http://www.ibm.com/cn/zh/" tabindex="1">IBM</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerworks/cn/"><img src="dwn-dw-wordmark.png" alt="developerWorks®" width="225" height="28"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" class="ibm-menu-links-dw-cn" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/cn/topics/" tabindex="0">技术主题</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/cn/downloads/" tabindex="0">软件下载</a></li>
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/?lang=zh" tabindex="0">社区</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&amp;lang=zh" tabindex="0">技术讲座</a></li>
+		</ul>
+		<form id="ibm-search-form" action="http://www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="搜索 developerWorks" role="search">
+			<p>
+				<label for="q"><span class="ibm-access">搜索 developerWorks</span></label>
+				<input id="q" name="q" value="搜索 developerWorks" maxlength="100" type="text">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="zh" type="hidden">
+				<input name="cc" value="CN" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="cndw" type="hidden">
+				<input name="lo" value="zh" type="hidden">
+				<input id="ibm-search" class="ibm-btn-search" value="提交" type="submit">
+			</p>
+		</form>
+	</div>    
+	
+<div aria-label="社交工具" role="navigation" style="display: block;" id="ibm-social-tools"><ul aria-label="Social tool list" role="toolbar"><li><a tabindex="0" role="button" dojoattrid="1" rel="print" href="#" title="打印本页面" class="ibm-share-print"><img alt="打印本页面" src="sprites-pt-all.png" class="ibm-access"></a></li><li><a tabindex="-1" role="button" dojoattrid="2" rel="email" href="#" title="用电子邮件发送本页面" class="ibm-share-email"><img alt="用电子邮件发送本页面" src="sprites-pt-all.png" class="ibm-access"></a></li><li></li><li></li><li><a class="ibm-share-weibo" tabindex="-1" role="button" dojoattrid="2" rel="新浪微博" title="新浪微博" href="http://service.weibo.com/share/share.php?title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;language=zh_cn">新浪微博</a></li><li><a class="ibm-share-renren" tabindex="-1" role="button" dojoattrid="3" rel="人人网" title="人人网" href="http://share.renren.com/share/buttonshare?title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8&amp;link=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F">人人网</a></li><li><a class="dwcn-tencent-link" tabindex="-1" role="button" dojoattrid="4" rel="腾讯微博" title="腾讯微博" href="http://v.t.qq.com/share/share.php?title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F">腾讯微博</a></li><li><a class="dwcn-sohu-link" tabindex="-1" role="button" dojoattrid="5" rel="搜狐微博" title="搜狐微博" href="http://t.sohu.com/third/post.jsp?title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8%20&amp;link=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F">搜狐微博</a></li><li><a class="dwcn-netease-link" tabindex="-1" role="button" dojoattrid="6" rel="网易微博" title="网易微博" href="http://t.163.com/article/user/checkLogin.do?info=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8%20http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F">网易微博</a></li><li><a class="ibm-share-digg" title="Digg" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8" rel="digg" dojoattrid="7" role="button" tabindex="-1">Digg</a></li><li><a class="ibm-share-facebook" title="Facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;t=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8" rel="facebook" dojoattrid="8" role="button" tabindex="-1">Facebook</a></li><li><a class="ibm-share-twitter" title="Twitter" href="http://twitter.com/?status=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F%20-%20SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8" rel="twitter" dojoattrid="9" role="button" tabindex="-1">Twitter</a></li><li><a class="ibm-share-delicious" title="Delicious" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8" rel="delicious" dojoattrid="10" role="button" tabindex="-1">Delicious</a></li><li><a class="ibm-share-linkedin" title="Linked In" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F&amp;title=SSH%20%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%85%8D%E7%BD%AE%E5%85%A5%E9%97%A8" rel="linkedin" dojoattrid="11" role="button" tabindex="-1">Linked In</a></li></ul></div></div>
+<div id="fdiv" class="ibm-access"></div><!-- MASTHEAD_END -->
+	    
+<!-- LAYOUT -->
+<!-- LEADSPACE_BEGIN --> 
+<div role="main" id="ibm-access-cntr"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+      <ul aria-label="Bread Crumbs" role="directory" id="ibm-navigation-trail"><li><a href="http://www.ibm.com/developerworks/cn/">developerWorks 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></li><li><a href="http://www.ibm.com/developerworks/cn/aix/">AIX and UNIX</a></li><li><a href="http://www.ibm.com/developerworks/cn/views/aix/libraryview.jsp">文档库</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>SSH 安全性和配置入门</h1><p><em><span>动手实践指南</span></em></p>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>您是否是需要能够以尽可能最安全的方式通过网络进行通信的一个新 UNIX® 管理员？重温基础知识、学习 SSH 的复杂细节，并深入研究 SSH 的高级功能，以安全地自动化您的日常系统维护、远程系统管理，并使用高级脚本管理多个主机。</p>
+		<p class="ibm-no-print ibm-ind-link">
+
+			
+			<span id="nCmts"><span>2</span><img class="dw-cmts-arrow" alt="" src="dw-cmts-arrow.png" width="7" height="7"> <a href="#icomments" class="dw-cmt-link">评论</a></span>
+		</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a role="button" href="#authorN10063" class="ibm-popup-link">Roger Hill</a>, 独立作家</p>
+<div id="authorN10063" class="ibm-common-overlay"><div class="ibm-head"><p><a href="#close" class="ibm-common-overlay-close">关闭 [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+Roger Hill 在过去 23 年中一直担任大型复杂混合环境中的一名 UNIX®/Linux® 系统工程师和程序员/开发员。在过去 7 年中他主要专注于各种 UNIX、Linux 和 Windows® 平台之间的互通和为这些系统建立无缝、安全的自动化功能。Roger 拥有计算机信息系统副学士学位、计算机科学学士学位、Linux 管理校长证书，且有 9 个专业技术认证。</p><br><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">2011 年 5 月 03 日</p>
+			
+
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="c.gif" alt="expand"></a><span class="ibm-twisty-head">内容</span><div style="display: none;" class="ibm-twisty-body"><ul style="font-size: 0.8em;" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="#what_is_ssh">什么是 SSH？基本描述</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#SSH_architecture">SSH 架构</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#SSH_for_UNIX">针对 UNIX 和 Linux 系统的 SSH 的一般用途</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#best_practices">SSH 安全性和配置最佳实践</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#key_pairs">SSH 的私钥和公钥对</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#ssh_configuration">使用 UNIX 应用程序或脚本配置 SSH</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#trusted_host">使用 SSH 创建一个可信的主机环境</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#N1039F">结束语</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#download">下载</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#resources">参考资料 </a></li>
+<li><a class="ibm-anchor-down-em-link" href="#icomments">评论</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1"><div class="dw-article-sidebar dw-bluemix" id="dwc-exp-a"><img src="bluemix-graphic.png" alt="" width="64" height="64"><p>在 IBM Bluemix 云平台上开发并部署您的下一个应用。</p><p class="ibm-button-link-alternate dw-button-green"><a id="tutc-sbar-bmix-home-btn-ABa" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-au-sshsecurity-_-sidebar" class="dw-button-large">开始您的试用</a></p></div>
+
+<h2 id="what_is_ssh">什么是 SSH？基本描述</h2><p>Secure Shell (SSH) 的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和 Secure Copy (SCP)、Secure File Transfer Protocol (SFTP)、X 会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。有各种类型的加密可用，从 512 位加密到高达 32768 位加密，包括密码，比如 Blowfish、Triple DES、CAST-128、Advanced Encryption Scheme (AES) 和 ARCFOUR。更高位的加密配置以使用更高的网络带宽为代价。<a href="#fig1">图 1</a> 和 <a href="#fig2">图 2</a> 展示如何使用一个像 Wireshark 这样的网络嗅探程序轻松让任何人随意查看 telnet 会话。
+		</p><h5 id="fig1">图 1. Telnet 协议会话未加密。
+				</h5><img alt="展示 telnet 协议会话未加密的图解" src="SSH_Protocol2.gif" width="437"><div class="dw-sidebar ibm-inset"><h2 id="fua">常用缩略词</h2><ul class="ibm-bullet-list"><li><strong>API</strong>：应用程序编程接口</li><li><strong>FTP</strong>：文件传输协议</li><li><strong>IETF</strong>：互联网工程任务组</li><li><strong>POSIX</strong>：UNIX 可移植操作系统接口</li><li><strong>RFC</strong>：请求注解</li><li><strong>VPN</strong>：虚拟专用网络</li></ul></div><p>在使用 telnet 这样的不安全 “明文” 协议时，网络上的任何人都可以窃取您的密码和其他敏感信息。<a href="#fig1">图 1</a> 展示用户 <em>fsmythe</em> 通过一个 telnet 连接登录到一个远程主机。他输入其用户名 <em>fsmythe</em> 和密码 <em>r@m$20!0</em>，同一网络上的任何其他用户都可以看到，将其看作是倒霉、没有戒心的 telnet 用户。
+		</p><h5 id="fig2">图 2. SSH 协议会话加密。
+				</h5><img alt="展示 SSH 协议会话加密的图解" src="SSH_Protocol1.gif" width="432"><p><a href="#fig2">图 2</a> 提供了对典型 SSH 会话的概览，并展示了加密的协议如何不被同一网段的任何其他用户看到。现在每个主流 Linux® 和 UNIX® 版本都附带有默认安装的 SSH 包 — 通常是开源 OpenSSH 包—，因此有点需要下载和从源码进行编译。如果您不在一个 Linux 或 UNIX 平台上，有大量开源和基于 SSH 的免费软件工具可用，它们大受追捧并广为应用，比如 <a href="#download">WinSCP</a>、<a href="#download">Putty</a>、<a href="#download">FileZilla</a>、<a href="#download">TTSSH</a> 和 <a href="#download">Cygwin</a>（安装在 Windows® 操作系统之上的 POSIX 软件）。这些工具在 Windows 平台上提供一个 UNIX 或 Linux 式的 shell 接口。
+		</p><p>不管您的操作系统是什么，SSH 都为老生常谈的日常计算操作提供许多实际效益。它不仅可靠、安全和灵活，而且易于安装、使用和配置 — 而且独具特色。
+		</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="SSH_architecture">SSH 架构</h2><p>IETF RFC 4251 到 4256 将 SSH 定义为 “经由一个不安全网络进行远程登录和其他安全网络服务的安全 shell 协议”。shell 由三个主要元素组成（参见 <a href="#fig3">图 3</a>）：
+		</p><ul class="ibm-bullet-list"><li><strong>传输层协议</strong>：该协议提供服务器身份验证、隐私和具有完美转发隐私的完整性。该层可以提供可选压缩且通过一个 TCP/IP 连接运行，但是也可用于任何其他可靠的数据流之上。
+				</li><li><strong>用户认证协议</strong>：该协议从服务器到客户端进行身份验证，且通过传输层运行。
+				</li><li><strong>连接协议</strong>：该协议多路传输加密隧道到多个逻辑通道，通过用户认证协议运行。
+				</li></ul><h5 id="fig3">图 3. SSH 协议逻辑层</h5><img alt="SSH 协议逻辑层" src="SSH_Protocol_Logical_Layers.gif" width="265"><p>传输层负责密钥交换和服务器身份验证。它设置加密、完整性验证和（可选）压缩并向上层公开一个用于发送和接收纯文本数据包的 API。用户认证层提供客户端身份验证以及多种验证方法。常见的身份验证方法包括密码、公钥、键盘交互、GSSAPI、SecureID 和 PAM。
+		</p><p>连接层定义通道、全局请求和借以提供 SSH 服务的通道请求。单个 SSH 连接可以并行承载多个通道，每个都可双方向传输数据。通道请求转送信息，比如服务器端流程的退出代码。SSH 客户端发起一个转发服务器端端口的请求。
+		</p><p>这种开发式架构设计提供广泛的灵活性。传输层可媲美传输层安全（Transport Layer Security，TLS），而且您可以运用定制的身份验证方法来扩展用户认证层。通过连接层，您可以多道传输二级会话到单个 SSH 连接（参见	<a href="#fig4">图 4</a>）。
+		</p><h5 id="fig4">图 4. 7 层 OSI 模型内的 SSH
+				</h5><img alt="7 层 OSI 模型内的 SSH" src="SSH_Within_7layer_OSI.gif" width="359"><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="SSH_for_UNIX">针对 UNIX 和 Linux 系统的 SSH 的一般用途</h2><p>您通常使用 SSH 来允许用户登录到一个远程主机并执行命令。然而，SSH 还支持隧道和 X11 连接。它甚至可以使用 SFTP 或 SCP 传输文件。SSH 适用于大部分常见平台内的多个应用程序，这些平台包括 Linux、UNIX、Windows 和 Apple® OS X，虽然有些应用程序可能需要仅在特定 SSH 客户端或服务器上提供或与之兼容的功能。
+		</p><p>下面是一些常见的 SSH 语法例子：</p><ul class="ibm-bullet-list"><li>远程主机 shell 访问（取代 telnet 和 rlogin 明文，不安全协议）：
+
+
+<div class="codesection"><pre class="displaycode"># ssh fsmythe@example.com
+[fsmythe@example.com] ~</pre></div></li><li>在远程主机（代替 rsh）执行单一命令：
+
+
+<div class="codesection"><pre class="displaycode"># ssh root@example.com reboot 
+root@example.com's password: ******</pre></div></li><li>通过 <code>SCP</code> 命令将文件从本地服务器复制到远程主机。
+
+
+<div class="codesection"><pre class="displaycode">root@edb-01.example.com's password: ******
+file1.txt      100%    0     0.0KB/s   00:00
+file2.txt      100%    0     0.0KB/s   00:00</pre></div></li><li>结合 SFTP，作为 FTP 文件传输的一个安全替代品：
+
+
+<div class="codesection"><pre class="displaycode">sftp fsmythe@example.com 
+Connecting to example.com...
+fsmythe@example.com's password: *******
+sftp&gt;</pre></div></li><li>结合 rsync 有效安全地备份、复制和镜像文件到一个本地或远程主机：
+
+
+<div class="codesection"><pre class="displaycode"># rsync -avul --rsh=ssh /opt/edbdata/ root@example.com:/root/backup/
+root@example.com's password: ******
+building file list ... done
+./
+file1.txt
+file2.txt
+file3.txt
+file4.txt
+dir1/file5.txt
+dir2/file6.txt
+
+sent 982813 bytes  received 2116 bytes  1374860.38 bytes/sec
+total size is 982138  speedup is 1.00</pre></div></li><li>端口转发或端口隧道化（不要与 VPN 混淆）：
+
+
+<div class="codesection"><pre class="displaycode">ssh -L 8000:mailserver:110 example.com    fsmythe@example.com's password: ********</pre></div></li><li>从一个远程主机转发 X 会话（可能通过多个中间主机）：
+
+
+<div class="codesection"><pre class="displaycode">Edit /etc/ssh/sshd_config and change 2 keywords : 
+AllowTcpForwarding yes
+X11Forwarding yes
+# service sshd restart 
+$ export DISPLAY 
+$ ssh -X fsmythe@example.com</pre></div></li><li>X11 转发配置与带 SSH X11 隧道的一个 X Windows 客户端的结合，支持实现通过 SSH 安全地在同一 Windows 主机上运行的一个 UNIX 或 Linux GUI 子系统，该 Windows 主机是到 Linux 或 UNIX 远程主机的 SSH 会话的来源：
+
+<div class="codesection"><pre class="displaycode">ssh -ND 8000 fsmythe@example.com
+Browser Settings, goto 'Manual Proxy Configuration' set "SOCKS Host" to example.com,
+the 'Port to 8000' , Enable SOCKS v5, and lastly set 'No Proxy for' field
+to 'localhost, 127.0.0.1'</pre></div></li><li>使用 <code>sshfs</code> 将一个目录作为本地计算机上的文件系统安全地挂载到一个远程服务器：
+
+
+<div class="codesection"><pre class="displaycode"># yum install sshfs fuse-utils (Install sshfs and fuse-utils)
+$sshfs example.com:/remote_dir /mnt/local_dir</pre></div></li><li>通过一个或多个机制对服务器进行自动化的远程主机监控和管理：
+
+
+<div class="codesection"><pre class="displaycode">(Report number of apache processes running on the remote server example.com):
+$ ssh example.com ps -ef | grep httpd | wc -l
+root@example.com's password: *****</pre></div></li></ul><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="best_practices">SSH 安全性和配置最佳实践</h2><p>对于一些之前列举的代码示例，许多系统管理员担心 SSH 使用情况和功能的一些安全性实现。尽管已经口头和书面说明了常见的各种 SSH 安全性和远程主机安全性方法，下面有一系列流程和配置可用于加强有关远程主机访问的 SSH 安全性：
+		</p><ul class="ibm-bullet-list"><li>将 root 账户仅限制为控制台访问：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+PermitRootLogin no</pre></div></li><li>为私有密钥使用一个强大的口令和密码保护来创建公私密钥对（绝不要生成一个无密码的密钥对或一个无密码口令无密钥的登录）：
+
+
+<div class="codesection"><pre class="displaycode">(Use a higher bit rate for the encryption for more security)
+ssh-keygen -t rsa -b 4096</pre></div></li><li>配置 TCP 包装程序，以便仅允许选定的远程主机并拒绝不合意的主机：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/hosts.deny
+ALL: 192.168.200.09		# IP Address of badguy</pre></div></li><li>在工作站或笔记本电脑上，关闭 SSH 服务禁用 SSH 服务器，然后删除 ssh 服务器包： 
+
+
+<div class="codesection"><pre class="displaycode"># chkconfig sshd off 
+# yum erase openssh-server</pre></div></li><li>通过控制用户访问限制 SSH 访问：
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config 
+AllowUsers fsmythe bnice swilson
+DenyUsers jhacker joebadguy jripper</pre></div></li><li>仅使用 SSH Protocol 2：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+Protocol 2</pre></div></li><li>不要支持闲置会话，并配置 Idle Log Out Timeout 间隔：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+ClientAliveInterval 600		# (Set to 600 seconds = 10 minutes)
+ClientAliveCountMax 0</pre></div></li><li>禁用基于主机的身份验证：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+HostbasedAuthentication no</pre></div></li><li>禁用用户的 .rhosts 文件：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+IgnoreRhosts yes</pre></div></li><li>配置防火墙以接受仅来自已知网段的 SSH 连接：
+
+
+<div class="codesection"><pre class="displaycode">Update /etc/sysconfig/iptables (Redhat specific file) to accept connection only 
+from 192.168.100.0/24 and 209.64.100.5/27, enter:
+
+-A RH-FW-1-INPUT -s 192.168.100.0/24 -m state --state NEW -p tcp --dport 22 -j ACCEPT
+-A RH-FW-1-INPUT -s 209.64.100.5/27 -m state --state NEW -p tcp --dport 22 -j ACCEPT</pre></div></li><li>限制 SSH 将侦听和绑定到的可用接口：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+ListenAddress 192.168.100.17
+ListenAddress 209.64.100.15</pre></div></li><li>设置用户策略，实施强大的密码来防御强力攻击、社会工程企图（social engineering attempts）和字典攻击：
+
+
+<div class="codesection"><pre class="displaycode"># &lt; /dev/urandom tr -dc A-Za-z0-9_ | head -c8
+oP0FNAUt[</pre></div></li><li>使用 <code>Chroot SSHD</code> 将 SFTP 用户局限于其自己的主目录：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config 
+ChrootDirectory /data01/home/%u
+X11Forwarding no
+AllowTcpForwarding no</pre></div></li><li>禁用空密码：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+PermitEmptyPasswords no</pre></div></li><li>在指定时间内对传入端口 2022 连接的数量限速：
+
+
+<div class="codesection"><pre class="displaycode">Redhat iptables example (Update /etc/sysconfig/iptables): 
+
+-A INPUT  -i eth0 -p tcp --dport 2022 -m state --state NEW -m limit --limit 3/min
+--limit-burst 3 -j ACCEPT
+
+-A INPUT  -i eth0 -p tcp --dport 2022 -m state --state ESTABLISHED -j ACCEPT
+-A OUTPUT -o eth0 -p tcp --sport 2022 -m state --state ESTABLISHED -j ACCEPT</pre></div></li><li>配置 <code>iptables</code>，以便在 30 秒内仅允许在端口 2022 上有三个连接尝试：
+
+
+<div class="codesection"><pre class="displaycode">Redhat iptables example (Update /etc/sysconfig/iptables): 
+-I INPUT -p tcp --dport 2022 -i eth0 -m state --state NEW -m recent --set
+
+-I INPUT -p tcp --dport 2022 -i eth0 -m state --state NEW -m recent --update 
+--seconds 30 --hitcount 3 -j DR</pre></div></li><li>使用一个日志分析器，比如 <code>logcheck</code>、<code>loggrep</code>、<code>splunk</code> 或 <code>logwatch</code> 来更好地理解日志并创建日志报告。另外，在 SSH 应用程序自身内增加日志记录的详细度：
+
+
+<div class="codesection"><pre class="displaycode">Installation of the logwatch package on Redhat Linux 
+# yum install logwatch</pre></div></li><li>通过配置增加 SSH 日志记录的详细度：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+LogLevel DEBUG</pre></div></li><li>在补丁上总是将 SSH 程序包和需要的库保持为最新：
+
+
+<div class="codesection"><pre class="displaycode"># yum update openssh-server openssh openssh-clients -y</pre></div></li><li>隐藏 OpenSSH 版本，要求 SSH 源代码并进行重新编译。然后进行以下更新：
+
+
+<div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+VerifyReverseMapping yes	# Turn on  reverse name checking
+UsePrivilegeSeparation yes	# Turn on privilege separation
+StrictModes yes			# Prevent the use of insecure home directory    
+				# and key file permissions
+AllowTcpForwarding no		# Turn off , if at all possible 
+X11Forwarding no		# Turn off , if at all possible
+PasswordAuthentication no	# Specifies whether password authentication is 
+				# allowed.  The default is yes. Users must have 
+				# another authentication method available .</pre></div></li><li>从系统上删除 rlogin 和 rsh 二进制程序，并将它们替代为 SSH 的一个 <code>symlink</code>：
+
+
+<div class="codesection"><pre class="displaycode"># find /usr -name rsh
+/usr/bin/rsh
+# rm -f /usr/bin/rsh
+# ln -s /usr/bin/ssh /usr/bin/rsh</pre></div></li></ul><p>SSH 支持可启用或禁用的多种不同的身份验证方法和技术。在 /etc/ssh/sshd_config 文件中，您可以进行这些配置更改，方法就是输入为身份验证方法列出的关键字，然后紧接 <code>yes</code> 或 <code>no</code>。下面是一些常见的配置更改：
+		</p><div class="codesection"><pre class="displaycode"># RSAAuthentication yes		
+# PubkeyAuthentication yes		
+# RhostsRSAAuthentication no
+# HostbasedAuthentication no
+# RhostsRSAAuthentication and HostbasedAuthentication
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+# KerberosAuthentication no
+GSSAPIAuthentication yes</pre></div><p>sshd_config 文件内的 <code>AllowedAuthentications</code> 和 
+			<code>RequiredAuthentications</code> 决定哪些身份验证方法和配置仅用于 SSH Protocol 2，且它们支持密码和公钥身份验证的语法如下：
+		</p><div class="codesection"><pre class="displaycode"># vi /etc/ssh/sshd_config
+AllowedAuthentications publickey, password
+RequiredAuthentications publickey, password</pre></div><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="key_pairs">SSH 的私钥和公钥对</h2><p>为了帮助验证身份，SSH 有一个密钥管理功能和相关的代理。当配置为公钥身份验证时，您的密钥证明您在远程 SSH 主机上的身份。一个基于 SSH 的身份包括两个部分：一个公钥和一个私钥。私有 SSH 密钥是用于出站 SSH 连接的用户身份，且应当保密。当用户发起一个 SSH 或 SCP 会话到远程主机或服务器时，他或她被认为是 <em>SSH 客户端</em>。通过一个数学算法，一个私钥如同您的电子身份证；公钥如同您向其出示身份证的锁或门机制。您的私钥说，“这真的是 Fred Smythe”；公钥说，“是的，您确实是真正的 Fred Smythe；您已通过身份验证：请进入。”
+		</p><p>您的公钥代表您允许通过您的大门或锁进入的人。公钥需要保密；它们不能用于泄漏一个系统或对系统进行未经授权的访问。在一个 Linux 或 UNIX 系统上，这些私有和公共密钥对存储在 ASCII 文本系统中；在 Windows 系统上，一些程序将密钥对存储为文本文件，一些存储在 Windows 注册表中。
+		</p><p>通过一个 SSH Protocol 2 配置可创建使用多个私有密钥的多重鉴定。让我们看看如何在一个典型的 Linux 主机上生成、设置和配置一个 SSH 私有和公共密钥对（参见 <a href="#fig5">图 5</a>）。
+		</p><h5 id="fig5">图 5. 在 SSH 定义的架构模型中定义的 SSH 公私密钥对事务图
+				</h5><img alt="SSH 公私密钥对事务" src="SSH_public_private_key.gif" width="543"><h3 id="public-private">配置公私 SSH 密钥对的步骤
+		</h3><p>步骤 1 中所示的示例（参见 <a href="#list1">清单 1</a>）为用户 fsmythe 使用 <code>ssh-keygen</code> 使用程序，通过 <code>dsa</code> 的 <code>type</code> 创建 SSH 公私密钥对。
+			</p><h5 id="list1">清单 1. 生成 SSH 密钥对</h5><div class="codesection"><pre class="displaycode">[fsmythe@example.com ~]$ /usr/bin/ssh-keygen -t dsa
+Generating public/private dsa key pair.
+Enter file in which to save the key (/home/fsmythe/.ssh/id_dsa):
+Enter passphrase (empty for no passphrase): ******    (Enter 'mypassword')
+Enter same passphrase again: ******	(Enter 'mypassword')
+Your identification has been saved in /home/fsmythe/.ssh/id_dsa.
+Your public key has been saved in /home/fsmythe/.ssh/id_dsa.pub.
+The key fingerprint is:
+33:af:35:cd:58:9c:11:91:0f:4a:0c:3a:d8:1f:0e:e6 fsmythe@example.com
+[fsmythe@example.com ~]$</pre></div><p>步骤 2 中所示的示例（<a href="#list2">清单 2</a>） 展示如何将密钥对的公共密钥从源主机复制到目标主机的 authorized_keys 文件，该文件位于目标主机上预期用户帐户的主目录下的 .ssh 子目录内。
+			</p><h5 id="list2">清单 2. 将公共密钥从源主机复制到目标主机上的 authorized_keys 文件
+	</h5><div class="codesection"><pre class="displaycode">[fsmythe@example.com ~]$ scp -p /home/fsmythe/.ssh/id_dsa.pub 
+fsmythe@thor01.com:/home/fsmythe/.ssh/authorized_keys
+fsmythe@ thor01.com's password:
+id_dsa.pub       100%  	624   	0.6KB/s    	00:00</pre></div><p>步骤 3 中所示的示例（参见 <a href="#list3">清单 3</a>）发出第一次远程 SSH 调用（<code>ls -d /tmp</code>）到目标服务器，从而缓存您的服务器的 .ssh/known_hosts 文件内的密钥。您可以输入与在创建 SSH 公私密钥对时同样的口令，且在远程目标服务器上运行的命令的输出可在您本地的源服务器上看到。
+			</p><h5 id="list3">清单 3. 通过在目标远程主机上运行远程命令来验证 SSH 访问
+	</h5><div class="codesection"><pre class="displaycode">[fsmythe@example.com ~]$ ssh root@thor01.com ls -d /tmp
+The authenticity of host 'thor01.com (10.12.53.118)' can't be established.
+RSA key fingerprint is 84:4f:e5:99:0b:7d:54:d0:1b:3e:2b:96:02:34:41:25.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'thor01.com,10.12.53.118' (RSA) to the list of known hosts.
+Enter passphrase for key '/root/.ssh/id_dsa': ******  (Enter 'mypassword') 
+/tmp
+file1.txt
+file2.txt
+dir3_5432</pre></div><p><strong>注意</strong>：对于上述示例，您不必输入用户 fsmythe 的密码。不过您可以输入您在第一步中设置的口令。如果您选择在访问远程目标时不输入口令，那么在提示输入口令时输入步骤 1 中的 <code>enter</code> 来创建一个空口令。现在，您不必输入任何内容来作为用户 fsmythe 访问 thor01.com 远程目标机器。
+			</p><h3 id="ssh-agent">配置和使用 ssh-agent</h3><p>对于拒绝创建无密码 SSH 公私密钥对的真正的偏执狂来说，有一个 <code>ssh-agent</code> 实用程序。简言之，您使用 <code>ssh-agent</code> 实用程序来暂时在无口令集的公私密钥对配置上授予无密码的 SSH 访问，但仅针对当前 shell 会话。在运用 <code>ssh-agent</code> 实用程序之前，像往常一样输入口令：
+			</p><div class="codesection"><pre class="displaycode">[root@example01.com ~]# ssh root@example02.com
+Enter passphrase for key '/root/.ssh/id_dsa':******	(User must type password)
+Last login: Sat May  8 06:37:26 2010 from 10.12.53.118</pre></div><p>接下来，查询 <code>ssh-agent</code> 以在标准输出中生成 Bourne shell 
+				命令：
+			</p><div class="codesection"><pre class="displaycode">[root@example01.com ~]# ssh-agent -s
+SSH_AUTH_SOCK=/tmp/ssh-vxZIxF1845/agent.1845; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=1849; export SSH_AGENT_PID;
+echo Agent pid 1849;</pre></div><p>在步骤 3 中，在当前 shell 会话中设置前述的环境变量：
+			</p><div class="codesection"><pre class="displaycode">[root@example01 ~]# SSH_AUTH_SOCK=/tmp/ssh-vxZIxF1845/agent.1845;export SSH_AUTH_SOCK
+SSH_AGENT_PID=1849; export SSH_AGENT_PID;echo Agent pid 1849
+Agent pid 1849</pre></div><p>然后，确认 <code>ssh-agent</code> 在运行：</p><div class="codesection"><pre class="displaycode">[root@example01.com ~]# ps -fp $SSH_AGENT_PID
+UID        PID  PPID  C STIME TTY          TIME CMD
+root      1849     1  0 06:14 ?        00:00:00 ssh-agent -s</pre></div><p>现在，在运行的 <code>ssh-agent</code> 内列出当前加载的身份：
+			</p><div class="codesection"><pre class="displaycode">[root@example01.com ~]# ssh-add -l
+The agent has no identities.</pre></div><p>在步骤 6 中，添加所需的 SSH 身份（使用该 SSH 密钥的正确口令对其进行预先验证）：
+			</p><div class="codesection"><pre class="displaycode">[root@example01.com ~]# ssh-add
+Enter passphrase for /root/.ssh/id_dsa:
+Identity added: /root/.ssh/id_dsa (/root/.ssh/id_dsa)	****** (Entered 'mypassword')</pre></div><p>现在，您可以确认将这些身份加载到运行的 <code>ssh-agent</code> 中：
+			</p><div class="codesection"><pre class="displaycode">[root@example01.com ~]# ssh-add -l
+1024 33:af:35:cd:58:9c:11:91:0f:4a:0c:3a:d8:1f:0e:e6 /root/.ssh/id_dsa (DSA)</pre></div><p>最后，使用 SSH 命令语法测试 <code>ssh-agent</code>。注意，现在有一个口令提示：
+			</p><div class="codesection"><pre class="displaycode"># Assuming target remote host has correct authorized key for private key from example01
+[root@example01.com ~]# ssh -A root@example02.com	
+Last login: Sat May  8 06:36:27 2010 from 10.12.53.118
+[root@example02 ~]#
+
+# Assuming target remote host has correct authorized key for private key from example03
+[root@example01.com ~]# ssh -A root@example03.com		
+Last login: Sat May  8 07:04:05 2010 from 10.12.53.119
+[root@example03 ~]#</pre></div><p>在使用 <code>ssh-add</code> 命令输入口令时，您实际上是在解密私有密钥然后通过代理将其放到内存中，用于将来使用该口令的 SSH 连接。注意，您可以输入多个私有密钥并使用 <code>ssh-add</code> 命令预先验证它们。
+			</p><p><a href="#list4">清单 4</a> 中所示的 SSH 工具 <code>ssh-keyscan</code> 允许您从多个远程 SSH 主机收集公共 SSH 主机密钥。该工具有助于构建 /etc/ssh_known_hosts 文件且异常快速有效。它主要适用于用于自动化用途的 shell 脚本。
+			</p><h5 id="list4">清单 4. 使用 ssh-keyscan 的示例</h5><div class="codesection"><pre class="displaycode">[root@example01 ~]# /usr/bin/ssh-keyscan -t rsa,dsa example02.com
+# example02.comSSH-2.0-OpenSSH_4.3
+example02.comssh-dss AAAAB3NzaC1kc3MAAACBALd5/TGn7jCL1DWWzYMw96jw3QOZGBXJgP4m9LACViyM0QHs
+ewHGo841JdInfE825mVe0nB/UT15iylLOsI/jFCac+ljQRlO+h2q7WOwGveOUN7TxyKlejM+G1pg5DndGt05iYn+2
+dDfn5CmEsI+K0F2vk/+mpoSOk9HKq9VgwNzAAAAFQDPeLAth62TRUcN/nTYoqENBmW3SwAAAIEAryoKa+VaG5LQNj
+wBujAuA7hGl+DIWVb1aZ8xAHkcyL5XgrOWEKNnK9mDmEN66oMLfTMO3w8/OvbJUmcXcU3jnL3zguz2E2OIv6t6vAa
+F6niL7A/VhxGGxy4CJZnceufStrzZ3UKXRzjwlm0Bwu/LruVF2m3XLvR5XVwUgyWvw+AAAACAaK12k3uC/OOokBgi
+eu/SuD5wCSBsf9rqG9ZFa32ujZwRZmA/AwPrZd6q3ASxmjtMp6zGQSzxPczUvLH9D9WIJo713bw8wCPo/7pqiQNRs
+OZXqlQyaXyrDout6CI683b1/rxsZKPrJpFNehrZwjWrwpYhK7VaTuzxvWtrDyDxWec=
+# example03.comSSH-2.0-OpenSSH_4.3
+example03.comssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq5So5VBeH4gPX1A1VEeQkGsb/miiWsWnNTW8ZWYj
+2IvU7rKpk/dBIp64WecYYYgDqTK5u0Q+yTijF8wEEI9rRyoh9p5QraM8qy9NxcHzyGqU4vSzfVrblIQrDI8iv7iwz
+7PxQAY76NmweaUyGEDfIErty4gCn/ksy85IgffATa9nt36a4iUhiDNifnE8dm1ZrKkvz3lIg0w+Cu0T9MY77AqLWj
+Moo0WoQArIvYa0soS3VhzgD/Biwu/sh3eHJtFUxTVxnATdkWkHKUI1wxma3j7jF0saTRKEQSvG6492W+U1FhEjFGN
+r7KeZXH99uFpuUWFA7xO7uaG/MLWSjPJMxw==
+# example04.comSSH-2.0-OpenSSH_4.3
+example04.comssh-dss AAAAB3NzaC1kc3MAAACBALd5/TGn7jCL1DWWzYMw96jw3QOZGBXJgP4m9LACViyM0QHs
+ewHGo841JdInfE825mVe0nB/UT15iylLOsI/jFCac+ljQRlO+h2q7WOwGveOUN7TxyKlejM+G1pg5DndGt05iYn+2
+dDfn5CmEsI+K0F2vk/+mpoSOk9HKq9VgwNzAAAAFQDPeLAth62TRUcN/nTYoqENBmW3SwAAAIEAryoKa+VaG5LQNj
+wBujAuA7hGl+DIWVb1aZ8xAHkcyL5XgrOWEKNnK9mDmEN66oMLfTMO3w8/OvbJUmcXcU3jnL3zguz2E2OIv6t6vAa
+F6niL7A/VhxGGxy4CJZnceufStrzZ3UKXRzjwlm0Bwu/LruVF2m3XLvR5XVwUgyWvw+AAAACAaK12k3uC/OOokBgi
+eu/SuD5wCSBsf9rqG9ZFa32ujZwRZmA/AwPrZd6q3ASxmjtMp6zGQSzxPczUvLH9D9WIJo713bw8wCPo/7pqiQNRs
+OZXqlQyaXyrDout6CI683b1/rxsZKPrJpFNehrZwjWrwpYhK7VaTuzxvWtrDyDxWec=
+# example05.comSSH-2.0-OpenSSH_4.3
+example05.comssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq5So5VBeH4gPX1A1VEeQkGsb/miiWsWnNTW8ZWYj
+2IvU7rKpk/dBIp64WecYYYgDqTK5u0Q+yTijF8wEEI9rRyoh9p5QraM8qy9NxcHzyGqU4vSzfVrblIQrDI8iv7iwz
+7PxQAY76NmweaUyGEDfIErty4gCn/ksy85IgffATa9nt36a4iUhiDNifnE8dm1ZrKkvz3lIg0w+Cu0T9MY77AqLWj
+Moo0WoQArIvYa0soS3VhzgD/Biwu/sh3eHJtFUxTVxnATdkWkHKUI1wxma3j7jF0saTRKEQSvG6492W+U1FhEjFGN
+r7KeZXH99uFpuUWFA7xO7uaG/MLWSjPJMxw==</pre></div><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="ssh_configuration">使用 UNIX 应用程序或脚本配置 SSH</h2><p>配置供远程 shell 脚本使用的 SSH 访问以及用于维护、远程备份和存档系统的远程工具非常有用，但一旦涉及到服务器安全性，它一直都是一个有极大争议的主题。用户可能希望运行的很多 shell 脚本，比如：
+		</p><div class="codesection"><pre class="displaycode">$ ssh fsmythe@example.com /usr/local/bin/dangerous_script.pl</pre></div><p>不能处理提示其进行身份验证的一个必需的 SSH 口令，但除非提前配置一个无密码的公私 SSH 密钥对、一个 <code>ssh-agent</code> 配置或一个可信的主机网络机制 — 不提示输入 SSH 密钥的配置 —，否则这不太可能。这是因为 SSH 期待来自与该 shell 会话相关的当前终端的口令。通过使用一个预期脚本或 Perl（参见 <code>CPAN Module Net::SSH::Perl</code>）脚本（或您的 shell 脚本可以选择性地调用上述脚本类型中的一种）用户可以解决该问题：
+		</p><div class="codesection"><pre class="displaycode">#!/usr/local/bin/expect
+spawn sftp $argv
+expect "password:"
+send "mysshpassowrd\r"</pre></div><p>向一般用户授予一个无密码的 SSH 机制来访问远程主机在一些系统管理员的眼里已相当不可想象。然而，拥护无密码 SSH 机制访问远程主机的其他安全措施，比如远程主机上的用户仅提供一个受限的 korn shell (rksh) 帐户或受限的 shell (rssh) 而非一个完全的 bash 或 Bourne shell 帐户。一个授权密钥也可以将用户限制为列表中命令的一个子集，因此实际上，用户仅可以使用运程运行所需的确切命令，没有可能发生进一步访问或会损坏系统的一个意外命令运行。<a href="#list5">清单 5</a> 中提供的 SSH 限制示例提供这样一个限制类型。
+		</p><h5 id="list5">清单 5. 限制远程主机上 authorized_keys 文件的配置示例
+	</h5><div class="codesection"><pre class="displaycode">[fsmythe@example02 .ssh]$ more authorized_keys
+command="/usr/local/bin/secureScript.sh",no-port-forwarding,no-X11-forwarding,no-agent-fo
+rwarding,no-pty ssh-dss AAAAB3NzaC1kc3MAAACBAOFsC6C7cJUGOZG4Ur9W0J6mxTTk5+MYTu5XfRESPLVwQ
+A7HlUxhsXsxgmb1L1RgvR/g0JZnipDS+fGOrN2/IerSpgyzegTVxYLPrOovvuyCn5TA0+rmyrkV27so6yRDkdqTJc
+YzWNJOyDndnTrDc/LNmqLFKoGMQ33aur6RNv4VAAAAFQD4leC5Fc1VJqjvXCNsvazBhi84vQAAAIAWbshT80cTESg
+dX/srxX4KVNAzY1uhBz5V0UYR4FGP+aoe6laxRj+gQvFIvAKIrpikvBjgyW6cdT8+k0t8HGIQp20MzSBdY9sH8xdj
+05AG97Nb/L8xzkceB78qfXhV6txaM1CzssUtiOtaAygrywNPBDEN9MbEbwpVVVyd6iqZNgAAAIAmV0SUZoUr8dHdC
+tagRye4bGOQjoztpb4C0RbXQw+w7Jpzr6cZISdZsK4DTBjODvv2+/OWPm7NEzzWyLzHPBNul8hAHOUCOpp+mYWbXX
+F78BTk2Ess0SZu8dwpOtasTNEp+xPcsOvQx2Kdr17gTp+28SfpREuLudOr6R3KeTb+hw== fsmythe@example01</pre></div><p>主机 example01 上的用户 fsmythe 仅允许执行本例中的命令 <code>="/usr/local/bin/secureScript.sh</code>。
+		</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="trusted_host">使用 SSH 创建一个可信的主机环境</h2><p>最后，我要提一下作为一种替代方案来设置公私 SSH 密钥对的可信主机环境。对于自动化或在有必要进行这些类型的调用的一个脚本环境中，虽然可信主机环境仍然承担一些安全风险，但它优于公私密钥对场景。一个可信主机环境或可信主机身份验证主要依赖于列出获准访问的用户和主机组合的预配置文件。有两种可信主机身份验证。较老（比如针对 OpenSSH 和 SSH1）和较弱的使用明文协议命令（<code>rsh</code>、<code>rcp</code> 和 <code>rlogin</code>）；检查两个文件；并在 sshd_config 文件中设置一个关键字：
+		</p><div class="codesection"><pre class="displaycode">/etc/hosts.equiv
+~/.rhosts</pre></div><p>SSH Protocol 2 不支持该方法。相反，对于更安全的可信主机网络，在 /etc/ssh/sshd_config 文件（接受主机名或 IP 地址）中进行如下更改，并配置 shosts.equiv 和/或 .shosts 文件：
+		</p><div class="codesection"><pre class="displaycode">/etc/shosts.equiv
+~/.shosts</pre></div><p>要在 /etc/ssh/sshd_config 文件中为 SSH Protocol
+			2 启用一个可信主机环境，使用：
+		</p><div class="codesection"><pre class="displaycode">PermitEmptyPasswords yes
+AllowSHosts remoteclient.com
+DenySHosts</pre></div><p>例如，如果您在服务器 example.com 上且按如下方式配置了您的 
+			/etc/shosts.equiv 文件：
+		</p><div class="codesection"><pre class="displaycode">+remoteclient.com fsmythe
++secureserver.net sallyh
++192.168.100.12 fsmythe
+-hackers.org james</pre></div><p>您将允许用户 fsmythe 从远程源 remoteclient.com，192.168.100.12，和 secureserver.net 进行可信主机身份验证，允许用户从 secureserver.net 进行访问，拒绝来自远程源 hackers.org 的用户 james 的访问。
+		</p><p>可信主机身份验证和公私 SSH 密钥对身份验证方法是类似的，在很大程度上实现相同的结果。<a href="#table1">表 1</a> 提供对两种身份验证方法的并排比较。
+		</p><h5 id="table1">表 1. 公私 SSH 密钥对与可信主机环境之比较
+</h5><table class="ibm-data-table" summary="公私 SSH 密钥对与可信主机环境之比较" border="0" cellpadding="0" cellspacing="0"><thead xmlns:dw="http://www.ibm.com/developerWorks/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th scope="col">SSH 方面</th><th scope="col">可信主机</th><th scope="col">公私密钥对</th></tr></thead><tbody xmlns:dw="http://www.ibm.com/developerWorks/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td>根据 IP 地址进行身份验证</td><td>是</td><td>是</td></tr><tr><td>根据主机名进行身份验证</td><td>是</td><td>是</td></tr><tr><td>使用其他公钥功能</td><td>否</td><td>是</td></tr><tr><td>根据远程用户名进行身份验证</td><td>是</td><td>否</td></tr><tr><td>允许主机名和 IP 地址中有通配符</td><td>否</td><td>是</td></tr><tr><td>口令是登录访问所必需的</td><td>否</td><td>否</td></tr><tr><td>IP 地址或主机名变更消息</td><td>有时</td><td>是</td></tr><tr><td>服务器和客户端需要的配置</td><td>否</td><td>是</td></tr><tr><td>对自动化任务或脚本化需求有用</td><td>是</td><td>是</td></tr></tbody></table><p>对那些目前嘲笑在网络上使用无密码远程 SSH 访问来支持可信主机身份验证这一想法的那些管理员，在使用脚本实现远程 SSH 功能时考虑公私密钥对的缺点：
+		</p><ul class="ibm-bullet-list"><li>如果一个服务器主机名或 IP 地址改变，公私密钥对配置会由于缓存的已知主机而破坏。需要在 .ssh/known_hosts 文件中删除旧条目，且 SSH 远程主机名和/或 IP 地址被再次缓存。这会破坏依赖于公私密钥对的脚本。
+				</li><li>公私密钥对身份验证同时需要客户端和服务器配置。如果一个 SSH 公钥改变或重新生成密钥对，所有远程主机将在其 authorized_keys 文件中需要新的公共密钥。
+				</li><li>如果 .ssh/ 文件夹的权限或私有或公共密钥文件本省改变，它会阻止无 SSH 密码的访问发生。要禁用严格的文件和目录权限检查，在 /etc/ssh/sshd_config 文件内将关键字 <code>StrictModes</code> 设置为 <code>no</code>。
+				</li><li>一旦生成密钥对，没有集中方式来撤销密钥，或确切地知道该密钥已向谁分发。
+				</li></ul><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N1039F">结束语</h2><p>SSH 是一个强大而安全的网络实用程序，全球有无数用户使用它来完成各种任务。作为 telnet 和 <code>r*</code> 系列命令等明文协议的一个安全替代方案，拥有可免费分发的 SSH 客户端和服务器的多个产品，SSH 是很难被击败的。在许多网络中被广泛用于脚本化技术内的大量远程监控、系统维护、远程系统审计、报告和自动化，SSH 似乎已被普遍接受并将继续不断演化。
+		</p><!--CMA ID: 656414--><!--Site ID: 10--><!--XSLT stylesheet used to transform this file: dw-document-html-7.0.xsl-->
+<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="download">下载</h2><table class="ibm-data-table dw-download-table" border="0" cellpadding="0" cellspacing="0"><thead><tr><th scope="col">描述</th><th scope="col">名字</th><th scope="col">大小</th></tr></thead><tbody><tr><th scope="row" class="ibm-table-row">Putty Windows SSH 客户端安装程序</th><td nowrap="nowrap"><a href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=656414&amp;filename=putty-0.60-installer.exe&amp;method=http&amp;locale=zh_CN">putty-0.60-installer.exe</a></td><td nowrap="nowrap">1.7MB</td></tr><tr><th scope="row" class="ibm-table-row">FileZilla Windows SSH 安装程序</th><td nowrap="nowrap"><a href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=656414&amp;filename=FileZilla_3.3.2.1_win32-setup.exe&amp;method=http&amp;locale=zh_CN">FileZilla_3.3.2.1_win32-setup.exe</a></td><td nowrap="nowrap">4.0MB</td></tr><tr><th scope="row" class="ibm-table-row">Tera Term Windows SSH 安装程序</th><td nowrap="nowrap"><a href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=656414&amp;filename=teraterm-4.65.exe&amp;method=http&amp;locale=zh_CN">teraterm-4.65.exe</a></td><td nowrap="nowrap">7.5MB</td></tr><tr><th scope="row" class="ibm-table-row">WinSCP 安装包</th><td nowrap="nowrap"><a href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=656414&amp;filename=winscp427setup.exe&amp;method=http&amp;locale=zh_CN">winscp427setup.exe</a></td><td nowrap="nowrap">2.9MB</td></tr><tr><th scope="row" class="ibm-table-row">Cygwin Universal Downloader</th><td nowrap="nowrap"><a href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=656414&amp;filename=SoftonicDownloader11694.exe&amp;method=http&amp;locale=zh_CN">SoftonicDownloader11694.exe</a></td><td nowrap="nowrap">251KB</td></tr></tbody></table>
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">参考资料 </h2><h3 class="dw-resources-category-heading">学习</h3><ul class="ibm-bullet-list"><li><a href="http://en.wikipedia.org/wiki/Secure_Shell">Secure Shell</a>。Wikipedia 提供了对 SSH 的精彩介绍和讨论。
+	</li><li><a href="http://www.openssh.org/">OpenSSH</a>：OpenSSH 是 Internet 技术用户依赖的一个连通性工具版本。可免费获取。
+	</li><li><a href="http://www.ietf.org/rfc/rfc4251.txt">RFC 4251</a>：阅读 SSH 协议架构。
+	</li><li><a href="http://www.linuxjournal.com/article/9566">The OpenSSH Protocol under 
+			the Hood</a>（Girish Venkatachalam，Linux Journal，2007 年 4 月）：在 OpenSSH 上获取 “基本事实细节”。
+	</li><li><a href="http://www.ibm.com/developerworks/linux/library/l-sc15.html">Server clinic: 
+			Connect securely with ssh</a>（Cameron Laird，developerWorks，2003 年 7 月）：了解使用 SSH 保护服务器的更多信息。
+	</li><li><a href="http://www.symantec.com/connect/articles/ssh-and-ssh-agent">SSH and 
+			<code>ssh-agent</code></a>：了解更多并从 Symantec 下载工具。
+	</li><li><a href="http://serverfault.com/questions/57729/risk-of-using-ssh-public-keys">SSH 
+			public keys</a>：更多了解使用公共密钥的风险。
+	</li><li><a href="http://support.suso.com/supki/SSH_Tutorial_for_Linux">SSH tutorial for 
+			Linux</a>：Suso.com 提供在 Linux 环境中开始使用 SSH 的一本好教程。
+	</li><li><a href="http://segfault.in/2010/02/5-ssh-tricks-you-must-know/">Five SSH tricks</a>：探究您必须知道的 5 个 SSH 技巧。
+	</li><li><a href="http://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html">Top 
+			20 OpenSSH Server Best Security Practices</a>：探究这些服务器最佳安全实践。
+	</li><li><a href="http://www.ibm.com/developerworks/cn/aix/">AIX and UNIX 专区</a>：developerWorks 的“AIX and UNIX 专区”提供了大量与 AIX 系统管理的所有方面相关的信息，您可以利用它们来扩展自己的 UNIX 技能。</li><li><a href="http://www.ibm.com/developerworks/cn/aix/newto/">AIX and UNIX 新手入门</a>：访问“AIX and UNIX 新手入门”页面可了解更多关于 AIX 和 UNIX 的内容。</li><li><a href="http://www.ibm.com/developerworks/cn/aix/lpsummary.html">AIX and UNIX 专题汇总</a>：AIX and UNIX 专区已经为您推出了很多的技术专题，为您总结了很多热门的知识点。我们在后面还会继续推出很多相关的热门专题给您，为了方便您的访问，我们在这里为您把本专区的所有专题进行汇总，让您更方便的找到您需要的内容。</li><li><a href="http://www.ibm.com/developerworks/cn/aix/downloads/">AIX and UNIX 下载中心</a>：在这里你可以下载到可以运行在 AIX 或者是 UNIX 系统上的 IBM 服务器软件以及工具，让您可以提前免费试用他们的强大功能。</li><li><a href="http://www.ibm.com/developerworks/cn/aix/systemmaga/index.html">IBM Systems Magazine for AIX 中文版</a>：本杂志的内容更加关注于趋势和企业级架构应用方面的内容，同时对于新兴的技术、产品、应用方式等也有很深入的探讨。IBM Systems Magazine 的内容都是由十分资深的业内人士撰写的，包括 IBM 的合作伙伴、IBM 的主机工程师以及高级管理人员。所以，从这些内容中，您可以了解到更高层次的应用理念，让您在选择和应用 IBM 系统时有一个更好的认识。</li><li><a href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">技术书店</a>：阅读关于这些和其他技术主题的图书。
+	</li></ul><h3 class="dw-resources-category-heading">讨论</h3><ul class="ibm-bullet-list"><li><a href="http://www.knowledgerush.com/kr/encyclopedia/SSH/">SSH user community</a>：加入 SSH 社区。
+	</li><li>加入 <a href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a>。查看开发人员推动的博客、论坛、组和维基，并与其他 developerWorks 用户交流。</li><li>
+		参与 AIX and UNIX® 论坛：
+		
+<ul><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=747&amp;amp;cat=72">AIX
+				论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=905&amp;amp;cat=72">AIX
+					for Developers 论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=907&amp;amp;cat=72">集群系统管理</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=749&amp;amp;cat=72">性能工具论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=748">虚拟化论坛</a></li><li>更多 <a href="http://www.ibm.com/developerworks/forums/dw_auforums.jsp">AIX and UNIX 论坛</a></li></ul></li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">条评论</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img style="display: none;" id="imgPlHdr" src="animated-progress-38x38c.gif" alt=""><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect">请 <a href="#">登录</a> 或 <a href="http://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-sshsecurity%2F%23icomments&amp;lang=cn&amp;a=dwmav">注册</a>  后发表评论。</p><p id="cmtHead"><label for="newCmt"><strong>添加评论:</strong></label></p><p>注意：评论中不支持 HTML 语法</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><span class="ibm-input-group"><input value="1" name="comment_notification" id="comment_notification" disabled="disabled" type="checkbox"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">有新评论时提醒我</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount">剩余 <span id="charCount">1000</span> 字符</span><p class="ibm-buttons-row"><input value="发布" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled" type="button"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style=""><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts">2</span>)</strong></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts"><label for="howManyComments"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>你没理解错，原文：Listing 2. Copy the private key from the source host to the authorized_keys file on the destination host 也是用的private key，但是明显写错了。 私钥只能由自己保管，公钥才能分发给其他人。</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/wangwangwar">wangwangwar</a></strong>  于 2011年10月25日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/aix/library/au-sshsecurity/&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E4%BD%A0%E6%B2%A1%E7%90%86%E8%A7%A3%E9%94%99%EF%BC%8C%E5%8E%9F%E6%96%87%EF%BC%9AListing%202.%20Copy%20the%20private%20key%20from%20the%20source%20host%20to%20the%20authorized_keys%20file%20on%20the%20destination%20host%20%E4%B9%9F%E6%98%AF%E7%94%A8%E7%9A%84private%20key%EF%BC%8C%E4%BD%86%E6%98%AF%E6%98%8E%E6%98%BE%E5%86%99%E9%94%99%E4%BA%86%E3%80%82%20%E7%A7%81%E9%92%A5%E5%8F%AA%E8%83%BD%E7%94%B1%E8%87%AA%E5%B7%B1%E4%BF%9D%E7%AE%A1%EF%BC%8C%E5%85%AC%E9%92%A5%E6%89%8D%E8%83%BD%E5%88%86%E5%8F%91%E7%BB%99%E5%85%B6%E4%BB%96%E4%BA%BA%E3%80%82%0D%E7%94%B1%20wangwangwar%20%20%E4%BA%8E%202011%E5%B9%B410%E6%9C%8825%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>清单 2. 将私有密钥从源主机复制到目标主机上的 authorized_keys 文件 <br>这个地方有没有写错啊？明显是复制过去的公钥啊。难道是我理解错了？</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/Rex_ET">Rex_ET</a></strong>  于 2011年06月08日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/aix/library/au-sshsecurity/&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E6%B8%85%E5%8D%95%202.%20%E5%B0%86%E7%A7%81%E6%9C%89%E5%AF%86%E9%92%A5%E4%BB%8E%E6%BA%90%E4%B8%BB%E6%9C%BA%E5%A4%8D%E5%88%B6%E5%88%B0%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%20authorized_keys%20%E6%96%87%E4%BB%B6%20%E8%BF%99%E4%B8%AA%E5%9C%B0%E6%96%B9%E6%9C%89%E6%B2%A1%E6%9C%89%E5%86%99%E9%94%99%E5%95%8A%EF%BC%9F%E6%98%8E%E6%98%BE%E6%98%AF%E5%A4%8D%E5%88%B6%E8%BF%87%E5%8E%BB%E7%9A%84%E5%85%AC%E9%92%A5%E5%95%8A%E3%80%82%E9%9A%BE%E9%81%93%E6%98%AF%E6%88%91%E7%90%86%E8%A7%A3%E9%94%99%E4%BA%86%EF%BC%9F%0D%E7%94%B1%20Rex_ET%20%20%E4%BA%8E%202011%E5%B9%B406%E6%9C%8808%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts2">2</span>)</strong></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts2"><label for="howManyComments2"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+
+ <div class="ibm-title">
+<h2>developerWorks: 登录</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*</span></label><span>
+    <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);" aria-required="true" name="ibm-id" id="ibmid" size="25" value="" class="required" type="text">
+    <br><a href="#" class="ibm-forward-link">需要一个 IBM ID？</a> <br>
+    <a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a> 
+</span>
+</p> 
+<p><label for="password">密码：<span class="ibm-required">*</span></label><span>
+    <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);" name="password" id="password" size="25" value="" class="required" type="password">
+    <br><a class="ibm-forward-link" href="#">忘记密码？</a>
+    <br><a class="ibm-forward-link" href="#">更改您的密码</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" name="perm_name" type="checkbox"><label for="perm"> 保持登录。</label></span>
+</p>
+<p>单击提交则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>。</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+ <div class="ibm-overlay-rule"><hr></div> 
+
+<p>在您首次登录 developerWorks 时，会为您创建一份个人概要。<strong>您的个人概要中的信息（您的姓名、国家/地区，以及公司名称）是公开显示的，而且会随着您发布的任何内容一起显示，除非您选择隐藏您的公司名称。</strong>您可以随时更新您的 IBM 帐户。</p>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>选择您的昵称</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 
+    您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form id="dFormId" method="post" action="" name="dForm" class="ibm-column-form">
+<p><label for="displayname">昵称：<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" name="displayname" id="displayname" size="25" value="" type="text"></span>
+    <span class="ibm-form-note">(昵称长度在 3 至 31 个字符之间)</span>
+</p>
+<p>单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/"><img src="sm-f-bluemixrobot60.png" alt="IBM Bluemix 资源中心" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/">IBM Bluemix 资源中心</a></h3>
+<p>文章、教程、演示，帮助您构建、部署和管理云应用。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/community/"><img src="sm-f-comcommunity60.png" alt="developerWorks 中文社区" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a></h3>
+<p>立即加入来自 IBM 的专业 IT 社交网络。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://bluemixathon.devpost.com/"><img src="sm-f-bluemixathon60.png" alt="Bluemixathon 挑战赛" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="http://bluemixathon.devpost.com/">Bluemixathon 挑战赛</a></h3>
+<p>为灾难恢复构建应用，赢取现金大奖。</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=AIX and UNIX</div><div class="metavalue">ArticleID=656414</div><div class="metavalue">ArticleTitle=SSH 安全性和配置入门</div><div class="metavalue">publish-date=05032011</div><div class="metavalue">url=http://www.ibm.com/developerworks/cn/aix/library/au-sshsecurity/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>
+<!-- LEADSPACE_END -->
+
+
+<!-- END_IBM_PCON -->
+<!-- FOOTER_BEGIN -->
+<div aria-label="页脚" id="ibm-footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1 dw-footer-col-6-1-cn">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/secure/feedback.jsp?domain=dwchina" tabindex="0">帮助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/author/" tabindex="0">联系编辑</a></li>
+				<li><a href="https://www.ibm.com/developerworks/secure/myideas2.jsp?domain=dwchina" tabindex="0">提交内容</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/rss/" tabindex="0">订阅源</a></li>
+			</ul>
+        </div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a class="dwcn-sina-link" href="http://weibo.com/ibmdw/" target="_blank" tabindex="0">新浪微博</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/report?lang=zh" tabindex="0">报告滥用</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms?lang=zh" tabindex="0">使用条款</a></li>
+				<li><a href="https://www.ibm.com/developerworks/cn/community/terms/thirdparty/" tabindex="0">第三方提示</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<ul>
+				<li><a href="http://www.ibm.com/privacy/cn/zh/" tabindex="0">隐私条约</a></li>
+				<li><a href="http://www.ibm.com/ibm/accessibility/cn/" tabindex="0">浏览辅助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/academic/" tabindex="0">IBM 教育学院教育培养计划</a></li><li><a href="http://www.ibm.com/developerworks/cn/gep/">IBM 创业企业全球扶持计划</a></li><li><a href="http://www.ibm.com/partnerworld/isv/">ISV 资源 (英语)</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4"> 
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/cn/newsletter/" tabindex="0">dW 中国每周时事通讯</a></li>
+			</ul>
+			
+		</div>
+		<div class="dw-footer-col-6-5">
+			<ul>
+				<li class="dw-footer-lang-head">选择语言：</li>
+				<li><a href="http://www.ibm.com/developerworks/" tabindex="0">English</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/" tabindex="0" lang="zh">中文</a></li>
+				<li><a href="http://www.ibm.com/developerworks/jp/" tabindex="0" lang="ja">日本語</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ru/" tabindex="0" lang="ru">Русский</a></li>
+				<li><a href="http://www.ibm.com/developerworks/br/" tabindex="0" lang="pt">Português (Brasil)</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ssa/" tabindex="0" lang="es">Español</a></li>
+				<li><a href="http://www.ibm.com/developerworks/vn/" tabindex="0" lang="vi">Việt</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-6">
+			<img alt="IBM®" src="dwn-ibm-logo-v17.png" width="223" height="46">
+			<img class="dw-preload" src="ibm_sprite_social_blue_ON.png" alt="" width="1" height="1">
+		</div>
+	</div>
+</div>
+
+</div><!-- FOOTER_END -->
+
+<!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+
+
+
+
+
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+
+</div>
+
+
+
+<div id="ads"></div></body>
+</html>

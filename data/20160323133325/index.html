@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml" class="Public NoJs LoggedOut Sidebar Responsive" dir="LTR" id="XenForo">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="">
+
+<title>Key-Based SSH Logins With PuTTY - Page 3 - Page 3</title>
+<meta name="keywords" content="linux,security">
+<meta name="description" content="This guide describes how to generate and use a private/public key pair to log in to a remote system with SSH using PuTTY. PuTTY is an SSH client that ...  - Page 3">
+<meta name="og:title" content="Key-Based SSH Logins With PuTTY - Page 3 - Page 3">
+<meta name="og:description" content="This guide describes how to generate and use a private/public key pair to log in to a remote system with SSH using PuTTY. PuTTY is an SSH client that ...  - Page 3">
+<meta name="og:site_name" content="Howtoforge">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.howtoforge.com/images/teaser/linux.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="howtoforgecom">
+<meta name="twitter:creator" content="howtoforgecom">
+<meta name="twitter:title" content="Key-Based SSH Logins With PuTTY - Page 3 - Page 3">
+<meta name="twitter:description" content="This guide describes how to generate and use a private/public key pair to log in to a remote system with SSH using PuTTY. PuTTY is an SSH client that ...  - Page 3">
+<link rel="alternate" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3" hreflang="en">
+<link rel="prev" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p2">
+<link rel="next" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4">
+<link rel="canonical" href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3">
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="RSS-Feed für Howtoforge" href="https://www.howtoforge.com/feed.rss">
+
+
+
+
+
+
+ 
+
+
+ 
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<div id="loginBar">
+<div class="pageWidth">
+<div class="pageContent">
+<h3 id="loginBarHandle">
+<label for="LoginControl"><a href="https://www.howtoforge.com/community/login/" class="concealed noOutline">Log in or Sign up</a></label>
+</h3>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+<header>
+<div id="header">
+<div id="logoBlock">
+<div class="pageWidth">
+<div class="pageContent">
+<div id="logo"><a href="https://www.howtoforge.com/">
+<span></span>
+<img src="howtoforge_logo_trans.gif" alt="Howtoforge" style="margin-left: 20px;" pagespeed_url_hash="639055748">
+</a></div>
+<span class="helper"></span>
+<div class="langSwitch">
+<b><img src="gb.png" alt="HowtoForge - Linux Tutorials in English" pagespeed_url_hash="3664605987"> English</b> | <a href="https://www.howtoforge.de/" title="HowtoForge.de - Linux Tutorials auf Deutsch"><img src="de.png" alt="HowtoForge.de - Linux Tutorials auf Deutsch" pagespeed_url_hash="478786493"> Deutsch</a>
+</div>
+</div>
+</div>
+</div>
+<div id="navigation" class="pageWidth withSearch">
+<div class="pageContent">
+<nav>
+<div class="navTabs">
+<ul class="publicTabs">
+ 
+<li class="navTab forums selected">
+<a href="https://www.howtoforge.com/" class="navLink">Tutorials</a>
+<div class="tabLinks forumsTabLinks">
+<ul class="secondaryContent blockLinksList">
+<li><a href="https://www.howtoforge.com/search/">Tutorial search</a></li>
+</ul>
+</div>
+</li>
+<li class="navTab forums PopupClosed">
+<a href="https://www.howtoforge.com/tutorials/" class="navLink">Tags</a>
+</li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/community/" class="navLink">Forums</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/contribute/" class="navLink">Contribute</a></li>
+<li class="navTab forums PopupClosed"><a href="https://www.howtoforge.com/subscription/" class="navLink">Subscribe</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.ispconfig.org/" class="navLink">ISPConfig</a></li>
+<li class="navTab forums PopupClosed"><a href="http://www.lxer.com/" class="navLink">News</a></li>
+</ul>
+</div>
+<span class="helper"></span>
+</nav>
+</div>
+</div>
+<div id="searchBar" class="pageWidth">
+<span id="QuickSearchPlaceholder" title=" Search..."> Search</span>
+<fieldset id="QuickSearch">
+<form action="https://www.howtoforge.com/" method="post" class="formPopup">
+<div class="primaryControls">
+ 
+<input name="q" value="" class="textCtrl" placeholder="Search..." results="0" title="Enter your search and hit enter..." id="QuickSearchQuery" type="search">
+ 
+</div>
+<input name="_xfToken" value="" type="hidden">
+</form>
+</fieldset>
+</div>
+</div>
+</header>
+<div id="content" class="forum_list">
+<div class="pageWidth">
+<div class="pageContent">
+ 
+<div class="mainContainer">
+<div class="mainContent">
+ 
+<div class="breadBoxTop">
+<nav>
+<fieldset class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Key-Based SSH Logins With PuTTY - Page 3</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+ 
+<div id="htfContentPage">
+<h1>Key-Based SSH Logins With PuTTY - Page 3</h1>
+<div class="contributeEdit" style="float: right; width: 450px; max-width: 100%;">
+ 
+<div id="tocContainer">
+<h3>On this page</h3>
+<ol class="toc">
+<li><a href="https://www.howtoforge.com/#-attach-the-private-key-to-the-putty-profile">7 Attach The Private Key To The PuTTY Profile</a></li>
+<li><a href="https://www.howtoforge.com/#-our-first-keybased-login">8 Our First Key-Based Login</a></li>
+</ol>
+</div>
+</div>
+<h2 id="-attach-the-private-key-to-the-putty-profile">7 Attach The Private Key To The PuTTY Profile</h2>
+<p>Now launch PuTTY again and load the profile of your SSH server (<span class="system">192.168.0.100</span>):</p><div style="width: 336px; float: left; margin: 10px 15px 10px 0px; background-color: white;"> 
+ 
+
+ </div>
+<p><a class="fancybox" id="img-15" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/15.png"><img src="15.png" pagespeed_url_hash="2454795335" width="455" height="434"></a></p>
+<p>Then go to <span class="system">SSH -&gt; Auth</span> and click on <span class="system">Browse</span>:</p>
+<p><a class="fancybox" id="img-16" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/16.png"><img src="16.png" pagespeed_url_hash="2749295256" width="455" height="434"></a></p>
+<p>Browse your file system and select your previously created private key:</p>
+<p><a class="fancybox" id="img-17" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/17.png"><img src="17.png" pagespeed_url_hash="3043795177" width="550" height="398"></a></p>
+<p><a class="fancybox" id="img-18" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/18.png"><img src="18.png" pagespeed_url_hash="3338295098" width="455" height="434"></a></p>
+<p>Then go to <span class="system">Session</span> again and click on <span class="system">Save</span>:</p>
+<p><a class="fancybox" id="img-19" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/19.png"><img src="19.png" pagespeed_url_hash="3632795019" width="455" height="434"></a></p>
+<p>Now we have attached the private key to our <span class="system">192.168.0.100</span> PuTTY profile.</p>
+<p>&nbsp;</p>
+<h2 id="-our-first-keybased-login">8 Our First Key-Based Login</h2>
+<p>Now everything is ready for our first key-based login to our SSH server. Click on <span class="system">Open</span>:</p>
+<p><a class="fancybox" id="img-20" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/20.png"><img src="20.png" pagespeed_url_hash="907079717" width="455" height="434"></a></p>
+<p>As you can see, the public key is now used for authentication, and you are asked for the passphrase (the one you specified in chapter 5):</p>
+<p><a class="fancybox" id="img-21" href="https://www.howtoforge.com/images/ssh_key_based_logins_putty/big/21.png"><img src="21.png" pagespeed_url_hash="1201579638" width="550" height="341"></a></p>
+<nav>
+<div id="articlePrevNextContainer">
+<div id="articlePrevLink"><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p2">&lt;&lt; Prev</a></div>
+<div id="articleNextLink"><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4">Next &gt;&gt;</a></div>
+</div>
+</nav>
+<div style="height: 30px; margin-top: 20px;">
+<p style="text-align: right;"><img src="pdficon_small.png" pagespeed_url_hash="1813355361"> <a href="https://www.howtoforge.com/subscription/">view as pdf</a> | <img src="print.gif" pagespeed_url_hash="3731829194"> <a href="https://www.howtoforge.com/subscription/">print</a></p>
+</div>
+<div style="height: 30px; margin-top: 20px;">
+<div style="float: left;"><b>Share this page:</b></div>
+<div style="float: left; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/ssh_key_based_logins_putty_p3" data-via="howtoforgecom">Tweet</a> <a class="twitter-follow-button" href="https://twitter.com/howtoforgecom">Follow</a></div>
+<div style="float: left; margin-left: 20px;"><fb:like href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like></div>
+<div style="float: left; margin-left: 50px;"><div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3"></div></div>
+</div>
+</div>
+ 
+ 
+<div id="htfContentPagePaging">
+<h2>Sub pages</h2>
+<nav>
+<ul>
+<li><a href="https://www.howtoforge.com/ssh_key_based_logins_putty">Key-Based SSH Logins With PuTTY - Page 3 - Page 1</a></li><li><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p2">Key-Based SSH Logins With PuTTY - Page 3 - Page 2</a></li><li><a href="#"><b>Key-Based SSH Logins With PuTTY - Page 3</b></a></li><li><a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4">Key-Based SSH Logins With PuTTY - Page 3 - Page 4</a></li> </ul>
+</nav>
+</div>
+ 
+ 
+<div id="htfContentPageComment">
+<a name="comments"></a>
+<h2>0 Comment(s)</h2>
+ 
+<div id="commentform">
+<div class="commentContainerHead" style="font-size: 18px;">Add comment</div>
+<div class="commentContainer">
+<form method="post" action="https://www.howtoforge.com/ssh_key_based_logins_putty_p3/#comments">
+<input name="reply_to" id="reply-to-comment" value="0" type="hidden">
+<div id="commentFormDetail">
+<div style="width: 48%; float: left; margin-right: 3%;">
+<label for="commentname">Name *</label>
+<input id="commentname" name="commentname" value="">
+</div>
+<div style="width: 48%; float: left;">
+<label for="commentname">Email *</label>
+<input id="commentemail" name="commentemail" value="">
+</div>
+<div style="clear: both;"></div>
+</div>
+<textarea id="commentedit" name="commentedit" style="width: auto;"></textarea>
+<div>
+<div style="float: left;">
+<div class="g-recaptcha" data-sitekey="6LdX9fUSAAAAALWwVoPdeXScMSketz4npF-0QcQ1"></div>
+
+</div>
+<div style="margin-top: 10px; margin-bottom: 10px;">
+<input name="submit" class="button primary" style="float: right;" value="Submit comment" type="submit">
+</div>
+<div style="clear: both;"></div>
+</div>
+ 
+
+</form>
+</div>
+</div>
+ 
+<h3>Comments</h3>
+<div class="commentContainerHead commentLevel">
+<div class="floatLeft"><b>From:</b> falko </div>
+<div class="floatRight"><a href="https://www.howtoforge.com/#" data-comment="" class="reply-to">Reply</a> &nbsp;</div>
+<div class="clearBoth"></div>
+</div>
+<div id="comment" class="commentContainer commentLevel">
+<p></p>
+</div>
+</div>
+ 
+<div class="breadBoxBottom">
+<nav>
+<fieldset class="breadcrumb">
+<span class="crumbs">
+<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="https://www.howtoforge.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Tutorials</span></a>
+<span class="arrow"><span></span></span>
+</span>
+<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+<a href="#" class="crumb" rel="up" itemprop="url"><span itemprop="title">Key-Based SSH Logins With PuTTY - Page 3</span></a>
+<span class="arrow"><span>&gt;</span></span>
+</span>
+</span>
+</fieldset>
+</nav>
+</div>
+
+<div style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+ 
+<center>
+ 
+ 
+
+ 
+</center>
+ </div>
+ 
+ 
+<form action="https://www.howtoforge.com/community/login/login?redirect=/ssh_key_based_logins_putty_p3" method="post" class="xenForm eAuth" id="login" style="display: none;">
+<ul id="eAuthUnit">
+<li><a href="https://www.howtoforge.com/community/register/facebook?reg=1" class="fbLogin" tabindex="110"><span>Log in with Facebook</span></a></li>
+<li><a href="https://www.howtoforge.com/community/register/twitter?reg=1" class="twitterLogin" tabindex="110"><span>Log in with Twitter</span></a></li>
+<li><span class="googleLogin GoogleLogin JsOnly" tabindex="110" data-client-id="198773272284-b6tfk0c28bje81p774prrcrkq9jb3o44.apps.googleusercontent.com" data-redirect-url="/community/register/google?code=__CODE__&amp;csrf=hVMXbW_3rnrmq4Em"><span>Log in with Google</span></span></li>
+</ul>
+<div class="ctrlWrapper">
+<dl class="ctrlUnit">
+<dt><label for="LoginControl">Your name or email address:</label></dt>
+<dd><input name="login" id="LoginControl" class="textCtrl" tabindex="101" type="text"></dd>
+</dl>
+<dl class="ctrlUnit">
+<dt>
+<label for="ctrl_password">Do you already have an account?</label>
+</dt>
+<dd>
+<ul>
+<li><label for="ctrl_not_registered"><input name="register" value="1" id="ctrl_not_registered" tabindex="105" type="radio">
+No, create an account now.</label></li>
+<li><label for="ctrl_registered"><input name="register" value="0" id="ctrl_registered" tabindex="105" checked="checked" class="Disabler" type="radio">
+Yes, my password is:</label></li>
+<li id="ctrl_registered_Disabler">
+<input name="password" class="textCtrl" id="ctrl_password" tabindex="102" type="password">
+<div class="lostPassword"><a href="https://www.howtoforge.com/community/lost-password/" tabindex="106">Forgot your password?</a></div>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="ctrlUnit submitUnit">
+<dt></dt>
+<dd>
+<input class="button primary" value="Log in" tabindex="104" data-loginphrase="Log in" data-signupphrase="Sign up" type="submit">
+<label for="ctrl_remember" class="rememberPassword"><input name="remember" value="1" id="ctrl_remember" tabindex="103" type="checkbox"> Stay logged in</label>
+</dd>
+</dl>
+</div>
+<input name="cookie_check" value="1" type="hidden">
+<input name="redirect" value="/community/" type="hidden">
+<input name="_xfToken" value="" type="hidden">
+</form>
+ 
+</div>
+</div>
+ 
+<aside>
+<div class="sidebar">
+<div class="section loginButton">
+<div class="secondaryContent">
+<label for="LoginControl" id="SignupButton"><a href="https://www.howtoforge.com/community/login/" class="inner">Sign up now!</a></label>
+</div>
+</div>
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-2">
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent socialMediaIcon">
+<a href="https://twitter.com/howtoforgecom" target="_blank"><img src="twitter.png" pagespeed_url_hash="1158659234"></a>
+<a href="https://www.facebook.com/howtoforge" target="_blank"><img src="facebook.png" pagespeed_url_hash="1073237413"></a>
+<a href="https://plus.google.com/+howtoforge/posts" target="_blank"><img src="googleplus.png" pagespeed_url_hash="2111806198"></a>
+<a href="https://www.howtoforge.com/feed" target="_blank"><img src="rss.png" pagespeed_url_hash="2255810733"></a>
+</div>
+</div>
+</div>
+<div class="section widget-group-no-name widget-container">
+<div class="secondaryContent widget WidgetFramework_WidgetRenderer_Stats" id="widget-3">
+<h3>Tutorial Info</h3>
+<div class="pairsJustified">
+<dl class="discussionCount">
+<dt>Author:</dt>
+<dd>falko</dd>
+</dl>
+<dl class="discussionCount">
+<dt>Tags:</dt>
+<dd><a href="https://www.howtoforge.com/tutorials/linux/" rel="tag">linux</a>, <a href="https://www.howtoforge.com/tutorials/security/" rel="tag">security</a></dd>
+</dl>
+</div>
+</div>
+</div>
+ 
+<div class="widget WidgetFramework_WidgetRenderer_ShareThisPage" id="widget-5">
+<div class="section infoBlock sharePage">
+<div class="secondaryContent">
+<h3>Share This Page</h3>
+<div class="tweet shareControl">
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-lang="en-US" data-url="http://www.howtoforge.com/ssh_key_based_logins_putty_p3" data-via="howtoforgecom">Tweet</a>
+</div>
+<div class="facebookLike shareControl">
+<fb:like href="http://www.howtoforge.com/ssh_key_based_logins_putty_p3" layout="button_count" action="recommend" font="trebuchet ms" colorscheme="light"></fb:like>
+</div>
+<div class="plusone shareControl">
+<div class="g-plusone" data-size="medium" data-count="true" data-href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3"></div>
+</div>
+</div>
+</div>
+</div>
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<footer>
+<div class="footer">
+<div class="pageWidth">
+<div class="pageContent">
+<div class="skin_branding"><a href="http://www.xenfocus.com/" rel="nofollow">Xenforo skin</a><span> by <a href="http://www.xenfocus.com/" rel="nofollow">Xenfocus</a></span></div>
+<ul class="footerLinks">
+<li><a href="https://www.howtoforge.com/community/misc/contact">Contact</a></li>
+<li><a href="https://www.howtoforge.com/community/help/">Help</a></li>
+<li><a href="https://www.howtoforge.com/imprint/">Imprint</a></li>
+<li><a href="https://www.howtoforge.com/" class="homeLink">Tutorials</a></li>
+<li><a href="https://www.howtoforge.com/#navigation" class="topLink">Top</a></li>
+<li><a href="https://www.howtoforge.com/feed" rel="alternate" class="globalFeed" target="_blank" title="RSS-Feed for Howtoforge">RSS-Feed</a></li>
+</ul>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+<div class="footerLegal">
+<div class="pageWidth">
+<div class="pageContent">
+<ul id="legal">
+<li><a href="https://www.howtoforge.com/community/help/terms">Terms</a></li>
+</ul>
+<div id="copyright"><a href="https://www.howtoforge.com/" class="concealed">Howtoforge <span>© projektfarm GmbH.</span></a></div>
+<span class="helper"></span>
+</div>
+</div>
+</div>
+</footer>
+<div style="height: 100px;"></div>
+
+
+
+
+</body>
+</html>
