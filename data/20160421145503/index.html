@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US" xmlns:fb="http://ogp.me/ns/fb#" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>More than just colors: My bash settings | blogginess</title>
+<link rel="shortcut icon" href="dl_favicon.ico">
+<link rel="canonical" href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/">
+<link rel="alternate" type="application/rss+xml" title="blogginess RSS Feed" href="http://www.joelbrock.org/blog/feed/">
+<link rel="alternate" type="application/atom+xml" title="blogginess Atom Feed" href="http://www.joelbrock.org/blog/feed/atom/">
+<link rel="pingback" href="http://www.joelbrock.org/blog/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="blogginess » More than just colors: My bash settings Comments Feed" href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/feed/">
+
+
+
+
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.joelbrock.org/blog/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.joelbrock.org/blog/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="What I’m Into: lately" href="http://www.joelbrock.org/blog/2009/09/what-im-into-lately-7/">
+<link rel="next" title="The Scale-Out Blog: Building the Open Source Hackers Cooperative" href="http://www.joelbrock.org/blog/2009/09/the-scale-out-blog-building-the-open-source-hackers-cooperative/">
+<link rel="shortlink" href="http://wp.me/pxfLU-9R">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Protected by WP-SpamFree v2.1.1.2 :: JS BEGIN -->
+ 
+<!-- Protected by WP-SpamFree v2.1.1.2 :: JS END -->
+
+
+
+	
+
+<!-- All in One SEO Pack 2.0.2 by Michael Torbert of Semper Fi Web Design[343,408] -->
+<meta name="description" content="If the title suggests to you either a party, or violence, then perhaps this post isn't for you. If instead you are imagining a blank window filled with text,">
+
+<meta name="keywords" content="cli,geek,tips,tech">
+
+<link rel="canonical" href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/">
+<!-- /all in one seo pack -->
+<!-- Vipers Video Quicktags v6.4.5 | http://www.viper007bond.com/wordpress-plugins/vipers-video-quicktags/ -->
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-611 single-format-standard">
+<div id="wrapper">
+<div id="container">
+<table id="layout" border="0" cellpadding="0" cellspacing="0">
+<colgroup>
+<col class="coltwo">
+<col class="colthree-inner"><col class="colthree"></colgroup> 
+	<tbody><tr>
+
+		<!-- Header -->
+		<td id="header" colspan="3">
+
+		<table id="logoarea" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr></tr></tbody></table> <div class="horbar1">&nbsp;</div> <div id="imagecontainer" class="header-image-container" style="background: url(&quot;tortoise-banner.jpg&quot;) no-repeat scroll right top transparent;"><div class="clickable">
+		<a class="divclick" title="blogginess" href="http://www.joelbrock.org/blog/">&nbsp;</a></div><div class="titleoverlay"><h2 class="blogtitle"><a href="http://www.joelbrock.org/blog/">blogginess</a></h2><p class="tagline">people / technology / design</p></div></div> <div class="horbar2">&nbsp;</div>
+		</td>
+		<!-- / Header -->
+
+	</tr>
+
+	<!-- Main Body -->	
+	<tr id="bodyrow">
+
+		
+				
+
+		<!-- Main Column -->
+		<td id="middle">
+
+	
+<div class="navigation-top">
+		<div class="older">« <a href="http://www.joelbrock.org/blog/2009/09/what-im-into-lately-7/" rel="prev">What I’m Into: lately</a> &nbsp;</div><div class="newer">&nbsp;  <a href="http://www.joelbrock.org/blog/2009/09/the-scale-out-blog-building-the-open-source-hackers-cooperative/" rel="next">The Scale-Out Blog: Building the Open Source Hackers Cooperative</a> »</div><div class="clearboth"></div></div>	
+
+		
+		 
+
+		<div class="post-611 post type-post status-publish format-standard hentry category-tech tag-cli tag-geek tag-tips" id="post-611">
+
+
+<div class="post-headline">		<h1>More than just colors: My bash settings		</h1>
+		</div>
+<div class="post-byline">September 5th, 2009</div>
+<div class="post-bodycopy clearfix"><p><a href="http://www.joelbrock.org/blog/wp-content/uploads/2009/09/bash_prompt.png"><img class="alignleft size-full wp-image-612" title="bash_prompt" src="bash_prompt.png" alt="bash_prompt" width="270" height="92"></a>If the title suggests to you either a party, or violence, then perhaps this post isn’t for you.  If instead you are imagining a blank window filled with text, read on.  If you are confused right now, but also strangely curious, you may feel free to read on.<br>
+<span id="more-611"></span><br>
+I spend quite a bit of time inside a terminal window, doing various things that are just easier and faster than the GUI ever will be.  My shell of choice is bash (by default because its what OS X and debian variants ship with) and i have picked up a number of useful login scripts that make the shell, and even the prompt itself, much more informative.  And now i will share:</p>
+<p>I keep all of my bash configs in a file in my home directory called <code>.bash_login</code> which gets read each each a new terminal session begins.  The same can be accomplished by adding these changes to <code>.bashrc</code>.  If you don’t have either of them you can create the file in your home folder called <code>.bash_login</code>.  Like so:  <code>touch .bash_login</code></p>
+<h2>First:  Colors</h2>
+<p>More than just prettifying the shell output, colorizing bash instantly adds layers of information to basic commands like <code>ls</code>.</p>
+<div class="syntaxhighlighter  " id="highlighter_982608"><div class="bar    "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="comments"># Colorize the prompt</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>2</code></td><td class="content"><code class="functions">export</code> <code class="plain">CLICOLOR=1</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>3</code></td><td class="content"><code class="functions">export</code> <code class="plain">LSCOLORS=ExFxCxDxbxegedabagacad</code></td></tr></tbody></table></div></div></div>
+<p>The first line says, well nothing, it’s just a label, the hash mark prevents bash from reading the contents of the line.  But it doesn’t prevent <i>you</i> from reading it.  See?  A comment.  The second line says “Colorize the command line interface?  Why yes!”.  And the third says what colors to make everything (believe it or not).  If you’d like to tweak the colors yourself a bit, i’d recommend <a href="http://geoff.greer.fm/lscolors/">this handy color code generator</a>, because trying to manually adjust the LSCOLORS can be (read: is) maddening.</p>
+<p><a href="http://www.joelbrock.org/blog/wp-content/uploads/2009/09/LS_output.jpg"><img src="LS_output.jpg" alt="LS_output" title="LS_output" class="aligncenter size-full wp-image-614" width="429" height="318"></a></p>
+<p>The different colors indicate useful pieces of info about  your filesystem.  Like this screenshot of my root directory.  At a glance i can see file permissions, whether something is a folder, an alias, an executable, and so on.</p>
+<h2>Second:  History</h2>
+<p>Spending as much time as i do in the terminal, the history feature of bash quickly becomes invaluable.  Here are 3 commands i’ve added to my configuration that i find O so helpful!</p>
+<div class="syntaxhighlighter  " id="highlighter_620389"><div class="bar   "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="comments"># bash history commands</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>2</code></td><td class="content"><code class="functions">export</code> <code class="plain">HISTCONTROL=erasedups</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>3</code></td><td class="content"><code class="functions">export</code> <code class="plain">HISTSIZE=10000</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>4</code></td><td class="content"><code class="functions">shopt</code> <code class="plain">-s histappend</code></td></tr></tbody></table></div></div></div>
+<p>Ignoring the comment line, the first command tells bash to ignore duplicate commands.  Really handy if you repeat commands in the shell a bunch, or just for ignoring the ones you type all the time.  The second expands the default history file size, i <i>believe</i> the default in OS X is 500 lines.  I’ve upped mine to 10,000.  <img src="icon_smile.gif" alt=":-)" class="wp-smiley">   And finally, the histappend command tells bash to <em>append</em> to the history file on startup, overriding the default behavior which is to <em>overwrite</em> (gasp!).  </p>
+<p><strong>Added bonus:</strong>  Ctrl + r will activate the reverse-i-search.  Try it.  You can then begin typing to search your history file for any command currently stored there.  Super-handy for remembering “How exactly did i do this last time?”</p>
+<h2>Third:  Your PATH</h2>
+<div class="syntaxhighlighter  " id="highlighter_942488"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="comments"># My PATH (not a part of my spiritual journey...or is it?)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>2</code></td><td class="content"><code class="functions">export</code> <code class="plain">PATH=</code><code class="string">"/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"</code></td></tr></tbody></table></div></div></div>
+<p>A simple one-liner, but not to be underestimated.  Your PATH is the list of directories whose contents are accessible without having to know exactly where the command is kept.  I use the command <code>mysql -u root</code> all the time.  But i dont really need to know that the mysql executable resides in the directory <code>/usr/local/mysql/bin/</code> nor do i need to type that every time, because i’ve added that directory to my PATH.  Make sense?  Add your own, the line is simply a colon-delimited listing of directories, simple.</p>
+<h2>Fourth:  The prompt
+Lastly, but least leastly, is the prompt.  The thing you stare at all the time.  It's always there.  By default it'll usually tell you your username, hostname, and maybe your current directory.  With only a little bit of bash trickery it can be made to be super-informative.<p></p>
+<div class="syntaxhighlighter  " id="highlighter_131677"><div class="bar    "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="comments"># advanced PROMPT</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>2</code></td><td class="content"><code class="plain">PS1=”\`</code><code class="keyword">if</code> <code class="plain">[ \$? != 0 ]; </code><code class="keyword">then</code> <code class="functions">echo</code> <code class="plain">\[\e[33m\]—=== \[\e[31m\]Oh noes, bad </code><code class="functions">command</code> <code class="plain">\[\e[33m\]===—; </code><code class="keyword">fi</code><code class="plain">\`\n\[\e[0;37m\][\[\e[1;31m\]\@\[\e[0;37m\]] \[\e[0;32m\]\u@\h \[\e[0;37m\][\[\e[1;34m\]\w\[\e[0;37m\]] \[\e[0;32m\]\$ \[\e[0m\] “</code></td></tr></tbody></table></div></div></div>
+<p>Gaaa!  What is all that?!@?  OK, all this is really saying is "make the bash shell spit out the time, the username, the hostname, and the current working directory.  Really.  O, and there's the special invalid command line in there too.  Here's what the prompt looks like:</p>
+<p><a href="http://www.joelbrock.org/blog/wp-content/uploads/2009/09/prompt.png"><img src="prompt.png" alt="prompt" title="prompt" class="alignleft size-full wp-image-621" width="243" height="29"></a></p>
+<p>And here's what the error output looks like:</p>
+<p><a href="http://www.joelbrock.org/blog/wp-content/uploads/2009/09/prompt_error.png"><img src="prompt_error.png" alt="prompt_error" title="prompt_error" class="alignleft size-full wp-image-622" width="290" height="66"></a></p>
+<p>Many thanks to <a href="http://hackaday.com/2009/09/05/take-command-of-your-bash-prompt/">HackADay.com</a> for the idea for this.</p>
+</h2><h2>Lastly:  Aliases</h2>
+<p>Whew, this is a big one.  Probably deserving of it own article.  </p>
+<p>Here's is my entire (abridged) .bash_login file.</p>
+<div class="syntaxhighlighter  " id="highlighter_665291"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>01</code></td><td class="content"><code class="comments"># Colorize the prompt</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>02</code></td><td class="content"><code class="functions">export</code> <code class="plain">CLICOLOR=1</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>03</code></td><td class="content"><code class="functions">export</code> <code class="plain">LSCOLORS=ExFxCxDxbxegedabagacad</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>04</code></td><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>05</code></td><td class="content"><code class="comments"># Aliases</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>06</code></td><td class="content"><code class="functions">alias</code> <code class="plain">mystop=</code><code class="string">"sudo launchctl unload -w /Library/LaunchDaemons/com.mysql.mysqld.plist"</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>07</code></td><td class="content"><code class="functions">alias</code> <code class="plain">mystart=</code><code class="string">"sudo /usr/local/mysql/bin/mysqld_safe &amp;"</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>08</code></td><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>09</code></td><td class="content"><code class="comments"># bash history commands</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>10</code></td><td class="content"><code class="functions">export</code> <code class="plain">HISTCONTROL=erasedups</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>11</code></td><td class="content"><code class="functions">export</code> <code class="plain">HISTSIZE=10000</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>12</code></td><td class="content"><code class="functions">shopt</code> <code class="plain">-s histappend</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>13</code></td><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>14</code></td><td class="content"><code class="comments"># My PATH (not a part of my spiritual journey...or is it?)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>15</code></td><td class="content"><code class="functions">export</code> <code class="plain">PATH=</code><code class="string">"/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>16</code></td><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>17</code></td><td class="content"><code class="comments"># advanced PROMPT</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>18</code></td><td class="content"><code class="plain">PS1=</code><code class="string">"\`if [ \$? != 0 ]; then echo \[\e[33m\]---=== \[\e[31m\]Oh noes, bad command \[\e[33m\]===---; fi\`\n\[\e[0;37m\][\[\e[1;31m\]\@\[\e[0;37m\]] \[\e[0;32m\]\u@\h \[\e[0;37m\][\[\e[1;34m\]\w\[\e[0;37m\]] \[\e[0;32m\]\$ \[\e[0m\] "</code></td></tr></tbody></table></div></div></div>
+<p>I'd LOVE to hear what other people are doing with their terminals that they find helpful, smart, or fun.  Leave a comment and let me know what you know!</p>
+<p>Thanks for following along everyone who made it this far.  You are all getting gold-stars!  </p>
+<span style="clear: both; display: none;"><img src="wpsf-img.php" alt="" style="border-style: none; width: 0px; height: 0px; display: none;" width="0" height="0"></span></div>
+
+<div class="post-footer">By: joel brock | Tags: <a href="http://www.joelbrock.org/blog/tag/cli/" rel="tag">cli</a>, <a href="http://www.joelbrock.org/blog/tag/geek/" rel="tag">geek</a>, <a href="http://www.joelbrock.org/blog/tag/tips/" rel="tag">tips</a> |  Category: <a href="http://www.joelbrock.org/blog/category/tech/" title="View all posts in tech" rel="category tag">tech</a> </div>
+</div><!-- / Post -->						
+	
+	
+
+
+	<a name="comments"></a><!-- named anchor for skip links -->
+	<h3 id="comments">3 comments to More than just colors: My bash settings</h3>
+
+	
+	<!-- Comment List -->
+	<div class="yjl-pager"></div><ul class="commentlist">
+		
+			<li class="comment even thread-even depth-1 clearfix" id="comment-319">
+		<div id="div-comment-319" class="clearfix comment-container">
+		<div class="comment-author vcard">
+		<img alt="" src="f6bbe6c6d7032ca7209e9aa9cb6a84de.dat" class="avatar avatar-25 photo" width="25" height="25">		<span class="authorname"><a href="http://www.facebook.com/" rel="external nofollow" class="url">Jason Khalil Brown</a></span>
+		</div>
+				<div class="comment-meta commentmetadata">
+		<a href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/comment-page-1/#comment-319">
+		September 6th, 2009 at 3:00 pm</a>
+        				</div>
+		<p>Great stuff man, and perfect timing! Taking a programming class that delves into some UNIX right now, so probably nothing I can add to help you out. The server we play on also has a bash shell, so I am excited to try some of your wizardry. Might have to pay attention to facebook so I don't miss cool stuff like this. Take it easy man, probably see ya sometime in october. K</p>
+		</div>
+</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="comment-320">
+		<div id="div-comment-320" class="clearfix comment-container">
+		<div class="comment-author vcard">
+		<img alt="" src="f6bbe6c6d7032ca7209e9aa9cb6a84de.dat" class="avatar avatar-25 photo" width="25" height="25">		<span class="authorname"><a href="http://www.facebook.com/" rel="external nofollow" class="url">Edward G Sharp</a></span>
+		</div>
+				<div class="comment-meta commentmetadata">
+		<a href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/comment-page-1/#comment-320">
+		September 17th, 2009 at 9:58 pm</a>
+        				</div>
+		<p>how about the python shell, or the z shell?</p>
+		</div>
+</li>
+		<li class="comment even thread-even depth-1 clearfix" id="comment-601">
+		<div id="div-comment-601" class="clearfix comment-container">
+		<div class="comment-author vcard">
+		<img alt="" src="b652a346f3c4834a953894194999c3e5.dat" class="avatar avatar-25 photo" width="25" height="25">		<span class="authorname">Daniel B, Davis</span>
+		</div>
+				<div class="comment-meta commentmetadata">
+		<a href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/comment-page-1/#comment-601">
+		March 29th, 2013 at 7:09 pm</a>
+        				</div>
+		<p>Under Puppy Linux, the Bash default colors are crap. The light blue cannot be seen. I found your info by searching on Google. Do not know yet, but I do hope it contains enough info to make the output readable, and now-to-have, in a slightly large size font. Thanks for your efforts.</p>
+		</div>
+</li>
+	
+	</ul>
+	<!-- / Comment List -->
+
+	
+
+
+		
+			
+
+
+
+</td>
+<!-- / Main Column -->
+
+<!-- Right Inner Sidebar -->
+<td id="right-inner">
+
+	<div id="lastfm-1" class="widget widget_lastfm"><div class="widget-title"><h3><a href="http://last.fm/user/joelbrock" class="lastfm_title_link">listening</a></h3></div><ul class="lastfm"><li>No recently listened tracks.</li></ul></div><div id="bfa-popular-posts" class="widget widget_mdv_most_commented"><div class="widget-title"><h3>Popular Posts</h3></div><ul><li><a href="http://www.joelbrock.org/blog/2009/06/what-im-into-from-1924-to-2113/" title="What I'm into: lately">What I'm into: lately (6)</a></li><li><a href="http://www.joelbrock.org/blog/2009/10/the-cia-is-reading-your-facebook-page-do-you-care/" title="The CIA is reading your Facebook page.  Do you care?">The CIA is reading your Facebook page.  Do you care? (6)</a></li><li><a href="http://www.joelbrock.org/blog/2010/03/iphone-wizardry-howd-they-do-that/" title="iPhone wizardry, how'd they do that?">iPhone wizardry, how'd they do that? (6)</a></li><li><a href="http://www.joelbrock.org/blog/2009/05/mac-users-take-note-disable-java-in-your-browsers/" title="Mac users take note:  Disable Java in your browsers">Mac users take note:  Disable Java in your browsers (5)</a></li><li><a href="http://www.joelbrock.org/blog/2008/01/fannie-look-its-a-new-report/" title="[Fannie] Look!  It's a new report.">[Fannie] Look!  It's a new report. (4)</a></li><li><a href="http://www.joelbrock.org/blog/2009/07/how-to-peel-a-banana/" title="How to peel a banana">How to peel a banana (4)</a></li></ul></div><div id="recent-comments-2" class="widget widget_recent_comments"><div class="widget-title"><h3>chatty</h3></div><ul id="recentcomments"><li class="recentcomments">Daniel B, Davis on <a href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/comment-page-1/#comment-601">More than just colors: My bash settings</a></li><li class="recentcomments">LP on <a href="http://www.joelbrock.org/blog/2011/03/backing-up-gmail-just-in-case/comment-page-1/#comment-442">Backing up Gmail…..Just in Case</a></li><li class="recentcomments"><a href="http://www.beyondinbox.com/" rel="external nofollow" class="url">Aashi</a> on <a href="http://www.joelbrock.org/blog/2011/03/backing-up-gmail-just-in-case/comment-page-1/#comment-432">Backing up Gmail…..Just in Case</a></li><li class="recentcomments"><a href="http://4thstreet.ca/" rel="external nofollow" class="url">Jack Morten</a> on <a href="http://www.joelbrock.org/blog/2009/12/what-im-into-lately-13/comment-page-1/#comment-430">What I’m Into: lately</a></li><li class="recentcomments"><a href="http://www.joelbrock.org/" rel="external nofollow" class="url">joelbrock</a> on <a href="http://www.joelbrock.org/blog/2011/03/backing-up-gmail-just-in-case/comment-page-1/#comment-412">Backing up Gmail…..Just in Case</a></li></ul></div>
+</td>
+<!-- / Right Inner Sidebar -->
+
+<!-- Right Sidebar -->
+<td id="right">
+
+	<div id="nav_menu-4" class="widget widget_nav_menu"><div class="menu-main_nav-container"><ul id="menu-main_nav" class="menu"><li id="menu-item-2497" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2497"><a href="http://www.joelbrock.org/blog/">Home</a></li>
+<li id="menu-item-2498" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2498"><a href="http://www.joelbrock.org/blog/gifts/">Gifts</a>
+<ul class="sub-menu">
+	<li id="menu-item-2499" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2499"><a href="http://www.joelbrock.org/blog/gifts/2010__into_the_lightdark/">2010 into the light/dark</a></li>
+	<li id="menu-item-2500" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2500"><a href="http://www.joelbrock.org/blog/gifts/two-thousand-and-fine/">Two Thousand and Fine</a></li>
+</ul>
+</li>
+<li id="menu-item-2501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2501"><a href="http://www.designslife.com/">designslife</a></li>
+</ul></div></div><div id="ctc-2" class="widget ctc"><div class="widget-title"><h3>Tags</h3></div><div class="ctc"><a href="http://www.joelbrock.org/blog/tag/action/" class="ctc-tag tag-link-79" title="9 topics" rel="tag" style="font-size: 13.4444pt;">action</a>
+<a href="http://www.joelbrock.org/blog/tag/animation/" class="ctc-tag tag-link-63" title="3 topics" rel="tag" style="font-size: 8.77778pt;">animation</a>
+<a href="http://www.joelbrock.org/blog/tag/art/" class="ctc-tag tag-link-3" title="17 topics" rel="tag" style="font-size: 19.6667pt;">art</a>
+<a href="http://www.joelbrock.org/blog/tag/article/" class="ctc-tag tag-link-96" title="6 topics" rel="tag" style="font-size: 11.1111pt;">article</a>
+<a href="http://www.joelbrock.org/blog/tag/blog/" class="ctc-tag tag-link-87" title="3 topics" rel="tag" style="font-size: 8.77778pt;">blog</a>
+<a href="http://www.joelbrock.org/blog/tag/blogginess/" class="ctc-tag tag-link-7" title="5 topics" rel="tag" style="font-size: 10.3333pt;">blogginess</a>
+<a href="http://www.joelbrock.org/blog/tag/bod/" class="ctc-tag tag-link-74" title="10 topics" rel="tag" style="font-size: 14.2222pt;">BoD</a>
+<a href="http://www.joelbrock.org/blog/tag/business/" class="ctc-tag tag-link-89" title="4 topics" rel="tag" style="font-size: 9.55556pt;">business</a>
+<a href="http://www.joelbrock.org/blog/tag/ccma/" class="ctc-tag tag-link-75" title="13 topics" rel="tag" style="font-size: 16.5556pt;">CCMA</a>
+<a href="http://www.joelbrock.org/blog/tag/change/" class="ctc-tag tag-link-42" title="3 topics" rel="tag" style="font-size: 8.77778pt;">change</a>
+<a href="http://www.joelbrock.org/blog/tag/cli/" class="ctc-tag tag-link-51" title="3 topics" rel="tag" style="font-size: 8.77778pt;">cli</a>
+<a href="http://www.joelbrock.org/blog/tag/collaboration/" class="ctc-tag tag-link-98" title="6 topics" rel="tag" style="font-size: 11.1111pt;">collaboration</a>
+<a href="http://www.joelbrock.org/blog/tag/comic/" class="ctc-tag tag-link-71" title="5 topics" rel="tag" style="font-size: 10.3333pt;">comic</a>
+<a href="http://www.joelbrock.org/blog/tag/community/" class="ctc-tag tag-link-99" title="10 topics" rel="tag" style="font-size: 14.2222pt;">community</a>
+<a href="http://www.joelbrock.org/blog/tag/cooperation/" class="ctc-tag tag-link-43" title="8 topics" rel="tag" style="font-size: 12.6667pt;">cooperation</a>
+<a href="http://www.joelbrock.org/blog/tag/dataviz/" class="ctc-tag tag-link-198" title="3 topics" rel="tag" style="font-size: 8.77778pt;">dataviz</a>
+<a href="http://www.joelbrock.org/blog/tag/design/" class="ctc-tag tag-link-54" title="18 topics" rel="tag" style="font-size: 20.4444pt;">design</a>
+<a href="http://www.joelbrock.org/blog/tag/drawing/" class="ctc-tag tag-link-66" title="2 topics" rel="tag" style="font-size: 8pt;">drawing</a>
+<a href="http://www.joelbrock.org/blog/tag/economics/" class="ctc-tag tag-link-122" title="3 topics" rel="tag" style="font-size: 8.77778pt;">economics</a>
+<a href="http://www.joelbrock.org/blog/tag/email/" class="ctc-tag tag-link-11" title="10 topics" rel="tag" style="font-size: 14.2222pt;">email</a>
+<a href="http://www.joelbrock.org/blog/tag/fannie/" class="ctc-tag tag-link-58" title="4 topics" rel="tag" style="font-size: 9.55556pt;">fannie</a>
+<a href="http://www.joelbrock.org/blog/tag/finder/" class="ctc-tag tag-link-12" title="7 topics" rel="tag" style="font-size: 11.8889pt;">finder</a>
+<a href="http://www.joelbrock.org/blog/tag/firefox/" class="ctc-tag tag-link-50" title="6 topics" rel="tag" style="font-size: 11.1111pt;">firefox</a>
+<a href="http://www.joelbrock.org/blog/tag/flash/" class="ctc-tag tag-link-65" title="2 topics" rel="tag" style="font-size: 8pt;">flash</a>
+<a href="http://www.joelbrock.org/blog/tag/fonts/" class="ctc-tag tag-link-116" title="4 topics" rel="tag" style="font-size: 9.55556pt;">fonts</a>
+<a href="http://www.joelbrock.org/blog/tag/food/" class="ctc-tag tag-link-53" title="11 topics" rel="tag" style="font-size: 15pt;">food</a>
+<a href="http://www.joelbrock.org/blog/tag/free/" class="ctc-tag tag-link-119" title="14 topics" rel="tag" style="font-size: 17.3333pt;">free</a>
+<a href="http://www.joelbrock.org/blog/tag/fun/" class="ctc-tag tag-link-85" title="3 topics" rel="tag" style="font-size: 8.77778pt;">fun</a>
+<a href="http://www.joelbrock.org/blog/tag/gardening/" class="ctc-tag tag-link-82" title="3 topics" rel="tag" style="font-size: 8.77778pt;">gardening</a>
+<a href="http://www.joelbrock.org/blog/tag/geek/" class="ctc-tag tag-link-13" title="10 topics" rel="tag" style="font-size: 14.2222pt;">geek</a>
+<a href="http://www.joelbrock.org/blog/tag/gmail/" class="ctc-tag tag-link-132" title="3 topics" rel="tag" style="font-size: 8.77778pt;">gmail</a>
+<a href="http://www.joelbrock.org/blog/tag/google/" class="ctc-tag tag-link-37" title="12 topics" rel="tag" style="font-size: 15.7778pt;">google</a>
+<a href="http://www.joelbrock.org/blog/tag/graphics/" class="ctc-tag tag-link-113" title="4 topics" rel="tag" style="font-size: 9.55556pt;">graphics</a>
+<a href="http://www.joelbrock.org/blog/tag/hack/" class="ctc-tag tag-link-69" title="3 topics" rel="tag" style="font-size: 8.77778pt;">hack</a>
+<a href="http://www.joelbrock.org/blog/tag/health/" class="ctc-tag tag-link-76" title="6 topics" rel="tag" style="font-size: 11.1111pt;">health</a>
+<a href="http://www.joelbrock.org/blog/tag/howto/" class="ctc-tag tag-link-73" title="2 topics" rel="tag" style="font-size: 8pt;">howto</a>
+<a href="http://www.joelbrock.org/blog/tag/humor/" class="ctc-tag tag-link-16" title="11 topics" rel="tag" style="font-size: 15pt;">humor</a>
+<a href="http://www.joelbrock.org/blog/tag/illustration/" class="ctc-tag tag-link-64" title="5 topics" rel="tag" style="font-size: 10.3333pt;">illustration</a>
+<a href="http://www.joelbrock.org/blog/tag/infographics/" class="ctc-tag tag-link-199" title="3 topics" rel="tag" style="font-size: 8.77778pt;">infographics</a>
+<a href="http://www.joelbrock.org/blog/tag/inspiration/" class="ctc-tag tag-link-56" title="10 topics" rel="tag" style="font-size: 14.2222pt;">inspiration</a>
+<a href="http://www.joelbrock.org/blog/tag/interface/" class="ctc-tag tag-link-114" title="5 topics" rel="tag" style="font-size: 10.3333pt;">interface</a>
+<a href="http://www.joelbrock.org/blog/tag/iphone/" class="ctc-tag tag-link-95" title="7 topics" rel="tag" style="font-size: 11.8889pt;">iPhone</a>
+<a href="http://www.joelbrock.org/blog/tag/is4c/" class="ctc-tag tag-link-17" title="3 topics" rel="tag" style="font-size: 8.77778pt;">IS4C</a>
+<a href="http://www.joelbrock.org/blog/tag/keycuts/" class="ctc-tag tag-link-18" title="6 topics" rel="tag" style="font-size: 11.1111pt;">keycuts</a>
+<a href="http://www.joelbrock.org/blog/tag/local/" class="ctc-tag tag-link-93" title="4 topics" rel="tag" style="font-size: 9.55556pt;">local</a>
+<a href="http://www.joelbrock.org/blog/tag/mac/" class="ctc-tag tag-link-68" title="8 topics" rel="tag" style="font-size: 12.6667pt;">mac</a>
+<a href="http://www.joelbrock.org/blog/tag/maps/" class="ctc-tag tag-link-105" title="3 topics" rel="tag" style="font-size: 8.77778pt;">maps</a>
+<a href="http://www.joelbrock.org/blog/tag/me/" class="ctc-tag tag-link-45" title="3 topics" rel="tag" style="font-size: 8.77778pt;">me</a>
+<a href="http://www.joelbrock.org/blog/tag/music/" class="ctc-tag tag-link-48" title="9 topics" rel="tag" style="font-size: 13.4444pt;">music</a>
+<a href="http://www.joelbrock.org/blog/tag/office/" class="ctc-tag tag-link-20" title="3 topics" rel="tag" style="font-size: 8.77778pt;">office</a>
+<a href="http://www.joelbrock.org/blog/tag/open-source/" class="ctc-tag tag-link-126" title="4 topics" rel="tag" style="font-size: 9.55556pt;">open-source</a>
+<a href="http://www.joelbrock.org/blog/tag/opensource/" class="ctc-tag tag-link-162" title="4 topics" rel="tag" style="font-size: 9.55556pt;">opensource</a>
+<a href="http://www.joelbrock.org/blog/tag/organization/" class="ctc-tag tag-link-88" title="3 topics" rel="tag" style="font-size: 8.77778pt;">organization</a>
+<a href="http://www.joelbrock.org/blog/tag/os-x/" class="ctc-tag tag-link-21" title="18 topics" rel="tag" style="font-size: 20.4444pt;">os x</a>
+<a href="http://www.joelbrock.org/blog/tag/politics/" class="ctc-tag tag-link-22" title="6 topics" rel="tag" style="font-size: 11.1111pt;">politics</a>
+<a href="http://www.joelbrock.org/blog/tag/portland/" class="ctc-tag tag-link-80" title="5 topics" rel="tag" style="font-size: 10.3333pt;">portland</a>
+<a href="http://www.joelbrock.org/blog/tag/pos/" class="ctc-tag tag-link-57" title="4 topics" rel="tag" style="font-size: 9.55556pt;">POS</a>
+<a href="http://www.joelbrock.org/blog/tag/productivity/" class="ctc-tag tag-link-24" title="13 topics" rel="tag" style="font-size: 16.5556pt;">productivity</a>
+<a href="http://www.joelbrock.org/blog/tag/reference/" class="ctc-tag tag-link-101" title="5 topics" rel="tag" style="font-size: 10.3333pt;">reference</a>
+<a href="http://www.joelbrock.org/blog/tag/rights/" class="ctc-tag tag-link-47" title="4 topics" rel="tag" style="font-size: 9.55556pt;">rights</a>
+<a href="http://www.joelbrock.org/blog/tag/science/" class="ctc-tag tag-link-26" title="5 topics" rel="tag" style="font-size: 10.3333pt;">science</a>
+<a href="http://www.joelbrock.org/blog/tag/search/" class="ctc-tag tag-link-106" title="6 topics" rel="tag" style="font-size: 11.1111pt;">search</a>
+<a href="http://www.joelbrock.org/blog/tag/security/" class="ctc-tag tag-link-27" title="11 topics" rel="tag" style="font-size: 15pt;">security</a>
+<a href="http://www.joelbrock.org/blog/tag/service/" class="ctc-tag tag-link-127" title="4 topics" rel="tag" style="font-size: 9.55556pt;">service</a>
+<a href="http://www.joelbrock.org/blog/tag/social/" class="ctc-tag tag-link-100" title="3 topics" rel="tag" style="font-size: 8.77778pt;">social</a>
+<a href="http://www.joelbrock.org/blog/tag/software/" class="ctc-tag tag-link-60" title="13 topics" rel="tag" style="font-size: 16.5556pt;">software</a>
+<a href="http://www.joelbrock.org/blog/tag/sql/" class="ctc-tag tag-link-154" title="3 topics" rel="tag" style="font-size: 8.77778pt;">SQL</a>
+<a href="http://www.joelbrock.org/blog/tag/sustainable/" class="ctc-tag tag-link-84" title="4 topics" rel="tag" style="font-size: 9.55556pt;">sustainable</a>
+<a href="http://www.joelbrock.org/blog/tag/the-internet/" class="ctc-tag tag-link-44" title="10 topics" rel="tag" style="font-size: 14.2222pt;">the internet</a>
+<a href="http://www.joelbrock.org/blog/tag/things/" class="ctc-tag tag-link-46" title="2 topics" rel="tag" style="font-size: 8pt;">things</a>
+<a href="http://www.joelbrock.org/blog/tag/thought/" class="ctc-tag tag-link-86" title="8 topics" rel="tag" style="font-size: 12.6667pt;">thought</a>
+<a href="http://www.joelbrock.org/blog/tag/tips/" class="ctc-tag tag-link-41" title="20 topics" rel="tag" style="font-size: 22pt;">tips</a>
+<a href="http://www.joelbrock.org/blog/tag/tools/" class="ctc-tag tag-link-104" title="8 topics" rel="tag" style="font-size: 12.6667pt;">tools</a>
+<a href="http://www.joelbrock.org/blog/tag/tutorial/" class="ctc-tag tag-link-33" title="14 topics" rel="tag" style="font-size: 17.3333pt;">tutorial</a>
+<a href="http://www.joelbrock.org/blog/tag/typography/" class="ctc-tag tag-link-115" title="5 topics" rel="tag" style="font-size: 10.3333pt;">typography</a>
+<a href="http://www.joelbrock.org/blog/tag/utilities/" class="ctc-tag tag-link-120" title="3 topics" rel="tag" style="font-size: 8.77778pt;">utilities</a>
+<a href="http://www.joelbrock.org/blog/tag/video/" class="ctc-tag tag-link-52" title="11 topics" rel="tag" style="font-size: 15pt;">video</a>
+<a href="http://www.joelbrock.org/blog/tag/webdesign/" class="ctc-tag tag-link-111" title="6 topics" rel="tag" style="font-size: 11.1111pt;">webdesign</a>
+<a href="http://www.joelbrock.org/blog/tag/windows/" class="ctc-tag tag-link-35" title="2 topics" rel="tag" style="font-size: 8pt;">windows</a>
+<a href="http://www.joelbrock.org/blog/tag/work/" class="ctc-tag tag-link-40" title="11 topics" rel="tag" style="font-size: 15pt;">work</a></div></div><div id="archives-3" class="widget widget_archive"><div class="widget-title"><h3>Archives</h3></div>		<ul>
+			<li><a href="http://www.joelbrock.org/blog/2013/07/" title="July 2013">July 2013</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2012/07/" title="July 2012">July 2012</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2012/06/" title="June 2012">June 2012</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2012/02/" title="February 2012">February 2012</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2011/05/" title="May 2011">May 2011</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2011/04/" title="April 2011">April 2011</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2011/03/" title="March 2011">March 2011</a>&nbsp;(4)</li>
+	<li><a href="http://www.joelbrock.org/blog/2010/09/" title="September 2010">September 2010</a>&nbsp;(4)</li>
+	<li><a href="http://www.joelbrock.org/blog/2010/04/" title="April 2010">April 2010</a>&nbsp;(9)</li>
+	<li><a href="http://www.joelbrock.org/blog/2010/03/" title="March 2010">March 2010</a>&nbsp;(10)</li>
+	<li><a href="http://www.joelbrock.org/blog/2010/02/" title="February 2010">February 2010</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/12/" title="December 2009">December 2009</a>&nbsp;(5)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/11/" title="November 2009">November 2009</a>&nbsp;(5)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/10/" title="October 2009">October 2009</a>&nbsp;(10)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/09/" title="September 2009">September 2009</a>&nbsp;(6)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/08/" title="August 2009">August 2009</a>&nbsp;(4)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/07/" title="July 2009">July 2009</a>&nbsp;(6)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/06/" title="June 2009">June 2009</a>&nbsp;(28)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/05/" title="May 2009">May 2009</a>&nbsp;(11)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/04/" title="April 2009">April 2009</a>&nbsp;(3)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/03/" title="March 2009">March 2009</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2009/01/" title="January 2009">January 2009</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/11/" title="November 2008">November 2008</a>&nbsp;(3)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/10/" title="October 2008">October 2008</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/09/" title="September 2008">September 2008</a>&nbsp;(3)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/08/" title="August 2008">August 2008</a>&nbsp;(3)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/04/" title="April 2008">April 2008</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/02/" title="February 2008">February 2008</a>&nbsp;(1)</li>
+	<li><a href="http://www.joelbrock.org/blog/2008/01/" title="January 2008">January 2008</a>&nbsp;(3)</li>
+	<li><a href="http://www.joelbrock.org/blog/2007/11/" title="November 2007">November 2007</a>&nbsp;(2)</li>
+	<li><a href="http://www.joelbrock.org/blog/2007/10/" title="October 2007">October 2007</a>&nbsp;(2)</li>
+	<li><a href="http://www.joelbrock.org/blog/2007/07/" title="July 2007">July 2007</a>&nbsp;(3)</li>
+	<li><a href="http://www.joelbrock.org/blog/2007/05/" title="May 2007">May 2007</a>&nbsp;(12)</li>
+		</ul>
+</div>
+</td>
+<!-- / Right Sidebar -->
+
+</tr>
+<!-- / Main Body -->
+<tr>
+
+<!-- Footer -->
+<td id="footer" colspan="3">
+
+    <p>
+    Copyright © 2016 <a href="http://www.joelbrock.org/blog/">blogginess</a> - A Few Rights Reserved<br>Powered by <a href="http://wordpress.org/">WordPress</a>    </p>
+    
+    
+    
+    <div id="fb-root"></div>
+    
+    
+<!-- tracker added by Ultimate Google Analytics plugin v1.6.0: http://www.oratransplant.nl/uga -->
+
+
+
+
+
+
+
+
+<!--stats_footer_test-->
+
+
+</td>
+<!-- / Footer -->
+
+</tr>
+</tbody></table><!-- / layout -->
+</div><!-- / container -->
+</div><!-- / wrapper -->
+
+<div style="display: none;" id="cboxOverlay"></div><div style="display: none;" class="" id="colorbox"><div id="cboxWrapper"><div><div style="float: left;" id="cboxTopLeft"></div><div style="float: left;" id="cboxTopCenter"></div><div style="float: left;" id="cboxTopRight"></div></div><div style="clear: left;"><div style="float: left;" id="cboxMiddleLeft"></div><div style="float: left;" id="cboxContent"><div style="width: 0px; height: 0px; overflow: hidden; float: left;" id="cboxLoadedContent"></div><div style="float: left;" id="cboxLoadingOverlay"></div><div style="float: left;" id="cboxLoadingGraphic"></div><div style="float: left;" id="cboxTitle"></div><div style="float: left;" id="cboxCurrent"></div><div style="float: left;" id="cboxNext"></div><div style="float: left;" id="cboxPrevious"></div><div style="float: left;" id="cboxSlideshow"></div><div style="float: left;" id="cboxClose"></div></div><div style="float: left;" id="cboxMiddleRight"></div></div><div style="clear: left;"><div style="float: left;" id="cboxBottomLeft"></div><div style="float: left;" id="cboxBottomCenter"></div><div style="float: left;" id="cboxBottomRight"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div style="display: none;" id="tooltip"><h3></h3><div class="body"></div><div class="url"></div></div><div id="fmg-float-img"><img class="fmg-float-img-loading" src="lightbox-ico-loading.gif"><img class="fmg-float-img-tag" src="untitled.dat"><p class="fmg-description"></p></div></body>
+</html>

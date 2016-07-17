@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset="UTF-8">
+
+    
+    
+    
+    
+    
+    
+
+    <link as="script" href="https://assets-cdn.github.com/assets/frameworks-c2ebdbad5c9cc35b5db00eb06daf9f2d6e8e00338d2ce18b49398f048d1f421e.js" rel="preload">
+    
+    <link as="script" href="https://assets-cdn.github.com/assets/github-0d7d76121b6bbe2f59c5e9d782b276d3ae85318e5be0aae461b1f003cabce0c2.js" rel="preload">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=1020">
+    
+    
+    <title>paoloantinori/hhighlighter: A command line tool to highlight terms</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" href="https://github.com/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://github.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://github.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://github.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://github.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://github.com/apple-touch-icon-180x180.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="https://avatars3.githubusercontent.com/u/1520602?v=3&amp;s=400" name="twitter:image:src"><meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="paoloantinori/hhighlighter" name="twitter:title"><meta content="hhighlighter - A command line tool to highlight terms" name="twitter:description">
+      <meta content="https://avatars3.githubusercontent.com/u/1520602?v=3&amp;s=400" property="og:image"><meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="paoloantinori/hhighlighter" property="og:title"><meta content="https://github.com/paoloantinori/hhighlighter" property="og:url"><meta content="hhighlighter - A command line tool to highlight terms" property="og:description">
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="web-socket" href="wss://live.github.com/_sockets/Nzc1ODY3OjkyZGRlYWM2NjgxMDIwM2Q2ODY2ZWU4YTc1MGMzOTNlOmNmOWI1MjM3OGU4MzI2ZDllNTMzZDI0NGFkODczYjk3MmJjNTE1ZWJjYTJkMTliMzNmMmI5NDM4MTRmNWRlNGU=--c761ba89ceee500c6a40d9d3a965c7032218a1fa">
+    <meta name="pjax-timeout" content="1000">
+    <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient="">
+
+    <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host"><meta content="github" name="octolytics-app-id"><meta content="758828F3:9544:22318D:57034DA1" name="octolytics-dimension-request_id"><meta content="775867" name="octolytics-actor-id"><meta content="bamanzi" name="octolytics-actor-login"><meta content="e1253ee97109340dbe6750e67f37cd50634b775c85ce81905686b977ca0464a6" name="octolytics-actor-hash">
+<meta content="/<user-name>/<repo-name>" data-pjax-transient="true" name="analytics-location">
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+
+        <meta name="hostname" content="github.com">
+    <meta name="user-login" content="bamanzi">
+
+        <meta name="expected-hostname" content="github.com">
+      <meta name="js-proxy-site-detection-payload" content="MzIxOWJhNjc2ZmZlODY0NjVmY2ZmMjMxYmFiOTAwNWE3MjM3ODg5NTM2ZGRlZTZiMjVmZjgwNTZlNjhiYTg3OHx7InJlbW90ZV9hZGRyZXNzIjoiMTE3LjEzNi40MC4yNDMiLCJyZXF1ZXN0X2lkIjoiNzU4ODI4RjM6OTU0NDoyMjMxOEQ6NTcwMzREQTEiLCJ0aW1lc3RhbXAiOjE0NTk4MzQyNzR9">
+
+      <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#4078c0">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <meta content="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" name="form-nonce">
+
+    <meta http-equiv="x-pjax-version" content="764b7cf12ed345db410c0c0cd52d00c4">
+    
+
+      
+  <meta name="description" content="hhighlighter - A command line tool to highlight terms">
+  <meta name="go-import" content="github.com/paoloantinori/hhighlighter git https://github.com/paoloantinori/hhighlighter.git">
+
+  <meta content="1520602" name="octolytics-dimension-user_id"><meta content="paoloantinori" name="octolytics-dimension-user_login"><meta content="13011587" name="octolytics-dimension-repository_id"><meta content="paoloantinori/hhighlighter" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="13011587" name="octolytics-dimension-repository_network_root_id"><meta content="paoloantinori/hhighlighter" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/paoloantinori/hhighlighter/commits/master.atom" rel="alternate" title="Recent Commits to hhighlighter:master" type="application/atom+xml">
+
+
+      <link rel="canonical" href="https://github.com/paoloantinori/hhighlighter" data-pjax-transient="">
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+  <body class="logged-in   env-production linux vis-public">
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"></div>
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-in true" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="28" version="1.1" viewBox="0 0 16 16" width="28"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+</a>
+
+
+        <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/paoloantinori/hhighlighter/search" class="js-site-search-form" data-scoped-search-url="/paoloantinori/hhighlighter/search" data-unscoped-search-url="/search" method="get"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+      <div class="header-search-scope">This repository</div>
+      <input class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable" data-hotkey="s" name="q" placeholder="Search" aria-label="Search this repository" data-unscoped-placeholder="Search GitHub" data-scoped-placeholder="Search" tabindex="1" autocapitalize="off" type="text">
+    </label>
+</form></div>
+
+
+      <ul class="header-nav left" role="navigation">
+        <li class="header-nav-item">
+          <a href="https://github.com/pulls" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+            Pull requests
+</a>        </li>
+        <li class="header-nav-item">
+          <a href="https://github.com/issues" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+            Issues
+</a>        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav right" id="user-links">
+  <li class="header-nav-item">
+    
+    <a href="https://github.com/notifications" aria-label="You have unread notifications" class="header-nav-link notification-indicator tooltipped tooltipped-s js-socket-channel js-notification-indicator" data-channel="notification-changed-v2:775867" data-ga-click="Header, go to notifications, icon:unread" data-hotkey="g n">
+        <span class="mail-status unread"></span>
+        <svg aria-hidden="true" class="octicon octicon-bell" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 12v1H0v-1l0.73-0.58c0.77-0.77 0.81-2.55 1.19-4.42 0.77-3.77 4.08-5 4.08-5 0-0.55 0.45-1 1-1s1 0.45 1 1c0 0 3.39 1.23 4.16 5 0.38 1.88 0.42 3.66 1.19 4.42l0.66 0.58z m-7 4c1.11 0 2-0.89 2-2H5c0 1.11 0.89 2 2 2z"></path></svg>
+</a>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link tooltipped tooltipped-s js-menu-target" href="https://github.com/new" aria-label="Create new…" data-ga-click="Header, create new, icon:add">
+      <svg aria-hidden="true" class="octicon octicon-plus left" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 9H7v5H5V9H0V7h5V2h2v5h5v2z"></path></svg>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="https://github.com/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+
+  <a class="dropdown-item" href="https://github.com/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-header">
+    <span title="paoloantinori/hhighlighter">This repository</span>
+  </div>
+    <a class="dropdown-item" href="https://github.com/paoloantinori/hhighlighter/issues/new" data-ga-click="Header, create new issue">
+      New issue
+    </a>
+
+      </ul>
+    </div>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name tooltipped tooltipped-sw js-menu-target" href="https://github.com/bamanzi" aria-label="View profile and more" data-ga-click="Header, show menu, icon:avatar">
+      <img alt="@bamanzi" class="avatar" src="775867.dat" height="20" width="20">
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <div class="dropdown-menu  dropdown-menu-sw">
+        <div class=" dropdown-header header-nav-current-user css-truncate">
+            Signed in as <strong class="css-truncate-target">bamanzi</strong>
+
+        </div>
+
+
+        <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item" href="https://github.com/bamanzi" data-ga-click="Header, go to profile, text:your profile">
+            Your profile
+          </a>
+        <a class="dropdown-item" href="https://github.com/stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a>
+          <a class="dropdown-item" href="https://github.com/explore" data-ga-click="Header, go to explore, text:explore">
+            Explore
+          </a>
+          <a class="dropdown-item" href="https://github.com/integrations" data-ga-click="Header, go to integrations, text:integrations">
+            Integrations
+          </a>
+        <a class="dropdown-item" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">
+          Help
+        </a>
+
+
+          <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item" href="https://github.com/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+            Settings
+          </a>
+
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="0r2BV6YBV6/xv7kXGNIpPNkXvT6mx48VDeiBFzx3/RNg9BxdU/Tnnl2P/GEGPcSB4MCPjRcMNez8rWxid5Bngg==" type="hidden"></div>
+            <button class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+              Sign out
+            </button>
+</form>
+      </div>
+    </div>
+  </li>
+</ul>
+
+
+    
+  </div>
+</div>
+
+
+      
+
+
+    <div id="start-of-content" class="accessibility-aid"></div>
+
+      <div id="js-flash-container">
+</div>
+
+
+    <div role="main" class="main-content">
+        <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container="">
+      
+<div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+  <div class="container repohead-details-container">
+
+    
+
+<ul class="pagehead-actions">
+
+  <li>
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="wHDcH1cH3peXek1qiml8XSgRYooE93NBJhwKCZnWaJmsgTUz1CvnWFgxZBd2zP+waRqcr+xFiMXp2dCQ97RLYg==" type="hidden"></div>      <input class="form-control" id="repository_id" name="repository_id" value="13011587" type="hidden">
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="https://github.com/paoloantinori/hhighlighter/subscription" class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" tabindex="0" aria-haspopup="true" data-ga-click="Repository, click Watch settings, action:files#disambiguate">
+            <span class="js-select-button">
+              <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6c4.94 0 7.94-6 7.94-6S13 2 8.06 2z m-0.06 10c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4z m2-4c0 1.11-0.89 2-2 2s-2-0.89-2-2 0.89-2 2-2 2 0.89 2 2z"></path></svg>
+              Watch
+            </span>
+          </a>
+          <a class="social-count js-social-count" href="https://github.com/paoloantinori/hhighlighter/watchers">
+            17
+          </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content" aria-hidden="true">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5L4 13 0 9l1.5-1.5 2.5 2.5 6.5-6.5 1.5 1.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" value="included" type="radio">
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6c4.94 0 7.94-6 7.94-6S13 2 8.06 2z m-0.06 10c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4z m2-4c0 1.11-0.89 2-2 2s-2-0.89-2-2 0.89-2 2-2 2 0.89 2 2z"></path></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5L4 13 0 9l1.5-1.5 2.5 2.5 6.5-6.5 1.5 1.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" value="subscribed" type="radio">
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6c4.94 0 7.94-6 7.94-6S13 2 8.06 2z m-0.06 10c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4z m2-4c0 1.11-0.89 2-2 2s-2-0.89-2-2 0.89-2 2-2 2 0.89 2 2z"></path></svg>
+                      Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5L4 13 0 9l1.5-1.5 2.5 2.5 6.5-6.5 1.5 1.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" value="ignore" type="radio">
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8 2.81v10.38c0 0.67-0.81 1-1.28 0.53L3 10H1c-0.55 0-1-0.45-1-1V7c0-0.55 0.45-1 1-1h2l3.72-3.72c0.47-0.47 1.28-0.14 1.28 0.53z m7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06 1.97 1.97-1.97 1.97 1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06-1.97-1.97 1.97-1.97z"></path></svg>
+                      Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/paoloantinori/hhighlighter/unstar" class="js-toggler-form starred" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="qOdmI4vw1tqFu35S78jKMWI+UiRSAJbLYFFEKFjywc+y9RXaSScD05oKRi5W7mow/nbtb5Mrk3rcdN1k8kia9A==" type="hidden"></div>
+      <button class="btn btn-sm btn-with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar paoloantinori/hhighlighter" data-ga-click="Repository, click unstar button, action:files#disambiguate; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-0.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14l4.33-2.33 4.33 2.33L10.4 9.26 14 6z"></path></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/paoloantinori/hhighlighter/stargazers">
+          146
+        </a>
+</form>
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/paoloantinori/hhighlighter/star" class="js-toggler-form unstarred" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="iKmjORGcSSfs5GFtjnUAIhfu0yJauDwAye/kveUiSdBq9dAFZC1fOZz+Arf+EUKpTOKvg6G3/4GsXsKJb1s2+w==" type="hidden"></div>
+      <button class="btn btn-sm btn-with-count js-toggler-target" aria-label="Star this repository" title="Star paoloantinori/hhighlighter" data-ga-click="Repository, click star button, action:files#disambiguate; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-0.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14l4.33-2.33 4.33 2.33L10.4 9.26 14 6z"></path></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/paoloantinori/hhighlighter/stargazers">
+          146
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/paoloantinori/hhighlighter/fork" class="btn-with-count" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="fWdSAsWGaCiUyE1ATInzsIZtdKydALa2JvyvcnRdm/IFrekujYYtMFySEyp+kfrvIulyiTAjsl7Ta5h39H1Zog==" type="hidden"></div>
+            <button type="submit" class="btn btn-sm btn-with-count" data-ga-click="Repository, show fork modal, action:files#disambiguate; text:Fork" title="Fork your own copy of paoloantinori/hhighlighter to your account" aria-label="Fork your own copy of paoloantinori/hhighlighter to your account">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1c-1.11 0-2 0.89-2 2 0 0.73 0.41 1.38 1 1.72v1.28L5 8 3 6v-1.28c0.59-0.34 1-0.98 1-1.72 0-1.11-0.89-2-2-2S0 1.89 0 3c0 0.73 0.41 1.38 1 1.72v1.78l3 3v1.78c-0.59 0.34-1 0.98-1 1.72 0 1.11 0.89 2 2 2s2-0.89 2-2c0-0.73-0.41-1.38-1-1.72V9.5l3-3V4.72c0.59-0.34 1-0.98 1-1.72 0-1.11-0.89-2-2-2zM2 4.2c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2z m3 10c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2z m3-10c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2z"></path></svg>
+              Fork
+            </button>
+</form>
+    <a href="https://github.com/paoloantinori/hhighlighter/network" class="social-count">
+      13
+    </a>
+  </li>
+</ul>
+
+    <h1 class="entry-title public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M4 9h-1v-1h1v1z m0-3h-1v1h1v-1z m0-2h-1v1h1v-1z m0-2h-1v1h1v-1z m8-1v12c0 0.55-0.45 1-1 1H6v2l-1.5-1.5-1.5 1.5V14H1c-0.55 0-1-0.45-1-1V1C0 0.45 0.45 0 1 0h10c0.55 0 1 0.45 1 1z m-1 10H1v2h2v-1h3v1h5V11z m0-10H2v9h9V1z"></path></svg>
+  <span class="author" itemprop="author"><a href="https://github.com/paoloantinori" class="url fn" rel="author">paoloantinori</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="https://github.com/paoloantinori/hhighlighter" data-pjax="#js-repo-pjax-container">hhighlighter</a></strong>
+
+</h1>
+
+  </div>
+  <div class="container">
+    
+<nav class="reponav js-repo-nav js-sidenav-container-pjax" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation" data-pjax="#js-repo-pjax-container">
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/paoloantinori/hhighlighter" aria-selected="true" class="js-selected-navigation-item selected reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /paoloantinori/hhighlighter" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M9.5 3l-1.5 1.5 3.5 3.5L8 11.5l1.5 1.5 4.5-5L9.5 3zM4.5 3L0 8l4.5 5 1.5-1.5L2.5 8l3.5-3.5L4.5 3z"></path></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="https://github.com/paoloantinori/hhighlighter/issues" class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /paoloantinori/hhighlighter/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7S10.14 13.7 7 13.7 1.3 11.14 1.3 8s2.56-5.7 5.7-5.7m0-1.3C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7S10.86 1 7 1z m1 3H6v5h2V4z m0 6H6v2h2V10z"></path></svg>
+        <span itemprop="name">Issues</span>
+        <span class="counter">2</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/paoloantinori/hhighlighter/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /paoloantinori/hhighlighter/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M11 11.28c0-1.73 0-6.28 0-6.28-0.03-0.78-0.34-1.47-0.94-2.06s-1.28-0.91-2.06-0.94c0 0-1.02 0-1 0V0L4 3l3 3V4h1c0.27 0.02 0.48 0.11 0.69 0.31s0.3 0.42 0.31 0.69v6.28c-0.59 0.34-1 0.98-1 1.72 0 1.11 0.89 2 2 2s2-0.89 2-2c0-0.73-0.41-1.38-1-1.72z m-1 2.92c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2zM4 3c0-1.11-0.89-2-2-2S0 1.89 0 3c0 0.73 0.41 1.38 1 1.72 0 1.55 0 5.56 0 6.56-0.59 0.34-1 0.98-1 1.72 0 1.11 0.89 2 2 2s2-0.89 2-2c0-0.73-0.41-1.38-1-1.72V4.72c0.59-0.34 1-0.98 1-1.72z m-0.8 10c0 0.66-0.55 1.2-1.2 1.2s-1.2-0.55-1.2-1.2 0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2z m-1.2-8.8c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2z"></path></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="counter">0</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="https://github.com/paoloantinori/hhighlighter/wiki" class="js-selected-navigation-item reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /paoloantinori/hhighlighter/wiki">
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M2 5h4v1H2v-1z m0 3h4v-1H2v1z m0 2h4v-1H2v1z m11-5H9v1h4v-1z m0 2H9v1h4v-1z m0 2H9v1h4v-1z m2-6v9c0 0.55-0.45 1-1 1H8.5l-1 1-1-1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h5.5l1 1 1-1h5.5c0.55 0 1 0.45 1 1z m-8 0.5l-0.5-0.5H1v9h6V3.5z m7-0.5H8.5l-0.5 0.5v8.5h6V3z"></path></svg>
+      Wiki
+</a>
+  <a href="https://github.com/paoloantinori/hhighlighter/pulse" class="js-selected-navigation-item reponav-item" data-selected-links="pulse /paoloantinori/hhighlighter/pulse">
+    <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0V10h3.6L4.5 8.2l0.9 5.4L9 8.5l1.6 1.5H14V8H11.5z"></path></svg>
+    Pulse
+</a>
+  <a href="https://github.com/paoloantinori/hhighlighter/graphs" class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors /paoloantinori/hhighlighter/graphs">
+    <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M16 14v1H0V0h1v14h15z m-11-1H3V8h2v5z m4 0H7V3h2v10z m4 0H11V6h2v7z"></path></svg>
+    Graphs
+</a>
+
+</nav>
+
+  </div>
+</div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+<div class="repository-meta js-details-container">
+  <span class="repository-meta-content">
+        <span itemprop="about"> A command line tool to highlight terms</span>
+  </span>
+
+</div>
+
+
+  <div class="overall-summary overall-summary-bottomless">
+    <div class="stats-switcher-viewport js-stats-switcher-viewport">
+      <div class="stats-switcher-wrapper">
+      <ul class="numbers-summary">
+        <li class="commits">
+          <a data-pjax="" href="https://github.com/paoloantinori/hhighlighter/commits/master">
+              <svg aria-hidden="true" class="octicon octicon-history" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M8 13H6V6h5v2H8v5zM7 1c-2.19 0-4.13 1.02-5.41 2.59L0 2v4h4l-1.5-1.5c1.05-1.33 2.67-2.2 4.5-2.2 3.14 0 5.7 2.56 5.7 5.7S10.14 13.7 7 13.7 1.3 11.14 1.3 8c0-0.34 0.03-0.67 0.09-1H0.08c-0.05 0.33-0.08 0.66-0.08 1 0 3.86 3.14 7 7 7s7-3.14 7-7S10.86 1 7 1z"></path></svg>
+              <span class="num text-emphasized">
+                57
+              </span>
+              commits
+          </a>
+        </li>
+        <li>
+          <a data-pjax="" href="https://github.com/paoloantinori/hhighlighter/branches">
+            <svg aria-hidden="true" class="octicon octicon-git-branch" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M10 5c0-1.11-0.89-2-2-2s-2 0.89-2 2c0 0.73 0.41 1.38 1 1.72v0.3c-0.02 0.52-0.23 0.98-0.63 1.38s-0.86 0.61-1.38 0.63c-0.83 0.02-1.48 0.16-2 0.45V4.72c0.59-0.34 1-0.98 1-1.72 0-1.11-0.89-2-2-2S0 1.89 0 3c0 0.73 0.41 1.38 1 1.72v6.56C0.41 11.63 0 12.27 0 13c0 1.11 0.89 2 2 2s2-0.89 2-2c0-0.53-0.2-1-0.53-1.36 0.09-0.06 0.48-0.41 0.59-0.47 0.25-0.11 0.56-0.17 0.94-0.17 1.05-0.05 1.95-0.45 2.75-1.25s1.2-1.98 1.25-3.02h-0.02c0.61-0.36 1.02-1 1.02-1.73zM2 1.8c0.66 0 1.2 0.55 1.2 1.2s-0.55 1.2-1.2 1.2-1.2-0.55-1.2-1.2 0.55-1.2 1.2-1.2z m0 12.41c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2z m6-8c-0.66 0-1.2-0.55-1.2-1.2s0.55-1.2 1.2-1.2 1.2 0.55 1.2 1.2-0.55 1.2-1.2 1.2z"></path></svg>
+            <span class="num text-emphasized">
+              1
+            </span>
+            branch
+          </a>
+        </li>
+
+        <li>
+          <a data-pjax="" href="https://github.com/paoloantinori/hhighlighter/releases">
+            <svg aria-hidden="true" class="octicon octicon-tag" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M6.73 2.73c-0.47-0.47-1.11-0.73-1.77-0.73H2.5C1.13 2 0 3.13 0 4.5v2.47c0 0.66 0.27 1.3 0.73 1.77l6.06 6.06c0.39 0.39 1.02 0.39 1.41 0l4.59-4.59c0.39-0.39 0.39-1.02 0-1.41L6.73 2.73zM1.38 8.09c-0.31-0.3-0.47-0.7-0.47-1.13V4.5c0-0.88 0.72-1.59 1.59-1.59h2.47c0.42 0 0.83 0.16 1.13 0.47l6.14 6.13-4.73 4.73L1.38 8.09z m0.63-4.09h2v2H2V4z"></path></svg>
+            <span class="num text-emphasized">
+              0
+            </span>
+            releases
+          </a>
+        </li>
+
+        <li>
+            <a href="https://github.com/paoloantinori/hhighlighter/graphs/contributors">
+    <span class="num text-emphasized">
+      6
+    </span>
+    contributors
+</a>
+
+        </li>
+      </ul>
+
+        <div class="repository-lang-stats">
+          <ol class="repository-lang-stats-numbers">
+            <li>
+                <a href="https://github.com/paoloantinori/hhighlighter/search?l=bash" data-ga-click="Repository, language stats search click, location:repo overview">
+                  <span class="color-block language-color" style="background-color: rgb(137, 224, 81);"></span>
+                  <span class="lang">Shell</span>
+                  <span class="percent">100.0%</span>
+                </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="repository-lang-stats-graph js-toggle-lang-stats" title="Click for language details" data-ga-click="Repository, language bar stats toggle, location:repo overview">
+      <span class="language-color" aria-label="Shell 100.0%" style="width: 100%; background-color: rgb(137, 224, 81);" itemprop="programmingLanguage">Shell</span>
+    </div>
+
+    
+
+  <div class="file-navigation in-mid-page">
+  <div class="right">
+    <div class="btn-group">
+      
+  <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/paoloantinori/hhighlighter/new/master" class="btn-group-form" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="90NLjV6tBqhitJdjZbsOVFN+tJRN1hQ7zRQs1RBRJQBPSbXX6ChNaGpyEx4slhTXHcDzMAdUE1/qaqtUjkYfDw==" type="hidden"></div>
+    <button class="btn btn-sm" type="submit" data-disable-with="Creating file…">
+        New file
+    </button>
+</form>
+
+        <a href="https://github.com/paoloantinori/hhighlighter/upload/master" class="btn btn-sm">
+          Upload files
+        </a>
+
+      <a href="https://github.com/paoloantinori/hhighlighter/find/master" class="btn btn-sm empty-icon right js-pjax-capture-input" data-pjax="" data-hotkey="t" data-ga-click="Repository, find file, location:repo overview">
+        Find file
+      </a>
+    </div>
+      <div class="file-navigation-options" data-multiple="">
+
+        <div class="file-navigation-option">
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/users/set_protocol" class="js-set-user-protocol-preference" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="s7o6klGw2EV8nrK2TjG0CJscqMWFH/+0cpo16T5taYv2v9nRD+l1alcPDn2gG7NlTLQqiQKCFe1q1kgkYqstwA==" type="hidden"></div>
+            <input name="protocol_type" value="clone" type="hidden">
+
+            <div class="select-menu js-menu-container js-select-menu">
+              <div class="input-group js-select-button js-zeroclipboard-container has-zeroclipboard-disabled">
+                <div class="input-group-button">
+  <button type="button" class="btn btn-sm select-menu-button js-menu-target" data-ga-click="Repository, clone HTTPS, location:repo overview">
+    HTTPS
+  </button>
+</div>
+<input class="form-control input-monospace input-sm js-zeroclipboard-target js-url-field" value="https://github.com/paoloantinori/hhighlighter.git" readonly="" type="text">
+<div class="input-group-button">
+  
+</div>
+
+              </div>
+
+              <div class="select-menu-modal-holder">
+                <div class="select-menu-modal js-menu-content" aria-hidden="true">
+                  <div class="select-menu-header">
+                    <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+                    <span class="select-menu-title">Choose a clone URL</span>
+                  </div>
+
+                  <div class="select-menu-list js-navigation-container" role="menu">
+                      <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                        <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5L4 13 0 9l1.5-1.5 2.5 2.5 6.5-6.5 1.5 1.5z"></path></svg>
+                        <div class="select-menu-item-text">
+                          <input name="protocol_selector" value="http" checked="" type="radio">
+                          <span class="select-menu-item-heading">
+                            HTTPS
+                            (recommended)
+                          </span>
+                            <span class="description">
+                              Clone with Git or checkout with SVN using the repository's web address.
+                            </span>
+                          <span class="js-select-button-text hidden-select-button-text">
+                            <div class="input-group-button">
+  <button type="button" class="btn btn-sm select-menu-button js-menu-target" data-ga-click="Repository, clone HTTPS, location:repo overview">
+    HTTPS
+  </button>
+</div>
+<input class="form-control input-monospace input-sm js-zeroclipboard-target js-url-field" value="https://github.com/paoloantinori/hhighlighter.git" readonly="" type="text">
+<div class="input-group-button">
+  
+</div>
+
+                          </span>
+                        </div>
+                      </div>
+                      <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                        <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5L4 13 0 9l1.5-1.5 2.5 2.5 6.5-6.5 1.5 1.5z"></path></svg>
+                        <div class="select-menu-item-text">
+                          <input name="protocol_selector" value="ssh" type="radio">
+                          <span class="select-menu-item-heading">
+                            SSH
+                            
+                          </span>
+                            <span class="description">
+                              Clone with an SSH key and passphrase from your GitHub settings.
+                            </span>
+                          <span class="js-select-button-text hidden-select-button-text">
+                            <div class="input-group-button">
+  <button type="button" class="btn btn-sm select-menu-button js-menu-target" data-ga-click="Repository, clone SSH, location:repo overview">
+    SSH
+  </button>
+</div>
+<input class="form-control input-monospace input-sm js-zeroclipboard-target js-url-field" value="git@github.com:paoloantinori/hhighlighter.git" readonly="" type="text">
+<div class="input-group-button">
+  
+</div>
+
+                          </span>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="select-menu-list" role="menu">
+                    <a class="select-menu-item select-menu-action" href="https://help.github.com/articles/which-remote-url-should-i-use" target="_blank">
+                      <svg aria-hidden="true" class="octicon octicon-question select-menu-item-icon" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M6 10h2v2H6V10z m4-3.5c0 2.14-2 2.5-2 2.5H6c0-0.55 0.45-1 1-1h0.5c0.28 0 0.5-0.22 0.5-0.5v-1c0-0.28-0.22-0.5-0.5-0.5h-1c-0.28 0-0.5 0.22-0.5 0.5v0.5H4c0-1.5 1.5-3 3-3s3 1 3 2.5zM7 2.3c3.14 0 5.7 2.56 5.7 5.7S10.14 13.7 7 13.7 1.3 11.14 1.3 8s2.56-5.7 5.7-5.7m0-1.3C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7S10.86 1 7 1z"></path></svg>
+                      <div class="select-menu-item-text">
+                        Learn more about clone URLs
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+</form>        </div>
+
+          <div class="file-navigation-option">
+  </div>
+
+
+        <div class="file-navigation-option">
+          <a href="https://github.com/paoloantinori/hhighlighter/archive/master.zip" class="btn btn-sm" rel="nofollow" data-ga-click="Repository, download zip, location:repo overview">
+            Download ZIP
+          </a>
+        </div>
+      </div>
+  </div>
+
+  
+<div class="select-menu js-menu-container js-select-menu left">
+  <button class="btn btn-sm select-menu-button js-menu-target css-truncate" data-hotkey="w" title="master" type="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <i>Branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </button>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax="" aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+        <span class="select-menu-title">Switch branches/tags</span>
+      </div>
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input aria-label="Filter branches/tags" id="context-commitish-filter-field" class="form-control js-filterable-field js-navigation-enable" placeholder="Filter branches/tags" type="text">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="branches" data-filter-placeholder="Filter branches/tags" class="js-select-menu-tab" role="tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="tags" data-filter-placeholder="Find a tag…" class="js-select-menu-tab" role="tab">Tags</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches" role="menu">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <a class="select-menu-item js-navigation-item js-navigation-open selected" href="https://github.com/paoloantinori/hhighlighter/tree/master" data-name="master" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5L4 13 0 9l1.5-1.5 2.5 2.5 6.5-6.5 1.5 1.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target js-select-menu-filter-text" title="master">
+                master
+              </span>
+            </a>
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+      <a href="https://github.com/paoloantinori/hhighlighter/pull/new/master" class="btn btn-sm btn-primary new-pull-request-btn" data-pjax="" data-ga-click="Repository, new pull request, location:repo overview">
+        New pull request
+      </a>
+
+  <div class="breadcrumb">
+    
+  </div>
+</div>
+
+
+
+
+
+  <div class="commit-tease js-details-container">
+    <span class="right">
+      Latest commit
+      <a class="commit-tease-sha" href="https://github.com/paoloantinori/hhighlighter/commit/858c1d1ab2a968ef316dbf00eeb68fa74514090e" data-pjax="">
+        858c1d1
+      </a>
+      <span itemprop="dateModified"><time title="Wed 10 Feb 2016 07:40:48 AM HKT" datetime="2016-02-09T23:40:48Z" is="relative-time">on Feb 10</time></span>
+    </span>
+
+
+    <span class="commit-author-section">
+      <img alt="@paoloantinori" class="avatar" src="1520602.dat" height="20" width="20">
+      <a href="https://github.com/paoloantinori" class="user-mention" rel="author">paoloantinori</a>
+    </span>
+
+        <a href="https://github.com/paoloantinori/hhighlighter/commit/858c1d1ab2a968ef316dbf00eeb68fa74514090e" class="message" data-pjax="true" title="Fixes broken which behavior in zsh">Fixes broken which behavior in zsh</a>
+    
+
+  </div>
+
+
+<div class="file-wrap">
+
+  <a href="https://github.com/paoloantinori/hhighlighter/tree/858c1d1ab2a968ef316dbf00eeb68fa74514090e" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+
+  <table class="files js-navigation-container js-active-navigation-container" data-pjax="">
+
+
+    <tbody>
+      <tr class="warning include-fragment-error">
+        <td class="icon"><svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M15.72 12.5l-6.85-11.98C8.69 0.21 8.36 0.02 8 0.02s-0.69 0.19-0.87 0.5l-6.85 11.98c-0.18 0.31-0.18 0.69 0 1C0.47 13.81 0.8 14 1.15 14h13.7c0.36 0 0.69-0.19 0.86-0.5S15.89 12.81 15.72 12.5zM9 12H7V10h2V12zM9 9H7V5h2V9z"></path></svg></td>
+        <td class="content" colspan="3">Failed to load latest commit information.</td>
+      </tr>
+
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7v-1c0-0.66-0.31-1-1-1H1c-0.55 0-1 0.45-1 1v10c0 0.55 0.45 1 1 1h12c0.55 0 1-0.45 1-1V5c0-0.55-0.45-1-1-1z m-7 0H1v-1h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/paoloantinori/hhighlighter/tree/master/screenshots" class="js-navigation-open" id="4b3cdc4cb815dfa317ae58526612f4b8-857d98689d7c5c70084f0f960f9034cc341a35f0" title="screenshots">screenshots</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/paoloantinori/hhighlighter/commit/03b73a7e5fd24d0372dd8ed5ecbd490c255e2d58" class="message" data-pjax="true" title="Added gif from ascii cinema">Added gif from ascii cinema</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time title="Thu 27 Aug 2015 06:44:08 PM HKT" datetime="2015-08-27T10:44:08Z" is="time-ago">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/paoloantinori/hhighlighter/blob/master/LICENSE.txt" class="js-navigation-open" id="61e0bdf7e1b43c5c93d9488b22e04170-17260a39c5205a6558581065f98111a7eec71380" itemprop="license" title="LICENSE.txt">LICENSE.txt</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/paoloantinori/hhighlighter/commit/3a378de5f7cdbca53597cc7a24da1158502551f1" class="message" data-pjax="true" title="Update LICENSE.txt">Update LICENSE.txt</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time title="Mon 23 Sep 2013 04:24:33 AM HKT" datetime="2013-09-22T20:24:33Z" is="time-ago">3 years ago</time></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/paoloantinori/hhighlighter/blob/master/README.asciidoc" class="js-navigation-open" id="d03d78a73f737f7943dde0f33e6e2b24-d84ced869149de02073c8f7cb14b770768bb0af4" title="README.asciidoc">README.asciidoc</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/paoloantinori/hhighlighter/commit/03b73a7e5fd24d0372dd8ed5ecbd490c255e2d58" class="message" data-pjax="true" title="Added gif from ascii cinema">Added gif from ascii cinema</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time title="Thu 27 Aug 2015 06:44:08 PM HKT" datetime="2015-08-27T10:44:08Z" is="time-ago">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/paoloantinori/hhighlighter/blob/master/h.sh" class="js-navigation-open" id="a10ea403bd120558db9d695ebdfff59e-ce2189eba0e51611b844d73a8b27c1f71aa9c000" title="h.sh">h.sh</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/paoloantinori/hhighlighter/commit/858c1d1ab2a968ef316dbf00eeb68fa74514090e" class="message" data-pjax="true" title="Fixes broken which behavior in zsh">Fixes broken which behavior in zsh</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time title="Wed 10 Feb 2016 07:40:48 AM HKT" datetime="2016-02-09T23:40:48Z" is="time-ago">2 months ago</time></span>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+  <div id="readme" class="readme boxed-group clearfix announce instapaper_body asciidoc">
+    <h3>
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M2 5h4v1H2v-1z m0 3h4v-1H2v1z m0 2h4v-1H2v1z m11-5H9v1h4v-1z m0 2H9v1h4v-1z m0 2H9v1h4v-1z m2-6v9c0 0.55-0.45 1-1 1H8.5l-1 1-1-1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h5.5l1 1 1-1h5.5c0.55 0 1 0.45 1 1z m-8 0.5l-0.5-0.5H1v9h6V3.5z m7-0.5H8.5l-0.5 0.5v8.5h6V3z"></path></svg>
+      README.asciidoc
+    </h3>
+
+      <article class="markdown-body entry-content" itemprop="text"><div>
+<h2 id="user-content-hhighlighter-or-just-h"><a id="user-content-hhighlighter-or-just-h" class="anchor" href="#hhighlighter-or-just-h" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>hhighlighter (or just h)</h2>
+<div>
+<div>
+<p>A tiny utility to highlight multiple keywords with different colors</p>
+</div>
+<div>
+<ul>
+<li>
+<p>Idea: Paolo Antinori</p>
+</li>
+<li>
+<p>Based on: <strong>ack</strong> - <a href="http://beyondgrep.com/">http://beyondgrep.com/</a> written by Andy Lester</p>
+</li>
+</ul>
+</div>
+<div>
+<h3 id="user-content-description"><a id="user-content-description" class="anchor" href="#description" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Description</h3>
+<div>
+<p><strong>h</strong> (hhighlighter is just a name to help search engines) is a really tiny helper script meant to highlight keywords in the output of another *nix command:</p>
+</div>
+</div>
+<div>
+<h3 id="user-content-requirements"><a id="user-content-requirements" class="anchor" href="#requirements" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Requirements</h3>
+<div>
+<p><strong>h</strong> is just a tiny facade in front of <strong>ack</strong> so you need to install it first.</p>
+</div>
+<div>
+<p><strong>What is ack?</strong></p>
+</div>
+<div>
+<p><strong>ack</strong> is a tool like <strong>grep</strong>, optimized for programmers</p>
+</div>
+<div>
+<p>Designed for programmers with large heterogeneous trees of source code, ack is written purely in portable Perl 5 and takes advantage of the power of Perl’s regular expressions.</p>
+</div>
+<div>
+<p>see: <a href="http://beyondgrep.com/">http://beyondgrep.com/</a></p>
+</div>
+<div>
+<p><strong>ack installation</strong></p>
+</div>
+<div>
+<p><strong>ack</strong> is part of many major linux distributions so you should use your <strong>package manager</strong> to install it.</p>
+</div>
+<div>
+<p>see: <a href="http://beyondgrep.com/install/">http://beyondgrep.com/install/</a></p>
+</div>
+<div>
+<p>If you want to install <strong>ack</strong> in a <strong>portable</strong> way ( at the end ack is just a script ) you do it in this way:</p>
+</div>
+<div>
+<p><code>curl <a href="http://beyondgrep.com/ack-2.08-single-file">http://beyondgrep.com/ack-2.08-single-file</a> &gt; ~/bin/ack &amp;&amp; chmod 0755 !#:3</code></p>
+</div>
+</div>
+<div>
+<h3 id="user-content-installation-instructions"><a id="user-content-installation-instructions" class="anchor" href="#installation-instructions" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Installation Instructions</h3>
+<div>
+<p><strong>h</strong> is implemented as a function in <strong>bash</strong>.</p>
+</div>
+<div>
+<p>You can install it in <strong>one of these ways</strong>:</p>
+</div>
+<div>
+<ul>
+<li>
+<p>copy and paste <code>h()</code> function in your <code>~/.bashrc</code></p>
+</li>
+<li>
+<p>configure your <code>~/.bashrc</code> to load the external script with <code>. /path/to/h.sh</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div>
+<h3 id="user-content-platform-specifics"><a id="user-content-platform-specifics" class="anchor" href="#platform-specifics" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Platform Specifics</h3>
+<div>
+<p><strong>h</strong> has currently been tested only on <strong>bash</strong> and <strong>zsh</strong> on <strong>Linux</strong> and <strong>MacOSX</strong>.</p>
+</div>
+</div>
+<div>
+<h3 id="user-content-usage"><a id="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Usage</h3>
+<div>
+<p><strong>h</strong> is meant to consume the output of another Linux command via pipe</p>
+</div>
+<div>
+<div>
+<pre><code>$ h
+usage: YOUR_COMMAND | h [-i] [-d] args...
+	-i : ignore case
+	-d : disable regexp
+	-n : invert colors</code></pre>
+</div>
+</div>
+</div>
+<div>
+<h3 id="user-content-configuration"><a id="user-content-configuration" class="anchor" href="#configuration" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Configuration</h3>
+<div>
+<div><strong>h</strong> supports overriding of its default colors via 2 environment variables: <code>H_COLORS_FG</code> and <code>H_COLORS_BG</code>.</div>
+<p>These variables accepts a <strong>comma separated values</strong> set of <a href="http://perldoc.perl.org/Term/ANSIColor.html">Perl Term::ANSIColor</a> configuration entries.
+For a table of RGB colors definition check this handy map:</p>
+</div>
+<div id="user-content-img-rgb">
+<div>
+<a href="https://github.com/jbnicolai/ansi-256-colors"><img src="rgb.png" alt="RGB Colors Map" style="max-width: 100%;" height="25%" width="25%"></a>
+</div>
+<div>Figure 1: RGB Map, taken from <a href="https://github.com/jbnicolai/ansi-256-colors">https://github.com/jbnicolai/ansi-256-colors</a></div>
+</div>
+<div>
+<p>Ex.</p>
+</div>
+<div>
+<div>
+<pre>export H_COLORS_FG="bold black on_rgb520","bold red on_rgb025"
+export H_COLORS_BG="underline bold rgb520","underline bold rgb025"
+echo abcdefghi | h   a b c d</pre>
+</div>
+</div>
+</div>
+<div>
+<h3 id="user-content-examples"><a id="user-content-examples" class="anchor" href="#examples" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Examples</h3>
+<div>
+<div>Default colors</div>
+<div>
+<pre>echo "abcdefghijklmnopqrstuvxywz" | h   a b c d e f g h i j k l</pre>
+</div>
+</div>
+<div>
+<div>Invert colors</div>
+<div>
+<pre>echo "abcdefghijklmnopqrstuvxywz" | h -n   a b c d e f g h i j k l</pre>
+</div>
+</div>
+<div>
+<div>Support for <code>tail</code> in follow mode</div>
+<div>
+<pre>tail -F | h keyword1 keyword2</pre>
+</div>
+</div>
+<div>
+<div>Case Insensitive</div>
+<div>
+<pre>mvn clean install | h -i failure success</pre>
+</div>
+</div>
+<div>
+<div>Disable regular expression</div>
+<div>
+<pre>tail -F my.log | h -d org.apache.camel</pre>
+</div>
+</div>
+<div>
+<div>Highlight multiple keys with the same color (using regexp syntax)</div>
+<div>
+<pre>echo abcd | h 'b|d'</pre>
+</div>
+</div>
+</div>
+<div>
+<h3 id="user-content-screenshots"><a id="user-content-screenshots" class="anchor" href="#screenshots" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Screenshots</h3>
+<div>
+<p><a href="https://github.com/paoloantinori/hhighlighter/blob/master/screenshots/rainbow.png" target="_blank"><img src="rainbow.png" alt="Rainbow" style="max-width: 100%;"></a></p>
+</div>
+<div>
+<p><a href="https://github.com/paoloantinori/hhighlighter/blob/master/screenshots/jboss-tail.png" target="_blank"><img src="jboss-tail.png" alt="Tail" style="max-width: 100%;"></a></p>
+</div>
+<div>
+<p><a href="https://github.com/paoloantinori/hhighlighter/blob/master/screenshots/maven.png" target="_blank"><img src="maven.png" alt="Maven" style="max-width: 100%;"></a></p>
+</div>
+<div>
+<p><a href="https://github.com/paoloantinori/hhighlighter/blob/master/screenshots/custom.png" target="_blank"><img src="custom.png" alt="Custom Colors" style="max-width: 100%;"></a></p>
+</div>
+</div>
+<div>
+<h3 id="user-content-demos"><a id="user-content-demos" class="anchor" href="#demos" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Demos</h3>
+<div id="user-content-img-gif">
+<div>
+<a href="https://github.com/paoloantinori/hhighlighter/blob/master/screenshots/asciicast.gif"><img src="asciicast.gif" alt="Ascii Cinema Gif" style="max-width: 100%;"></a>
+</div>
+<div>Ascii Cinema GifAscii Cinema Gif</div>
+</div>
+<div id="user-content-img-asciicast">
+<div>
+<a href="https://asciinema.org/a/5cbw3rnhchsdnxcihtusf48vp"><img src="68747470733a2f2f61736369696e656d612e6f72672f612f3563627733726e68636873646e7863696874757366343876702e....dat" alt="Ascii Cinema Demo" data-canonical-src="https://asciinema.org/a/5cbw3rnhchsdnxcihtusf48vp.png" style="max-width: 100%;"></a>
+</div>
+<div>Ascii Cinema: Ascii Cinema</div>
+</div>
+</div>
+</div>
+</div></article>
+  </div>
+
+
+  </div>
+  <div class="modal-backdrop"></div>
+</div>
+
+
+    </div>
+  </div>
+
+    </div>
+
+        <div class="container site-footer-container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage" class="site-footer-mark">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>© 2016 <span title="0.07847s from github-fe149-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+        <li><a href="https://help.github.com/" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+    
+    
+
+    <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M15.72 12.5l-6.85-11.98C8.69 0.21 8.36 0.02 8 0.02s-0.69 0.19-0.87 0.5l-6.85 11.98c-0.18 0.31-0.18 0.69 0 1C0.47 13.81 0.8 14 1.15 14h13.7c0.36 0 0.69-0.19 0.86-0.5S15.89 12.81 15.72 12.5zM9 12H7V10h2V12zM9 9H7V5h2V9z"></path></svg>
+      <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+        <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+      </button>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+    <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M15.72 12.5l-6.85-11.98C8.69 0.21 8.36 0.02 8 0.02s-0.69 0.19-0.87 0.5l-6.85 11.98c-0.18 0.31-0.18 0.69 0 1C0.47 13.81 0.8 14 1.15 14h13.7c0.36 0 0.69-0.19 0.86-0.5S15.89 12.81 15.72 12.5zM9 12H7V10h2V12zM9 9H7V5h2V9z"></path></svg>
+      <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+      <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    </div>
+    <div class="facebox" id="facebox" style="display: none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+    </button>
+  </div>
+</div>
+
+  
+
+
+</body>
+</html>
