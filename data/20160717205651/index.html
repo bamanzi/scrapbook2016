@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务-技术 ◆ 学习|Linux.中国-开源社区</title>
+ 
+<meta name="keywords" content="LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务">
+<meta name="description" content="在这篇文章中，我们会介绍如何管理 Linux 系统自启动进程和服务 ">
+<meta name="copyright" content="2005-2015 Linux.cn">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="referrer" content="always">
+<base href="">
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Linux.中国 - 开源社区 RSS" href="https://linux.cn/rss.xml">
+<link rel="shortcut icon" href="favicon.ico" sizes="32x32">
+<link rel="canonical" href="https://linux.cn/article-7365-1.html">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body id="nv_portal" class="pg_view">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="https://linux.cn/rss.xml" target="_blank">RSS</a><a href="https://linux.cn/tag/">TAG</a><a href="http://e.cn.miaozhen.com/r/k=2022193&amp;p=70nlR&amp;dx=0&amp;rt=2&amp;ns=__IP__&amp;ni=__IESID__&amp;v=__LOC__&amp;o=http://www-03.ibm.com/systems/cn/power/hardware/linux-lc.shtml?S_TACT=C4480D5W&amp;iio=psys&amp;cmp=c4480&amp;ct=c4480d5w&amp;cr=linux%E6%97%B6%E4%BB%A3&amp;cm=b&amp;csot=-&amp;ccy=-&amp;cpb=-&amp;cd=-&amp;cpg=psys&amp;cn=2q1" target="_blank" style="color: blue;">IBM Power Systems LC 服务器</a></div>
+<div class="y">
+<a href="https://linux.cn/aboutus.html">关于我们/aboutus</a><a href="https://linux.cn/business.html">广告合作/AD</a></div>
+</div>
+</div>
+
+
+<div id="hd">
+<div class="wp">
+<div class="hdc cl"><h2 style="padding: 5px 20px 5px 0px;"><a href="https://linux.cn/" title="Linux.中国 - 开源社区"><img src="linuxcn_logo_230x80_ani2.gif" alt="Linux.中国 - 开源社区" border="0"></a></h2><div class="y">
+<form method="post" autocomplete="off" id="lsform" action="https://linux.cn/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes">
+<div style="width: auto;" class="fastlg cl">
+<span id="return_ls" style="display: none;"></span>
+<div class="y pns">
+<table cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td><label for="ls_username">帐号</label></td>
+<td><input name="username" id="ls_username" class="px vm xg1" value="用户名/Email" tabindex="901" type="text"></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" type="checkbox">自动登录</label></td>
+<td>&nbsp;<a>找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password">密码</label></td>
+<td><input name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" type="password"></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904"><em>登录</em></button></td>
+<td>&nbsp;<a href="https://linux.cn/member.php?mod=knight" class="xi2 xw1">骑士注册</a></td>
+</tr>
+</tbody></table>
+<input name="quickforward" value="yes" type="hidden">
+<input name="handlekey" value="ls" type="hidden">
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px;">
+<p><a href="https://linux.cn/connect.php?mod=login&amp;op=init&amp;referer=portal.php%3Fmod%3Dview%26aid%3D7365%26page%3D1%26ref%3D%26utm_source%3Drss%26amp%3Butm_medium%3Drss&amp;statfrom=login_simple"><img src="qq_login.gif" class="vm" alt="QQ登录"></a></p>
+<p><a href="https://linux.cn/xwb.php?m=xwbAuth.login"><img src="sina_login.gif" class="vm" style="padding: 2px 0px;" alt="微博登录"></a></p>
+</div>
+
+
+</div>
+</form>
+
+
+</div>
+<h2 style="padding: 5px 20px; float: right;">
+<div class="linuxcnad">
+    </div>
+</h2>
+</div>
+<div class="p_pop h_pop" id="mn_userapp_menu" style="display: none;"></div><div style="height: 33px;" id="topmenu_wrapper">
+<div style="width: 1200px;" class="affix" id="topmenu">
+<div id="nv">
+<ul><li id="mn_N6666"><a href="https://linux.cn/" hidefocus="true" style="font-weight: bold;">首页</a></li><li id="mn_P3"><a href="https://linux.cn/tech/" hidefocus="true" style="color: rgb(255, 250, 229);">技术 ◆ 学习</a></li><li id="mn_P1"><a href="https://linux.cn/news/" hidefocus="true" style="color: rgb(255, 250, 229);">新闻 ◆ 快讯</a></li><li id="mn_P4"><a href="https://linux.cn/talk/" hidefocus="true" style="color: rgb(255, 250, 229);">观点 ◆ 热议</a></li><li id="mn_P8"><a href="https://linux.cn/share/" hidefocus="true" style="color: rgb(255, 250, 229);">软件 ◆ 分享</a></li><li id="mn_N9be8"><a href="https://linux.cn/forum/" hidefocus="true" target="_blank" style="color: cyan;">论坛</a></li><li id="mn_Ne749"><a href="https://linux.cn/forum.php?mod=post&amp;action=newthread&amp;fid=119" hidefocus="true" target="_blank" style="color: red;">投稿</a></li></ul>
+</div>
+<div id="mu" class="cl">
+<ul class="cl " id="snav_mn_P3" style="display: none;">
+<li><a href="https://linux.cn/tech/desktop/" hidefocus="true">桌面应用</a></li><li><a href="https://linux.cn/tech/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/tech/program/" hidefocus="true">软件开发</a></li></ul>
+<ul class="cl " id="snav_mn_P8" style="display: none;">
+<li><a href="https://linux.cn/share/distro/" hidefocus="true">Linux 发行版</a></li></ul>
+<ul class="cl " id="snav_mn_N9be8" style="display: none;">
+<li><a href="https://linux.cn/thread/" hidefocus="true" style="color: blue;">全部话题</a></li><li><a hidefocus="true" style="color: red;">发新帖</a></li><li><a hidefocus="true">|</a></li><li><a href="https://linux.cn/forum/news/" hidefocus="true">新闻杂谈</a></li><li><a href="https://linux.cn/forum/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/forum/program/" hidefocus="true">编程开发</a></li></ul>
+<ul class="cl " id="snav_mn_N39f5" style="display: none;">
+<li><a href="https://linux.cn/space.php" hidefocus="true">首页</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=home" hidefocus="true">动态</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=doing" hidefocus="true">记录</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=blog" hidefocus="true">博客</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=album" hidefocus="true">相册</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=favorite" hidefocus="true">收藏</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=friend" hidefocus="true">好友</a></li><li><a href="https://linux.cn/home.php?mod=spacecp&amp;ac=invite" hidefocus="true">邀请</a></li></ul>
+<ul class="cl " id="snav_mn_userapp" style="display: none;">
+</ul>
+</div></div>
+</div>
+<div id="scbar" class="cl">
+<form id="scbar_form" method="post" autocomplete="off" action="https://linux.cn/search.php?searchsubmit=yes" target="_blank">
+<input name="mod" id="scbar_mod" value="search" type="hidden">
+<input name="formhash" value="110c1860" type="hidden">
+<input name="srchtype" value="title" type="hidden">
+<input name="srhfid" value="0" type="hidden">
+<input name="srhlocality" value="portal::view" type="hidden">
+<table id="scbar_table" style="float: right;" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input placeholder="请注册后再搜索" class=" xg1" name="srchtxt" id="scbar_txt" value="请注册后再搜索" autocomplete="off" speech="" type="text"></td>
+<td class="scbar_type_td"><a id="scbar_type" class="xg1" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+</div>
+</td>
+</tr>
+</tbody></table>
+</form>
+<span class="z titletext" style="padding: 0px 10px 0px 20px;">❏ <a href="http://locez.com/" target="_blank">Locez</a> 新手指南：</span>
+<ul class="cl mutag z">
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-4130-1.html">下载 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-5893-1.html">安装 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6042-1.html">安装软件 »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6160-1.html">基础命令 »</a></li>
+
+</ul>
+</div>
+<br class="clear">
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a rel="search">全站</a></li></ul>
+
+
+
+</div>
+</div>
+<div id="wp" class="wp">
+
+
+
+<div class="linuxcnad">
+    </div>
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="https://linux.cn/" class="nvhm" title="首页">Linux.中国 - 开源社区</a> <em>›</em><a href="https://linux.cn/tech/">技术 ◆ 学习</a> <em>›</em>
+查看内容
+</div>
+</div>
+
+<div class="linuxcnad"></div>
+
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+<div id="ct" class="ct2 wp cl">
+<div class="mn">
+<div class="linuxcnad">
+    </div>
+<div class="vw">
+<div class="h hm">
+<h1 class="ph" id="article_title">LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务 </h1>
+</div>
+<div class="h">
+<p class="copyright">
+    	 
+    		    			    			<span class="z textcut">编译自：<a href="http://www.tecmint.com/linux-boot-process-and-manage-services/" target="_blank">http://www.tecmint.com/linux-boot-process-and-manage-services/</a></span>
+    			    		    		<span class="y">作者： Gabriel Cánepa</span>    		<br class="clear">
+    	    	<span class="z">原创：<a href="http://lctt.github.io/" target="_blank">LCTT</a> <a href="https://linux.cn/article-7365-1.html" target="_blank">https://linux.cn/article-7365-1.html</a></span>
+            			<span class="y">译者： ictlyh</span>    		<br class="clear">
+    	    	<span class="z">本文地址：<a href="https://linux.cn/article-7365-1.html">https://linux.cn/article-7365-1.html</a></span>
+    	<span class="y"><a href="https://linux.cn/article-7365-1.html?pr" class="print" title="打印"></a></span>
+    	<br class="clear">
+    	</p>
+<p class="xg1">
+2016-5-20 10:01&nbsp;&nbsp;&nbsp;
+收藏: <em id="_favtimes">3</em>&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+</div>
+
+<!--[diy=diysummarytop]--><div id="diysummarytop" class="area"></div><!--[/diy]-->
+
+
+<!--[diy=diysummarybottom]--><div id="diysummarybottom" class="area"></div><!--[/diy]-->
+
+<div class="d">
+
+<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
+
+<div id="article_content">
+<div class="linuxcnad"></div>
+<p>几个月前， Linux 基金会宣布 LFCS (Linux 基金会认证系统管理员) 认证诞生了，这个令人兴奋的新计划定位于让来自全球各地的初级到中级的 Linux 系统管理员得到认证。这其中包括维护已经在运行的系统和服务的能力、第一手的问题查找和分析能力、以及决定何时向开发团队提交问题的能力。</p>
+<p class="article_img"><img title="第七讲： Linux 基金会认证系统管理员" src="220703znvejpnejn93vp67.png" alt="第七讲： Linux 基金会认证系统管理员"></p>
+<p class="article_img_desc"><em>第七讲： Linux 基金会认证系统管理员</em></p>
+<p>下面的视频简要介绍了 Linux 基金会认证计划。</p>
+<p></p><div style="width: 640px; height: 360px;" class="videoContainer"><video controls="controls" height="360" width="640">
+<source src="static_video_Introducing The Linux Foundation Certification Program-Y29qZ71Kicg.mp4" type="video/mp4">
+</video></div><p></p>
+<p>本讲是系列教程中的第七讲，在这篇文章中，我们会介绍如何管理 Linux 系统自启动进程和服务，这是 LFCS 认证考试要求的一部分。</p>
+<a target="_blank" rel="external nofollow" id="3_1082" class="target-fix ext"></a><h3 id="toc_1">管理 Linux 自启动进程</h3>
+<p>Linux 系统的启动程序包括多个阶段，每个阶段由一个不同的图示块表示。下面的图示简要总结了启动过程以及所有包括的主要组件。</p>
+<p class="article_img"><img title="Linux 启动过程" src="220704vq89jz89hi79mqm1.png" alt="Linux 启动过程"></p>
+<p class="article_img_desc"><em>Linux 启动过程</em></p>
+<p>当你按下你机器上的电源键时，存储在主板 EEPROM 芯片中的固件初始化 POST(通电自检) 检查系统硬件资源的状态。POST 结束后，固件会搜索并加载位于第一块可用磁盘上的 MBR 或 EFI 分区的第一阶段引导程序，并把控制权交给引导程序。</p>
+<a target="_blank" rel="external nofollow" id="4_1788" class="target-fix ext"></a><h4 id="toc_2">MBR 方式</h4>
+<p>MBR 是位于 BIOS 设置中标记为可启动磁盘上的第一个扇区，大小是 512 个字节。</p>
+<ul>
+<li>前面 446 个字节：包括可执行代码和错误信息文本的引导程序</li>
+<li>接下来的 64 个字节：四个分区（主分区或扩展分区）中每个分区一条记录的分区表。其中，每条记录标示了每个一个分区的状态（是否活跃）、大小以及开始和结束扇区。</li>
+<li>最后 2 个字节： MBR 有效性检查的魔法数。</li>
+</ul>
+<p>下面的命令对 MBR 进行备份（在本例中，/dev/sda 是第一块硬盘）。结果文件 mbr.bkp 在分区表被破坏、例如系统不可引导时能排上用场。</p>
+<p>当然，为了后面需要的时候能使用它，我们需要把它保存到别的地方（例如一个 USB 设备）。该文件能帮助我们重新恢复 MBR，这只在我们操作过程中没有改变硬盘驱动布局时才有效。</p>
+<p><strong>备份 MBR</strong></p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">dd</span><span class="pln"> </span><span class="kwd">if</span><span class="pun">=</span><span class="str">/dev/</span><span class="pln">sda of</span><span class="pun">=</span><span class="pln">mbr</span><span class="pun">.</span><span class="pln">bkp bs</span><span class="pun">=</span><span class="lit">512</span><span class="pln"> count</span><span class="pun">=</span><span class="lit">1</span></code></li></ol></pre>
+<p class="article_img"><img title="在 Linux 中备份 MBR" src="220706dqzkk0hg99p90zhg.png" alt="在 Linux 中备份 MBR"></p>
+<p class="article_img_desc"><em>在 Linux 中备份 MBR</em></p>
+<p><strong>恢复 MBR</strong></p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">dd</span><span class="pln"> </span><span class="kwd">if</span><span class="pun">=</span><span class="pln">mbr</span><span class="pun">.</span><span class="pln">bkp of</span><span class="pun">=</span><span class="str">/dev/</span><span class="pln">sda bs</span><span class="pun">=</span><span class="lit">512</span><span class="pln"> count</span><span class="pun">=</span><span class="lit">1</span></code></li></ol></pre>
+<p class="article_img"><img title="在 Linux 中恢复 MBR" src="220708qh26the8c820e270.png" alt="在 Linux 中恢复 MBR"></p>
+<p class="article_img_desc"><em>在 Linux 中恢复 MBR</em></p>
+<a target="_blank" rel="external nofollow" id="4_3370" class="target-fix ext"></a><h4 id="toc_3">EFI/UEFI 方式</h4>
+<p>对于使用 EFI/UEFI 方式的系统， UEFI 固件读取它的设置来决定从哪里启动哪个 UEFI 应用。（例如， EFI 分区位于哪块磁盘或分区。</p>
+<p>接下来，加载并运行第二阶段引导程序(又名引导管理器)。GRUB[GRand Unified Boot] 是 Linux 中最常使用的引导管理器。今天大部分使用的系统中都能找到它两个中的其中一个版本。</p>
+<ul>
+<li>GRUB 有效配置文件： /boot/grub/menu.lst（旧发行版， EFI/UEFI 固件不支持）。</li>
+<li>GRUB2 配置文件： 通常是 /etc/default/grub。</li>
+</ul>
+<p>尽管 LFCS 考试目标没有明确要求了解 GRUB 内部知识，但如果你足够大胆并且不怕把你的系统搞乱（为了以防万一，你可以先在虚拟机上进行尝试）你可以运行：</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> update</span><span class="pun">-</span><span class="pln">grub</span></code></li></ol></pre>
+<p>为了使更改生效，你需要以 root 用户修改 GRUB 的配置。</p>
+<p>首先， GRUB 加载默认的内核以及 initrd 或 initramfs 镜像。补充一句，initrd 或者 initramfs 帮助完成硬件检测、内核模块加载、以及发现挂载根目录文件系统需要的设备。</p>
+<p>一旦真正的根目录文件系统启动，为了显示用户界面，内核就会执行系统和服务管理器（init 或 systemd，进程号 PID 一般为 1）开始普通用户态的引导程序。</p>
+<p>init 和 systemd 都是管理其它守护进程的守护进程（后台进程），它们总是最先启动（系统引导时），最后结束（系统关闭时）。</p>
+<p class="article_img"><img title="Systemd 和 Init" src="220710s7dekedg5y5odeys.png" alt="Systemd 和 Init"></p>
+<p class="article_img_desc"><em>Systemd 和 Init</em></p>
+<a target="_blank" rel="external nofollow" id="3_5141" class="target-fix ext"></a><h3 id="toc_4">自启动服务(SysVinit)</h3>
+<p>Linux 中运行等级通过控制运行哪些服务来以不同方式使用系统。换句话说，运行等级控制着当前执行状态下可以完成什么任务（以及什么不能完成）。</p>
+<p>传统上，这个启动过程是基于起源于 System V Unix 的形式，通过执行脚本启动或者停止服务从而使机器进入指定的运行等级(换句话说，是一个不同的系统运行模式)。</p>
+<p>在每个运行等级中，独立服务可以设置为运行、或者在运行时关闭。一些主流发行版的最新版本中，已经移除了标准的 System V，而用一个称为 systemd（表示系统守护进程）的新服务和系统管理器代替，但为了兼容性，通常也支持 sysv 命令。这意味着你可以在基于 systemd 的发行版中运行大部分有名的 sysv 初始化工具。</p>
+<ul>
+<li>推荐阅读： <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/systemd-replaces-init-in-linux/">Linux 为什么用 ‘systemd’ 代替 ‘init’</a></li>
+</ul>
+<p>除了启动系统进程，init 还会查看 /etc/inittab 来决定进入哪个运行等级。</p>
+<table border="1" cellspacing="4">
+<thead>
+<tr><th>Runlevel</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>停止系统。运行等级 0 是一个用于快速关闭系统的特殊过渡状态。</td>
+</tr>
+<tr>
+<td>1</td>
+<td>别名为 s 或 S，这个运行等级有时候也称为维护模式。在这个运行等级启动的服务由于发行版不同而不同。通常用于正常系统操作损坏时低级别的系统维护。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>多用户。在 Debian 系统及其衍生版中，这是默认的运行等级，还包括了一个图形化登录（如果有的话）。在基于红帽的系统中，这是没有网络的多用户模式。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>在基于红帽的系统中，这是默认的多用户模式，运行除了图形化环境以外的所有东西。基于 Debian 的系统中通常不会使用这个运行等级以及等级 4 和 5。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>通常默认情况下不使用，可用于自定制。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>基于红帽的系统中，支持 GUI 登录的完全多用户模式。这个运行等级和等级 3 类似，但是有可用的 GUI 登录。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>重启系统。</td>
+</tr>
+</tbody>
+</table>
+<p>要在运行等级之间切换，我们只需要使用 init 命令更改运行等级：init N（其中 N 是上面列出的一个运行等级）。 请注意这并不是运行中的系统切换运行等级的推荐方式，因为它不会给已经登录的用户发送警告（因而导致他们丢失工作以及进程异常终结）。</p>
+<p>相反，应该用 shutdown 命令重启系统（它首先发送警告信息给所有已经登录的用户，并锁住任何新的登录；然后再给 init 发送信号切换运行等级）但是，首先要在 /etc/inittab 文件中设置好默认的运行等级（系统引导到的等级）。</p>
+<p>因为这个原因，按照下面的步骤切当地切换运行等级。以 root 用户在 /etc/inittab 中查找下面的行。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="kwd">id</span><span class="pun">:</span><span class="lit">2</span><span class="pun">:</span><span class="pln">initdefault</span><span class="pun">:</span></code></li></ol></pre>
+<p>并用你喜欢的文本编辑器，例如 vim（本系列的 <a href="https://linux.cn/article-7165-1.html">LFCS 系列第二讲：如何安装和使用纯文本编辑器 vi/vim</a>），更改数字 2 为想要的运行等级。</p>
+<p>然后，以 root 用户执行</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">shutdown</span><span class="pln"> </span><span class="pun">-</span><span class="pln">r now</span></code></li></ol></pre>
+<p>最后一个命令会重启系统，并使它在下一次引导时进入指定的运行等级，并会执行保存在 /etc/rc[runlevel].d 目录中的脚本以决定应该启动什么服务、不应该启动什么服务。例如，在下面的系统中运行等级 2。</p>
+<p class="article_img"><img style="width: 734px; cursor: pointer;" title="在 Linux 中更改运行等级" src="220717k99keazaefmaa9sr.jpg" alt="在 Linux 中更改运行等级"></p>
+<p class="article_img_desc"><em>在 Linux 中更改运行等级</em></p>
+<a target="_blank" rel="external nofollow" id="4_9285" class="target-fix ext"></a><h4 id="toc_5">使用 chkconfig 管理服务</h4>
+<p>为了在启动时启动或者停用系统服务，我们可以在 CentOS / openSUSE 中使用 <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/chkconfig-command-examples/">chkconfig 命令</a>，在 Debian 及其衍生版中使用 sysv-rc-conf 命令。这个工具还能告诉我们对于一个指定的运行等级预先配置的状态是什么。</p>
+<ul>
+<li>推荐阅读： <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/remove-unwanted-services-from-linux/">如何在 Linux 中停止和停用不想要的服务</a></li>
+</ul>
+<p>列出某个服务的运行等级配置。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="kwd">list</span><span class="pln"> </span><span class="pun">[</span><span class="pln">service name</span><span class="pun">]</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="kwd">list</span><span class="pln"> postfix</span></code></li><li class="L2"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="kwd">list</span><span class="pln"> mysqld</span></code></li></ol></pre>
+<p class="article_img"><img title="列出运行等级配置" src="220718e0ziipbi0p08vwoi.png" alt="列出运行等级配置"></p>
+<p class="article_img_desc"><em>列出运行等级配置</em></p>
+<p>从上图中我们可以看出，当系统进入运行等级 2 到 5 的时候就会启动 postfix，而默认情况下运行等级 2 到 4 时会运行 mysqld。现在假设我们并不希望如此。</p>
+<p>例如，我们希望运行等级为 5 时也启动 mysqld，运行等级为 4 或 5 时关闭 postfix。下面分别针对两种情况进行设置（以 root 用户执行以下命令）。</p>
+<p><strong>为特定运行等级启用服务</strong></p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="pun">[</span><span class="pln">level</span><span class="pun">(</span><span class="pln">s</span><span class="pun">)]</span><span class="pln"> service on</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="lit">5</span><span class="pln"> mysqld on</span></code></li></ol></pre>
+<p><strong>为特定运行等级停用服务</strong></p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="pun">[</span><span class="pln">level</span><span class="pun">(</span><span class="pln">s</span><span class="pun">)]</span><span class="pln"> service off</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="lit">45</span><span class="pln"> postfix off</span></code></li></ol></pre>
+<p class="article_img"><img title="启用/停用服务" src="220720yi9b3yfi8mkq8sy8.png" alt="启用/停用服务"></p>
+<p class="article_img_desc"><em>启用/停用服务</em></p>
+<p>我们在基于 Debian 的系统中使用 sysv-rc-conf 完成类似任务。</p>
+<a target="_blank" rel="external nofollow" id="4_11296" class="target-fix ext"></a><h4 id="toc_6">使用 sysv-rc-conf 管理服务</h4>
+<p>配置服务自动启动时进入指定运行等级，同时禁止启动时进入其它运行等级。</p>
+<ol>
+<li>
+<p>我们可以用下面的命令查看启动 mdadm 时的运行等级。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">ls</span><span class="pln"> </span><span class="pun">-</span><span class="pln">l </span><span class="pun">/</span><span class="pln">etc</span><span class="pun">/</span><span class="pln">rc</span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">6</span><span class="pun">].</span><span class="pln">d </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> </span><span class="pun">-</span><span class="pln">E </span><span class="str">'rc[0-6]|mdadm'</span></code></li></ol></pre>
+<p class="article_img"><img title="查看运行中服务的运行等级" src="220723kkwn3antwgwgihph.png" alt="查看运行中服务的运行等级"></p>
+<p class="article_img_desc"><em>查看运行中服务的运行等级</em></p>
+</li>
+<li>
+<p>我们使用 sysv-rc-conf 设置防止 mdadm 在运行等级2 之外的其它等级启动。只需根据需要（你可以使用上下左右按键）选中或取消选中（通过空格键）。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> sysv</span><span class="pun">-</span><span class="pln">rc</span><span class="pun">-</span><span class="pln">conf</span></code></li></ol></pre>
+<p class="article_img"><img title="Sysv 运行等级配置" src="220727xenennd8x0nom838.png" alt="Sysv 运行等级配置"></p>
+<p class="article_img_desc"><em>Sysv 运行等级配置</em></p>
+<p>然后输入 q 退出。</p>
+</li>
+<li>
+<p>重启系统并从步骤 1 开始再操作一遍。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">ls</span><span class="pln"> </span><span class="pun">-</span><span class="pln">l </span><span class="pun">/</span><span class="pln">etc</span><span class="pun">/</span><span class="pln">rc</span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">6</span><span class="pun">].</span><span class="pln">d </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> </span><span class="pun">-</span><span class="pln">E </span><span class="str">'rc[0-6]|mdadm'</span></code></li></ol></pre>
+<p class="article_img"><img title="验证服务运行等级" src="220731voz9eughblhu3hhz.png" alt="验证服务运行等级"></p>
+<p class="article_img_desc"><em>验证服务运行等级</em></p>
+<p>从上图中我们可以看出 mdadm 配置为只在运行等级 2 上启动。</p>
+</li>
+</ol>
+
+<div class="ptw pbw cl"><div class="pg"><strong>1</strong><a href="https://linux.cn/article-7365-2.html">2</a><label><input name="custompage" class="px" size="2" title="输入页码，按回车快速跳转" value="1" type="text"><span title="共 2 页"> / 2 页</span></label><a href="https://linux.cn/article-7365-2.html" class="nxt">下一页</a></div> <div class="y">查看其它分页：</div> </div></div>
+</div>
+<div class="b">
+<div class="hm">
+<a title="分享到新浪微博" class="tsina_large"></a>
+<a class="weixin_large"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7365&amp;handlekey=favoritearticlehk_7365" id="a_favorite" class="fav_large"></a>
+</div>
+<p class="copyright">
+    	 
+    		    			    			<span class="z textcut">编译自：<a href="http://www.tecmint.com/linux-boot-process-and-manage-services/" target="_blank">http://www.tecmint.com/linux-boot-process-and-manage-services/</a></span>
+    			    		    		<span class="y">作者： Gabriel Cánepa</span>    		<br class="clear">
+    	    	<span class="z">原创：<a href="http://lctt.github.io/" target="_blank">LCTT</a> <a href="https://linux.cn/article-7365-1.html" target="_blank">https://linux.cn/article-7365-1.html</a></span>
+            			<span class="y">译者： ictlyh</span>    		<br class="clear">
+    	    	<br>
+    	    		<span>本文由 LCTT 原创翻译，<a href="https://linux.cn/article-7365-1.html">Linux中国首发</a>。也想加入译者行列，为开源做一些自己的贡献么？欢迎加入 <a href="http://lctt.github.io/" target="_blank">LCTT</a>！<br>翻译工作和译文发表仅用于学习和交流目的，翻译工作遵照 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a>，如果我们的工作有侵犯到您的权益，请及时联系我们。</span>
+    		    		<br class="clear">
+    		<span style="color: red;">欢迎遵照 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a>转载，敬请在正文中标注并保留原文/译文链接和作者/译者等信息。</span>
+                		<br class="clear">
+    	    	<span>文章仅代表作者的知识和看法，如有不同观点，请楼下排队<a>吐槽</a> :D</span>
+    	<br class="clear">
+</p>
+
+
+<div class="linuxcnad"></div>
+<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+
+<div id="click_div"><table class="atd" cellpadding="0" cellspacing="0">
+<tbody><tr></tr>
+</tbody></table>
+
+
+</div>
+
+<!--[diy=diycontentclickbottom]--><div id="diycontentclickbottom" class="area"></div><!--[/diy]-->
+
+
+<div class="o cl ptm pbm">
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=share&amp;type=article&amp;id=7365&amp;handlekey=sharearticlehk_7365" id="a_share" title="站内分享" class="siteshare z"></a>
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7365&amp;handlekey=favoritearticlehk_7365" id="a_favorite" class="favorite z" title="收藏"></a>
+<a href="https://linux.cn/misc.php?mod=invite&amp;action=article&amp;id=7365" id="a_invite" class="invite z" title="邀请"></a>
+<a href="https://linux.cn/article-7365-1.html?pr" class="print z" title="打印"></a>
+				
+</div>
+<div class="pren pbm cl">
+<em>上一篇：<a href="https://linux.cn/article-7364-1.html">使用新的 apt 命令在 Ubuntu 16.04 LTS 下管理软件包</a></em><em>下一篇：<a href="https://linux.cn/article-7372-1.html">使用 arch-ppa 创建你自己的 Arch Linux 软件库</a></em></div>
+</div>
+</div>
+
+<!--[diy=diycontentrelatetop]--><div id="diycontentrelatetop" class="area"></div><!--[/diy]-->
+
+<!--[diy=diycontentrelate]--><div id="diycontentrelate" class="area"></div><!--[/diy]-->
+
+<div style="margin-right: 15px;">
+<div id="add_comment" class="bm">
+<div class="bm_h cl">
+<h3>发表评论</h3>
+</div>
+<div class="bm_c pbn">
+<form id="cform" name="cform" action="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment" method="post" autocomplete="off">
+<div class="tedt">
+<div class="area">
+<textarea name="message" rows="10" class="pt" id="message"></textarea>
+</div>
+</div>
+
+<div class="mtm z"><span id="seccode_cSEpOz98"><input name="seccodehash" value="cSEpOz98" type="hidden"><input name="seccodemodid" value="portal::view" type="hidden">验证码 <span id="seccodecSEpOz98"><input name="seccodeverify" id="seccodeverify_cSEpOz98" autocomplete="off" style="ime-mode: disabled; width: 100px;" class="txt px vm" type="text"> <a class="xi2">换一个</a><span id="checkseccodeverify_cSEpOz98"><img id="checksec_none_cSEpOz98" src="none.gif" class="vm" height="16" width="16"></span></span><div id="seccodecSEpOz98_menu" class="p_pop p_opt" style="display: none;"><span id="vseccode_cSEpOz98">输入下图中的字符<br><img src="misc.php" class="vm" alt="" height="40" width="100"></span></div></span>		
+
+
+</div>
+<input name="portal_referer" value="https://linux.cn/article-7365-1.html#comment" type="hidden">
+<input name="referer" value="https://linux.cn/article-7365-1.html#comment" type="hidden">
+<input name="id" value="0" type="hidden">
+<input name="idtype" value="" type="hidden">
+<input name="aid" value="7365" type="hidden">
+<input id="reppid" name="reppid" value="" type="hidden">
+<input name="formhash" value="110c1860" type="hidden">
+<input name="replysubmit" value="true" type="hidden">
+<input name="commentsubmit" value="true" type="hidden">
+<p class="mtm z"><button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="pn"><strong>评论</strong></button></p>
+<br class="clear">
+</form>
+</div>
+</div>
+</div>
+<div id="comment" class="bm" style="margin-right: 15px;">
+<div class="bm_h cl">
+<h3 class="z"><a name="comment"></a>最新评论</h3>
+<h3 class="y"><a class="y" style="color: rgb(204, 0, 0);">我也要发表评论</a></h3>
+</div>
+<div id="comment_ul" class="bm_c"></div>
+</div>
+
+<!--[diy=diycontentcomment]--><div id="diycontentcomment" class="area"></div><!--[/diy]-->
+</div>
+<div class="sd pph">
+
+
+<div class="drag">
+<!--[diy=diyrighttop]--><div id="diyrighttop" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="linuxcnad">
+    </div>
+<div class="linuxcnad">
+    </div>
+
+<!--热门评论-->
+
+<div class="linuxcnad"></div>
+
+<div class="affix" id="right_affix" style="width: 350px;">
+<div class="linuxcnad">
+    </div>
+<div id="inner_nav" class="bm">
+<div class="bm_h cl">
+<h3>本文导航</h3>
+</div>
+<div class="bm_c inner_menu">
+<ul class="xl cl"><li><span class="folder"><a>-</a></span><a href="https://linux.cn/article-7365-1.html#3_1082">管理 Linux 自启动进程</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_1788">MBR 方式</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_3370">EFI/UEFI 方式</a></li></ul><li><span class="folder"><a>-</a></span><a href="https://linux.cn/article-7365-1.html#3_5141">自启动服务(SysVinit)</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_9285">使用 chkconfig 管理服务</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_11296">使用 sysv-rc-conf 管理服务</a></li></ul><li><span class="folder">-</span><a href="https://linux.cn/article-7365-2.html#3_12907">那关于 systemd 呢？</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-2.html#3_14860">启动或停止服务</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-2.html#3_16637">Upstart</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-2.html#3_19900">总结</a></li></ul></div>
+</div>
+
+<div class="bm block">
+<div class="bm_h cl">
+<h3>相关阅读</h3>
+</div>
+<div class="bm_c pbn" id="related_tag">
+<ul class="xl xl2 cl bbs pbm" id="tag"><li><a href="https://linux.cn/tag-Systemd.html">Systemd</a></li>
+<li><a href="https://linux.cn/tag-upstart.html">upstart</a></li>
+<li><a href="https://linux.cn/tag-sysvinit.html">sysvinit</a></li>
+<li><a href="https://linux.cn/tag-LFCS.html">LFCS</a></li>
+</ul>
+</div>
+<div class="bm_c xl xl1 cl" id="related_article">
+<ul><li><em>2016-4-18</em><a href="https://linux.cn/article-7229-1-rel.html" target="_blank">LFCS 系列第六讲：组装分区为RAID设备——创建和管理系统备份</a> </li>
+<li><em>2016-6-2</em><a href="https://linux.cn/article-7418-1.html" target="_blank">LFCS 系列第八讲：管理用户和用户组、文件权限和属性以及启用账户 sudo 访问权限</a> </li>
+<li><em>2014-2-10</em><a href="https://linux.cn/article-2555-1-rel.html" target="_blank">Debian技术委员会倾向采用Systemd</a> </li>
+<li><em>2014-9-11</em><a href="https://linux.cn/article-3794-1-rel.html" target="_blank">systemd 与 sysVinit 彩版对照表</a> </li>
+<li><em>2016-4-11</em><a href="https://linux.cn/article-7210-1-rel.html" target="_blank">LFCS 系列第五讲：如何在 Linux 中挂载/卸载本地文件系统和网络文件系统（Samba 和 NF</a> </li>
+<li><em>2016-5-23</em><a href="https://linux.cn/article-7381-1-rel.html" target="_blank">开源新闻速递：即将发布的 GNOME 3.22 的各个应用逐步就绪</a> </li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="drag">
+<!--[diy=diy2]--><div id="diy2" class="area"></div><!--[/diy]-->
+</div>
+
+
+</div>
+</div>
+
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+<input id="portalview" value="1" type="hidden">
+
+
+
+
+	</div>
+
+
+    <div id="footer">
+        <p>
+            <span>Linux.CN © 2003-2016 Linux中国</span>
+            <span class="line">|</span>
+            <span>Powered by <strong>DX</strong> | 图片存储于<a href="http://www.qiniu.com/" target="_blank">七牛云存储</a></span>
+        </p>
+        <p>
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备05083684号-1</a>            京公网安备110105001595
+        </p>
+        <p>
+        <a href="https://linux.cn/legal.html">服务条款</a> |
+        除特别申明外，本站原创内容版权遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a></p>
+        <p>
+        <a href="https://linux.cn/"><img src="linuxcn_logo_mini.png" align="absmiddle"></a>
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img src="cc.png" align="absmiddle"></a>
+        </p>
+<p>
+</p>
+</div>
+
+<div id="ft" class="cl"></div>
+
+<div style="left: 744px; visibility: visible;" id="scrolltop">
+<span>
+<a class="wxicon"></a>
+<a title="分享到新浪微博" class="tsina"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7365&amp;handlekey=favoritearticlehk_7365" id="a_favorite" class="favorite"></a>
+</span>
+<span hidefocus="true"><a title="返回顶部" class="scrolltopa"><b>返回顶部</b></a></span>
+</div>
+
+<div id="qrcode">
+<p>分享到微信朋友圈</p>
+<div id="canvas"></div>
+<p><em>打开微信，点击底部的“发现”，<br>
+使用“扫一扫”将网页分享至朋友圈。</em></p></div>
+
+
+
+
+
+
+
+</body></html>

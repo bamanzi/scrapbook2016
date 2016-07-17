@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" class="dj_gecko dj_contentbox">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>浅析 Linux 初始化 init 系统，第 2 部分: UpStart</title>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM Corporation&nbsp;2014">
+<meta name="Keywords" content="systemd, upstart, sysVinit, systemctl, rc.d, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2014-07-09">
+<meta name="Source" content="v17 delivery:developerWorks">
+<meta name="Security" content="Public">
+<meta name="Abstract" content="近年来，Linux 系统的 init 进程经历了两次重大的演进，传统的 sysvinit 已经淡出历史舞台，新系统 UpStart 和 systemd 各有特点，而越来越多的 Linux 发行版采纳了 systemd。本文简要介绍了这三种 init 系统的使用和原理，每个 Linux 系统管理员和系统软件开发者都应该了解它们，以便更好地管理系统和开发应用。本文是系列的第二部分，主要讲述 UpStart 的特点和使用。">
+<meta name="Description" content="近年来，Linux 系统的 init 进程经历了两次重大的演进，传统的 sysvinit 已经淡出历史舞台，新系统 UpStart 和 systemd 各有特点，而越来越多的 Linux 发行版采纳了 systemd。本文简要介绍了这三种 init 系统的使用和原理，每个 Linux 系统管理员和系统软件开发者都应该了解它们，以便更好地管理系统和开发应用。本文是系列的第二部分，主要讲述 UpStart 的特点和使用。">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2014-07-09">
+<meta name="Owner" content="developerWorks/China/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.Country" content="CN">
+<meta name="Robots" content="index,follow">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWGC0">
+<meta name="dW.ContentArea" content="2">
+<meta name="dW.Topic" content="370,492">
+
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCLNXCN">
+
+<link rel="canonical" href="http://www.ibm.com/developerworks/cn/linux/1407_liuming_init2/index.html">
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+
+
+<!-- Masthead/footer -->
+
+
+
+
+        
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+
+<!--END -->
+
+   
+
+  <!-- LEADSPACE_STYLES -->
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body aria-busy="false" class="v17" id="ibm-com">
+<div style="opacity: 1; top: 0px;" id="dw-regbar" class="dw-home-band" aria-labelledby="dw-regbar-vp" role="complementary">
+    <div class="ibm-columns">
+        <div class="ibm-col-6-6">
+            <span id="dw-regbar-bluemix">IBM <strong>Bluemix</strong></span>
+            <span id="dw-regbar-vp">点击按钮，开始云上的开发！</span>
+            <p class="ibm-button-link-alternate dw-button-green">
+                <a id="article-rbar-bmix-home-regbar" class="dw-button-large dw-regbar-btn" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-1407_liuming_init2-_-regbar-article">开始您的试用</a>
+            </p>
+        </div>
+    </div>
+    <span>
+        <a role="button">
+            <span id="dw-close-regbar" aria-label="Close the registration bar" title="Close the registration bar" role="button">
+        </span></a>
+    </span>
+</div>
+	<div style="margin-top: 42px;" id="ibm-top" class="ibm-landing-page ibm-no-scroll"><img src="ibm_logo_print.png" id="ibm-print-masthead" alt="IBM Print" height="15" width="43">
+
+<!-- MASTHEAD_BEGIN -->		
+<div role="banner" id="ibm-masthead">
+
+    <!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar" aria-label="Masthead navigation">
+			<li id="dw-mast-top-4" role="presentation">
+				<a href="http://www.ibm.com/developerworks/cn/" tabindex="0"><img src="dwn-dw-badge.png" alt="dW" aria-label="dW" height="22" width="43"></a>
+			</li>
+			<li id="dw-mast-top-0" role="presentation">
+				<div id="dw-mast-signin">
+					<a id="dw-mf-signin-link" class="" href="https://www.ibm.com/developerworks/dwwi/jsp/ssologin.jsp?d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="2">登录</a>
+					<span class="dw-mf-signin-spacer">|</span>
+					<a id="dw-mf-reg-link" class="" href="https://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="3">注册</a>
+				</div>
+				<div id="dw-mast-auth-link" class="dw-mf-hide">
+					<a class="authenticated ibm-active" href="#" role="button" tabindex="2"></a>
+					<ul id="dw-mast-auth-menu" class="dw-mf-hide">
+						<li class="dw-mast-auth-menu-title" aria-hidden="true">developerWorks 社区</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="https://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=zh" tabindex="3">我的概要信息</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="https://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=zh" tabindex="4">我的社区</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="https://www.ibm.com/developerworks/community/news/?lang=zh" tabindex="5">设置</a>
+						</li>
+						<li class="dw-mast-auth-menu-divider"><hr></li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a id="dw-mast-signout-link" href="https://www.ibm.com/developerworks/dwwi/jsp/ssologout.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2F&amp;a=dwmav" tabindex="6">退出</a>
+						</li>
+					</ul>				
+				</div>
+			</li>
+			<li id="dw-mast-top-1">
+				<div></div>
+			</li>
+			<li id="dw-mast-top-3" role="presentation">
+				<a href="http://www.ibm.com/cn/zh/" tabindex="1">IBM</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerworks/cn/"><img src="dwn-dw-wordmark.png" alt="developerWorks®" height="28" width="225"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" class="ibm-menu-links-dw-cn" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/cn/topics/" tabindex="0">技术主题</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/cn/downloads/" tabindex="0">软件下载</a></li>
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/?lang=zh" tabindex="0">社区</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&amp;lang=zh" tabindex="0">技术讲座</a></li>
+		</ul>
+		<form id="ibm-search-form" action="https://www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="搜索 developerWorks" role="search">
+			<p>
+				<label for="q"><span class="ibm-access">搜索 developerWorks</span></label>
+				<input id="q" name="q" value="搜索 developerWorks" maxlength="100" type="text">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="zh" type="hidden">
+				<input name="cc" value="CN" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="cndw" type="hidden">
+				<input name="lo" value="zh" type="hidden">
+				<input id="ibm-search" class="ibm-btn-search" value="提交" type="submit">
+			</p>
+		</form>
+	</div>    
+	
+<div aria-label="社交工具" role="navigation" style="display: block;" id="ibm-social-tools"><ul aria-label="Social tool list" role="toolbar"><li><a tabindex="0" role="button" dojoattrid="0" rel="print" href="#" title="打印本页面" class="ibm-share-print">打印本页面</a></li><li><a tabindex="-1" role="button" dojoattrid="1" rel="email" href="#" title="用电子邮件发送本页面" class="ibm-share-email">用电子邮件发送本页面</a></li><li></li><li></li><li><a class="ibm-share-weibo" tabindex="-1" role="button" dojoattrid="2" rel="新浪微博" title="新浪微博" href="http://service.weibo.com/share/share.php?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart&amp;url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;language=zh_cn">新浪微博</a></li><li><a class="ibm-share-renren" tabindex="-1" role="button" dojoattrid="3" rel="人人网" title="人人网" href="http://share.renren.com/share/buttonshare?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart&amp;link=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F">人人网</a></li><li><a class="dwcn-tencent-link" tabindex="-1" role="button" dojoattrid="4" rel="腾讯微博" title="腾讯微博" href="http://v.t.qq.com/share/share.php?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart&amp;url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F">腾讯微博</a></li><li><a class="dwcn-sohu-link" tabindex="-1" role="button" dojoattrid="5" rel="搜狐微博" title="搜狐微博" href="http://t.sohu.com/third/post.jsp?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart%20&amp;link=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F">搜狐微博</a></li><li><a class="dwcn-netease-link" tabindex="-1" role="button" dojoattrid="6" rel="网易微博" title="网易微博" href="http://t.163.com/article/user/checkLogin.do?info=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart%20https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F">网易微博</a></li><li><a class="ibm-share-digg" title="Digg" href="http://digg.com/submit?phase=2&amp;url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart" rel="digg" dojoattrid="7" role="button" tabindex="-1">Digg</a></li><li><a class="ibm-share-facebook" title="Facebook" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;t=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart" rel="facebook" dojoattrid="8" role="button" tabindex="-1">Facebook</a></li><li><a class="ibm-share-twitter" title="Twitter" href="http://twitter.com/?status=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F%20-%20%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart" rel="twitter" dojoattrid="9" role="button" tabindex="-1">Twitter</a></li><li><a class="ibm-share-delicious" title="Delicious" href="http://delicious.com/post?url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart" rel="delicious" dojoattrid="10" role="button" tabindex="-1">Delicious</a></li><li><a class="ibm-share-linkedin" title="Linked In" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F&amp;title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%202%20%E9%83%A8%E5%88%86%3A%20UpStart" rel="linkedin" dojoattrid="11" role="button" tabindex="-1">Linked In</a></li></ul></div></div>
+<div id="fdiv" class="ibm-access"></div><!-- MASTHEAD_END -->
+	    
+<!-- LAYOUT -->
+<!-- LEADSPACE_BEGIN --> 
+<div role="main" id="ibm-access-cntr"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+      <ul aria-label="Bread Crumbs" role="directory" id="ibm-navigation-trail"><li><a href="http://www.ibm.com/developerworks/cn/">developerWorks 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></li><li><a href="http://www.ibm.com/developerworks/cn/linux/">Linux</a></li><li><a href="http://www.ibm.com/developerworks/cn/views/linux/libraryview.jsp">文档库</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>浅析 Linux 初始化 init 系统，第 2 部分: UpStart</h1><p><em><span>从 sysvinit 到 systemd</span></em></p>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>近年来，Linux 系统的 init 进程经历了两次重大的演进，传统的 sysvinit 已经淡出历史舞台，新系统 UpStart 和 systemd 各有特点，而越来越多的 Linux 发行版采纳了 systemd。本文简要介绍了这三种 init 系统的使用和原理，每个 Linux 系统管理员和系统软件开发者都应该了解它们，以便更好地管理系统和开发应用。本文是系列的第二部分，主要讲述 UpStart 的特点和使用。</p>
+		<p class="ibm-no-print ibm-ind-link">
+<a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/views/linux/libraryview.jsp?sort_by=&amp;show_abstract=true&amp;show_all=&amp;search_flag=&amp;contentarea_by=Linux&amp;search_by=%E6%B5%85%E6%9E%90+Linux+%E5%88%9D%E5%A7%8B%E5%8C%96+init+%E7%B3%BB%E7%BB%9F&amp;topic_by=-1&amp;type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&amp;ibm-search=%E6%90%9C%E7%B4%A2">查看本系列更多内容</a> <span class="dw-summary-bar">|</span>
+			
+			<span id="nCmts"><span>2</span><img class="dw-cmts-arrow" alt="" src="dw-cmts-arrow.png" height="7" width="7"> <a href="#icomments" class="dw-cmt-link">评论</a></span>
+		</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a role="button" href="#authorN1002C" class="ibm-popup-link">刘 明</a>, 软件工程师, 上海交通大学通信与电子工程系</p>
+<div id="authorN1002C" class="ibm-common-overlay"><div class="ibm-head"><p><a href="#close" class="ibm-common-overlay-close">关闭 [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually
+                                    goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+刘明，老程序员一名，喜欢使用和研究 Linux，目前从事数据仓库开发和应用。</p><br><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">2014 年 7 月 09 日</p>
+			
+
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="c.gif" alt="expand"></a><span class="ibm-twisty-head">内容</span><div style="display: none;" class="ibm-twisty-body"><ul style="font-size: 0.8em;" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="#1.Upstart 简介 |outline">Upstart 简介</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#2.Upstart 概念和术语 |outline">Upstart 概念和术语</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#3.UpStart 使用 |outline">UpStart 使用</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#4.Upstart 小结 |outline">Upstart 小结</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#resources">参考资料 </a></li>
+<li><a class="ibm-anchor-down-em-link" href="#icomments">评论</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1"><div class="dw-article-sidebar dw-bluemix" id="dwc-exp-a"><img src="bluemix-graphic.png" alt="" height="64" width="64"><p>在 IBM Bluemix 云平台上开发并部署您的下一个应用。</p><p class="ibm-button-link-alternate dw-button-green"><a id="tutc-sbar-bmix-home-btn-ABa" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-1407_liuming_init2-_-sidebar" class="dw-button-large">开始您的试用</a></p></div>
+
+<h2 id="1.Upstart 简介 |outline">Upstart 简介</h2><p>假如您使用的 Linux 发行版是 Ubuntu，很可能会发现在您的计算机上找不到/etc/inittab 文件了，这是因为 Ubuntu 使用了一种被称为 upstart 的新型 init 系统。</p><h3 id="N10055">开发 Upstart 的缘由</h3><p>大约在 2006 年或者更早的时候， Ubuntu 开发人员试图将 Linux 安装在笔记本电脑上。在这期间技术人员发现经典的 sysvinit 存在一些问题：它不适合笔记本环境。这促使程序员 Scott James Remnant 着手开发 upstart。</p><p>当 Linux 内核进入 2.6 时代时，内核功能有了很多新的更新。新特性使得 Linux
+    不仅是一款优秀的服务器操作系统，也可以被用于桌面系统，甚至嵌入式设备。桌面系统或便携式设备的一个特点是经常重启，而且要频繁地使用硬件热插拔技术。在现代计算机系统中，硬件繁多、接口有限，人们并非将所有设备都始终连接在计算机上，比如 U 盘平时并不连接电脑，使用时才插入 USB 插口。因此，当系统上电启动时，一些外设可能并没有连接。而是在启动后当需要的时候才连接这些设备。在 2.6 内核支持下，一旦新外设连接到系统，内核便可以自动实时地发现它们，并初始化这些设备，进而使用它们。这为便携式设备用户提供了很大的灵活性。</p><p>可是这些特性为 sysvinit 带来了一些挑战。当系统初始化时，需要被初始化的设备并没有连接到系统上；比如打印机。为了管理打印任务，系统需要启动 CUPS 等服务，而如果打印机没有接入系统的情况下，启动这些服务就是一种浪费。Sysvinit 没有办法处理这类需求，它必须一次性把所有可能用到的服务都启动起来，即使打印机并没有连接到系统，CUPS 服务也必须启动。</p><p>还有网络共享盘的挂载问题。在/etc/fstab 中，可以指定系统自动挂载一个网络盘，比如 NFS，或者 iSCSI 设备。在本文的第一部分 sysvinit 的简介中可以看到，sysvinit 分析/etc/fstab 挂载文件系统这个步骤是在网络启动之前。可是如果网络没有启动，NFS 或者 iSCSI 都不可访问，当然也无法进行挂载操作。Sysvinit 采用 netdev 的方式来解决这个问题，即/etc/fstab 发现 netdev 属性挂载点的时候，不尝试挂载它，在网络初始化并使能之后，还有一个专门的 netfs 服务来挂载所有这些网络盘。这是一个不得已的补救方法，给管理员带来不便。部分新手管理员甚至从来也没有听说过 netdev 选项，因此经常成为系统管理的一个陷阱。</p><p>针对以上种种情况，Ubuntu 开发人员在评估了当时的几个可选 init 系统之后，决定重新设计和开发一个全新的 init 系统，即 UpStart。UpStart 基于事件机制，比如 U 盘插入 USB 接口后，udev 得到内核通知，发现该设备，这就是一个新的事件。UpStart 在感知到该事件之后触发相应的等待任务，比如处理/etc/fstab 中存在的挂载点。采用这种事件驱动的模式，upstart 完美地解决了即插即用设备带来的新问题。</p><p>此外，采用事件驱动机制也带来了一些其它有益的变化，比如加快了系统启动时间。sysvinit 运行时是同步阻塞的。一个脚本运行的时候，后续脚本必须等待。这意味着所有的初始化步骤都是串行执行的，而实际上很多服务彼此并不相关，完全可以并行启动，从而减小系统的启动时间。在 Linux 大量应用于服务器的时代，系统启动时间也许还不那么重要；然而对于桌面系统和便携式设备，启动时间的长短对用户体验影响很大。此外云计算等新的 Server 端技术也往往需要单个设备可以更加快速地启动。</p><p>UpStart 满足了这些需求，目前不仅桌面系统 Ubuntu 采用了 UpStart，甚至企业级服务器级的 RHEL 也默认采用 UpStart 来替换 sysvinit 作为 init 系统。</p><h3 id="N1006C">Upstart 的特点</h3><p>UpStart 解决了之前提到的 sysvinit 的缺点。采用事件驱动模型，UpStart 可以：</p><ul class="ibm-bullet-list"><li>更快地启动系统</li><li>当新硬件被发现时动态启动服务</li><li>硬件被拔除时动态停止服务</li></ul><p>这些特点使得 UpStart 可以很好地应用在桌面或者便携式系统中，处理这些系统中的动态硬件插拔特性。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="2.Upstart 概念和术语 |outline">Upstart 概念和术语</h2><p>Upstart 的基本概念和设计清晰明确。UpStart 主要的概念是 job 和 event。Job 就是一个工作单元，用来完成一件工作，比如启动一个后台服务，或者运行一个配置命令。每个 Job 都等待一个或多个事件，一旦事件发生，upstart 就触发该 job 完成相应的工作。</p><h3 id="N10083">Job</h3><p>Job 就是一个工作的单元，一个任务或者一个服务。可以理解为 sysvinit 中的一个服务脚本。有三种类型的工作：</p><ul class="ibm-bullet-list"><li>task job；</li><li>service job；</li><li>abstract job；</li></ul><p>task job 代表在一定时间内会执行完毕的任务，比如删除一个文件；</p><p>service job 代表后台服务进程，比如 apache httpd。这里进程一般不会退出，一旦开始运行就成为一个后台精灵进程，由 init 进程管理，如果这类进程退出，由 init 进程重新启动，它们只能由 init 进程发送信号停止。它们的停止一般也是由于所依赖的停止事件而触发的，不过 upstart 也提供命令行工具，让管理人员手动停止某个服务；</p><p>Abstract job 仅由 upstart 内部使用，仅对理解 upstart 内部机理有所帮助。我们不用关心它。</p><p>除了以上的分类之外，还有另一种工作（Job）分类方法。Upstart 不仅可以用来为整个系统的初始化服务，也可以为每个用户会话（session）的初始化服务。系统的初始化任务就叫做 system job，比如挂载文件系统的任务就是一个 system job；用户会话的初始化服务就叫做 session job。</p><h3 id="N10099">Job 生命周期</h3><p>Upstart 为每个工作都维护一个生命周期。一般来说，工作有开始，运行和结束这几种状态。为了更精细地描述工作的变化，Upstart 还引入了一些其它的状态。比如开始就有开始之前(pre-start)，即将开始(starting)和已经开始了(started)几种不同的状态，这样可以更加精确地描述工作的当前状态。</p><p>工作从某种初始状态开始，逐渐变化，或许要经历其它几种不同的状态，最终进入另外一种状态，形成一个状态机。在这个过程中，当工作的状态即将发生变化的时候，init 进程会发出相应的事件（event）。</p><h5 id="N100AA">表 1.Upstart 中 Job 的可能状态</h5><table class="ibm-data-table" summary="" border="0" cellpadding="0" cellspacing="0"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th style="text-align: center; vertical-align: top;">
+状态名
+</th><th style="text-align: center; vertical-align: top;">
+含义
+</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td style="vertical-align: top;">
+Waiting
+</td><td style="vertical-align: top;">
+初始状态
+</td></tr><tr><td style="vertical-align: top;">
+Starting
+</td><td style="vertical-align: top;">
+Job 即将开始
+</td></tr><tr><td style="vertical-align: top;">
+pre-start
+</td><td style="vertical-align: top;">
+执行 pre-start 段，即任务开始前应该完成的工作
+</td></tr><tr><td style="vertical-align: top;">
+Spawned
+</td><td style="vertical-align: top;">
+准备执行 script 或者 exec 段
+</td></tr><tr><td style="vertical-align: top;">
+post-start
+</td><td style="vertical-align: top;">
+执行 post-start 动作
+</td></tr><tr><td style="vertical-align: top;">
+Running
+</td><td style="vertical-align: top;">
+interim state set after post-start section processed denoting job is running (But it may have no associated PID!)
+</td></tr><tr><td style="vertical-align: top;">
+pre-stop
+</td><td style="vertical-align: top;">
+执行 pre-stop 段
+</td></tr><tr><td style="vertical-align: top;">
+Stopping
+</td><td style="vertical-align: top;">
+interim state set after pre-stop section processed
+</td></tr><tr><td style="vertical-align: top;">
+Killed
+</td><td style="vertical-align: top;">
+任务即将被停止
+</td></tr><tr><td style="vertical-align: top;">
+post-stop
+</td><td style="vertical-align: top;">
+执行 post-stop 段
+</td></tr></tbody></table><p>图 1 展示了 Job 的状态机。</p><h5 id="N10100">图 1. Job’s life cycle</h5><img alt="Job’s life cycle" src="image003.jpg" width="436"><p>其中有四个状态会引起 init 进程发送相应的事件，表明该工作的相应变化：</p><ul class="ibm-bullet-list"><li>Starting</li><li>Started</li><li>Stopping</li><li>Stopped</li></ul><p>而其它的状态变化不会发出事件。那么我们接下来就来看看事件的详细含义吧。</p><h3 id="N10118">事件 Event</h3><p>顾名思义，Event 就是一个事件。事件在 upstart 中以通知消息的形式具体存在。一旦某个事件发生了，Upstart 就向整个系统发送一个消息。没有任何手段阻止事件消息被 upstart 的其它部分知晓，也就是说，事件一旦发生，整个 upstart 系统中所有工作和其它的事件都会得到通知。</p><p>Event 可以分为三类: signal，methods 或者 hooks。</p><p><strong>Signals</strong></p><p>Signal 事件是非阻塞的，异步的。发送一个信号之后控制权立即返回。</p><p><strong>Methods</strong></p><p>Methods 事件是阻塞的，同步的。</p><p><strong>Hooks</strong></p><p>Hooks 事件是阻塞的，同步的。它介于 Signals 和 Methods 之间，调用发出 Hooks 事件的进程必须等待事件完成才可以得到控制权，但不检查事件是否成功。</p><p>事件是个非常抽象的概念，下面我罗列出一些常见的事件，希望可以帮助您进一步了解事件的含义：</p><ul class="ibm-bullet-list"><li>系统上电启动，init 进程会发送"start"事件</li><li>根文件系统可写时，相应 job 会发送文件系统就绪的事件</li><li>一个块设备被发现并初始化完成，发送相应的事件</li><li>某个文件系统被挂载，发送相应的事件</li><li>类似 atd 和 cron，可以在某个时间点，或者周期的时间点发送事件</li><li>另外一个 job 开始或结束时，发送相应的事件</li><li>一个磁盘文件被修改时，可以发出相应的事件</li><li>一个网络设备被发现时，可以发出相应的事件</li><li>缺省路由被添加或删除时，可以发出相应的事件</li></ul><p>不同的 Linux 发行版对 upstart 有不同的定制和实现，实现和支持的事件也有所不同，可以用<code>man 7 upstart-events</code>来查看事件列表。</p><h3 id="N1014A">Job 和 Event 的相互协作</h3><p>Upstart 就是由事件触发工作运行的一个系统，每一个程序的运行都由其依赖的事件发生而触发的。</p><p>系统初始化的过程是在工作和事件的相互协作下完成的，可以大致描述如下：系统初始化时，init 进程开始运行，init 进程自身会发出不同的事件，这些最初的事件会触发一些工作运行。每个工作运行过程中会释放不同的事件，这些事件又将触发新的工作运行。如此反复，直到整个系统正常运行起来。</p><p>究竟哪些事件会触发某个工作的运行？这是由工作配置文件定义的。</p><h3 id="N10155">工作配置文件</h3><p>任何一个工作都是由一个工作配置文件（Job Configuration File）定义的。这个文件是一个文本文件，包含一个或者多个小节（stanza）。每个小节是一个完整的定义模块，定义了工作的一个方面，比如 author 小节定义了工作的作者。工作配置文件存放在/etc/init 下面，是以.conf 作为文件后缀的文件。</p><h5 id="OLE_LINK2">清单 1. 一个最简单的工作配置文件</h5><div class="codesection"><pre class="displaycode">#This is a simple demo of Job Configure file
+#This line is comment, start with #
+
+#Stanza 1, The author
+author “Liu Ming”
+
+#Stanza 2, Description
+description “This job only has author and description, so no use, just a demo”</pre></div><p>上面的例子不会产生任何作用，一个真正的工作配置文件会包含很多小节，其中比较重要的小节有以下几个：</p><p><strong>"expect" Stanza</strong></p><p>Upstart 除了负责系统的启动过程之外，和 SysVinit 一样，Upstart 还提供一系列的管理工具。当系统启动之后，管理员可能还需要进行维护和调整，比如启动或者停止某项系统服务。或者将系统切换到其它的工作状态，比如改变运行级别。本文后续将详细介绍 Upstart 的管理工具的使用。</p><p>为了启动，停止，重启和查询某个系统服务。Upstart 需要跟踪该服务所对应的进程。比如 httpd 服务的进程 PID 为 1000。当用户需要查询 httpd 服务是否正常运行时，Upstart 就可以利用 ps 命令查询进程 1000，假如它还在正常运行，则表明服务正常。当用户需要停止 httpd 服务时，Upstart 就使用 kill 命令终止该进程。为此，Upstart 必须跟踪服务进程的进程号。</p><p>部分服务进程为了将自己变成后台精灵进程(daemon)，会采用两次派生(fork)的技术，另外一些服务则不会这样做。假如一个服务派生了两次，那么 UpStart 必须采用第二个派生出来的进程号作为服务的 PID。但是，UpStart 本身无法判断服务进程是否会派生两次，为此在定义该服务的工作配置文件中必须写明 expect 小节，告诉 UpStart 进程是否会派生两次。</p><p>Expect 有两种，"expect fork"表示进程只会 fork 一次；"expect daemonize"表示进程会 fork 两次。</p><p><strong>"exec" Stanza 和"script" Stanza</strong></p><p>一个 UpStart 工作一定需要做些什么，可能是运行一条 shell 命令，或者运行一段脚本。用"exec"关键字配置工作需要运行的命令；用"script"关键字定义需要运行的脚本。</p><p>清单 2 显示了 exec 和 script 的用法：</p><h5 id="N1017A">清单 2.script 例子</h5><div class="codesection"><pre class="displaycode"># mountall.conf
+description “Mount filesystems on boot”
+start on startup
+stop on starting rcS
+...
+script
+  . /etc/default/rcS
+  [ -f /forcefsck ] &amp;&amp; force_fsck=”--force-fsck”
+  [ “$FSCKFIX”=”yes” ] &amp;&amp; fsck_fix=”--fsck-fix”
+   
+  ...
+  
+  exec mountall –daemon $force_fsck $fsck_fix
+end script
+...</pre></div><p>这是 mountall 的例子，该工作在系统启动时运行，负责挂载所有的文件系统。该工作需要执行复杂的脚本，由"script"关键字定义；在脚本中，使用了 exec 来执行 mountall 命令。</p><p><strong>"start on" Stanza 和"stop on" Stanza</strong></p><p>"start on"定义了触发工作的所有事件。"start on"的语法很简单，如下所示：</p><p>start on EVENT [[KEY=]VALUE]... [and|or...]</p><p>EVENT 表示事件的名字，可以在 start on 中指定多个事件，表示该工作的开始需要依赖多个事件发生。多个事件之间可以用 and 或者 or 组合，"表示全部都必须发生"或者"其中之一发生即可"等不同的依赖条件。除了事件发生之外，工作的启动还可以依赖特定的条件，因此在 start on 的 EVENT 之后，可以用 KEY=VALUE 来表示额外的条件，一般是某个环境变量(KEY)和特定值(VALUE)进行比较。如果只有一个变量，或者变量的顺序已知，则 KEY 可以省略。</p><p>"stop on"和"start on"非常类似，只不过是定义工作在什么情况下需要停止。</p><p>代码清单 3 是"start on"和"stop on"的一个例子。</p><h5 id="N10191">清单 3. start on/ stop on 例子</h5><div class="codesection"><pre class="displaycode">#dbus.conf
+description     “D-Bus system message bus”
+
+start on local-filesystems
+stop on deconfiguring-networking
+…</pre></div><p>D-Bus 是一个系统消息服务，上面的配置文件表明当系统发出 local-filesystems 事件时启动 D-Bus；当系统发出 deconfiguring-networking 事件时，停止 D-Bus 服务。</p><h3 id="N10199">Session Init</h3><p>UpStart 还可以用于管理用户会话的初始化。在我写这篇文章的今天，多数 Linux 发行版还没有使用 UpStart 管理会话。只有在 Ubuntu Raring 版本中，使用 UpStart 管理用户会话的初始化过程。</p><p>首先让我们了解一下 Session 的概念。Session 就是一个用户会话，即用户从远程或者本地登入系统开始工作，直到用户退出。这整个过程就构成一个会话。</p><p>每个用户的使用习惯和使用方法都不相同，因此用户往往需要为自己的会话做一个定制，比如添加特定的命令别名，启动特殊的应用程序或者服务，等等。这些工作都属于对特定会话的初始化操作，因此可以被称为 Session Init。</p><p>用户使用 Linux 可以有两种模式：字符模式和图形界面。在字符模式下，会话初始化相对简单。用户登录后只能启动一个 Shell，通过 shell 命令使用系统。各种 shell 程序都支持一个自动运行的启动脚本，比如~/.bashrc。用户在这些脚本中加入需要运行的定制化命令。字符会话需求简单，因此这种现有的机制工作的很好。</p><p>在图形界面下，事情就变得复杂一些。用户登录后看到的并不是一个 shell 提示符，而是一个桌面。一个完整的桌面环境由很多组件组成。</p><p>一个桌面环境包括 window manager，panel 以及其它一些定义在/usr/share/gnome-session/sessions/下面的基本组件；此外还有一些辅助的应用程序，共同帮助构成一个完整的方便的桌面，比如 system monitors，panel applets，NetworkManager，Bluetooth，printers 等。当用户登录之后，这些组件都需要被初始化，这个过程比字符界面要复杂的多。目前启动各种图形组件和应用的工作由 gnome-session 完成。过程如下：</p><p>以 Ubuntu 为例，当用户登录 Ubuntu 图形界面后，显示管理器(Display Manager)lightDM 启动 Xsession。Xsession 接着启动 gnome-session，gnome-session 负责其它的初始化工作，然后就开始了一个 desktop session。</p><h5 id="N101AE">图 2.传统 desktop session 启动过程</h5><div class="codesection"><pre class="displaycode">init
+ |- lightdm
+ |   |- Xorg
+ |   |- lightdm ---session-child
+ |        |- gnome-session --session=ubuntu
+ |             |- compiz
+ |             |- gwibber
+ |             |- nautilus
+ |             |- nm-applet
+ |             :
+ |             :
+ |
+ |- dbus-daemon --session
+ |
+ :
+ :</pre></div><p>这个过程有一些缺点（和 sysVInit 类似）。一些应用和组件其实并不需要在会话初始化过程中启动，更好的选择是在需要它们的时候才启动。比如 update-notifier 服务，该服务不停地监测几个文件系统路径，一旦这些路径上发现可以更新的软件包，就提醒用户。这些文件系统路径包括新插入的 DVD 盘等。Update-notifier 由 gnome-session 启动并一直运行着，在多数情况下，用户并不会插入新的 DVD，此时 update-notifier 服务一直在后台运行并消耗系统资源。更好的模式是当用户插入 DVD 的时候再运行 update-notifier。这样可以加快启动时间，减小系统运行过程中的内存等系统资源的开销。对于移动，嵌入式等设备等这还意味着省电。除了 Update-notifier 服务之外，还有其它一些类似的服务。比如 Network Manager，一天之内用户很少切换网络设备，所以大部分时间 Network Manager 服务仅仅是在浪费系统资源；再比如 backup manager 等其它常驻内存，后台不间断运行却很少真正被使用的服务。</p><p>用 UpStart 的基于事件的按需启动的模式就可以很好地解决这些问题，比如用户插入网线的时候才启动 Network Manager，因为用户插入网线表明需要使用网络，这可以被称为按需启动。</p><p>下图描述了采用 UpStart 之后的会话初始化过程。</p><h5 id="N101BC">图 3.采用 Upstart 的 Desktop session init 过程</h5><div class="codesection"><pre class="displaycode">init
+ |- lightdm
+ |   |- Xorg
+ |   |- lightdm ---session-child
+ |        |- session-init # &lt;-- upstart running as normal user
+ |             |- dbus-daemon --session
+ |             |- gnome-session --session=ubuntu
+ |             |- compiz
+ |             |- gwibber
+ |             |- nautilus
+ |             |- nm-applet
+ |             :
+ |             :
+ :
+ :</pre></div><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="3.UpStart 使用 |outline">UpStart 使用</h2><p>有两种人员需要了解 Upstart 的使用。第一类是系统开发人员，比如 MySQL 的开发人员。它们需要了解如何编写工作配置文件，以便用 UpStart 来管理服务。比如启动，停止 MySQL 服务。</p><p>另外一种情况是系统管理员，它们需要掌握 Upstart 的管理命令以便配置和管理系统的初始化，管理系统服务。</p><h3 id="N101CB">系统开发人员需要了解的 UpStart 知识</h3><p>系统开发人员不仅需要掌握工作配置文件的写法，还需要了解一些针对服务进程编程上的要求。本文仅列出了少数工作配置文件的语法。要全面掌握工作配置文件的写法，需要详细阅读 Upstart 的手册。这里让我们来分析一下如何用 Upstart 来实现传统的运行级别，进而了解如何灵活使用工作配置文件。</p><p><strong>Upstart 系统中的运行级别</strong></p><p>Upstart 的运作完全是基于工作和事件的。工作的状态变化和运行会引起事件，进而触发其它工作和事件。</p><p>而传统的 Linux 系统初始化是基于运行级别的，即 SysVInit。因为历史的原因，Linux 上的多数软件还是采用传统的 SysVInit 脚本启动方式，并没有为 UpStart 开发新的启动脚本，因此即便在 Debian 和 Ubuntu 系统上，还是必须模拟老的 SysVInit 的运行级别模式，以便和多数现有软件兼容。</p><p>虽然 Upstart 本身并没有运行级别的概念，但完全可以用 UpStart 的工作模拟出来。让我们完整地考察一下 UpStart 机制下的系统启动过程。</p><p><strong>系统启动过程</strong></p><p>下图描述了 UpStart 的启动过程。</p><h5 id="N101E1">图 4.UpStart 启动过程</h5><img alt="UpStart 启动过程" src="image004.png" width="500"><p>系统上电后运行 GRUB 载入内核。内核执行硬件初始化和内核自身初始化。在内核初始化的最后，内核将启动 pid 为 1 的 init 进程，即 UpStart 进程。</p><p>Upstart 进程在执行了一些自身的初始化工作后，立即发出"startup"事件。上图中用红色方框加红色箭头表示事件，可以在左上方看到"startup"事件。</p><p>所有依赖于"startup"事件的工作被触发，其中最重要的是 mountall。mountall 任务负责挂载系统中需要使用的文件系统，完成相应工作后，mountall 任务会发出以下事件：local-filesystem，virtual-filesystem，all-swaps，</p><p>其中 virtual-filesystem 事件触发 udev 任务开始工作。任务 udev 触发 upstart-udev-bridge 的工作。Upstart-udev-bridge 会发出 net-device-up IFACE=lo 事件，表示本地回环 IP 网络已经准备就绪。同时，任务 mountall 继续执行，最终会发出 filesystem 事件。</p><p>此时，任务 rc-sysinit 会被触发，因为 rc-sysinit 的 start on 条件如下：</p><div class="codesection"><pre class="displaycode">start on filesystem and net-device-up IFACE=lo</pre></div><a id="OLE_LINK4"></a><a id="OLE_LINK3"></a><p>任务 rc-sysinit 调用 telinit。Telinit 任务会发出 runlevel 事件，触发执行/etc/init/rc.conf。</p><p>rc.conf 执行/etc/rc$.d/目录下的所有脚本，和 SysVInit 非常类似，读者可以参考本文第一部分的描述。</p><p><strong>程序开发时需要注意的事项</strong></p><p>作为程序开发人员，在编写系统服务时，需要了解 UpStart 的一些特殊要求。只有符合这些要求的软件才可以被 UpStart 管理。</p><p><strong>规则一，派生次数需声明。</strong></p><p>很多 Linux 后台服务都通过派生两次的技巧将自己变成后台服务程序。如果您编写的服务也采用了这个技术，就必须通过文档或其它的某种方式明确地让 UpStart 的维护人员知道这一点，这将影响 UpStart 的 expect stanza，我们在前面已经详细介绍过这个 stanza 的含义。</p><p><strong>规则二，派生后即可用。</strong></p><p>后台程序在完成第二次派生的时候，必须保证服务已经可用。因为 UpStart 通过派生计数来决定服务是否处于就绪状态。</p><p><strong>规则三，遵守 SIGHUP 的要求。</strong></p><p>UpStart 会给精灵进程发送 SIGHUP 信号，此时，UpStart 希望该精灵进程做以下这些响应工作：</p><p>•完成所有必要的重新初始化工作，比如重新读取配置文件。这是因为 UpStart 的命令"initctl reload"被设计为可以让服务在不重启的情况下更新配置。</p><p>•精灵进程必须继续使用现有的 PID，即收到 SIGHUP 时不能调用 fork。如果服务必须在这里调用 fork，则等同于派生两次，参考上面的规则一的处理。这个规则保证了 UpStart 可以继续使用 PID 管理本服务。</p><p><strong>规则四，收到 SIGTEM 即 shutdown。</strong></p><p>•当收到 SIGTERM 信号后，UpStart 希望精灵进程进程立即干净地退出，释放所有资源。如果一个进程在收到 SIGTERM 信号后不退出，Upstart 将对其发送 SIGKILL 信号。</p><h3 id="N10225">系统管理员需要了解的 Upstart 命令</h3><p>作为系统管理员，一个重要的职责就是管理系统服务。比如系统服务的监控，启动，停止和配置。UpStart 提供了一系列的命令来完成这些工作。其中的核心是<strong>initctl</strong>，这是一个带子命令风格的命令行工具。</p><p>比如可以用 initctl list 来查看所有工作的概况：</p><div class="codesection"><pre class="displaycode">$initctl list
+alsa-mixer-save stop/waiting
+avahi-daemon start/running, process 690
+mountall-net stop/waiting
+rc stop/waiting
+rsyslog start/running, process 482
+screen-cleanup stop/waiting
+tty4 start/running, process 859
+udev start/running, process 334
+upstart-udev-bridge start/running, process 304
+ureadahead-other stop/waiting</pre></div><p>这是在 Ubuntu10.10 系统上的输出，其它的 Linux 发行版上的输出会有所不同。第一列是工作名，比如 rsyslog。第二列是工作的目标；第三列是工作的状态。</p><p>此外还可以用 initctl stop 停止一个正在运行的工作；用 initctl start 开始一个工作；还可以用 initctl status 来查看一个工作的状态；initctl restart 重启一个工作；initctl reload 可以让一个正在运行的服务重新载入配置文件。这些命令和传统的 service 命令十分相似。</p><h5 id="N10241">表 2.service 命令和 initctl 命令对照表</h5><table class="ibm-data-table" summary="" border="0" cellpadding="0" cellspacing="0"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th style="text-align: center; vertical-align: top;">
+Service 命令
+</th><th style="text-align: center; vertical-align: top;">
+UpStart initctl 命令
+</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td style="vertical-align: top;">
+service start
+</td><td style="vertical-align: top;">
+initctl start
+</td></tr><tr><td style="vertical-align: top;">
+service stop
+</td><td style="vertical-align: top;">
+initctl stop
+</td></tr><tr><td style="vertical-align: top;">
+service restart
+</td><td style="vertical-align: top;">
+initctl restart
+</td></tr><tr><td style="vertical-align: top;">
+service reload
+</td><td style="vertical-align: top;">
+initctl reload
+</td></tr></tbody></table><p>很多情况下管理员并不喜欢子命令风格，因为需要手动键入的字符太多。UpStart 还提供了一些快捷命令来简化 initctl，实际上这些命令只是在内部调用相应的 initctl 命令。比如 reload，restart，start，stop 等等。启动一个服务可以简单地调用</p><div class="codesection"><pre class="displaycode">start &lt;job&gt;</pre></div><p>这和执行 initctl start &lt;job&gt;是一样的效果。</p><p>一些命令是为了兼容其它系统(主要是 sysvinit)，比如显示 runlevel 用/sbin/runlevel 命令：</p><div class="codesection"><pre class="displaycode">$runlevel
+N 2</pre></div><p>这个输出说明当前系统的运行级别为 2。而且系统没有之前的运行级别，也就是说在系统上电启动进入预定运行级别之后没有再修改过运行级别。</p><p>那么如何修改系统上电之后的默认运行级别呢？</p><p>在 Upstart 系统中，需要修改/etc/init/rc-sysinti.conf 中的 DEFAULT_RUNLEVEL 这个参数，以便修改默认启动运行级别。这一点和 sysvinit 的习惯有所不同，大家需要格外留意。</p><p>还有一些随 UpStart 发布的小工具，用来帮助开发 UpStart 或者诊断 UpStart 的问题。比如 init-checkconf 和 upstart-monitor</p><p>还可以使用 initctl 的 emit 命令从命令行发送一个事件。</p><div class="codesection"><pre class="displaycode">#initctl emit &lt;event&gt;</pre></div><p>这一般是用于 UpStart 本身的排错。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="4.Upstart 小结 |outline">Upstart 小结</h2><p>可以看到，UpStart 的设计比 SysVInit 更加先进。多数 Linux 发行版上已经不再使用 SysVInit，一部分发行版采用了 UpStart，比如 Ubuntu；而另外一些比如 Fedora，采用了一种被称为 systemd 的 init 系统。Systemd 出现的比 UpStart 更晚，但发展迅速，虽然 UpStart 也还在积极开发并被越来越多地应用，但 systemd 似乎发展更快，我将在下一篇文章中再介绍 systemd。</p><!--CMA ID: 976618--><!--Site ID: 10--><!--XSLT stylesheet used to transform this file: dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">参考资料 </h2><h3 class="dw-resources-category-heading">学习</h3><ul class="ibm-bullet-list"><li>Upstart 项目发起人 Scott 的<a href="http://netsplit.com/2006/08/26/upstart-in-universe/">博客文章 upstart-in-universe</a>，有很好的背景描述和实现的概括。值得仔细阅读。</li><li>LWN 上的文章 <a href="http://lwn.net/Articles/547422/">Upstart for user sessions</a> 描述了 UpStart 用于 session init 的进展情况，并给出了一些重要的其它参考资料，是学习 Session Init 的好材料。</li><li>维基百科上<a href="http://en.wikipedia.org/wiki/Upstart">关于
+    upstart</a> 的介绍，对 upstart 的原理和背景有很好的描述。 </li><li> Ubuntu 维基上<a href="https://wiki.ubuntu.com/ReplacementInit">关于 upstart 的介绍</a>，介绍了 upstart 项目的背景，use case，基本概念和设计思想，是非常好的参考资料。</li><li>在 <a href="http://www.ibm.com/developerworks/cn/linux/">developerWorks Linux 专区</a>寻找为 Linux 开发人员（包括 <a href="http://www.ibm.com/developerworks/cn/linux/newto/">Linux 新手入门</a>）准备的更多参考资料。</li></ul><h3 class="dw-resources-category-heading">讨论</h3><ul class="ibm-bullet-list"><li>加入 <a href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a>。查看开发人员推动的博客、论坛、组和维基，并与其它 developerWorks 用户交流。</li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">条评论</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img style="display: none;" id="imgPlHdr" src="animated-progress-38x38c.gif" alt=""><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect">请 <a href="#">登录</a> 或 <a href="https://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init2%2F%23icomments&amp;lang=cn&amp;a=dwmav">注册</a>  后发表评论。</p><p id="cmtHead"><label for="newCmt"><strong>添加评论:</strong></label></p><p>注意：评论中不支持 HTML 语法</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><span class="ibm-input-group"><input value="1" name="comment_notification" id="comment_notification" disabled="disabled" type="checkbox"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">有新评论时提醒我</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount">剩余 <span id="charCount">1000</span> 字符</span><p class="ibm-buttons-row"><input value="发布" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled" type="button"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style=""><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts">2</span>)</strong></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts"><label for="howManyComments"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>为什么“经典的 sysvinit 存在一些问题：它不适合笔记本环境”，这是因为什么？</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/zelinhehe">zelinhehe</a></strong>  于 2015年02月04日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="https://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=https://www.ibm.com/developerworks/cn/linux/1407_liuming_init2/&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E4%B8%BA%E4%BB%80%E4%B9%88%E2%80%9C%E7%BB%8F%E5%85%B8%E7%9A%84%20sysvinit%20%E5%AD%98%E5%9C%A8%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9A%E5%AE%83%E4%B8%8D%E9%80%82%E5%90%88%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%8E%AF%E5%A2%83%E2%80%9D%EF%BC%8C%E8%BF%99%E6%98%AF%E5%9B%A0%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F%0D%E7%94%B1%20zelinhehe%20%20%E4%BA%8E%202015%E5%B9%B402%E6%9C%8804%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>很好～我这还不算一个程序员～</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/Kernels">Kernels</a></strong>  于 2014年12月16日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="https://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=https://www.ibm.com/developerworks/cn/linux/1407_liuming_init2/&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E5%BE%88%E5%A5%BD%EF%BD%9E%E6%88%91%E8%BF%99%E8%BF%98%E4%B8%8D%E7%AE%97%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%91%98%EF%BD%9E%0D%E7%94%B1%20Kernels%20%20%E4%BA%8E%202014%E5%B9%B412%E6%9C%8816%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts2">2</span>)</strong></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts2"><label for="howManyComments2"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+
+ <div class="ibm-title">
+<h2>developerWorks: 登录</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" name="ibm-id" id="ibmid" size="25" value="" class="required" type="text">
+    <br><a href="#" class="ibm-forward-link">需要一个 IBM ID？</a> <br>
+    <a class="ibm-forward-link" href="https://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a> 
+</span>
+</p> 
+<p><label for="password">密码：<span class="ibm-required">*</span></label><span>
+    <input name="password" id="password" size="25" value="" class="required" type="password">
+    <br><a class="ibm-forward-link" href="#">忘记密码？</a>
+    <br><a class="ibm-forward-link" href="#">更改您的密码</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" name="perm_name" type="checkbox"><label for="perm"> 保持登录。</label></span>
+</p>
+<p>单击提交则表示您同意developerWorks 的条款和条件。 <a href="https://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>。</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+ <div class="ibm-overlay-rule"><hr></div> 
+
+<p>在您首次登录 developerWorks 时，会为您创建一份个人概要。<strong>您的个人概要中的信息（您的姓名、国家/地区，以及公司名称）是公开显示的，而且会随着您发布的任何内容一起显示，除非您选择隐藏您的公司名称。</strong>您可以随时更新您的 IBM 帐户。</p>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>选择您的昵称</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 
+    您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form id="dFormId" method="post" action="" name="dForm" class="ibm-column-form">
+<p><label for="displayname">昵称：<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" name="displayname" id="displayname" size="25" value="" type="text"></span>
+    <span class="ibm-form-note">(昵称长度在 3 至 31 个字符之间)</span>
+</p>
+<p>单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="https://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/"><img src="sm-f-bluemixrobot60.png" alt="IBM Bluemix 资源中心" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/">IBM Bluemix 资源中心</a></h3>
+<p>文章、教程、演示，帮助您构建、部署和管理云应用。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/community/"><img src="sm-f-comcommunity60.png" alt="developerWorks 中文社区" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a></h3>
+<p>立即加入来自 IBM 的专业 IT 社交网络。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://bluemixathon.devpost.com/"><img src="sm-f-bluemixathon60.png" alt="Bluemixathon 挑战赛" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://bluemixathon.devpost.com/">Bluemixathon 挑战赛</a></h3>
+<p>为灾难恢复构建应用，赢取现金大奖。</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Linux</div><div class="metavalue">ArticleID=976618</div><div class="metavalue">ArticleTitle=浅析 Linux 初始化 init 系统，第 2 部分: UpStart</div><div class="metavalue">publish-date=07092014</div><div class="metavalue">url=https://www.ibm.com/developerworks/cn/linux/1407_liuming_init2/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>
+<!-- LEADSPACE_END -->
+
+
+<!-- END_IBM_PCON -->
+<!-- FOOTER_BEGIN -->
+<div aria-label="页脚" id="ibm-footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1 dw-footer-col-6-1-cn">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/secure/feedback.jsp?domain=dwchina" tabindex="0">帮助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/author/" tabindex="0">联系编辑</a></li>
+				<li><a href="https://www.ibm.com/developerworks/secure/myideas2.jsp?domain=dwchina" tabindex="0">提交内容</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/rss/" tabindex="0">订阅源</a></li>
+			</ul>
+        </div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a class="dwcn-sina-link" href="http://weibo.com/ibmdw/" target="_blank" tabindex="0">新浪微博</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/report?lang=zh" tabindex="0">报告滥用</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms?lang=zh" tabindex="0">使用条款</a></li>
+				<li><a href="https://www.ibm.com/developerworks/cn/community/terms/thirdparty/" tabindex="0">第三方提示</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<ul>
+				<li><a href="http://www.ibm.com/privacy/cn/zh/" tabindex="0">隐私条约</a></li>
+				<li><a href="http://www.ibm.com/ibm/accessibility/cn/" tabindex="0">浏览辅助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/academic/" tabindex="0">IBM 教育学院教育培养计划</a></li><li><a href="http://www.ibm.com/developerworks/cn/gep/">IBM 创业企业全球扶持计划</a></li><li><a href="http://www.ibm.com/partnerworld/isv/">ISV 资源 (英语)</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4"> 
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/cn/newsletter/" tabindex="0">dW 中国每周时事通讯</a></li>
+			</ul>
+			
+		</div>
+		<div class="dw-footer-col-6-5">
+			<ul>
+				<li class="dw-footer-lang-head">选择语言：</li>
+				<li><a href="http://www.ibm.com/developerworks/" tabindex="0">English</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/" tabindex="0" lang="zh">中文</a></li>
+				<li><a href="http://www.ibm.com/developerworks/jp/" tabindex="0" lang="ja">日本語</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ru/" tabindex="0" lang="ru">Русский</a></li>
+				<li><a href="http://www.ibm.com/developerworks/br/" tabindex="0" lang="pt">Português (Brasil)</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ssa/" tabindex="0" lang="es">Español</a></li>
+				<li><a href="http://www.ibm.com/developerworks/vn/" tabindex="0" lang="vi">Việt</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-6">
+			<img alt="IBM®" src="dwn-ibm-logo-v17.png" height="46" width="223">
+			<img class="dw-preload" src="ibm_sprite_social_blue_ON.png" alt="" height="1" width="1">
+		</div>
+	</div>
+</div>
+
+</div><!-- FOOTER_END -->
+
+<!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+
+
+
+
+
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+
+</div>
+
+
+
+<div id="ads"></div></body>
+</html>

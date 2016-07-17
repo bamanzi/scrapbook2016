@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en-US" class="js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk">
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE">
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f">
+<meta property="article:publisher" content="http://facebook.com/tecmint">
+<meta property="article:author" content="http://facebook.com/ravisaive">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.tecmint.com/xmlrpc.php">
+<title>LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) - Part 7</title>
+
+<!-- All in One SEO Pack 2.3.8 by Michael Torbert of Semper Fi Web Design[696,854] -->
+<link rel="author" href="https://plus.google.com/+GabrielC%C3%A1nepa">
+<meta name="description" itemprop="description" content="This post is Part 7 of a 10-tutorial series, here in this part, we will explain how to Manage Linux System Startup Process and Services, that are required for">
+<meta name="keywords" itemprop="keywords" content="linux startup process,linux boot process,manage services in linux,enable services in linux,disable services in linux,lfcs certification,systemd">
+<link rel="canonical" href="http://www.tecmint.com/linux-boot-process-and-manage-services/">
+
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Feed" href="http://feeds.feedburner.com/tecmint">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Comments Feed" href="http://www.tecmint.com/comments/feed/">
+
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) – Part 7 Comments Feed" href="http://www.tecmint.com/linux-boot-process-and-manage-services/feed/">
+<!-- <link rel='stylesheet' id='dgd-scrollbox-plugin-core-css'  href='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/css/style.css?ver=2.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='fancybox-style-css'  href='http://www.tecmint.com/wp-content/plugins/light/css/jquery.fancybox.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/style.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='responsive-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/responsive.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='custom-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/custom.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/fonts/font-awesome.min.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='qbp-css'  href='http://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/style/qbp.css?ver=1.4.2' type='text/css' media='all' /> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script> -->
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/js/script.js?ver=2.3'></script> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/js/qbp.js?ver=1.4.2'></script> -->
+<link rel="https://api.w.org/" href="http://www.tecmint.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.tecmint.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.tecmint.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Monitor Server Logs in Real-Time with “Log.io” Tool on RHEL/CentOS 7/6" href="http://www.tecmint.com/linux-server-log-monitoring-with-log-io/">
+<link rel="next" title="Automated Installations of Multiple RHEL/CentOS 7 Distributions using PXE Server and Kickstart Files" href="http://www.tecmint.com/multiple-centos-installations-using-kickstart/">
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="shortlink" href="http://www.tecmint.com/?p=9479">
+<link rel="alternate" type="application/json+oembed" href="http://www.tecmint.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.tecmint.com%2Flinux-boot-process-and-manage-services%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.tecmint.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.tecmint.com%2Flinux-boot-process-and-manage-services%2F&amp;format=xml">
+<!-- Facebook Like Thumbnail (v0.3.4) -->
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2014/10/part7.jpg">
+<!-- using featured thumbnail -->
+<!-- Facebook Like Thumbnail (By Ashfame - https://github.com/ashfame/facebook-like-thumbnail) -->
+<link rel="shortcut icon" href="favicon.ico">
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts">
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-9479 single-format-standard col-2cl full-width topbar-enabled chrome s1-collapse s2-collapse">
+<div id="wrapper">
+<header id="header">
+<nav class="nav-container group" id="nav-topbar">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="http://www.tecmint.com/">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" href="http://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a title="Free Linux eBooks" target="_blank" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free eBooks</a></li>
+<li id="menu-item-10439" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10439"><a title="LinuxSay – A Discussion Forum for Linux Enthusiasts" target="_blank" href="http://linuxsay.com/">Discussion</a></li>
+<li id="menu-item-17151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17151"><a title="Discover and save on the best gear, gadgets, and software" target="_blank" href="http://deals.tecmint.com/">Deals</a></li>
+<li id="menu-item-18575" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18575"><a title="Support Us" href="http://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" href="http://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" href="http://www.tecmint.com/linux-training/">Linux Training</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" href="http://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Best Web Hosting Companies" target="_blank" href="http://www.tecmint.com/best-web-hosting-for-linux/">Linux Hosting</a></li>
+<li id="menu-item-15139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15139"><a target="_blank" href="http://www.tecmint.com/free-wordpress-installation-setup/">Free WordPress Setup</a></li>
+</ul></div>
+<div class="container">
+<div class="container-inner">		
+<div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand">
+<div class="search-expand-inner">
+<form action="http://www.tecmint.com/search/" id="cse-search-box">
+<div>
+<input name="cx" value="partner-pub-2601749019656699:2173448976" type="hidden">
+<input name="cof" value="FORID:10" type="hidden">
+<input name="ie" value="UTF-8" type="hidden">
+<input style="background: rgb(255, 255, 255) url(&quot;google_custom_search_watermark.gif&quot;) no-repeat scroll left center;" class="search" name="q" size="20" type="text">
+<input name="sa" value="Search" type="submit">
+</div>
+<input value="www.tecmint.com/linux-boot-process-and-manage-services/" name="siteurl" type="hidden"><input value="linux.cn/article-7365-2.html" name="ref" type="hidden"><input name="ss" type="hidden"></form>
+							</div>
+</div>
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</nav><!--/#nav-topbar-->
+<div class="container group">
+<div class="container-inner">
+<div class="group pad">
+<p class="site-title"><a href="http://www.tecmint.com/" rel="home"><img src="logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+<div id="header-ads">
+<div id="text-17" class="widget widget_text">			<div class="textwidget"><!-- Top Banner Ads 728x90 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="8210224606"></ins>
+
+</div>
+</div>					</div><!--/#header-ads-->
+</div>
+<nav class="nav-container group" id="nav-header">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-20410" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20410"><a target="_blank" href="http://news.tecmint.com/">News</a></li>
+<li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="http://www.tecmint.com/best-linux-distributions/">Linux Distro’s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="http://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-20869" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-20869"><a href="http://www.tecmint.com/#">Programming</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="http://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-20870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20870"><a href="http://www.tecmint.com/category/python/">Learn Python</a></li>
+<li id="menu-item-20871" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20871"><a href="http://www.tecmint.com/category/awk-command/">Learn Awk</a></li>
+</ul>
+</li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10773"><a href="http://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="http://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-19684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19684"><a href="http://www.tecmint.com/category/top-tools/">Best Linux Tools</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" href="http://www.tecmint.com/#">Certifications</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="http://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" href="http://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="http://www.tecmint.com/#">Guides</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-18564" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18564"><a href="http://www.tecmint.com/install-docker-and-learn-containers-in-centos-rhel-7-6/">Docker Seires</a></li>
+<li id="menu-item-17150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17150"><a href="http://www.tecmint.com/setup-postfix-mail-server-and-dovecot-with-mariadb-in-centos/">Postfix Mail</a></li>
+<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="http://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="http://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="http://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="http://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="http://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="http://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="http://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="http://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+<li id="menu-item-16084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16084"><a href="http://www.tecmint.com/install-and-configure-ansible-automation-tool-in-linux/">Ansible Series</a></li>
+<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16395"><a href="http://www.tecmint.com/install-and-configure-django-web-framework-in-centos-debian-ubuntu/">Django Series</a></li>
+<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="http://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="http://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="http://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="http://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="http://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="http://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="http://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="http://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+</ul></div>
+</nav><!--/#nav-header-->
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</header><!--/#header-->
+<div class="container" id="page">
+<div class="container-inner">			
+<div class="main">
+<div class="main-inner group">
+<section class="content">
+<div class="page-title pad group">
+<ul class="meta-single group">
+<li class="category"><a href="http://www.tecmint.com/category/lfcs/" rel="category tag">LFCS</a> <span>/</span> <a href="http://www.tecmint.com/category/linux-certifications/" rel="category tag">Linux Certifications</a></li>
+<li class="comments"><a href="#comments"><i class="fa fa-comments-o"></i>5</a></li>
+</ul>
+</div><!--/.page-title-->	
+<div class="pad group">
+<article class="post-9479 post type-post status-publish format-standard has-post-thumbnail hentry category-lfcs category-linux-certifications tag-lfcs-certification tag-systemd">	
+<div class="post-inner group">
+<h1 class="post-title">LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) – Part 7</h1>
+<p class="post-byline">by <a href="http://www.tecmint.com/author/gacanepa/" title="Posts by Gabriel Cánepa" rel="author">Gabriel Cánepa</a> | Published: October 29, 2014 | <!-- if the post updated datetime is not equal to the post datetime, show the updated datetime -->
+Last Updated: March 9, 2016    </p>
+<div class="clear"></div>
+<!-- Above Post Ads 468x15 -->
+<div class="add-box">
+<ins class="adsbygoogle" style="display: inline-block; width: 468px; height: 15px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="1986283779"></ins>
+
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<i style="color: rgb(40, 85, 122); font-size: 20px;" class="fa fa-book"></i>
+<b>Download Your Free eBooks NOW</b> - <a target="_blank" style="text-decoration: underline;" href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Free Linux eBooks for Administrators</a> | <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks</a>
+</div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center>
+<!-- Post Inner Mobile Ads -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9946480174"></ins>
+
+</center>
+</div>
+<div class="clear"></div>
+<div class="entry share">	
+<div class="entry-inner">
+<p>A couple of months ago, the Linux Foundation announced the <strong>LFCS</strong> (<strong>Linux Foundation Certified Sysadmin</strong>) certification, an exciting new program whose aim is allowing individuals from all ends of the world to get certified in performing basic to intermediate system administration tasks on Linux systems. This includes supporting already running systems and services, along with first-hand problem-finding and analysis, plus the ability to decide when to raise issues to engineering teams.</p>
+<div id="attachment_9496" style="width: 610px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/lfcs-Part-7.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-9496" src="lfcs-Part-7.png" alt="Linux Foundation Certified Sysadmin – Part 7" height="400" width="600"></a><p class="wp-caption-text">Linux Foundation Certified Sysadmin – Part 7</p></div>
+<p>The following video describes an brief introduction to The Linux Foundation Certification Program.</p>
+<div class="post-format">
+<div class="video-container"><iframe src="index_1.html" allowfullscreen="allowfullscreen" frameborder="0" height="405" width="720"></iframe></div>
+</div>
+<p>This post is Part 7 of a 10-tutorial series, here in this part, we will explain how to Manage Linux System Startup Process and Services, that are required for the LFCS certification exam.</p>
+<h3>Managing the Linux Startup Process</h3>
+<p>The boot process of a Linux system consists of several phases, each represented by a different component. The following diagram briefly summarizes the boot process and shows all the main components involved.</p>
+<div id="attachment_9482" style="width: 256px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Linux-Boot-Process.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-9482" src="Linux-Boot-Process.png" alt="Linux Boot Process" height="356" width="246"></a><p class="wp-caption-text">Linux Boot Process</p></div>
+<center style="padding-bottom: 20px; padding-top: 10px;"><ins class="adsbygoogle" style="display: inline-block; width: 200px; height: 90px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9878518176"></ins></center><p>When you press the <b>Power</b> button on your machine, the firmware that is stored in a <b>EEPROM</b> chip in the motherboard initializes the <b>POST</b> (<b>Power-On Self Test</b>) to check on the state of the system’s hardware resources. When the <b>POST</b> is finished, the firmware then searches and loads the <b>1st stage</b> boot loader, located in the <b>MBR</b> or in the <b>EFI</b> partition of the first available disk, and gives control to it.</p>
+<h4>MBR Method</h4>
+<p>The <b>MBR</b> is located in the first sector of the disk marked as bootable in the <b>BIOS</b> settings and is <b>512</b> bytes in size.</p>
+<ol>
+<li><b>First 446 bytes</b>: The bootloader contains both executable code and error message text.</li>
+<li><b>Next 64 bytes</b>: The Partition table contains a record for each of four partitions (primary or extended). Among other things, each record indicates the status (active / not active), size, and start / end sectors of each partition.</li>
+<li><b>Last 2 bytes</b>: The magic number serves as a validation check of the MBR.</li>
+</ol>
+<p>The following command performs a backup of the <b>MBR</b> (in this example, <b>/dev/sda</b> is the first hard disk). The resulting file, <b>mbr.bkp</b> can come in handy should the partition table become corrupt, for example, rendering the system unbootable.</p>
+<p>Of course, in order to use it later if the need arises, we will need to save it and store it somewhere else (like a <b>USB</b> drive, for example). That file will help us restore the MBR and will get us going once again if and only if we do not change the hard drive layout in the meanwhile.</p>
+<h5>Backup MBR</h5>
+<pre># dd if=/dev/sda of=mbr.bkp bs=512 count=1
+</pre>
+<div id="attachment_9483" style="width: 458px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Backup-MBR-in-Linux.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-9483" src="Backup-MBR-in-Linux.png" alt="Backup MBR in Linux" height="92" width="448"></a><p class="wp-caption-text">Backup MBR in Linux</p></div>
+<h5>Restoring MBR</h5>
+<pre># dd if=mbr.bkp of=/dev/sda bs=512 count=1
+</pre>
+<div id="attachment_9484" style="width: 452px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Restore-MBR-in-Linux.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-9484" src="Restore-MBR-in-Linux.png" alt="Restore MBR in Linux" height="93" width="442"></a><p class="wp-caption-text">Restore MBR in Linux</p></div>
+<h4>EFI/UEFI Method</h4>
+<p>For systems using the <b>EFI</b>/<b>UEFI</b> method, the UEFI firmware reads its settings to determine which UEFI application is to be launched and from where (i.e., in which disk and partition the EFI partition is located).</p>
+<p>Next, the <b>2nd stage</b> boot loader (aka boot manager) is loaded and run. <b>GRUB</b> [<b>GRand Unified Boot</b>] is the most frequently used boot manager in Linux. One of two distinct versions can be found on most systems used today.</p>
+<ol>
+<li><b>GRUB legacy configuration file</b>: /boot/grub/menu.lst (older distributions, not supported by EFI/UEFI firmwares).</li>
+<li><b>GRUB2 configuration file</b>: most likely, /etc/default/grub.</li>
+</ol>
+<p>Although the objectives of the <b>LFCS</b> exam do not explicitly request knowledge about <b>GRUB</b> internals, if you’re brave and can afford to mess up your system (you may want to try it first on a virtual machine, just in case), you need to run.</p>
+<pre># update-grub
+</pre>
+<p>As <b>root</b> after modifying GRUB’s configuration in order to apply the changes.</p>
+<p>Basically, <b>GRUB</b> loads the default <b>kernel</b> and the <b>initrd</b> or <b>initramfs</b> image. In few words, initrd or initramfs help to perform the hardware detection, the kernel module loading and the device discovery necessary to get the real root filesystem mounted.</p>
+<p>Once the real root filesystem is up, the kernel executes the system and service manager (<b>init</b> or <b>systemd</b>, whose process identification or PID is always 1) to begin the normal user-space boot process in order to present a user interface.</p>
+<p>Both <b>init</b> and <b>systemd</b> are daemons (background processes) that manage other daemons, as the first service to start (during boot) and the last service to terminate (during shutdown).</p>
+<div id="attachment_9485" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/systemd-and-init.png"><img data-lazy-loaded="true" style="display: inline;" class="size-medium wp-image-9485" src="systemd-and-init-620x82.png" alt="Systemd and Init" srcset="systemd-and-init-620x82.png 620w, systemd-and-init.png 646w" sizes="(max-width: 620px) 100vw, 620px" height="82" width="620"></a><p class="wp-caption-text">Systemd and Init</p></div>
+<h3>Starting Services (SysVinit)</h3>
+<p>The concept of <b>runlevels</b> in Linux specifies different ways to use a system by controlling which services are running. In other words, a runlevel controls what tasks can be accomplished in the current execution state = runlevel (and which ones cannot).</p>
+<p>Traditionally, this startup process was performed based on conventions that originated with <b>System V UNIX</b>, with the system passing executing collections of scripts that start and stop services as the machine entered a specific runlevel (which, in other words, is a different mode of running the system).</p>
+<p>Within each runlevel, individual services can be set to run, or to be shut down if running. Latest versions of some major distributions are moving away from the <b>System V</b> standard in favour of a rather new service and system manager called <b>systemd</b> (which stands for system daemon), but usually support <b>sysv</b> commands for compatibility purposes. This means that you can run most of the well-known <b>sysv</b> init tools in a systemd-based distribution.</p>
+<p><b>Read Also</b>: <a href="http://www.tecmint.com/systemd-replaces-init-in-linux/" target="_blank">Why ‘systemd’ replaces ‘init’ in Linux</a></p>
+<p>Besides starting the system process, <b>init</b> looks to the <b>/etc/inittab</b> file to decide what runlevel must be entered.</p>
+<table border="0" cellspacing="0">
+<colgroup width="85"></colgroup>
+<colgroup width="1514"></colgroup>
+<tbody>
+<tr>
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18"><b>Runlevel</b></td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT"><b> Description</b></td>
+</tr>
+<tr class="alt">
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18">0</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;Halt the system. Runlevel 0 is a special transitional state used to shutdown the system quickly.</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="20">1</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;Also aliased to s, or S, this runlevel is sometimes called maintenance mode. What services, if any, are started at this runlevel varies by distribution. It’s typically used for low-level system maintenance that may be impaired by normal system operation.</td>
+</tr>
+<tr class="alt">
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18">2</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;Multiuser. On Debian systems and derivatives, this is the default runlevel, and includes -if available- a graphical login. On Red-Hat based systems, this is multiuser mode without networking.</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18">3</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;On Red-Hat based systems, this is the default multiuser mode, which runs everything except the graphical environment. This runlevel and levels 4 and 5 usually are not used on Debian-based systems.</td>
+</tr>
+<tr class="alt">
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18">4</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;Typically unused by default and therefore available for customization.</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18">5</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;On Red-Hat based systems, full multiuser mode with GUI login. This runlevel is like level 3, but with a GUI login available.</td>
+</tr>
+<tr class="alt">
+<td style="border: 1px solid rgb(0, 0, 1);" align="CENTER" height="18">6</td>
+<td style="border: 1px solid rgb(0, 0, 1);" align="LEFT">&nbsp;Reboot the system.</td>
+</tr>
+</tbody>
+</table>
+<p>To switch between runlevels, we can simply issue a runlevel change using the <b>init</b> command: init <b>N</b> (where N is one of the runlevels listed above). Please note that this is not the recommended way of taking a running system to a different runlevel because it gives no warning to existing logged-in users (thus causing them to lose work and processes to terminate abnormally).</p>
+<p>Instead, the <b>shutdown</b> command should be used to restart the system (which first sends a warning message to all logged-in users and blocks any further logins; it then signals init to switch runlevels); however, the default runlevel (the one the system will boot to) must be edited in the <b>/etc/inittab</b> file first.</p>
+<p>For that reason, follow these steps to properly switch between runlevels, As root, look for the following line in <b>/etc/inittab</b>.</p>
+<pre>id:2:initdefault:
+</pre>
+<p>and change the number <b>2</b> for the desired runlevel with your preferred text editor, such as vim (described in <a href="http://www.tecmint.com/vi-editor-usage/" target="_blank">How to use vi/vim editor in Linux – Part 2</a> of this series).</p>
+<p>Next, run as root.</p>
+<pre># shutdown -r now
+</pre>
+<p>That <b>last</b> command will restart the system, causing it to start in the specified runlevel during next boot, and will run the scripts located in the <b>/etc/rc[runlevel].d</b> directory in order to decide which services should be started and which ones should not. For example, for runlevel 2 in the following system.</p>
+<div id="attachment_9486" style="width: 605px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Change-Runlevels-in-Linux.jpeg"><img data-lazy-loaded="true" style="display: inline;" class="size-medium wp-image-9486" src="Change-Runlevels-in-Linux-595x450.jpeg" alt="Change Runlevels in Linux" srcset="Change-Runlevels-in-Linux-595x450.jpeg 595w, Change-Runlevels-in-Linux.jpeg 817w" sizes="(max-width: 595px) 100vw, 595px" height="450" width="595"></a><p class="wp-caption-text">Change Runlevels in Linux</p></div>
+<h4>Manage Services using chkconfig</h4>
+<p>To enable or disable system services on boot, we will use <a href="http://www.tecmint.com/chkconfig-command-examples/" target="_blank">chkconfig command</a> in CentOS / openSUSE and <b>sysv-rc-conf</b> in Debian and derivatives. This tool can also show us what is the preconfigured state of a service for a particular runlevel.</p>
+<p><b>Read Also</b>: <a href="http://www.tecmint.com/remove-unwanted-services-from-linux/" target="_blank">How to Stop and Disable Unwanted Services in Linux</a></p>
+<p>Listing the runlevel configuration for a service.</p>
+<pre># chkconfig --list [service name]
+# chkconfig --list postfix
+# chkconfig --list mysqld
+</pre>
+<div id="attachment_9487" style="width: 575px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Listing-Runlevel-Configuration.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-9487" src="Listing-Runlevel-Configuration.png" alt="Listing Runlevel Configuration" height="98" width="565"></a><p class="wp-caption-text">Listing Runlevel Configuration</p></div>
+<p>In the above image we can see that <b>postfix</b> is set to start when the system enters runlevels <b>2</b> through <b>5</b>, whereas <b>mysqld</b> will be running by default for runlevels <b>2</b> through <b>4</b>. Now suppose that this is not the expected behaviour.</p>
+<p>For example, we need to turn on <b>mysqld</b> for runlevel <b>5</b> as well, and turn off postfix for runlevels 4 and 5. Here’s what we would do in each case (run the following commands as root).</p>
+<h6>Enabling a service for a particular runlevel</h6>
+<pre># chkconfig --level [level(s)] service on
+# chkconfig --level 5 mysqld on
+</pre>
+<h6>Disabling a service for particular runlevels</h6>
+<pre># chkconfig --level [level(s)] service off
+# chkconfig --level 45 postfix off
+</pre>
+<div id="attachment_9488" style="width: 575px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Enable-Disable-Services.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-9488" src="Enable-Disable-Services.png" alt="Enable Disable Services in Linux" height="127" width="565"></a><p class="wp-caption-text">Enable Disable Services</p></div>
+<p>We will now perform similar tasks in a <b>Debian-based</b> system using <b>sysv-rc-conf</b>.</p>
+<h4>Manage Services using sysv-rc-conf</h4>
+<p>Configuring a service to start automatically on a specific runlevel and prevent it from starting on all others.</p>
+<p><strong>1.</strong> Let’s use the following command to see what are the runlevels where <b>mdadm</b> is configured to start.</p>
+<pre># ls -l /etc/rc[0-6].d | grep -E 'rc[0-6]|mdadm'
+</pre>
+<div id="attachment_9489" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Check-Service-Runlevel.png"><img class="size-medium wp-image-9489" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Check-Service-Runlevel-620x251.png" alt="Check Runlevel of Service Running" srcset="Check-Service-Runlevel-620x251.png 620w, Check-Service-Runlevel.png 850w" sizes="(max-width: 620px) 100vw, 620px" height="251" width="620"></a><p class="wp-caption-text">Check Runlevel of Service Running</p></div>
+<p><strong>2.</strong> We will use <b>sysv-rc-conf</b> to prevent mdadm from starting on all runlevels except <b>2</b>. Just check or uncheck (with the space bar) as desired (you can move up, down, left, and right with the arrow keys).</p>
+<pre># sysv-rc-conf
+</pre>
+<div id="attachment_9490" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/SysV-Runlevel-Config.png"><img class="size-medium wp-image-9490" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/SysV-Runlevel-Config-620x191.png" alt="SysV Runlevel Config" srcset="SysV-Runlevel-Config-620x191.png 620w, SysV-Runlevel-Config.png 656w" sizes="(max-width: 620px) 100vw, 620px" height="191" width="620"></a><p class="wp-caption-text">SysV Runlevel Config</p></div>
+<p>Then press <b>q</b> to quit.</p>
+<p><strong>3.</strong> We will restart the system and run again the command from <b>STEP 1</b>.</p>
+<pre># ls -l /etc/rc[0-6].d | grep -E 'rc[0-6]|mdadm'
+</pre>
+<div id="attachment_9491" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Verify-Service-Runlevel.png"><img class="size-medium wp-image-9491" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Verify-Service-Runlevel-620x310.png" alt="Verify Service Runlevel" srcset="Verify-Service-Runlevel-620x310.png 620w, Verify-Service-Runlevel.png 694w" sizes="(max-width: 620px) 100vw, 620px" height="310" width="620"></a><p class="wp-caption-text">Verify Service Runlevel</p></div>
+<p>In the above image we can see that <b>mdadm</b> is configured to start only on runlevel <b>2</b>.</p>
+<h3>What About systemd?</h3>
+<p><b>systemd</b> is another service and system manager that is being adopted by several major Linux distributions. It aims to allow more processing to be done in parallel during system startup (unlike <b>sysvinit</b>, which always tends to be slower because it starts processes one at a time, checks whether one depends on another, and waits for daemons to launch so more services can start), and to serve as a dynamic resource management to a running system.</p>
+<p>Thus, services are started when needed (to avoid consuming system resources) instead of being launched without a solid reason during boot.</p>
+<p>Viewing the status of all the processes running on your system, both <b>systemd</b> native and <b>SysV</b> services, run the following command.</p>
+<pre># systemctl
+</pre>
+<div id="attachment_9492" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Check-All-Running-Processes.png"><img class="size-medium wp-image-9492" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Check-All-Running-Processes-620x210.png" alt="Check All Running Processes in Linux" srcset="Check-All-Running-Processes-620x210.png 620w, Check-All-Running-Processes-1024x347.png 1024w, Check-All-Running-Processes.png 1287w" sizes="(max-width: 620px) 100vw, 620px" height="210" width="620"></a><p class="wp-caption-text">Check All Running Processes</p></div>
+<p>The <b>LOAD</b> column shows whether the unit definition (refer to the <b>UNIT</b> column, which shows the service or anything maintained by systemd) was properly loaded, while the <b>ACTIVE</b> and <b>SUB</b> columns show the current status of such unit.</p>
+<h6>Displaying information about the current status of a service</h6>
+<p>When the <b>ACTIVE</b> column indicates that an unit’s status is other than active, we can check what happened using.</p>
+<pre># systemctl status [unit]
+</pre>
+<p>For example, in the image above, <b>media-samba.mount</b> is in failed state. Let’s run.</p>
+<pre># systemctl status media-samba.mount
+</pre>
+<div id="attachment_9493" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Check-Service-Status.png"><img class="size-medium wp-image-9493" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Check-Service-Status-620x184.png" alt="Check Linux Service Status" srcset="Check-Service-Status-620x184.png 620w, Check-Service-Status.png 790w" sizes="(max-width: 620px) 100vw, 620px" height="184" width="620"></a><p class="wp-caption-text">Check Service Status</p></div>
+<p>We can see that <b>media-samba.mount</b> failed because the mount process on host <b>dev1</b> was unable to find the network share at <b>//192.168.0.10/gacanepa</b>.</p>
+<h3>Starting or Stopping Services</h3>
+<p>Once the network share <b>//192.168.0.10/gacanepa</b> becomes available, let’s try to start, then stop, and finally restart the unit <b>media-samba.mount</b>. After performing each action, let’s run systemctl status media-samba.mount to check on its status.</p>
+<pre># systemctl start media-samba.mount
+# systemctl status media-samba.mount
+# systemctl stop media-samba.mount
+# systemctl restart media-samba.mount
+# systemctl status media-samba.mount
+</pre>
+<div id="attachment_9494" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Starting-Stoping-Service.jpeg"><img class="size-medium wp-image-9494" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Starting-Stoping-Service-620x444.jpeg" alt="Starting Stoping Services" srcset="Starting-Stoping-Service-620x444.jpeg 620w, Starting-Stoping-Service.jpeg 912w" sizes="(max-width: 620px) 100vw, 620px" height="444" width="620"></a><p class="wp-caption-text">Starting Stoping Services</p></div>
+<h6>Enabling or disabling a service to start during boot</h6>
+<p>Under <b>systemd</b> you can enable or disable a service when it boots.</p>
+<pre># systemctl enable [service] 		# enable a service 
+# systemctl disable [service] 		# prevent a service from starting at boot
+</pre>
+<p>The process of enabling or disabling a service to start automatically on boot consists in adding or removing symbolic links in the <b>/etc/systemd/system/multi-user.target.wants</b> directory.</p>
+<div id="attachment_9495" style="width: 630px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2014/10/Enabling-Disabling-Services.jpeg"><img class="size-medium wp-image-9495" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Enabling-Disabling-Services-620x262.jpeg" alt="Enabling Disabling Services" srcset="Enabling-Disabling-Services-620x262.jpeg 620w, Enabling-Disabling-Services.jpeg 737w" sizes="(max-width: 620px) 100vw, 620px" height="262" width="620"></a><p class="wp-caption-text">Enabling Disabling Services</p></div>
+<p>Alternatively, you can find out a service’s current status (enabled or disabled) with the command.</p>
+<pre># systemctl is-enabled [service]
+</pre>
+<p>For example,</p>
+<pre># systemctl is-enabled postfix.service
+</pre>
+<p>In addition, you can reboot or shutdown the system with.</p>
+<pre># systemctl reboot
+# systemctl shutdown
+</pre>
+<h3>Upstart</h3>
+<p><b>Upstart</b> is an event-based replacement for the <b>/sbin/init</b> daemon and was born out of the need for starting services only, when they are needed (also supervising them while they are running), and handling events as they occur, thus surpassing the classic, dependency-based sysvinit system.</p>
+<p>It was originally developed for the Ubuntu distribution, but is used in Red Hat Enterprise Linux 6.0. Though it was intended to be suitable for deployment in all Linux distributions as a replacement for <b>sysvinit</b>, in time it was overshadowed by <b>systemd</b>. On February 14, 2014, Mark Shuttleworth (founder of Canonical Ltd.) announced that future releases of Ubuntu would use systemd as the default init daemon.</p>
+<p>Because the <b>SysV</b> startup script for system has been so common for so long, a large number of software packages include SysV startup scripts. To accommodate such packages, Upstart provides a compatibility mode: It runs SysV startup scripts in the usual locations (<b>/etc/rc.d/rc?.d</b>, <b>/etc/init.d/rc?.d</b>, <b>/etc/rc?.d</b>, or a similar location). Thus, if we install a package that doesn’t yet include an Upstart configuration script, it should still launch in the usual way.</p>
+<p>Furthermore, if we have installed utilities such as <a href="http://www.tecmint.com/chkconfig-command-examples/" target="_blank">chkconfig</a>, you should be able to use them to manage your SysV-based services just as we would on sysvinit based systems.</p>
+<p>Upstart scripts also support starting or stopping services based on a wider variety of actions than do SysV startup scripts; for example, Upstart can launch a service whenever a particular hardware device is attached.</p>
+<p>A system that uses Upstart and its native scripts exclusively replaces the <b>/etc/inittab</b> file and the runlevel-specific <b>SysV</b> startup script directories with <b>.conf</b> scripts in the <b>/etc/init</b> directory.</p>
+<p>These <b>*.conf</b> scripts (also known as job definitions) generally consists of the following:</p>
+<ol>
+<ol>
+<li>Description of the process.</li>
+<li>Runlevels where the process should run or events that should trigger it.</li>
+<li>Runlevels where process should be stopped or events that should stop it.</li>
+<li>Options.</li>
+<li>Command to launch the process.</li>
+</ol>
+</ol>
+<p>For example,</p>
+<pre># My test service - Upstart script demo description "Here goes the description of 'My test service'" author "Dave Null &lt;dave.null@example.com&gt;"
+# Stanzas
+#
+# Stanzas define when and how a process is started and stopped
+# See a list of stanzas here: http://upstart.ubuntu.com/wiki/Stanzas#respawn
+# When to start the service
+start on runlevel [2345]
+# When to stop the service
+stop on runlevel [016]
+# Automatically restart process in case of crash
+respawn
+# Specify working directory
+chdir /home/dave/myfiles
+# Specify the process/command (add arguments if needed) to run
+exec bash backup.sh arg1 arg2
+</pre>
+<p>To apply changes, you will need to tell upstart to reload its configuration.</p>
+<pre># initctl reload-configuration
+</pre>
+<p>Then start your job by typing the following command.</p>
+<pre>$ sudo start yourjobname
+</pre>
+<p>Where <b>yourjobname</b> is the name of the job that was added earlier with the <b>yourjobname.conf</b> script.</p>
+<p>A more complete and detailed reference guide for Upstart is available in the project’s web site under the menu “<a href="http://upstart.ubuntu.com/cookbook/" target="_blank" rel="nofollow">Cookbook</a>”.</p>
+<h3>Summary</h3>
+<p>A knowledge of the Linux boot process is necessary to help you with troubleshooting tasks as well as with adapting the computer’s performance and running services to your needs.</p>
+<p>In this article we have analyzed what happens from the moment when you press the <b>Power</b> switch to turn on the machine until you get a fully operational user interface. I hope you have learned reading it as much as I did while putting it together. Feel free to leave your comments or questions below. We always look forward to hearing from our readers!</p>
+<div style="background: rgb(204, 51, 51) none repeat scroll 0% 0%; margin: 10px 0px; border: 1px solid rgb(204, 51, 51); padding: 10px;" align="center"><strong><a rel="nofollow" target="_blank" href="http://www.shareasale.com/r.cfm?b=768106&amp;u=1260899&amp;m=59485&amp;urllink=&amp;afftrack=" style="color: rgb(255, 255, 255); text-decoration: none; font-weight: bold;">Become a Linux Certified System Administrator</a></strong></div>
+</div>
+<div style="position: relative; top: 7337.13px; left: 0px;" class="sharrre-container">
+<span>Share</span>
+<div class="sharrre" id="twitter" data-url="http://www.tecmint.com/linux-boot-process-and-manage-services/" data-text="LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) – Part 7" data-title="Tweet"><a class="box" href="#"><div class="count" href="#">+</div><div class="share"><i class="fa fa-twitter"></i></div></a></div>
+<div class="sharrre" id="facebook" data-url="http://www.tecmint.com/linux-boot-process-and-manage-services/" data-text="LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) – Part 7" data-title="Like"></div>
+<div class="sharrre" id="googleplus" data-url="http://www.tecmint.com/linux-boot-process-and-manage-services/" data-text="LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) – Part 7" data-title="+1"><a class="box" href="#"><div class="count" href="#">22</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a></div>
+<div class="sharrre" id="linkedin" data-url="http://www.tecmint.com/linux-boot-process-and-manage-services/" data-text="LFCS: Managing System Startup Process and Services (SysVinit, Systemd and Upstart) – Part 7" data-title="Share It"></div>
+<div style="text-align: center; font-weight: 600; padding-top: 5px;"><a href="#comments"><i class="fa fa-comments-o"></i></a><a href="#comments" class="comments-link">5 <span style="font-size: 10px; color: rgb(39, 118, 198); margin-top: -8px;">comments</span></a></div>
+</div><!--/.sharrre-container-->
+						<div class="clear"></div>				
+</div><!--/.entry-->
+</div><!--/.post-inner-->
+</article><!--/.post-->				
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center style="padding-top: 30px;">
+<!-- Post-Bottom-Inner-300x250 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7807254572"></ins>
+
+</center>
+</div>
+<div class="clear"></div>
+<div class="after-post-box">
+<h2>If You Appreciate What We Do Here On TecMint, You Should Consider:</h2>
+<ol>
+<li>Stay Connected to: <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1TP6lcM" title="Follow TecMint on Twitter">Twitter</a></strong> | <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1rDYrdj" title="Like Us on Facebook">Facebook</a></strong> | <strong><a target="_blank" rel="nofollow" href="http://bit.ly/24J6lna" title="Join Us On Google+">Google Plus</a></strong></li>
+<li>Subscribe to our email updates: <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1T2Gxb4" title="Subscribe to TecMint Email Updates">Sign Up Now</a></strong></li>
+<li>Use our <strong><a target="_blank" rel="nofollow" title="Linode Linux Hosting" href="http://bit.ly/1ZzMwrv">Linode referral link</a></strong> if you plan to buy VPS <i>(it starts at only $10/month)</i>.
+</li>
+<li>Support us via <strong>PayPal donate</strong> - <strong><a target="_blank" href="http://www.tecmint.com/donate-to-tecmint/">Make a Donation</a></strong></li>
+<li>Support us by <strong><a href="http://www.tecmint.com/linux-books-in-pdf-format/" target="_blank">purchasing our premium books</a></strong> in PDF format.</li>
+<li>Support us by taking our <strong><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/search?utf8=%E2%9C%93&amp;query=linux">online Linux courses</a></strong></li>
+</ol>
+<p style="text-align: center;"><strong style="color: rgb(254, 51, 0); font-size: 20px;">We are thankful for your never ending support.</strong></p>
+</div>
+<div class="clear"></div>
+<p class="post-tags"><span>Tags:</span> <a href="http://www.tecmint.com/tag/lfcs-certification/" rel="tag">lfcs certification</a><a href="http://www.tecmint.com/tag/systemd/" rel="tag">systemd</a></p>					<div class="author-bio">
+<div class="bio-avatar"><img alt="" src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/d9d14c5b51331864398e6288cb0c2091?s=128&amp;d=blank&amp;r=g" srcset="d9d14c5b51331864398e6288cb0c2091.dat 2x" class="avatar avatar-128 photo" height="128" width="128"></div>
+<p style="float: right; font-weight: 600;"><a target="_blank" class="author-link" href="http://www.tecmint.com/author/gacanepa/" rel="author">View all Posts</a></p>
+<p class="bio-name">Gabriel Cánepa</p>
+<p class="bio-desc">Gabriel Cánepa is a GNU/Linux sysadmin and web developer from Villa Mercedes, San Luis, Argentina. He works for a worldwide leading consumer product company and takes great pleasure in using FOSS tools to increase productivity in all areas of his daily work.</p>
+<p><span style="font-size: 20px; font-weight: 400; color: rgb(162, 4, 46);">Your name can also be listed here. Got a tip? <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/submit-articles/">Submit it here</a> to become an <b>TecMint</b> author.</span></p>
+<div class="clear"></div>
+</div>
+<div id="exam_announcement">
+<span style="color: rgb(247, 93, 89); font-weight: 400; font-size: 18px;">Receive Your Free Complimentary eBook NOW!</span> - <span style="color: rgb(39, 118, 198); font-weight: 600; font-size: 18px; text-decoration: underline;"><a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi">Securing &amp; Optimizing Linux: The Hacking Solution (v.3.0)</a></span></div>
+<div class="hr"></div>
+<div class="freebooks">
+<center><h1 style="padding-bottom: 15px; font-size: 25px;">Download Free Linux eBooks</h1></center>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_advb01/prgm.cgi"><img title="Advanced Bash-Scripting Guide" src="w_advb01c4.png" alt="Advanced Bash-Scripting Guide"></a>
+</div>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi"><img title="Linux Bible" src="w_wile13c4.png" alt="Linux Bible"></a>
+</div>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi"><img title="A Newbie's Getting Started Guide to Linux" src="w_make07c4.png" alt="A Newbie's Getting Started Guide to Linux"></a>
+</div>
+<div class="grid one-fourth last">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi"><img title="Introduction to Linux - A Hands on Guide" src="w_mach01c4.png" alt="Introduction to Linux - A Hands on Guide"></a>
+</div>
+<div class="clear"></div>
+</div>
+<ul class="post-nav group">
+<li class="next"><a href="http://www.tecmint.com/multiple-centos-installations-using-kickstart/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>Automated Installations of Multiple RHEL/CentOS 7 Distributions using PXE Server and Kickstart Files</span></a></li>
+<li class="previous"><a href="http://www.tecmint.com/linux-server-log-monitoring-with-log-io/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>Monitor Server Logs in Real-Time with “Log.io” Tool on RHEL/CentOS 7/6</span></a></li>
+</ul>
+<h4 class="heading">
+<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+<ul class="related-posts group">
+<li class="related post-hover">
+<article class="post-13214 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-certifications category-rhcsa tag-hostnamectl tag-ssh-2 tag-systemctl">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/rhcsa-series-secure-ssh-set-hostname-enable-network-services-in-rhel-7/" title="RHCSA Series: Securing SSH, Setting Hostname and Enabling Network Services – Part 8">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/05/Secure-SSH-Server-and-Enable-Network-Services-520x245.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="RHCSA: Secure SSH and Enable Network Services" srcset="Secure-SSH-Server-and-Enable-Network-Services-520x245.png 520w, Secure-SSH-Server-and-Enable-Network-Services-620x293.png 620w, Secure-SSH-Server-and-Enable-Network-Services.png 720w" sizes="(max-width: 520px) 100vw, 520px" height="245" width="520">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/rhcsa-series-secure-ssh-set-hostname-enable-network-services-in-rhel-7/#comments"><span><i class="fa fa-comments-o"></i>2</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/rhcsa-series-secure-ssh-set-hostname-enable-network-services-in-rhel-7/" rel="bookmark" title="RHCSA Series: Securing SSH, Setting Hostname and Enabling Network Services – Part 8">RHCSA Series: Securing SSH, Setting Hostname and Enabling Network Services – Part 8</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">5 May, 2015</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-20938 post type-post status-publish format-standard has-post-thumbnail hentry category-lfcs category-linux-certifications category-security tag-lfcs-certification">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/mandatory-access-control-with-selinux-or-apparmor-linux/" title="Implementing Mandatory Access Control with SELinux or AppArmor in Linux">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2016/06/SELinux-AppArmor-Security-Hardening-Linux.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="SELinux and AppArmor Security Hardening Linux" height="345" width="720">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/mandatory-access-control-with-selinux-or-apparmor-linux/#comments"><span><i class="fa fa-comments-o"></i>2</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/mandatory-access-control-with-selinux-or-apparmor-linux/" rel="bookmark" title="Implementing Mandatory Access Control with SELinux or AppArmor in Linux">Implementing Mandatory Access Control with SELinux or AppArmor in Linux</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">8 Jun, 2016</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-11013 post type-post status-publish format-standard has-post-thumbnail hentry category-lfce category-linux-certifications tag-lfce-certification tag-linux-monitoring">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/audit-network-performance-security-and-troubleshooting-in-linux/" title="How to Audit Network Performance, Security, and Troubleshooting in Linux – Part 12">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/01/Audit-Linux-Systems-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Audit Linux Systems" srcset="Audit-Linux-Systems-520x245.jpg 520w, Audit-Linux-Systems-620x293.jpg 620w, Audit-Linux-Systems.jpg 720w" sizes="(max-width: 520px) 100vw, 520px" height="245" width="520">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/audit-network-performance-security-and-troubleshooting-in-linux/#comments"><span><i class="fa fa-comments-o"></i>8</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/audit-network-performance-security-and-troubleshooting-in-linux/" rel="bookmark" title="How to Audit Network Performance, Security, and Troubleshooting in Linux – Part 12">How to Audit Network Performance, Security, and Troubleshooting in Linux – Part 12</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">27 Jan, 2015</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+</ul><!--/.post-related-->
+<section id="comments" class="themeform">
+<h3 class="heading">5 Responses</h3>
+<ul class="comment-tabs group">
+<li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>Comments<span>5</span></a></li>
+<li><a href="#pinglist-container"><i class="fa fa-share"></i>Pingbacks<span>0</span></a></li>
+</ul>
+<div id="commentlist-container" class="comment-tab">
+<ol class="commentlist">
+<li class="comment even thread-even depth-1 parent" id="comment-741113">
+<div id="div-comment-741113" class="comment-body">
+<div class="comment-author vcard">
+<img alt="" src="1x1.trans.gif" data-lazy-src="http://2.gravatar.com/avatar/56c7abc3bf6d18f48783d1a920344597?s=96&amp;d=blank&amp;r=g" srcset="56c7abc3bf6d18f48783d1a920344597.dat 2x" class="avatar avatar-96 photo" height="96" width="96">			<cite class="fn">Freddy Dominguez</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-741113">
+January 18, 2016 at 8:30 pm</a>		</div>
+<p>Excellent!!</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-boot-process-and-manage-services/?replytocom=741113#respond" aria-label="Reply to Freddy Dominguez">Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="comment-741517">
+<div id="div-comment-741517" class="comment-body">
+<div class="comment-author vcard">
+<img alt="" src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/d9d14c5b51331864398e6288cb0c2091?s=96&amp;d=blank&amp;r=g" srcset="d9d14c5b51331864398e6288cb0c2091_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">			<cite class="fn"><a href="http://www.gabrielcanepa.com.ar/" rel="external nofollow" class="url">Gabriel Cánepa</a></cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-741517">
+January 19, 2016 at 5:22 pm</a>		</div>
+<p>@Freddy,<br>
+Thank you for your comment! Please spread the word!</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-boot-process-and-manage-services/?replytocom=741517#respond" aria-label="Reply to Gabriel Cánepa">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-513243">
+<div id="div-comment-513243" class="comment-body">
+<div class="comment-author vcard">
+<img alt="" src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/d9d14c5b51331864398e6288cb0c2091?s=96&amp;d=blank&amp;r=g" srcset="d9d14c5b51331864398e6288cb0c2091_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">			<cite class="fn"><a href="http://www.gabrielcanepa.com.ar/" rel="external nofollow" class="url">Gabriel A. Cánepa</a></cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-513243">
+March 21, 2015 at 1:00 am</a>		</div>
+<p>@Baloshi,<br>
+I take it you’re referring to 14.04, and yes, you are correct. Inittab has been replaced by /etc/init/rc-sysinit.conf in that version.</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-boot-process-and-manage-services/?replytocom=513243#respond" aria-label="Reply to Gabriel A. Cánepa">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="comment-512917">
+<div id="div-comment-512917" class="comment-body">
+<div class="comment-author vcard">
+<img alt="" src="1x1.trans.gif" data-lazy-src="http://2.gravatar.com/avatar/efb8f1cbdcbdb7598599ff11e6ac27e7?s=96&amp;d=blank&amp;r=g" srcset="efb8f1cbdcbdb7598599ff11e6ac27e7.dat 2x" class="avatar avatar-96 photo" height="96" width="96">			<cite class="fn">Baloshi69</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-512917">
+March 20, 2015 at 7:27 pm</a>		</div>
+<p>hey…you  people are awesome…i just want to correct that latest Debian and Ubuntu System don’t have inittab configuration file….its been replaced by /etc/init/rc-sysinit.conf<br>
+plz correct it</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-boot-process-and-manage-services/?replytocom=512917#respond" aria-label="Reply to Baloshi69">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-odd thread-alt depth-1" id="comment-352709">
+<div id="div-comment-352709" class="comment-body">
+<div class="comment-author vcard">
+<img alt="" src="1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/64e7ef1c67bb2d786fabd9688582ddbf?s=96&amp;d=blank&amp;r=g" srcset="64e7ef1c67bb2d786fabd9688582ddbf.dat 2x" class="avatar avatar-96 photo" height="96" width="96">			<cite class="fn">Khoi D. Dinh</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-352709">
+October 30, 2014 at 8:44 am</a>		</div>
+<p>Thank you.</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-boot-process-and-manage-services/?replytocom=352709#respond" aria-label="Reply to Khoi D. Dinh">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+</ol><!--/.commentlist-->
+</div>	
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Got something to say? Join the discussion. <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display: none;">Cancel reply</a></small></h3>				<form action="http://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" value="" size="30" maxlength="245" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" value="" size="30" maxlength="200" type="text"></p>
+<p class="form-submit"><input name="submit" id="submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="9479" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="514b159690" type="hidden"></p><!-- Subscribe to Comments Reloaded version160115 --><!-- BEGIN: subscribe to comments reloaded --><p class="comment-form-subscriptions"><label for="subscribe-reloaded"><input style="width: 30px;" name="subscribe-reloaded" id="subscribe-reloaded" value="yes" type="checkbox"> Notify me of followup comments via e-mail. You can also <a href="http://www.tecmint.com/comment-subscriptions/?srp=9479&amp;srk=673f0568a0637a1105113a34047afde3&amp;sra=s">subscribe</a> without commenting.</label></p><!-- END: subscribe to comments reloaded --><p style="display: none;"></p>				<input id="ak_js" name="ak_js" value="1468760434339" type="hidden"></form>
+</div><!-- #respond -->
+</section><!--/#comments-->		
+</div><!--/.pad-->
+</section><!--/.content-->
+<div class="sidebar s1">
+<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+<div class="sidebar-content">
+<div class="sidebar-top group">
+<span style="color: rgb(0, 40, 115); font-weight: 600; font-size: 20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: rgb(51, 204, 255);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: rgb(59, 89, 152);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: rgb(219, 74, 57);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: rgb(135, 192, 64);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: rgb(196, 48, 43);"></i></a></li></ul>			</div>
+<div id="text-23" class="widget widget_text">			<div class="textwidget">  <div style="background: rgb(219, 68, 85) none repeat scroll 0% 0%;" class="message">
+<center><a href="http://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank"><span style="font-weight: bold; font-size: 18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+</center>
+</div></div>
+</div><div id="text-21" class="widget widget_text">			<div class="textwidget"><center>
+<!-- Sidebar Top Ad 300x250 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7270921771"></ins>
+
+</center></div>
+</div><div id="text-25" class="widget widget_text">			<div class="textwidget"><div class="message"><center><a href="http://www.tecmint.com/vi-editor-usage/" target="_blank"><span style="font-weight: bold; font-size: 17px;"><i class="fa fa-linux"></i> Vi/Vim Editor BEGINNER'S GUIDE <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Learn vi/vim as a Full Text Editor</span> <i class="fa fa-file-text"></i>
+</a></center></div></div>
+</div><div id="text-24" class="widget widget_text">			<div class="textwidget"><span style="float: right; text-decoration: underline;"><a target="_blank" href="http://www.tecmint.com/advertise/">Advertise Here</a></span>
+
+
+</div>
+</div><div id="text-26" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: rgb(171, 6, 25);"><center><span style="font-weight: bold; font-size: 17px;"><i class="fa fa-linux"></i> Linux Foundation Certification <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Exam Study Guide to <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS</a> and <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE</a></span></center></div></div>
+</div><div id="text-3" class="widget widget_text">			<div class="textwidget"><div class="ads-sidebar-desktop">
+<center>
+<!-- SideBar2 Ads 300x600 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9098920170"></ins>
+
+</center>
+</div></div>
+</div><div id="alxtabs-2" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular active"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+<div class="alx-tabs-container">
+<ul style="display: block;" id="tab-popular" class="alx-tab group ">
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="Nagios 4.0.1 Released – Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17">Nagios 4.0.1 Released – Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12">Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="Google Chrome 51 Released – Install on RHEL/CentOS 7/6 and Fedora 23-15">Google Chrome 51 Released – Install on RHEL/CentOS 7/6 and Fedora 23-15</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-wine-in-rhel-centos-and-fedora/" rel="bookmark" title="Wine 1.8 Released After 17 Months of Development – Install on RHEL/CentOS and Fedora">Wine 1.8 Released After 17 Months of Development – Install on RHEL/CentOS and Fedora</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/" rel="bookmark" title="Install Latest Apache 2.4, MySQL 5.5/MariaDB 10.1 and PHP 5.5/5.6 on RHEL/CentOS 7/6 &amp; Fedora 24-18">Install Latest Apache 2.4, MySQL 5.5/MariaDB 10.1 and PHP 5.5/5.6 on RHEL/CentOS 7/6 &amp; Fedora 24-18</a></p>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+<ul style="display: none;" id="tab-comments" class="alx-tab group avatars-enabled">
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799586">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="7badddbc53297b2e8ed7011cf45df0c0.dat" srcset="7badddbc53297b2e8ed7011cf45df0c0_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Ravi Saive says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799586">@Adi,  This RHCE book covers everything about RedHat certification objectives...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799566">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="d2f6b0d00aeefeac96610ccea97a639e.dat" srcset="d2f6b0d00aeefeac96610ccea97a639e_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">adi dedri says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799566">Hi,   I am interested in this RHCE book, I...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/ubuntu-16-04-installation-guide/comment-page-1/#comment-799561">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="8500c25369fe2107a197e6321309dae0.dat" srcset="8500c25369fe2107a197e6321309dae0_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">John T says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/ubuntu-16-04-installation-guide/comment-page-1/#comment-799561">I have a 1TB Disk drive that's completely free of any...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/comment-page-2/#comment-799518">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="c54984bb7a204465db98198b499eb2f7.dat" srcset="c54984bb7a204465db98198b499eb2f7_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Bee Kay says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/comment-page-2/#comment-799518">Oh, that was fun.  I like getting 10GB of RAM...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/upgrade-linux-mint-17-to-linux-mint-18/comment-page-1/#comment-799498">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="a780649974d6786efb44fe271e599dbf.dat" srcset="a780649974d6786efb44fe271e599dbf_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">dgr-Crenshaw says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/upgrade-linux-mint-17-to-linux-mint-18/comment-page-1/#comment-799498">The mintupgrade command kept yelling at me not to sudo until...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/best-linux-screen-recorders-for-desktop-screen-recording/comment-page-1/#comment-799490">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="a7f66b4ddd733c30668b8d6347cc8b75.dat" srcset="a7f66b4ddd733c30668b8d6347cc8b75_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Emiliano says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/best-linux-screen-recorders-for-desktop-screen-recording/comment-page-1/#comment-799490">Please mention that OBS has a BIG PROBLEM with Intel graphic...</a></div>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+</div>
+</div>
+<div id="text-27" class="widget widget_text">			<div class="textwidget"><center>
+<a target="_blank" href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/"><img alt="RedHat RHCSA and RHCE Certification Exam Study Ebook" src="RedHat-RHCSA-RHCE-Exam.png"></a>
+</center></div>
+</div><div id="text-28" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: rgb(13, 124, 57);"><center><p style="font-weight: bold; font-size: 18px;">Linux System Administrator Bundle with 7-Courses (96% off)</p> 
+<p style="background-color: rgb(3, 68, 29); margin: 6px 35px; padding: 10px;"><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&amp;utm_medium=referral&amp;utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu&amp;_ga=1.95416024.550662903.1451974395" style="font-size: 25px; font-weight: bold;">Add to Cart - $69</a></p>
+<p style="font-size: 14px; font-weight: bold;"><i aria-hidden="true" class="fa fa-clock-o"></i> Ending In: 3 days
+</p></center></div>
+<div style="background-color: rgb(244, 64, 59);" class="message"><center><p style="font-weight: bold; font-size: 18px;">Linux Power User Bundle with 5-Courses (97% off)</p> 
+<p style="background-color: rgb(157, 24, 21); margin: 6px 35px; padding: 10px;"><a style="font-size: 25px; font-weight: bold;" href="https://deals.tecmint.com/sales/complete-linux-bundle" target="_blank" rel="nofollow">Add to Cart - $19</a></p>
+<p style="font-size: 14px; font-weight: bold;"><i class="fa fa-clock-o" aria-hidden="true"></i> Ending In: 4 days
+</p></center></div></div>
+</div><div id="text-4" class="widget widget_text"><h3>Download Free Linux eBooks</h3>			<div class="textwidget"><ol>
+<li><a href="http://tecmint.tradepub.com/free/w_makb09/prgm.cgi" rel="nofollow" target="_blank">Complete Linux Command Line Cheat Sheet</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_free01/prgm.cgi" rel="nofollow" target="_blank">The GNU/Linux Advanced Administration Guide</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux Servers</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk12/prgm.cgi" rel="nofollow" target="_blank">Linux Patch Management: Keeping Linux Up To Date</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi" rel="nofollow" target="_blank">Introduction to Linux – A Hands on Guide</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk10/prgm.cgi" rel="nofollow" target="_blank">Understanding the Linux® Virtual Memory Manager</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi" rel="nofollow" target="_blank">Linux Bible – Packed with Updates and Exercises</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi" rel="nofollow" target="_blank">A Newbie’s Getting Started Guide to Linux</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_linu01/prgm.cgi" rel="nofollow" target="_blank">Linux from Scratch – Create Your Own Linux OS</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_pack42/prgm.cgi" rel="nofollow" target="_blank">Linux Shell Scripting Cookbook, Second Edition</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux: The Hacking Solution</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk09/prgm.cgi" rel="nofollow" target="_blank">User Mode Linux – Understanding and Administration</a></li>
+</ol></div>
+</div><div id="text-29" class="widget widget_text">			<div class="textwidget"><div id="subscribebox">
+<div class="follow-subscribe-social">
+<ul>
+<li><a href="http://twitter.com/tecmint" target="_blank"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><i class="fa fa-google"></i></a></li>
+<li><a href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="_blank"><i class="fa fa-youtube"></i></a></li>
+<li><a href="https://www.linkedin.com/company/tecmint" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+<p>INSTANT UPDATES FOR NEW POSTS</p>
+<form target="popupwindow" method="post" action="https://feedburner.google.com/fb/a/mailverify">
+<input name="uri" value="tecmint" type="hidden">
+<input name="loc" value="en_US" type="hidden">
+<input value="Enter Your Email Address :)" name="email" class="subscribe-email" type="text">
+<input class="subscribe-button" value="Subscribe" type="submit">
+</form>
+</div></div>
+</div>			
+</div><!--/.sidebar-content-->
+</div><!--/.sidebar-->
+				</div><!--/.main-inner-->
+</div><!--/.main-->			
+</div><!--/.container-inner-->
+</div><!--/.container-->
+<footer id="footer">
+<section class="container" id="footer-ads">
+<div class="container-inner">
+</div><!--/.container-inner-->
+</section><!--/.container-->
+<section class="container" id="footer-widgets">
+<div class="container-inner">
+<div class="pad group">
+<div class="footer-widget-1 grid one-third ">
+<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/psensor-monitors-hardware-temperature-in-linux/" rel="bookmark" title="Psensor – A Graphical Hardware Temperature Monitoring Tool for Linux">Psensor – A Graphical Hardware Temperature Monitoring Tool for Linux</a></p>
+<p class="post-item-date">2 Jul, 2015</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/cloudstats-me-monitors-your-linux-servers-and-websites-from-the-cloud/" rel="bookmark" title="CloudStats.me – Monitors Your Linux Servers and Websites from the Cloud">CloudStats.me – Monitors Your Linux Servers and Websites from the Cloud</a></p>
+<p class="post-item-date">25 Jul, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="Nagios 4.0.1 Released – Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17">Nagios 4.0.1 Released – Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17</a></p>
+<p class="post-item-date">28 Oct, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-observium-in-centos/" rel="bookmark" title="Observium: A Complete Network Management and Monitoring System for RHEL/CentOS">Observium: A Complete Network Management and Monitoring System for RHEL/CentOS</a></p>
+<p class="post-item-date">1 Jul, 2014</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-2 grid one-third ">
+<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/basic-mysql-interview-questions-for-database-administrators/" rel="bookmark" title="15 Basic MySQL Interview Questions for Database Administrators">15 Basic MySQL Interview Questions for Database Administrators</a></p>
+<p class="post-item-date">20 Dec, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/ls-command-interview-questions/" rel="bookmark" title="15 Interview Questions on Linux “ls” Command – Part 1">15 Interview Questions on Linux “ls” Command – Part 1</a></p>
+<p class="post-item-date">30 Sep, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/basic-linux-interview-questions-and-answers-part-ii/" rel="bookmark" title="Basic Linux Interview Questions and Answers – Part II">Basic Linux Interview Questions and Answers – Part II</a></p>
+<p class="post-item-date">23 Nov, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/useful-random-linux-interview-questions-and-answers/" rel="bookmark" title="10 Useful Random Linux Interview Questions and Answers">10 Useful Random Linux Interview Questions and Answers</a></p>
+<p class="post-item-date">22 Feb, 2014</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-3 grid one-third last">
+<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/create-own-online-learning-management-system-using-moodle-in-linux/" rel="bookmark" title="How to Create Own Online Learning Management System Using Moodle in Linux">How to Create Own Online Learning Management System Using Moodle in Linux</a></p>
+<p class="post-item-date">2 Dec, 2015</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/check-internet-speed-from-command-line-in-linux/" rel="bookmark" title="How to Test Your Internet Speed Bidirectionally from Command Line Using ‘Speedtest-CLI’ Tool">How to Test Your Internet Speed Bidirectionally from Command Line Using ‘Speedtest-CLI’ Tool</a></p>
+<p class="post-item-date">11 Mar, 2015</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/tmux-to-access-multiple-linux-terminals-inside-a-single-console/" rel="bookmark" title="How to Use ‘Tmux Terminal’ to Access Multiple Terminals Inside a Single Console">How to Use ‘Tmux Terminal’ to Access Multiple Terminals Inside a Single Console</a></p>
+<p class="post-item-date">5 Jan, 2016</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-virtualbox-on-redhat-centos-fedora/" rel="bookmark" title="VirtualBox 5.1 Released – Install on RHEL/CentOS/Fedora and Debian/Ubuntu/Linux Mint">VirtualBox 5.1 Released – Install on RHEL/CentOS/Fedora and Debian/Ubuntu/Linux Mint</a></p>
+<p class="post-item-date">10 Jul, 2015</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->	
+<nav class="nav-container group" id="nav-footer">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-18572" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18572"><a href="http://www.tecmint.com/donate-to-tecmint/">Donate to TecMint</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="http://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="http://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="http://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="http://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="http://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="http://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-15143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15143"><a target="_blank" href="http://www.tecmint.com/linux-system-administration-jobs/">Linux Admin Jobs</a></li>
+</ul></div>
+</nav><!--/#nav-footer-->
+<section class="container" id="footer-bottom">
+<div class="container-inner">
+<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="pad group">
+<div class="grid one-half">
+<div id="copyright">
+<p>Tecmint: Linux Howtos, Tutorials &amp; Guides © 2016. All Rights Reserved.</p>
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license"><b style="color: rgb(204, 204, 204);">(cc) BY-NC</b></a></p>
+<p>The material in this site cannot be republished either online or offline, without our permission.</p>
+</div><!--/#copyright-->
+</div>
+<div class="grid one-half last">	
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: rgb(51, 204, 255);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: rgb(59, 89, 152);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: rgb(219, 74, 57);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: rgb(135, 192, 64);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: rgb(196, 48, 43);"></i></a></li></ul>					</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->
+</footer><!--/#footer-->
+</div><!--/#wrapper-->
+
+<!-- <link rel='stylesheet' id='stcr-plugin-style-css'  href='http://www.tecmint.com/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/stcr-plugin-style.css?ver=4.5.3' type='text/css' media='all' /> -->
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+<!--     ===== START Dreamgrow Scroll Triggered Box 2.3 =====   -->
+<div class="dgd_overlay"></div>
+<div style="padding: 10px; opacity: 1; width: 300px; bottom: 10px; right: 10px; display: block;" class="dgd_stb_box clean_white" id="dgd_scrollbox-11027"><a class="dgd_stb_box_close dgd_stb_box_x"> </a><h5>Join Over 150K+ Linux Users</h5>
+<div id="social_sprite">
+<ol>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><span id="soc_fbuk" class="soc_icon"></span><span class="count">100,756</span></a></li>
+<li><a href="http://twitter.com/tecmint" target="_blank"><span id="soc_twitter" class="soc_icon"> </span><span class="count">5,113</span></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><span id="soc_gplus" class="soc_icon"> </span><span class="count">36,418</span></a></li>
+</ol>
+</div>
+<p>Enter your email to get latest Linux Howto's</p>
+<form class="stbContactForm" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"><input name="uri" value="tecmint" type="hidden"><input name="loc" value="en_US" type="hidden"><input name="email" value="Enter Your Email Address :)" type="text"><input class="stb-submit" value="Subscribe" type="submit"></form>
+<p class="stbMsgArea">
+</p><ul class="stb_social"></ul></div>
+<!--     ===== END OF Dreamgrow Scroll Triggered Box 2.3 =====   -->
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="http://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="http://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="http://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="http://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="http://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="http://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="http://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">Ebook: Introducing the RHCSA and RHCE Exam Preparation Guide</a></li>
+<li style="display: list-item;"><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Fundation Certified SysAdmin) Exam</a></li>
+<li><a href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Fundation Certified Engineer) Exam</a></li>
+<li><a href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+
+</body>
+</html>

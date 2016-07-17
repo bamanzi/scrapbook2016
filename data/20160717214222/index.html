@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+    <title>David Dollar</title>
+
+    <link href="http://feeds.feedburner.com/ddollar" rel="alternate" title="David Dollar" type="application/atom+xml">
+
+    
+    
+
+    
+
+    
+
+    
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+  <body>
+    <div id="container">
+      <h1><a href="http://blog.daviddollar.org/">David Dollar</a></h1>
+      <img class="portrait" src="d657f62d6b259df58c12dc8925cb9af4.png">
+      <ul class="contact">
+        <li class="email"><a href="mailto:david@dollar.io">david@dollar.io</a></li>
+        <li class="github"><a href="http://github.com/ddollar">github.com/ddollar</a></li>
+        <li class="twitter"><a href="http://twitter.com/ddollar">@ddollar</a></li>
+      </ul>
+      <br style="clear: both;">
+      <div class="content" id="summary">
+        <div id="post">
+  <h2>Introducing Foreman</h2>
+  <p>Lately I've noticed my web apps are getting complicated to run. My apps no longer consist of a
+single web process; I usually have have one or more types of background workers to run different
+types of jobs and a clock process to handle scheduling. Splitting an app up in this way
+is great for performance and scalability. The downside, however, is that it becomes much
+more complicated to get the app and all of its parts running.</p>
+
+<p><a href="http://github.com/ddollar/foreman">Foreman</a> is an attempt to make this easier. Using
+foreman you can declare the various processes that are needed to run your application
+using a <code>Procfile</code>.</p>
+
+<div class="highlight"><pre><code class="text">web:    bundle exec thin start -p $PORT
+worker: bundle exec rake resque:work QUEUE=*
+clock:  bundle exec rake resque:scheduler
+</code></pre>
+</div>
+
+
+<p>To get started, simply run <code>gem install foreman</code>. If your project is using both Bundler and Foreman,
+launching it should be as simple as</p>
+
+<div class="highlight"><pre><code class="text">$ bundle install
+$ foreman start
+</code></pre>
+</div>
+
+
+<p><img src="foreman_screenshot_1.png" style="background-color: rgb(0, 0, 0); padding: 10px 125px 10px 10px;"></p>
+
+<p>Foreman will start all of the processes associated with your app and display <code>stdout</code> and <code>stderr</code> of
+each process. Processes are color-coded by type to make them easy to read. <code>$PORT</code> will be
+automatically assigned by foreman and made available to each underlying process.</p>
+
+<h2>Exporting to Production</h2>
+
+<p>While foreman is great for running your application in development, there are some
+great existing tools for managing processes in production. Foreman can export to either <a href="http://upstart.ubuntu.com/">upstart</a>
+or standard unix <code>init</code>.</p>
+
+<h3>Exporting to upstart</h3>
+
+<div class="highlight"><pre><code class="console"><span class="gp">$</span> foreman <span class="nb">export </span>upstart /etc/init
+<span class="go">[foreman export] writing: /etc/init/testapp.conf</span>
+<span class="go">[foreman export] writing: /etc/init/testapp-web.conf</span>
+<span class="go">[foreman export] writing: /etc/init/testapp-web-1.conf</span>
+<span class="go">[foreman export] writing: /etc/init/testapp-worker.conf</span>
+<span class="go">[foreman export] writing: /etc/init/testapp-worker-1.conf</span>
+<span class="go">[foreman export] writing: /etc/init/testapp-clock.conf</span>
+<span class="go">[foreman export] writing: /etc/init/testapp-clock-1.conf</span>
+</code></pre>
+</div>
+
+
+<p>After exporting to upstart, the following commands become available:</p>
+
+<div class="highlight"><pre><code class="console"><span class="gp">$</span> start testapp
+<span class="gp">$</span> stop testapp-clock
+<span class="gp">$</span> restart testapp-worker-1
+</code></pre>
+</div>
+
+
+<h3>Exporting to init</h3>
+
+<div class="highlight"><pre><code class="console"><span class="gp">$</span> foreman <span class="nb">export </span>inittab
+<span class="gp">#</span> ----- foreman testapp processes -----
+<span class="go">TE01:4:respawn:/bin/su - testapp -c 'PORT=5000 bundle exec thin start -p $PORT &gt;&gt; /var/log/testapp/web-1.log 2&gt;&amp;1'</span>
+<span class="go">TE02:4:respawn:/bin/su - testapp -c 'PORT=5100 bundle exec rake resque:work QUEUE=* &gt;&gt; /var/log/testapp/worker-1.log 2&gt;&amp;1'</span>
+<span class="go">TE03:4:respawn:/bin/su - testapp -c 'PORT=5200 bundle exec rake resque:scheduler &gt;&gt; /var/log/testapp/clock-1.log 2&gt;&amp;1'</span>
+<span class="gp">#</span> ----- end foreman testapp processes -----
+</code></pre>
+</div>
+
+
+<h2>Advanced Options</h2>
+
+<h3>Concurrency</h3>
+
+<p>Foreman supports running more than 1 of each process type.</p>
+
+<div class="highlight"><pre><code class="text"># run 1 of each process type, and 2 workers
+$ foreman start -c worker=2
+
+# do not run a clock process
+$ foreman start -c clock=0
+</code></pre>
+</div>
+
+
+<h3>Port Assignment</h3>
+
+<p>Foreman starts port assignments at 5000 by default, and assigns them in blocks of 100 per process type in the
+order used in your <code>Procfile</code></p>
+
+<p>For the <code>Procfile</code> used at the top of this post, web.1 would be assigned port 5000, worker.1 would be 5100,
+and clock.1 would be 5200. If you were ran 2 web processes, web.2 would be assigned 5001.</p>
+
+<p>You can specify an alternate starting port for foreman to use with the <code>-p</code> option.</p>
+
+<h3>Documentation</h3>
+
+<p>For more information about the available options, check out the <a href="http://ddollar.github.com/foreman/">man page</a>.</p>
+
+</div>
+
+<div id="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="index_1.html" style="width: 1px ! important; min-width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 4572px ! important;" title="Disqus" tabindex="0" scrolling="no" allowtransparency="true" name="dsq-app2" id="dsq-app2" frameborder="0" width="100%"></iframe></div>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+  
+
+</body>
+</html>

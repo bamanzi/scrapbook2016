@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Init Script Actions</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="Linux Standard Base Specification 3.1" href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/book1.html"><link rel="UP" title="System Initialization" href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/sysinit.html"><link rel="PREVIOUS" title="System Initialization" href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/sysinit.html"><link rel="NEXT" title="Comment Conventions for Init Scripts" href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/initscrcomconv.html"></head><body class="SECT1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">Linux Standard Base Specification 3.1</th></tr><tr><td align="left" valign="bottom" width="10%"><a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/sysinit.html" accesskey="P">&lt;&lt;&lt; Previous</a></td><td align="center" valign="bottom" width="80%">Chapter 16. System Initialization</td><td align="right" valign="bottom" width="10%"><a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/initscrcomconv.html" accesskey="N">Next &gt;&gt;&gt;</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="SECT1"><h1 class="SECT1"><a name="INISCRPTACT">16.2. Init Script Actions</a></h1><p>Conforming applications which need to execute commands on changes
+to the system run level (including boot and shutdown),
+may install one or more <i class="FIRSTTERM">init scripts</i>.
+Init scripts provided by conforming applications shall accept a single
+argument which selects the action:</p><p></p><table border="0"><tbody><tr><td><b class="COMMAND">start</b></td><td>start the service</td></tr><tr><td><b class="COMMAND">stop</b></td><td>stop the service</td></tr><tr><td><b class="COMMAND">restart</b></td><td>stop and restart the service if the service
+is already running, otherwise start the service</td></tr><tr><td><b class="COMMAND">try-restart</b></td><td>restart the service if the service
+is already running</td></tr><tr><td><b class="COMMAND">reload</b></td><td>cause the configuration of the service to be
+reloaded without actually stopping and restarting the service</td></tr><tr><td><b class="COMMAND">force-reload</b></td><td>cause the configuration to be reloaded
+if the service supports this, otherwise restart the service if it is
+running</td></tr><tr><td><b class="COMMAND">status</b></td><td>print the current status of the service</td></tr></tbody></table><p></p><p>The <b class="COMMAND">start</b>, <b class="COMMAND">stop</b>, <b class="COMMAND">restart</b>, <b class="COMMAND">force-reload</b>, and <b class="COMMAND">status</b> actions shall be supported
+by all init scripts; the <b class="COMMAND">reload</b> and the <b class="COMMAND">try-restart</b> actions are optional. Other
+init-script actions may be defined by the init script.</p><p>Init scripts shall ensure that they will behave sensibly if invoked
+with <b class="COMMAND">start</b> when the service is already running, or with <b class="COMMAND">stop</b> when
+not running, and that they do not kill similarly-named user processes. 
+The best way to achieve this is to use the init-script functions provided by
+<tt class="FILENAME">/lib/lsb/init-functions</tt> (see 
+<a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/iniscrptfunc.html">Init Script Functions</a>)</p><p>If a service reloads its configuration automatically (as in the case
+of cron, for example), the <b class="COMMAND">reload</b> action of the init
+script shall behave as if the configuration was reloaded successfully.
+The <b class="COMMAND">restart</b>,
+<b class="COMMAND">try-restart</b>, <b class="COMMAND">reload</b> and 
+<b class="COMMAND">force-reload</b> actions may be atomic; that is if a service
+is known not to be operational after a restart or reload, the script may return
+an error without any further action.</p><div class="NOTE"><blockquote class="NOTE"><p style="color: rgb(0, 102, 0); background-color: rgb(255, 255, 204);"><b>Note: </b>This specification does not define the concept of a package
+<i class="FIRSTTERM">upgrade</i>. Implementations may do different
+things when packages are upgraded, including not replacing an
+init script if it is marked as a configuration file,
+particularly if the file appears to have been modified since
+installation.  In some circumstances, the init script may
+not be removed when the package is uninstalled. 
+Applications should design their installation
+procedure and init scripts to be robust in the face of such
+behavior.  In particular, init scripts should not fail obscurely
+if run in unexpected circumstances. Testing for the existence
+of application binaries before executing them is suggested.</p></blockquote></div><p>If the <b class="COMMAND">status</b> action is requested,
+the init script will return the following 
+exit status codes.  
+
+</p><p></p><table border="0"><tbody><tr><td><span class="ERRORCODE">0</span></td><td>program is running or service is OK</td></tr><tr><td><span class="ERRORCODE">1</span></td><td>program is dead and /var/run pid file exists</td></tr><tr><td><span class="ERRORCODE">2</span></td><td>program is dead and /var/lock lock file exists</td></tr><tr><td><span class="ERRORCODE">3</span></td><td>program is not running</td></tr><tr><td><span class="ERRORCODE">4</span></td><td>program or service status is unknown</td></tr><tr><td><span class="ERRORCODE">5-99</span></td><td>reserved for future LSB use</td></tr><tr><td><span class="ERRORCODE">100-149</span></td><td>reserved for distribution use</td></tr><tr><td><span class="ERRORCODE">150-199</span></td><td>reserved for application use</td></tr><tr><td><span class="ERRORCODE">200-254</span></td><td>reserved</td></tr></tbody></table><p></p><p></p><p>For all other init-script actions, the init
+script shall return an exit status of zero if the action 
+was successful.  Otherwise, the exit status shall
+be non-zero, as defined below.  In addition to straightforward
+success, the following situations are also to be considered
+successful:
+
+</p><p></p><ul><li style="list-style-type: disc;"><p>restarting a service (instead of reloading it) with the <b class="COMMAND">force-reload</b> argument</p></li><li style="list-style-type: disc;"><p>running <b class="COMMAND">start</b> on a service already running</p></li><li style="list-style-type: disc;"><p>running <b class="COMMAND">stop</b> on a service already stopped or not running</p></li><li style="list-style-type: disc;"><p>running <b class="COMMAND">restart</b> on a service already stopped or not running</p></li><li style="list-style-type: disc;"><p>running <b class="COMMAND">try-restart</b> on a service already stopped or not running</p></li></ul><p></p><p>In case of an error while processing any init-script action except
+for <b class="COMMAND">status</b>, the init script shall print an error
+message and exit with a non-zero status code:
+
+</p><p></p><table border="0"><tbody><tr><td><span class="ERRORCODE">1</span></td><td>generic or unspecified error (current practice)</td></tr><tr><td><span class="ERRORCODE">2</span></td><td>invalid or excess argument(s)</td></tr><tr><td><span class="ERRORCODE">3</span></td><td>unimplemented feature (for example, "reload")</td></tr><tr><td><span class="ERRORCODE">4</span></td><td>user had insufficient privilege</td></tr><tr><td><span class="ERRORCODE">5</span></td><td>program is not installed</td></tr><tr><td><span class="ERRORCODE">6</span></td><td>program is not configured</td></tr><tr><td><span class="ERRORCODE">7</span></td><td>program is not running</td></tr><tr><td><span class="ERRORCODE">8-99</span></td><td>reserved for future LSB use</td></tr><tr><td><span class="ERRORCODE">100-149</span></td><td>reserved for distribution use</td></tr><tr><td><span class="ERRORCODE">150-199</span></td><td>reserved for application use</td></tr><tr><td><span class="ERRORCODE">200-254</span></td><td>reserved</td></tr></tbody></table><p></p><p></p><p>Error and status messages should be printed with the logging
+functions (see <a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/iniscrptfunc.html">Init Script Functions</a>) 
+<tt class="FUNCTION">log_success_msg()</tt>,
+<tt class="FUNCTION">log_failure_msg()</tt> and 
+<tt class="FUNCTION">log_warning_msg()</tt>.
+Scripts may write to
+standard error or standard output, but implementations need not
+present text written to standard error/output to the user or do
+anything else with it.
+</p><div class="NOTE"><blockquote class="NOTE"><p style="color: rgb(0, 102, 0); background-color: rgb(255, 255, 204);"><b>Note: </b>Since init scripts may be run manually by a system administrator with
+non-standard environment variable values for <code class="ENVAR">PATH</code>, 
+<code class="ENVAR">USER</code>, <code class="ENVAR">LOGNAME</code>, etc., 
+init scripts should not depend on the values of these environment
+variables.  They should set them to some known/default values if they
+are needed.</p></blockquote></div><p></p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/sysinit.html" accesskey="P">&lt;&lt;&lt; Previous</a></td><td align="center" valign="top" width="34%"><a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/book1.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/initscrcomconv.html" accesskey="N">Next &gt;&gt;&gt;</a></td></tr><tr><td align="left" valign="top" width="33%">System Initialization</td><td align="center" valign="top" width="34%"><a href="https://refspecs.linuxbase.org/LSB_3.1.0/LSB-generic/LSB-generic/sysinit.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">Comment Conventions for Init Scripts</td></tr></tbody></table></div></body>
+</html>

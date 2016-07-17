@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>daemonize — A tool to run a command as a daemon</title>
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body>
+
+<div class="header">
+  <table class="banner">
+    <tbody><tr valign="bottom">
+      <td class="banner-image" width="82"><img src="clapper-logo.png" height="81" width="82"></td>
+      <td class="banner-title"><span class="title">daemonize — A tool to run a command as a daemon</span></td>
+    </tr>
+  </tbody></table>
+
+  <div class="linktabs">
+    <span class="linktab"><a href="http://software.clapper.org/daemonize/index.html">Home</a></span>
+    <span class="linktab"><a href="http://github.com/bmc/daemonize">Code</a></span>
+    <span class="linktab"><a href="http://software.clapper.org/">Other Software</a></span>
+  </div>
+
+  <br clear="all">
+  
+
+</div>
+
+
+
+
+<div id="content" class="site">
+
+<div id="tocBlock">
+<span id="tocHeading">Table of Contents</span>
+<div id="toc"><ul class="toc"><li class="tocH1"><a href="#introduction">Introduction</a></li><li class="tocH1"><a href="#notes">Notes</a></li><li class="tocH1"><a href="#getting-daemonize">Getting <em>daemonize</em></a></li><li class="tocH2"><a href="#download-a-release-zip">Download a release zip</a></li><li class="tocH2"><a href="#clone-the-git-repository">Clone the Git repository</a></li><li class="tocH1"><a href="#installation">Installation</a></li><li class="tocH1"><a href="#notes-1">Notes</a></li><li class="tocH1"><a href="#change-log">Change Log</a></li><li class="tocH1"><a href="#author">Author</a></li><li class="tocH1"><a href="#web-page">Web Page</a></li><li class="tocH1"><a href="#license">License</a></li><li class="tocH1"><a href="#copyright">Copyright</a></li><li class="tocH1"><a href="#patches">Patches</a></li></ul></div>
+</div>
+
+<h1 id="introduction">Introduction</h1>
+
+<p><em>daemonize</em> runs a command as a Unix daemon. As defined in W. Richard
+Stevens’ 1990 book, <a href="http://www.kohala.com/start/unp.html"><em>UNIX Network Programming</em></a> (Addison-Wesley, 1990),
+a daemon is “a process that executes ‘in the background’ (i.e., without an
+associated terminal or login shell) either waiting for some event to occur,
+or waiting to perform some specified task on a periodic basis.” Upon
+startup, a typical daemon program will:</p>
+
+<ul>
+  <li>Close all open file descriptors (especially standard input, standard
+output and standard error)</li>
+  <li>Change its working directory to the root filesystem, to ensure that it
+doesn’t tie up another filesystem and prevent it from being unmounted</li>
+  <li>Reset its <em>umask</em> value</li>
+  <li>Run in the background (i.e., fork)</li>
+  <li>Disassociate from its process group (usually a shell), to insulate itself
+from signals (such as HUP) sent to the process group</li>
+  <li>Ignore all terminal I/O signals</li>
+  <li>Disassociate from the control terminal (and take steps not to reacquire one)</li>
+  <li>Handle any <code>SIGCLD</code> signals</li>
+</ul>
+
+<p>Most programs that are designed to be run as daemons do that work for
+themselves. However, you’ll occasionally run across one that does not. When
+you must run a daemon program that does not properly make itself into a
+true Unix daemon, you can use <em>daemonize</em> to force it to run as a true
+daemon.</p>
+
+<p>See the <a href="http://software.clapper.org/daemonize/daemonize.html"><em>man</em> page</a> for full details.</p>
+
+<h1 id="notes">Notes</h1>
+
+<ul>
+  <li>
+    <p>If the host operating system provides the <em>daemon</em>(3) library routine,
+<em>daemonize</em> will use it. Otherwise, <em>daemonize</em> uses its own version of
+<em>daemon</em>(3). This choice is made at compile time. (BSD 4.4-derived
+operating systems tend to provide their own <em>daemon</em>(3) routine.)</p>
+  </li>
+  <li>
+    <p><a href="http://www.freebsd.org/">FreeBSD</a> 5.0 introduced a <em>daemon</em>(1) command that is similar to, but
+less functional, than <em>daemonize</em>.</p>
+  </li>
+</ul>
+
+<h1 id="getting-daemonize">Getting <em>daemonize</em></h1>
+
+<p><em>daemonize</em> is written in C. Given the number of Unix-like operating
+systems, and the number of releases of each, it is impractical for me to
+provide binaries of <em>daemonize</em> for every combination of Unix-like
+operating system and operating system release.</p>
+
+<p>If you’re on a Mac, you can use <a href="http://mxcl.github.com/homebrew/">homebrew</a>
+to instsall <em>daemonize</em>, like so:</p>
+
+<pre><code>$ brew install daemonize
+</code></pre>
+
+<p>If you’re on any other Unix-like operating system, you must build
+<em>daemonize</em> from source code, as described below.</p>
+
+<p>There are two ways to get the source code:</p>
+
+<h2 id="download-a-release-zip">Download a release zip</h2>
+
+<p>You can download a release zip file, containing the source, from the
+<a href="https://github.com/bmc/daemonize/releases">releases page</a>. Just unzip the file to unpack the source
+directory.</p>
+
+<h2 id="clone-the-git-repository">Clone the Git repository</h2>
+
+<p>You can also simply clone the <em>git</em> repository, using one of the following
+commands.</p>
+
+<pre><code>$ git clone git://github.com/bmc/daemonize.git
+$ git clone http://github.com/bmc/daemonize.git
+</code></pre>
+
+<h1 id="installation">Installation</h1>
+
+<p>Once you’ve unpacked the source, change your working directory to the
+<em>daemonize</em> directory. From there, building and installing the code is
+fairly typical:</p>
+
+<pre><code>$ sh configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>For a detailed report of the available <code>configure</code> options:</p>
+
+<pre><code>$ sh configure --help
+</code></pre>
+
+<h1 id="notes-1">Notes</h1>
+
+<p>I have personally compiled and tested daemonize on the following platforms:</p>
+
+<ul>
+  <li>FreeBSD 4.x, 8.0-RELEASE, 8.1-RELEASE and 8.2-RELEASE</li>
+  <li>Red Hat Enterprise Linux 4 / CentOS 4</li>
+  <li>Solaris (SunOS 5.8, 5.10)</li>
+  <li>Fedora Core 5</li>
+  <li>Ubuntu 8 through 15</li>
+  <li>Mac OS X 10.4 (Tiger) and 10.6 through 10.11.</li>
+</ul>
+
+<p>The accompanying “configure” script was generated with GNU autoconf
+version 2.69. It should work, as is, for most Unix systems.</p>
+
+<h1 id="change-log">Change Log</h1>
+
+<p>See the <em>daemonize</em> <a href="https://github.com/bmc/daemonize/blob/master/CHANGELOG.md">Change Log</a> for a description of the changes in
+each version.</p>
+
+<h1 id="author">Author</h1>
+
+<p>Brian Clapper, <em>bmc@clapper.org</em></p>
+
+<h1 id="web-page">Web Page</h1>
+
+<ul>
+  <li><a href="http://software.clapper.org/daemonize">Home Page</a></li>
+  <li><a href="http://github.com/bmc/daemonize">GitHub repo</a></li>
+</ul>
+
+<h1 id="license">License</h1>
+
+<p>With the exception of the <code>install-sh</code> script and the <code>getopt.c</code> source,
+this software is released under BSD license. See the <a href="http://software.clapper.org/daemonize/license.html">license</a> for details.</p>
+
+<h1 id="copyright">Copyright</h1>
+
+<p>With the exception of the “install-sh” script and the “getopt.c” source,
+this software is copyright 2003-2015, Brian M. Clapper</p>
+
+<h1 id="patches">Patches</h1>
+
+<p>I gladly accept patches from their original authors. Feel free to email
+patches to me or to fork the <a href="http://github.com/bmc/daemonize">GitHub repository</a> and send me a
+pull request. Along with any patch you send:</p>
+
+<ul>
+  <li>Please state that the patch is your original work.</li>
+  <li>Please indicate that you license the work to the <em>daemonize</em>
+project under a <a href="http://software.clapper.org/daemonize/license.html">BSD License</a>.</li>
+</ul>
+
+
+
+</div>
+
+
+
+ 
+
+
+
+</body>
+</html>

@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>God 使用手册 · Ruby China</title>
+  <meta name="apple-mobile-web-app-capable" content="no">
+  <meta content="True" name="HandheldFriendly">
+  <link rel="apple-touch-icon-precomposed" href="https://ruby-china-assets.b0.upaiyun.com/assets/ios-icon-b33f73e769198e5ca925a23fdebc2a03723c9199bc6af9c03caa9febe9d41f14.png">
+  <link rel="shortcut icon" href="big_logo-d9dbac4f4816454b8779639d1795c3b21eba54778ec48608265bb2b490c00b7c.png">
+  <link rel="alternate" type="application/rss+xml" title="订阅最新帖" href="https://ruby-china.org/topics/feed">
+  <link rel="mask-icon" href="https://ruby-china-assets.b0.upaiyun.com/assets/mask-a8a794644276e73b80df003c48fce5582009c899acdf43e6ca8ba286cd8a2e63.svg">
+  
+  <meta name="action-cable-url" content="/cable">
+  
+  
+  
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="8LG+hy0R3Xgvvtu4LyZdr767YTo8+eELMG+3H6BTKb5A0iKMRZ2zGLzVcCNdYFUNULPmO/UAojKCj/jppvRQ/A==">
+  <meta name="apple-itunes-app" content="app-id=1072028763">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="page-topics" data-controller-name="topics">
+  <div class="header">
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
+      <div class="container">
+        <div class="navbar-header" id="navbar-header" data-turbolinks-permanent="">
+          <a href="https://ruby-china.org/" class="navbar-brand"><b>Ruby</b> China</a>
+        </div>
+
+        <div id="main-nav-menu">
+          <ul class="nav navbar-nav"><li class="active"><a href="https://ruby-china.org/topics">Topics</a></li><li class=""><a href="https://ruby-china.org/wiki">Wiki</a></li><li class=""><a href="https://ruby-china.org/jobs">Jobs</a></li><li class=""><a href="https://ruby-china.org/sites">Sites</a></li><li class=""><a target="_blank" href="https://gems.ruby-china.org/">Gems</a></li></ul>
+        </div>
+
+        <ul class="nav user-bar navbar-nav navbar-right">
+  <li><a href="https://ruby-china.org/account/sign_up">Sign Up</a></li>
+  <li><a href="https://ruby-china.org/account/sign_in">Sign In</a></li>
+</ul>
+
+
+        <ul class="nav navbar-nav user-bar navbar-right">
+          <li class="nav-search hidden-xs hidden-sm">
+            <form class="navbar-form form-search active" action="https://ruby-china.org/search" method="GET">
+              <div class="form-group">
+                <input class="form-control" name="q" value="" placeholder="搜索本站内容" type="text">
+              </div>
+              <i class="fa btn-search fa-search"></i>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  
+
+  <div id="main" class="main-container container">
+    
+    
+    
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="topic-detail panel panel-default">
+      <div class="panel-heading media clearfix">
+  <div class="media-body">
+    <h1 class="media-heading">God 使用手册</h1>
+    <div class="info">
+      <a class="node" href="https://ruby-china.org/topics/node3">Gem</a>
+       ·
+      <a data-author="true" class="user-name" data-name="rocLv" href="https://ruby-china.org/roclv">roclv</a>
+       ·
+      Created at <abbr class="timeago" title="2014-09-02T22:30:58+08:00"> one year ago</abbr>
+         ·
+        Last by <a class="user-name" data-name="ibcker" href="https://ruby-china.org/ibcker">ibcker</a> Replied at <abbr class="timeago" title="2016-05-22T01:18:01+08:00"> one month ago</abbr>
+       ·
+      546 hits
+    </div>
+  </div>
+  <div class="avatar media-right">
+    <a href="https://ruby-china.org/roclv"><img class="media-object avatar-48" src="14099.jpg!md" alt="14099"></a>
+  </div>
+</div>
+
+
+      <div class="panel-body markdown">
+        
+
+        <article>
+          <h4>God</h4><h4>Ruby进程监控框架</h4>
+<p><a href="http://godrb.com/images/banner.jpg" class="zoom-image fluidbox" data-action="zoom"><div style="z-index: 990;" class="fluidbox-wrap"><img style="opacity: 1;" src="banner.jpg" alt="alt GOD" title="god"><div style="width: 500px; height: 107px; top: 0px; left: 0px;" class="fluidbox-ghost"></div></div></a></p>
+<h4>服务器监控的更好解决方案</h4>
+<p>God是一个用Ruby写成的，容易配置，容易扩展的服务器监控框架。</p>
+
+<p>保持你的服务器的程序和任务运行应该是你部署过程中简单的一部分。God的目标做最简单、功能最强的监控应用程序。</p>
+
+<p>Tom Preston-Werner<br>
+tom@mojombo.com</p>
+
+<p>Google Group:<a href="http://groups.google.com/group/god-rb" target="_blank">http://groups.google.com/group/god-rb</a></p>
+<h4>系统特性</h4>
+<ul>
+<li>配置文件为Ruby程序</li>
+<li>可以容易地用Ruby自定义条件</li>
+<li>支持基于条件的poll和event</li>
+<li>不同的poll条件可以有不同的间隔</li>
+<li>集成事件通知系统（可扩展）</li>
+<li>容易地控制非守护脚本</li>
+</ul><h4>安装</h4>
+<p>最好的方法是通过rubygems安装：</p>
+<pre class="highlight plaintext">     $[sudo] gem install god
+</pre>
+<h4>系统需求</h4>
+<p>God目前仅仅在Linux（Kernel 2.6.15+）,BSD, 和Darwin系统上运行。暂时没有支持Windows系统的计划。在Linux系统上基于条件的事件监控需要加载cn（connector）核心模块或者编译进核心，god需要以*root*权限运行。</p>
+
+<p>以下系统已经测试过。欢迎帮忙测试其他系统！<br>
+* Darwin 10.4.10<br>
+* RedHat Fedora 6-15<br>
+* Ubuntu Dapper（no events）<br>
+* Ubuntu Feisty<br>
+* CentOS 4.5（no events）, 5, 6</p>
+<h4>快速开始</h4>
+<p>备注： 这个快速向导需要0.12.0以后的版本。你可以检查你的版本：</p>
+<pre class="highlight plaintext">  $ god --version
+</pre>
+
+<p>最简单的理解god怎么运行的方法是测试一个简单的例子。为了让你快速上手，我将给你展示怎么保持一个很小的服务运行。</p>
+
+<p>新建一个目录，然后写一个简单的服务器脚本。让我们给它命名为simple.rb:</p>
+<pre class="highlight ruby"><span class="kp">loop</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="s1">'Hello'</span>
+  <span class="nb">sleep</span> <span class="mi">1</span>
+<span class="k">end</span>
+</pre>
+
+<p>现在我们将写一个god配置文件，告诉god关于我们的进程。把它和simple.rb放在同一个文件夹，命名为simple.god:</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s2">"simple"</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="s2">"ruby /full/path/to/simple.rb"</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">keepalive</span>
+<span class="k">end</span>
+</pre>
+
+<p>这是最简单的god配置文件。我们以宣布一个God.watch块开始。一个watch在god里代表一个我们想要watch和控制的进程。每个watch必须有一个唯一的名字和一个告诉god怎么启动进程的命令。*keepalive*的声明告诉god保持这个进程alive。假如god启动时这个进程没有运行，god将会启动它。假如进程不响应，god就会重新启动它。</p>
+
+<p>在这个例子里，simple进程在前端运行，所以god会照看该进程，保持跟踪这个进程的PID。如果可能，最好要god为我们启动进程，这样我们就不必担心指定和保持跟踪PID的文件。后面我们将看见不能在前景运行或者需要指定进程PID的情况下怎样管理。</p>
+
+<p>为了运行god，我们使用参数-c给它提供一个参数。通过参数-D就可以让god在前端运行，能让我们看见发生了什么。</p>
+<pre class="highlight plaintext"> $ god -c path/to/simple.god -D
+</pre>
+
+<p>god可以通过两种方式来监控你的进程。第一个和最好的一个是方法是用event。不是每个系统都支持，但是如果系统支持的话会自动使用event。通过event，god会立即知道一个进程是否存在。对那些系统没有event支持的，god使用polling机制。这个部分的整个输出如下：</p>
+
+<p>启动god后，你回看见一些例如以下的输出：</p>
+<pre class="highlight plaintext"># Events
+
+I [2011-12-10 15:24:34]  INFO: Loading simple.god
+I [2011-12-10 15:24:34]  INFO: Syslog enabled.
+I [2011-12-10 15:24:34]  INFO: Using pid file directory: /Users/tom/.god/pids
+I [2011-12-10 15:24:34]  INFO: Started on drbunix:///tmp/god.17165.sock
+I [2011-12-10 15:24:34]  INFO: simple move 'unmonitored' to 'init'
+I [2011-12-10 15:24:34]  INFO: simple moved 'unmonitored' to 'init'
+I [2011-12-10 15:24:34]  INFO: simple [trigger] process is not running (ProcessRunning)
+I [2011-12-10 15:24:34]  INFO: simple move 'init' to 'start'
+I [2011-12-10 15:24:34]  INFO: simple start: ruby /Users/tom/dev/mojombo/god/simple.rb
+I [2011-12-10 15:24:34]  INFO: simple moved 'init' to 'start'
+I [2011-12-10 15:24:34]  INFO: simple [trigger] process is running (ProcessRunning)
+I [2011-12-10 15:24:34]  INFO: simple move 'start' to 'up'
+I [2011-12-10 15:24:34]  INFO: simple registered 'proc_exit' event for pid 23298
+I [2011-12-10 15:24:34]  INFO: simple moved 'start' to 'up'
+
+# Polls
+
+I [2011-12-07 09:40:18]  INFO: Loading simple.god
+I [2011-12-07 09:40:18]  INFO: Syslog enabled.
+I [2011-12-07 09:40:18]  INFO: Using pid file directory: /Users/tom/.god/pids
+I [2011-12-07 09:40:18]  INFO: Started on drbunix:///tmp/god.17165.sock
+I [2011-12-07 09:40:18]  INFO: simple move 'unmonitored' to 'up'
+I [2011-12-07 09:40:18]  INFO: simple moved 'unmonitored' to 'up'
+I [2011-12-07 09:40:18]  INFO: simple [trigger] process is not running (ProcessRunning)
+I [2011-12-07 09:40:18]  INFO: simple move 'up' to 'start'
+I [2011-12-07 09:40:18]  INFO: simple start: ruby /Users/tom/dev/mojombo/god/simple.rb
+I [2011-12-07 09:40:19]  INFO: simple moved 'up' to 'up'
+I [2011-12-07 09:40:19]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 09:40:24]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 09:40:29]  INFO: simple [ok] process is running (ProcessRunning)
+</pre>
+
+<p>你可以看见god启动了，注意到simple没有在运行，启动它，然后每隔5分钟检查一下确保simple运行正常。假如你想看见god的魔力，kill simple的进程。你会发现类似如下的输出：</p>
+<pre class="highlight plaintext"># Events
+
+I [2011-12-10 15:33:38]  INFO: simple [trigger] process 23416 exited (ProcessExits)
+I [2011-12-10 15:33:38]  INFO: simple move 'up' to 'start'
+I [2011-12-10 15:33:38]  INFO: simple deregistered 'proc_exit' event for pid 23416
+I [2011-12-10 15:33:38]  INFO: simple start: ruby /Users/tom/dev/mojombo/god/simple.rb
+I [2011-12-10 15:33:38]  INFO: simple moved 'up' to 'start'
+I [2011-12-10 15:33:38]  INFO: simple [trigger] process is running (ProcessRunning)
+I [2011-12-10 15:33:38]  INFO: simple move 'start' to 'up'
+I [2011-12-10 15:33:38]  INFO: simple registered 'proc_exit' event for pid 23601
+I [2011-12-10 15:33:38]  INFO: simple moved 'start' to 'up'
+
+# Polls
+
+I [2011-12-07 09:54:59]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 09:55:04]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 09:55:09]  INFO: simple [trigger] process is not running (ProcessRunning)
+I [2011-12-07 09:55:09]  INFO: simple move 'up' to 'start'
+I [2011-12-07 09:55:09]  INFO: simple start: ruby /Users/tom/dev/mojombo/god/simple.rb
+I [2011-12-07 09:55:09]  INFO: simple moved 'up' to 'up'
+I [2011-12-07 09:55:09]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 09:55:14]  INFO: simple [ok] process is running (ProcessRunning)
+</pre>
+
+<p>保持进程启动是好的，但是假如能够保证我们的进程表现良好，当资源超过我们的设置，重新启动进程将更好。通过添加一点条件，当内存或者CPU超过我们设定的限制，我们能够容易地让我们的进程重启。编辑simple.god配置文件如下：</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s1">'simple'</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="s2">"ruby /full/path/to/simple.rb"</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">keepalive</span><span class="p">(</span> <span class="ss">:memory_max</span> <span class="o">=&gt;</span> <span class="mi">150</span><span class="p">.</span><span class="nf">megabytes</span><span class="p">,</span>
+               <span class="ss">:cpu_max</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">.</span><span class="nf">percent</span><span class="p">)</span>
+<span class="k">end</span>
+</pre>
+
+<p>这里我在keepalive命令中使用了 :memory_max 选项。 现在，假如进程的内存用量超过150M， god就会重启他。相似地，通过设置 :cpu_max, 假如CPU的使用超过50%，god也会重启它。 默认这些属性每隔30秒检查一次，假如五个条件中满足三个，则会执行。这防止了进程因为暂时的资源峰值导致重启。</p>
+
+<p>为了测试这个特性，修改你的simple.rb服务器脚本使得引起内存泄露：</p>
+<pre class="highlight ruby"><span class="n">data</span> <span class="o">=</span> <span class="s1">''</span>
+<span class="kp">loop</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="s1">'Hello'</span>
+  <span class="mi">100000</span><span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s1">'x'</span> <span class="p">}</span>
+<span class="k">end</span>
+</pre>
+
+<p>按Ctrl-C结束god。注意到你的simple进程依然在运行。用刚才的方式再次启动god。现在代替了启动simple进程，god监测到simple运行，简单的切换到up状态。</p>
+<pre class="highlight plaintext"># Events
+
+I [2011-12-10 15:36:00]  INFO: Loading simple.god
+I [2011-12-10 15:36:00]  INFO: Syslog enabled.
+I [2011-12-10 15:36:00]  INFO: Using pid file directory: /Users/tom/.god/pids
+I [2011-12-10 15:36:00]  INFO: Started on drbunix:///tmp/god.17165.sock
+I [2011-12-10 15:36:00]  INFO: simple move 'unmonitored' to 'init'
+I [2011-12-10 15:36:00]  INFO: simple moved 'unmonitored' to 'init'
+I [2011-12-10 15:36:00]  INFO: simple [trigger] process is running (ProcessRunning)
+I [2011-12-10 15:36:00]  INFO: simple move 'init' to 'up'
+I [2011-12-10 15:36:00]  INFO: simple registered 'proc_exit' event for pid 23601
+I [2011-12-10 15:36:00]  INFO: simple moved 'init' to 'up'
+
+# Polls
+
+I [2011-12-07 14:50:46]  INFO: Loading simple.god
+I [2011-12-07 14:50:46]  INFO: Syslog enabled.
+I [2011-12-07 14:50:46]  INFO: Using pid file directory: /Users/tom/.god/pids
+I [2011-12-07 14:50:47]  INFO: Started on drbunix:///tmp/god.17165.sock
+I [2011-12-07 14:50:47]  INFO: simple move 'unmonitored' to 'up'
+I [2011-12-07 14:50:47]  INFO: simple moved 'unmonitored' to 'up'
+I [2011-12-07 14:50:47]  INFO: simple [ok] process is running (ProcessRunning)
+
+</pre>
+
+<p>为了让我们的simple服务运行，我们重新启动simple：</p>
+<pre class="highlight plaintext"> $ god restart simple 
+</pre>
+
+<p>通过日志你可以看见god结束了simple进程并重新启动了：</p>
+<pre class="highlight plaintext"># Events
+
+I [2011-12-10 15:38:13]  INFO: simple move 'up' to 'restart'
+I [2011-12-10 15:38:13]  INFO: simple deregistered 'proc_exit' event for pid 23601
+I [2011-12-10 15:38:13]  INFO: simple stop: default lambda killer
+I [2011-12-10 15:38:13]  INFO: simple sent SIGTERM
+I [2011-12-10 15:38:14]  INFO: simple process stopped
+I [2011-12-10 15:38:14]  INFO: simple start: ruby /Users/tom/dev/mojombo/god/simple.rb
+I [2011-12-10 15:38:14]  INFO: simple moved 'up' to 'restart'
+I [2011-12-10 15:38:14]  INFO: simple [trigger] process is running (ProcessRunning)
+I [2011-12-10 15:38:14]  INFO: simple move 'restart' to 'up'
+I [2011-12-10 15:38:14]  INFO: simple registered 'proc_exit' event for pid 23707
+I [2011-12-10 15:38:14]  INFO: simple moved 'restart' to 'up'
+
+# Polls
+
+I [2011-12-07 14:51:13]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 14:51:13]  INFO: simple move 'up' to 'restart'
+I [2011-12-07 14:51:13]  INFO: simple stop: default lambda killer
+I [2011-12-07 14:51:13]  INFO: simple sent SIGTERM
+I [2011-12-07 14:51:14]  INFO: simple process stopped
+I [2011-12-07 14:51:14]  INFO: simple start: ruby /Users/tom/dev/mojombo/god/simple.rb
+I [2011-12-07 14:51:14]  INFO: simple moved 'up' to 'up'
+I [2011-12-07 14:51:14]  INFO: simple [ok] process is running (ProcessRunning)
+
+</pre>
+
+<p>God现在开始报告内存和CPU的使用情况</p>
+<pre class="highlight plaintext"># Events and Polls
+
+I [2011-12-07 14:54:37]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 14:54:37]  INFO: simple [ok] memory within bounds [2032kb] (MemoryUsage)
+I [2011-12-07 14:54:37]  INFO: simple [ok] cpu within bounds [0.0%%] (CpuUsage)
+I [2011-12-07 14:54:42]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 14:54:42]  INFO: simple [ok] memory within bounds [2032kb, 13492kb] (MemoryUsage)
+I [2011-12-07 14:54:42]  INFO: simple [ok] cpu within bounds [0.0%%, *99.7%%] (CpuUsage)
+I [2011-12-07 14:54:47]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 14:54:47]  INFO: simple [ok] memory within bounds [2032kb, 13492kb, 25568kb] (MemoryUsage)
+I [2011-12-07 14:54:47]  INFO: simple [ok] cpu within bounds [0.0%%, *99.7%%, *100.0%%] (CpuUsage)
+I [2011-12-07 14:54:52]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 14:54:52]  INFO: simple [ok] memory within bounds [2032kb, 13492kb, 25568kb, 37556kb] (MemoryUsage)
+I [2011-12-07 14:54:52]  INFO: simple [trigger] cpu out of bounds [0.0%%, *99.7%%, *100.0%%, *98.4%%] (CpuUsage)
+I [2011-12-07 14:54:52]  INFO: simple move 'up' to 'restart
+</pre>
+
+<p>在最后的一行，你能看见CPU的用量已经超过了50%三次了，god重新启动了进程。god会持续地监测simple进程，只要god在运行，进程就会被一直监控。</p>
+
+<p>现在，你结束god之前，让我们先通过god结束simple服务。在一个新的终端，输入以下命令：</p>
+<pre class="highlight plaintext"> $ god stop simple 
+</pre>
+
+<p>你应该看见如下输出：</p>
+<pre class="highlight plaintext">Sending 'stop' command
+
+The following watches were affected:
+   simple
+
+</pre>
+
+<p>在god运行的终端，你会看见发生了什么：</p>
+<pre class="highlight plaintext"># Events
+
+I [2011-12-10 15:41:04]  INFO: simple stop: default lambda killer
+I [2011-12-10 15:41:04]  INFO: simple sent SIGTERM
+I [2011-12-10 15:41:05]  INFO: simple process stopped
+I [2011-12-10 15:41:05]  INFO: simple move 'up' to 'unmonitored'
+I [2011-12-10 15:41:05]  INFO: simple deregistered 'proc_exit' event for pid 23707
+I [2011-12-10 15:41:05]  INFO: simple moved 'up' to 'unmonitored'
+
+# Polls
+
+I [2011-12-07 09:59:59]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 10:00:04]  INFO: simple [ok] process is running (ProcessRunning)
+I [2011-12-07 10:00:07]  INFO: simple stop: default lambda killer
+I [2011-12-07 10:00:07]  INFO: simple sent SIGTERM
+I [2011-12-07 10:00:08]  INFO: simple process stopped
+I [2011-12-07 10:00:08]  INFO: simple move 'up' to 'unmonitored'
+I [2011-12-07 10:00:08]  INFO: simple moved 'up' to 'unmonitored'
+
+</pre>
+
+<p>现在，你可以自由的按Ctrl—C退出god了。热烈祝贺！你已经测试了一遍god，也已经看见god是多么容易的让你的进程一直运行了。</p>
+
+<p>不过这只是个开始。在实际应用中，*keepalive* 命令是一个方便的方法，使用了可以直接使用的更高级的事务和条件构造。你可以配置许多不同的条件，当CPU或者内存使用太多，磁盘超过下限，当一个指定的URL返回错误代码，等等。另外，你可以写自己的自定义条件，然后在配置文件里使用它。伴随着复杂的和可扩展的通知体系，可以控制许多不同的生命周期。</p>
+
+<p>继续阅读找出god不同于其他监测系统的地方，以及它怎么能帮助你解决许多进程监控和控制问题。</p>
+
+<p>###用Ruby写配置文件<br>
+既然你已经知道怎么使用god，让我们看看god更强大的一面吧。再说一次，最好的学习方法是通过示例。下面这个配置文件是我在gravatar.com保证mongrels运行使用的配置文件。</p>
+<pre class="highlight ruby"><span class="no">RAILS_ROOT</span> <span class="o">=</span> <span class="s2">"/Users/tom/dev/gravatar2"</span>
+
+<span class="sx">%w{8200 8201 8202}</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">port</span><span class="o">|</span>
+  <span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s2">"gravatar2-mongrel-</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="s2">"mogrel_rails start -c </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2"> -p </span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2"> \
+      -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log.mogrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid -d"</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">stop</span> <span class="o">=</span> <span class="s2">"morgrel_rails stop -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log/mogrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid"</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">restart</span> <span class="o">=</span> <span class="s2">"mongrel_rails restart -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log/mogrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid"</span>
+
+    <span class="n">w</span><span class="p">.</span><span class="nf">pid_file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">RAILS_ROOT</span><span class="p">,</span> <span class="s2">"log/mogrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid"</span><span class="p">)</span>
+
+    <span class="n">w</span><span class="p">.</span><span class="nf">behavior</span><span class="p">(</span><span class="ss">:clean_pid_file</span><span class="p">)</span>
+
+    <span class="n">w</span><span class="p">.</span><span class="nf">start_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">start</span><span class="o">|</span>
+      <span class="n">start</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:process_running</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+        <span class="n">c</span><span class="p">.</span><span class="nf">inteval</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="nf">seconds</span>
+        <span class="n">c</span><span class="p">.</span><span class="nf">running</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">w</span><span class="p">.</span><span class="nf">restart_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">restart</span><span class="o">|</span>
+      <span class="n">restart</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:memory_usage</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">above</span> <span class="o">=</span> <span class="mi">150</span><span class="p">.</span><span class="nf">megabytes</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">times</span> <span class="o">=</span> <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span> <span class="c1"># 3 out of 5 intevals</span>
+      <span class="k">end</span>
+
+      <span class="n">restart</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:cpu_usage</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+        <span class="n">c</span><span class="p">.</span><span class="nf">above</span> <span class="o">=</span> <span class="mi">50</span><span class="p">.</span><span class="nf">percent</span>
+        <span class="n">c</span><span class="p">.</span><span class="nf">times</span> <span class="o">=</span> <span class="mi">5</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="c1">#lifecycle</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">lifecycle</span> <span class="k">do</span> <span class="o">|</span><span class="n">on</span><span class="o">|</span>
+     <span class="n">on</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:flapping</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">to_state</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:start</span><span class="p">,</span> <span class="ss">:restart</span><span class="o">]</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">times</span> <span class="o">=</span> <span class="mi">5</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">within</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="nf">minute</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">transition</span> <span class="o">=</span> <span class="ss">:unmonitored</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">retry_in</span> <span class="o">=</span> <span class="mi">10</span><span class="p">.</span><span class="nf">minutes</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">retry_times</span> <span class="o">=</span> <span class="mi">5</span>
+       <span class="n">c</span><span class="p">.</span><span class="nf">retry_within</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span><span class="nf">hours</span>
+     <span class="k">end</span>
+    <span class="k">end</span>
+   <span class="k">end</span>
+  <span class="k">end</span>
+
+</pre>
+
+<p>新手是不是一下子吓蒙了？所以我把它拆散了解释每一部分的作用</p>
+<pre class="highlight ruby"> <span class="no">RAILS_ROOT</span> <span class="o">=</span> <span class="s2">"/var/www/gravatar2/current"</span>
+</pre>
+
+<p>在这里我设置了一个常量，用于整个文件。保持RAILS_ROOT的值是一个常量使得脚本很容易适合其他应用。因为这个配置文件是Ruby代码，我可以设置任何变量或者常量，这样可以使得配置更简单，更容易工作。</p>
+<pre class="highlight ruby"><span class="sx">%w{8200 8210 8202}</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">port</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+
+<p>因为配置文件是用Ruby写的，我们能构造循环和其他看起来不可能的智能的东东，山一样多得运行配置文件。我需要监视mongrel， 所以我简单的循环他们的端口号，消除重复，使得我得生活更容易。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s2">"gravatar2-mongrel-</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="s2">"mongrel_rails start -c </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2"> -P </span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">  \
+         -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log/mongrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid -d"</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">stop</span> <span class="o">=</span> <span class="s2">"morgrel_rails stop -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log/mongrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid"</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">restart</span> <span class="o">=</span> <span class="s2">"mongrel_rails restart -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log/mongrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid"</span>
+
+  <span class="n">w</span><span class="p">.</span><span class="nf">pid_file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">RAILS_ROOT</span><span class="p">,</span> <span class="s2">"log/mongrel.</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">.pid"</span><span class="p">)</span>
+
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+
+</pre>
+
+<p>watch代表一个简单的进程，包括start, stop, 和/或restart操作。只要你喜欢，你就可以定义watche。 在上例中，我已经有一些rails实例运行在mongrel中，我需要mongrel一直运行。每个watch有一个独特的名字以便在后面的操作中识别。start和stop属性用来指定开始和结束进程的命令。假如restart没有设置，restart用一个stop和一个start代表。可选的grace属性设置了重置普通监视操作以前，start/stop/restart命令等待的时间。假如你正监视的进程是一个后天进程（我的也是），你需要设置pid_file属性。</p>
+<pre class="highlight ruby">  <span class="n">w</span><span class="p">.</span><span class="nf">behavior</span><span class="p">(</span><span class="ss">:clean_pid_file</span><span class="p">)</span>
+</pre>
+
+<p>behavio允许你伴随着start/stop/restart执行额外的命令。在我们的例子里，假如进程死了，它会留下PID文件。假如下次重新启动这个程序，就会启动失败，提示PID文件已经存在。所以启动程序时，我们想先清除PID文件。内建的clean_pid_file会清除。</p>
+<pre class="highlight ruby">  <span class="n">w</span><span class="p">.</span><span class="nf">start_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">start</span><span class="o">|</span>
+    <span class="n">start</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:process_running</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">interval</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="nf">seconds</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">running</span> <span class="o">=</span> <span class="kp">false</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+</pre>
+
+<p>watch包含由可执行的动作组成的条件应该返回true。 我用start_if块开始，这个块包含一个简单的条件。通过用一个识别字符调用condition条件来描述condition，这个例子中是:process_running. 每个条件描述一个poll间隔，这个间隔将覆盖默认的间隔。这个例子中，我想要每个5秒钟检查一次进程，而不是像其他condition一样用30秒间隔。设置condition poll的间隔使得运行比不太严格的测试（如:memory_usage和:cpu_usage）更频繁得严格测试成为可能（如:process_running).</p>
+<pre class="highlight ruby">  <span class="n">w</span><span class="p">.</span><span class="nf">restart_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">restart</span><span class="o">|</span>
+    <span class="n">restart</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:memory_usage</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">above</span> <span class="o">=</span> <span class="mi">150</span><span class="p">.</span><span class="nf">megabytes</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">times</span> <span class="o">=</span> <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+    <span class="k">end</span>
+
+    <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="k">end</span>
+</pre>
+
+<p>和start_if类似，restart_if命令组合condition，然后触发restart。memory_usage条件将会失败，假如指定的进程使用了太多的内存。最大允许的内存通过above属性来指定（你可以用kilobytes, megabytes, 或者gibabytes助手）。为了触发restart需要触发的次数通过times设置。这个可以是一个整数，也可以是一个数组。整数意味着它必须连续失败许多次而数组[x, y]意味着必须y次中失败x次。</p>
+<pre class="highlight ruby"> <span class="n">w</span><span class="p">.</span><span class="nf">restart_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">restart</span><span class="o">|</span>
+   <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+
+   <span class="n">restart</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:cpu_usage</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+     <span class="n">c</span><span class="p">.</span><span class="nf">above</span> <span class="o">=</span> <span class="mi">50</span><span class="p">.</span><span class="nf">percent</span>
+     <span class="n">c</span><span class="p">.</span><span class="nf">times</span> <span class="o">=</span> <span class="mi">5</span>
+   <span class="k">end</span>
+ <span class="k">end</span>
+</pre>
+
+<p>为了同时监视CPU用量，我使用了cpu_usage条件。当mongrel的cpu用量连续超过50%超过5次，它将会重启。</p>
+<pre class="highlight ruby">  <span class="n">w</span><span class="p">.</span><span class="nf">lifecycle</span> <span class="k">do</span> <span class="o">|</span><span class="n">on</span><span class="o">|</span>
+    <span class="n">on</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:flapping</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">to_state</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:start</span><span class="p">,</span> <span class="ss">:restart</span><span class="o">]</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">times</span>    <span class="o">=</span> <span class="mi">5</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">within</span>   <span class="o">=</span> <span class="mi">5</span><span class="p">.</span><span class="nf">minute</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">transition</span>   <span class="o">=</span> <span class="ss">:unmonitored</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">retry_in</span>     <span class="o">=</span> <span class="mi">10</span><span class="p">.</span><span class="nf">minutes</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">retry_times</span>  <span class="o">=</span> <span class="mi">5</span>
+      <span class="n">c</span><span class="p">.</span><span class="nf">retry_within</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span><span class="nf">hours</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre>
+
+<p>在lifecycle部分中的condition只要进程被监视就一直活动（它们通过状态的改变活动）。<br>
+:flapping condition守护除了god快速开始和重启你的应用的这些边缘的状态的其他情况。比如服务器配置变化或者外部服务的不可用都可能造成我得进程不能启动。那样的话，god将会一直重试启动我的进程。:flapping condition提供了两个水平的放弃不稳定进程。假如我翻译以上的option代码，那就是：假如watch在5分钟里被启动或者重启了5次，然后不再监视它。。。然后10分钟后，再次监视他看看是否只是一个临时的问题；假如进程在两小时里依然不稳定，然后彻底放弃监视。</p>
+
+<p>就这样！</p>
+<h4>开始和配置GOD</h4>
+<p>如果把god作为一个后台进程，只需要把配置文件的路径传递给god（你需要使用sudo假如你在linux使用event或者想要使用setuid/setgid）:</p>
+
+<p><code>$ sudo god -c /path/to/config.god</code></p>
+
+<p>当你写配置文件的时候，在前台运行god这样你能看见log消息，可能会很有帮助。你可以：</p>
+
+<p><code>$ sudo god -c /path/to/config.god -D</code></p>
+
+<p>你能启动、重启、停止、监测、不监测你的watch用同样的工具像这样：</p>
+
+<p><code>$sudo god stop gravatar2-mongrel-8200</code></p>
+
+<p>###监测非后台进程</p>
+
+<p>需要监视一个不是后台运行的脚本？没问题！ god会为你后台话并且跟踪这个进程。假如你没有指定一个pid_file,它会自动后台话并且将PID文件保存在/var/run/god.</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">pid_file_directory</span> <span class="o">=</span> <span class="s1">'/home/tom/pids'</span>
+
+<span class="c1">#自动后台化和创建pid文件</span>
+<span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s1">'mongrel'</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">pid_file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">RAILS_ROOT</span><span class="p">,</span> <span class="s2">"log/mongrel.pid"</span><span class="p">)</span>
+
+  <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="s2">"mongrel_rails start -P </span><span class="si">#{</span><span class="no">RAILS_ROOT</span><span class="si">}</span><span class="s2">/log/mongrel.pid -d"</span>
+
+  <span class="c1">#...</span>
+ <span class="k">end</span>
+
+ <span class="c1">#不自动后台化</span>
+ <span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+   <span class="n">w</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s1">'worker'</span>
+   <span class="c1">#w.pid_file = is not set</span>
+
+   <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="s2">"rake resque:worker"</span>
+
+   <span class="c1">#...</span>
+ <span class="k">end</span>
+</pre>
+
+<p>假如你宁愿将PID文件保存在不同的位置，你可以在你的配置文件顶端设置：</p>
+
+<p><code>God.pid_file_directory = '/home/tom/pids'</code></p>
+
+<p>目录god必须可写</p>
+
+<p>#群组化WATCH<br>
+watch能被分配到组。这些组可以通过命令行一起控制。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">group</span> <span class="o">=</span> <span class="s1">'mongrels'</span>
+
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+
+</pre>
+
+<p>以上配置文件允许你使用一条命令控制watch（和这个组里的其他watch）：</p>
+
+<p><code>$ sudo god stop mongrels</code></p>
+<h4>重定向你进程的STDOUT和STDERR</h4>
+<p>默认的，STDOUT被定向至/dev/null. 为了进入这个输出，你可以重定向STDOUT流到文件或者命令。</p>
+
+<p>为了重定向STDOUT到文件，设置log属性为文件路径。这个文件将以append模式写入，假如不存在则创建它。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">log</span> <span class="o">=</span> <span class="s1">'/var/log/myprocess.log'</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+
+<p>为了重定向STDOUT到命令，设置log_cmd属性</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">log_cmd</span> <span class="o">=</span> <span class="s1">'/usr/bin/logger'</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+
+<p>默认地，STDERR会重定向到STDOUT。你也可以通过设置err_log和err_log_cmd重定向他到文件或命令。</p>
+<h4>改变进程的UID/GID</h4>
+<p>你也可以改变god运行start/stop/restart命令的用户或群组。这个可以通过设置uid和gid来改变：</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">uid</span> <span class="o">=</span> <span class="s1">'tom'</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">gid</span> <span class="o">=</span> <span class="s1">'devs'</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+
+<p>仅仅对字符串有效，对lambda命令无效。</p>
+<h4>设置工作目录</h4>
+<p>在运行你的进程之前，God 默认会把工作目录设置到 /。（感谢<a href="https://ruby-china.org/kayakjiang" class="at_user" title="@kayakjiang"><i>@</i>kayakjiang</a>）<br>
+你可以改变这个通过设置dir：</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">dir</span> <span class="o">=</span> <span class="s1">'/var/www/myapp'</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+<h4>设置环境变量</h4>
+<p>你可以通过env属性设置任何数目的环境变量。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">env</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'RAILS_ROOT'</span> <span class="o">=&gt;</span> <span class="s2">"/var/www/myapp"</span><span class="p">,</span>
+            <span class="s1">'RAILS_ENV'</span>  <span class="o">=&gt;</span> <span class="s2">"production"</span> <span class="p">}</span>
+
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+<h4>使用CHROOT改变文件系统的根目录</h4>
+<p>假如你像要你的进程运行在chroot，简单的在watch上使用chroot属性。指定的目录必须存在而且有/dev/null.</p>
+<pre class="highlight ruby">  <span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+    <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">chroot</span> <span class="o">=</span> <span class="s1">'/var/myroot'</span>
+    <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="k">end</span>
+</pre>
+<h4>Lambda命令</h4>
+<p>另外用字符串指定start/stop/restart命令（为了通过shell执行），你也可以指定一个lambda。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="n">w</span><span class="p">.</span><span class="nf">start</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">'APACHE'</span><span class="o">]</span> <span class="p">?</span> <span class="sb">`apachectl -k graceful `</span> <span class="p">:</span> <span class="sb">`lighttpd restart`</span> <span class="p">}</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+<h4>自定义默认的停止运行lambda</h4>
+<p>假如你没有提供一个stop命令，God会首先试图通过发送SIGTERM来停止你的进程。然后为了进程退出等待10秒钟。假如还没有退出，它会发送一个SIGKILL信号。你可以自定义stop信号，和/或者通过在watch上设置stop_signal和stop_timeout属性。</p>
+<pre class="highlight ruby">  <span class="no">God</span><span class="p">.</span><span class="nf">watch</span> <span class="k">do</span> <span class="o">|</span><span class="n">w</span><span class="o">|</span>
+    <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">stop_signal</span> <span class="o">=</span> <span class="s1">'QUIT'</span>
+    <span class="n">w</span><span class="p">.</span><span class="nf">stop_timeout</span> <span class="o">=</span> <span class="mi">20</span><span class="p">.</span><span class="nf">seconds</span>
+    <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+  <span class="k">end</span>
+</pre>
+<h4>加载其他配置文件</h4>
+<p>你可以随意的把god配置文件分成几个文件，这样会更容易组织文件。你也可以通过使用Ruby的load方法来加载其他的配置文件，或者使用God.load, 它运行你使用god风格的路径：</p>
+<pre class="highlight ruby"><span class="c1">#加载所有的god配置文件</span>
+<span class="no">God</span><span class="p">.</span><span class="nf">load</span> <span class="s2">"/usr/local.conf/*.god"</span>
+</pre>
+
+<p>God直到所有的配置文件加载完才会开始监测操作。</p>
+<h4>动态加载文件进入一个已经运行的god</h4>
+<p>God允许你加载或者重新加载配置文件进入一个已经运行的实例。当你准备这样做得时候，有几件事情需要考虑：</p>
+
+<ul>
+<li>已经存在的watch会被新配置文件里的同名的watch覆盖</li>
+<li>所有的路径必须是绝对路径或者god运行的相对路径</li>
+</ul><p>将配置文件加载至一个正在运行的god，运行以下命令：</p>
+
+<p><code>$ sudo god load path/to/config.god</code></p>
+
+<p>动态加载的配置文件可以包含任何一个普通的配置文件，然而，全局变量例如God.pid_file_directory块将可能会被忽视（会在日志里产生一个警告）。</p>
+<h4>为单个watch得到日志文件</h4>
+<p>从许多日志里筛选某个指定的watch的日志可能让人倍感狼狈。你可以通过以下命令得到一个实时的log：</p>
+
+<p><code>$ sudo god log local-3000</code></p>
+
+<p>这条命令会展示local-3000的watch的log，每秒更新一次。</p>
+
+<p>你也可以提供一个和你的watch想匹配的简写log命令。假如碰巧匹配几个watch，匹配缩写如下：</p>
+
+<p><code>$ sudo god log 13</code></p>
+<h4>通知</h4>
+<p>God有一个内建的可扩展的通知框架，这使得当条件被触发时发送通知变得很容易。每个通知的类型有一套必须配置的参数。这些参数通过Contact Defaults可能被设置成全局的，或者通过Contact实例设置成不同的。</p>
+
+<p>Contact Defaults - 一些不可能每个Contact都会改变的参数。你应该通过默认的机制设置那些参数。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="o">::</span><span class="no">Contacts</span><span class="o">::</span><span class="no">Email</span><span class="p">.</span><span class="nf">defaults</span> <span class="k">do</span>  <span class="o">|</span><span class="n">d</span><span class="o">|</span>
+  <span class="n">d</span><span class="p">.</span><span class="nf">from_email</span> <span class="o">=</span> <span class="s1">'god@example.com'</span>
+  <span class="n">d</span><span class="p">.</span><span class="nf">from_name</span>  <span class="o">=</span> <span class="s1">'God'</span>
+  <span class="n">d</span><span class="p">.</span><span class="nf">delivery_method</span> <span class="o">=</span> <span class="ss">:sendmail</span>
+<span class="k">end</span>
+
+</pre>
+
+<p>Contact实例 - 每个contact必须有个一独特的名字集合。你可以分配每个contact到一个组。</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="p">.</span><span class="nf">contact</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">name</span>   <span class="o">=</span> <span class="s1">'tom'</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">group</span>  <span class="o">=</span> <span class="s1">'developers'</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">to_email</span> <span class="o">=</span> <span class="s1">'tom@example.com'</span>
+<span class="k">end</span>
+
+<span class="no">God</span><span class="p">.</span><span class="nf">contact</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">name</span>   <span class="o">=</span>  <span class="s1">'vanpelt'</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">group</span>  <span class="o">=</span>  <span class="s1">'developers'</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">to_email</span>  <span class="o">=</span> <span class="s1">'vanpelt@example.com'</span>
+<span class="k">end</span>
+
+<span class="no">God</span><span class="p">.</span><span class="nf">contact</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s1">'kevin'</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">group</span> <span class="o">=</span> <span class="s1">'developers'</span>
+  <span class="n">c</span><span class="p">.</span><span class="nf">to_email</span> <span class="o">=</span> <span class="s1">'kevin@example.com'</span>
+<span class="k">end</span>
+
+</pre>
+
+<p>Condition Attachment - 当事件触发时发送一个指定的通知，简单的设置condition的notify属性为单独的contact。</p>
+<pre class="highlight ruby"><span class="n">w</span><span class="p">.</span><span class="nf">transition</span><span class="p">(</span><span class="ss">:up</span><span class="p">,</span> <span class="ss">:start</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">on</span><span class="o">|</span>
+  <span class="n">on</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:process_exits</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">notify</span> <span class="o">=</span> <span class="s1">'tom'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+
+<p>有两种方法具体说明应该发送通知。第一个，容易点得方法就是上面的这种。每个condition可以单独设一次notify属性，当条件满足时触发通知。这个值可以是contact的名字或者contact的组，或者由他们组成的数组。</p>
+<pre class="highlight ruby"><span class="n">w</span><span class="p">.</span><span class="nf">transition</span><span class="p">(</span><span class="ss">:up</span><span class="p">,</span> <span class="ss">:start</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">on</span><span class="o">|</span>
+  <span class="n">on</span><span class="p">.</span><span class="nf">condition</span><span class="p">(</span><span class="ss">:process_exits</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">notify</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:contacts</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">'tom'</span><span class="p">,</span> <span class="s1">'developers'</span><span class="o">]</span><span class="p">,</span> <span class="ss">:priority</span> <span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span> <span class="ss">:category</span><span class="o">=&gt;</span> <span class="s1">'product'</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+
+<p>另一种方法允许你指定优先级（priority）和类别（category）。额外的属性可以是任意的整数或者字符串，然后传递到通知子系统。</p>
+
+<p>上面的通知将会以一个和下面类似的邮件通知。</p>
+
+<p>From: God &lt;god@example.com&gt;<br>
+    To: tom &lt;tom@example.com&gt;<br>
+    Subject: [god] mongrel-8600 [trigger] process exited (ProcessExits)</p>
+
+<p>Message: mongrel-8600 [trigger] process exited (ProcessExits)<br>
+    Host: candymountain.example.com<br>
+    Priority: 1<br>
+    Category: product</p>
+<h4>可用的通知方式</h4>
+<p>（god支持Campfire, email, Jabber, Prowl, Scout, Twitter多种方式，而且易于扩展，这里只翻译了Email的方式，其他可以前往<a href="http://godrb.com/" target="_blank">官网</a>自行查看。）</p>
+<h4>Email</h4>
+<p>发送通知到指定的email地址</p>
+<pre class="highlight ruby"><span class="no">God</span><span class="o">::</span><span class="no">Contacts</span><span class="o">::</span><span class="no">Email</span><span class="p">.</span><span class="nf">defaults</span> <span class="k">do</span> <span class="o">|</span><span class="n">d</span><span class="o">|</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+
+<span class="no">God</span><span class="p">.</span><span class="nf">conteact</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+   <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+
+<p>to_email    - 字符串：发送至该email地址<br>
+     to_name     - 字符串：接收人的名字<br>
+     from_email  - 字符串：来自于<br>
+     from_name   - 字符串：来自于<br>
+     delivery_method - 符号：发送的方式, [ :smtp | :sendmail ]<br>
+                      默认是:smtp</p>
+
+<p>=== SMTP 选项 ( 当 delivery_method = :smtp) ===<br>
+     server_host  - 字符串：SMTP服务器主机名（默认是：localhost ）<br>
+     server_port  - 整型：SMTP服务器端口（默认为25）<br>
+     server_auth  - 布尔型： （默认为false）</p>
+
+<p>=== SMTP Auth 选项 (当 server_auth = true) ===<br>
+     server_domain -字符串：域名<br>
+     server_user   -字符串：用户名<br>
+     server_password -字符串：密码</p>
+
+<p>=== Sendmail 选项 (当 delivery_method = :sendmail) ===<br>
+     sendmail_path  -字符串：sendmail的路径（默认是“/usr/sbin/sendmail”）<br>
+     sendmail_args  -字符串：sendmail的参数（默认是 “-i -t”）</p>
+
+<p>至此，基本翻译完毕。</p>
+        </article>
+
+
+        
+      </div>
+
+        <div class="label-awesome">
+          <i class="fa fa-diamond awesome"></i> 本帖已被设为精华帖！
+        </div>
+
+      <div class="panel-footer clearfix">
+        <div class="opts">
+  <a class="" href="https://ruby-china.org/account/sign_in"><i class="fa fa-heart-o"></i> <span></span></a>
+  
+  
+  <span class="pull-right opts">
+  </span>
+</div>
+
+      </div>
+    </div>
+
+    
+
+    <div id="replies" class="panel panel-default" data-last-floor="30">
+      <div class="total panel-heading">
+        共收到 <b>28</b> 条回复
+      </div>
+      <div class="items panel-body">
+        
+          <div class="reply reply-deleted" data-id="224386" id="reply1">
+    <div class="deleted text-center">1Floor has deleted</div>
+</div>
+<div class="reply" data-id="224391" id="reply2">
+    <div class="avatar"><a href="https://ruby-china.org/tumayun"><img class="media-object avatar-48" src="967.jpg!md" alt="967"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="tumayun" href="https://ruby-china.org/tumayun">tumayun</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply2">#2</a> · <abbr class="timeago" title="2014-09-02T23:21:57+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="967" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224391/edit"></a>
+            <a data-floor="2" data-login="tumayun" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224391" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>赞，god 确实是个很好的工具，之前一直用来监控线上的服务，resque 啥的，而且还支持发邮件功能，看过代码，里面是 rdp。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224400" id="reply3">
+    <div class="avatar"><a href="https://ruby-china.org/peter"><img class="media-object avatar-48" src="1553.jpg!md" alt="1553"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Peter" href="https://ruby-china.org/peter">peter</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply3">#3</a> · <abbr class="timeago" title="2014-09-03T03:48:52+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="1553" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224400/edit"></a>
+            <a data-floor="3" data-login="peter" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224400" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>还在用 new relic，只作初级监视</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224413" id="reply4">
+    <div class="avatar"><a href="https://ruby-china.org/sunday35034"><img class="media-object avatar-48" src="96.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="LinuxNerd" href="https://ruby-china.org/sunday35034">sunday35034</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply4">#4</a> · <abbr class="timeago" title="2014-09-03T09:40:33+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="11288" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224413/edit"></a>
+            <a data-floor="4" data-login="sunday35034" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224413" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>文字内容好熟悉，是译的吧，调整下格式就好了。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224414" id="reply5">
+    <div class="avatar"><a href="https://ruby-china.org/huacnlee"><img class="media-object avatar-48" src="2.jpg!md" alt="2"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="李华顺" href="https://ruby-china.org/huacnlee">huacnlee</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply5">#5</a> · <abbr class="timeago" title="2014-09-03T09:41:30+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="2" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224414/edit"></a>
+            <a data-floor="5" data-login="huacnlee" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224414" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>排版略乱，已帮你调整好</p>
+
+<p>Mou 是不支持 GitHub 的代码着色语法的，推荐使用  <a href="https://github.com/uranusjr/macdown" target="_blank">MacDown</a></p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224420" id="reply6">
+    <div class="avatar"><a href="https://ruby-china.org/fake_whythelukystiff"><img class="media-object avatar-48" src="96_001.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Feyman" href="https://ruby-china.org/fake_whythelukystiff">fake_whythelukystiff</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply6">#6</a> · <abbr class="timeago" title="2014-09-03T10:00:09+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14100" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224420/edit"></a>
+            <a data-floor="6" data-login="fake_whythelukystiff" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224420" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply4" class="at_floor" data-floor="4">#4楼</a> <a href="https://ruby-china.org/sunday35034" class="at_user" title="@sunday35034"><i>@</i>sunday35034</a> 是译的</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224421" id="reply7">
+    <div class="avatar"><a href="https://ruby-china.org/fake_whythelukystiff"><img class="media-object avatar-48" src="96_001.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Feyman" href="https://ruby-china.org/fake_whythelukystiff">fake_whythelukystiff</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply7">#7</a> · <abbr class="timeago" title="2014-09-03T10:01:01+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14100" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224421/edit"></a>
+            <a data-floor="7" data-login="fake_whythelukystiff" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224421" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply5" class="at_floor" data-floor="5">#5楼</a> <a href="https://ruby-china.org/huacnlee" class="at_user" title="@huacnlee"><i>@</i>huacnlee</a> 到时会贴出github的地址的,支持语法高亮</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224424" id="reply8">
+    <div class="avatar"><a href="https://ruby-china.org/huacnlee"><img class="media-object avatar-48" src="2.jpg!md" alt="2"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="李华顺" href="https://ruby-china.org/huacnlee">huacnlee</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply8">#8</a> · <abbr class="timeago" title="2014-09-03T10:05:12+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="2" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224424/edit"></a>
+            <a data-floor="8" data-login="huacnlee" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224424" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply6" class="at_floor" data-floor="6">#6楼</a> <a href="https://ruby-china.org/fake_whythelukystiff" class="at_user" title="@fake_whythelukystiff"><i>@</i>fake_whythelukystiff</a> 这个是马甲？</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224437" id="reply9">
+    <div class="avatar"><a href="https://ruby-china.org/fake_whythelukystiff"><img class="media-object avatar-48" src="96_001.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Feyman" href="https://ruby-china.org/fake_whythelukystiff">fake_whythelukystiff</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply9">#9</a> · <abbr class="timeago" title="2014-09-03T11:01:52+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14100" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224437/edit"></a>
+            <a data-floor="9" data-login="fake_whythelukystiff" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224437" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply8" class="at_floor" data-floor="8">#8楼</a> <a href="https://ruby-china.org/huacnlee" class="at_user" title="@huacnlee"><i>@</i>huacnlee</a> 是的。。。太明显了，哈哈</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224455" id="reply10">
+    <div class="avatar"><a href="https://ruby-china.org/est"><img class="media-object avatar-48" src="14358.jpg!md" alt="14358"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/est">est</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply10">#10</a> · <abbr class="timeago" title="2014-09-03T11:39:42+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14358" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224455/edit"></a>
+            <a data-floor="10" data-login="est" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224455" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>对这个东东很感兴趣，有没有竞争品对比下？</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224486" id="reply11">
+    <div class="avatar"><a href="https://ruby-china.org/heyuan"><img class="media-object avatar-48" src="198.png!md" alt="198"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="何源" href="https://ruby-china.org/heyuan">heyuan</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply11">#11</a> · <abbr class="timeago" title="2014-09-03T13:28:24+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="198" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224486/edit"></a>
+            <a data-floor="11" data-login="heyuan" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224486" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>Github创始人出品 <a href="https://github.com/mojombo/god" target="_blank">mojombo/god</a></p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224488" id="reply12">
+    <div class="avatar"><a href="https://ruby-china.org/winnie"><img class="media-object avatar-48" src="2107.jpeg!md" alt="2107"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="winnie" href="https://ruby-china.org/winnie">winnie</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply12">#12</a> · <abbr class="timeago" title="2014-09-03T13:50:59+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="2107" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224488/edit"></a>
+            <a data-floor="12" data-login="winnie" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224488" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>这个好，谢谢分享</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224519" id="reply13">
+    <div class="avatar"><a href="https://ruby-china.org/roclv"><img class="media-object avatar-48" src="14099.jpg!md" alt="14099"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="rocLv" href="https://ruby-china.org/roclv">roclv</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply13">#13</a> · <abbr class="timeago" title="2014-09-03T16:13:33+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14099" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224519/edit"></a>
+            <a data-floor="13" data-login="roclv" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224519" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply5" class="at_floor" data-floor="5">#5楼</a> <a href="https://ruby-china.org/huacnlee" class="at_user" title="@huacnlee"><i>@</i>huacnlee</a> 多谢了！麻烦再编辑一下，不支持 <strong>#</strong> ？</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224522" id="reply14">
+    <div class="avatar"><a href="https://ruby-china.org/huacnlee"><img class="media-object avatar-48" src="2.jpg!md" alt="2"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="李华顺" href="https://ruby-china.org/huacnlee">huacnlee</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply14">#14</a> · <abbr class="timeago" title="2014-09-03T16:44:55+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="2" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224522/edit"></a>
+            <a data-floor="14" data-login="huacnlee" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224522" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply13" class="at_floor" data-floor="13">#13楼</a> <a href="https://ruby-china.org/rocLv" class="at_user" title="@rocLv"><i>@</i>rocLv</a> # 后面需要加空格</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224524" id="reply15">
+    <div class="avatar"><a href="https://ruby-china.org/lgn21st"><img class="media-object avatar-48" src="3.jpg!md" alt="3"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Daniel Lv" href="https://ruby-china.org/lgn21st">lgn21st</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply15">#15</a> · <abbr class="timeago" title="2014-09-03T17:00:03+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="3" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224524/edit"></a>
+            <a data-floor="15" data-login="lgn21st" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224524" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>之前用了很久的 god，对 god 其实有一点看法。</p>
+
+<p>首先要监控一些系统级的进程，god 需要 sudo 权限，那么就需要正确的给 sudo 用户安装和配置 ruby 执行环境，而我自己的习惯是只给普通用户配置 ruby 执行环境。</p>
+
+<p>其次，god 在自己的 daemon 进程中封装了托管的进程，有的时候不知道为什么，总会出现 god 自己的  monitor 进程不听使唤，挂掉的情况，然后只能强杀被托管的进程。之后改用 monit，发现类似的麻烦事情少了很多。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224527" id="reply16">
+    <div class="avatar"><a href="https://ruby-china.org/est"><img class="media-object avatar-48" src="14358.jpg!md" alt="14358"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/est">est</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply16">#16</a> · <abbr class="timeago" title="2014-09-03T17:06:12+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14358" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224527/edit"></a>
+            <a data-floor="16" data-login="est" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224527" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply15" class="at_floor" data-floor="15">#15楼</a> <a href="https://ruby-china.org/lgn21st" class="at_user" title="@lgn21st"><i>@</i>lgn21st</a> 这个囧。。。。daemon托管工具应该有self-heal 功能才对。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224528" id="reply17">
+    <div class="avatar"><a href="https://ruby-china.org/femto"><img class="media-object avatar-48" src="96_001.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/femto">femto</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply17">#17</a> · <abbr class="timeago" title="2014-09-03T17:15:04+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="321" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224528/edit"></a>
+            <a data-floor="17" data-login="femto" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224528" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="https://ruby-china.org/lgn21st" class="at_user" title="@lgn21st"><i>@</i>lgn21st</a> 我用upstart起god,然后再用god管理app应用,god挂掉貌似没碰到过，<br>
+不过估计可能被upstart重启了。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224549" id="reply18">
+    <div class="avatar"><a href="https://ruby-china.org/aptx4869"><img class="media-object avatar-48" src="96_002.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="aptx4869" href="https://ruby-china.org/aptx4869">aptx4869</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply18">#18</a> · <abbr class="timeago" title="2014-09-03T19:59:12+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="2844" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224549/edit"></a>
+            <a data-floor="18" data-login="aptx4869" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224549" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply15" class="at_floor" data-floor="15">#15楼</a> <a href="https://ruby-china.org/lgn21st" class="at_user" title="@lgn21st"><i>@</i>lgn21st</a> 貌似直接 <code>sudo apt-get install god</code>就可以了吧</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224563" id="reply19">
+    <div class="avatar"><a href="https://ruby-china.org/lgn21st"><img class="media-object avatar-48" src="3.jpg!md" alt="3"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Daniel Lv" href="https://ruby-china.org/lgn21st">lgn21st</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply19">#19</a> · <abbr class="timeago" title="2014-09-03T21:22:59+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="3" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224563/edit"></a>
+            <a data-floor="19" data-login="lgn21st" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224563" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply18" class="at_floor" data-floor="18">#18楼</a> <a href="https://ruby-china.org/aptx4869" class="at_user" title="@aptx4869"><i>@</i>aptx4869</a> 很久没有折腾过了，好像是这样的，在安装的时候应该会自动安装一个依赖版本的 ruby 吧？</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224574" id="reply20">
+    <div class="avatar"><a href="https://ruby-china.org/roclv"><img class="media-object avatar-48" src="14099.jpg!md" alt="14099"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="rocLv" href="https://ruby-china.org/roclv">roclv</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply20">#20</a> · <abbr class="timeago" title="2014-09-03T21:58:41+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14099" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224574/edit"></a>
+            <a data-floor="20" data-login="roclv" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224574" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="#reply15" class="at_floor" data-floor="15">#15楼</a> <a href="https://ruby-china.org/lgn21st" class="at_user" title="@lgn21st"><i>@</i>lgn21st</a> 可以调整下配置文件的。god配置还是蛮灵活的，不过毕竟只是个工具。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224593" id="reply21">
+    <div class="avatar"><a href="https://ruby-china.org/Guest"><img class="media-object avatar-48" src="12224.jpg!md" alt="12224"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="Steve Chan" href="https://ruby-china.org/Guest">Guest</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply21">#21</a> · <abbr class="timeago" title="2014-09-03T23:53:32+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="12224" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224593/edit"></a>
+            <a data-floor="21" data-login="Guest" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224593" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><img src="plus1.png" class="emoji" title=":plus1:" alt=""></p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224614" id="reply22">
+    <div class="avatar"><a href="https://ruby-china.org/richfisher"><img class="media-object avatar-48" src="522.jpg!md" alt="522"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/richfisher">richfisher</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply22">#22</a> · <abbr class="timeago" title="2014-09-04T09:39:41+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="522" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224614/edit"></a>
+            <a data-floor="22" data-login="richfisher" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224614" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>折腾过一段时间god，挺好用。因为我用RVM，每次升级ruby都要重新wrapper一次。后来转用monit</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224808" id="reply23">
+    <div class="avatar"><a href="https://ruby-china.org/bailong880210"><img class="media-object avatar-48" src="96_003.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="朝泰" href="https://ruby-china.org/bailong880210">bailong880210</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply23">#23</a> · <abbr class="timeago" title="2014-09-05T10:32:05+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="14135" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224808/edit"></a>
+            <a data-floor="23" data-login="bailong880210" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224808" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>很有帮助</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="224897" id="reply24">
+    <div class="avatar"><a href="https://ruby-china.org/vkill"><img class="media-object avatar-48" src="96_004.png" alt="96"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/vkill">vkill</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply24">#24</a> · <abbr class="timeago" title="2014-09-05T17:37:13+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="120" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/224897/edit"></a>
+            <a data-floor="24" data-login="vkill" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="224897" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>直接用 monit ，省事，还不用操心 sudo </p>
+
+<p>任何应用程序 port sock pidfile 总该会有一个吧？</p>
+
+<p>如果是 ruby 的 script，用 fallen gem 给加个 pidfile 就ok</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="226787" id="reply25">
+    <div class="avatar"><a href="https://ruby-china.org/kayakjiang"><img class="media-object avatar-48" src="314.jpg!md" alt="314"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="jgm" href="https://ruby-china.org/kayakjiang">kayakjiang</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply25">#25</a> · <abbr class="timeago" title="2014-09-18T17:00:21+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="314" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/226787/edit"></a>
+            <a data-floor="25" data-login="kayakjiang" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="226787" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <h4>设置工作目录</h4>
+<p><code>默认地，God设置工作目录到/之前运行你的进程</code></p>
+
+<p>这块翻译的不够通顺，有点不好理解，看了原文是 By default, God sets the working directory to / before running your process,才理解。<br>
+翻译成  <code>在运行你的进程之前，God 默认会把工作目录设置到 /</code>,强调的是 God 怎么设置工作目录。</p>
+
+<p>总之感谢楼主的工作。</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="227244" id="reply26">
+    <div class="avatar"><a href="https://ruby-china.org/rubyu2"><img class="media-object avatar-48" src="5489.jpg!md" alt="5489"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/rubyu2">rubyu2</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply26">#26</a> · <abbr class="timeago" title="2014-09-21T10:21:59+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="5489" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/227244/edit"></a>
+            <a data-floor="26" data-login="rubyu2" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="227244" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p><a href="https://github.com/kostya/eye" rel="nofollow" target="_blank">https://github.com/kostya/eye</a><br>
+这个如何？</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="227264" id="reply27">
+    <div class="avatar"><a href="https://ruby-china.org/_samqiu"><img class="media-object avatar-48" src="67.jpg!md" alt="67"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="samqiu" href="https://ruby-china.org/_samqiu">_samqiu</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply27">#27</a> · <abbr class="timeago" title="2014-09-21T13:45:15+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="67" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/227264/edit"></a>
+            <a data-floor="27" data-login="_samqiu" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="227264" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>Monit +1 ……</p>
+      </div>
+    </div>
+</div>
+<div class="reply" data-id="227271" id="reply28">
+    <div class="avatar"><a href="https://ruby-china.org/fsword"><img class="media-object avatar-48" src="244.jpg!md" alt="244"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="淘李福" href="https://ruby-china.org/fsword">fsword</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply28">#28</a> · <abbr class="timeago" title="2014-09-21T15:11:46+08:00"> one year ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="244" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/227271/edit"></a>
+            <a data-floor="28" data-login="fsword" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="227271" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>我也不是很信任god，几年前用过，不是很稳定。</p>
+
+<p>不过可能现在有变化</p>
+      </div>
+    </div>
+</div>
+<div class="reply reply-deleted" data-id="250869" id="reply29">
+    <div class="deleted text-center">29Floor has deleted</div>
+</div>
+<div class="reply" data-id="296802" id="reply30">
+    <div class="avatar"><a href="https://ruby-china.org/ibcker"><img class="media-object avatar-48" src="18762.jpg!md" alt="18762"></a></div>
+    <div class="infos">
+      <div class="info">
+        <span class="name">
+          <a class="user-name" data-name="" href="https://ruby-china.org/ibcker">ibcker</a>
+        </span> ·
+        <span class="time">
+          <a class="reply-floor" href="#reply30">#30</a> · <abbr class="timeago" title="2016-05-22T01:18:01+08:00"> one month ago</abbr>
+        </span>
+        <span class="opts pull-right">
+            <span class="hideable">
+            <a class="edit fa fa-pencil" data-uid="18762" title="修改回帖" href="https://ruby-china.org/topics/21354/replies/296802/edit"></a>
+            <a data-floor="30" data-login="ibcker" title="Reply to this floor" class="btn-reply fa fa-mail-reply" href="#"></a>
+            </span>
+            <a title="赞" data-count="0" data-state="" data-type="Reply" data-id="296802" class="likeable " href="#"><i class="fa fa-heart-o"></i> <span></span></a>
+        </span>
+      </div>
+      <div class="markdown">
+        <p>good</p>
+
+<p>修正一个拼写错误</p>
+<pre class="highlight plaintext"><code> w.start_if do |start|
+   start.condition(:process_running) do |c|
+     c.inteval = 5.seconds
+     c.running = false
+   end
+end</code></pre>
+
+<p>中的<code>inteval</code>应该是<code>interval</code></p>
+      </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="reply" class="form box">
+  <div style="padding: 20px;">
+    需要 <a class="btn btn-primary" href="https://ruby-china.org/account/sign_in">Sign In</a> 后方可回复, 如果你还没有账号请点击这里 <a class="btn btn-danger" href="https://ruby-china.org/account/sign_up">Sign Up</a>。
+  </div>
+</div>
+
+      </div>
+    </div>
+
+      <div class="panel panel-default">
+      <div class="panel-heading">相关话题</div>
+      <ul class="list-group">
+          <li class="list-group-item"><a href="https://ruby-china.org/topics/9571">Unicorn 重启无法加载最新代码</a></li>
+          <li class="list-group-item"><a href="https://ruby-china.org/topics/10349">Ubuntu Server + nginx + unicorn遇到问题</a></li>
+          <li class="list-group-item"><a href="https://ruby-china.org/topics/27736">阅读 God 源码心得</a></li>
+          <li class="list-group-item"><a href="https://ruby-china.org/topics/12226">［求助］mongodb 老是挂掉，ruby 进程负荷高超时退出，怎么破</a></li>
+          <li class="list-group-item"><a href="https://ruby-china.org/topics/23630">backup + whenever 进行 mysql 数据备份，自动备份内容为空白，手动备份正常</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="sidebar hidden-mobile col-md-3">
+    <div id="topic-sidebar" data-spy="affix" data-offset-bottom="65">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
+      <div class="buttons">
+        <div class="group likes opts">
+          <a class="" href="https://ruby-china.org/account/sign_in"><i class="fa fa-heart-o"></i> <span></span></a>
+        </div>
+        <div class="group">
+          <div class="btn-group" role="group">
+            
+            
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="group">
+        <div class="social-share-button" data-title="God 使用手册 via: @ruby_china " data-img="" data-url="" data-desc="" data-via="">
+<a rel="nofollow " data-site="twitter" class="ssb-icon ssb-twitter" title="Share to Twitter" href="#"></a>
+<a rel="nofollow " data-site="facebook" class="ssb-icon ssb-facebook" title="Share to Facebook" href="#"></a>
+<a rel="nofollow " data-site="google_plus" class="ssb-icon ssb-google_plus" title="Share to Google+" href="#"></a>
+<a rel="nofollow " data-site="weibo" class="ssb-icon ssb-weibo" title="Share to Sina Weibo" href="#"></a>
+<a rel="nofollow " data-site="douban" class="ssb-icon ssb-douban" title="Share to Douban" href="#"></a>
+</div>
+      </div>
+      <hr>
+      <div class="reply-buttons">
+        <div class="total">
+          共收到 <b>28</b> 条回复
+        </div>
+        <a href="#reply" class="btn btn-success btn-block btn-focus-reply">参与回复</a>
+      </div>
+      <hr>
+      <div class="group opts">
+
+      </div>
+      <a href="#" class="btn btn-block btn-move-page" data-type="bottom"><i class="fa fa-arrow-down"></i></a>
+    </div>
+  </div>
+
+  <div class="notify-updated">
+    <a class="update" href="#"><i class="fa fa-bell-o"></i> <b>有新回复！</b>点击这里立即载入</a>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+
+  <footer class="footer" id="footer" data-turbolinks-permanent="">
+    <div class="container">
+      <div class="media">
+  <div class="media-left" style="margin-right: 20px;">
+    <img class="media-object" src="c309db0b49cab85a32f756541ea0e2b0.png" style="width: 64px;">
+  </div>
+  
+  <div class="media-body">
+    <div class="links">
+      <a href="https://ruby-china.org/wiki/about">关于</a> / <a href="http://rubyconfchina.org/" target="_blank" title="RubyConf China 大会">RubyConf</a> / <a href="https://ruby-china.org/wiki/ruby-mirror" title="Ruby 镜像">Ruby 镜像</a> / <a href="https://gems.ruby-china.org/" target="_blank" title="RubyGems 镜像">RubyGems 镜像</a> / <a href="https://ruby-china.org/status" target="_blank">Status</a> / <a href="https://ruby-china.org/users">活跃会员</a> / <a href="https://ruby-china.org/api">API</a> / <a href="https://ruby-china.org/wiki/contributors">贡献者</a> / <a href="https://itunes.apple.com/us/app/ruby-china/id1072028763">iOS 客户端</a>
+    </div>
+    <div class="copyright">
+    中国 Ruby 社区，由众多爱好者共同维护，致力于构建完善的 Ruby 中文社区。
+    </div>
+<div class="supports" style="margin: 10px 0px;">
+    <span style="margin-right: 20px;">服务器由 <a data-original-title="本站服务器由 UCloud 赞助" href="http://www.ucloud.cn/?utm_source=zanzhu&amp;utm_campaign=rubychina&amp;utm_medium=display&amp;utm_content=yejiao&amp;ytag=rubychina_logo" target="_blank" rel="twipsy" title=""><img src="e1eb47a05578576bf134da65736cc5b4.png" style="height: 20px; margin-top: -2px;"></a> 赞助</span>
+    <span style="margin-right: 20px;">CDN 由 <a data-original-title="CDN, Ruby Mirror, RubyGems CDN 由又拍云赞助" href="https://www.upyun.com/?utm_source=ruby-china&amp;utm_medium=ad&amp;utm_campaign=upyun&amp;md=ruby-china" target="_blank" style="display: inline-block;" rel="twipsy" title=""><img src="3ad734d65891632fb049ba97044ba5a4.png" style="height: 20px; margin-top: -2px;"></a> 赞助</span>
+    <span>Gem 服务器由
+    <a data-original-title="腾讯云为 RubyGems 镜像提供国外服务器支持" href="http://www.qcloud.com/?ref=ruby-china" target="_blank" rel="twipsy" title=""><img src="1977b4bcf6589a03fb4d21139955aa6a.png" style="height: 20px; margin-top: -3px;"></a> 赞助</span>
+   </div>
+   <div class="links" style="margin-top: 8px;">
+     <span class="socials">
+     <a href="http://github.com/ruby-china" target="_blank" rel="nofollow" title="本站在 GitHub 上面的开源内容"><i class="fa fa-github"></i></a>
+     <a href="http://twitter.com/ruby_china" target="_blank" rel="nofollow" title="本站的 Twitter 账号"><i class="fa fa-twitter"></i></a>
+     <a href="http://weibo.com/u/3168836987" target="_blank" rel="nofollow" title="本站的 Weibo 账号"><i class="fa fa-weibo"></i></a>
+     <a href="https://www.youtube.com/channel/UCOLKFS_uA7nX26_u8z9V9og/feed" target="_blank" rel="nofollow" title="本站在 YouTube 上面的视频内容"><i class="fa fa-youtube"></i></a>
+     <a href="https://ruby-china.org/topics/feed" target="_blank" rel="nofollow"><i class="fa fa-rss"></i></a>
+     </span>
+
+     <a href="https://ruby-china.org/topics/21354?locale=zh-CN" rel="nofollow" style="margin-left: 10px;">简体中文</a> / <a href="https://ruby-china.org/topics/21354?locale=zh-TW" rel="nofollow">正體中文</a> / <a href="https://ruby-china.org/topics/21354?locale=en" rel="nofollow">English</a>
+   </div>
+  </div>
+</div>
+    </div>
+  </footer>
+
+  
+    
+
+  
+  <div class="zoom-overlay"></div>
+
+
+</body>
+</html>

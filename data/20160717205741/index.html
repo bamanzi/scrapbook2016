@@ -1,0 +1,633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" class="dj_gecko dj_contentbox">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>浅析 Linux 初始化 init 系统，第 3 部分: Systemd</title>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM Corporation&nbsp;2014">
+<meta name="Keywords" content="systemd,upstart,sysVinit,systemctl,rc.d, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2014-07-16">
+<meta name="Source" content="v17 delivery:developerWorks">
+<meta name="Security" content="Public">
+<meta name="Abstract" content="近年来，Linux 系统的 init 进程经历了两次重大的演进，传统的 sysvinit 已经逐渐淡出历史舞台，新的 UpStart 和 systemd 各有特点，越来越多的 Linux 发行版采纳了 systemd。本文简要介绍了这三种 init 系统的使用和原理，每个 Linux 系统管理员和系统软件开发者都应该了解它们，以便更好地管理系统和开发应用。本文是系列的第 3 部分，主要讲述 systemd 的特点和使用。">
+<meta name="Description" content="近年来，Linux 系统的 init 进程经历了两次重大的演进，传统的 sysvinit 已经逐渐淡出历史舞台，新的 UpStart 和 systemd 各有特点，越来越多的 Linux 发行版采纳了 systemd。本文简要介绍了这三种 init 系统的使用和原理，每个 Linux 系统管理员和系统软件开发者都应该了解它们，以便更好地管理系统和开发应用。本文是系列的第 3 部分，主要讲述 systemd 的特点和使用。">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2014-07-16">
+<meta name="Owner" content="developerWorks/China/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.Country" content="CN">
+<meta name="Robots" content="index,follow">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWGC0">
+<meta name="dW.ContentArea" content="2">
+<meta name="dW.Topic" content="370,492,86">
+
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCLNXCN">
+
+<link rel="canonical" href="http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html">
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+
+
+<!-- Masthead/footer -->
+
+
+
+
+        
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+
+<!--END -->
+
+   
+
+  <!-- LEADSPACE_STYLES -->
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body aria-busy="false" class="v17" id="ibm-com">
+<div style="opacity: 1; top: 0px;" id="dw-regbar" class="dw-home-band" aria-labelledby="dw-regbar-vp" role="complementary">
+    <div class="ibm-columns">
+        <div class="ibm-col-6-6">
+            <span id="dw-regbar-bluemix">IBM <strong>Bluemix</strong></span>
+            <span id="dw-regbar-vp">点击按钮，开始云上的开发！</span>
+            <p class="ibm-button-link-alternate dw-button-green">
+                <a id="article-rbar-bmix-home-regbar" class="dw-button-large dw-regbar-btn" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-1407_liuming_init3-_-regbar-article">开始您的试用</a>
+            </p>
+        </div>
+    </div>
+    <span>
+        <a role="button">
+            <span id="dw-close-regbar" aria-label="Close the registration bar" title="Close the registration bar" role="button">
+        </span></a>
+    </span>
+</div>
+	<div style="margin-top: 42px;" id="ibm-top" class="ibm-landing-page ibm-no-scroll"><img src="ibm_logo_print.png" id="ibm-print-masthead" alt="IBM Print" height="15" width="43">
+
+<!-- MASTHEAD_BEGIN -->		
+<div role="banner" id="ibm-masthead">
+
+    <!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar" aria-label="Masthead navigation">
+			<li id="dw-mast-top-4" role="presentation">
+				<a href="http://www.ibm.com/developerworks/cn/" tabindex="0"><img src="dwn-dw-badge.png" alt="dW" aria-label="dW" height="22" width="43"></a>
+			</li>
+			<li id="dw-mast-top-0" role="presentation">
+				<div id="dw-mast-signin">
+					<a id="dw-mf-signin-link" class="" href="http://www.ibm.com/developerworks/dwwi/jsp/ssologin.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="2">登录</a>
+					<span class="dw-mf-signin-spacer">|</span>
+					<a id="dw-mf-reg-link" class="" href="http://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="3">注册</a>
+				</div>
+				<div id="dw-mast-auth-link" class="dw-mf-hide">
+					<a class="authenticated ibm-active" href="#" role="button" tabindex="2"></a>
+					<ul id="dw-mast-auth-menu" class="dw-mf-hide">
+						<li class="dw-mast-auth-menu-title" aria-hidden="true">developerWorks 社区</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=zh" tabindex="3">我的概要信息</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=zh" tabindex="4">我的社区</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/news/?lang=zh" tabindex="5">设置</a>
+						</li>
+						<li class="dw-mast-auth-menu-divider"><hr></li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a id="dw-mast-signout-link" href="http://www.ibm.com/developerworks/dwwi/jsp/ssologout.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2F&amp;a=dwmav" tabindex="6">退出</a>
+						</li>
+					</ul>				
+				</div>
+			</li>
+			<li id="dw-mast-top-1">
+				<div></div>
+			</li>
+			<li id="dw-mast-top-3" role="presentation">
+				<a href="http://www.ibm.com/cn/zh/" tabindex="1">IBM</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerworks/cn/"><img src="dwn-dw-wordmark.png" alt="developerWorks®" height="28" width="225"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" class="ibm-menu-links-dw-cn" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/cn/topics/" tabindex="0">技术主题</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/cn/downloads/" tabindex="0">软件下载</a></li>
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/?lang=zh" tabindex="0">社区</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&amp;lang=zh" tabindex="0">技术讲座</a></li>
+		</ul>
+		<form id="ibm-search-form" action="http://www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="搜索 developerWorks" role="search">
+			<p>
+				<label for="q"><span class="ibm-access">搜索 developerWorks</span></label>
+				<input id="q" name="q" value="搜索 developerWorks" maxlength="100" type="text">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="zh" type="hidden">
+				<input name="cc" value="CN" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="cndw" type="hidden">
+				<input name="lo" value="zh" type="hidden">
+				<input id="ibm-search" class="ibm-btn-search" value="提交" type="submit">
+			</p>
+		</form>
+	</div>    
+	
+<div aria-label="社交工具" role="navigation" style="display: block;" id="ibm-social-tools"><ul aria-label="Social tool list" role="toolbar"><li><a tabindex="0" role="button" dojoattrid="0" rel="print" href="#" title="打印本页面" class="ibm-share-print">打印本页面</a></li><li><a tabindex="-1" role="button" dojoattrid="1" rel="email" href="#" title="用电子邮件发送本页面" class="ibm-share-email">用电子邮件发送本页面</a></li><li></li><li></li><li><a class="ibm-share-weibo" tabindex="-1" role="button" dojoattrid="2" rel="新浪微博" title="新浪微博" href="http://service.weibo.com/share/share.php?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;language=zh_cn">新浪微博</a></li><li><a class="ibm-share-renren" tabindex="-1" role="button" dojoattrid="3" rel="人人网" title="人人网" href="http://share.renren.com/share/buttonshare?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd&amp;link=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html">人人网</a></li><li><a class="dwcn-tencent-link" tabindex="-1" role="button" dojoattrid="4" rel="腾讯微博" title="腾讯微博" href="http://v.t.qq.com/share/share.php?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html">腾讯微博</a></li><li><a class="dwcn-sohu-link" tabindex="-1" role="button" dojoattrid="5" rel="搜狐微博" title="搜狐微博" href="http://t.sohu.com/third/post.jsp?title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd%20&amp;link=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html">搜狐微博</a></li><li><a class="dwcn-netease-link" tabindex="-1" role="button" dojoattrid="6" rel="网易微博" title="网易微博" href="http://t.163.com/article/user/checkLogin.do?info=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd%20http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html">网易微博</a></li><li><a class="ibm-share-digg" title="Digg" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd" rel="digg" dojoattrid="7" role="button" tabindex="-1">Digg</a></li><li><a class="ibm-share-facebook" title="Facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;t=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd" rel="facebook" dojoattrid="8" role="button" tabindex="-1">Facebook</a></li><li><a class="ibm-share-twitter" title="Twitter" href="http://twitter.com/?status=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html%20-%20%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd" rel="twitter" dojoattrid="9" role="button" tabindex="-1">Twitter</a></li><li><a class="ibm-share-delicious" title="Delicious" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd" rel="delicious" dojoattrid="10" role="button" tabindex="-1">Delicious</a></li><li><a class="ibm-share-linkedin" title="Linked In" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html&amp;title=%E6%B5%85%E6%9E%90%20Linux%20%E5%88%9D%E5%A7%8B%E5%8C%96%20init%20%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AC%AC%203%20%E9%83%A8%E5%88%86%3A%20Systemd" rel="linkedin" dojoattrid="11" role="button" tabindex="-1">Linked In</a></li></ul></div></div>
+<div id="fdiv" class="ibm-access"></div><!-- MASTHEAD_END -->
+	    
+<!-- LAYOUT -->
+<!-- LEADSPACE_BEGIN --> 
+<div role="main" id="ibm-access-cntr"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+      <ul aria-label="Bread Crumbs" role="directory" id="ibm-navigation-trail"><li><a href="http://www.ibm.com/developerworks/cn/">developerWorks 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></li><li><a href="http://www.ibm.com/developerworks/cn/linux/">Linux</a></li><li><a href="http://www.ibm.com/developerworks/cn/views/linux/libraryview.jsp">文档库</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>浅析 Linux 初始化 init 系统，第 3 部分: Systemd</h1>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>近年来，Linux 系统的 init 进程经历了两次重大的演进，传统的 sysvinit 已经逐渐淡出历史舞台，新的 UpStart 和 systemd 各有特点，越来越多的 Linux 发行版采纳了 systemd。本文简要介绍了这三种 init 系统的使用和原理，每个 Linux 系统管理员和系统软件开发者都应该了解它们，以便更好地管理系统和开发应用。本文是系列的第 3 部分，主要讲述 systemd 的特点和使用。</p>
+		<p class="ibm-no-print ibm-ind-link">
+<a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/views/linux/libraryview.jsp?sort_by=&amp;show_abstract=true&amp;show_all=&amp;search_flag=&amp;contentarea_by=Linux&amp;search_by=%E6%B5%85%E6%9E%90+Linux+%E5%88%9D%E5%A7%8B%E5%8C%96+init+%E7%B3%BB%E7%BB%9F&amp;topic_by=-1&amp;type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&amp;ibm-search=%E6%90%9C%E7%B4%A2">查看本系列更多内容</a> <span class="dw-summary-bar">|</span>
+			
+			<span id="nCmts"><span>8</span><img class="dw-cmts-arrow" alt="" src="dw-cmts-arrow.png" height="7" width="7"> <a href="#icomments" class="dw-cmt-link">评论</a></span>
+		</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a role="button" href="#authorN10029" class="ibm-popup-link">刘 明</a>, 软件工程师, 上海交通大学通信与电子工程系</p>
+<div id="authorN10029" class="ibm-common-overlay"><div class="ibm-head"><p><a href="#close" class="ibm-common-overlay-close">关闭 [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually
+                                    goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+刘明，老程序员一名，喜欢使用和研究 Linux，目前从事数据仓库开发和应用。</p><br><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">2014 年 7 月 16 日</p>
+			
+
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="c.gif" alt="expand"></a><span class="ibm-twisty-head">内容</span><div style="display: none;" class="ibm-twisty-body"><ul style="font-size: 0.8em;" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="#1.Systemd 的简介和特点 |outline">Systemd 的简介和特点</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#2.Systemd 的基本概念 |outline">Systemd 的基本概念</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#3.Systemd 的并发启动原理 |outline">Systemd 的并发启动原理</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#4.Systemd 的使用 |outline">Systemd 的使用</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#5.systemd 小结 |outline">systemd 小结</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#6.结束语 |outline">结束语</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#resources">参考资料 </a></li>
+<li><a class="ibm-anchor-down-em-link" href="#icomments">评论</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1"><div class="dw-article-sidebar dw-bluemix" id="dwc-exp-a"><img src="bluemix-graphic.png" alt="" height="64" width="64"><p>在 IBM Bluemix 云平台上开发并部署您的下一个应用。</p><p class="ibm-button-link-alternate dw-button-green"><a id="tutc-sbar-bmix-home-btn-ABa" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-1407_liuming_init3-_-sidebar" class="dw-button-large">开始您的试用</a></p></div>
+
+<h2 id="1.Systemd 的简介和特点 |outline">Systemd 的简介和特点</h2><p>Systemd 是 Linux 系统中最新的初始化系统（init），它主要的设计目标是克服 sysvinit 固有的缺点，提高系统的启动速度。systemd 和 ubuntu 的 upstart 是竞争对手，预计会取代 UpStart，实际上在作者写作本文时，已经有消息称 Ubuntu 也将采用 systemd 作为其标准的系统初始化系统。</p><p>Systemd 的很多概念来源于苹果 Mac OS 操作系统上的 launchd，不过 launchd 专用于苹果系统，因此长期未能获得应有的广泛关注。Systemd 借鉴了很多 launchd 的思想，它的重要特性如下：</p><h3 id="N10054">同 SysVinit 和 LSB init scripts 兼容</h3><p>Systemd 是一个"新来的"，Linux 上的很多应用程序并没有来得及为它做相应的改变。和 UpStart 一样，systemd 引入了新的配置方式，对应用程序的开发也有一些新的要求。如果 systemd 想替代目前正在运行的初始化系统，就必须和现有程序兼容。任何一个 Linux 发行版都很难为了采用 systemd 而在短时间内将所有的服务代码都修改一遍。</p><p>Systemd 提供了和 Sysvinit 以及 LSB initscripts 兼容的特性。系统中已经存在的服务和进程无需修改。这降低了系统向 systemd 迁移的成本，使得 systemd 替换现有初始化系统成为可能。</p><h3 id="N1005D">更快的启动速度</h3><p>Systemd 提供了比 UpStart 更激进的并行启动能力，采用了 socket / D-Bus activation 等技术启动服务。一个显而易见的结果就是：更快的启动速度。</p><p>为了减少系统启动时间，systemd 的目标是：</p><ul class="ibm-bullet-list"><li>尽可能启动更少的进程</li><li>尽可能将更多进程并行启动</li></ul><p>同样地，UpStart 也试图实现这两个目标。UpStart 采用事件驱动机制，服务可以暂不启动，当需要的时候才通过事件触发其启动，这符合第一个设计目标；此外，不相干的服务可以并行启动，这也实现了第二个目标。</p><p>下面的图形演示了 UpStart 相对于 SysVInit 在并发启动这个方面的改进：</p><h5 id="OLE_LINK4">图 1. UpStart 对 SysVinit 的改进</h5><img alt="UpStart 对 SysVinit 的改进" src="image003.jpg" width="394"><p>假设有 7 个不同的启动项目， 比如 JobA、Job B 等等。在 SysVInit 中，每一个启动项目都由一个独立的脚本负责，它们由 sysVinit 顺序地，串行地调用。因此总的启动时间为 T1+T2+T3+T4+T5+T6+T7。其中一些任务有依赖关系，比如 A,B,C,D。</p><p>而 Job E 和 F 却和 A,B,C,D 无关。这种情况下，UpStart 能够并发地运行任务{E，F，(A,B,C,D)}，使得总的启动时间减少为 T1+T2+T3。</p><p>这无疑增加了系统启动的并行性，从而提高了系统启动速度。但是在 UpStart 中，有依赖关系的服务还是必须先后启动。比如任务 A,B,(C,D)因为存在依赖关系，所以在这个局部，还是串行执行。</p><p>让我们例举一些例子， Avahi 服务需要 D-Bus 提供的功能，因此 Avahi 的启动依赖于 D-Bus，UpStart 中，Avahi 必须等到 D-Bus 启动就绪之后才开始启动。类似的，livirtd 和 X11 都需要 HAL 服务先启动，而所有这些服务都需要 syslog 服务记录日志，因此它们都必须等待 syslog 服务先启动起来。然而 httpd 和他们都没有关系，因此 httpd 可以和 Avahi 等服务并发启动。</p><p>Systemd 能够更进一步提高并发性，即便对于那些 UpStart 认为存在相互依赖而必须串行的服务，比如 Avahi 和 D-Bus 也可以并发启动。从而实现如下图所示的并发启动过程：</p><h5 id="OLE_LINK6">图 2. systemd 的并发启动</h5><img alt="systemd 的并发启动" src="image005.jpg" width="365"><p>所有的任务都同时并发执行，总的启动时间被进一步降低为 T1。</p><p>可见 systemd 比 UpStart 更进一步提高了并行启动能力，极大地加速了系统启动时间。</p><h3 id="N10095">systemd 提供按需启动能力</h3><p>当 sysvinit 系统初始化的时候，它会将所有可能用到的后台服务进程全部启动运行。并且系统必须等待所有的服务都启动就绪之后，才允许用户登录。这种做法有两个缺点：首先是启动时间过长；其次是系统资源浪费。</p><p>某些服务很可能在很长一段时间内，甚至整个服务器运行期间都没有被使用过。比如 CUPS，打印服务在多数服务器上很少被真正使用到。您可能没有想到，在很多服务器上 SSHD 也是很少被真正访问到的。花费在启动这些服务上的时间是不必要的；同样，花费在这些服务上的系统资源也是一种浪费。</p><p>Systemd 可以提供按需启动的能力，只有在某个服务被真正请求的时候才启动它。当该服务结束，systemd 可以关闭它，等待下次需要时再次启动它。</p><h3 id="N100A0">Systemd 采用 Linux 的 Cgroup 特性跟踪和管理进程的生命周期</h3><p>init 系统的一个重要职责就是负责跟踪和管理服务进程的生命周期。它不仅可以启动一个服务，也必须也能够停止服务。这看上去没有什么特别的，然而在真正用代码实现的时候，您或许会发现停止服务比一开始想的要困难。</p><p>服务进程一般都会作为精灵进程（daemon）在后台运行，为此服务程序有时候会派生(fork)两次。在 UpStart 中，需要在配置文件中正确地配置 expect 小节。这样 UpStart 通过对 fork 系统调用进行计数，从而获知真正的精灵进程的 PID 号。比如图 3 所示的例子：</p><h5 id="N100AA">图 3. 找到正确 pid</h5><img alt="找到正确 pid" src="image007.jpg" width="387"><p>如果 UpStart 找错了，将 p1`作为服务进程的 Pid，那么停止服务的时候，UpStart 会试图杀死 p1`进程，而真正的 p1``进程则继续执行。换句话说该服务就失去控制了。</p><p>还有更加特殊的情况。比如，一个 CGI 程序会派生两次，从而脱离了和 Apache 的父子关系。当 Apache 进程被停止后，该 CGI 程序还在继续运行。而我们希望服务停止后，所有由它所启动的相关进程也被停止。</p><p>为了处理这类问题，UpStart 通过 strace 来跟踪 fork、exit 等系统调用，但是这种方法很笨拙，且缺乏可扩展性。systemd 则利用了 Linux 内核的特性即 CGroup 来完成跟踪的任务。当停止服务时，通过查询 CGroup，systemd 可以确保找到所有的相关进程，从而干净地停止服务。</p><p>CGroup 已经出现了很久，它主要用来实现系统资源配额管理。CGroup 提供了类似文件系统的接口，使用方便。当进程创建子进程时，子进程会继承父进程的 CGroup。因此无论服务如何启动新的子进程，所有的这些相关进程都会属于同一个 CGroup，systemd 只需要简单地遍历指定的 CGroup 即可正确地找到所有的相关进程，将它们一一停止即可。</p><h3 id="OLE_LINK8">启动挂载点和自动挂载的管理</h3><p>传统的 Linux 系统中，用户可以用/etc/fstab 文件来维护固定的文件系统挂载点。这些挂载点在系统启动过程中被自动挂载，一旦启动过程结束，这些挂载点就会确保存在。这些挂载点都是对系统运行至关重要的文件系统，比如 HOME 目录。和 sysvinit 一样，Systemd 管理这些挂载点，以便能够在系统启动时自动挂载它们。Systemd 还兼容/etc/fstab 文件，您可以继续使用该文件管理挂载点。</p><p>有时候用户还需要动态挂载点，比如打算访问 DVD 内容时，才临时执行挂载以便访问其中的内容，而不访问光盘时该挂载点被取消(umount)，以便节约资源。传统地，人们依赖 autofs 服务来实现这种功能。</p><p>Systemd 内建了自动挂载服务，无需另外安装 autofs 服务，可以直接使用 systemd 提供的自动挂载管理能力来实现 autofs 的功能。</p><h3 id="N100C8">实现事务性依赖关系管理</h3><p>系统启动过程是由很多的独立工作共同组成的，这些工作之间可能存在依赖关系，比如挂载一个 NFS 文件系统必须依赖网络能够正常工作。Systemd 虽然能够最大限度地并发执行很多有依赖关系的工作，但是类似"挂载 NFS"和"启动网络"这样的工作还是存在天生的先后依赖关系，无法并发执行。对于这些任务，systemd 维护一个"事务一致性"的概念，保证所有相关的服务都可以正常启动而不会出现互相依赖，以至于死锁的情况。</p><h3 id="N100CF">能够对系统进行快照和恢复</h3><p>systemd 支持按需启动，因此系统的运行状态是动态变化的，人们无法准确地知道系统当前运行了哪些服务。Systemd 快照提供了一种将当前系统运行状态保存并恢复的能力。</p><p>比如系统当前正运行服务 A 和 B，可以用 systemd 命令行对当前系统运行状况创建快照。然后将进程 A 停止，或者做其他的任意的对系统的改变，比如启动新的进程 C。在这些改变之后，运行 systemd 的快照恢复命令，就可立即将系统恢复到快照时刻的状态，即只有服务 A，B 在运行。一个可能的应用场景是调试：比如服务器出现一些异常，为了调试用户将当前状态保存为快照，然后可以进行任意的操作，比如停止服务等等。等调试结束，恢复快照即可。</p><p>这个快照功能目前在 systemd 中并不完善，似乎开发人员也没有特别关注它，因此有报告指出它还存在一些使用上的问题，使用时尚需慎重。</p><h3 id="N100DA">日志服务</h3><p>systemd 自带日志服务 journald，该日志服务的设计初衷是克服现有的 syslog 服务的缺点。比如：</p><ul class="ibm-bullet-list"><li>syslog 不安全，消息的内容无法验证。每一个本地进程都可以声称自己是 Apache PID 4711，而 syslog 也就相信并保存到磁盘上。</li><li>数据没有严格的格式，非常随意。自动化的日志分析器需要分析人类语言字符串来识别消息。一方面此类分析困难低效；此外日志格式的变化会导致分析代码需要更新甚至重写。</li></ul><p>Systemd Journal 用二进制格式保存所有日志信息，用户使用 journalctl 命令来查看日志信息。无需自己编写复杂脆弱的字符串分析处理程序。</p><p>Systemd Journal 的优点如下：</p><ul class="ibm-bullet-list"><li>简单性：代码少，依赖少，抽象开销最小。</li><li>零维护：日志是除错和监控系统的核心功能，因此它自己不能再产生问题。举例说，自动管理磁盘空间，避免由于日志的不断产生而将磁盘空间耗尽。</li><li>移植性：日志 文件应该在所有类型的 Linux 系统上可用，无论它使用的何种 CPU 或者字节序。</li><li>性能：添加和浏览 日志 非常快。</li><li>最小资源占用：日志 数据文件需要较小。</li><li>统一化：各种不同的日志存储技术应该统一起来，将所有的可记录事件保存在同一个数据存储中。所以日志内容的全局上下文都会被保存并且可供日后查询。例如一条固件记录后通常会跟随一条内核记录，最终还会有一条用户态记录。重要的是当保存到硬盘上时这三者之间的关系不会丢失。Syslog 将不同的信息保存到不同的文件中，分析的时候很难确定哪些条目是相关的。</li><li>扩展性：日志的适用范围很广，从嵌入式设备到超级计算机集群都可以满足需求。</li><li>安全性：日志 文件是可以验证的，让无法检测的修改不再可能。</li></ul><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="2.Systemd 的基本概念 |outline">Systemd 的基本概念</h2><h3 id="N10100">单元的概念</h3><p>系统初始化需要做的事情非常多。需要启动后台服务，比如启动 SSHD 服务；需要做配置工作，比如挂载文件系统。这个过程中的每一步都被 systemd 抽象为一个配置单元，即 unit。可以认为一个服务是一个配置单元；一个挂载点是一个配置单元；一个交换分区的配置是一个配置单元；等等。systemd 将配置单元归纳为以下一些不同的类型。然而，systemd 正在快速发展，新功能不断增加。所以配置单元类型可能在不久的将来继续增加。</p><ul class="ibm-bullet-list"><li>service ：代表一个后台服务进程，比如 mysqld。这是最常用的一类。</li><li>socket ：此类配置单元封装系统和互联网中的一个 套接字 。当下，systemd 支持流式、数据报和连续包的 AF_INET、AF_INET6、AF_UNIX socket 。每一个套接字配置单元都有一个相应的服务配置单元 。相应的服务在第一个"连接"进入套接字时就会启动(例如：nscd.socket 在有新连接后便启动 nscd.service)。</li><li>device ：此类配置单元封装一个存在于 Linux 设备树中的设备。每一个使用 udev 规则标记的设备都将会在 systemd 中作为一个设备配置单元出现。</li><li>mount ：此类配置单元封装文件系统结构层次中的一个挂载点。Systemd 将对这个挂载点进行监控和管理。比如可以在启动时自动将其挂载；可以在某些条件下自动卸载。Systemd 会将/etc/fstab 中的条目都转换为挂载点，并在开机时处理。</li><li>automount ：此类配置单元封装系统结构层次中的一个自挂载点。每一个自挂载配置单元对应一个挂载配置单元 ，当该自动挂载点被访问时，systemd 执行挂载点中定义的挂载行为。</li><li>swap: 和挂载配置单元类似，交换配置单元用来管理交换分区。用户可以用交换配置单元来定义系统中的交换分区，可以让这些交换分区在启动时被激活。</li><li>target ：此类配置单元为其他配置单元进行逻辑分组。它们本身实际上并不做什么，只是引用其他配置单元而已。这样便可以对配置单元做一个统一的控制。这样就可以实现大家都已经非常熟悉的运行级别概念。比如想让系统进入图形化模式，需要运行许多服务和配置命令，这些操作都由一个个的配置单元表示，将所有这些配置单元组合为一个目标(target)，就表示需要将这些配置单元全部执行一遍以便进入目标所代表的系统运行状态。 (例如：multi-user.target 相当于在传统使用 SysV 的系统中运行级别 5)</li><li>timer：定时器配置单元用来定时触发用户定义的操作，这类配置单元取代了 atd、crond 等传统的定时服务。</li><li>snapshot ：与 target 配置单元相似，快照是一组配置单元。它保存了系统当前的运行状态。</li></ul><p>每个配置单元都有一个对应的配置文件，系统管理员的任务就是编写和维护这些不同的配置文件，比如一个 MySQL 服务对应一个 mysql.service 文件。这种配置文件的语法非常简单，用户不需要再编写和维护复杂的系统 5 脚本了。</p><h3 id="N1011C">依赖关系</h3><p>虽然 systemd 将大量的启动工作解除了依赖，使得它们可以并发启动。但还是存在有些任务，它们之间存在天生的依赖，不能用"套接字激活"(socket activation)、D-Bus activation 和 autofs 三大方法来解除依赖（三大方法详情见后续描述）。比如：挂载必须等待挂载点在文件系统中被创建；挂载也必须等待相应的物理设备就绪。为了解决这类依赖问题，systemd 的配置单元之间可以彼此定义依赖关系。</p><p>Systemd 用配置单元定义文件中的关键字来描述配置单元之间的依赖关系。比如：unit A 依赖 unit B，可以在 unit B 的定义中用"require A"来表示。这样 systemd 就会保证先启动 A 再启动 B。</p><h3 id="N10125">Systemd 事务</h3><p>Systemd 能保证事务完整性。Systemd 的事务概念和数据库中的有所不同，主要是为了保证多个依赖的配置单元之间没有环形引用。比如 unit A、B、C，假如它们的依赖关系为:</p><h5 id="N1012D">图 4, Unit 的循环依赖</h5><img alt="图 4, Unit 的循环依赖" src="image009.jpg" width="184"><p>存在循环依赖，那么 systemd 将无法启动任意一个服务。此时 systemd 将会尝试解决这个问题，因为配置单元之间的依赖关系有两种：required 是强依赖；want 则是弱依赖，systemd 将去掉 wants 关键字指定的依赖看看是否能打破循环。如果无法修复，systemd 会报错。</p><p>Systemd 能够自动检测和修复这类配置错误，极大地减轻了管理员的排错负担。</p><h3 id="N1013C">Target 和运行级别</h3><p>systemd 用目标（target）替代了运行级别的概念，提供了更大的灵活性，如您可以继承一个已有的目标，并添加其它服务，来创建自己的目标。下表列举了 systemd 下的目标和常见 runlevel 的对应关系：</p><h5 id="N1014B">表 1. Sysvinit 运行级别和 systemd 目标的对应表</h5><table class="ibm-data-table" summary="" border="0" cellpadding="0" cellspacing="0"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th style="text-align: center; vertical-align: middle;">
+Sysvinit 运行级别
+</th><th style="text-align: center; vertical-align: middle;">
+Systemd 目标
+</th><th style="text-align: center; vertical-align: middle;">
+备注
+</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td style="vertical-align: middle;">
+0
+</td><td style="vertical-align: middle;">
+runlevel0.target, poweroff.target
+</td><td style="vertical-align: middle;">
+关闭系统。
+</td></tr><tr><td style="vertical-align: middle;">
+1, s, single
+</td><td style="vertical-align: middle;">
+runlevel1.target, rescue.target
+</td><td style="vertical-align: middle;">
+单用户模式。
+</td></tr><tr><td style="vertical-align: middle;">
+2, 4
+</td><td style="vertical-align: middle;">
+runlevel2.target, runlevel4.target, multi-user.target
+</td><td style="vertical-align: middle;">
+用户定义/域特定运行级别。默认等同于 3。
+</td></tr><tr><td style="vertical-align: middle;">
+3
+</td><td style="vertical-align: middle;">
+runlevel3.target, multi-user.target
+</td><td style="vertical-align: middle;">
+多用户，非图形化。用户可以通过多个控制台或网络登录。
+</td></tr><tr><td style="vertical-align: middle;">
+5
+</td><td style="vertical-align: middle;">
+runlevel5.target, graphical.target
+</td><td style="vertical-align: middle;">
+多用户，图形化。通常为所有运行级别 3 的服务外加图形化登录。
+</td></tr><tr><td style="vertical-align: middle;">
+6
+</td><td style="vertical-align: middle;">
+runlevel6.target, reboot.target
+</td><td style="vertical-align: middle;">
+重启
+</td></tr><tr><td style="vertical-align: middle;">
+emergency
+</td><td style="vertical-align: middle;">
+emergency.target
+</td><td style="vertical-align: middle;">
+紧急 Shell
+</td></tr></tbody></table><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="3.Systemd 的并发启动原理 |outline">Systemd 的并发启动原理</h2><p>如前所述，在 Systemd 中，所有的服务都并发启动，比如 Avahi、D-Bus、livirtd、X11、HAL 可以同时启动。乍一看，这似乎有点儿问题，比如 Avahi 需要 syslog 的服务，Avahi 和 syslog 同时启动，假设 Avahi 的启动比较快，所以 syslog 还没有准备好，可是 Avahi 又需要记录日志，这岂不是会出现问题？</p><p>Systemd 的开发人员仔细研究了服务之间相互依赖的本质问题，发现所谓依赖可以分为三个具体的类型，而每一个类型实际上都可以通过相应的技术解除依赖关系。</p><h3 id="N101AA">并发启动原理之一：解决 socket 依赖</h3><p>绝大多数的服务依赖是套接字依赖。比如服务 A 通过一个套接字端口 S1 提供自己的服务，其他的服务如果需要服务 A，则需要连接 S1。因此如果服务 A 尚未启动，S1 就不存在，其他的服务就会得到启动错误。所以传统地，人们需要先启动服务 A，等待它进入就绪状态，再启动其他需要它的服务。Systemd 认为，只要我们预先把 S1 建立好，那么其他所有的服务就可以同时启动而无需等待服务 A 来创建 S1 了。如果服务 A 尚未启动，那么其他进程向 S1 发送的服务请求实际上会被 Linux 操作系统缓存，其他进程会在这个请求的地方等待。一旦服务 A 启动就绪，就可以立即处理缓存的请求，一切都开始正常运行。</p><p>那么服务如何使用由 init 进程创建的套接字呢？</p><p>Linux 操作系统有一个特性，当进程调用 fork 或者 exec 创建子进程之后，所有在父进程中被打开的文件句柄 (file descriptor) 都被子进程所继承。套接字也是一种文件句柄，进程 A 可以创建一个套接字，此后当进程 A 调用 exec 启动一个新的子进程时，只要确保该套接字的 close_on_exec 标志位被清空，那么新的子进程就可以继承这个套接字。子进程看到的套接字和父进程创建的套接字是同一个系统套接字，就仿佛这个套接字是子进程自己创建的一样，没有任何区别。</p><p>这个特性以前被一个叫做 inetd 的系统服务所利用。Inetd 进程会负责监控一些常用套接字端口，比如 Telnet，当该端口有连接请求时，inetd 才启动 telnetd 进程，并把有连接的套接字传递给新的 telnetd 进程进行处理。这样，当系统没有 telnet 客户端连接时，就不需要启动 telnetd 进程。Inetd 可以代理很多的网络服务，这样就可以节约很多的系统负载和内存资源，只有当有真正的连接请求时才启动相应服务，并把套接字传递给相应的服务进程。</p><p>和 inetd 类似，systemd 是所有其他进程的父进程，它可以先建立所有需要的套接字，然后在调用 exec 的时候将该套接字传递给新的服务进程，而新进程直接使用该套接字进行服务即可。</p><h3 id="N101B9">并发启动原理之二：解决 D-Bus 依赖</h3><a id="OLE_LINK2"></a><a id="OLE_LINK1"></a><p>D-Bus 是 desktop-bus 的简称，是一个低延迟、低开销、高可用性的进程间通信机制。它越来越多地用于应用程序之间通信，也用于应用程序和操作系统内核之间的通信。很多现代的服务进程都使用D-Bus 取代套接字作为进程间通信机制，对外提供服务。比如简化 Linux 网络配置的 NetworkManager 服务就使用 D-Bus 和其他的应用程序或者服务进行交互：邮件客户端软件 evolution 可以通过 D-Bus 从 NetworkManager 服务获取网络状态的改变，以便做出相应的处理。</p><p>D-Bus 支持所谓"bus activation"功能。如果服务 A 需要使用服务 B 的 D-Bus 服务，而服务 B 并没有运行，则 D-Bus 可以在服务 A 请求服务 B 的 D-Bus 时自动启动服务 B。而服务 A 发出的请求会被 D-Bus 缓存，服务 A 会等待服务 B 启动就绪。利用这个特性，依赖 D-Bus 的服务就可以实现并行启动。</p><h3 id="N101CB">并发启动原理之三：解决文件系统依赖</h3><p>系统启动过程中，文件系统相关的活动是最耗时的，比如挂载文件系统，对文件系统进行磁盘检查（fsck），磁盘配额检查等都是非常耗时的操作。在等待这些工作完成的同时，系统处于空闲状态。那些想使用文件系统的服务似乎必须等待文件系统初始化完成才可以启动。但是 systemd 发现这种依赖也是可以避免的。</p><p>Systemd 参考了 autofs 的设计思路，使得依赖文件系统的服务和文件系统本身初始化两者可以并发工作。autofs 可以监测到某个文件系统挂载点真正被访问到的时候才触发挂载操作，这是通过内核 automounter 模块的支持而实现的。比如一个 open()系统调用作用在"/misc/cd/file1"的时候，/misc/cd 尚未执行挂载操作，此时 open()调用被挂起等待，Linux 内核通知 autofs，autofs 执行挂载。这时候，控制权返回给 open()系统调用，并正常打开文件。</p><p>Systemd 集成了 autofs 的实现，对于系统中的挂载点，比如/home，当系统启动的时候，systemd 为其创建一个临时的自动挂载点。在这个时刻/home 真正的挂载设备尚未启动好，真正的挂载操作还没有执行，文件系统检测也还没有完成。可是那些依赖该目录的进程已经可以并发启动，他们的 open()操作被内建在 systemd 中的 autofs 捕获，将该 open()调用挂起（可中断睡眠状态）。然后等待真正的挂载操作完成，文件系统检测也完成后，systemd 将该自动挂载点替换为真正的挂载点，并让 open()调用返回。由此，实现了那些依赖于文件系统的服务和文件系统本身同时并发启动。</p><p>当然对于"/"根目录的依赖实际上一定还是要串行执行，因为 systemd 自己也存放在/之下，必须等待系统根目录挂载检查好。</p><p>不过对于类似/home 等挂载点，这种并发可以提高系统的启动速度，尤其是当/home 是远程的 NFS 节点，或者是加密盘等，需要耗费较长的时间才可以准备就绪的情况下，因为并发启动，这段时间内，系统并不是完全无事可做，而是可以利用这段空余时间做更多的启动进程的事情，总的来说就缩短了系统启动时间。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="4.Systemd 的使用 |outline">Systemd 的使用</h2><p>下面针对技术人员的不同角色来简单地介绍一下 systemd 的使用。本文只打算给出简单的描述，让您对 systemd 的使用有一个大概的理解。具体的细节内容太多，即无法在一篇短文内写全，本人也没有那么强大的能力。还需要读者自己去进一步查阅 systemd 的文档。</p><h3 id="N101E1">系统软件开发人员</h3><p>开发人员需要了解 systemd 的更多细节。比如您打算开发一个新的系统服务，就必须了解如何让这个服务能够被 systemd 管理。这需要您注意以下这些要点：</p><ul class="ibm-bullet-list"><li>后台服务进程代码不需要执行两次派生来实现后台精灵进程，只需要实现服务本身的主循环即可。</li><li>不要调用 setsid()，交给 systemd 处理</li><li>不再需要维护 pid 文件。</li><li>Systemd 提供了日志功能，服务进程只需要输出到 stderr 即可，无需使用 syslog。</li><li>处理信号 SIGTERM，这个信号的唯一正确作用就是停止当前服务，不要做其他的事情。</li><li>SIGHUP 信号的作用是重启服务。</li><li>需要套接字的服务，不要自己创建套接字，让 systemd 传入套接字。</li><li>使用 sd_notify()函数通知 systemd 服务自己的状态改变。一般地，当服务初始化结束，进入服务就绪状态时，可以调用它。</li></ul><p><strong>Unit 文件的编写</strong></p><p>对于开发者来说，工作量最大的部分应该是编写配置单元文件，定义所需要的单元。</p><p>举例来说，开发人员开发了一个新的服务程序，比如 httpd，就需要为其编写一个配置单元文件以便该服务可以被 systemd 管理，类似 UpStart 的工作配置文件。在该文件中定义服务启动的命令行语法，以及和其他服务的依赖关系等。</p><p>此外我们之前已经了解到，systemd 的功能繁多，不仅用来管理服务，还可以管理挂载点，定义定时任务等。这些工作都是由编辑相应的配置单元文件完成的。我在这里给出几个配置单元文件的例子。</p><p>下面是 SSH 服务的配置单元文件，服务配置单元文件以.service 为文件名后缀。</p><div class="codesection"><pre class="displaycode">  #cat /etc/system/system/sshd.service
+  [Unit]
+  Description=OpenSSH server daemon
+  [Service]
+  EnvironmentFile=/etc/sysconfig/sshd
+  ExecStartPre=/usr/sbin/sshd-keygen
+  ExecStart=/usrsbin/sshd –D $OPTIONS
+  ExecReload=/bin/kill –HUP $MAINPID
+  KillMode=process
+  Restart=on-failure
+  RestartSec=42s
+  [Install]
+  WantedBy=multi-user.target</pre></div><p>文件分为三个小节。第一个是[Unit]部分，这里仅仅有一个描述信息。第二部分是 Service 定义，其中，ExecStartPre 定义启动服务之前应该运行的命令；ExecStart 定义启动服务的具体命令行语法。第三部分是[Install]，WangtedBy 表明这个服务是在多用户模式下所需要的。</p><p>那我们就来看下 multi-user.target 吧：</p><div class="codesection"><pre class="displaycode">  #cat multi-user.target
+  [Unit]
+  Description=Multi-User System
+  Documentation=man.systemd.special(7)
+  Requires=basic.target
+  Conflicts=rescue.service rescure.target
+  After=basic.target rescue.service rescue.target
+  AllowIsolate=yes
+  [Install]
+  Alias=default.target</pre></div><p>第一部分中的 Requires 定义表明 multi-user.target 启动的时候 basic.target 也必须被启动；另外 basic.target 停止的时候，multi-user.target 也必须停止。如果您接着查看 basic.target 文件，会发现它又指定了 sysinit.target 等其他的单元必须随之启动。同样 sysinit.target 也会包含其他的单元。采用这样的层层链接的结构，最终所有需要支持多用户模式的组件服务都会被初始化启动好。</p><p>在[Install]小节中有 Alias 定义，即定义本单元的别名，这样在运行 systemctl 的时候就可以使用这个别名来引用本单元。这里的别名是 default.target，比 multi-user.target 要简单一些。。。</p><p>此外在/etc/systemd/system 目录下还可以看到诸如*.wants 的目录，放在该目录下的配置单元文件等同于在[Unit]小节中的 wants 关键字，即本单元启动时，还需要启动这些单元。比如您可以简单地把您自己写的 foo.service 文件放入 multi-user.target.wants 目录下，这样每次都会被默认启动了。</p><p>最后，让我们来看看 sys-kernel-debug.mout 文件，这个文件定义了一个文件挂载点：</p><div class="codesection"><pre class="displaycode">#cat sys-kernel-debug.mount
+[Unit]
+Description=Debug File Syste
+DefaultDependencies=no
+ConditionPathExists=/sys/kernel/debug
+Before=sysinit.target
+[Mount]
+What=debugfs
+Where=/sys/kernel/debug
+Type=debugfs</pre></div><p>这个配置单元文件定义了一个挂载点。挂载配置单元文件有一个[Mount]配置小节，里面配置了 What，Where 和 Type 三个数据项。这都是挂载命令所必须的，例子中的配置等同于下面这个挂载命令：</p><p>mount –t debugfs /sys/kernel/debug debugfs</p><p>配置单元文件的编写需要很多的学习，必须参考 systemd 附带的 man 等文档进行深入学习。希望通过上面几个小例子，大家已经了解配置单元文件的作用和一般写法了。</p><h3 id="N10221">系统管理员</h3><p>systemd 的主要命令行工具是 systemctl。</p><p>多数管理员应该都已经非常熟悉系统服务和 init 系统的管理，比如 service、chkconfig 以及 telinit 命令的使用。systemd 也完成同样的管理任务，只是命令工具 systemctl 的语法有所不同而已，因此用表格来对比 systemctl 和传统的系统管理命令会非常清晰。</p><h5 id="N10232">表 2. Systemd 命令和 sysvinit 命令的对照表</h5><table class="ibm-data-table" summary="" border="0" cellpadding="0" cellspacing="0"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th style="vertical-align: top;">
+Sysvinit 命令
+</th><th style="vertical-align: top;">
+Systemd 命令
+</th><th style="vertical-align: top;">
+备注
+</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td style="vertical-align: top;">
+service foo start
+</td><td style="vertical-align: top;">
+systemctl start foo.service
+</td><td style="vertical-align: top;">
+用来启动一个服务 (并不会重启现有的)
+</td></tr><tr><td style="vertical-align: top;">
+service foo stop
+</td><td style="vertical-align: top;">
+systemctl stop foo.service
+</td><td style="vertical-align: top;">
+用来停止一个服务 (并不会重启现有的)。
+</td></tr><tr><td style="vertical-align: top;">
+service foo restart
+</td><td style="vertical-align: top;">
+systemctl restart foo.service
+</td><td style="vertical-align: top;">
+用来停止并启动一个服务。
+</td></tr><tr><td style="vertical-align: top;">
+service foo reload
+</td><td style="vertical-align: top;">
+systemctl reload foo.service
+</td><td style="vertical-align: top;">
+当支持时，重新装载配置文件而不中断等待操作。
+</td></tr><tr><td style="vertical-align: top;">
+service foo condrestart
+</td><td style="vertical-align: top;">
+systemctl condrestart foo.service
+</td><td style="vertical-align: top;">
+如果服务正在运行那么重启它。
+</td></tr><tr><td style="vertical-align: top;">
+service foo status
+</td><td style="vertical-align: top;">
+systemctl status foo.service
+</td><td style="vertical-align: top;">
+汇报服务是否正在运行。
+</td></tr><tr><td style="vertical-align: top;">
+ls /etc/rc.d/init.d/
+</td><td style="vertical-align: top;">
+systemctl list-unit-files --type=service
+</td><td style="vertical-align: top;">
+用来列出可以启动或停止的服务列表。
+</td></tr><tr><td style="vertical-align: top;">
+chkconfig foo on
+</td><td style="vertical-align: top;">
+systemctl enable foo.service
+</td><td style="vertical-align: top;">
+在下次启动时或满足其他触发条件时设置服务为启用
+</td></tr><tr><td style="vertical-align: top;">
+chkconfig foo off
+</td><td style="vertical-align: top;">
+systemctl disable foo.service
+</td><td style="vertical-align: top;">
+在下次启动时或满足其他触发条件时设置服务为禁用
+</td></tr><tr><td style="vertical-align: top;">
+chkconfig foo
+</td><td style="vertical-align: top;">
+systemctl is-enabled foo.service
+</td><td style="vertical-align: top;">
+用来检查一个服务在当前环境下被配置为启用还是禁用。
+</td></tr><tr><td style="vertical-align: top;">
+chkconfig –list
+</td><td style="vertical-align: top;">
+systemctl list-unit-files --type=service
+</td><td style="vertical-align: top;">
+输出在各个运行级别下服务的启用和禁用情况
+</td></tr><tr><td style="vertical-align: top;">
+chkconfig foo –list
+</td><td style="vertical-align: top;">
+ls /etc/systemd/system/*.wants/foo.service
+</td><td style="vertical-align: top;">
+用来列出该服务在哪些运行级别下启用和禁用。
+</td></tr><tr><td style="vertical-align: top;">
+chkconfig foo –add
+</td><td style="vertical-align: top;">
+systemctl daemon-reload
+</td><td style="vertical-align: top;">
+当您创建新服务文件或者变更设置时使用。
+</td></tr><tr><td style="vertical-align: top;">
+telinit 3
+</td><td style="vertical-align: top;">
+systemctl isolate multi-user.target (OR systemctl isolate runlevel3.target OR telinit 3)
+</td><td style="vertical-align: top;">
+改变至多用户运行级别。
+</td></tr></tbody></table><p>除了表 2 列出的常见用法，系统管理员还需要了解其他一些系统配置和管理任务的改变。</p><p>首先我们了解 systemd 如何处理电源管理，命令如下表所示：</p><a id="OLE_LINK10"></a><a id="OLE_LINK9"></a><h5 id="N102E0">表 3，systemd 电源管理命令</h5><table class="ibm-data-table" summary="" border="0" cellpadding="0" cellspacing="0"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th style="text-align: center; vertical-align: top;">
+命令
+</th><th style="text-align: center; vertical-align: top;">
+操作
+</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td style="vertical-align: top;">
+systemctl reboot   
+</td><td style="vertical-align: top;">
+重启机器
+</td></tr><tr><td style="vertical-align: top;">
+systemctl poweroff
+</td><td style="vertical-align: top;">
+关机
+</td></tr><tr><td style="vertical-align: top;">systemctl suspend
+</td><td style="vertical-align: top;">
+待机
+</td></tr><tr><td style="vertical-align: top;">
+systemctl hibernate
+</td><td style="vertical-align: top;">
+休眠
+</td></tr><tr><td style="vertical-align: top;">
+systemctl hybrid-sleep
+</td><td style="vertical-align: top;">
+混合休眠模式（同时休眠到硬盘并待机）
+</td></tr></tbody></table><p>关机不是每个登录用户在任何情况下都可以执行的，一般只有管理员才可以关机。正常情况下系统不应该允许 SSH 远程登录的用户执行关机命令。否则其他用户正在工作，一个用户把系统关了就不好了。为了解决这个问题，传统的 Linux 系统使用 ConsoleKit 跟踪用户登录情况，并决定是否赋予其关机的权限。现在 ConsoleKit 已经被 systemd 的 logind 所替代。</p><p>logind 不是 pid-1 的 init 进程。它的作用和 UpStart 的 session init 类似，但功能要丰富很多，它能够管理几乎所有用户会话(session)相关的事情。logind 不仅是 ConsoleKit 的替代，它可以：</p><ul class="ibm-bullet-list"><li>维护，跟踪会话和用户登录情况。如上所述，为了决定关机命令是否可行，系统需要了解当前用户登录情况，如果用户从 SSH 登录，不允许其执行关机命令；如果普通用户从本地登录，且该用户是系统中的唯一会话，则允许其执行关机命令；这些判断都需要 logind 维护所有的用户会话和登录情况。</li><li>Logind 也负责统计用户会话是否长时间没有操作，可以执行休眠/关机等相应操作。</li><li>为用户会话的所有进程创建 CGroup。这不仅方便统计所有用户会话的相关进程，也可以实现会话级别的系统资源控制。</li><li>负责电源管理的组合键处理，比如用户按下电源键，将系统切换至睡眠状态。</li><li>多席位(multi-seat) 管理。如今的电脑，即便一台笔记本电脑，也完全可以提供多人同时使用的计算能力。多席位就是一台电脑主机管理多个外设，比如两个屏幕和两个鼠标/键盘。席位一使用屏幕 1 和键盘 1；席位二使用屏幕 2 和键盘 2，但他们都共享一台主机。用户会话可以自由在多个席位之间切换。或者当插入新的键盘，屏幕等物理外设时，自动启动 gdm 用户登录界面等。所有这些都是多席位管理的内容。ConsoleKit 始终没有实现这个功能，systemd 的 logind 能够支持多席位。</li></ul><p>以上描述的这些管理功能仅仅是 systemd 的部分功能，除此之外，systemd 还负责系统其他的管理配置，比如配置网络，Locale 管理，管理系统内核模块加载等，完整地描述它们已经超出了本人的能力。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="5.systemd 小结 |outline">systemd 小结</h2><p>在不才作者看来，作为系统初始化系统，systemd 的最大特点有两个：</p><ul class="ibm-bullet-list"><li>令人惊奇的激进的并发启动能力，极大地提高了系统启动速度；</li><li>用 CGroup 统计跟踪子进程，干净可靠。</li></ul><p>此外，和其前任不同的地方在于，systemd 已经不仅仅是一个初始化系统了。</p><p>Systemd 出色地替代了 sysvinit 的所有功能，但它并未就此自满。因为 init 进程是系统所有进程的父进程这样的特殊性，systemd 非常适合提供曾经由其他服务提供的功能，比如定时任务 (以前由 crond 完成) ；会话管理 (以前由 ConsoleKit/PolKit 等管理) 。仅仅从本文皮毛一样的介绍来看，Systemd 已经管得很多了，可它还在不断发展。它将逐渐成为一个多功能的系统环境，能够处理非常多的系统管理任务，有人甚至将它看作一个操作系统。</p><p>好的一点是，这非常有助于标准化 Linux 的管理！从前，不同的 Linux 发行版各行其事，使用不同方法管理系统，从来也不会互相妥协。比如如何将系统进入休眠状态，不同的系统有不同的解决方案，即便是同一个 Linux 系统，也存在不同的方法，比如一个有趣的讨论：<a href="http://askubuntu.com/questions/1792/how-can-i-suspend-hibernate-from-command-line">如何让 ubuntu 系</a><a href="http://askubuntu.com/questions/1792/how-can-i-suspend-hibernate-from-command-line">统休眠</a>，可以使用底层的/sys/power/state 接口，也可以使用诸如 pm-utility 等高层接口。存在这么多种不同的方法做一件事情对像我这样的普通用户而言可不是件有趣的事情。systemd 提供统一的电源管理命令接口，这件事情的意义就类似全世界的人都说统一的语言，我们再也不需要学习外语了，多么美好！</p><p>如果所有的 Linux 发行版都采纳了 systemd，那么系统管理任务便可以很大程度上实现标准化。此外 systemd 有个很棒的承诺：接口保持稳定，不会再轻易改动。对于软件开发人员来说，这是多么体贴又让人感动的承诺啊！</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="6.结束语 |outline">结束语</h2><p>本系列文章从古老却简明稳定的 sysvinit 说起，接着简要描述了 UpStart 带来的清新改变，最后看到了充满野心和活力的新生代 systemd 系统逐渐统治 Linux 的各个版本。就好像在看我们这个世界，一代人老去，新的一代带着横扫一切的气概登上舞台，还没有喊出他们最有力的口号，更猛的一代已经把聚光灯和所有的目光带走。Systemd 之后也许还有更新的 init 系统出现吧，让我们继续期待。。。</p><!--CMA ID: 977627--><!--Site ID: 10--><!--XSLT stylesheet used to transform this file: dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">参考资料 </h2><h3 class="dw-resources-category-heading">学习</h3><ul class="ibm-bullet-list"><li>网络文章 <a href="http://mtoou.info/hing-systemd/">高速启动，现在开始 systemd</a>，对 systemd 的功能点有很清晰的总结</li><li>Fedora 项目中 <a href="http://fedoraproject.org/wiki/Systemd/zh-cn">关于 systemd 的官方文档</a>，有对 systemd 最详细的描述，也是查询 systemd 细节,man page 等开发信息的较好资料。</li><li>维基百科上 <a href="http://zh.wikipedia.org/zh-cn/Init">init 系统</a>的条目对 init 进程有简略却精确的介绍。</li><li>IBM developerWorks 上的文章 <a href="http://www.ibm.com/developerworks/cn/linux/l-dbus.html">使用 D-BUS 连接桌面应用程序</a>对 D-Bus 有很好的介绍。</li><li>LinuxToy 网站上的文章 <a href="https://linuxtoy.org/archives/systemd-journal.html">systemd journal</a>，详细讲解了 syslogd 的缺点和 systemd 的日志系统。</li><li>在 <a href="http://www.ibm.com/developerworks/cn/linux/">developerWorks Linux 专区</a>寻找为 Linux 开发人员（包括 <a href="http://www.ibm.com/developerworks/cn/linux/newto/">Linux 新手入门</a>）准备的更多参考资料。</li></ul><h3 class="dw-resources-category-heading">讨论</h3><ul class="ibm-bullet-list"><li>加入 <a href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a>。查看开发人员推动的博客、论坛、组和维基，并与其他 developerWorks 用户交流。</li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">条评论</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img style="display: none;" id="imgPlHdr" src="animated-progress-38x38c.gif" alt=""><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect">请 <a href="#">登录</a> 或 <a href="http://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Flinux%2F1407_liuming_init3%2Findex.html%23icomments&amp;lang=cn&amp;a=dwmav">注册</a>  后发表评论。</p><p id="cmtHead"><label for="newCmt"><strong>添加评论:</strong></label></p><p>注意：评论中不支持 HTML 语法</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><span class="ibm-input-group"><input value="1" name="comment_notification" id="comment_notification" disabled="disabled" type="checkbox"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">有新评论时提醒我</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount">剩余 <span id="charCount">1000</span> 字符</span><p class="ibm-buttons-row"><input value="发布" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled" type="button"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style=""><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts">8</span>)</strong></span><span class="dw-how-many-comments-label" style="" id="dropdownCmts"><label for="howManyComments"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option><option value="all">所有评论</option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>非常好的文章，解决了我很多疑问</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/yonguan">yonguan</a></strong>  于 2016年05月12日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%9A%84%E6%96%87%E7%AB%A0%EF%BC%8C%E8%A7%A3%E5%86%B3%E4%BA%86%E6%88%91%E5%BE%88%E5%A4%9A%E7%96%91%E9%97%AE%0D%E7%94%B1%20yonguan%20%20%E4%BA%8E%202016%E5%B9%B405%E6%9C%8812%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>最近在 网上看到Systemd 的作者骂Linux作者，跟Linux社区撕逼</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/lyhabc">lyhabc</a></strong>  于 2016年03月08日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E6%9C%80%E8%BF%91%E5%9C%A8%20%E7%BD%91%E4%B8%8A%E7%9C%8B%E5%88%B0Systemd%20%E7%9A%84%E4%BD%9C%E8%80%85%E9%AA%82Linux%E4%BD%9C%E8%80%85%EF%BC%8C%E8%B7%9FLinux%E7%A4%BE%E5%8C%BA%E6%92%95%E9%80%BC%0D%E7%94%B1%20lyhabc%20%20%E4%BA%8E%202016%E5%B9%B403%E6%9C%8808%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>multi-user.target 相当于在传统使用 SysV 的系统中运行级别 5<br>不是3么</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/leaderone2">leaderone2</a></strong>  于 2015年08月12日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20multi-user.target%20%E7%9B%B8%E5%BD%93%E4%BA%8E%E5%9C%A8%E4%BC%A0%E7%BB%9F%E4%BD%BF%E7%94%A8%20SysV%20%E7%9A%84%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB%205%E4%B8%8D%E6%98%AF3%E4%B9%88%0D%E7%94%B1%20leaderone2%20%20%E4%BA%8E%202015%E5%B9%B408%E6%9C%8812%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>赞!!</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/KWDIWT">KWDIWT</a></strong>  于 2015年04月11日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E8%B5%9E!!%0D%E7%94%B1%20KWDIWT%20%20%E4%BA%8E%202015%E5%B9%B404%E6%9C%8811%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>好文章！</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/jinga50334">jinga50334</a></strong>  于 2014年12月12日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html&amp;mymessage=%E8%AF%84%E8%AE%BA%EF%BC%9A%20%E5%A5%BD%E6%96%87%E7%AB%A0%EF%BC%81%0D%E7%94%B1%20jinga50334%20%20%E4%BA%8E%202014%E5%B9%B412%E6%9C%8812%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts2">8</span>)</strong></span><span class="dw-how-many-comments-label" style="" id="dropdownCmts2"><label for="howManyComments2"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option><option value="all">所有评论</option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+
+ <div class="ibm-title">
+<h2>developerWorks: 登录</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" name="ibm-id" id="ibmid" size="25" value="" class="required" type="text">
+    <br><a href="#" class="ibm-forward-link">需要一个 IBM ID？</a> <br>
+    <a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a> 
+</span>
+</p> 
+<p><label for="password">密码：<span class="ibm-required">*</span></label><span>
+    <input name="password" id="password" size="25" value="" class="required" type="password">
+    <br><a class="ibm-forward-link" href="#">忘记密码？</a>
+    <br><a class="ibm-forward-link" href="#">更改您的密码</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" name="perm_name" type="checkbox"><label for="perm"> 保持登录。</label></span>
+</p>
+<p>单击提交则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>。</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+ <div class="ibm-overlay-rule"><hr></div> 
+
+<p>在您首次登录 developerWorks 时，会为您创建一份个人概要。<strong>您的个人概要中的信息（您的姓名、国家/地区，以及公司名称）是公开显示的，而且会随着您发布的任何内容一起显示，除非您选择隐藏您的公司名称。</strong>您可以随时更新您的 IBM 帐户。</p>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>选择您的昵称</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 
+    您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form id="dFormId" method="post" action="" name="dForm" class="ibm-column-form">
+<p><label for="displayname">昵称：<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" name="displayname" id="displayname" size="25" value="" type="text"></span>
+    <span class="ibm-form-note">(昵称长度在 3 至 31 个字符之间)</span>
+</p>
+<p>单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/"><img src="sm-f-bluemixrobot60.png" alt="IBM Bluemix 资源中心" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/">IBM Bluemix 资源中心</a></h3>
+<p>文章、教程、演示，帮助您构建、部署和管理云应用。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/community/"><img src="sm-f-comcommunity60.png" alt="developerWorks 中文社区" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a></h3>
+<p>立即加入来自 IBM 的专业 IT 社交网络。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://bluemixathon.devpost.com/"><img src="sm-f-bluemixathon60.png" alt="Bluemixathon 挑战赛" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://bluemixathon.devpost.com/">Bluemixathon 挑战赛</a></h3>
+<p>为灾难恢复构建应用，赢取现金大奖。</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Linux</div><div class="metavalue">ArticleID=977627</div><div class="metavalue">ArticleTitle=浅析 Linux 初始化 init 系统，第 3 部分: Systemd</div><div class="metavalue">publish-date=07162014</div><div class="metavalue">url=http://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>
+<!-- LEADSPACE_END -->
+
+
+<!-- END_IBM_PCON -->
+<!-- FOOTER_BEGIN -->
+<div aria-label="页脚" id="ibm-footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1 dw-footer-col-6-1-cn">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/secure/feedback.jsp?domain=dwchina" tabindex="0">帮助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/author/" tabindex="0">联系编辑</a></li>
+				<li><a href="https://www.ibm.com/developerworks/secure/myideas2.jsp?domain=dwchina" tabindex="0">提交内容</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/rss/" tabindex="0">订阅源</a></li>
+			</ul>
+        </div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a class="dwcn-sina-link" href="http://weibo.com/ibmdw/" target="_blank" tabindex="0">新浪微博</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/report?lang=zh" tabindex="0">报告滥用</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms?lang=zh" tabindex="0">使用条款</a></li>
+				<li><a href="https://www.ibm.com/developerworks/cn/community/terms/thirdparty/" tabindex="0">第三方提示</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<ul>
+				<li><a href="http://www.ibm.com/privacy/cn/zh/" tabindex="0">隐私条约</a></li>
+				<li><a href="http://www.ibm.com/ibm/accessibility/cn/" tabindex="0">浏览辅助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/academic/" tabindex="0">IBM 教育学院教育培养计划</a></li><li><a href="http://www.ibm.com/developerworks/cn/gep/">IBM 创业企业全球扶持计划</a></li><li><a href="http://www.ibm.com/partnerworld/isv/">ISV 资源 (英语)</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4"> 
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/cn/newsletter/" tabindex="0">dW 中国每周时事通讯</a></li>
+			</ul>
+			
+		</div>
+		<div class="dw-footer-col-6-5">
+			<ul>
+				<li class="dw-footer-lang-head">选择语言：</li>
+				<li><a href="http://www.ibm.com/developerworks/" tabindex="0">English</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/" tabindex="0" lang="zh">中文</a></li>
+				<li><a href="http://www.ibm.com/developerworks/jp/" tabindex="0" lang="ja">日本語</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ru/" tabindex="0" lang="ru">Русский</a></li>
+				<li><a href="http://www.ibm.com/developerworks/br/" tabindex="0" lang="pt">Português (Brasil)</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ssa/" tabindex="0" lang="es">Español</a></li>
+				<li><a href="http://www.ibm.com/developerworks/vn/" tabindex="0" lang="vi">Việt</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-6">
+			<img alt="IBM®" src="dwn-ibm-logo-v17.png" height="46" width="223">
+			<img class="dw-preload" src="ibm_sprite_social_blue_ON.png" alt="" height="1" width="1">
+		</div>
+	</div>
+</div>
+
+</div><!-- FOOTER_END -->
+
+<!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+
+
+
+
+
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+
+</div>
+
+
+
+<div id="ads"></div></body>
+</html>

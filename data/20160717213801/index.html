@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Linux 下让进程在后台可靠运行的几种方法-系统运维|Linux.中国-开源社区</title>
+ 
+<meta name="keywords" content="Linux 下让进程在后台可靠运行的几种方法">
+<meta name="description" content="想让进程在断开连接后依然保持运行？如果该进程已经开始运行了该如何补救？ 如果有大量这类需求如何简化操作？ ">
+<meta name="copyright" content="2005-2015 Linux.cn">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="referrer" content="always">
+<base href="">
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Linux.中国 - 开源社区 RSS" href="https://linux.cn/rss.xml">
+<link rel="shortcut icon" href="favicon.ico" sizes="32x32">
+<link rel="canonical" href="https://linux.cn/article-7170-1.html">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body id="nv_portal" class="pg_view">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="https://linux.cn/rss.xml" target="_blank">RSS</a><a href="https://linux.cn/tag/">TAG</a><a href="http://e.cn.miaozhen.com/r/k=2022193&amp;p=70nlR&amp;dx=0&amp;rt=2&amp;ns=__IP__&amp;ni=__IESID__&amp;v=__LOC__&amp;o=http://www-03.ibm.com/systems/cn/power/hardware/linux-lc.shtml?S_TACT=C4480D5W&amp;iio=psys&amp;cmp=c4480&amp;ct=c4480d5w&amp;cr=linux%E6%97%B6%E4%BB%A3&amp;cm=b&amp;csot=-&amp;ccy=-&amp;cpb=-&amp;cd=-&amp;cpg=psys&amp;cn=2q1" target="_blank" style="color: blue;">IBM Power Systems LC 服务器</a></div>
+<div class="y">
+<a href="https://linux.cn/aboutus.html">关于我们/aboutus</a><a href="https://linux.cn/business.html">广告合作/AD</a></div>
+</div>
+</div>
+
+
+<div id="hd">
+<div class="wp">
+<div class="hdc cl"><h2 style="padding: 5px 20px 5px 0px;"><a href="https://linux.cn/" title="Linux.中国 - 开源社区"><img src="linuxcn_logo_230x80_ani2.gif" alt="Linux.中国 - 开源社区" border="0"></a></h2><div class="y">
+<form method="post" autocomplete="off" id="lsform" action="https://linux.cn/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes">
+<div style="width: auto;" class="fastlg cl">
+<span id="return_ls" style="display: none;"></span>
+<div class="y pns">
+<table cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td><label for="ls_username">帐号</label></td>
+<td><input name="username" id="ls_username" class="px vm xg1" value="用户名/Email" tabindex="901" type="text"></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" type="checkbox">自动登录</label></td>
+<td>&nbsp;<a>找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password">密码</label></td>
+<td><input name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" type="password"></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904"><em>登录</em></button></td>
+<td>&nbsp;<a href="https://linux.cn/member.php?mod=knight" class="xi2 xw1">骑士注册</a></td>
+</tr>
+</tbody></table>
+<input name="quickforward" value="yes" type="hidden">
+<input name="handlekey" value="ls" type="hidden">
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px;">
+<p><a href="https://linux.cn/connect.php?mod=login&amp;op=init&amp;referer=portal.php%3Fmod%3Dview%26aid%3D7170%26page%3D1%26ref%3D%26utm_source%3Drss%26utm_medium%3Drss&amp;statfrom=login_simple"><img src="qq_login.gif" class="vm" alt="QQ登录"></a></p>
+<p><a href="https://linux.cn/xwb.php?m=xwbAuth.login"><img src="sina_login.gif" class="vm" style="padding: 2px 0px;" alt="微博登录"></a></p>
+</div>
+
+
+</div>
+</form>
+
+
+</div>
+<h2 style="padding: 5px 20px; float: right;">
+<div class="linuxcnad">
+    </div>
+</h2>
+</div>
+<div class="p_pop h_pop" id="mn_userapp_menu" style="display: none;"></div><div id="topmenu_wrapper">
+<div id="topmenu">
+<div id="nv">
+<ul><li id="mn_N6666"><a href="https://linux.cn/" hidefocus="true" style="font-weight: bold;">首页</a></li><li id="mn_P3"><a href="https://linux.cn/tech/" hidefocus="true" style="color: rgb(255, 250, 229);">技术 ◆ 学习</a></li><li id="mn_P1"><a href="https://linux.cn/news/" hidefocus="true" style="color: rgb(255, 250, 229);">新闻 ◆ 快讯</a></li><li id="mn_P4"><a href="https://linux.cn/talk/" hidefocus="true" style="color: rgb(255, 250, 229);">观点 ◆ 热议</a></li><li initialized="true" id="mn_P8"><a href="https://linux.cn/share/" hidefocus="true" style="color: rgb(255, 250, 229);">软件 ◆ 分享</a></li><li id="mn_N9be8"><a href="https://linux.cn/forum/" hidefocus="true" target="_blank" style="color: cyan;">论坛</a></li><li id="mn_Ne749"><a href="https://linux.cn/forum.php?mod=post&amp;action=newthread&amp;fid=119" hidefocus="true" target="_blank" style="color: red;">投稿</a></li></ul>
+</div>
+<div id="mu" class="cl">
+<ul class="cl " id="snav_mn_P3" style="display: none;">
+<li><a href="https://linux.cn/tech/desktop/" hidefocus="true">桌面应用</a></li><li><a href="https://linux.cn/tech/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/tech/program/" hidefocus="true">软件开发</a></li></ul>
+<ul initialized="true" class="cl floatmu" id="snav_mn_P8" style="position: absolute; z-index: 301; display: none;">
+<li><a class=" hidefocus" href="https://linux.cn/share/distro/" hidefocus="true">Linux 发行版</a></li></ul>
+<ul class="cl " id="snav_mn_N9be8" style="display: none;">
+<li><a href="https://linux.cn/thread/" hidefocus="true" style="color: blue;">全部话题</a></li><li><a hidefocus="true" style="color: red;">发新帖</a></li><li><a hidefocus="true">|</a></li><li><a href="https://linux.cn/forum/news/" hidefocus="true">新闻杂谈</a></li><li><a href="https://linux.cn/forum/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/forum/program/" hidefocus="true">编程开发</a></li></ul>
+<ul class="cl " id="snav_mn_N39f5" style="display: none;">
+<li><a href="https://linux.cn/space.php" hidefocus="true">首页</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=home" hidefocus="true">动态</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=doing" hidefocus="true">记录</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=blog" hidefocus="true">博客</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=album" hidefocus="true">相册</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=favorite" hidefocus="true">收藏</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=friend" hidefocus="true">好友</a></li><li><a href="https://linux.cn/home.php?mod=spacecp&amp;ac=invite" hidefocus="true">邀请</a></li></ul>
+<ul class="cl " id="snav_mn_userapp" style="display: none;">
+</ul>
+</div></div>
+</div>
+<div id="scbar" class="cl">
+<form id="scbar_form" method="post" autocomplete="off" action="https://linux.cn/search.php?searchsubmit=yes" target="_blank">
+<input name="mod" id="scbar_mod" value="search" type="hidden">
+<input name="formhash" value="110c1860" type="hidden">
+<input name="srchtype" value="title" type="hidden">
+<input name="srhfid" value="0" type="hidden">
+<input name="srhlocality" value="portal::view" type="hidden">
+<table id="scbar_table" style="float: right;" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input placeholder="请注册后再搜索" class=" xg1" name="srchtxt" id="scbar_txt" value="请注册后再搜索" autocomplete="off" speech="" type="text"></td>
+<td class="scbar_type_td"><a id="scbar_type" class="xg1" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+</div>
+</td>
+</tr>
+</tbody></table>
+</form>
+<span class="z titletext" style="padding: 0px 10px 0px 20px;">❏ <a href="http://locez.com/" target="_blank">Locez</a> 新手指南：</span>
+<ul class="cl mutag z">
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-4130-1.html">下载 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-5893-1.html">安装 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6042-1.html">安装软件 »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6160-1.html">基础命令 »</a></li>
+
+</ul>
+</div>
+<br class="clear">
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a rel="search">全站</a></li></ul>
+
+
+
+</div>
+</div>
+<div id="wp" class="wp">
+<!--[name]!portalcategory_viewtplname![/name]-->
+
+
+
+
+<div class="linuxcnad">
+    </div>
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="https://linux.cn/" class="nvhm" title="首页">Linux.中国 - 开源社区</a> <em>›</em><a href="https://linux.cn/tech/">技术 ◆ 学习</a><em>›</em>
+<a href="https://linux.cn/tech/sa/">系统运维</a> <em>›</em>
+查看内容
+</div>
+</div>
+
+<div class="linuxcnad"></div>
+
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+<div id="ct" class="ct2 wp cl">
+<div class="mn">
+<div class="linuxcnad">
+    </div>
+<div class="vw">
+<div class="h hm">
+<h1 class="ph" id="article_title">Linux 下让进程在后台可靠运行的几种方法 </h1>
+</div>
+<div class="h">
+<p class="copyright">
+    	 
+    		    			    			<span class="z textcut">转载自：LinuxProbe <a href="http://www.linuxprobe.com/process-run-background/" target="_blank">http://www.linuxprobe.com/process-run-background/</a></span>
+    			    		    		<span class="y">作者： 岳国帅</span>    		<br class="clear">
+    	    	    	<span class="z">本文地址：<a href="https://linux.cn/article-7170-1.html">https://linux.cn/article-7170-1.html</a></span>
+    	<span class="y"><a href="https://linux.cn/article-7170-1.html?pr" class="print" title="打印"></a></span>
+    	<br class="clear">
+    	</p>
+<p class="xg1">
+2016-3-31 08:38&nbsp;&nbsp;&nbsp;
+评论: <a href="https://linux.cn/portal.php?mod=comment&amp;id=7170&amp;idtype=aid" title="查看全部评论"><em id="_commentnum">6</em></a>&nbsp;收藏: <em id="_favtimes">10</em>&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+</div>
+
+<!--[diy=diysummarytop]--><div id="diysummarytop" class="area"></div><!--[/diy]-->
+
+
+<!--[diy=diysummarybottom]--><div id="diysummarybottom" class="area"></div><!--[/diy]-->
+
+<div class="d">
+
+<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
+
+<div id="article_content">
+<div class="linuxcnad"></div>
+<blockquote>
+<p>想让进程在断开连接后依然保持运行？如果该进程已经开始运行了该如何补救？ 如果有大量这类需求如何简化操作？</p>
+</blockquote>
+<p>我们经常会碰到这样的问题，用 telnet/ssh&nbsp;登录了远程的 Linux 服务器，运行了一些耗时较长的任务， 结果却由于网络的不稳定导致任务中途失败。如何让命令提交后不受本地关闭终端窗口、网络断开连接的干扰呢？</p>
+<p><img src="222030pcqd0tyr1qqnjqat.jpg" alt=""></p>
+<p>下面举了一些例子， 您可以针对不同的场景选择不同的方式来处理这个问题。</p>
+<h3><strong>nohup/setsid/&amp;&nbsp;</strong><strong>场景</strong></h3>
+<p>如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定运行呢？</p>
+<p>我们知道，当用户<ruby>注销<rp>（</rp><rt>logout</rt><rp>）</rp></ruby>或者网络断开时，终端会收到 HUP（hangup）信号从而关闭其所有子进程。因此，我们的解决办法就有两种途径：要么让进程忽略 HUP 信号，要么让进程运行在新的会话里从而成为不属于此终端的子进程。</p>
+<a id="4_1261" class="target-fix"></a><h4><strong>1. nohup</strong></h4>
+<p>nohup 无疑是我们首先想到的办法。顾名思义，nohup 的用途就是让提交的命令忽略 hangup 信号。</p>
+<p>nohup 的使用是十分方便的，只需在要处理的命令前加上 nohup 即可，标准输出和标准错误缺省会被重定向到 nohup.out 文件中。一般我们可在结尾加上"<code>&amp;</code>"来将命令同时放入后台运行，也可用"<code>&gt;filename 2&gt;&amp;1</code>"来更改缺省的重定向文件名。</p>
+<p>nohup 示例</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">nohup</span><span class="pln"> </span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com </span><span class="pun">&amp;</span></code></li><li class="L1"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="lit">3059</span></code></li><li class="L2"><code><span class="kwd">nohup</span><span class="pun">:</span><span class="pln"> appending output to </span><span class="str">`nohup.out'</span></code></li><li class="L3"><code><span class="str">[root@pvcent107 ~]# ps -ef |grep 3059</span></code></li><li class="L4"><code><span class="str">root      3059   984  0 21:06 pts/3    00:00:00 ping www.ibm.com</span></code></li><li class="L5"><code><span class="str">root      3067   984  0 21:06 pts/3    00:00:00 grep 3059</span></code></li><li class="L6"><code><span class="str">[root@pvcent107 ~]#</span></code></li></ol></pre>
+<a id="4_2136" class="target-fix"></a><h4><strong>2.setsid</strong></h4>
+<p>nohup 无疑能通过忽略 HUP 信号来使我们的进程避免中途被中断，但如果我们换个角度思考，如果我们的进程不属于接受 HUP 信号的终端的子进程，那么自然也就不会受到 HUP 信号的影响了。setsid 就能帮助我们做到这一点。</p>
+<p>setsid 的使用也是非常方便的，也只需在要处理的命令前加上 setsid 即可。</p>
+<p>setsid 示例</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">setsid</span><span class="pln"> </span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L1"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">ps</span><span class="pln"> </span><span class="pun">-</span><span class="pln">ef </span><span class="pun">|</span><span class="kwd">grep</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L2"><code><span class="pln">root     </span><span class="lit">31094</span><span class="pln">     </span><span class="lit">1</span><span class="pln">  </span><span class="lit">0</span><span class="pln"> </span><span class="lit">07</span><span class="pun">:</span><span class="lit">28</span><span class="pln"> </span><span class="pun">?</span><span class="pln">        </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L3"><code><span class="pln">root     </span><span class="lit">31102</span><span class="pln"> </span><span class="lit">29217</span><span class="pln">  </span><span class="lit">0</span><span class="pln"> </span><span class="lit">07</span><span class="pun">:</span><span class="lit">29</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">4</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L4"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span></code></li></ol></pre>
+<p>值得注意的是，上例中我们的进程 ID(PID)为31094，而它的父 ID（PPID）为1（即为 init 进程 ID），并不是当前终端的进程 ID。请将此例与nohup 例中的父 ID 做比较。</p>
+<h4><strong>3.&amp;</strong></h4>
+<p>这里还有一个关于 subshell 的小技巧。我们知道，将一个或多个命名包含在“()”中就能让这些命令在子 shell 中运行中，从而扩展出很多有趣的功能，我们现在要讨论的就是其中之一。</p>
+<p>当我们将"&amp;"也放入“()”内之后，我们就会发现所提交的作业并不在作业列表中，也就是说，是无法通过jobs来查看的。让我们来看看为什么这样就能躲过 HUP 信号的影响吧。</p>
+<p>subshell 示例</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com </span><span class="pun">&amp;)</span></code></li><li class="L1"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">ps</span><span class="pln"> </span><span class="pun">-</span><span class="pln">ef </span><span class="pun">|</span><span class="kwd">grep</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L2"><code><span class="pln">root     </span><span class="lit">16270</span><span class="pln">     </span><span class="lit">1</span><span class="pln">  </span><span class="lit">0</span><span class="pln"> </span><span class="lit">14</span><span class="pun">:</span><span class="lit">13</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">4</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L3"><code><span class="pln">root     </span><span class="lit">16278</span><span class="pln"> </span><span class="lit">15362</span><span class="pln">  </span><span class="lit">0</span><span class="pln"> </span><span class="lit">14</span><span class="pun">:</span><span class="lit">13</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">4</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L4"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span></code></li></ol></pre>
+<p>从上例中可以看出，新提交的进程的父 ID（PPID）为1（init 进程的 PID），并不是当前终端的进程 ID。因此并不属于当前终端的子进程，从而也就不会受到当前终端的 HUP 信号的影响了。</p>
+<a id="3_4228" class="target-fix"></a><h3><strong>disown</strong></h3>
+<p>我们已经知道，如果事先在命令前加上 nohup 或者 setsid 就可以避免 HUP 信号的影响。但是如果我们未加任何处理就已经提交了命令，该如何补救才能让它避免 HUP 信号的影响呢？</p>
+<p>这时想加 nohup 或者 setsid 已经为时已晚，只能通过作业调度和 disown 来解决这个问题了。</p>
+<p>我们可以用如下方式来达成我们的目的。</p>
+<a id="4_4691" class="target-fix"></a><h4>灵活运用 CTRL-z</h4>
+<p>在我们的日常工作中，我们可以用 CTRL-z 来将当前进程挂起到后台暂停运行，执行一些别的操作，然后再用 fg 来将挂起的进程重新放回前台（也可用 bg 来将挂起的进程放在后台）继续运行。这样我们就可以在一个终端内灵活切换运行多个任务，这一点在调试代码时尤为有用。因为将代码编辑器挂起到后台再重新放回时，光标定位仍然停留在上次挂起时的位置，避免了重新定位的麻烦。</p>
+<ul>
+<li>用disown -h jobspec来使某个作业忽略HUP信号。</li>
+<li>用disown -ah 来使所有的作业都忽略HUP信号。</li>
+<li>用disown -rh 来使正在运行的作业忽略HUP信号。</li>
+</ul>
+<p>需要注意的是，当使用过 disown 之后，会将把目标作业从作业列表中移除，我们将不能再使用jobs来查看它，但是依然能够用ps -ef查找到它。</p>
+<p>但是还有一个问题，这种方法的操作对象是作业，如果我们在运行命令时在结尾加了"&amp;"来使它成为一个作业并在后台运行，那么就万事大吉了，我们可以通过jobs命令来得到所有作业的列表。</p>
+<p>但是如果并没有把当前命令作为作业来运行，如何才能得到它的作业号呢？答案就是用 CTRL-z（按住Ctrl键的同时按住z键）了！</p>
+<p>CTRL-z 的用途就是将当前进程<ruby>挂起<rp>（</rp><rt>Suspend</rt><rp>）</rp></ruby>，然后我们就可以用jobs命令来查询它的作业号，再用bg jobspec来将它放入后台并继续运行。</p>
+<p>需要注意的是，如果挂起会影响当前进程的运行结果，请慎用此方法。</p>
+<p>disown 示例1（如果提交命令时已经用“&amp;”将命令放入后台运行，则可以直接使用“disown”）</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile </span><span class="pun">&amp;</span></code></li><li class="L1"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="lit">4825</span></code></li><li class="L2"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> jobs</span></code></li><li class="L3"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]+</span><span class="pln">  </span><span class="typ">Running</span><span class="pln">                 </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile </span><span class="pun">&amp;</span></code></li><li class="L4"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> disown </span><span class="pun">-</span><span class="pln">h </span><span class="pun">%</span><span class="lit">1</span></code></li><li class="L5"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> </span><span class="kwd">ps</span><span class="pln"> </span><span class="pun">-</span><span class="pln">ef </span><span class="pun">|</span><span class="kwd">grep</span><span class="pln"> largeFile</span></code></li><li class="L6"><code><span class="pln">root      </span><span class="lit">4825</span><span class="pln">   </span><span class="lit">968</span><span class="pln">  </span><span class="lit">1</span><span class="pln"> </span><span class="lit">09</span><span class="pun">:</span><span class="lit">46</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">4</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile</span></code></li><li class="L7"><code><span class="pln">root      </span><span class="lit">4853</span><span class="pln">   </span><span class="lit">968</span><span class="pln">  </span><span class="lit">0</span><span class="pln"> </span><span class="lit">09</span><span class="pun">:</span><span class="lit">46</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">4</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> largeFile</span></code></li><li class="L8"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> logout</span></code></li></ol></pre>
+<p>disown 示例2（如果提交命令时未使用“&amp;”将命令放入后台运行，可使用 CTRL-z 和“bg”将其放入后台，再使用“disown”）</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile2</span></code></li><li class="L1"><code></code></li><li class="L2"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]+</span><span class="pln">  </span><span class="typ">Stopped</span><span class="pln">                 </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile2</span></code></li><li class="L3"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> bg </span><span class="pun">%</span><span class="lit">1</span></code></li><li class="L4"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]+</span><span class="pln"> </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile2 </span><span class="pun">&amp;</span></code></li><li class="L5"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> jobs</span></code></li><li class="L6"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]+</span><span class="pln">  </span><span class="typ">Running</span><span class="pln">                 </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile2 </span><span class="pun">&amp;</span></code></li><li class="L7"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> disown </span><span class="pun">-</span><span class="pln">h </span><span class="pun">%</span><span class="lit">1</span></code></li><li class="L8"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span><span class="pln"> </span><span class="kwd">ps</span><span class="pln"> </span><span class="pun">-</span><span class="pln">ef </span><span class="pun">|</span><span class="kwd">grep</span><span class="pln"> largeFile2</span></code></li><li class="L9"><code><span class="pln">root      </span><span class="lit">5790</span><span class="pln">  </span><span class="lit">5577</span><span class="pln">  </span><span class="lit">1</span><span class="pln"> </span><span class="lit">10</span><span class="pun">:</span><span class="lit">04</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">3</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">cp</span><span class="pln"> </span><span class="pun">-</span><span class="pln">i </span><span class="pun">-</span><span class="pln">r testLargeFile largeFile2</span></code></li><li class="L0"><code><span class="pln">root      </span><span class="lit">5824</span><span class="pln">  </span><span class="lit">5577</span><span class="pln">  </span><span class="lit">0</span><span class="pln"> </span><span class="lit">10</span><span class="pun">:</span><span class="lit">05</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">3</span><span class="pln">    </span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> largeFile2</span></code></li><li class="L1"><code><span class="pun">[</span><span class="pln">root@pvcent107 build</span><span class="pun">]#</span></code></li></ol></pre>
+<a id="3_7862" class="target-fix"></a><h3><strong>screen</strong></h3>
+<p>我们已经知道了如何让进程免受 HUP 信号的影响，但是如果有大量这种命令需要在稳定的后台里运行，如何避免对每条命令都做这样的操作呢？</p>
+<p>此时最方便的方法就是 screen 了。简单的说，screen 提供了 ANSI/VT100 的终端模拟器，使它能够在一个真实终端下运行多个全屏的伪终端。screen 的参数很多，具有很强大的功能，我们在此仅介绍其常用功能以及简要分析一下为什么使用 screen 能够避免 HUP 信号的影响。</p>
+<p>使用 screen 很方便，有以下几个常用选项：</p>
+<ul>
+<li>用screen -dmS session name来建立一个处于断开模式下的会话（并指定其会话名）。</li>
+<li>用screen -list 来列出所有会话。</li>
+<li>用screen -r session name来重新连接指定会话。</li>
+<li>用快捷键CTRL-a d 来暂时断开当前会话。</li>
+</ul>
+<p>screen 示例</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">screen</span><span class="pln"> </span><span class="pun">-</span><span class="pln">dmS </span><span class="typ">Urumchi</span></code></li><li class="L1"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">screen</span><span class="pln"> </span><span class="pun">-</span><span class="kwd">list</span></code></li><li class="L2"><code><span class="typ">There</span><span class="pln"> </span><span class="kwd">is</span><span class="pln"> a </span><span class="kwd">screen</span><span class="pln"> on</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">        </span><span class="lit">12842.Urumchi</span><span class="pln">   </span><span class="pun">(</span><span class="typ">Detached</span><span class="pun">)</span></code></li><li class="L4"><code><span class="lit">1</span><span class="pln"> </span><span class="typ">Socket</span><span class="pln"> </span><span class="kwd">in</span><span class="pln"> </span><span class="pun">/</span><span class="pln">tmp</span><span class="pun">/</span><span class="pln">screens</span><span class="pun">/</span><span class="pln">S</span><span class="pun">-</span><span class="pln">root</span><span class="pun">.</span></code></li><li class="L5"><code></code></li><li class="L6"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">screen</span><span class="pln"> </span><span class="pun">-</span><span class="pln">r </span><span class="typ">Urumchi</span></code></li></ol></pre>
+<p>当我们用“-r”连接到 screen 会话后，我们就可以在这个伪终端里面为所欲为，再也不用担心 HUP 信号会对我们的进程造成影响，也不用给每个命令前都加上“nohup”或者“setsid”了。这是为什么呢？让我来看一下下面两个例子吧。</p>
+<p>1. 未使用 screen 时新进程的进程树</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">google</span><span class="pun">.</span><span class="pln">com </span><span class="pun">&amp;</span></code></li><li class="L1"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="lit">9499</span></code></li><li class="L2"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">pstree</span><span class="pln"> </span><span class="pun">-</span><span class="pln">H </span><span class="lit">9499</span></code></li><li class="L3"><code><span class="kwd">init</span><span class="pun">─┬─</span><span class="typ">Xvnc</span></code></li><li class="L4"><code><span class="pln">     </span><span class="pun">├─</span><span class="pln">acpid</span></code></li><li class="L5"><code><span class="pln">     </span><span class="pun">├─</span><span class="pln">atd</span></code></li><li class="L6"><code><span class="pln">     </span><span class="pun">├─</span><span class="lit">2</span><span class="pun">*[</span><span class="pln">sendmail</span><span class="pun">]	</span></code></li><li class="L7"><code><span class="pun">     ├─</span><span class="kwd">sshd</span><span class="pun">─┬─</span><span class="kwd">sshd</span><span class="pun">───</span><span class="kwd">bash</span><span class="pun">───</span><span class="kwd">pstree</span></code></li><li class="L8"><code><span class="pln">     </span><span class="pun">│</span><span class="pln">       </span><span class="pun">└─</span><span class="kwd">sshd</span><span class="pun">───</span><span class="kwd">bash</span><span class="pun">───</span><span class="kwd">ping</span></code></li></ol></pre>
+<p>我们可以看出，未使用 screen 时我们所处的 bash 是 sshd 的子进程，当 ssh 断开连接时，HUP 信号自然会影响到它下面的所有子进程（包括我们新建立的 ping 进程）。</p>
+<p>2. 使用了 screen 后新进程的进程树</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">screen</span><span class="pln"> </span><span class="pun">-</span><span class="pln">r </span><span class="typ">Urumchi</span></code></li><li class="L1"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">ping</span><span class="pln"> www</span><span class="pun">.</span><span class="pln">ibm</span><span class="pun">.</span><span class="pln">com </span><span class="pun">&amp;</span></code></li><li class="L2"><code><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="lit">9488</span></code></li><li class="L3"><code><span class="pun">[</span><span class="pln">root@pvcent107 </span><span class="pun">~]#</span><span class="pln"> </span><span class="kwd">pstree</span><span class="pln"> </span><span class="pun">-</span><span class="pln">H </span><span class="lit">9488</span></code></li><li class="L4"><code><span class="kwd">init</span><span class="pun">─┬─</span><span class="typ">Xvnc</span></code></li><li class="L5"><code><span class="pln">     </span><span class="pun">├─</span><span class="pln">acpid</span></code></li><li class="L6"><code><span class="pln">     </span><span class="pun">├─</span><span class="pln">atd</span></code></li><li class="L7"><code><span class="pln">     </span><span class="pun">├─</span><span class="kwd">screen</span><span class="pun">───</span><span class="kwd">bash</span><span class="pun">───</span><span class="kwd">ping</span></code></li><li class="L8"><code><span class="pln">     </span><span class="pun">├─</span><span class="lit">2</span><span class="pun">*[</span><span class="pln">sendmail</span><span class="pun">]</span></code></li></ol></pre>
+<p>而使用了 screen 后就不同了，此时 bash 是 screen 的子进程，而 screen 是 init（PID为1）的子进程。那么当 ssh 断开连接时，HUP 信号自然不会影响到 screen 下面的子进程了。</p>
+<a id="3_10639" class="target-fix"></a><h3><strong>总结</strong></h3>
+<p>现在几种方法已经介绍完毕，我们可以根据不同的场景来选择不同的方案。nohup/setsid 无疑是临时需要时最方便的方法，disown 能帮助我们来事后补救当前已经在运行了的作业，而 screen 则是在大批量操作时不二的选择了。</p>
+</div>
+</div>
+<div class="b">
+<div class="hm">
+<a title="分享到新浪微博" class="tsina_large"></a>
+<a class="weixin_large"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7170&amp;handlekey=favoritearticlehk_7170" id="a_favorite" class="fav_large"></a>
+</div>
+<p class="copyright">
+    	 
+    		    			    			<span class="z textcut">转载自：LinuxProbe <a href="http://www.linuxprobe.com/process-run-background/" target="_blank">http://www.linuxprobe.com/process-run-background/</a></span>
+    			    		    		<span class="y">作者： 岳国帅</span>    		<br class="clear">
+    	    	    	<br>
+    	<span style="color: red;">本文为转载，如需再次转载，请查看源站 “<a href="http://www.linuxprobe.com/" target="_blank">LinuxProbe</a>” 的要求。如果我们的工作有侵犯到您的权益，请及时联系我们。</span>
+    		<br class="clear">
+    	    	<span>文章仅代表作者的知识和看法，如有不同观点，请楼下排队<a>吐槽</a> :D</span>
+    	<br class="clear">
+</p>
+
+
+<div class="linuxcnad"></div>
+<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+
+<div id="click_div"><table class="atd" cellpadding="0" cellspacing="0">
+<tbody><tr></tr>
+</tbody></table>
+
+
+</div>
+
+<!--[diy=diycontentclickbottom]--><div id="diycontentclickbottom" class="area"></div><!--[/diy]-->
+
+
+<div class="o cl ptm pbm">
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=share&amp;type=article&amp;id=7170&amp;handlekey=sharearticlehk_7170" id="a_share" title="站内分享" class="siteshare z"></a>
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7170&amp;handlekey=favoritearticlehk_7170" id="a_favorite" class="favorite z" title="收藏"></a>
+<a href="https://linux.cn/misc.php?mod=invite&amp;action=article&amp;id=7170" id="a_invite" class="invite z" title="邀请"></a>
+<a href="https://linux.cn/article-7170-1.html?pr" class="print z" title="打印"></a>
+				
+</div>
+<div class="pren pbm cl">
+<em>上一篇：<a href="https://linux.cn/article-7169-1.html">使用 unbound 在 RHEL7 上搭建 DNS 服务</a></em><em>下一篇：<a href="https://linux.cn/article-7192-1.html">游戏运维编年史：可能是目前最详细游戏运维指南</a></em></div>
+</div>
+</div>
+
+<!--[diy=diycontentrelatetop]--><div id="diycontentrelatetop" class="area"></div><!--[/diy]-->
+
+<!--[diy=diycontentrelate]--><div id="diycontentrelate" class="area"></div><!--[/diy]-->
+
+<div style="margin-right: 15px;">
+<div id="add_comment" class="bm">
+<div class="bm_h cl">
+<h3>发表评论</h3>
+</div>
+<div class="bm_c pbn">
+<form id="cform" name="cform" action="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment" method="post" autocomplete="off">
+<div class="tedt">
+<div class="area">
+<textarea name="message" rows="10" class="pt" id="message"></textarea>
+</div>
+</div>
+
+<div class="mtm z"><span id="seccode_cSl4JnSO"><input name="seccodehash" value="cSl4JnSO" type="hidden"><input name="seccodemodid" value="portal::view" type="hidden">验证码 <span id="seccodecSl4JnSO"><input name="seccodeverify" id="seccodeverify_cSl4JnSO" autocomplete="off" style="ime-mode: disabled; width: 100px;" class="txt px vm" type="text"> <a class="xi2">换一个</a><span id="checkseccodeverify_cSl4JnSO"><img id="checksec_none_cSl4JnSO" src="none.gif" class="vm" height="16" width="16"></span></span><div id="seccodecSl4JnSO_menu" class="p_pop p_opt" style="display: none;"><span id="vseccode_cSl4JnSO">输入下图中的字符<br><img src="misc.php" class="vm" alt="" height="40" width="100"></span></div></span>		
+
+
+</div>
+<input name="portal_referer" value="https://linux.cn/article-7170-1.html#comment" type="hidden">
+<input name="referer" value="https://linux.cn/article-7170-1.html#comment" type="hidden">
+<input name="id" value="0" type="hidden">
+<input name="idtype" value="" type="hidden">
+<input name="aid" value="7170" type="hidden">
+<input id="reppid" name="reppid" value="" type="hidden">
+<input name="formhash" value="110c1860" type="hidden">
+<input name="replysubmit" value="true" type="hidden">
+<input name="commentsubmit" value="true" type="hidden">
+<p class="mtm z"><button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="pn"><strong>评论</strong></button></p>
+<br class="clear">
+</form>
+</div>
+</div>
+</div>
+<div id="comment" class="bm" style="margin-right: 15px;">
+<div class="bm_h cl">
+<h3 class="z"><a name="comment"></a>最新评论</h3>
+<h3 class="y"><a class="y" style="color: rgb(204, 0, 0);">我也要发表评论</a></h3>
+</div>
+<div id="comment_ul" class="bm_c"><a name="comment_anchor_40497"></a>
+<dl id="comment_40497_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/26206/" class="xi2 xw1 vm" c="1" target="_blank">alpha [Firefox 46.0|Windows 7]</a>
+<span class="xg1 xw0 vm">2016-5-31 15:24</span>
+</dt>
+<dd>
+好文章！收藏！！</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=40497&amp;hash=110c1860">赞 <span id="review_support_40497"></span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(40497, '7170');">回复</a> --><a id="reply_40497" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=40497&amp;aid=7170&amp;idtype=">回复</a> </span>
+</dd>
+</dl><a name="comment_anchor_39470"></a>
+<dl id="comment_39470_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/13096/" class="xi2 xw1 vm" c="1" target="_blank">西风冷香 [Chrome 49.0|GNU/Linux]</a>
+<span class="xg1 xw0 vm">2016-4-3 17:41</span>
+</dt>
+<dd>
+在 zsh 下直接用 &amp;! 或者 &amp;| 不用 disown 也可以</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39470&amp;hash=110c1860">赞 <span id="review_support_39470">2</span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(39470, '7170');">回复</a> --><a id="reply_39470" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=39470&amp;aid=7170&amp;idtype=">回复</a> </span>
+</dd>
+</dl><a name="comment_anchor_39460"></a>
+<dl id="comment_39460_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/3304/" class="xi2 xw1 vm" c="1" target="_blank">绿色圣光 [Firefox 45.0|GNU/Linux]</a>
+<span class="xg1 xw0 vm">2016-4-3 00:33</span>
+</dt>
+<dd>
+实用！</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39460&amp;hash=110c1860">赞 <span id="review_support_39460"></span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(39460, '7170');">回复</a> --><a id="reply_39460" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=39460&amp;aid=7170&amp;idtype=">回复</a> </span>
+</dd>
+</dl><a name="comment_anchor_39417"></a>
+<dl id="comment_39417_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/19989/" class="xi2 xw1 vm" c="1" target="_blank">ryt [Chrome 49.0|GNU/Linux]</a>
+<span class="xg1 xw0 vm">2016-4-1 10:16</span>
+</dt>
+<dd>
+向大家请教一个问题:&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<br>
+我使用ssh远程登录到VPS,在VPS中执行下面的命令:&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<br>
+$ ping www.baidu.com &amp;<br>
+然后断开与VPS的连接，之后再次使用ssh远程登录到VPS,执行下面的命令:<br>
+$ ps -C ping<br>
+会发现 ping 命令依然在运行，并没有因为上次的连接断开而终止，这是怎么回事呢？为什么没有使用 nohup 依然会继续运行？</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39417&amp;hash=110c1860">赞 <span id="review_support_39417"></span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(39417, '7170');">回复</a> --><a id="reply_39417" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=39417&amp;aid=7170&amp;idtype=">回复</a> </span>
+</dd>
+</dl><a name="comment_anchor_39412"></a>
+<dl id="comment_39412_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/19989/" class="xi2 xw1 vm" c="1" target="_blank">ryt [Chrome 49.0|GNU/Linux]</a>
+<span class="xg1 xw0 vm">2016-4-1 07:53</span>
+</dt>
+<dd>
+好文章。</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39412&amp;hash=110c1860">赞 <span id="review_support_39412"></span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(39412, '7170');">回复</a> --><a id="reply_39412" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=39412&amp;aid=7170&amp;idtype=">回复</a> </span>
+</dd>
+</dl><a name="comment_anchor_39388"></a>
+<dl id="comment_39388_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/15424/" class="xi2 xw1 vm" c="1" target="_blank">kashu [Chromium 49.0|Ubuntu]</a>
+<span class="xg1 xw0 vm">2016-3-31 12:00</span>
+</dt>
+<dd>
+nohup&nbsp; &nbsp;&amp;&nbsp; &nbsp;我已经用惯了<br>
+其它几个，得记一下，尤其是disown，我觉得我肯定用得上。文章挺好，感谢分享</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39388&amp;hash=110c1860">赞 <span id="review_support_39388">1</span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(39388, '7170');">回复</a> --><a id="reply_39388" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=39388&amp;aid=7170&amp;idtype=">回复</a> </span>
+</dd>
+</dl><div class="ptm pbm cl">
+</div>
+</div>
+</div>
+
+<!--[diy=diycontentcomment]--><div id="diycontentcomment" class="area"></div><!--[/diy]-->
+</div>
+<div class="sd pph">
+
+
+<div class="drag">
+<!--[diy=diyrighttop]--><div id="diyrighttop" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="linuxcnad">
+    </div>
+<div class="linuxcnad">
+    </div>
+
+<!--热门评论-->
+<div id="hot_comment" class="bm">
+<div class="bm_h cl">
+<h2>热点评论</h2>
+</div>
+<div class="bm_c">
+<div class="xl cl"><dl class="ptm pbm bbda cl">
+<dt class="mbm">
+<a class="xi2 xw1 vm" href="https://linux.cn/">西风冷香 [Chrome 49.0|GNU/Linux]</a>
+<span class="xg1 xw0 vm">2016-4-3 17:41</span>
+</dt>
+<dd>在 zsh 下直接用 &amp;! 或者 &amp;| 不用 disown 也可以</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/forum.php?mod=misc&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39470&amp;hash=110c1860">赞 <span name="review_support_rep_39470">2</span></a> 
+</span>
+</dd>
+</dl>
+<dl class="ptm pbm bbda cl">
+<dt class="mbm">
+<a class="xi2 xw1 vm" href="https://linux.cn/">kashu [Chromium 49.0|Ubuntu]</a>
+<span class="xg1 xw0 vm">2016-3-31 12:00</span>
+</dt>
+<dd>nohup&nbsp; &nbsp;&amp;&nbsp; &nbsp;我已经用惯了<br>
+其它几个，得记一下，尤其是disown，我觉得我肯定用得上。文章挺好，感谢分享</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/forum.php?mod=misc&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7170&amp;pid=39388&amp;hash=110c1860">赞 <span name="review_support_rep_39388">1</span></a> 
+</span>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div class="linuxcnad"></div>
+
+<div id="right_affix" style="width: 350px;">
+<div class="linuxcnad">
+    </div>
+<div id="inner_nav" class="bm">
+<div class="bm_h cl">
+<h3>本文导航</h3>
+</div>
+<div class="bm_c inner_menu">
+<ul class="xl cl"><li><span class="folder"><a>-</a></span><a href="https://linux.cn/article-7170-1.html#3_702">nohup/setsid/&amp;&nbsp;场景</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="https://linux.cn/article-7170-1.html#4_1261">1. nohup</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7170-1.html#4_2136">2.setsid</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7170-1.html#4_3113">3.&amp;</a></li></ul><li><span class="folder"><a>-</a></span><a href="https://linux.cn/article-7170-1.html#3_4228">disown</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="https://linux.cn/article-7170-1.html#4_4691">灵活运用 CTRL-z</a></li></ul><li><span class="folder">-</span><a href="https://linux.cn/article-7170-1.html#3_7862">screen</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7170-1.html#3_10639">总结</a></li></ul></div>
+</div>
+
+<div class="bm block">
+<div class="bm_h cl">
+<h3>相关阅读</h3>
+</div>
+<div class="bm_c pbn" id="related_tag">
+<ul class="xl xl2 cl bbs pbm" id="tag"><li><a href="https://linux.cn/tag-%E8%BF%9B%E7%A8%8B.html">进程</a></li>
+<li><a href="https://linux.cn/tag-%E5%90%8E%E5%8F%B0.html">后台</a></li>
+<li><a href="https://linux.cn/tag-%E4%BB%BB%E5%8A%A1.html">任务</a></li>
+</ul>
+</div>
+<div class="bm_c xl xl1 cl" id="related_article">
+<ul><li><em>2013-12-17</em><a href="https://linux.cn/article-2386-1-rel.html" target="_blank">戴文的Linux内核专题：12 配置内核(8)</a> </li>
+<li><em>2013-12-25</em><a href="https://linux.cn/article-2413-1-rel.html" target="_blank">成为 Linux 终端高手的七种武器</a> </li>
+<li><em>2014-5-5</em><a href="https://linux.cn/article-2973-1-rel.html" target="_blank">五个你可能不了解的killall选项</a> </li>
+<li><em>2014-8-14</em><a href="https://linux.cn/article-3609-1-rel.html" target="_blank">Linux有问必答：如何查看Linux上程序或进程用到的库</a> </li>
+<li><em>2015-1-26</em><a href="https://linux.cn/article-4743-1-rel.html" target="_blank">10个重要的Linux ps命令实战</a> </li>
+<li><em>2015-1-27</em><a href="https://linux.cn/article-4754-1-rel.html" target="_blank">如何在终端下以后台模式运行Linux程序</a> </li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="drag">
+<!--[diy=diy2]--><div id="diy2" class="area"></div><!--[/diy]-->
+</div>
+
+
+</div>
+</div>
+
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+<input id="portalview" value="1" type="hidden">
+
+
+
+
+	</div>
+
+
+    <div id="footer">
+        <p>
+            <span>Linux.CN © 2003-2016 Linux中国</span>
+            <span class="line">|</span>
+            <span>Powered by <strong>DX</strong> | 图片存储于<a href="http://www.qiniu.com/" target="_blank">七牛云存储</a></span>
+        </p>
+        <p>
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备05083684号-1</a>            京公网安备110105001595
+        </p>
+        <p>
+        <a href="https://linux.cn/legal.html">服务条款</a> |
+        除特别申明外，本站原创内容版权遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a></p>
+        <p>
+        <a href="https://linux.cn/"><img src="linuxcn_logo_mini.png" align="absmiddle"></a>
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img src="cc.png" align="absmiddle"></a>
+        </p>
+<p>
+</p>
+</div>
+
+<div id="ft" class="cl"></div>
+
+<div id="scrolltop">
+<span>
+<a class="wxicon"></a>
+<a title="分享到新浪微博" class="tsina"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7170&amp;handlekey=favoritearticlehk_7170" id="a_favorite" class="favorite"></a>
+</span>
+<span hidefocus="true"><a title="返回顶部" class="scrolltopa"><b>返回顶部</b></a></span>
+</div>
+
+<div id="qrcode">
+<p>分享到微信朋友圈</p>
+<div id="canvas"></div>
+<p><em>打开微信，点击底部的“发现”，<br>
+使用“扫一扫”将网页分享至朋友圈。</em></p></div>
+
+<div id="LB86CisOsS" style="display: none; background-color: rgb(170, 0, 0); position: fixed; top: 0px; width: 100%; z-index: 9999; left: 0px; font-size: 32px; color: rgb(255, 255, 255); text-align: center; padding: 30px;">请将我们加入您的广告过滤器的白名单，请支持开源站点。谢谢您。</div>
+
+
+
+</body>
+</html>

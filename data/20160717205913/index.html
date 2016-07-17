@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务-技术 ◆ 学习|Linux.中国-开源社区</title>
+ 
+<meta name="keywords" content="LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务">
+<meta name="description" content="在这篇文章中，我们会介绍如何管理 Linux 系统自启动进程和服务 ">
+<meta name="copyright" content="2005-2015 Linux.cn">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="referrer" content="always">
+<base href="">
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Linux.中国 - 开源社区 RSS" href="https://linux.cn/rss.xml">
+<link rel="shortcut icon" href="favicon.ico" sizes="32x32">
+<link rel="canonical" href="https://linux.cn/article-7365-1.html">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body id="nv_portal" class="pg_view"><div id="wp" class="wp"><div id="ct" class="ct2 wp cl"><div class="mn"><div class="vw"><div class="d"><div id="article_content"><!--DOCUMENT_FRAGMENT--><h4 id="toc_5">使用 chkconfig 管理服务</h4>
+<p>为了在启动时启动或者停用系统服务，我们可以在 CentOS / openSUSE 中使用 <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/chkconfig-command-examples/">chkconfig 命令</a>，在 Debian 及其衍生版中使用 sysv-rc-conf 命令。这个工具还能告诉我们对于一个指定的运行等级预先配置的状态是什么。</p>
+<ul>
+<li>推荐阅读： <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/remove-unwanted-services-from-linux/">如何在 Linux 中停止和停用不想要的服务</a></li>
+</ul>
+<p>列出某个服务的运行等级配置。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="kwd">list</span><span class="pln"> </span><span class="pun">[</span><span class="pln">service name</span><span class="pun">]</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="kwd">list</span><span class="pln"> postfix</span></code></li><li class="L2"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="kwd">list</span><span class="pln"> mysqld</span></code></li></ol></pre>
+<p class="article_img"><img title="列出运行等级配置" src="220718e0ziipbi0p08vwoi.png" alt="列出运行等级配置"></p>
+<p class="article_img_desc"><em>列出运行等级配置</em></p>
+<p>从上图中我们可以看出，当系统进入运行等级 2 到 5 的时候就会启动 postfix，而默认情况下运行等级 2 到 4 时会运行 mysqld。现在假设我们并不希望如此。</p>
+<p>例如，我们希望运行等级为 5 时也启动 mysqld，运行等级为 4 或 5 时关闭 postfix。下面分别针对两种情况进行设置（以 root 用户执行以下命令）。</p>
+<p><strong>为特定运行等级启用服务</strong></p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="pun">[</span><span class="pln">level</span><span class="pun">(</span><span class="pln">s</span><span class="pun">)]</span><span class="pln"> service on</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="lit">5</span><span class="pln"> mysqld on</span></code></li></ol></pre>
+<p><strong>为特定运行等级停用服务</strong></p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="pun">[</span><span class="pln">level</span><span class="pun">(</span><span class="pln">s</span><span class="pun">)]</span><span class="pln"> service off</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> chkconfig </span><span class="pun">--</span><span class="pln">level </span><span class="lit">45</span><span class="pln"> postfix off</span></code></li></ol></pre>
+<p class="article_img"><img title="启用/停用服务" src="220720yi9b3yfi8mkq8sy8.png" alt="启用/停用服务"></p>
+<p class="article_img_desc"><em>启用/停用服务</em></p>
+<p>我们在基于 Debian 的系统中使用 sysv-rc-conf 完成类似任务。</p>
+<a target="_blank" rel="external nofollow" id="4_11296" class="target-fix ext"></a><h4 id="toc_6">使用 sysv-rc-conf 管理服务</h4>
+<p>配置服务自动启动时进入指定运行等级，同时禁止启动时进入其它运行等级。</p>
+<ol>
+<li>
+<p>我们可以用下面的命令查看启动 mdadm 时的运行等级。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">ls</span><span class="pln"> </span><span class="pun">-</span><span class="pln">l </span><span class="pun">/</span><span class="pln">etc</span><span class="pun">/</span><span class="pln">rc</span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">6</span><span class="pun">].</span><span class="pln">d </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> </span><span class="pun">-</span><span class="pln">E </span><span class="str">'rc[0-6]|mdadm'</span></code></li></ol></pre>
+<p class="article_img"><img title="查看运行中服务的运行等级" src="220723kkwn3antwgwgihph.png" alt="查看运行中服务的运行等级"></p>
+<p class="article_img_desc"><em>查看运行中服务的运行等级</em></p>
+</li>
+<li>
+<p>我们使用 sysv-rc-conf 设置防止 mdadm 在运行等级2 之外的其它等级启动。只需根据需要（你可以使用上下左右按键）选中或取消选中（通过空格键）。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> sysv</span><span class="pun">-</span><span class="pln">rc</span><span class="pun">-</span><span class="pln">conf</span></code></li></ol></pre>
+<p class="article_img"><img title="Sysv 运行等级配置" src="220727xenennd8x0nom838.png" alt="Sysv 运行等级配置"></p>
+<p class="article_img_desc"><em>Sysv 运行等级配置</em></p>
+<p>然后输入 q 退出。</p>
+</li>
+<li>
+<p>重启系统并从步骤 1 开始再操作一遍。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">ls</span><span class="pln"> </span><span class="pun">-</span><span class="pln">l </span><span class="pun">/</span><span class="pln">etc</span><span class="pun">/</span><span class="pln">rc</span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">6</span><span class="pun">].</span><span class="pln">d </span><span class="pun">|</span><span class="pln"> </span><span class="kwd">grep</span><span class="pln"> </span><span class="pun">-</span><span class="pln">E </span><span class="str">'rc[0-6]|mdadm'</span></code></li></ol></pre>
+<p class="article_img"><img title="验证服务运行等级" src="220731voz9eughblhu3hhz.png" alt="验证服务运行等级"></p>
+<p class="article_img_desc"><em>验证服务运行等级</em></p>
+<p>从上图中我们可以看出 mdadm 配置为只在运行等级 2 上启动。</p></li></ol><!--/DOCUMENT_FRAGMENT--></div></div></div></div></div></div></body>
+</html>
