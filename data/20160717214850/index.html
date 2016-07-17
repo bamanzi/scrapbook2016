@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en-US" class="js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk">
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE">
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f">
+<meta property="article:publisher" content="http://facebook.com/tecmint">
+<meta property="article:author" content="http://facebook.com/ravisaive">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.tecmint.com/xmlrpc.php">
+<title>Fabric - Automate Your Linux Administration Tasks and Application Deployments Over SSH</title>
+
+<!-- All in One SEO Pack 2.3.8 by Michael Torbert of Semper Fi Web Design[696,849] -->
+<link rel="author" href="https://plus.google.com/u/0/107665449243972690526">
+<meta name="description" itemprop="description" content="Fabric is a python library and a powerful command line tool for performing system administration tasks such as executing SSH commands on multiple machines and">
+<meta name="keywords" itemprop="keywords" content="automate linux administration,automate linux application deployment,run commands on multiple linux servers,commandline tools,configuration management">
+<link rel="canonical" href="http://www.tecmint.com/automating-linux-system-administration-tasks/">
+
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Feed" href="http://feeds.feedburner.com/tecmint">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Comments Feed" href="http://www.tecmint.com/comments/feed/">
+
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Fabric – Automate Your Linux Administration Tasks and Application Deployments Over SSH Comments Feed" href="http://www.tecmint.com/automating-linux-system-administration-tasks/feed/">
+<!-- <link rel='stylesheet' id='dgd-scrollbox-plugin-core-css'  href='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/css/style.css?ver=2.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='fancybox-style-css'  href='http://www.tecmint.com/wp-content/plugins/light/css/jquery.fancybox.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/style.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='responsive-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/responsive.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='custom-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/custom.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/fonts/font-awesome.min.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='qbp-css'  href='http://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/style/qbp.css?ver=1.4.2' type='text/css' media='all' /> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script> -->
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/js/script.js?ver=2.3'></script> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/js/qbp.js?ver=1.4.2'></script> -->
+<link rel="https://api.w.org/" href="http://www.tecmint.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.tecmint.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.tecmint.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="How to Find and Kill Running Processes in Linux" href="http://www.tecmint.com/find-and-kill-running-processes-pid-in-linux/">
+<link rel="next" title="How to Password Protect Web Directories in Nginx" href="http://www.tecmint.com/password-protect-web-directories-in-nginx/">
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="shortlink" href="http://www.tecmint.com/?p=17162">
+<link rel="alternate" type="application/json+oembed" href="http://www.tecmint.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.tecmint.com%2Fautomating-linux-system-administration-tasks%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.tecmint.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.tecmint.com%2Fautomating-linux-system-administration-tasks%2F&amp;format=xml">
+<!-- Facebook Like Thumbnail (v0.3.4) -->
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2015/11/Automate-Linux-Administration-Tasks-Using-Fabric.png">
+<!-- using featured thumbnail -->
+<!-- Facebook Like Thumbnail (By Ashfame - https://github.com/ashfame/facebook-like-thumbnail) -->
+<link rel="shortcut icon" href="favicon.ico">
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts">
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-17162 single-format-standard col-2cl full-width topbar-enabled chrome s1-collapse s2-collapse">
+<div id="wrapper">
+<header id="header">
+<nav class="nav-container group" id="nav-topbar">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="http://www.tecmint.com/">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" href="http://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a title="Free Linux eBooks" target="_blank" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free eBooks</a></li>
+<li id="menu-item-10439" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10439"><a title="LinuxSay – A Discussion Forum for Linux Enthusiasts" target="_blank" href="http://linuxsay.com/">Discussion</a></li>
+<li id="menu-item-17151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17151"><a title="Discover and save on the best gear, gadgets, and software" target="_blank" href="http://deals.tecmint.com/">Deals</a></li>
+<li id="menu-item-18575" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18575"><a title="Support Us" href="http://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" href="http://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" href="http://www.tecmint.com/linux-training/">Linux Training</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" href="http://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Best Web Hosting Companies" target="_blank" href="http://www.tecmint.com/best-web-hosting-for-linux/">Linux Hosting</a></li>
+<li id="menu-item-15139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15139"><a target="_blank" href="http://www.tecmint.com/free-wordpress-installation-setup/">Free WordPress Setup</a></li>
+</ul></div>
+<div class="container">
+<div class="container-inner">		
+<div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand">
+<div class="search-expand-inner">
+<form action="http://www.tecmint.com/search/" id="cse-search-box">
+<div>
+<input name="cx" value="partner-pub-2601749019656699:2173448976" type="hidden">
+<input name="cof" value="FORID:10" type="hidden">
+<input name="ie" value="UTF-8" type="hidden">
+<input style="background: rgb(255, 255, 255) url(&quot;google_custom_search_watermark.gif&quot;) no-repeat scroll left center;" class="search" name="q" size="20" type="text">
+<input name="sa" value="Search" type="submit">
+</div>
+<input value="www.tecmint.com/automating-linux-system-administration-tasks/" name="siteurl" type="hidden"><input name="ref" type="hidden"><input name="ss" type="hidden"></form>
+							</div>
+</div>
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</nav><!--/#nav-topbar-->
+<div class="container group">
+<div class="container-inner">
+<div class="group pad">
+<p class="site-title"><a href="http://www.tecmint.com/" rel="home"><img src="logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+<div id="header-ads">
+<div id="text-17" class="widget widget_text">			<div class="textwidget"><!-- Top Banner Ads 728x90 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="8210224606"></ins>
+
+</div>
+</div>					</div><!--/#header-ads-->
+</div>
+<nav class="nav-container group" id="nav-header">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-20410" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20410"><a target="_blank" href="http://news.tecmint.com/">News</a></li>
+<li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="http://www.tecmint.com/best-linux-distributions/">Linux Distro’s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="http://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-20869" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-20869"><a href="http://www.tecmint.com/#">Programming</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="http://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-20870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20870"><a href="http://www.tecmint.com/category/python/">Learn Python</a></li>
+<li id="menu-item-20871" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20871"><a href="http://www.tecmint.com/category/awk-command/">Learn Awk</a></li>
+</ul>
+</li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10773"><a href="http://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="http://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-19684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19684"><a href="http://www.tecmint.com/category/top-tools/">Best Linux Tools</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" href="http://www.tecmint.com/#">Certifications</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="http://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" href="http://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="http://www.tecmint.com/#">Guides</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-18564" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18564"><a href="http://www.tecmint.com/install-docker-and-learn-containers-in-centos-rhel-7-6/">Docker Seires</a></li>
+<li id="menu-item-17150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17150"><a href="http://www.tecmint.com/setup-postfix-mail-server-and-dovecot-with-mariadb-in-centos/">Postfix Mail</a></li>
+<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="http://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="http://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="http://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="http://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="http://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="http://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="http://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="http://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+<li id="menu-item-16084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16084"><a href="http://www.tecmint.com/install-and-configure-ansible-automation-tool-in-linux/">Ansible Series</a></li>
+<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16395"><a href="http://www.tecmint.com/install-and-configure-django-web-framework-in-centos-debian-ubuntu/">Django Series</a></li>
+<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="http://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="http://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="http://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="http://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="http://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="http://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="http://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="http://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+</ul></div>
+</nav><!--/#nav-header-->
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</header><!--/#header-->
+<div class="container" id="page">
+<div class="container-inner">			
+<div class="main">
+<div class="main-inner group">
+<section class="content">
+<div class="page-title pad group">
+<ul class="meta-single group">
+<li class="category"><a href="http://www.tecmint.com/category/open-source/" rel="category tag">Open Source</a></li>
+<li class="comments"><a href="#respond"><i class="fa fa-comments-o"></i>0</a></li>
+</ul>
+</div><!--/.page-title-->	
+<div class="pad group">
+<article class="post-17162 post type-post status-publish format-standard has-post-thumbnail hentry category-open-source tag-commandline-tools tag-configuration-management">	
+<div class="post-inner group">
+<h1 class="post-title">Fabric – Automate Your Linux Administration Tasks and Application Deployments Over SSH</h1>
+<p class="post-byline">by <a href="http://www.tecmint.com/author/aaronkili/" title="Posts by Aaron Kili" rel="author">Aaron Kili</a> | Published: November 18, 2015 | <!-- if the post updated datetime is not equal to the post datetime, show the updated datetime -->
+Last Updated: November 18, 2015    </p>
+<div class="clear"></div>
+<!-- Above Post Ads 468x15 -->
+<div class="add-box">
+<ins class="adsbygoogle" style="display: inline-block; width: 468px; height: 15px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="1986283779"></ins>
+
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<i style="color: rgb(40, 85, 122); font-size: 20px;" class="fa fa-book"></i>
+<b>Download Your Free eBooks NOW</b> - <a target="_blank" style="text-decoration: underline;" href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Free Linux eBooks for Administrators</a> | <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks</a>
+</div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center>
+<!-- Post Inner Mobile Ads -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9946480174"></ins>
+
+</center>
+</div>
+<div class="clear"></div>
+<div class="entry share">	
+<div class="entry-inner">
+<p>When it comes to managing remote machines and deployment of applications, there are several command line tools out there in existence though many have a common problem of lack of detailed documentation.</p>
+<p>In this guide, we shall cover the steps to introduce and get started on how to use fabric to improve on administering groups of servers.</p>
+<div id="attachment_17184" style="width: 728px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2015/11/Automate-Linux-Administration-Tasks-Using-Fabric.png"><img data-lazy-loaded="true" style="display: inline;" class="size-full wp-image-17184" src="Automate-Linux-Administration-Tasks-Using-Fabric.png" alt="Automate Linux Administration Tasks Using Fabric" height="341" width="718"></a><p class="wp-caption-text">Automate Linux Administration Tasks Using Fabric</p></div>
+<p><strong>Fabric</strong> is a python library and a powerful command line tool for performing system administration tasks such as executing SSH commands on multiple machines and application deployment.</p>
+<p><strong style="color: red;">Read Also</strong>: <a href="http://www.tecmint.com/using-shell-script-to-automate-linux-system-maintenance-tasks/" target="_blank">Use Shell Scripting to Automate Linux System Maintenance Tasks</a></p>
+<center style="padding-bottom: 20px; padding-top: 10px;"><ins class="adsbygoogle" style="display: inline-block; width: 200px; height: 90px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9878518176"></ins></center><p>Having a working knowledge of Python can be helpful when using <strong>Fabric</strong>, but may certainly not be necessary.</p>
+<p>Reasons why you should choose fabric over other alternatives:</p>
+<ol>
+<li>Simplicity</li>
+<li>It is well-documented</li>
+<li>You don’t need to learn another language if you’re already a python guy.</li>
+<li>Easy to install and use.</li>
+<li>It is fast in its operations.</li>
+<li>It supports parallel remote execution.</li>
+</ol>
+<h3>How to Install Fabric Automation Tool in Linux</h3>
+<p>An important characteristic about fabric is that the remote machines which you need to administer only need to have the standard OpenSSH server installed. You only need certain requirements installed on the server from which you are administering the remote servers before you can get started.</p>
+<h4>Requirements:</h4>
+<ol>
+<li>Python 2.5+ with the development headers</li>
+<li>Python-setuptools and pip (optional, but preferred) gcc</li>
+</ol>
+<p><strong>Fabric</strong> is easily installed using <strong>pip</strong> (highly recommended), but you may also prefer to choose your default package manager <a href="http://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/" target="_blank">yum</a>, <a href="http://www.tecmint.com/dnf-commands-for-fedora-rpm-package-management/" target="_blank">dnf</a> or <a href="http://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/" target="_blank">apt-get</a> to install fabric package, typically called <strong>fabric</strong> or <strong>python-fabric</strong>.</p>
+<p>For <strong>RHEL</strong>/<strong>CentOS</strong> based distributions, you must have <a href="http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/" target="_blank">EPEL repository</a> installed and enabled on the system to install fabric package.</p>
+<pre># yum install fabric   [On RedHat based systems]  
+# dnf install fabric   [On Fedora 22+ versions]
+</pre>
+<p>For <strong>Debian</strong> and it’s derivatives such as <strong>Ubuntu</strong> and <strong>Mint</strong> users can simply do <strong>apt-get</strong> to install the fabric package as shown:</p>
+<pre># apt-get install fabric
+</pre>
+<p>If you want to install development version of fabric, you may use <strong>pip</strong> to grab the most recent master branch.</p>
+<pre># yum install python-pip       [On RedHat based systems] 
+# dnf install python-pip       [On Fedora 22+ versions]
+# apt-get install python-pip   [On Debian based systems]
+</pre>
+<p>Once pip has been installed successfully, you may use pip to grab the latest version of fabric as shown:</p>
+<pre># pip install fabric
+</pre>
+<h3>How to Use Fabric to Automate Linux Administration Tasks</h3>
+<p>So lets get started on how you can use Fabric. During the installation process, a Python script called <code>fab</code> was added to a directory in your path. The <strong>fab</strong> script does all the work when using fabric.</p>
+<h4>Executing commands on the local Linux machine</h4>
+<p>By convention, you need to start by creating a Python file called <code>fabfile.py</code> using your favorite editor. Remember you can give this file a different name as you wish but you will need to specify the file path as follows:</p>
+<pre># fabric --fabfile /path/to/the/file.py
+</pre>
+<p>Fabric uses <code>fabfile.py</code> to execute tasks. The fabfile should be in the same directory where you run the Fabric tool.</p>
+<p><strong style="color: rgb(204, 51, 51);">Example 1:</strong> Let’s create a basic <code>Hello World</code> first.</p>
+<pre># vi fabfile.py
+</pre>
+<p>Add these lines of code in the file.</p>
+<pre>def hello():
+print('Hello world, Tecmint community')
+</pre>
+<p>Save the file and run the command below.</p>
+<pre># fab hello
+</pre>
+<div id="attachment_17167" style="width: 826px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2015/11/Create-Fabric-Fab-Python-File.gif"><img class="size-full wp-image-17167" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/11/Create-Fabric-Fab-Python-File.gif" alt="Fabric Tool Usage" height="515" width="816"></a><p class="wp-caption-text">Fabric Tool Usage</p></div>
+<p>Let us now look at an example of a <strong>fabfile.py</strong> to execute the <strong>uptime</strong> command on the local machine.</p>
+<p><strong style="color: rgb(204, 51, 51);">Example 2:</strong> Open a new <strong>fabfile.py</strong> file as follows:</p>
+<pre># vi fabfile.py
+</pre>
+<p>And paste the following lines of code in the file.</p>
+<pre>#!  /usr/bin/env python
+from fabric.api import local
+def uptime():
+local('uptime')
+</pre>
+<p>Then save the file and run the following command:</p>
+<pre># fab uptime
+</pre>
+<div id="attachment_17171" style="width: 826px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2015/11/Fabric-Uptime.gif"><img class="size-full wp-image-17171" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/11/Fabric-Uptime.gif" alt="Fabric: Check System Uptime" height="515" width="816"></a><p class="wp-caption-text">Fabric: Check System Uptime</p></div>
+<h4>Executing commands on remote Linux machines to automate tasks</h4>
+<p>The <strong>Fabric API</strong> uses a configuration dictionary which is Python’s equivalent of an associative array known as <code>env</code>, which stores values that control what Fabric does.</p>
+<p>The <code>env.hosts</code> is a list of servers on which you want run Fabric tasks. If your network is <strong>192.168.0.0</strong> and wish to manage host <strong>192.168.0.2</strong> and <strong>192.168.0.6</strong> with your <strong>fabfile</strong>, you could configure the <strong>env.hosts</strong> as follows:</p>
+<pre>#!/usr/bin/env python
+from  fabric.api import env
+env.hosts = [ '192.168.0.2', '192.168.0.6' ]
+</pre>
+<p>The above line of code only specify the hosts on which you will run Fabric tasks but do nothing more. Therefore you can define some tasks, Fabric provides a set of functions which you can use to interact with your remote machines.</p>
+<p>Although there are many functions, the most commonly used are:</p>
+<ol>
+<li><strong>run</strong> – which runs a shell command on a remote machine.</li>
+<li><strong>local</strong> – which runs command on the local machine.</li>
+<li><strong>sudo</strong> – which runs a shell command on a remote machine, with root privileges.</li>
+<li><strong>Get</strong> – which downloads one or more files from a remote machine.</li>
+<li><strong>Put</strong> – which uploads one or more files to a remote machine.</li>
+</ol>
+<p><strong style="color: rgb(204, 51, 51);">Example 3:</strong> To echo a message on multiple machines create a <code>fabfile.py</code> such as the one below.</p>
+<pre>#!/usr/bin/env python
+from fabric.api import env, run
+env.hosts = ['192.168.0.2','192.168.0.6']
+def echo():
+run("echo -n 'Hello, you are tuned to Tecmint ' ")
+</pre>
+<p>To execute the tasks, run the following command:</p>
+<pre># fab echo
+</pre>
+<div id="attachment_17174" style="width: 903px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2015/11/Fabrick-Automate-Linux-Tasks.gif"><img class="size-full wp-image-17174" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/11/Fabrick-Automate-Linux-Tasks.gif" alt="Fabric: Automate Linux Tasks on Remote Linux" height="458" width="893"></a><p class="wp-caption-text">Fabric: Automate Linux Tasks on Remote Linux</p></div>
+<p><strong style="color: rgb(204, 51, 51);">Example 4:</strong> You can improve the <code>fabfile.py</code> which you created earlier on to execute the <strong>uptime</strong> command on the local machine, so that it runs the <strong>uptime</strong> command and also checks disk usage using the <a href="http://www.tecmint.com/how-to-check-disk-space-in-linux/" target="_blank">df command</a> on multiple machines as follows:</p>
+<pre>#!/usr/bin/env python
+from fabric.api import env, run
+env.hosts = ['192.168.0.2','192.168.0.6']
+def uptime():
+run('uptime')
+def disk_space():
+run('df -h')
+</pre>
+<p>Save the file and run the following command:</p>
+<pre># fab uptime
+# fab disk_space
+</pre>
+<div id="attachment_17175" style="width: 903px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2015/11/Fabric-Run-Multiple-Commands-on-Multiple-Linux-Systems.gif"><img class="size-full wp-image-17175" src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/11/Fabric-Run-Multiple-Commands-on-Multiple-Linux-Systems.gif" alt="Fabric: Automate Tasks on Multiple Linux Systems" height="458" width="893"></a><p class="wp-caption-text">Fabric: Automate Tasks on Multiple Linux Systems</p></div>
+<h4>Automatically Deploy LAMP Stack on Remote Linux Server</h4>
+<p><strong style="color: rgb(204, 51, 51);">Example 4:</strong> Let us look at an example to deploy <strong>LAMP</strong> (Linux, Apache, MySQL/MariaDB and PHP) server on a remote Linux server.</p>
+<p>We shall write a function that will allow LAMP to be installed remotely using root privileges.</p>
+<h5>For RHEL/CentOS and Fedora</h5>
+<pre>#!/usr/bin/env python
+from fabric.api import env, run
+env.hosts = ['192.168.0.2','192.168.0.6']
+def deploy_lamp():
+run ("yum install -y httpd mariadb-server php php-mysql")
+</pre>
+<h5>For Debian/Ubuntu and Linux Mint</h5>
+<pre>#!/usr/bin/env python
+from fabric.api import env, run
+env.hosts = ['192.168.0.2','192.168.0.6']
+def deploy_lamp():
+sudo("apt-get install -q apache2 mysql-server libapache2-mod-php5 php5-mysql")
+</pre>
+<p>Save the file and run the following command:</p>
+<pre># fab deploy_lamp
+</pre>
+<p><strong style="color: red;">Note</strong>: Due to large output, it’s not possible for us to create a screencast (animated gif) for this example.</p>
+<p>Now you can able to <a href="http://www.tecmint.com/use-ansible-playbooks-to-automate-complex-tasks-on-multiple-linux-servers/" target="_blank">automate Linux server management tasks</a> using Fabric and its features and examples given above…</p>
+<h4>Some Useful Options to Use with Fabric</h4>
+<ol>
+<li>You can run <strong>fab –help</strong> to view help information and a long list of available command line options.</li>
+<li>An important option is <strong>–fabfile=PATH</strong> that helps you to specify a different python module file to import other then <strong>fabfile.py</strong>.</li>
+<li>To specify a username to use when connecting to remote hosts, use the <strong>–user=USER</strong> option.</li>
+<li>To use password for authentication and/or <strong>sudo</strong>, use the <strong>–password=PASSWORD</strong> option.</li>
+<li>To print detailed info about command NAME, use <strong>–display=NAME</strong> option.</li>
+<li>To view formats use <strong>–list</strong> option, choices: short, normal, nested, use the <strong>–list-format=FORMAT</strong> option.</li>
+<li>To print list of possible commands and exit, include the <strong>–list</strong> option.</li>
+<li>You can specify the location of config file to use by using the <strong>–config=PATH</strong> option.</li>
+<li>To display a colored error output, use <strong>–colorize-errors</strong>.</li>
+<li>To view the program’s version number and exit, use the <strong>–version</strong> option.</li>
+</ol>
+<h3>Summary</h3>
+<p>Fabric is a powerful tool and is well documented and provides easy usage for newbies. You can read the full documentation to get more understanding of it. If you have any information to add or incase of any errors you encounter during installation and usage, you can leave a comment and we shall find ways to fix them.</p>
+<p>Reference: <a rel="nofollow" href="http://docs.fabfile.org/en/1.4.0/usage/env.html" target="_blank">Fabric documentation</a></p>
+</div>
+<div class="sharrre-container">
+<span>Share</span>
+<div class="sharrre" id="twitter" data-url="http://www.tecmint.com/automating-linux-system-administration-tasks/" data-text="Fabric – Automate Your Linux Administration Tasks and Application Deployments Over SSH" data-title="Tweet"><a class="box" href="#"><div class="count" href="#">+</div><div class="share"><i class="fa fa-twitter"></i></div></a></div>
+<div class="sharrre" id="facebook" data-url="http://www.tecmint.com/automating-linux-system-administration-tasks/" data-text="Fabric – Automate Your Linux Administration Tasks and Application Deployments Over SSH" data-title="Like"></div>
+<div class="sharrre" id="googleplus" data-url="http://www.tecmint.com/automating-linux-system-administration-tasks/" data-text="Fabric – Automate Your Linux Administration Tasks and Application Deployments Over SSH" data-title="+1"><a class="box" href="#"><div class="count" href="#">214</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a></div>
+<div class="sharrre" id="linkedin" data-url="http://www.tecmint.com/automating-linux-system-administration-tasks/" data-text="Fabric – Automate Your Linux Administration Tasks and Application Deployments Over SSH" data-title="Share It"></div>
+<div style="text-align: center; font-weight: 600; padding-top: 5px;"><a href="#comments"><i class="fa fa-comments-o"></i></a><a href="#respond" class="comments-link"><span style="font-size: 10px; color: rgb(39, 118, 198); margin-top: -8px;">Leave a</span> <span style="margin-top: -10px; color: rgb(39, 118, 198);">Reply</span></a></div>
+</div><!--/.sharrre-container-->
+						<div class="clear"></div>				
+</div><!--/.entry-->
+</div><!--/.post-inner-->
+</article><!--/.post-->				
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center style="padding-top: 30px;">
+<!-- Post-Bottom-Inner-300x250 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7807254572"></ins>
+
+</center>
+</div>
+<div class="clear"></div>
+<div class="after-post-box">
+<h2>If You Appreciate What We Do Here On TecMint, You Should Consider:</h2>
+<ol>
+<li>Stay Connected to: <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1TP6lcM" title="Follow TecMint on Twitter">Twitter</a></strong> | <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1rDYrdj" title="Like Us on Facebook">Facebook</a></strong> | <strong><a target="_blank" rel="nofollow" href="http://bit.ly/24J6lna" title="Join Us On Google+">Google Plus</a></strong></li>
+<li>Subscribe to our email updates: <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1T2Gxb4" title="Subscribe to TecMint Email Updates">Sign Up Now</a></strong></li>
+<li>Use our <strong><a target="_blank" rel="nofollow" title="Linode Linux Hosting" href="http://bit.ly/1ZzMwrv">Linode referral link</a></strong> if you plan to buy VPS <i>(it starts at only $10/month)</i>.
+</li>
+<li>Support us via <strong>PayPal donate</strong> - <strong><a target="_blank" href="http://www.tecmint.com/donate-to-tecmint/">Make a Donation</a></strong></li>
+<li>Support us by <strong><a href="http://www.tecmint.com/linux-books-in-pdf-format/" target="_blank">purchasing our premium books</a></strong> in PDF format.</li>
+<li>Support us by taking our <strong><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/search?utf8=%E2%9C%93&amp;query=linux">online Linux courses</a></strong></li>
+</ol>
+<p style="text-align: center;"><strong style="color: rgb(254, 51, 0); font-size: 20px;">We are thankful for your never ending support.</strong></p>
+</div>
+<div class="clear"></div>
+<p class="post-tags"><span>Tags:</span> <a href="http://www.tecmint.com/tag/commandline-tools/" rel="tag">commandline tools</a><a href="http://www.tecmint.com/tag/configuration-management/" rel="tag">Configuration Management</a></p>					<div class="author-bio">
+<div class="bio-avatar"><img alt="" src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=128&amp;d=blank&amp;r=g" srcset="4e444ab611c7b8c7bcb76e58d2e82ae0.dat 2x" class="avatar avatar-128 photo" height="128" width="128"></div>
+<p style="float: right; font-weight: 600;"><a target="_blank" class="author-link" href="http://www.tecmint.com/author/aaronkili/" rel="author">View all Posts</a></p>
+<p class="bio-name">Aaron Kili</p>
+<p class="bio-desc">Computer Science student at Makerere University. Am a Linux enthusiast and a big fan of FOSS. I have used Linux for one year and six months now. I love to share ideas and knowledge around me and in other places around the world.</p>
+<p><span style="font-size: 20px; font-weight: 400; color: rgb(162, 4, 46);">Your name can also be listed here. Got a tip? <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/submit-articles/">Submit it here</a> to become an <b>TecMint</b> author.</span></p>
+<div class="clear"></div>
+</div>
+<div id="exam_announcement">
+<span style="color: rgb(247, 93, 89); font-weight: 400; font-size: 18px;">Receive Your Free Complimentary eBook NOW!</span> - <span style="color: rgb(39, 118, 198); font-weight: 600; font-size: 18px; text-decoration: underline;"><a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_oreb01/prgm.cgi">Linux Kernel In A Nutshell - Configuration and Building</a></span></div>
+<div class="hr"></div>
+<div class="freebooks">
+<center><h1 style="padding-bottom: 15px; font-size: 25px;">Download Free Linux eBooks</h1></center>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_advb01/prgm.cgi"><img title="Advanced Bash-Scripting Guide" src="w_advb01c4.png" alt="Advanced Bash-Scripting Guide"></a>
+</div>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi"><img title="Linux Bible" src="w_wile13c4.png" alt="Linux Bible"></a>
+</div>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi"><img title="A Newbie's Getting Started Guide to Linux" src="w_make07c4.png" alt="A Newbie's Getting Started Guide to Linux"></a>
+</div>
+<div class="grid one-fourth last">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi"><img title="Introduction to Linux - A Hands on Guide" src="w_mach01c4.png" alt="Introduction to Linux - A Hands on Guide"></a>
+</div>
+<div class="clear"></div>
+</div>
+<ul class="post-nav group">
+<li class="next"><a href="http://www.tecmint.com/password-protect-web-directories-in-nginx/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>How to Password Protect Web Directories in Nginx</span></a></li>
+<li class="previous"><a href="http://www.tecmint.com/find-and-kill-running-processes-pid-in-linux/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>How to Find and Kill Running Processes in Linux</span></a></li>
+</ul>
+<h4 class="heading">
+<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+<ul class="related-posts group">
+<li class="related post-hover">
+<article class="post-15880 post type-post status-publish format-standard has-post-thumbnail hentry category-open-source tag-gnu">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/install-c-c-compiler-and-development-tool-in-centos-fedora-redhat/" title="How to Install GNU GCC (C and C++ Compiler) and Development Tools in RHEL/CentOS and Fedora">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/09/Install-C-C-Compiler-and-Development-Tools-520x245.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Install C C++ Compiler and Development Tools" srcset="Install-C-C-Compiler-and-Development-Tools-520x245.png 520w, Install-C-C-Compiler-and-Development-Tools-620x293.png 620w, Install-C-C-Compiler-and-Development-Tools.png 720w" sizes="(max-width: 520px) 100vw, 520px" height="245" width="520">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/install-c-c-compiler-and-development-tool-in-centos-fedora-redhat/#comments"><span><i class="fa fa-comments-o"></i>6</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/install-c-c-compiler-and-development-tool-in-centos-fedora-redhat/" rel="bookmark" title="How to Install GNU GCC (C and C++ Compiler) and Development Tools in RHEL/CentOS and Fedora">How to Install GNU GCC (C and C++ Compiler) and Development Tools in RHEL/CentOS and Fedora</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">25 Sep, 2015</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-2461 post type-post status-publish format-standard has-post-thumbnail hentry category-open-source">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/playonlinux-run-windows-applications-and-games-on-linux/" title="PlayOnLinux – Run Windows Applications and Games on Linux">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/03/PlayOnLinux.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Install PlayOnLinux In Linux" srcset="PlayOnLinux.jpg 547w, PlayOnLinux-300x212.jpg 300w" sizes="(max-width: 547px) 100vw, 547px" height="387" width="547">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/playonlinux-run-windows-applications-and-games-on-linux/#comments"><span><i class="fa fa-comments-o"></i>9</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/playonlinux-run-windows-applications-and-games-on-linux/" rel="bookmark" title="PlayOnLinux – Run Windows Applications and Games on Linux">PlayOnLinux – Run Windows Applications and Games on Linux</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">21 Mar, 2013</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-11883 post type-post status-publish format-standard has-post-thumbnail hentry category-open-source tag-speedtest-cli">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/check-internet-speed-from-command-line-in-linux/" title="How to Test Your Internet Speed Bidirectionally from Command Line Using ‘Speedtest-CLI’ Tool">
+<img data-lazy-loaded="true" style="display: block;" src="Chect-Internet-Speed-in-Linux-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Check Internet Speed in Linux" srcset="Chect-Internet-Speed-in-Linux-520x245.jpg 520w, Chect-Internet-Speed-in-Linux-720x340.jpg 720w" sizes="(max-width: 520px) 100vw, 520px" height="245" width="520">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/check-internet-speed-from-command-line-in-linux/#comments"><span><i class="fa fa-comments-o"></i>36</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/check-internet-speed-from-command-line-in-linux/" rel="bookmark" title="How to Test Your Internet Speed Bidirectionally from Command Line Using ‘Speedtest-CLI’ Tool">How to Test Your Internet Speed Bidirectionally from Command Line Using ‘Speedtest-CLI’ Tool</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">11 Mar, 2015</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+</ul><!--/.post-related-->
+<section id="comments" class="themeform">
+<!-- comments open, no comments -->
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Got something to say? Join the discussion. <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display: none;">Cancel reply</a></small></h3>				<form action="http://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" value="" size="30" maxlength="245" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" value="" size="30" maxlength="200" type="text"></p>
+<p class="form-submit"><input name="submit" id="submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="17162" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="32316d6255" type="hidden"></p><!-- Subscribe to Comments Reloaded version160115 --><!-- BEGIN: subscribe to comments reloaded --><p class="comment-form-subscriptions"><label for="subscribe-reloaded"><input style="width: 30px;" name="subscribe-reloaded" id="subscribe-reloaded" value="yes" type="checkbox"> Notify me of followup comments via e-mail. You can also <a href="http://www.tecmint.com/comment-subscriptions/?srp=17162&amp;srk=673f0568a0637a1105113a34047afde3&amp;sra=s">subscribe</a> without commenting.</label></p><!-- END: subscribe to comments reloaded --><p style="display: none;"></p>				<input id="ak_js" name="ak_js" value="1468763280380" type="hidden"></form>
+</div><!-- #respond -->
+</section><!--/#comments-->		
+</div><!--/.pad-->
+</section><!--/.content-->
+<div class="sidebar s1">
+<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+<div class="sidebar-content">
+<div class="sidebar-top group">
+<span style="color: rgb(0, 40, 115); font-weight: 600; font-size: 20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: rgb(51, 204, 255);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: rgb(59, 89, 152);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: rgb(219, 74, 57);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: rgb(135, 192, 64);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: rgb(196, 48, 43);"></i></a></li></ul>			</div>
+<div id="text-23" class="widget widget_text">			<div class="textwidget">  <div style="background: rgb(219, 68, 85) none repeat scroll 0% 0%;" class="message">
+<center><a href="http://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank"><span style="font-weight: bold; font-size: 18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+</center>
+</div></div>
+</div><div id="text-21" class="widget widget_text">			<div class="textwidget"><center>
+<!-- Sidebar Top Ad 300x250 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7270921771"></ins>
+
+</center></div>
+</div><div id="text-25" class="widget widget_text">			<div class="textwidget"><div class="message"><center><a href="http://www.tecmint.com/vi-editor-usage/" target="_blank"><span style="font-weight: bold; font-size: 17px;"><i class="fa fa-linux"></i> Vi/Vim Editor BEGINNER'S GUIDE <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Learn vi/vim as a Full Text Editor</span> <i class="fa fa-file-text"></i>
+</a></center></div></div>
+</div><div id="text-24" class="widget widget_text">			<div class="textwidget"><span style="float: right; text-decoration: underline;"><a target="_blank" href="http://www.tecmint.com/advertise/">Advertise Here</a></span>
+
+
+</div>
+</div><div id="text-26" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: rgb(171, 6, 25);"><center><span style="font-weight: bold; font-size: 17px;"><i class="fa fa-linux"></i> Linux Foundation Certification <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Exam Study Guide to <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS</a> and <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE</a></span></center></div></div>
+</div><div id="text-3" class="widget widget_text">			<div class="textwidget"><div class="ads-sidebar-desktop">
+<center>
+<!-- SideBar2 Ads 300x600 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9098920170"></ins>
+
+</center>
+</div></div>
+</div><div id="alxtabs-2" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular active"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+<div class="alx-tabs-container">
+<ul style="display: block;" id="tab-popular" class="alx-tab group ">
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="Nagios 4.0.1 Released – Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17">Nagios 4.0.1 Released – Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12">Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="Google Chrome 51 Released – Install on RHEL/CentOS 7/6 and Fedora 23-15">Google Chrome 51 Released – Install on RHEL/CentOS 7/6 and Fedora 23-15</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-wine-in-rhel-centos-and-fedora/" rel="bookmark" title="Wine 1.8 Released After 17 Months of Development – Install on RHEL/CentOS and Fedora">Wine 1.8 Released After 17 Months of Development – Install on RHEL/CentOS and Fedora</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/" rel="bookmark" title="Install Latest Apache 2.4, MySQL 5.5/MariaDB 10.1 and PHP 5.5/5.6 on RHEL/CentOS 7/6 &amp; Fedora 24-18">Install Latest Apache 2.4, MySQL 5.5/MariaDB 10.1 and PHP 5.5/5.6 on RHEL/CentOS 7/6 &amp; Fedora 24-18</a></p>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+<ul style="display: none;" id="tab-comments" class="alx-tab group avatars-enabled">
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799586">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="7badddbc53297b2e8ed7011cf45df0c0.dat" srcset="7badddbc53297b2e8ed7011cf45df0c0_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Ravi Saive says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799586">@Adi,  This RHCE book covers everything about RedHat certification objectives...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799566">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="d2f6b0d00aeefeac96610ccea97a639e.dat" srcset="d2f6b0d00aeefeac96610ccea97a639e_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">adi dedri says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/comment-page-7/#comment-799566">Hi,   I am interested in this RHCE book, I...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/ubuntu-16-04-installation-guide/comment-page-1/#comment-799561">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="8500c25369fe2107a197e6321309dae0.dat" srcset="8500c25369fe2107a197e6321309dae0_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">John T says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/ubuntu-16-04-installation-guide/comment-page-1/#comment-799561">I have a 1TB Disk drive that's completely free of any...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/comment-page-2/#comment-799518">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="c54984bb7a204465db98198b499eb2f7.dat" srcset="c54984bb7a204465db98198b499eb2f7_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Bee Kay says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/comment-page-2/#comment-799518">Oh, that was fun.  I like getting 10GB of RAM...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/upgrade-linux-mint-17-to-linux-mint-18/comment-page-1/#comment-799498">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="a780649974d6786efb44fe271e599dbf.dat" srcset="a780649974d6786efb44fe271e599dbf_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">dgr-Crenshaw says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/upgrade-linux-mint-17-to-linux-mint-18/comment-page-1/#comment-799498">The mintupgrade command kept yelling at me not to sudo until...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/best-linux-screen-recorders-for-desktop-screen-recording/comment-page-1/#comment-799490">
+<img data-lazy-loaded="true" style="display: block;" alt="" src="a7f66b4ddd733c30668b8d6347cc8b75.dat" srcset="a7f66b4ddd733c30668b8d6347cc8b75_001.dat 2x" class="avatar avatar-96 photo" height="96" width="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Emiliano says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/best-linux-screen-recorders-for-desktop-screen-recording/comment-page-1/#comment-799490">Please mention that OBS has a BIG PROBLEM with Intel graphic...</a></div>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+</div>
+</div>
+<div id="text-27" class="widget widget_text">			<div class="textwidget"><center>
+<a target="_blank" href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/"><img alt="RedHat RHCSA and RHCE Certification Exam Study Ebook" src="RedHat-RHCSA-RHCE-Exam.png"></a>
+</center></div>
+</div><div id="text-28" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: rgb(13, 124, 57);"><center><p style="font-weight: bold; font-size: 18px;">Linux System Administrator Bundle with 7-Courses (96% off)</p> 
+<p style="background-color: rgb(3, 68, 29); margin: 6px 35px; padding: 10px;"><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&amp;utm_medium=referral&amp;utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu&amp;_ga=1.95416024.550662903.1451974395" style="font-size: 25px; font-weight: bold;">Add to Cart - $69</a></p>
+<p style="font-size: 14px; font-weight: bold;"><i aria-hidden="true" class="fa fa-clock-o"></i> Ending In: 3 days
+</p></center></div>
+<div style="background-color: rgb(244, 64, 59);" class="message"><center><p style="font-weight: bold; font-size: 18px;">Linux Power User Bundle with 5-Courses (97% off)</p> 
+<p style="background-color: rgb(157, 24, 21); margin: 6px 35px; padding: 10px;"><a style="font-size: 25px; font-weight: bold;" href="https://deals.tecmint.com/sales/complete-linux-bundle" target="_blank" rel="nofollow">Add to Cart - $19</a></p>
+<p style="font-size: 14px; font-weight: bold;"><i class="fa fa-clock-o" aria-hidden="true"></i> Ending In: 4 days
+</p></center></div></div>
+</div><div id="text-4" class="widget widget_text"><h3>Download Free Linux eBooks</h3>			<div class="textwidget"><ol>
+<li><a href="http://tecmint.tradepub.com/free/w_makb09/prgm.cgi" rel="nofollow" target="_blank">Complete Linux Command Line Cheat Sheet</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_free01/prgm.cgi" rel="nofollow" target="_blank">The GNU/Linux Advanced Administration Guide</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux Servers</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk12/prgm.cgi" rel="nofollow" target="_blank">Linux Patch Management: Keeping Linux Up To Date</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi" rel="nofollow" target="_blank">Introduction to Linux – A Hands on Guide</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk10/prgm.cgi" rel="nofollow" target="_blank">Understanding the Linux® Virtual Memory Manager</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi" rel="nofollow" target="_blank">Linux Bible – Packed with Updates and Exercises</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi" rel="nofollow" target="_blank">A Newbie’s Getting Started Guide to Linux</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_linu01/prgm.cgi" rel="nofollow" target="_blank">Linux from Scratch – Create Your Own Linux OS</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_pack42/prgm.cgi" rel="nofollow" target="_blank">Linux Shell Scripting Cookbook, Second Edition</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux: The Hacking Solution</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk09/prgm.cgi" rel="nofollow" target="_blank">User Mode Linux – Understanding and Administration</a></li>
+</ol></div>
+</div><div id="text-29" class="widget widget_text">			<div class="textwidget"><div id="subscribebox">
+<div class="follow-subscribe-social">
+<ul>
+<li><a href="http://twitter.com/tecmint" target="_blank"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><i class="fa fa-google"></i></a></li>
+<li><a href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="_blank"><i class="fa fa-youtube"></i></a></li>
+<li><a href="https://www.linkedin.com/company/tecmint" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+<p>INSTANT UPDATES FOR NEW POSTS</p>
+<form target="popupwindow" method="post" action="https://feedburner.google.com/fb/a/mailverify">
+<input name="uri" value="tecmint" type="hidden">
+<input name="loc" value="en_US" type="hidden">
+<input value="Enter Your Email Address :)" name="email" class="subscribe-email" type="text">
+<input class="subscribe-button" value="Subscribe" type="submit">
+</form>
+</div></div>
+</div>			
+</div><!--/.sidebar-content-->
+</div><!--/.sidebar-->
+				</div><!--/.main-inner-->
+</div><!--/.main-->			
+</div><!--/.container-inner-->
+</div><!--/.container-->
+<footer id="footer">
+<section class="container" id="footer-ads">
+<div class="container-inner">
+</div><!--/.container-inner-->
+</section><!--/.container-->
+<section class="container" id="footer-widgets">
+<div class="container-inner">
+<div class="pad group">
+<div class="footer-widget-1 grid one-third ">
+<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/sysstat-commands-to-monitor-linux/" rel="bookmark" title="20 Useful Commands of ‘Sysstat’ Utilities (mpstat, pidstat, iostat and sar) for Linux Performance Monitoring">20 Useful Commands of ‘Sysstat’ Utilities (mpstat, pidstat, iostat and sar) for Linux Performance Monitoring</a></p>
+<p class="post-item-date">4 Sep, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-configure-ganglia-monitoring-centos-linux/" rel="bookmark" title="Setting Up Real-Time Monitoring with ‘Ganglia’ for Grids and Clusters of Linux Servers">Setting Up Real-Time Monitoring with ‘Ganglia’ for Grids and Clusters of Linux Servers</a></p>
+<p class="post-item-date">10 Jun, 2016</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/wireshark-network-protocol-analyzer-tool-for-rhelcentosfedora/" rel="bookmark" title="Wireshark – Network Protocol Analyzer Tool for RHEL/CentOS/Fedora">Wireshark – Network Protocol Analyzer Tool for RHEL/CentOS/Fedora</a></p>
+<p class="post-item-date">16 Aug, 2012</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/goaccess-a-real-time-apache-and-nginx-web-server-log-analyzer/" rel="bookmark" title="GoAccess (A Real-Time Apache and Nginx) Web Server Log Analyzer">GoAccess (A Real-Time Apache and Nginx) Web Server Log Analyzer</a></p>
+<p class="post-item-date">12 Apr, 2016</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-2 grid one-third ">
+<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/ssh-interview-questions/" rel="bookmark" title="10 Useful SSH (Secure Shell) Interview Questions and Answers">10 Useful SSH (Secure Shell) Interview Questions and Answers</a></p>
+<p class="post-item-date">15 Mar, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/practical-interview-questions-on-linux-shell-scripting/" rel="bookmark" title="Practical Interview Questions and Answers on Linux Shell Scripting">Practical Interview Questions and Answers on Linux Shell Scripting</a></p>
+<p class="post-item-date">7 Jun, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/10-mysql-database-interview-questions-for-beginners-and-intermediates/" rel="bookmark" title="10 MySQL Database Interview Questions for Beginners and Intermediates">10 MySQL Database Interview Questions for Beginners and Intermediates</a></p>
+<p class="post-item-date">9 Jan, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/mysql-advance-interview-questions/" rel="bookmark" title="11 Advance MySQL Database “Interview Questions and Answers” for Linux Users">11 Advance MySQL Database “Interview Questions and Answers” for Linux Users</a></p>
+<p class="post-item-date">17 Jun, 2014</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-3 grid one-third last">
+<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/how-to-install-teamviewer-on-linux-distributions/" rel="bookmark" title="TeamViewer 9 Released – Install on RHEL/CentOS/Fedora and Debian/Ubuntu">TeamViewer 9 Released – Install on RHEL/CentOS/Fedora and Debian/Ubuntu</a></p>
+<p class="post-item-date">8 Dec, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/playonlinux-run-windows-applications-and-games-on-linux/" rel="bookmark" title="PlayOnLinux – Run Windows Applications and Games on Linux">PlayOnLinux – Run Windows Applications and Games on Linux</a></p>
+<p class="post-item-date">21 Mar, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/vnc-desktop-access-from-web-browser/" rel="bookmark" title="How to Access Remote VNC Desktop from Web Browser Using TightVNC Java Viewer">How to Access Remote VNC Desktop from Web Browser Using TightVNC Java Viewer</a></p>
+<p class="post-item-date">24 Jul, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-openvpn-in-debian/" rel="bookmark" title="OpenVPN Server and Client Installation and Configuration on Debian 7">OpenVPN Server and Client Installation and Configuration on Debian 7</a></p>
+<p class="post-item-date">4 Apr, 2014</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->	
+<nav class="nav-container group" id="nav-footer">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-18572" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18572"><a href="http://www.tecmint.com/donate-to-tecmint/">Donate to TecMint</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="http://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="http://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="http://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="http://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="http://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="http://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-15143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15143"><a target="_blank" href="http://www.tecmint.com/linux-system-administration-jobs/">Linux Admin Jobs</a></li>
+</ul></div>
+</nav><!--/#nav-footer-->
+<section class="container" id="footer-bottom">
+<div class="container-inner">
+<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="pad group">
+<div class="grid one-half">
+<div id="copyright">
+<p>Tecmint: Linux Howtos, Tutorials &amp; Guides © 2016. All Rights Reserved.</p>
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license"><b style="color: rgb(204, 204, 204);">(cc) BY-NC</b></a></p>
+<p>The material in this site cannot be republished either online or offline, without our permission.</p>
+</div><!--/#copyright-->
+</div>
+<div class="grid one-half last">	
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: rgb(51, 204, 255);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: rgb(59, 89, 152);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: rgb(219, 74, 57);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: rgb(135, 192, 64);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: rgb(196, 48, 43);"></i></a></li></ul>					</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->
+</footer><!--/#footer-->
+</div><!--/#wrapper-->
+
+<!-- <link rel='stylesheet' id='stcr-plugin-style-css'  href='http://www.tecmint.com/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/stcr-plugin-style.css?ver=4.5.3' type='text/css' media='all' /> -->
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+<!--     ===== START Dreamgrow Scroll Triggered Box 2.3 =====   -->
+<div class="dgd_overlay"></div>
+<div style="padding: 10px; opacity: 0; width: 300px; bottom: -188px; right: 10px;" class="dgd_stb_box clean_white" id="dgd_scrollbox-11027"><a class="dgd_stb_box_close dgd_stb_box_x"> </a><h5>Join Over 150K+ Linux Users</h5>
+<div id="social_sprite">
+<ol>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><span id="soc_fbuk" class="soc_icon"></span><span class="count">100,756</span></a></li>
+<li><a href="http://twitter.com/tecmint" target="_blank"><span id="soc_twitter" class="soc_icon"> </span><span class="count">5,113</span></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><span id="soc_gplus" class="soc_icon"> </span><span class="count">36,418</span></a></li>
+</ol>
+</div>
+<p>Enter your email to get latest Linux Howto's</p>
+<form class="stbContactForm" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"><input name="uri" value="tecmint" type="hidden"><input name="loc" value="en_US" type="hidden"><input name="email" value="Enter Your Email Address :)" type="text"><input class="stb-submit" value="Subscribe" type="submit"></form>
+<p class="stbMsgArea">
+</p><ul class="stb_social"></ul></div>
+<!--     ===== END OF Dreamgrow Scroll Triggered Box 2.3 =====   -->
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="http://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="http://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="http://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li style="display: list-item;"><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="http://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="http://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="http://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="http://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">Ebook: Introducing the RHCSA and RHCE Exam Preparation Guide</a></li>
+<li><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Fundation Certified SysAdmin) Exam</a></li>
+<li><a href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Fundation Certified Engineer) Exam</a></li>
+<li><a href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+
+</body>
+</html>

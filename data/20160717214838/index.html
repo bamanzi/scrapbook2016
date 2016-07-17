@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>python fabric 自动部署和使用examples_it运维管理系统和软件_老王python</title>
+
+<link rel="alternate" type="application/rss+xml" href="http://www.cnpythoner.com/rss.xml">
+<link rel="author" href="https://plus.google.com/105735934512618900781">
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head><body class="single"><iframe src="index_1.html" style="display: none;" frameborder="0"></iframe><div style="display: block;" id="bdshare_s"><iframe src="index_2.html" id="bdsIfr" style="position: absolute; display: none; z-index: 9999;" frameborder="0"></iframe><div style="display: none;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+
+<div id="divAll">
+	<div id="divPage">
+	<div id="divMiddle">
+		<div id="divTop">
+			<div id="BlogTitle"><img src="logo.gif" alt="python" height="60" width="230"></div>
+		<div class="banner">
+<a href="http://www.cnpythoner.com/peixun/info.html"><img src="9354036.gif" alt="python视频教程" usemap="#AV-eggs" border="0" height="70" width="600"></a></div>
+		</div>
+		<div id="divNavBar">
+			<div class="headLeft"></div>
+		<div class="headRight"></div>
+<ul>
+<li><a href="http://www.cnpythoner.com/" rel="nofollow">首页</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=11">入门教程</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=4">练习题</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=1">python教程</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=2">django教程</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=15">seo应用</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=16">linux</a></li>
+<li><a href="http://www.cnpythoner.com/catalog.asp?cate=17">测试应用</a></li>
+<li><a href="http://www.cnpythoner.com/pythonbook.html" target="_blank">书籍推荐</a></li>
+
+
+</ul>
+		</div>
+        <div id="divSearchBar">
+        <table>
+        <tbody>
+            <tr>
+        		<td class="search_table" align="left" valign="center">
+        			<form method="post" class="forminline" action="http://www.cnpythoner.com/cmd.asp?act=Search">
+                    <table><tbody><tr><td widht="60px">Search : </td>
+                    <td><input name="edtSearch" id="edtSearch" type="text"></td>
+						<td><input value="提交" name="btnPost" id="btnPost" type="submit"></td><td>
+                        </td></tr></tbody></table>
+					</form>
+        		</td>
+        		<td class="search_seperator" valign="center" width="2"><br>        			
+        		</td>
+        		<td class="search_hottage" valign="center">	
+				<div style="float: right;">热门知识点：&nbsp;<a href="http://www.cnpythoner.com/wiki/string.html" target="_blank">python 字符串</a></div>
+        		</td>
+            </tr>
+        </tbody>   
+        </table>
+      </div>
+		<div id="navline"></div>
+		<div id="divMain">
+<div class="post cate16 auth1">
+	<div class="post-nav"><a href="http://www.cnpythoner.com/">python</a>&gt;&gt;<a href="http://www.cnpythoner.com/catalog.asp?cate=16">it运维管理系统和软件</a>&gt;&gt;python fabric 自动部署和使用examples</div>
+	
+	<h2 class="post-title"><div id="title">python fabric 自动部署和使用examples</div></h2>
+	<div class="post-content">
+		<div class="post-body"><p>上节我们已经把<a href="http://www.cnpythoner.com/post/296.html" target="_blank">python fabric安装配置</a>好了。这节我们通过fabric编写批量执行服务器任务和自动化运维管理。<br><br>先介绍下fabric的特点，这个在官方文档里面已经介绍过:<br><br>1 代码可读性强，完全是python语言。<br>2 封装了本地、远程操，内置了一些方法。<br>3 可以根据需求灵活的定义参数。<br>4 角色定义，方便批量管理。<br><br>常用的配置参数：<br><br>env.host&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 主机ip，当然也可以-H参数指定<br>env.password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 密码，打好通道的请无视<br>env.roledefs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 角色分组，比如：{'web': ['x', 'y'], 'db': ['z']}<br><br>fab -l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 显示可用的task（命令）<br>fab -H&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 指定host，支持多host逗号分开<br>fab -R&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 指定role，支持多个<br>fab -P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 并发数，默认是串行<br>fab -w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- warn_only，默认是碰到异常直接abort退出<br>fab -f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 指定入口文件，fab默认入口文件是：fabfile/fabfile.py<br><br><br>常用的函数：<br><br>local('pwd')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 执行本地命令<br>lcd('/tmp')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 切换本地目录<br>cd('/tmp')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 切换远程目录<br>run('uname -a')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- 执行远程命令，一般会提示叫你输入密码。<br>sudo('/etc/init.d/nginx start')&nbsp; -- 执行远程sudo，注意pty选项<br>&nbsp;</p><p>下面是写了一个远程复制文件和本地复制文件的函数。我把localhost既单做远程，还单做本地来操作。</p><div style="font-family: &quot;[object HTMLOptionElement]&quot;,&quot;Consolas&quot;,&quot;Lucida Console&quot;,&quot;Courier New&quot;; color: rgb(0, 0, 0); background-color: rgb(249, 247, 237);" class="source"><span style="color: rgb(0, 136, 0); font-style: italic;">#encoding=utf-8</span><br><span style="color: rgb(0, 136, 0); font-style: italic;">#description:fabric代码测试。</span><br><br><span style="color: rgb(0, 0, 0);">from</span> <span style="color: rgb(0, 0, 0);">fabric.api</span> <span style="color: rgb(0, 0, 0);">import</span> <span style="color: rgb(0, 0, 0);">run</span><span style="color: rgb(0, 0, 0);">,</span><span style="color: rgb(0, 0, 0);">local</span><span style="color: rgb(0, 0, 0);">,</span><span style="color: rgb(0, 0, 0);">lcd</span><span style="color: rgb(0, 0, 0);">,</span><span style="color: rgb(0, 0, 0);">env</span><span style="color: rgb(0, 0, 0);">,</span><span style="color: rgb(0, 0, 0);">cd</span><br><br><span style="color: rgb(0, 0, 0);">env</span><span style="color: rgb(0, 0, 0);">.</span><span style="color: rgb(0, 0, 0);">hosts</span> <span style="color: rgb(0, 0, 0);">=</span> <span style="color: rgb(0, 0, 0);">[</span><span style="color: rgb(0, 0, 255);">'localhost'</span><span style="color: rgb(0, 0, 0);">]</span><br><br><span style="color: rgb(0, 0, 128); font-weight: bold;">def</span> <span style="color: rgb(0, 0, 0);">localcopyfile</span><span style="color: rgb(0, 0, 0);">():</span><br>&nbsp; &nbsp;<span style="color: rgb(0, 0, 255);">'''本地文件copy操作'''</span><br>&nbsp; <span style="color: rgb(0, 0, 0);">local</span>(<span style="color: rgb(0, 0, 255);">'pwd'</span>)<br>&nbsp; <span style="color: rgb(0, 0, 0);">local</span>(<span style="color: rgb(0, 0, 255);">'cp /home/laowang/workspace/info.txt /home/laowang/test'</span>)<br>&nbsp; <span style="color: rgb(0, 0, 128); font-weight: bold;">print</span> <span style="color: rgb(0, 0, 255);">'local copy file success'</span><br><br><br><span style="color: rgb(0, 0, 128); font-weight: bold;">def</span> <span style="color: rgb(0, 0, 0);">remote</span><span style="color: rgb(0, 0, 0);">():</span><br>&nbsp; &nbsp;<span style="color: rgb(0, 0, 255);">'''远程文件拷贝操作'''</span><br>&nbsp; <span style="color: rgb(0, 0, 0);">run</span>(<span style="color: rgb(0, 0, 255);">'pwd'</span>)<br>&nbsp; <span style="color: rgb(0, 0, 0);">run</span>(<span style="color: rgb(0, 0, 255);">'cp /home/laowang/workspace/test.py /home/laowang/test'</span>)<br>&nbsp; <span style="color: rgb(0, 0, 128); font-weight: bold;">print</span> <span style="color: rgb(0, 0, 255);">'remote copy file success'</span></div><p>本地localcopyfile方法的执行结果：</p><p><img style="width: 520px; cursor: pointer;" title="" alt="fabric本地执行代码" src="local.jpg"></p><p>远程remote方法的执行结果：</p><p><img style="width: 520px; cursor: pointer;" title="" alt="fabric远程执行代码" src="remote.jpg"></p><p>说明：</p><p>1 远程如果你没在代码里面设置好密码 的话，在执行脚本的时候，代码会提示让你输入密码，才能执行，而本地的话，则不会。</p><p>2 这个只是简单的演示，给运维的同学做一个铺垫。其实结合好linux自身的命令就可以做很多相关的批量执行服务器和自动化运维管理的任务了。</p><div id="RatingPre"><div id="Rating"><div id="Star"><div style="width: 120px;" id="Star-Cur"></div><a id="Star1" title="这么差的文章，怎么写出来的！"></a><a id="Star2" title="马马虎虎，写得不怎么样"></a><a id="Star3" title="一般情况吧"></a><a id="Star4" title="写得不错，再努力呀！"></a><a id="Star5" title="精彩，太值得读了！"></a></div><div id="Score"><div id="Rating-show">平均得分4.00分（共8次打分）</div></div></div></div> </div>
+		<br>
+		<div><a href="http://www.cnpythoner.com/peixun/info.html"><img src="9354036.gif" alt="python视频教程" usemap="#AV-eggs" border="0" height="70" width="600"></a></div>
+		<br>
+		<div style="margin-left: 10px;"><h3>相关文章：</h3>
+<ul class="rearticle"></ul></div>
+	<div>
+		<h6 class="post-footer">
+			发布:2013-5-22 22:25:42<!--laowang--> | 分类:<a href="http://www.cnpythoner.com/catalog.asp?cate=16">it运维管理系统和软件</a> | 评论:0 | 引用:0 | 浏览:<span id="spn297"></span>
+			
+		</h6>
+	</div>
+	<div id="lastnextpage"><span>上一篇:&nbsp;&nbsp;<a href="http://www.cnpythoner.com/post/296.html">fabric的安装和配置</a>&nbsp;&nbsp;<span>下一篇:&nbsp;&nbsp;<a href="http://www.cnpythoner.com/post/298.html">python yield和generators(生成器)</a></span></span></div>
+	<div><!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+<span class="bds_more">分享到：</span>
+<a href="#" title="分享到QQ空间" class="bds_qzone">QQ空间</a>
+<a href="#" title="分享到新浪微博" class="bds_tsina">新浪微博</a>
+<a href="#" title="分享到腾讯微博" class="bds_tqq">腾讯微博</a>
+<a href="#" title="分享到人人网" class="bds_renren">人人网</a>
+<a href="#" title="分享到网易微博" class="bds_t163">网易微博</a>
+<a title="累计分享0次" href="#" class="shareCount">0</a>
+</div>
+
+
+
+<!-- Baidu Button END --></div>
+	<div class="clear"></div>
+</div>
+<!--
+<ul class="msg trackback">
+	<li class="tbname"><a href="http://www.cnpythoner.com/cmd.asp?act=gettburl&amp;id=297" target="_blank">点击这里获取该日志的TrackBack引用地址</a></li>
+</ul>
+-->
+
+
+
+<h4>评论列表</h4>
+<div style="display: none;" id="divAjaxComment"></div>
+<div class="post" id="divCommentPost">
+	<p class="posttop"><a name="comment">发表评论:</a></p>
+	<form id="frmSumbit" target="_self" method="post" action="http://www.cnpythoner.com/cmd.asp?act=cmt&amp;key=5d79f78a">
+	
+	<input name="inpId" id="inpId" value="297" type="hidden">
+	<input name="inpArticle" id="inpArticle" value="" type="hidden">
+	<input name="inpLocation" id="inpLocation" value="" type="hidden">
+	
+<table><tbody><tr>
+<td>
+<p><label for="inpName">名称(*)</label><input name="inpName" id="inpName" class="text" value="" size="28" tabindex="1" type="text"> </p>
+	<p><label for="inpEmail">邮箱</label><input name="inpEmail" id="inpEmail" class="text" value="" size="28" tabindex="2" type="text"> </p>
+	<p><label for="inpHomePage">网站链接</label><input name="inpHomePage" id="inpHomePage" class="text" value="" size="28" tabindex="3" type="text"> </p>
+	<p><label for="inpVerify">验证(*)</label>
+<input name="inpVerify" id="inpVerify" class="text" value="" tabindex="4" type="text">  
+<img style="border: 1px solid black;" src="c_validcode.asp" alt="" title="">
+</p>	
+</td>
+<td width="20px">
+</td>
+<td>
+</td>
+</tr>
+</tbody></table>
+	
+	<p><label for="txaArticle">正文(*)(留言最长字数:1000)</label><textarea name="txaArticle" id="txaArticle" class="text" rows="4" tabindex="5"></textarea></p>
+
+	<div><input name="btnSumbit" tabindex="6" value="提交" class="button" type="submit"> <input name="chkRemember" value="1" id="chkRemember" type="checkbox"> <label for="chkRemember">记住我,下次回复时不用重新输入个人信息</label></div>
+	<p id="UbbFrame" style="display: none;"></p><p><a alt="" style="padding: 2px; cursor: pointer;">[URL]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[URL2]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[EMAIL]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[EMAIL2]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[B]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[I]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[U]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[S]</a>  <a alt="" style="padding: 2px; cursor: pointer;">[QUOTE]</a>  <u><a style="cursor: pointer; text-align: right;">显示UBB表情&gt;&gt;</a></u> </p>
+	</form>
+	<p class="postbottom">◎欢迎参与讨论，请在这里发表您的看法、交流您的观点。</p>
+	
+</div>
+
+
+
+
+		</div>
+	</div>
+		<div id="divSidebar">
+		 <div class="function" id="divPrevious">
+          <h3>关于网站</h3>
+          <p id="info">
+          	<img src="erweima.jpeg" alt="微信公众平台" width="200">
+            <span style="color: red;">扫描二维码: 即可获得python精品教程</span>，并且不定期地分享python,django 实战技巧
+          </p>
+        </div>
+<div class="function" id="divPrevious">
+<h3>最近发表</h3>
+<ul id="ulPrevious">
+<li><a href="http://www.cnpythoner.com/post/pythonguanjian.html">函数关键字参数</a></li>
+<li><a href="http://www.cnpythoner.com/post/139.html">函数返回值</a></li>
+<li><a href="http://www.cnpythoner.com/post/30.html">cooklib</a></li>
+<li><a href="http://www.cnpythoner.com/post/9.html">如何学好python</a></li>
+<li><a href="http://www.cnpythoner.com/post/150.html">mysql连接代码教程</a></li>
+<li><a href="http://www.cnpythoner.com/post/104.html">exception 异常</a></li>
+<li><a href="http://www.cnpythoner.com/post/76.html">缩进格式</a></li>
+<li><a href="http://www.cnpythoner.com/post/90.html">apply函数</a></li>
+<li><a href="http://www.cnpythoner.com/post/134.html">gui</a></li>
+<li><a href="http://www.cnpythoner.com/post/137.html">django select_related()外键查询</a></li>
+<li><a href="http://www.cnpythoner.com/post/101.html">python is</a></li>
+<li><a href="http://www.cnpythoner.com/post/64.html">dict 操作</a></li>
+<li><a href="http://www.cnpythoner.com/post/94.html">django 操作数据库</a></li>
+<li><a href="http://www.cnpythoner.com/post/239.html">获取第一个字符和最后一个字符</a></li>
+<li><a href="http://www.cnpythoner.com/post/235.html">提取文章的高频词</a></li>
+<li><a href="http://www.cnpythoner.com/post/236.html">字符串格式化输出</a></li>
+<li><a href="http://www.cnpythoner.com/post/237.html">列表迭代</a></li>
+<li><a href="http://www.cnpythoner.com/post/17.html">startswith endswith</a></li>
+<li><a href="http://www.cnpythoner.com/post/180.html">python 模块</a></li>
+<li><a href="http://www.cnpythoner.com/post/22.html">django template 语法</a></li>
+<li><a href="http://www.cnpythoner.com/post/10.html">动态创建类</a></li>
+<li><a href="http://www.cnpythoner.com/post/20.html">引用和拷贝</a></li>
+<li><a href="http://www.cnpythoner.com/post/19.html">re正则表达式</a></li>
+<li><a href="http://www.cnpythoner.com/post/203.html">mechanize自动登录程序</a></li>
+<li><a href="http://www.cnpythoner.com/post/78.html">str转int</a></li>
+<li><a href="http://www.cnpythoner.com/post/16.html">django template html</a></li>
+<li><a href="http://www.cnpythoner.com/post/106.html">编码设置</a></li>
+<li><a href="http://www.cnpythoner.com/post/132.html">重载运算符</a></li>
+<li><a href="http://www.cnpythoner.com/post/81.html">三引号</a></li>
+<li><a href="http://www.cnpythoner.com/post/59.html">base64</a></li>
+<li><a href="http://www.cnpythoner.com/post/91.html">web开发必备</a></li>
+<li><a href="http://www.cnpythoner.com/post/142.html">python 2.5</a></li>
+<li><a href="http://www.cnpythoner.com/post/26.html">序列化数据</a></li>
+<li><a href="http://www.cnpythoner.com/post/171.html">python运行</a></li>
+<li><a href="http://www.cnpythoner.com/post/182.html">ping</a></li>
+<li><a href="http://www.cnpythoner.com/post/147.html">基础知识</a></li>
+<li><a href="http://www.cnpythoner.com/post/126.html">list判断</a></li>
+<li><a href="http://www.cnpythoner.com/post/268.html">python 网络</a></li> 
+<li><a href="http://www.cnpythoner.com/pythonshop.html">python 基础教程</a></li>
+<li><a href="http://www.cnpythoner.com/post/250.html">python 安装</a></li>
+<li><a href="http://www.cnpythoner.com/post/296.html">fabric 安装配置</a></li>
+<li><a href="#">fabric 批量自动化运维管理</a></li>   
+</ul>
+</div>
+		</div>
+		<div id="divBottom">
+			<div id="BlogPowerBy">老王python ® 版权所有 备案号：湘ICP备10012179号</div>
+			 <div style="text-align: center;"><span id="cnzz_stat_icon_1257401823"></span></div>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+</body>
+</html>

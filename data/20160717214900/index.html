@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>批量部署 自动化之 - [fabric] | ruiaylin's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ruichao.lin">
+    
+
+    
+    <meta name="description" content="如何使用fabric 自动化日常管理任务和部署
+
+所谓工欲善其事，必先利其器
+
+自动化，批量化是作为管理员，或者运维人员必须面临的问题。自动化和批量化也有很多方式，可以用单一工具也可以自己写shell脚本，甚至可以开发出来一套完备的任务管理系统。其实我们大多时候可以在一台主机上面通过ssh来控制所有机器，来完成我们的任务工作。是否有这样的工具来支持我们呢？ 答案是肯定的。下面就切入今天的主题 FA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批量部署 自动化之 - [fabric]">
+<meta property="og:url" content="http://yoursite.com/2014/11/24/fabric/">
+<meta property="og:site_name" content="ruiaylin's Blog">
+<meta property="og:description" content="如何使用fabric 自动化日常管理任务和部署
+
+所谓工欲善其事，必先利其器
+
+自动化，批量化是作为管理员，或者运维人员必须面临的问题。自动化和批量化也有很多方式，可以用单一工具也可以自己写shell脚本，甚至可以开发出来一套完备的任务管理系统。其实我们大多时候可以在一台主机上面通过ssh来控制所有机器，来完成我们的任务工作。是否有这样的工具来支持我们呢？ 答案是肯定的。下面就切入今天的主题 FA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="批量部署 自动化之 - [fabric]">
+<meta name="twitter:description" content="如何使用fabric 自动化日常管理任务和部署
+
+所谓工欲善其事，必先利其器
+
+自动化，批量化是作为管理员，或者运维人员必须面临的问题。自动化和批量化也有很多方式，可以用单一工具也可以自己写shell脚本，甚至可以开发出来一套完备的任务管理系统。其实我们大多时候可以在一台主机上面通过ssh来控制所有机器，来完成我们的任务工作。是否有这样的工具来支持我们呢？ 答案是肯定的。下面就切入今天的主题 FA">
+<meta name="twitter:creator" content="@ruiaylin">
+
+
+    
+    <link rel="alternative" href="http://ruiaylin.github.io/atom.xml" title="ruiaylin's Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="http://ruiaylin.github.io/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="http://ruiaylin.github.io/img/jacman.jpg">
+    
+    
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="http://ruiaylin.github.io/"><img src="logo.png" alt="ruiaylin's Blog" title="ruiaylin's Blog"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="http://ruiaylin.github.io/" title="ruiaylin's Blog">ruiaylin's Blog</a></h1>
+				<h2 class="blog-motto">蹈之而弗悔 ,  慎思而笃行  ...</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="http://ruiaylin.github.io/">Home</a></li>
+					
+						<li><a href="http://ruiaylin.github.io/archives">Archives</a></li>
+					
+						<li><a href="http://ruiaylin.github.io/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="http://google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" type="search">
+						<input name="q" value="site:yoursite.com" type="hidden">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="#" title="批量部署 自动化之 - [fabric]" itemprop="url">批量部署 自动化之 - [fabric]</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://ruiaylin.github.io/about" title="ruichao.lin" target="_blank" itemprop="author">ruichao.lin</a>
+		
+  </p><p class="article-time">
+    <time datetime="2014-11-24T08:50:53.000Z" itemprop="datePublished"> 发表于 11月 24 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用fabric_自动化日常管理任务和部署"><span class="toc-number">1.</span> <span class="toc-text">如何使用fabric 自动化日常管理任务和部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fabric的官方介绍："><span class="toc-number">2.</span> <span class="toc-text">fabric的官方介绍：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric_可以为哪些人服务"><span class="toc-number">2.0.1.</span> <span class="toc-text">fabric 可以为哪些人服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric_常用接口"><span class="toc-number">2.0.2.</span> <span class="toc-text">fabric 常用接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric_还提供了上下文管理器"><span class="toc-number">2.0.3.</span> <span class="toc-text">fabric 还提供了上下文管理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fabric_安装"><span class="toc-number">2.1.</span> <span class="toc-text">fabric 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fabric_编程模型介绍"><span class="toc-number">2.2.</span> <span class="toc-text">fabric 编程模型介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric主要接口方法"><span class="toc-number">2.2.1.</span> <span class="toc-text">fabric主要接口方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#run_(fabric-operations-run)"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">run (fabric.operations.run)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sudo_(fabric-operations-sudo)"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">sudo (fabric.operations.sudo)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#local_(fabric-operations-local)"><span class="toc-number">2.2.1.3.</span> <span class="toc-text">local (fabric.operations.local)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#get_(fabric-operations-get)"><span class="toc-number">2.2.1.4.</span> <span class="toc-text">get (fabric.operations.get)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#put_(fabric-operations-put)"><span class="toc-number">2.2.1.5.</span> <span class="toc-text">put (fabric.operations.put)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#并行执行"><span class="toc-number">2.2.1.6.</span> <span class="toc-text">并行执行</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL_安装实例"><span class="toc-number">3.</span> <span class="toc-text">MySQL 安装实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li>
+		
+		</div>
+		
+		<h2 id="如何使用fabric_自动化日常管理任务和部署">如何使用fabric 自动化日常管理任务和部署</h2>
+<blockquote>
+<p>所谓工欲善其事，必先利其器</p>
+</blockquote>
+<p>自动化，批量化是作为管理员，或者运维人员必须面临的问题。自动化和批量化也有很多方式，可以用单一工具也可以自己写shell脚本，甚至可以开发出来一套完备的任务管理系统。其实我们大多时候可以在一台主机上面通过ssh来控制所有机器，来完成我们的任务工作。是否有这样的工具来支持我们呢？ 答案是肯定的。<br>下面就切入今天的主题 FABRIC</p>
+<h2 id="fabric的官方介绍：">fabric的官方介绍：</h2>
+<p>看一下官方介绍，来一个清晰的认识 </p>
+<pre><code>Fabric <span class="keyword">is</span> <span class="keyword">a</span> Python (<span class="number">2.5</span>-<span class="number">2.7</span>) library <span class="built_in">and</span> <span class="keyword">command</span>-<span class="built_in">line</span> tool <span class="keyword">for</span> streamlining the use of SSH 
+<span class="keyword">for</span> application deployment <span class="built_in">or</span> systems administration tasks.
+    More specifically, Fabric <span class="keyword">i</span><span class="variable">s:</span> A tool that lets you <span class="keyword">execute</span> arbitrary Python functions via 
+the <span class="keyword">command</span> <span class="built_in">line</span>;A library of subroutines (built <span class="keyword">on</span> top of <span class="keyword">a</span> lower-level library) <span class="keyword">to</span> <span class="keyword">make</span> 
+executing <span class="keyword">shell</span> commands over SSH easy <span class="built_in">and</span> Pythonic. Naturally, most users combine these 
+two things, using Fabric <span class="keyword">to</span> <span class="keyword">write</span> <span class="built_in">and</span> <span class="keyword">execute</span> Python functions, <span class="built_in">or</span> tasks, <span class="keyword">to</span> automate
+interactions with remote servers. 
+</code></pre><h4 id="fabric_可以为哪些人服务">fabric 可以为哪些人服务</h4>
+<pre><code>Python 开发者
+系统管理员 [ SA , ASA, DBA <span class="keyword">...</span>]
+应用开发者
+</code></pre><h4 id="fabric_常用接口">fabric 常用接口</h4>
+<p>fabric是对ssh的一个集成工具，对我们而言只需要使用相应的接口，来高效的完成工作，我们常用到的功能基本是 ： 本地或者远端执行命令， 分发文件，收集文件，还有一些权限相关的操作。 这些fabric都给我们提供了对应的接口。<br>如下所示： </p>
+<pre><code><span class="command">run</span> (fabric.operations.<span class="command">run</span>)
+sudo (fabric.operations.sudo)
+<span class="keyword">local</span> (fabric.operations.<span class="keyword">local</span>)
+<span class="keyword">get</span> (fabric.operations.<span class="keyword">get</span>)
+<span class="keyword">put</span> (fabric.operations.<span class="keyword">put</span>)
+prompt (fabric.operations.prompt)
+reboot (fabric.operations.reboot)
+</code></pre><h4 id="fabric_还提供了上下文管理器">fabric 还提供了上下文管理器</h4>
+<p>接口部分提供了命令运行的方式，不过都无法保持上下文关系，为了解决这个问题，fabric的context manager 就派上了用场： </p>
+<pre><code><span class="function"><span class="title">cd</span> <span class="params">(fabric.context_managers.cd)</span>
+<span class="title">lcd</span> <span class="params">(fabric.context_managers.lcd)</span>
+<span class="title">path</span> <span class="params">(fabric.context_managers.path)</span>
+<span class="title">settings</span> <span class="params">(fabric.context_managers.settings)</span>
+<span class="title">prefix</span> <span class="params">(fabric.context_managers.prefix)</span></span>
+</code></pre><h3 id="fabric_安装">fabric 安装</h3>
+<pre><code><span class="title">easy_install</span> fabric 
+</code></pre><h3 id="fabric_编程模型介绍">fabric 编程模型介绍</h3>
+<blockquote>
+<p>由于fabric是基于python的，所以写fabric脚本就是写python脚本，你可以像写python脚本一样，可以依赖其他模块或者其他工具来完成工作。Fabric 脚本，通过fab工具运行fabric python脚本。fab工具默认执行fabfile.py ,也可以通过-f 参数指定 脚本文件名。fabric优势多多，简单，方便，日志输出清晰，命令<br>中可以使用AWK 命令 下面我们看一个 hello world 程序。 </p>
+</blockquote>
+<pre><code><span class="keyword">from</span> fabric.api <span class="keyword">import</span> *
+<span class="function"><span class="keyword">def</span> <span class="title">helloworld</span><span class="params">(who=<span class="string">'world'</span>)</span>:</span>
+    <span class="keyword">print</span>  <span class="string">"Hello {0}!"</span>.format(who) 
+<span class="function"><span class="keyword">def</span> <span class="title">helloworld1</span><span class="params">(you=<span class="string">'world'</span>,me=<span class="string">'ruiaylin'</span>)</span>:</span>
+    <span class="keyword">print</span>  <span class="string">"Hello {0}! i am {1} ! "</span>.format(you,me)
+</code></pre><p>执行命令(其中参数的传递直接跟在任务后跟变量名和参数)：</p>
+<pre><code>➜  <span class="function_or_atom">fabric</span>  <span class="function_or_atom">fab</span> -<span class="function_or_atom">f</span> <span class="function_or_atom">helloword</span>.<span class="function_or_atom">py</span>  <span class="function_or_atom">helloworld</span>
+<span class="variable">Hello</span> <span class="function_or_atom">world</span><span class="exclamation_mark">!</span> 
+<span class="variable">Done</span>.
+➜  <span class="function_or_atom">fabric</span>  <span class="function_or_atom">fab</span> -<span class="function_or_atom">f</span> <span class="function_or_atom">helloword</span>.<span class="function_or_atom">py</span>  <span class="function_or_atom">helloworld1:you</span>=<span class="string">'ruichao'</span>,<span class="function_or_atom">me</span>=<span class="string">'ruiaylin'</span>
+<span class="variable">Hello</span> <span class="function_or_atom">ruichao</span><span class="exclamation_mark">!</span> <span class="function_or_atom">i</span> <span class="function_or_atom">am</span> <span class="function_or_atom">ruiaylin</span> <span class="exclamation_mark">!</span> 
+<span class="variable">Done</span>.
+</code></pre><h4 id="fabric主要接口方法">fabric主要接口方法</h4>
+<blockquote>
+<p>我们已经看了一个简单例子下面我们来看一下fabric的主要接口。</p>
+</blockquote>
+<h5 id="run_(fabric-operations-run)">run (fabric.operations.run)</h5>
+<p>Fabric 中使用最多的就是 run 方法了。run是用来在一台或者多台远程主机上面执行shell 命令。</p>
+<ul>
+<li>方法的返回值是可以通过变量来进行捕获</li>
+<li>可以通过变量的.failed 和 .succeeded 来检查命令是否执行成功</li>
+<li>还有一个很赞的就是 run 方法中执行命令的时候，可以支持awk 很给力 </li>
+</ul>
+<p>使用方法： </p>
+<pre><code><span class="comment"># creat a directory</span>
+run(<span class="string">" mkdir /tmp/testdir/ -p "</span>)
+<span class="comment"># check process</span>
+<span class="literal">result</span> = run(<span class="string">"ps -ef |grep mysqld|grep -v safe |grep -v grep  | wc -l "</span>
+<span class="comment">#Check if command</span>
+<span class="literal">result</span>.failed
+</code></pre><h5 id="sudo_(fabric-operations-sudo)">sudo (fabric.operations.sudo)</h5>
+<p>使用 sudo 命令执行对顶的命令。使用方法与run 类似。 </p>
+<h5 id="local_(fabric-operations-local)">local (fabric.operations.local)</h5>
+<p>local 命令是执行本机的命令或者脚本.使用方法和run 还有sudo类似，但是有一个区别<br>就是： 捕获结果的时候，是通过指定 capture=False 或者capture=True来确定。来看<br>实例：</p>
+<pre><code><span class="comment"># example like this ： </span>
+<span class="function"><span class="keyword">def</span> <span class="title">helloworld</span><span class="params">(who=<span class="string">'world'</span>)</span>:</span>
+    <span class="keyword">print</span>  <span class="string">"Hello {0}!"</span>.format(who) 
+    yy = local(<span class="string">" pwd "</span>, capture=<span class="keyword">False</span>)
+    <span class="keyword">print</span> <span class="string">'start :  yy = '</span> , yy , <span class="string">' : ::  '</span>,yy.succeeded
+    zz = local(<span class="string">" pwd "</span>, capture=<span class="keyword">True</span>)
+    <span class="keyword">print</span> <span class="string">'start :  zz = '</span> , zz , <span class="string">' : ::  '</span>,zz.succeeded
+<span class="comment">#result ：</span>
+➜  fabric  fab -f helloword.py  helloworld  -H <span class="number">10.211</span><span class="number">.55</span><span class="number">.3</span> -u root
+[<span class="number">10.211</span><span class="number">.55</span><span class="number">.3</span>] Executing task <span class="string">'helloworld'</span>
+Hello world!
+[localhost] local:  pwd 
+/Users/ruiaylin/Documents/workpython/fabric
+start :  yy =    : ::   <span class="keyword">True</span>
+[localhost] local:  pwd 
+start :  zz =  /Users/ruiaylin/Documents/workpython/fabric  : ::   <span class="keyword">True</span>
+</code></pre><h5 id="get_(fabric-operations-get)">get (fabric.operations.get)</h5>
+<p>get 方法是从远程主机 copy file 到本地,功能跟scp一样。可以从远程主机下载<br>备份，或者日志文件等等。</p>
+<ul>
+<li>通过参数 remote_path 指定远程文件的路径</li>
+<li>通过参数 local_path 指定远程文件的路径</li>
+</ul>
+<p>使用方法如下： </p>
+<pre><code><span class="preprocessor"># Download some logs</span>
+<span class="keyword">get</span>(remote_path=<span class="string">"/tmp/xxx.log"</span>, local_path=<span class="string">"/tmp/xxx.log"</span>)  
+<span class="preprocessor"># Download a database back-up</span>
+<span class="keyword">get</span>(<span class="string">"/backup/db.gz"</span>, <span class="string">"./db.gz"</span>)
+</code></pre><h5 id="put_(fabric-operations-put)">put (fabric.operations.put)</h5>
+<p>某些需要上传和分发文件的时候，put命令就派上了用场，使用方式类似 get。也同样可以<br>通过.failed .succeeded进行命令是否执行成功的判断。 </p>
+<ul>
+<li>local_path  - 本地路径  </li>
+<li>remote_path - 远程路径  </li>
+<li>mode -        文件属性 </li>
+</ul>
+<p>如下例子： </p>
+<pre><code>upload = <span class="keyword">put</span>(<span class="string">"requirements.txt"</span>, <span class="string">"requirements.txt"</span>, <span class="built_in">mode</span>=<span class="number">664</span>)
+</code></pre><h5 id="并行执行">并行执行</h5>
+<p>   目前官方来看 1.X 版本的fabric 并行执行的时候不是thread safe的。如果需要并行执行task。需要在方法上面使用注解 @parallel 为了防止管控机器上面过多的并发任务可以通过 @parallel(pool_size=5)来设置. 并行的执行输出都会输出到一个终端上面，比较混乱。最好是写到日志，以task为维度。跟下面的代码类似。</p>
+<blockquote>
+<p>还有几个接口大家可以查阅fabric 文档 ： </p>
+</blockquote>
+<h2 id="MySQL_安装实例">MySQL 安装实例</h2>
+<p>安装步骤如下</p>
+<ul>
+<li>获取主机ip</li>
+<li>check主机可达性</li>
+<li>检查linux平台详情</li>
+<li>是否有运行的mysql实例</li>
+<li>如果有获取对应的端口</li>
+<li>检查是否和要安装的端口冲突</li>
+<li>处理mysql用户以及属组</li>
+<li>处理安装相关目录和权限</li>
+<li>copy 安装包到目标机</li>
+<li>解压处理，将主要软件工具软连接到path路径中</li>
+<li>生成对应标准配置文件并分发到目标机对应目录</li>
+<li>初始化数据库</li>
+<li>启动数据库</li>
+<li>基本步骤安装完毕</li>
+</ul>
+<p>基本脚本如下：</p>
+<p>script 1  sub task : </p>
+<pre><code><span class="keyword">from</span> fabric.api <span class="keyword">import</span> *
+<span class="keyword">from</span> fabric.colors <span class="keyword">import</span> green,red,blue,cyan,yellow
+<span class="keyword">import</span> os , sys
+<span class="keyword">import</span> socket
+<span class="keyword">import</span> datetime
+<span class="keyword">import</span> logging
+<span class="keyword">import</span> logging.handlers
+<span class="comment">#get logger for logging </span>
+<span class="function"><span class="keyword">def</span> <span class="title">initLoggerWithRotate</span><span class="params">()</span>:</span>
+    logname=<span class="string">''</span>.join(env.host_string.split(<span class="string">'.'</span>))+<span class="string">'.log'</span>
+    logFileName=<span class="string">"logs/%s"</span>%logname
+    logger = logging.getLogger(<span class="string">"fabric"</span>)
+    formater = logging.Formatter(<span class="string">"%(asctime)s %(name)s %(levelname)s %(message)s"</span>,<span class="string">"%Y-%m-%d %H:%M:%S"</span>)
+    file_handler = logging.handlers.RotatingFileHandler(logFileName, maxBytes=<span class="number">104857600</span>, backupCount=<span class="number">5</span>)
+    file_handler.setFormatter(formater)
+    stream_handler = logging.StreamHandler(sys.stderr)
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
+    logger.setLevel(logging.INFO)
+    <span class="keyword">return</span> logger
+<span class="comment">#mkdir</span>
+<span class="function"><span class="keyword">def</span> <span class="title">runmkdir</span><span class="params">(dir)</span>:</span>
+    run(<span class="string">''' mkdir -p %s '''</span>%dir)
+<span class="comment">#stp 1 check host</span>
+<span class="function"><span class="keyword">def</span> <span class="title">checkhost</span><span class="params">(logger)</span>:</span>
+     host = env.host_string 
+     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+     flag_c = <span class="number">0</span>
+     <span class="keyword">try</span>:
+         s.connect((host, <span class="number">22</span>))
+         flag_c = <span class="number">1</span>
+         logger.info( green( <span class="string">' --&gt; host %s can be reachable '</span> %host ) )
+     <span class="keyword">except</span> socket.error <span class="keyword">as</span> e: 
+         logger.warning( yellow( <span class="string">' --&gt; Error on connect %s'</span> %e ) )
+     s.close()
+     <span class="keyword">return</span> flag_c
+<span class="comment">#stp 2 check alive instance on target host </span>
+<span class="function"><span class="keyword">def</span> <span class="title">checkmysqlinstance</span><span class="params">(logger)</span>:</span>
+    <span class="keyword">try</span>:
+        wc = run(<span class="string">''' ps -ef |grep mysqld|grep  -v safe | grep -v grep | wc -l  '''</span>) 
+        <span class="keyword">if</span> int(wc) &gt; <span class="number">0</span>  : 
+            logger.warning(yellow( <span class="string">' --&gt; %sinstance exist on the target host  '</span>%wc )) 
+            portraw = run(<span class="string">'''  ps -ef |grep mysqld|grep -v safe |grep -v grep  |awk ' {for(i=1;i&lt;=NF;i++){if($i ~/--port/ ){print $i}}}' |awk -F '=' '{print $2}'
+            '''</span>)
+            ports = [x.strip() <span class="keyword">for</span> x <span class="keyword">in</span> portraw.split() ]
+            logger.warning( yellow( <span class="string">' --&gt; existing instance port : [ %s ] '</span>%( <span class="string">','</span>.join( ports ))))
+            <span class="keyword">if</span> port <span class="keyword">in</span> ports:
+                logger.error( red( <span class="string">' --&gt; Install port %s exist , install failed '</span>%port))
+                logger.error( red( <span class="string">' &lt;&lt;&lt;exit&gt;&gt;&gt;&gt;&gt;  task on host %s stop &amp; exit() '</span>%thost))
+                sys.exit()
+    <span class="keyword">except</span> Exception, e:
+        logger.warning(yellow( <span class="string">' --&gt; checkmysqlinstance() exception : %s '</span>%e )) 
+        <span class="keyword">raise</span> e 
+<span class="comment">#stp 3 initdir for installation</span>
+<span class="function"><span class="keyword">def</span> <span class="title">createUser</span><span class="params">(logger,user=<span class="string">'mysql'</span>,group=<span class="string">'dba'</span>)</span>:</span>
+    <span class="keyword">try</span>:
+        <span class="keyword">if</span> int(run(<span class="string">'grep "^mysql" /etc/passwd|wc -l'</span>)) == <span class="number">0</span> :
+            run(<span class="string">'groupadd dba '</span>)
+            run(<span class="string">'useradd -c "mysql software owner" -g dba -G dba mysql'</span>)
+            run(<span class="string">'mkdir -p /home/mysql ; chown -R mysql.dba /home/mysql '</span>)
+            logger.info(cyan( <span class="string">' --&gt; create user [ mysql ] in group [ dba ]  success '</span> )) 
+        <span class="keyword">else</span> : 
+            logger.info(yellow ( <span class="string">' --&gt; user [ mysql ] in group [ dba ] exist &amp; skip  '</span> )) 
+    <span class="keyword">except</span> Exception, e:
+        logger.warning(yellow( <span class="string">' --&gt; createUser() exception : %s '</span>%e )) 
+        <span class="keyword">raise</span> e
+<span class="comment">#stp 4 initail directory for mysql        </span>
+<span class="function"><span class="keyword">def</span> <span class="title">initdir</span><span class="params">(logger,port=<span class="number">3306</span>)</span>:</span>  
+    <span class="keyword">try</span> :
+        logger.info( green( <span class="string">' --&gt; begin to create dirs for installation '</span>))
+        datadir=<span class="string">'/data/'</span>
+        logdir =<span class="string">'/log/'</span>
+        mandir = <span class="string">'mysql%s'</span>%port
+        subddir =<span class="string">'/data/mysql%s/{data,log,run,tmp}'</span>%(port)
+        subldir =<span class="string">'/log/mysql%s/{binlog,iblog}'</span>%(port) 
+        <span class="comment">#data</span>
+        ck1 = run(<span class="string">' df -vh  | grep  /data | wc -l '</span>)
+        <span class="keyword">if</span> ck1  == <span class="number">0</span> : 
+            logger.error(green(<span class="string">' --&gt; no /data/ partition exist'</span> ) )
+            <span class="comment">#sys.exit()</span>
+        <span class="keyword">if</span> int( run(<span class="string">' ls /  | grep  /data | wc -l '</span>)) == <span class="number">0</span> <span class="keyword">or</span> int( run(<span class="string">' ls /data/ | grep -w %s | wc -l '</span>%mandir) ) == <span class="number">0</span> : 
+            runmkdir(subddir) 
+            logger.info(green(<span class="string">' --&gt; /data/*** create Ok '</span> ) )
+        <span class="keyword">else</span> : 
+            logger.info(green(<span class="string">' --&gt; /data/mysql%s exsit '</span>%port ))
+            logger.info(green(<span class="string">' --&gt; pls,handle it and restart this task '</span>))
+            sys.exit()
+        <span class="comment">#log </span>
+        ck2 = run(<span class="string">' df -vh | grep /log/  | wc -l  '</span>)
+        <span class="keyword">if</span> int( run(<span class="string">' df -vh | grep /log/  | wc -l  '</span>) ) == <span class="number">0</span>  <span class="keyword">and</span> int( run(<span class="string">' ls / | grep -w log  | wc -l  '</span>) ) == <span class="number">0</span>: 
+            logger.warning( yellow(<span class="string">' --&gt; no /log/ partition exist'</span>) ) 
+            logger.warning( yellow(<span class="string">' --&gt; create link for /log/ --&gt; /data/log/'</span>) ) 
+            runmkdir(<span class="string">'/data/log'</span>)
+            run(<span class="string">'ln -s /data/log  /log '</span>)
+            runmkdir(subldir) 
+            logger.info(green(<span class="string">' --&gt; /log/*** create Ok '</span> ) )
+        <span class="keyword">else</span> : 
+            <span class="keyword">if</span>  int(run(<span class="string">' ls /log/ | grep -w %s | wc -l '</span>%mandir)) == <span class="number">0</span>: 
+                runmkdir(subldir) 
+                logger.info(green(<span class="string">' --&gt; /log/*** create Ok '</span> ) )
+            <span class="keyword">else</span> : 
+                logger.info(yellow(<span class="string">' --&gt; /log/mysql%s exsit '</span>%port ))
+                logger.error(red(<span class="string">' --&gt; pls,handle it and restart this task '</span> ))
+                sys.exit() 
+        <span class="comment">#change </span>
+        runmkdir(<span class="string">'/data/tmp'</span>)
+        logger.info(green(<span class="string">' --&gt; change dirs owner&amp;privs start'</span>))
+        run(<span class="string">'chown -R mysql:dba /data/*'</span>)
+        run(<span class="string">'chown -R mysql:dba /log'</span>) 
+        logger.info(green(<span class="string">' --&gt; change dirs owner&amp;privs done'</span>))
+    <span class="keyword">except</span> Exception, e:
+        logger.warning(yellow( <span class="string">' --&gt; initdir() exception : %s '</span>%e )) 
+        <span class="keyword">raise</span> e 
+<span class="comment">#stp 5 put mysql install package</span>
+<span class="function"><span class="keyword">def</span> <span class="title">copymysql</span><span class="params">(logger,version=<span class="string">'5.7'</span>)</span>:</span> 
+    <span class="keyword">try</span>:
+        dits = {
+        <span class="string">'ubuntu'</span>:<span class="string">'mysql-server_5.6.21-1ubuntu12.04_amd64.deb-bundle.tar'</span>,
+        <span class="string">'centos'</span>:<span class="string">'mysql-server.tar.gz'</span>
+        }
+        issue = run (<span class="string">'cat /etc/issue'</span>) 
+        ss = issue.lower()
+        logger.info( green( <span class="string">' %s '</span>%ss))
+        <span class="keyword">if</span> int ( run( <span class="string">' ls /usr/local/ | grep mysql | wc -l '</span>) ) &gt; <span class="number">0</span> : 
+            logger.info( yellow( <span class="string">' --&gt; mysql software installed , skip   '</span> )) 
+            <span class="keyword">return</span>
+        plats = dits.keys()
+        <span class="keyword">for</span> x <span class="keyword">in</span> plats: 
+            <span class="keyword">if</span> ss.find(x) != -<span class="number">1</span>: 
+                logger.info( green( <span class="string">' --&gt; the target host platform is %s'</span>% x ) )
+                put( local_path=<span class="string">"configs/%s"</span>%dits[x],remote_path=<span class="string">"/tmp/%s"</span>%dits[x] )
+                logger.info( green( <span class="string">' --&gt; tar the ball to prop dir '</span>))
+                run( <span class="string">'tar zxvf /tmp/%s -C /usr/local/ '</span>%dits[x] )
+                run( <span class="string">'ln -s /usr/local/%s  /usr/local/mysql  '</span>%dits[x][:-<span class="number">7</span>] )
+                <span class="keyword">break</span> 
+    <span class="keyword">except</span> Exception, e:
+        logger.warning(yellow( <span class="string">' --&gt; copymysql() exception : %s '</span>%e )) 
+        <span class="keyword">raise</span> e 
+<span class="comment">#gen my.cnf file </span>
+<span class="function"><span class="keyword">def</span> <span class="title">getnewServerId</span><span class="params">(logger,port)</span>:</span>  
+    host = env.host_string
+    <span class="keyword">print</span> <span class="string">'getnewServerId : '</span>,host
+    pics = host.split(<span class="string">'.'</span>)
+    a=int(pics[<span class="number">0</span>])
+    b=int(pics[<span class="number">1</span>])
+    c=int(pics[<span class="number">2</span>])
+    d=int(pics[<span class="number">3</span>])
+    suf = int(port) % <span class="number">256</span>
+    server_id =  b * <span class="number">256</span> * <span class="number">256</span> * <span class="number">256</span> + c * <span class="number">256</span> * <span class="number">256</span> + d * <span class="number">256</span> + suf
+    logger.info( cyan( <span class="string">' --&gt; gen server_id done , %s %s is %s '</span>%( host , port , server_id) ) )
+    <span class="keyword">return</span> server_id
+<span class="function"><span class="keyword">def</span> <span class="title">genmycnf</span><span class="params">(logger,port=<span class="number">3306</span>,itype=<span class="string">'h'</span>)</span>:</span>
+    host = env.host_string
+    bps={
+    <span class="string">"a"</span>:<span class="string">"48|32|3100|3000"</span>,
+    <span class="string">"b"</span>:<span class="string">"62|40|4600|4500"</span>,
+    <span class="string">'c'</span>:<span class="string">'94|64|7600|7500'</span>,
+    <span class="string">'d'</span>:<span class="string">'94|32|3100|3000'</span>,
+    <span class="string">'e'</span>:<span class="string">'125|75|10100|10000'</span>,
+    <span class="string">'f'</span>:<span class="string">'188|120|15100|15000'</span>,
+    <span class="string">'g'</span>:<span class="string">'188|60|7600|7500'</span>,
+    <span class="string">'h'</span>:<span class="string">'1|256M|800|750'</span>
+    } 
+    <span class="keyword">try</span>:
+        myfile=<span class="string">''</span>.join(host.split(<span class="string">'.'</span>))+<span class="string">'.cnf'</span>
+        cpmycnf=<span class="string">"""cp configs/my.cnf  tmp/%s """</span>%myfile 
+        local( <span class="string">'rm -f  tmp/%s'</span>%myfile  )
+        local(<span class="string">"cp configs/my.cnf tmp/%s "</span>%myfile )  
+        sid=getnewServerId(logger,port)
+        keys=bps.keys()
+        bpxs=bps[itype]
+        mem,bpsize,maxc,maxuc=bpxs.split(<span class="string">'|'</span>)
+        <span class="keyword">if</span> bpsize[-<span class="number">1</span>] != <span class="string">"M"</span>:
+            bpsize = bpsize +<span class="string">'g'</span>
+        chrgcmd=<span class="string">"""  sed -i -e "s/3306/%s/g" -e "s/server_id=10000/server_id=%s/g" -e "s/=32g/=%s/g" -e "s/max_connections=3100/max_connections=%s/g" -e "s/max_user_connections=3000/max_user_connections=%s/g" tmp/%s """</span>
+        local( chrgcmd%(port,sid,bpsize,maxc,maxuc,myfile) ) 
+        logger.info( green( <span class="string">' --&gt; gen my.cnf success  '</span>) )
+        logger.info( green( <span class="string">' --&gt; copy my.cnf to dist host '</span>) )
+        put( local_path=<span class="string">"tmp/%s"</span>%myfile, remote_path=<span class="string">"/data/mysql%s/my.cnf"</span>%(port) )
+    <span class="keyword">except</span> Exception, e:
+        logger.warning(yellow( <span class="string">' --&gt; genmycnf() exception : %s '</span>%traceback.format_exc()  ) ) 
+        <span class="keyword">raise</span> e 
+</code></pre><p>script 2  whole task :</p>
+<pre><code>import inst_utils
+from inst_utils import *
+def <span class="function">install_mysql</span>(port)<span class="value">:
+    logger = <span class="function">initLoggerWithRotate</span>()
+    thost = env.host_string
+    try:
+        logger.<span class="function">info</span>(<span class="function">green</span>( <span class="string">'stp 1 get the host %s '</span>%thost ))
+        <span class="hexcolor">#c</span>heck host reachable  
+        rs1 = <span class="function">checkhost</span>(logger )
+        if <span class="function">int</span>(rs1)== <span class="number">0</span> :
+            logger.<span class="function">info</span>(<span class="function">red</span>( <span class="string">'stp 2 check the host is reachable failed '</span> ))
+        logger.<span class="function">info</span>(<span class="function">green</span>( <span class="string">'stp 2 check the host is reachable OK '</span> ))
+        plat_type = <span class="function">run</span>(<span class="string">''</span><span class="string">' uname -o '</span><span class="string">''</span>)
+        if plat_type !=  <span class="string">'GNU/Linux'</span> :
+            logger.<span class="function">warning</span>(<span class="function">yellow</span>(<span class="string">'stp 3 target platform is not GNU/Linux &amp; exit() '</span>))  
+            sys.<span class="function">exit</span>()
+        logger.<span class="function">info</span>(<span class="function">green</span>(<span class="string">'stp 3 target platform is GNU/Linux'</span>)) 
+        <span class="hexcolor">#c</span>heck target host exsist mysql instance 
+        logger.<span class="function">info</span>(<span class="function">green</span>( <span class="string">'stp 4 checkmysqlinstance  '</span> ))
+        <span class="function">checkmysqlinstance</span>(logger)
+        <span class="hexcolor">#c</span>reate MySQL user 
+        logger.<span class="function">info</span>( <span class="function">green</span>( <span class="string">'stp 5 createUser '</span> ))
+        <span class="function">createUser</span>(logger) 
+        <span class="function">put</span>(local_path=<span class="string">"configs/bash_profile"</span>, remote_path=<span class="string">"/home/mysql/.bash_profile"</span>)  
+        <span class="hexcolor">#c</span>hecking dir
+        logger.<span class="function">info</span>( <span class="function">green</span>( <span class="string">'stp 6 initdir '</span> ))
+        <span class="function">initdir</span>(logger,port) 
+        <span class="hexcolor">#c</span>opy file 
+        logger.<span class="function">info</span>( <span class="function">green</span>( <span class="string">'stp 7 copymysql '</span> ))
+        <span class="function">copymysql</span>(logger)
+        logger.<span class="function">info</span>( <span class="function">green</span>( <span class="string">'stp 8  genmycnf  '</span>) ) 
+        <span class="function">genmycnf</span>(logger,port,<span class="string">'h'</span>)
+    except Exception, e:
+        print  <span class="string">'main : exception : '</span> ,  e</span>
+</code></pre><p>如上脚本完成了，基本的安装，并没有启动mysql实例，和一些db初始化工作, 有兴趣的同学可以自己来完成，总之，fabric一定是一个运维利器 。。。 </p>
+<h2 id="总结">总结</h2>
+<pre><code>对比pssh 和fabric 以及之前在阿里用的pgm,fabric真心是最强悍的,再加上有完备的文档库,
+用起来爽歪歪有没有？我这边任务型 ,自动化相关任务都已经用fabric来搞起来了,欢迎探讨<span class="keyword">...</span>
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="http://ruiaylin.github.io/categories/python/">python</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="http://ruiaylin.github.io/tags/ops/">ops</a><a href="http://ruiaylin.github.io/tags/fabric/">fabric</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2014/11/24/fabric/" data-title="批量部署 自动化之 - [fabric] | ruiaylin's Blog" data-tsina="undefined" class="share clearfix">
+	  <div style="display: none;" class="hoverqrcode clearfix"></div><a class="overlay" id="qrcode"></a><a href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Fyoursite.com%2F2014%2F11%2F24%2Ffabric%2F" class="article-share-facebook" target="_blank" title="Facebook"></a><a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fyoursite.com%2F2014%2F11%2F24%2Ffabric%2F" class="article-share-twitter" target="_blank" title="Twitter"></a><a href="#qrcode" class="article-share-qrcode" title="微信"></a><a href="http://widget.renren.com/dialog/share?resourceUrl=http%3A%2F%2Fyoursite.com%2F2014%2F11%2F24%2Ffabric%2F&amp;srcUrl=http%3A%2F%2Fyoursite.com%2F2014%2F11%2F24%2Ffabric%2F&amp;title=%E6%89%B9%E9%87%8F%E9%83%A8%E7%BD%B2%20%E8%87%AA%E5%8A%A8%E5%8C%96%E4%B9%8B%20-%20[fabric]%20|%20ruiaylin%27s%20Blog" class="article-share-renren" target="_blank" title="人人"></a><a href="http://service.weibo.com/share/share.php?title=%E6%89%B9%E9%87%8F%E9%83%A8%E7%BD%B2%20%E8%87%AA%E5%8A%A8%E5%8C%96%E4%B9%8B%20-%20[fabric]%20|%20ruiaylin%27s%20Blog&amp;url=http%3A%2F%2Fyoursite.com%2F2014%2F11%2F24%2Ffabric%2F&amp;ralateUid=undefined&amp;searchPic=true&amp;style=number" class="article-share-weibo" target="_blank" title="微博"></a><span title="Share to"></span></div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="http://ruiaylin.github.io/2014/12/12/python%20update/" title="CentOs 6.x 升级 Python 版本">
+  <strong>上一篇：</strong><br>
+  <span>
+  CentOs 6.x 升级 Python 版本</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="http://ruiaylin.github.io/2014/11/20/pssh/" title="批量部署 自动化之 - [pssh]">
+ <strong>下一篇：</strong><br> 
+ <span>批量部署 自动化之 - [pssh]
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div style="top: 80px;" class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div style="top: 140px;" id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用fabric_自动化日常管理任务和部署"><span class="toc-number">1.</span> <span class="toc-text">如何使用fabric 自动化日常管理任务和部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fabric的官方介绍："><span class="toc-number">2.</span> <span class="toc-text">fabric的官方介绍：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric_可以为哪些人服务"><span class="toc-number">2.0.1.</span> <span class="toc-text">fabric 可以为哪些人服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric_常用接口"><span class="toc-number">2.0.2.</span> <span class="toc-text">fabric 常用接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric_还提供了上下文管理器"><span class="toc-number">2.0.3.</span> <span class="toc-text">fabric 还提供了上下文管理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fabric_安装"><span class="toc-number">2.1.</span> <span class="toc-text">fabric 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fabric_编程模型介绍"><span class="toc-number">2.2.</span> <span class="toc-text">fabric 编程模型介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fabric主要接口方法"><span class="toc-number">2.2.1.</span> <span class="toc-text">fabric主要接口方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#run_(fabric-operations-run)"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">run (fabric.operations.run)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sudo_(fabric-operations-sudo)"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">sudo (fabric.operations.sudo)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#local_(fabric-operations-local)"><span class="toc-number">2.2.1.3.</span> <span class="toc-text">local (fabric.operations.local)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#get_(fabric-operations-get)"><span class="toc-number">2.2.1.4.</span> <span class="toc-text">get (fabric.operations.get)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#put_(fabric-operations-put)"><span class="toc-number">2.2.1.5.</span> <span class="toc-text">put (fabric.operations.put)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#并行执行"><span class="toc-number">2.2.1.6.</span> <span class="toc-text">并行执行</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL_安装实例"><span class="toc-number">3.</span> <span class="toc-text">MySQL 安装实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<iframe src="index_1.html" allowtransparency="true" scrolling="0" id="ghcard-ruiaylin-1" frameborder="0" height="320" width="220"></iframe>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="http://ruiaylin.github.io/categories/Go/" title="Go">Go<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://ruiaylin.github.io/categories/MySQL/" title="MySQL">MySQL<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://ruiaylin.github.io/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://ruiaylin.github.io/categories/linux/" title="linux">linux<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://ruiaylin.github.io/categories/oracle/" title="oracle">oracle<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://ruiaylin.github.io/categories/python/" title="python">python<sup>7</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/mysql/" title="mysql">mysql<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/fabric/" title="fabric">fabric<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/ops/" title="ops">ops<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/docker/" title="docker">docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/%E8%BD%AC%E8%BD%BD/" title="转载">转载<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/DNS/" title="DNS">DNS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/Go/" title="Go">Go<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/sharding/" title="sharding">sharding<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/Golang/" title="Golang">Golang<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/xtrabackup/" title="xtrabackup">xtrabackup<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/mha/" title="mha">mha<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/%E5%A4%9A%E5%AE%9E%E4%BE%8B/" title="多实例">多实例<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/shell/" title="shell">shell<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/PowerDNS/" title="PowerDNS">PowerDNS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/BIND/" title="BIND">BIND<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/%E6%BA%90%E7%A0%81/" title="源码">源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/code/" title="code">code<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/autofailover/" title="autofailover">autofailover<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://ruiaylin.github.io/tags/load-data/" title="load-data">load-data<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://flask.pocoo.org/" target="_blank" title="Flask Documentation">Flask Docs</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.miguelgrinberg.com/index" target="_blank" title=" Flask man">Miguel Grinberg</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://tympanus.net/codrops/" target="_blank" title=" front end development">Codrops front</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="http://ruiaylin.github.io/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> I'm ruiayLin , work at AUTOHOME.COM.CN   <br>
+			Previous : work at Alipay.com as a database engineer for three years </p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		<a href="https://github.com/ruiaylin" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/ruiaylin" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/ruiayLin" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		<a href="https://www.linkedin.com/in/ruichao-lin-5713624a" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:ruiaylin@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="http://ruiaylin.github.io/about" target="_blank" title="ruichao.lin">ruichao.lin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div style="opacity: 0; display: block;" id="totop">
+	<a title="返回顶部"><img src="scrollup.png"></a>
+	</div>
+	
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  
+
+</body>
+</html>

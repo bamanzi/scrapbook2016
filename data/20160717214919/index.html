@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" class=" js no-touch rgba hsla textshadow opacity svg" style="">
+<!--<![endif]--><head>
+<meta charset="UTF-8">
+<title>Fabric 部署工具 – smallfish blog</title>
+<meta name="description" content="Fabric 是基于 SSH 协议的 Python 工具，相比传统的 ssh/scp 方式，用 Python 的语法写管理命令更易读也更容易扩展，管理单台或者多台机器犹如本地操作一般。
+
+">
+<meta name="keywords" content="">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Fabric 部署工具">
+<meta name="twitter:description" content="Fabric 是基于 SSH 协议的 Python 工具，相比传统的 ssh/scp 方式，用 Python 的语法写管理命令更易读也更容易扩展，管理单台或者多台机器犹如本地操作一般。
+
+">
+<meta name="twitter:site" content="@smallfishxy">
+<meta name="twitter:creator" content="@smallfishxy">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://chenxiaoyu.org/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="zh_CN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fabric 部署工具">
+<meta property="og:description" content="Fabric 是基于 SSH 协议的 Python 工具，相比传统的 ssh/scp 方式，用 Python 的语法写管理命令更易读也更容易扩展，管理单台或者多台机器犹如本地操作一般。
+
+">
+<meta property="og:url" content="http://chenxiaoyu.org/2012/08/30/deploy-with-fabric.html">
+<meta property="og:site_name" content="smallfish blog">
+
+
+
+
+
+<link rel="canonical" href="http://chenxiaoyu.org/2012/08/30/deploy-with-fabric.html">
+<link href="http://chenxiaoyu.org/feed.xml" type="application/atom+xml" rel="alternate" title="smallfish blog Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="http://chenxiaoyu.org/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="http://chenxiaoyu.org/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://chenxiaoyu.org/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://chenxiaoyu.org/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://chenxiaoyu.org/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://chenxiaoyu.org/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body class="post">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="http://chenxiaoyu.org/">smallfish blog</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav"><button type="button" role="button" id="menutoggle" class="navtoogle navicon-lines-button x" aria-hidden="true"><span class="navicon-lines"></span>menu</button>
+		    <ul>
+		        
+					    
+					        
+					    
+					    <li><a href="http://chenxiaoyu.org/about/">About</a></li>
+					  
+					    
+					        
+					    
+					    <li><a href="http://chenxiaoyu.org/archives/">Archives</a></li>
+					  
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+
+	<img src="bio-photo.jpg" class="bio-photo" alt="smallfish bio photo">
+
+<h3>smallfish</h3>
+<p>Engineer at Alibaba, Taobao.com #golang #clojure #nginx-lua #postgres</p>
+<a href="mailto:smallfish.xy@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
+<a href="http://twitter.com/smallfishxy" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>
+
+
+
+
+
+<a href="http://github.com/smallfish" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+
+
+
+
+
+
+
+
+  </div>
+  <article class="post">
+    <div class="headline-wrap">
+      
+        <h1><a href="#" rel="bookmark" title="Fabric 部署工具">Fabric 部署工具</a></h1>
+      
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap">
+      <p>Fabric 是基于 SSH 协议的 Python 工具，相比传统的 ssh/scp 方式，用 Python 的语法写管理命令更易读也更容易扩展，管理单台或者多台机器犹如本地操作一般。</p>
+
+<p>官网地址：<a href="http://fabfile.org/">http://fabfile.org</a> 安装方法这里不在说明，推荐使用：pip 或者 easy_install 来安装。</p>
+
+<p>传统维护方法：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh x.x.x.x <span class="s1">'uname -a'</span> -- 输出略</code></pre></div>
+
+<p>Fabric 示例：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat fabfile.py
+from fabric.api import run
+def uname<span class="o">()</span>:
+    run<span class="o">(</span><span class="s1">'uname -a'</span><span class="o">)</span>
+<span class="nv">$ </span>fab -H x.x.x.x uname -- 输出略</code></pre></div>
+
+<p>肉眼直观看上去，貌似比 ssh 方式要写不少代码，但是基于 ssh 方式中间可控环节比较少，例如：你想判断某服务是否已经启动，没有启动则执行启动等等操作。ssh 命令式的做法稍显麻烦。（当然龌龊一点可以在被操作机器上写好一个脚本，ssh 调用这个脚本）</p>
+
+<p>说几个 Fabric 的优点吧：</p>
+
+<ol>
+  <li>角色定义</li>
+  <li>代码易读</li>
+  <li>封装了本地、远程操作（还需要自己封装system/popen/ssh操作么？）</li>
+  <li>参数灵活（动态指定 host/role 等，还有并发执行 <em>基于multiprocessing</em> ）</li>
+  <li>完整的日志输出</li>
+</ol>
+
+<p>罗列的这些，其实日常工作里基本都有类似的封装了，但是有现成的一个成熟的工具，干啥不用呢？对吧。</p>
+
+<p>常用的配置：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">env.host           -- 主机ip，当然也可以-H参数指定
+env.password       -- 密码，打好通道的请无视
+env.roledefs       -- 角色分组，比如：<span class="o">{</span><span class="s1">'web'</span>: <span class="o">[</span><span class="s1">'x'</span>, <span class="s1">'y'</span><span class="o">]</span>, <span class="s1">'db'</span>: <span class="o">[</span><span class="s1">'z'</span><span class="o">]}</span>
+
+fab -l             -- 显示可用的task（命令）
+fab -H             -- 指定host，支持多host逗号分开
+fab -R             -- 指定role，支持多个
+fab -P             -- 并发数，默认是串行
+fab -w             -- warn_only，默认是碰到异常直接abort退出
+fab -f             -- 指定入口文件，fab默认入口文件是：fabfile/fabfile.py
+更多请参考：fab --help</code></pre></div>
+
+<p>常用的函数：</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">local</span><span class="o">(</span><span class="s1">'pwd'</span><span class="o">)</span>                     -- 执行本地命令
+lcd<span class="o">(</span><span class="s1">'/tmp'</span><span class="o">)</span>                      -- 切换本地目录
+<span class="nb">cd</span><span class="o">(</span><span class="s1">'/tmp'</span><span class="o">)</span>                       -- 切换远程目录
+run<span class="o">(</span><span class="s1">'uname -a'</span><span class="o">)</span>                  -- 执行远程命令
+sudo<span class="o">(</span><span class="s1">'/etc/init.d/nginx start'</span><span class="o">)</span>  -- 执行远程sudo，注意pty选项</code></pre></div>
+
+<p>示例1：管理远程 nginx 服务</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat fabfile.py
+from fabric.api import *
+@task
+def nginx_start<span class="o">()</span>:
+    <span class="s1">''' nginx start '''</span>
+sudo<span class="o">(</span><span class="s1">'/etc/init.d/nginx start'</span><span class="o">)</span>
+
+@task
+def nginx_stop<span class="o">()</span>:
+    <span class="s1">''' nginx stop '''</span>
+    sudo<span class="o">(</span><span class="s1">'/etc/init.d/nginx stop'</span><span class="o">)</span>
+    
+<span class="nv">$ </span>fab --list      -- 查看可用命令
+Available commands:
+
+    nginx_start  nginx start 
+    nginx_stop   nginx stop
+
+<span class="nv">$ </span>fab -H x.x.x.x nginx_start  -- 启动 nginx</code></pre></div>
+
+<p>示例2：基于角色</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat fabfile.py
+from fabric.api import *
+env.roledefs <span class="o">=</span> <span class="o">{</span><span class="s1">'nginx'</span>: <span class="o">[</span><span class="s1">'x.x.x.x'</span>, <span class="s1">'y.y.y.y'</span><span class="o">]</span>, <span class="s1">'mysql'</span>: <span class="s1">'z.z.z.z'</span><span class="o">}</span>
+@task
+def mysql_start<span class="o">()</span>
+    <span class="s1">''' mysql start '''</span>
+    sudo<span class="o">(</span><span class="s1">'/etc/init.d/mysql start'</span><span class="o">)</span>
+    
+<span class="nv">$ </span>fab --list      -- 查看可用命令
+Available commands:
+
+    nginx_start  nginx start 
+    nginx_stop   nginx stop
+    mysql_start  mysql start
+
+<span class="nv">$ </span>fab -R nginx nginx_start  -- 启动 nginx
+<span class="nv">$ </span>fab -R mysql mysql_start  -- 启动 mysql</code></pre></div>
+
+<p>示例3：混合本地和远程操作</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>cat fabfile
+def hello<span class="o">()</span>:
+    <span class="s1">''' test hello '''</span>
+    with lcd<span class="o">(</span><span class="s1">'/tmp'</span><span class="o">)</span>:  <span class="c"># 切换到 /tmp 目录下</span>
+        <span class="nb">local</span><span class="o">(</span><span class="s1">'svn co http://xxx xxx'</span><span class="o">)</span> <span class="c"># check 代码到本地</span>
+        <span class="nb">local</span><span class="o">(</span><span class="s1">'tar czf xxx.tar.gz xxx/'</span><span class="o">)</span> <span class="c"># 压缩本地包</span>
+        put<span class="o">(</span><span class="s1">'xxx.tar.gz'</span>, <span class="s1">'/tmp'</span><span class="o">)</span> <span class="c"># 上传压缩包到远程 /tmp 目录下</span>
+    with <span class="nb">cd</span><span class="o">(</span><span class="s1">'/tmp'</span><span class="o">)</span>:   <span class="c"># 切换到远程 /tmp 目录</span>
+        run<span class="o">(</span><span class="s1">'tar zxf xxx.tar.gz'</span><span class="o">)</span> <span class="c"># 远程解压</span></code></pre></div>
+
+<p>是不是看上去都是像本地一样？对吧。</p>
+
+<p><strong>END</strong></p>
+
+      <hr>
+      <footer role="contentinfo">
+        <div class="article-author-bottom">
+          
+
+
+
+	<img src="bio-photo.jpg" class="bio-photo" alt="smallfish bio photo">
+
+<h3>smallfish</h3>
+<p>Engineer at Alibaba, Taobao.com #golang #clojure #nginx-lua #postgres</p>
+<a href="mailto:smallfish.xy@gmail.com" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>
+<a href="http://twitter.com/smallfishxy" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>
+
+
+
+
+
+<a href="http://github.com/smallfish" class="author-social" target="_blank"><i class="fa fa-fw fa-github"></i> Github</a>
+
+
+
+
+
+
+
+
+        </div>
+        <p class="byline">Published on <time datetime="2012-08-30T00:00:00+00:00">August 30, 2012</time>.</p>
+      </footer>
+    </div><!-- /.article-wrap -->
+  
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://chenxiaoyu.org/archives/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="http://chenxiaoyu.org/2015/01/17/go-flag-multiple-values.html" title="Go flag/kingpin 命令行解析多个同名参数">Go flag/kingpin 命令行解析多个同名参数</a></li>
+    
+      <li><a href="http://chenxiaoyu.org/2014/12/26/docker-volume-chown.html" title="Docker Volume 属主设置">Docker Volume 属主设置</a></li>
+    
+      <li><a href="http://chenxiaoyu.org/2014/11/06/organizing-go-code.html" title="翻译-如何组织Go代码">翻译-如何组织Go代码</a></li>
+    
+      <li><a href="http://chenxiaoyu.org/2014/07/25/postgresql-json.html" title="PostgreSQL JSON 数据类型">PostgreSQL JSON 数据类型</a></li>
+    
+      <li><a href="http://chenxiaoyu.org/2013/12/04/test-nginx.html" title="Test::Nginx 模块介绍">Test::Nginx 模块介绍</a></li>
+    
+    </ul>
+    <hr>
+  </div><!-- /.related-articles -->
+  <footer>
+    
+
+<span>© 2015 smallfish. Powered by <a href="http://jekyllrb.com/">Jekyll</a> using the <a href="http://mademistakes.com/minimal-mistakes/">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+
+
+
+
+	        
+
+
+
+</body>
+</html>
