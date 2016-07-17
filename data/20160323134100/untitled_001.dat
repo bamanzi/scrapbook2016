@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:fb="http://ogp.me/ns/fb#"><head><link rel="dns-prefetch" href="//zdnet1.cbsistatic.com"><link rel="dns-prefetch" href="//zdnet2.cbsistatic.com"><link rel="dns-prefetch" href="//zdnet3.cbsistatic.com"><link rel="dns-prefetch" href="//zdnet4.cbsistatic.com"><link rel="dns-prefetch" href="//urs.zdnet.com"><link rel="dns-prefetch" href="//b2b.cbsimg.net"><link rel="dns-prefetch" href="//c.go-mpulse.net"><link rel="dns-prefetch" href="//platform.linkedin.com"><link rel="dns-prefetch" href="//ps.ns-cdn.com"><link rel="dns-prefetch" href="//secure.quantserve.com"><meta content="text/html; charset=utf-8" http-equiv="Content-Type"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="en" http-equiv="Content-Language"><title>How to customise your Linux desktop: LXDE | ZDNet</title><meta name="description" content="Part six(!) in my Linux Desktop series, I'm looking at LXDE on Debian GNU/Linux and Raspbian."><meta name="fragment" content="!"><link rel="canonical" href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-lxde/"><meta property="og:site_name" content="ZDNet"><meta property="og:type" content="website"><meta property="og:url" content="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-lxde/"><meta property="og:title" content="How to customise your Linux desktop: LXDE | ZDNet"><meta property="og:description" content="Part six(!) in my Linux Desktop series, I'm looking at LXDE on Debian GNU/Linux and Raspbian."><meta property="og:image" content="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/09/34eac955-ac09-482f-b5ff-a1c856acbe7e/thumbnail/770x578/9bc12b7077308667c353e874e7e698d7/lxde.jpg"><meta name="author" content="J.A. Watson"><meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1"><meta name="theme-color" content="#080e14"><link rel="icon" sizes="192x192" href="http://zdnet1.cbsistatic.com/fly/517-fly/bundles/zdnetcss/images/logos/logo-192x192.png"><link rel="stylesheet" href="http://zdnet4.cbsistatic.com/fly/517-fly/bundles/zdnetcss/css/core/main.css"><!--[if (lt IE 9)&(!IEMobile)]>
+            <link rel="stylesheet" href="http://zdnet4.cbsistatic.com/fly/517-fly/bundles/zdnetcss/css/core/ie8.css" media="screen">
+        <![endif]--><script src="http://zdnet4.cbsistatic.com/fly/517-fly/bundles/zdnetcore/js/boomr.js"></script><script type="text/javascript">
+    window.ZdnetPageVars = {
+        ads: {
+            enabled: true,
+            data: {"gpt":{"targeting":{"buyingcycle":"optimize","device":"desktop","ptype":"article","cid":"how-to-customise-your-linux-desktop-lxde","env":"prod"},"adConfig":{"network":{"local":7336,"dev":7336,"qa":8264,"demo":8264,"stage":8264,"prod":8264,"stageDebug":8264,"prodDebug":8264},"method":"async-inline","regions":[{"region":"uk","countries":["gb","ie","za","bh","kw","om","qa","sa","ae","iq","eg","ye","fr"]},{"region":"au","countries":["au","nz"]},{"region":"asia","countries":["sg","my","th","id","ph","hk","vn","tw","in"]}],"adUnits":{"intromercial":{"outOfPage":true,"eventCallbacks":{"slotRenderEnded":"intromercialCallback"}},"skin":{"sizes":[[1600,1000]],"position":"top"},"marquee":{"sizes":[300,60]},"hotspot":{"sizes":[165,421]},"multiplexer":{"sizes":[460,170],"position":"top"},"ticker":{"sizes":[980,45],"position":"top","collapseEmptyDiv":true,"collapseEmptyDivOnPageload":true},"replay":{"sizes":[460,160],"position":"top"},"resourceCenterTop":{"sizes":[[300,300]],"position":"top"},"resourceCenterBottom":{"sizes":[[632,160]],"position":"bottom"},"mpuPlusTop":{"sizes":[[300,250],[300,600],[300,1050]],"position":"top","eventCallbacks":{"slotRenderEnded":"mpuCallback"}},"marqueeTop":{"sizes":[[234,60]],"position":"top"},"mpuTop":{"sizes":[[300,250],[300,600]],"position":"top"},"mpuBottom":{"sizes":[300,250],"position":"bottom","eventCallbacks":{"slotRenderEnded":"mpuCallback"}},"leaderPlusTop":{"sizes":[[728,90],[970,66],[970,250]],"position":"top","eventCallbacks":{"slotRenderEnded":"leaderCallback"}},"leaderTop":{"sizes":[[728,90],[970,66]],"position":"top","eventCallbacks":{"slotRenderEnded":"leaderCallback"}},"buttonTop":{"sizes":[[88,31]],"position":"top"},"mpuMiddle":{"sizes":[300,250],"position":"middle","eventCallbacks":{"slotRenderEnded":"mpuCallback"}},"mpuMiddle2":{"sizes":[[300,250]],"position":"middle2"},"leaderPlusBottom":{"sizes":[[728,90],[970,66],[970,250]],"position":"bottom","eventCallbacks":{"slotRenderEnded":"leaderCallback"}},"inpageVideoTop":{"sizes":[641,321],"position":"top","collapseEmptyDiv":true,"collapseEmptyDivOnPageload":true},"dynamicShowcaseTop":{"sizes":[[371,771]],"position":"top","collapseEmptyDiv":true,"collapseEmptyDivOnPageload":true},"vendorTextLink":{"sizes":[300,450],"position":"top"},"featureSponsor":{"sizes":[88,31],"position":"top"},"sponsorLogo":{"sizes":[120,60]},"sponsoredTextLink":{"sizes":[401,11],"position":"top","collapseEmptyDiv":true,"collapseEmptyDivOnPageload":true},"resourceCenter":{"sizes":[300,261]},"sharethroughTop":{"sizes":[11,11],"position":"top","customTargeting":{"strnativekey":"8ec3a4f3"}},"specialFeatureRiver":{"sizes":[620,134],"position":"top"}},"mobile":{"adUnits":{"hpto":{"outOfPage":true},"mobileBannerTop":{"sizes":[[320,50]],"position":"increment"},"mobileBannerMpuHptoOverlay":{"outOfPage":true},"mobileMpuBottom":{"sizes":[[300,250]],"position":"increment"},"mobileBannerPlus":{"sizes":[[300,250],[320,50]],"position":"increment"},"mobileBanner":{"sizes":[[320,50]],"position":"increment"},"sharethroughTop":{"sizes":[11,11],"position":"top"},"specialFeatureRiver":{"sizes":[620,134],"position":"top"},"featureSponsor":{"sizes":[88,31],"position":"top"}}},"tablet":{"adUnits":{"intromercial":{"outOfPage":true,"eventCallbacks":{"slotRenderEnded":"intromercialCallback"}},"multiplexer":{"sizes":[460,170]},"resourceCenterTop":{"sizes":[[300,300]],"position":"top"},"resourceCenterBottom":{"sizes":[[632,160]],"position":"bottom"},"mpuPlusTop":{"sizes":[[300,250],[300,600]],"position":"top","eventCallbacks":{"slotRenderEnded":"mpuCallback"}},"marqueeTop":{"sizes":[[234,60]],"position":"top"},"mpuTop":{"sizes":[[300,250],[300,600]],"position":"top"},"mpuBottom":{"sizes":[300,250],"position":"bottom","eventCallbacks":{"slotRenderEnded":"mpuCallback"}},"leaderTop":{"sizes":[[728,90],[970,66]],"position":"top","eventCallbacks":{"slotRenderEnded":"leaderCallback"}},"leaderPlusTop":{"sizes":[728,90],"position":"top","eventCallbacks":{"slotRenderEnded":"leaderCallback"}},"mpuMiddle":{"sizes":[300,250],"position":"middle","eventCallbacks":{"slotRenderEnded":"mpuCallback"}},"leaderPlusBottom":{"sizes":[728,90],"position":"bottom","eventCallbacks":{"slotRenderEnded":"leaderCallback"}},"sharethroughTop":{"sizes":[11,11],"position":"top"},"specialFeatureRiver":{"sizes":[620,134],"position":"top"},"featureSponsor":{"sizes":[88,31],"position":"top"}}},"siteName":"zdnet","collapseEmptyDiv":false,"setRefreshUnfilledSlots":true,"setClearUnfilledSlots":false,"disableInitialLoad":false,"disableInitialLoadCompanions":false,"enableSingleRequest":true,"enableAsyncRendering":true,"defaultRegion":"aw","adOrder":["intromercial","skin","ticker","sponsored_text_link","leader_plus_top","leader_top","marquee","vendor_text_link","mpu_plus_top","hotspot","resource_center","multiplexer","sharethrough_top","mpu_middle","mpu_middle2","mpu_bottom","leader_plus_bottom","inpage_video_top","special_feature_river","feature_sponsor"],"disableInitialLoadRefresh":true},"containerId":"56f21be5d4238","slotVars":{"network":"8264","siteName":"zdnet","collapseEmptyDiv":"","topics":"linux","platform":"desktop"},"adType":"gpt","adDivIds":["inpage-video-top-56f21be5d4238","sharethrough-top-56f21be5d4238","mpu-plus-top-56f21be5d4238","vendor-text-link-56f21be5d4238","dynamic-showcase-top-56f21be5d4238","mpu-middle-56f21be5d4238","mpu-bottom-56f21be5d4238","leader-plus-bottom-56f21be5d4238","sponsored-text-link-56f21be5d4238","ticker-56f21be5d4238","intromercial-56f21be5d4238","skin-56f21be5d4238","leader-plus-top-56f21be5d4238"]},"cookieName":"zdnet_ad","cookieServicePath":"\/ad\/ad-cookie\/","session":8,"subSession":6,"useFirstPageTargeting":true}
+        },
+        assetsVersion: {
+            version: '517-fly'
+        },
+        edition: {
+            code: 'as'
+        },
+        environment: 'prod',
+        tracking: {
+            enabled: true,
+            data: {"isEnabled":true,"articleAuthorId":["70d629cd-10d7-11e4-9732-00505685119a"],"articleAuthorName":["j.a. watson"],"articleId":"c00851df-21e8-46d8-acda-90af21b7d184","articlePubDate":"2015-12-11 10:35:35","articleTitle":"how to customise your linux desktop: lxde","articleType":"content_article","blogId":"be3b731d-ed4a-11e3-95d2-02911863765e","blogName":"jamie's mostly linux stuff","deviceType":"desktop","isDev":"0","pageType":"article","siteHier":["linux","open source"],"siteSection":"editorial","siteType":"responsive web","topicId":["10b2a4fa-ec91-11e3-95d2-02911863765e","10f422bf-ec91-11e3-95d2-02911863765e"],"topicName":["linux","open source"],"buyingCycle":"optimize","siteId":2,"bkSiteId":3330,"limit":4,"assetCompany":["canonical ltd.","microsoft","apple"],"rsid":"cnetzdnetglobalsite","siteName":"zdnet","tealium":{"profile":"zdnet","env":"prod"}}
+        },
+        pageType: 'article',
+        user: {
+            baseUrl: 'https://secure.zdnet.com'
+        }
+    };
+
+    
+    
+    var soastaTracking = {"soastaBucket":"as_desktop","soastaPageType":"article"};
+</script><!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]--></head><body class="	
+">
+
+    <div id="cookie-policy" class="alert optBeta" data-component="cookiePolicy">
+	<p><a class="close" data-close="cookie-policy"><i class="fa fa-times"></i></a> This web site uses cookies to improve your experience. By viewing our content, you are accepting the use of cookies. To find out more and change your cookie settings, please <a href="http://legalterms.cbsinteractive.com/cookies" target="_blank">view our cookie policy</a>.</p>
+</div>
+            
+
+<header id="mainHeader" class="page-header"><div id="secondary">
+            <div class="editions">
+                <ul><li class="editionsDrop">
+                        <a aria-haspopup="true" class="arrow">
+                            Edition: <span data-label="edition"></span>
+                        </a>
+                        
+<ul data-component="editionToggler" class="menu-editions"><li>
+        <a class="editionSwitch" data-edition="as" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            Asia
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="au" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            Australia
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="eu" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            Europe
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="in" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            India
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="uk" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            United Kingdom
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="us" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            United States
+        </a>
+    </li>
+
+    <li class="subDiv"><span class="label">ZDNet around the globe:</span></li>
+                    <li class="subDiv">
+        <a href="http://www.zdnet.be/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Belgium
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.com.cn/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet China
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.fr/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet France
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.de/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Germany
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.co.kr/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Korea
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://japan.zdnet.com/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Japan
+        </a>
+    </li>
+
+</ul></li>
+                </ul></div>
+            <div class="headerTextAd">
+                
+
+                        <div class="sponsored-text-link">
+        <div id="sponsored-text-link-56f21be5d4238" class="ad-sponsored-text-link" data-ad="sponsored-text-link">
+    <script>
+        window.console && console.log && console.log("ADS: queuing sponsored-text-link-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("sponsored-text-link-56f21be5d4238");
+    </script></div>
+
+    </div>
+                </div>
+        </div>
+
+        <div class="fixation" data-component="fixate" data-fixate-options='{"offset":{"top":0,"bottom":0},"guideTop":"#secondary"}'>
+                <div id="ticker-56f21be5d4238" class="ad-ticker" data-ad="ticker">
+    <script>
+        window.console && console.log && console.log("ADS: queuing ticker-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("ticker-56f21be5d4238");
+    </script></div>
+
+
+    <div id="primary">
+        <a id="zdLogoLarge" href="/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Logo"}'>
+            ZDNet
+        </a>
+        <div class="searchLarge">
+            
+<form class="headerSearch active" method="get" action="/search/">
+    <div class="box">
+        <input type="text" title="Search" placeholder="Search" tabindex="1" name="q" value="" class="search-expand"><input type="submit" value="Search" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Search"}'></div>
+</form>
+        </div>
+                
+        
+<nav class="primaryNav" data-component="headerNav"><ul class="navList"><li class="alpha">
+            <a href="/topic/cloud/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Cloud
+            </a>
+        </li>
+    
+                                    <li class="beta">
+            <a href="/topic/cxo/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                CXO
+            </a>
+        </li>
+    
+                                    <li class="gamma">
+            <a href="/topic/hardware/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Hardware
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/mobility/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Mobility
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/microsoft/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Microsoft
+            </a>
+        </li>
+    
+                            <li class="hasDrop"><a class="arrow moreText">more</a>
+            <ul class="menu-topics"><li class="alphaDrop">
+            <a href="/topic/storage/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Storage
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/security/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Security
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/enterprise-software/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Enterprise Software
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/data-centers/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Data Centers
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/wearables-fit-for-business/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Wearables Fit For Business
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/apple/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Apple
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/innovation/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Innovation
+            </a>
+        </li>
+    
+
+                    <li class="seeAll">
+            <a href="/topic/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                See All Topics 
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="http://www.techrepublic.com/resource-library/whitepapers/" target="'_blank'" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                White Papers
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="//downloads.zdnet.com/" data-download-link="'true'" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Downloads
+            </a>
+        </li>
+    
+                                <li class="subDiv">
+            <a href="/reviews/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}' data-vanity-rewritten="true">
+                Reviews
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="/pictures/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Galleries
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="/video/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Videos
+            </a>
+        </li>
+    
+
+    </ul></li>
+
+
+
+
+        <li><a href="/newsletters/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Newsletter"}' class="linkAlt" data-vanity-rewritten="true">Newsletters</a></li>
+        <li><a href="/blog/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-AllWriters"}' class="linkAlt">All Writers</a></li>
+
+                <li class="hasDrop">
+            <a class="linkAlt zd-user"><i class="fa fa-lg fa-user"></i></a>
+            
+<span class="loggedOut">
+    <ul class="menu-user"><li><a href="https://secure.zdnet.com/user/login/?appId=1101" rel="nofollow" data-user-show='{"action":"login","params":{"appId":1101,"position":"Header"}}'>Log In to ZDNET</a>
+        </li>
+        <li><a href="https://secure.zdnet.com/user/registration/?appId=1101" rel="nofollow" data-user-show='{"action":"register","params":{"appId":1101,"position":"Header"}}'>Join ZDNet</a></li>
+        <li><a href="/about/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "header-about"}' data-vanity-rewritten="true">About ZDNet</a></li>
+    </ul></span>
+
+<span class="loggedIn">
+    <ul class="menu-user"><li><a href="https://secure.zdnet.com/members/edit-profile/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "header-personicon-manage"}' rel="nofollow">Manage Profile</a></li>
+        <li><a href="https://secure.zdnet.com/members/newsletters/" rel="nofollow">Newsletters</a></li>
+        <li><a href="https://secure.zdnet.com/members/alerts/" rel="nofollow">Author Alerts</a></li>
+        <li><a href="https://secure.zdnet.com/members/alert-preferences/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "header-personicon-alerts"}' rel="nofollow">Discussion Alerts</a></li>
+        <li><a href="https://secure.zdnet.com/members/activity/" rel="nofollow">Recent Activity</a></li>
+        <li><a href="http://www.zdnet.com/user/logout/" data-omniture-track="trackLogout" data-omniture-track-data='{"moduleInfo": "header-personicon"}' rel="nofollow" data-user-action="logout">Log Out</a></li>
+    </ul></span>
+        </li>
+    </ul><ul class="navListMobile"><li class="backgroundLogo">
+        <a id="zdLogoSmall" href="/">ZDNet</a>
+    </li>
+    <li data-component="dropdown">
+        <a data-item="trigger"><i class="fa fa-search"></i></a>
+                <ul class="dropDown"><li>
+                <div class="searchSmall">
+                    
+<form class="headerSearch active" method="get" action="/search/">
+    <div class="box">
+        <input type="text" title="Search" placeholder="Search" tabindex="1" name="q" value="" class="search-expand"><input type="submit" value="Search" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Search"}'></div>
+</form>
+                </div>
+            </li>
+        </ul></li>
+    <li data-component="dropdown">
+        <a data-item="trigger">Menu</a>
+                <ul class="dropDown mobileLinks"><li class="alpha">
+            <a href="/topic/cloud/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Cloud
+            </a>
+        </li>
+    
+                                    <li class="beta">
+            <a href="/topic/cxo/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                CXO
+            </a>
+        </li>
+    
+                                    <li class="gamma">
+            <a href="/topic/hardware/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Hardware
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/mobility/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Mobility
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/microsoft/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-TopicNav"}'>
+                Microsoft
+            </a>
+        </li>
+    
+                    
+                                        <li class="alphaDrop">
+            <a href="/topic/storage/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Storage
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/security/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Security
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/enterprise-software/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Enterprise Software
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/data-centers/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Data Centers
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/wearables-fit-for-business/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Wearables Fit For Business
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/apple/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Apple
+            </a>
+        </li>
+    
+                                    <li class="">
+            <a href="/topic/innovation/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Innovation
+            </a>
+        </li>
+    
+
+                    <li class="seeAll">
+            <a href="/topic/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                See All Topics 
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="http://www.techrepublic.com/resource-library/whitepapers/" target="'_blank'" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                White Papers
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="//downloads.zdnet.com/" data-download-link="'true'" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Downloads
+            </a>
+        </li>
+    
+                                <li class="subDiv">
+            <a href="/reviews/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}' data-vanity-rewritten="true">
+                Reviews
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="/pictures/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Galleries
+            </a>
+        </li>
+    
+                    <li class="subDiv">
+            <a href="/video/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-MoreMenu"}'>
+                Videos
+            </a>
+        </li>
+    
+
+
+
+
+        </ul></li>
+    <li data-component="dropdown">
+        <a class="zd-user" data-item="trigger"><i class="fa fa-user"></i></a>
+                <ul class="dropDown"><li>
+                
+<span class="loggedOut">
+    <ul class="menu-user"><li><a href="https://secure.zdnet.com/user/login/?appId=1101" rel="nofollow" data-user-show='{"action":"login","params":{"appId":1101,"position":"Header"}}'>Log In to ZDNET</a>
+        </li>
+        <li><a href="https://secure.zdnet.com/user/registration/?appId=1101" rel="nofollow" data-user-show='{"action":"register","params":{"appId":1101,"position":"Header"}}'>Join ZDNet</a></li>
+        <li><a href="/about/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "header-about"}' data-vanity-rewritten="true">About ZDNet</a></li>
+    </ul></span>
+
+<span class="loggedIn">
+    <ul class="menu-user"><li><a href="https://secure.zdnet.com/members/edit-profile/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "header-personicon-manage"}' rel="nofollow">Manage Profile</a></li>
+        <li><a href="https://secure.zdnet.com/members/newsletters/" rel="nofollow">Newsletters</a></li>
+        <li><a href="https://secure.zdnet.com/members/alerts/" rel="nofollow">Author Alerts</a></li>
+        <li><a href="https://secure.zdnet.com/members/alert-preferences/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "header-personicon-alerts"}' rel="nofollow">Discussion Alerts</a></li>
+        <li><a href="https://secure.zdnet.com/members/activity/" rel="nofollow">Recent Activity</a></li>
+        <li><a href="http://www.zdnet.com/user/logout/" data-omniture-track="trackLogout" data-omniture-track-data='{"moduleInfo": "header-personicon"}' rel="nofollow" data-user-action="logout">Log Out</a></li>
+    </ul></span>
+            </li>
+        </ul></li>
+    <li data-component="dropdown">
+                        <a data-item="trigger">as</a>
+                <ul class="dropDown"><li>
+                
+<ul data-component="editionToggler" class="menu-editions"><li>
+        <a class="editionSwitch" data-edition="as" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            Asia
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="au" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            Australia
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="eu" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            Europe
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="in" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            India
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="uk" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            United Kingdom
+        </a>
+    </li>
+
+                    <li>
+        <a class="editionSwitch" data-edition="us" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            United States
+        </a>
+    </li>
+
+    <li class="subDiv"><span class="label">ZDNet around the globe:</span></li>
+                    <li class="subDiv">
+        <a href="http://www.zdnet.be/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Belgium
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.com.cn/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet China
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.fr/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet France
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.de/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Germany
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://www.zdnet.co.kr/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Korea
+        </a>
+    </li>
+
+                    <li class="subDiv">
+        <a href="http://japan.zdnet.com/" target="_blank" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Header-Editions"}'>
+            ZDNet Japan
+        </a>
+    </li>
+
+</ul></li>
+        </ul></li>
+</ul></nav></div>
+
+        </div>
+</header><div class="intromercial">
+        <div id="intromercial-56f21be5d4238" class="ad-intromercial" data-ad="intromercial">
+    <script>
+        window.console && console.log && console.log("ADS: queuing intromercial-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("intromercial-56f21be5d4238");
+    </script></div>
+
+    </div>
+
+    
+        <div data-item-id="c00851df-21e8-46d8-acda-90af21b7d184">
+    <div class="topContent container">
+        <div class="breakingNewsContainer"></div>
+                        <div class="row">
+                <div class="row">
+        <div class="col-12">
+                                                    
+                                                        
+                                            
+
+    <div data-component="loadAsync" data-load-async-options='{"url":"\/components\/breaking-news\/xhr\/","replace":true,"relocate":".breakingNewsContainer","data":{"slug":"breaking-news-banner"}}'></div>                                                                                
+                                                        
+                                            		    
+<header class="storyHeader article"><h1 itemprop="headline">How to customise your Linux desktop: LXDE</h1>
+
+				<p class="summary" itemprop="description alternativeHeadline">Part six(!) in my Linux Desktop series, I'm looking at LXDE on Debian GNU/Linux and Raspbian.</p>
+	
+	        
+
+
+
+
+    
+<div class="byline">
+                        <div class="thumb">
+                <a rel="author" href="/meet-the-team/uk/j.a.watson1/">
+                            <span class="img "><img src="http://zdnet3.cbsistatic.com/hub/i/r/2014/07/22/2c0d2650-1175-11e4-9732-00505685119a/thumbnail/40x40/1b5522de04e24cbee7a74d776f6e89a9/j-a-watson.jpg" class="" alt="J.A. Watson" height="40" width="40"></span>
+    
+                </a>
+            </div>
+                <p class="meta">
+                                   By <span itemprop="author"><a rel="author" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "byline-author"}' href="/meet-the-team/uk/j.a.watson1/">J.A. Watson</a></span>
+            
+                    
+                    for <a itemprop="articleSection" href="/blog/jamies-mostly-linux-stuff/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "byline-blog"}'>Jamie's Mostly Linux Stuff</a>
+        
+                                        |            <time itemprop="datePublished" datetime="2015-12-11 10:35:00">December 11, 2015 -- 10:35 GMT (18:35 GMT+08:00)</time>
+        
+                                                        
+                    | Topic: <a href="/topic/linux/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "byline-topic"}'>Linux</a>
+            </p>
+
+</div>
+    </header></div>
+            </div>
+    </div>
+
+    </div>
+    <div id="mantle_skin" data-article-num="1">
+        <span id="adSkinLeft"></span>
+        <span id="adSkinRight"></span>
+            <div id="skin-56f21be5d4238" class="ad-skin" data-ad="skin">
+    <script>
+        window.console && console.log && console.log("ADS: queuing skin-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("skin-56f21be5d4238");
+    </script></div>
+
+            <section class="leader leader-top"><div id="leader-plus-top-56f21be5d4238" class="ad-leader-plus-top" data-ad="leader-plus-top">
+    <script>
+        window.console && console.log && console.log("ADS: queuing leader-plus-top-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("leader-plus-top-56f21be5d4238");
+    </script></div>
+
+    </section><div class="hpto">
+	
+</div>
+                    
+    <div class="contentWrapper ">
+                <div class="container ">
+            
+    <div class="row">
+                <div class="row">
+        <div class="col-12">
+                                            <div class="row">
+                                        <div class="row">
+        <div class="col-12">
+                                            <div class="row">
+                                    <div class="col-8">
+                                                    
+                                                        
+                                            
+    
+        
+
+<article itemscope itemtype="http://schema.org/Article"><div class="shareBar" data-component="shareBar" data-share-bar-options='{"showCounts":true,"title":"How to customise your Linux desktop: LXDE","description":"Part six(!) in my Linux Desktop series, I\u0027m looking at LXDE on Debian GNU\/Linux and Raspbian.","shortUrl":"http:\/\/zd.net\/1QfatUa","author":{"socialProfiles":{"facebookProfile":null,"facebookPage":null,"twitter":null,"googlePlus":null}},"location":"top","url":"http:\/\/www.zdnet.com\/article\/how-to-customise-your-linux-desktop-lxde\/"}'>
+    <ul><li class="comments">
+                <a href="#comments-c00851df-21e8-46d8-acda-90af21b7d184" data-location="topsharebar-comment"><i title="comments" class="fa fa-comment"></i>
+
+<span class="livefyre-commentcount social-count" data-lf-site-id="360461" data-lf-article-id="c00851df-21e8-46d8-acda-90af21b7d184">
+
+</span>
+</a>
+            </li>
+                <li class="facebook">
+            <a class="social-share" data-popup="facebook" data-location="topsharebar-fb-like" data-counts="facebook"><i class="fa fa-facebook"></i><span class="social-count"></span></a>
+        </li>
+        <li class="linkedin">
+            <a class="social-share" data-popup="linkedin" data-location="topsharebar-linkedin-share" data-counts="linkedin"><i class="fa fa-linkedin"></i><span class="social-count"></span></a>
+        </li>
+        <li class="twitter">
+            <a class="social-share" data-popup="twitter" data-location="topsharebar-twitter-tweet" data-counts="twitter"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li class="email">
+            <a data-component="emailContact" data-email-contact-options='{"trackClickText":"email-friend-submit","isDesktopGallery":false,"modalAsync":{"url":"\/user\/email-friend\/xhr\/","requestData":{"contentTitle":"How to customise your Linux desktop: LXDE","contentUrl":"http:\/\/www.zdnet.com\/article\/how-to-customise-your-linux-desktop-lxde\/"}}}' data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "email-friend-social"}'>
+                <i class="fa fa-envelope" title="Contact"></i>
+            </a>
+        </li>
+                                <li class="email-alert">
+                <a class="add-alert" rel="nofollow" title="Email Alert" data-location="topsharebar-alerts" data-component="alert" data-alert-options='{"modalAsync":{"requestData":{"alertSubject":"JaWatson","alertAuthorId":"70d629cd-10d7-11e4-9732-00505685119a"}}}'>
+                    <i title="J.A. Watson" class="fa fa-bell"></i>
+                </a>
+            </li>
+            </ul></div>
+
+    
+            <meta itemprop="image" content="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/09/34eac955-ac09-482f-b5ff-a1c856acbe7e/thumbnail/770x578/9bc12b7077308667c353e874e7e698d7/lxde.jpg"><div class="storyBody" itemprop="articleBody" data-component="lazyloadImages" data-lazyload-images-options='{"threshold":500}'>
+                                    
+        <p>So far in this series I have looked at customizing <a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-xfce/">Xfce</a>, <a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-kde/">KDE</a>, <a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-gnome-3/">Gnome 3</a>, <a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-cinnamon/">Cinnamon</a> and <a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-mate/">MATE</a>.  That covers a lot of territory, and there has been some significant overlap in focus, features and capabilities between those desktops. </p><p>This time I'm going to look at LXDE, and I think the difference will be clear - LXDE is focused on being lightweight and low overhead but still easy to use and configure.</p><p>I'm going to use a Debian GNU/Linux Testing distribution (stretch/sid) for demonstration this time.  I have been trying to confirm that this has the latest version, but LXDE is not released in completely packaged and consistently numbered sets, so I can't say that it is "version x.y".  What I have been able to confirm is that it is running <em>lxsession</em> 0.5.1 and <em>lxpanel</em> 0.8.1, and according to the <a href="http://lxde.org/">LXDE.org</a> web site those are the latest versions.</p><p>The default LXDE desktop on Debian GNU/Linux looks like this:</p><figure class="image  image-full-width shortcode-image"><span class="img aspect-set " style="padding-bottom: 56%"><img src="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/09/247dc746-fece-4ef8-9311-ed1b40f36884/resize/770xauto/8bd809b06152e7e841ef5a0f8c039010/lxdedesktop.png" class="" alt="lxdedesktop.png" height="auto" width="770"></span><figcaption><span class="caption"><p>LXDE Desktop on Debian GNU/Linux</p></span></figcaption></figure><p>There's nothing radically different here than we have seen with the previous desktops - wallpaper, a <em>Trash</em> icon, and a panel that spans the bottom of the screen.  At the left end of the panel there is a menu, represented by an icon of the LXDE logo, and some application launchers.  At the right end of the panel there are some system controls and monitors.        </p><div id="inpage-video-top-56f21be5d4238" class="ad-inpage-video-top" data-ad="inpage-video-top">
+    <script>
+        window.console && console.log && console.log("ADS: queuing inpage-video-top-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("inpage-video-top-56f21be5d4238");
+    </script></div>
+
+<figure class="image alignRight image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 121%"><img src="" class="lazy" alt="lxdemenu.png" height="auto" width="270" data-original="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/09/0f5c5a49-5c4d-42bb-b435-6434c5019ceb/resize/270xauto/0a45b066920ca750feca80627678ad24/lxdemenu.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 121%"><img src="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/09/0f5c5a49-5c4d-42bb-b435-6434c5019ceb/resize/270xauto/0a45b066920ca750feca80627678ad24/lxdemenu.png" class="" alt="lxdemenu.png" height="auto" width="270"></span></noscript><figcaption><span class="caption"><p>LXDE Menu</p></span></figcaption></figure><p>Clicking the icon at the left end of the Panel brings up the LXDE Menu.  This is a typical category/cascading menu.There is no search function in the standard LXDE menus.</p><p>I think that I have covered enough desktops, configuration and customization, that I can forego the long descriptions of some of the simpler configuration steps.  Some things I will simply say "you can do this...", or I might write just a line about how/where/what to do.  When there is more of a difference with LXDE, or something is particularly interesting, I will go into more detail.</p><p>Also, as I did with Xfce and MATE, I want to write this with some specific goals, as a sort of "how do I get from here to there" dialog, rather than just abstract configuration possibilities.  So I am going to try to configure this Debian LXDE system so that the screen looks like the default Raspbian LXDE desktop, shown here:</p><figure class="image  image-full-width shortcode-image"><span class="img aspect-set " style="padding-bottom: 81%"><img src="" class="lazy" alt="Raspbian Desktop" height="auto" width="770" data-original="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/07/5a9889de-3938-4ee6-a6c7-0c9f1bb68aff/resize/770xauto/ceae1301389ab5310c563e49ea872876/desktop-1001.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 81%"><img src="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/07/5a9889de-3938-4ee6-a6c7-0c9f1bb68aff/resize/770xauto/ceae1301389ab5310c563e49ea872876/desktop-1001.png" class="" alt="Raspbian Desktop" height="auto" width="770"></span></noscript><figcaption><span class="caption"><p>Raspbian LXDE Desktop</p></span></figcaption></figure><section class="sharethrough-top"><div id="sharethrough-top-56f21be5d4238" class="ad-sharethrough-top" data-ad="sharethrough-top">
+    <script>
+        window.console && console.log && console.log("ADS: queuing sharethrough-top-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("sharethrough-top-56f21be5d4238");
+    </script></div>
+
+</section><p>Hmm.  Well, that doesn't look so difficult, does it?  I mean, we're all Linux Desktop Customizing Professionals now, aren't we?</p><p>The first step is going to be trivial, just changing the wallpaper.  We are certainly not going to find the Raspberry Pi wallpaper in the Debian collection, but we can at least look and see what is involved in changing it, and what other capabilities it might (or might not) have.</p><figure class="image alignRight image-thumbnail shortcode-image"><span class="img aspect-set " style="padding-bottom: 75%"><img src="" class="lazy" alt="desktopmenu.png" height="auto" width="170" data-original="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/10/4f2e1e24-7b25-47ee-b507-5deb248df5d9/resize/170xauto/a392fd94beda044e1d78acc657f2f596/desktopmenu.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 75%"><img src="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/10/4f2e1e24-7b25-47ee-b507-5deb248df5d9/resize/170xauto/a392fd94beda044e1d78acc657f2f596/desktopmenu.png" class="" alt="desktopmenu.png" height="auto" width="170"></span></noscript></figure><p>There are two ways to get to the dialog where you can change the wallpaper.  The simplest is to right-click on the desktop and choose <strong>Desktop Preferences</strong> from the menu, but in some situations you don't get the necessary menu when you right-click.  The alternative is to go to the LXDE Menu, and then in <strong>Preferences</strong> you will find <strong>Desktop Preferences</strong>.</p><figure class="image alignLeft image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 76%"><img src="" class="lazy" alt="desktopappearance.png" height="auto" width="270" data-original="http://zdnet3.cbsistatic.com/hub/i/r/2015/12/10/29fa2a36-d5f5-4215-9382-57f03bcb8caf/resize/270xauto/e3be87d090561fb29c8dd528fb86422a/desktopappearance.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 76%"><img src="http://zdnet3.cbsistatic.com/hub/i/r/2015/12/10/29fa2a36-d5f5-4215-9382-57f03bcb8caf/resize/270xauto/e3be87d090561fb29c8dd528fb86422a/desktopappearance.png" class="" alt="desktopappearance.png" height="auto" width="270"></span></noscript><figcaption><span class="caption"><p>LXDE Desktop Appearance</p></span></figcaption></figure><p>Choosing an image is simple enough.  There are only three to choose from in this version of Debian, but as with all the other desktops, you can use any other image that you want.</p><p>The second tab in this window lets you choose what Icons are displayed on the desktop.  The default is just the <em>Trash Can</em> (do people really use this on Linux?), but you can add a <em>Documents</em> folder icon, or dynamic icons for mounted removable volumes.</p><p>I'm a bit baffled by that last one, because I thought these desktop volume icons were intended to give you a convenient way to either access or eject/unmount removable filesystems.  But when I right-click the icon for a USB stick I don't get any kind of "Eject" option.  Weird.  I can select the file manager (PCManFM), and then eject it from there, but there is a permanent icon on the Panel for PCManFM, so why bother going to it this way?  There must be a reason, I just don't get it.  Oh well.</p><figure class="image alignRight image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 76%"><img src="" class="lazy" alt="desktopadvanced.png" height="auto" width="270" data-original="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/10/62fc3583-3831-4b0b-9ca7-72943426ae80/resize/270xauto/c72275d9fbe6477d94c8797131bb44af/desktopadvanced.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 76%"><img src="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/10/62fc3583-3831-4b0b-9ca7-72943426ae80/resize/270xauto/c72275d9fbe6477d94c8797131bb44af/desktopadvanced.png" class="" alt="desktopadvanced.png" height="auto" width="270"></span></noscript><figcaption><span class="caption"><p>Advanced Desktop Settings</p></span></figcaption></figure><p>The third tab in the Desktop Preferences window contains an option which relates to the comment I made above about right-clicking the desktop might not bring up the same menu.  If you select this, you get... well, just what it says, but that then depends on what window manager you are using with LXDE.</p><p>Moving on... the next thing I need to do is move the Panel from the bottom to the top of the display.  I liked Simon Long's comments in the <a href="https://www.raspberrypi.org/blog/changes-to-the-raspbian-user-interface/">Raspberry Pi Blog</a> about this when he moved it.  Basically he said that the vast majority of European/American users read from left to right and top to bottom, so when confronted with a new document our eyes automatically go to the top left corner.  That makes sense to me - and when after I had been using my Pi systems that way for a little while I was convinced.  As Simon said, "Apple got this right and Microsoft got it wrong".</p><figure class="image alignLeft image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 82%"><img src="" class="lazy" alt="panelpreferences.png" height="auto" width="270" data-original="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/10/f1388745-e817-427b-b4c1-f7fd5fd1b03a/resize/270xauto/9937a51f2301455876b86308bf8e532e/panelpreferences.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 82%"><img src="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/10/f1388745-e817-427b-b4c1-f7fd5fd1b03a/resize/270xauto/9937a51f2301455876b86308bf8e532e/panelpreferences.png" class="" alt="panelpreferences.png" height="auto" width="270"></span></noscript><figcaption><span class="caption"><p>LXDE Panel Preferences</p></span></figcaption></figure><p>To move the Panel, right-click anywhere on it and choose <strong>Panel Settings</strong>.  That will bring up the <em>Panel Preferences</em> window, where you can select the Position, and set various other size and alignment parameters.  It doesn't get much easier than this...</p><figure class="image alignRight image-thumbnail shortcode-image"><span class="img aspect-set " style="padding-bottom: 39%"><img src="" class="lazy" alt="toppanel.png" height="auto" width="170" data-original="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/10/2f7cabef-35bd-4b9a-b88f-de6a777436fb/resize/170xauto/2a6517425c2d6a31e60eaf1c43e18e36/toppanel.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 39%"><img src="http://zdnet4.cbsistatic.com/hub/i/r/2015/12/10/2f7cabef-35bd-4b9a-b88f-de6a777436fb/resize/170xauto/2a6517425c2d6a31e60eaf1c43e18e36/toppanel.png" class="" alt="toppanel.png" height="auto" width="170"></span></noscript></figure><p>Note the Height and Icon size settings in this window.  If you increase the height to more than double the icon size, it will automatically switch to two rows of icons - and the "Desktop Pager" (workspace selector) will switch to a vertical display, which is pretty cool.  Combine this with the "Minimize Panel When Not In Use" option on the <em>Advanced</em> tab (aka <em>Autohide</em>), and I think it comes out pretty nice, I like it!</p><p>The Raspbian desktop has a group of application launcher icons at the left end of the Panel.  We have two of the same ones in our panel, for the File Manager and Web Browser, but we need to add a couple more and also to get rid of the Workspace Selector.</p><p>Well, it turns out that those launcher icons are actually contained in a special LXDE Panel object called an <strong>Application Launcher Bar</strong>.  To add something to it, you right-click on the launcher icons and choose <em>Application Launch Bar Settings</em>.</p><figure class="image alignLeft image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 72%"><img src="" class="lazy" alt="launchbarsettings.png" height="auto" width="270" data-original="http://zdnet2.cbsistatic.com/hub/i/r/2015/12/10/ce2c762b-323f-4403-836a-d30dfbe86a96/resize/270xauto/29b5661207ec3ec0fbaba0384a66e6c5/launchbarsettings.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 72%"><img src="http://zdnet2.cbsistatic.com/hub/i/r/2015/12/10/ce2c762b-323f-4403-836a-d30dfbe86a96/resize/270xauto/29b5661207ec3ec0fbaba0384a66e6c5/launchbarsettings.png" class="" alt="launchbarsettings.png" height="auto" width="270"></span></noscript></figure><p>This window contains a list of displayed launchers on the left side, and a reproduction of the LXDE Menu on the right side. If you have been poking around in the menu yourself, you might have noticed that unlike most of the other desktops, when you right-click a menu item on LXDE there is no "Add to Panel" option.  This window is the next-best thing to that.  You can Add, Delete and change the order of launchers here.</p><p>I can add LXterm to the launchers, but the other two items on Raspbian don't exist on my Debian system (Wolfram and Mathematica).  So I will add one of my more commonly used applications, GIMP.</p><figure class="image alignRight image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 82%"><img src="" class="lazy" alt="panelitems.png" height="auto" width="270" data-original="http://zdnet2.cbsistatic.com/hub/i/r/2015/12/10/f404b7d5-1fe4-479e-b352-b8a135bccc2d/resize/270xauto/0050b585b11e4ad104aa3ea054b17c2b/panelitems.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 82%"><img src="http://zdnet2.cbsistatic.com/hub/i/r/2015/12/10/f404b7d5-1fe4-479e-b352-b8a135bccc2d/resize/270xauto/0050b585b11e4ad104aa3ea054b17c2b/panelitems.png" class="" alt="panelitems.png" height="auto" width="270"></span></noscript></figure><p>Removing the Desktop Pager (Workspace Selector) is dead easy, just right-click on it and select <em>Remove "Desktop Pager" from panel</em>.  You could do the same by right-clicking and selecting <em>Add/Remove Panel Items</em>, which brings up this window, and here you would actually see that there are panel spacers on either side of it, so you might want to remove one of those as well.</p><p>Ok, I think that gets us close enough to the Raspbian desktop.  I still need to add/remove some of the items at the right end of the panel, but the procedure is going to be exactly the same as I have just done, so I won't include that here.</p><p>There is one more area of customization possible with LXDE - adding shortcuts to the desktop.  I'm not a big fan of this, because I have seen far too many desktops which were so covered with icons, launchers, shortcuts, bookmarks and whatever else that there was actually no background visible - and no hope of ever finding one particular item that you might be looking for.  Other people think desktop icons are wonderful, and swear that they are the most efficient way (for them) to work.  So who am I to argue?</p><figure class="image alignLeft image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 98%"><img src="" class="lazy" alt="desktop-1003.png" height="auto" width="270" data-original="http://zdnet3.cbsistatic.com/hub/i/r/2015/12/10/abb993c1-efce-4da8-b8e3-8dc308e70460/resize/270xauto/38579dd04b7cfc2ba42e2244889ccadd/desktop-1003.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 98%"><img src="http://zdnet3.cbsistatic.com/hub/i/r/2015/12/10/abb993c1-efce-4da8-b8e3-8dc308e70460/resize/270xauto/38579dd04b7cfc2ba42e2244889ccadd/desktop-1003.png" class="" alt="desktop-1003.png" height="auto" width="270"></span></noscript></figure><p>The simplest way to put an application shortcut on the desktop is to find it in the LXDE Menu, right-click and select <em>Add to Desktop</em>.  I have been taking lots of screen shots for this series of posts, so for convenience I could add a shortcut to the screen shot program to the desktop.</p><figure class="image alignRight image-thumbnail shortcode-image"><span class="img aspect-set " style="padding-bottom: 68%"><img src="" class="lazy" alt="selection004.png" height="auto" width="170" data-original="http://zdnet2.cbsistatic.com/hub/i/r/2015/12/10/3e207718-e27b-409a-8c24-06fa0837096c/resize/170xauto/0b71ee13593d0a4c5b0cd0e2a4e45515/selection004.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 68%"><img src="http://zdnet2.cbsistatic.com/hub/i/r/2015/12/10/3e207718-e27b-409a-8c24-06fa0837096c/resize/170xauto/0b71ee13593d0a4c5b0cd0e2a4e45515/selection004.png" class="" alt="selection004.png" height="auto" width="170"></span></noscript></figure><p>Hmmm.  Ok, good... well... what is that, exactly?  It's not a normal "icon", because we saw those back when we were looking at Desktop Settings.  It's not a normal "launcher", because it has that funny arrow at the top left corner.  It's a new object, a desktop shortcut, and it is implemented in a very simple way.</p><figure class="image alignLeft image-small shortcode-image"><span class="img aspect-set " style="padding-bottom: 76%"><img src="" class="lazy" alt="desktopadvanced.png" height="auto" width="270" data-original="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/10/62fc3583-3831-4b0b-9ca7-72943426ae80/resize/270xauto/c72275d9fbe6477d94c8797131bb44af/desktopadvanced.png"></span><noscript><span class="img aspect-set " style="padding-bottom: 76%"><img src="http://zdnet1.cbsistatic.com/hub/i/r/2015/12/10/62fc3583-3831-4b0b-9ca7-72943426ae80/resize/270xauto/c72275d9fbe6477d94c8797131bb44af/desktopadvanced.png" class="" alt="desktopadvanced.png" height="auto" width="270"></span></noscript><figcaption><span class="caption"><p>Advanced Desktop Settings</p></span></figcaption></figure><p>Remember the <em>Desktop Preferences </em>/<em> Advanced</em> window from earlier?  See the item about using the desktop as a folder?  That's the key here.  Uncheck that, and the shortcut disappears from the desktop.  Check it again, and the shortcut returns.  Pretty spiffy.</p><p>Now you can peek behind the curtain, by just starting the PCManFM File Manager, and opening the <strong>Desktop</strong> folder in your home directory.  There you will see Shutter, and if you look closely you will see that it is a "shortcut to URI".  But if the desktop is really being used as a folder, then we should be able to put whatever we want in there - and we can!</p><p>Try it for yourself.  Of course you can right-click on the desktop and then choose Create... to make an empty file or folder.  But you can just as easily put something else directly into the Desktop folder yourself - copy a file, or save a LibreOffice document there, for example.  Anything you put in there will immediately show up on your desktop.</p><p>So, given that I don't like desktop shortcuts, I have now opened up the Gates of Hell by explaining what they are and how to create whatever you want.  Sigh.  Sometimes it seems that I will never learn.</p><p>I think that covers all of the basic configuration and customization possibilities for LXDE.  As I said at the beginning, LXDE is considered to be a lightweight desktop, and I think the information presented here shows that.  While it certainly can be customized in many of the same way as the more 'advanced' desktops (wallpaper, panels, desktop icons) in each case you can see that the extent of the configurability is less than with the other desktops we have seen.</p><p>It is possible to go further, with additional effort, so things like a wallpaper slideshow that is standard in many of the others can be created in LXDE, likewise, it is possible to write your own LXDE Panel plug-ins, so if there are plug-ins (or widgets) in other desktops that you absolutely want on your LXDE desktop, you could do that.</p><p>But in my opinion, that's the point - LXDE isn't as big, or as bulky, or as filled-out as the other desktops, and that is one of its advantages.  People who choose LXDE want basic functionality without a lot of overhead, so what I have tried to show here is how the basic system can be fine-tuned to make it a bit more comfortable.</p><p>I had originally thought this would be the last desktop configuration that I looked at.  But there have been a number of requests for me to include some of the even lighter-weight options, so I will probably write one more time, about Openbox and Enlightenment, which are actually more like Window Managers rather than complete desktop environments.</p><p>But first, I'm going to have a good look at Ubuntu MATE on the Raspberry Pi 2!</p><h3>Read more on Linux and open source:   </h3><ul><li><a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-mate/">How to customise your Linux desktop: MATE</a><a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-cinnamon/"></a></li><li><a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-cinnamon/">How to customise your Linux desktop: Cinnamon</a></li><li><a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-xfce/">How to customise your Linux desktop: Xfce</a></li><li><a href="http://www.zdnet.com/article/hands-on-with-opensuse-leap-rc1-a-walk-through-of-the-installer/">Hands-On with openSuSE Leap RC1: A walk through of the installer</a></li><li><a href="http://www.zdnet.com/article/hands-on-kaos-linux-2015-10/">Hands-On: KaOS Linux 2015.10</a></li><li><a href="http://www.zdnet.com/article/thus-versus-calamares-comparing-manjaro-15-09-installers/">Thus versus Calamares: Comparing Manjaro 15.09 installers</a></li><li><a href="http://www.zdnet.com/article/upgrading-my-linux-windows-multi-boot-system-to-windows-10/">Upgrading my Linux-Windows multi-boot system to Windows 10</a></li><li><a href="http://www.zdnet.com/article/hands-on-linux-uefi-multi-boot-my-way/">Hands-On: Linux UEFI multi-boot, my way</a></li><li><a href="http://www.zdnet.com/article/hands-on-linux-uefi-multi-boot-part-2/">Hands-On: Linux UEFI multi-boot, part two</a></li></ul></div>
+
+    
+	        
+	
+                        
+<div class="shareBar" data-component="shareBar" data-share-bar-options='{"showCounts":true,"title":"How to customise your Linux desktop: LXDE","description":"Part six(!) in my Linux Desktop series, I\u0027m looking at LXDE on Debian GNU\/Linux and Raspbian.","shortUrl":"http:\/\/zd.net\/1QfatUa","author":{"socialProfiles":{"facebookProfile":null,"facebookPage":null,"twitter":null,"googlePlus":null}},"location":"bottom","url":"http:\/\/www.zdnet.com\/article\/how-to-customise-your-linux-desktop-lxde\/"}'>
+    <ul><li class="comments">
+                <a href="#comments-c00851df-21e8-46d8-acda-90af21b7d184" data-location="bottomsharebar-comment"><i title="comments" class="fa fa-comment"></i>
+
+<span class="livefyre-commentcount social-count" data-lf-site-id="360461" data-lf-article-id="c00851df-21e8-46d8-acda-90af21b7d184">
+
+</span>
+</a>
+            </li>
+                <li class="facebook">
+            <a class="social-share" data-popup="facebook" data-location="bottomsharebar-fb-like" data-counts="facebook"><i class="fa fa-facebook"></i><span class="social-count"></span></a>
+        </li>
+        <li class="linkedin">
+            <a class="social-share" data-popup="linkedin" data-location="bottomsharebar-linkedin-share" data-counts="linkedin"><i class="fa fa-linkedin"></i><span class="social-count"></span></a>
+        </li>
+        <li class="twitter">
+            <a class="social-share" data-popup="twitter" data-location="bottomsharebar-twitter-tweet" data-counts="twitter"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li class="email">
+            <a data-component="emailContact" data-email-contact-options='{"trackClickText":"email-friend-submit","isDesktopGallery":false,"modalAsync":{"url":"\/user\/email-friend\/xhr\/","requestData":{"contentTitle":"How to customise your Linux desktop: LXDE","contentUrl":"http:\/\/www.zdnet.com\/article\/how-to-customise-your-linux-desktop-lxde\/"}}}' data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "email-friend-social"}'>
+                <i class="fa fa-envelope" title="Contact"></i>
+            </a>
+        </li>
+                                <li class="email-alert">
+                <a class="add-alert" rel="nofollow" title="Email Alert" data-location="bottomsharebar-alerts" data-component="alert" data-alert-options='{"modalAsync":{"requestData":{"alertSubject":"JaWatson","alertAuthorId":"70d629cd-10d7-11e4-9732-00505685119a"}}}'>
+                    <i title="J.A. Watson" class="fa fa-bell"></i>
+                </a>
+            </li>
+            </ul></div>
+
+</article><div id="taboola-below-article-thumbnails-how-to-customise-your-linux-desktop-lxde" data-component="taboola" data-taboola-options='{"mode":"alternating-thumbnails-a","container":"taboola-below-article-thumbnails-how-to-customise-your-linux-desktop-lxde","placement":"ZDNETarticleDesktop\/Tablet-Below Article Thumbnails","isXhr":false}'></div>
+                                                                                
+                                                        
+                                            
+    
+                                                            
+                    
+<div id="comments-c00851df-21e8-46d8-acda-90af21b7d184" class="comments">
+    <h2 class="heading">
+        <span class="int">Join Discussion</span>
+    </h2>
+            <div class="livefyreConversation" id="livefyreConversation-c00851df-21e8-46d8-acda-90af21b7d184" data-component="livefyreConversation" data-livefyre-conversation-options='{"commentStreamConfigs":{"maxVisible":3,"siteId":360461,"articleId":"c00851df-21e8-46d8-acda-90af21b7d184","el":"livefyreConversation-c00851df-21e8-46d8-acda-90af21b7d184","checksum":"c003a06a1b992c0781d3fcb1313c8229","collectionMeta":"eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJ0aXRsZSI6IkhvdyB0byBjdXN0b21pc2UgeW91ciBMaW51eCBkZXNrdG9wOiBMWERFIiwidXJsIjoiaHR0cDpcL1wvd3d3LnpkbmV0LmNvbVwvYXJ0aWNsZVwvaG93LXRvLWN1c3RvbWlzZS15b3VyLWxpbnV4LWRlc2t0b3AtbHhkZVwvIiwidGFncyI6ImxpbnV4IiwiY2hlY2tzdW0iOiJjMDAzYTA2YTFiOTkyYzA3ODFkM2ZjYjEzMTNjODIyOSIsImFydGljbGVJZCI6ImMwMDg1MWRmLTIxZTgtNDZkOC1hY2RhLTkwYWYyMWI3ZDE4NCIsInNpdGVJZCI6MzYwNDYxfQ.puxIOPya_8K2FWnp7Ush730Kx84-Sz7zTHlpkEEBTA0","anonymousFlaggingEnabled":false,"browserType":"desktop"},"globalConfig":{"network":"zdnet.fyre.co"},"profileURL":null}'></div>
+    
+    <div class="livefyreFooter">
+        <p class="livefyrePowered"><a href="http://livefyre.com" target="_blank">Powered by Livefyre</a></p>
+        <div class="addComment"><a href="#comments-c00851df-21e8-46d8-acda-90af21b7d184">Add your Comment</a></div>
+    </div>
+</div>
+            
+                                                                                
+                                                        
+                                            
+
+        <div id="2775275" class="yahoo-sponsored-bottom" data-component="yahooTags" data-yahoo-tags-options='{"netseer_tag_id":"21103","netseer_ad_width":"770","netseer_ad_height":"240","netseer_task":"ad","netseer_imp_type":"1","netseer_imp_src":"2","netseer_placement_id":2775275}'></div>
+                                                                    </div>
+            <div class="col-4">
+                                                    
+                                                        
+                                            
+
+                    <div class="ad-wrap">
+    <section class="mpu"><div id="mpu-plus-top-56f21be5d4238" class="ad-mpu-plus-top" data-ad="mpu-plus-top">
+    <script>
+        window.console && console.log && console.log("ADS: queuing mpu-plus-top-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("mpu-plus-top-56f21be5d4238");
+    </script></div>
+
+    </section></div>
+                                                                                    
+                                                        
+                                            
+
+                        <section class="vendor-text-link"><div id="vendor-text-link-56f21be5d4238" class="ad-vendor-text-link" data-ad="vendor-text-link">
+    <script>
+        window.console && console.log && console.log("ADS: queuing vendor-text-link-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("vendor-text-link-56f21be5d4238");
+    </script></div>
+
+    </section><section data-module="Related Stories" class="module relatedStories"><h2 class="heading">
+		<span class="int">Related Stories</span>
+	</h2>
+	<div class="box">
+		<ul><li>
+					<div>
+					    <a class="thumb" href="/article/red-hat-becomes-first-2b-open-source-company/">
+					                    <span class="img "><img src="http://zdnet2.cbsistatic.com/hub/i/r/2015/06/08/b19a5901-c0ac-48d4-a22b-63f6134d382d/thumbnail/170x128/ad00b3fda475d569f28b7227d5efd72c/red-fedora-hat.png" class="" alt="​Red Hat becomes first $2b open-source company" height="128" width="170"></span>
+    
+					    </a>
+					</div>
+					<div class="content">
+													<p class="topicName">Enterprise Software</p>
+												<p><a href="/article/red-hat-becomes-first-2b-open-source-company/">​Red Hat becomes first $2b open-source company</a></p>
+					</div>
+				</li>
+																			<li>
+					<div>
+					    <a class="thumb" href="/article/raspberry-pi-3-raspbian-linux-and-noobs-distributions-updated/">
+					                    <span class="img "><img src="http://zdnet2.cbsistatic.com/hub/i/r/2016/02/26/1dd367c6-c0ec-4639-a4d3-58bc70bfaba5/thumbnail/170x128/fe6fd4ec85d03404dca95215ddfe72d6/raspberry-pi-3-case.jpg" class="" alt="Raspberry Pi 3: Raspbian Linux and NOOBS distributions updated" height="128" width="170"></span>
+    
+					    </a>
+					</div>
+					<div class="content">
+													<p class="topicName">Linux</p>
+												<p><a href="/article/raspberry-pi-3-raspbian-linux-and-noobs-distributions-updated/">Raspberry Pi 3: Raspbian Linux and NOOBS distributions updated</a></p>
+					</div>
+				</li>
+																			<li>
+					<div>
+					    <a class="thumb" href="/article/microsofts-new-rallying-cry-cloud-first-windows-second/">
+					                    <span class="img "><img src="http://zdnet2.cbsistatic.com/hub/i/r/2015/09/28/9d7a8ece-9a46-4523-a11e-3a9a6c759d3f/thumbnail/170x128/ed430e2ea7f666735d71d47bbee4a9ca/businessman-looks-at-windows-10.gif" class="" alt="Microsoft's new rallying cry: Cloud first, Windows second?" height="128" width="170"></span>
+    
+					    </a>
+					</div>
+					<div class="content">
+													<p class="topicName">Cloud</p>
+												<p><a href="/article/microsofts-new-rallying-cry-cloud-first-windows-second/">Microsoft's new rallying cry: Cloud first, Windows second?</a></p>
+					</div>
+				</li>
+																			<li>
+					<div>
+					    <a class="thumb" href="/article/microsoft-provides-a-few-more-details-on-its-sql-on-linux-plans/">
+					                    <span class="img "><img src="http://zdnet2.cbsistatic.com/hub/i/r/2016/03/20/6dbb7d4a-e4a1-4ec1-a66c-24469c51cacb/thumbnail/170x128/5c3a4c87a05029c4589546161741d42a/sqlserver2016rc1.jpg" class="" alt="Microsoft provides a few more details on its SQL on Linux plans" height="128" width="170"></span>
+    
+					    </a>
+					</div>
+					<div class="content">
+													<p class="topicName">Data Management</p>
+												<p><a href="/article/microsoft-provides-a-few-more-details-on-its-sql-on-linux-plans/">Microsoft provides a few more details on its SQL on Linux plans</a></p>
+					</div>
+				</li>
+																						</ul></div>
+</section><div id="newsletter-widget-1834" data-component="newsletterWidget">
+    <section class="keepUp"><h2 class="heading"><span class="int">Newsletters</span></h2>
+        <div class="box">
+            <div class="newsletterWidgetSuccessMessage hide">You have been successfully signed up. To sign up for more newsletters or to manage your account, visit the <a href="https://secure.zdnet.com/members/newsletters/">Newsletter Subscription Center</a>.</div>
+            <div class="newsletterWidgetErrorMessage hide">Subscription failed.</div>
+            <div class="newsletters">
+                <div id="widget-4408" data-component="loadNewsletterAsync" data-load-newsletter-async-options='{"loggedUrl":"\/newsletter\/xhr\/widget\/","loginUrl":"\/newsletter\/xhr\/widget-login\/","data":{"topic":"linux"}}'>
+                </div>
+            </div>
+                        <span class="loggedOut">
+                <a href="/newsletters/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "newsletter-seeall"}' class="btn-circle" data-vanity-rewritten="true">
+                  <div class="btn-circle-text">
+                    <span>See</span>
+                    All
+                  </div>
+                </a>
+            </span>
+
+            <span class="loggedIn">
+                <a href="https://secure.zdnet.com/members/newsletters/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "newsletter-seeall"}' class="btn-circle">
+                  <div class="btn-circle-text">
+                    <span>See</span>
+                    All
+                  </div>
+                </a>
+            </span>
+        </div>
+    </section></div>
+                                                                                
+                                                        
+                                            
+
+                    
+    <section class="dynamic-showcase-top"><div id="dynamic-showcase-top-56f21be5d4238" class="ad-dynamic-showcase-top" data-ad="dynamic-showcase-top">
+    <script>
+        window.console && console.log && console.log("ADS: queuing dynamic-showcase-top-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("dynamic-showcase-top-56f21be5d4238");
+    </script></div>
+
+    </section><section class="mpu"><div id="mpu-middle-56f21be5d4238" class="ad-mpu-middle" data-ad="mpu-middle">
+    <script>
+        window.console && console.log && console.log("ADS: queuing mpu-middle-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("mpu-middle-56f21be5d4238");
+    </script></div>
+
+    </section><div id="uid-380882502" data-component="medusaAsync" data-medusa-async-options='{"url":"\/medusa\/xhr\/right-rail\/","data":{"promo":2150,"count":3},"template":"right-rail"}'>
+    </div>
+		
+			                                                                                
+                                                        
+                                            
+
+                        <section class="mpu scrolling-mpu"><div id="mpu-bottom-56f21be5d4238" class="ad-mpu-bottom" data-ad="mpu-bottom">
+    <script>
+        window.console && console.log && console.log("ADS: queuing mpu-bottom-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("mpu-bottom-56f21be5d4238");
+    </script></div>
+
+    </section></div>
+                                </div>
+                        </div>
+            </div>
+                <div class="row">
+        <div class="col-12">
+                                                    
+                                                        
+                                            
+
+                        <section class="leader leader-bottom"><div id="leader-plus-bottom-56f21be5d4238" class="ad-leader-plus-bottom" data-ad="leader-plus-bottom">
+    <script>
+        window.console && console.log && console.log("ADS: queuing leader-plus-bottom-56f21be5d4238 for display");
+        var cbsiGptDivIds = cbsiGptDivIds || [];
+        cbsiGptDivIds.push("leader-plus-bottom-56f21be5d4238");
+    </script></div>
+
+    </section><div data-component="magnet" data-magnet-options='{"data":[{"id":"2fa0ea2b-347b-4d69-9dfb-bce7089d4aec","title":"How this antique technology could turn out to be the future of broadband","description":"G.fast may \u0027sound like an indigestion medicine\u0027 but it could soon give your old copper-based connection a fibre-like makeover.","slug":"how-this-antique-technology-could-turn-out-to-be-the-future-of-broadband","ajaxUrl":"\/article\/how-this-antique-technology-could-turn-out-to-be-the-future-of-broadband\/xhr\/","url":"\/article\/how-this-antique-technology-could-turn-out-to-be-the-future-of-broadband\/","typeName":"content_article"},{"id":"1a65e2a8-0e88-4dab-aae2-67f336930a9e","title":"Cisco closes Jasper deal, establishes IoT unit amidst engineering reorg","description":"Cisco CEO Chuck Robbins announced that Cisco\u0027s engineering unit would be split into four new teams to reflect the company\u0027s key growth areas.","slug":"cisco-closes-jasper-deal-establishes-iot-unit-amidst-engineering-reorg","ajaxUrl":"\/article\/cisco-closes-jasper-deal-establishes-iot-unit-amidst-engineering-reorg\/xhr\/","url":"\/article\/cisco-closes-jasper-deal-establishes-iot-unit-amidst-engineering-reorg\/","typeName":"content_article"},{"id":"8be4d3a0-b8bd-43d9-bcda-3945823d3587","title":"\u200bGoogle Cloud Platform adds regions, aims to close global cloud computing gap","description":"Google is ramping the rollout of regions as it aims to court more enterprise customers. Google Cloud Platform announced two new regions and plans for 10 more.","slug":"google-cloud-platform-adds-regions-aims-to-close-global-cloud-computing-gap","ajaxUrl":"\/article\/google-cloud-platform-adds-regions-aims-to-close-global-cloud-computing-gap\/xhr\/","url":"\/article\/google-cloud-platform-adds-regions-aims-to-close-global-cloud-computing-gap\/","typeName":"content_article"},{"id":"0b656ca5-d0ef-4f85-b15d-bd20707b9444","title":"\u200bThe Internet is getting faster, a lot faster","description":"Akamai has found that the average global last-mile Internet connection speed has gone up 23 percent year over year.","slug":"the-internet-is-getting-faster-a-lot-faster","ajaxUrl":"\/article\/the-internet-is-getting-faster-a-lot-faster\/xhr\/","url":"\/article\/the-internet-is-getting-faster-a-lot-faster\/","typeName":"content_article"},{"id":"87ea8b23-486a-4929-b0a2-60956d95b9c1","title":"Singapore security firm looks to differentiate with physical, cyber offerings","description":"e-Cop changes name to Quann in a corporate rebranding that includes plans to grow its revenue four-fold by 2020, as it bets on its \u0022pureplay\u0022 ability to provide both physical and cyber security products.","slug":"singapore-security-firm-looks-to-differentiate-with-physical-cyber-offerings","ajaxUrl":"\/article\/singapore-security-firm-looks-to-differentiate-with-physical-cyber-offerings\/xhr\/","url":"\/article\/singapore-security-firm-looks-to-differentiate-with-physical-cyber-offerings\/","typeName":"content_article"},{"id":"a2e608ad-86cf-4703-b377-9a3f2365ceec","title":"Google backs new S\u00e3o Paulo-Rio undersea cable","description":"The link will be used by the web giant only for data traffic between the two Brazilian capitals","slug":"google-backs-new-sao-paulo-rio-undersea-cable","ajaxUrl":"\/article\/google-backs-new-sao-paulo-rio-undersea-cable\/xhr\/","url":"\/article\/google-backs-new-sao-paulo-rio-undersea-cable\/","typeName":"content_article"}],"currentItem":[{"id":"c00851df-21e8-46d8-acda-90af21b7d184","title":"How to customise your Linux desktop: LXDE","description":"Part six(!) in my Linux Desktop series, I\u0027m looking at LXDE on Debian GNU\/Linux and Raspbian.","slug":"how-to-customise-your-linux-desktop-lxde","ajaxUrl":"\/article\/how-to-customise-your-linux-desktop-lxde\/xhr\/","url":"\/article\/how-to-customise-your-linux-desktop-lxde\/","typeName":"content_article"}],"hasToc":false}' data-waypoint="c00851df-21e8-46d8-acda-90af21b7d184"></div>
+
+	
+                                                                    </div>
+            </div>
+                                </div>
+                        </div>
+            </div>
+    </div>
+
+
+                
+            	        </div>
+            </div>
+
+    
+
+        </div>
+
+    </div>
+
+            
+<footer role="contentinfo" class="footer-main"><div class="container">
+        <div class="row">
+            <div class="col-6 siteHighlights">
+                <a id="zd-logo" href="/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-Logo"}'>ZDNet</a>
+                <div class="connect">
+                    <div class="connectSocial">Connect with us</div>
+                    <div class="networkWrapper">
+                        <a target="_blank" href="https://www.facebook.com/pages/ZDNet/5953112932" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-ConnectWithZDNet"}'>
+                            <span class="circle facebook">
+                                <i class="fa fa-lg fa-facebook">Facebook</i>
+                            </span>
+                        </a>
+
+                        <a target="_blank" href="http://twitter.com/zdnet" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-ConnectWithZDNet"}'>
+                            <span class="circle twitter">
+                                <i class="fa fa-lg fa-twitter">Twitter</i>
+                            </span>
+                        </a>
+
+                        <a target="_blank" href="https://www.linkedin.com/company/zdnet-com" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-ConnectWithZDNet"}'>
+                            <span class="circle">
+                                <i class="fa fa-lg fa-linkedin">LinkedIn</i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <p class="copyright">© 2016 CBS Interactive. All rights reserved. <a href="http://legalterms.cbsinteractive.com/privacy" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-CopyrightLinks"}' rel="nofollow" target="_blank">Privacy Policy</a> | <a href="http://legalterms.cbsinteractive.com/cookies" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-CopyrightLinks"}' rel="nofollow" target="_blank">Cookies</a> | <a href="http://legalterms.cbsinteractive.com/adchoice" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-CopyrightLinks"}' rel="nofollow" target="_blank">Ad Choice</a> |  <a href="/advertise/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-CopyrightLinks"}' rel="nofollow" target="_blank" data-vanity-rewritten="true">Advertise</a> | <a href="http://legalterms.cbsinteractive.com/terms-of-use" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-CopyrightLinks"}' rel="nofollow" target="_blank">Terms of Use</a> | <a href="http://legalterms.cbsinteractive.com/eula" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-CopyrightLinks"}' rel="nofollow" target="_blank">Mobile User Agreement</a></p>
+
+                <div class="networkSites">
+                    <form data-component="footerSites">
+                        <label for="siteTarget">Visit other CBS Interactive sites:</label>
+                        <select id="siteTarget" name="target"><option selected value="">Select Site</option><option value="http://www.cbs.com/cbs_cares/">CBS Cares</option><option value="http://www.cbsfilms.com">CBS Films</option><option value="http://www.cbsradio.com">CBS Radio</option><option value="http://www.cbs.com">CBS.com</option><option value="http://www.cbsinteractive.com">CBSInteractive</option><option value="http://www.cbsnews.com">CBSNews.com</option><option value="http://www.cbssports.com">CBSSports.com</option><option value="http://www.chowhound.com">Chowhound</option><option value="http://www.cnet.com">CNET</option><option value="http://www.cbsiam.com/">College Networks</option><option value="http://www.gamespot.com">GameSpot</option><option value="http://www.last.fm">Last.fm</option><option value="http://www.maxpreps.com">MaxPreps</option><option value="http://www.metacritic.com">Metacritic.com</option><option value="http://www.cbsnews.com/moneywatch/">Moneywatch</option><option value="http://www.mysimon.com">mySimon</option><option value="http://www.radio.com">Radio.com</option><option value="http://www.search.com">Search.com</option><option value="http://www.shopper.com">Shopper.com</option><option value="http://www.sho.com">Showtime</option><option value="http://www.smartplanet.com">SmartPlanet</option><option value="http://www.techrepublic.com">TechRepublic</option><option value="http://theinsider.etonline.com/">The Insider</option><option value="http://www.tv.com">TV.com</option><option value="http://www.urbanbaby.com">UrbanBaby.com</option><option value="http://www.zdnet.com">ZDNet</option></select></form>
+                </div>
+            </div>
+
+                        <div class="col-2 alpha">
+                <ul><li><a href="/topic/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}'>Topics</a></li>
+                    <li><a href="/blog/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}'>All Authors</a></li>
+                    <li><a href="/pictures/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}'>Galleries</a></li>
+                    <li><a href="/video/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}'>Videos</a></li>
+                </ul></div>
+
+                        <div class="col-2 beta">
+                <ul><li><a href="/about/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}' data-vanity-rewritten="true">About ZDNet</a></li>
+                    <li><a href="/meet-the-team/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}' data-vanity-rewritten="true">Meet The Team</a></li>
+                    <li><a href="/sitemap/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}' data-vanity-rewritten="true">Site Map</a></li>
+                    <li><a href="/rssfeeds/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}' data-vanity-rewritten="true">RSS Feeds</a></li>
+                    <li><a href="/reprints/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "footer-links"}' data-vanity-rewritten="true">Reprint Policy</a></li>
+                </ul></div>
+
+                        <div class="col-2 gamma">
+                <ul><li class="loggedIn"><a href="https://secure.zdnet.com/members/edit-profile/" rel="nofollow">Manage</a> | <a href="http://www.zdnet.com/user/logout/" rel="nofollow" data-member="submitLogOut" data-user-action="logout" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "trackLogout"}'>Log Out</a></li>
+
+                    <li class="loggedOut">
+                        <a href="https://secure.zdnet.com/user/login/?appId=1101" rel="nofollow" data-user-show='{"action":"login","params":{"appId":1101,"position":"Footer"}}'>Log In to ZDNET</a>
+                        |
+                        <a href="https://secure.zdnet.com/user/registration/?appId=1101" rel="nofollow" data-user-show='{"action":"register","params":{"appId":1101,"position":"Footer"}}'>Join ZDNet</a>
+                    </li>
+
+                    <li><a href="https://secure.zdnet.com/members/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-Services"}' rel="nofollow">Membership</a></li>
+                    <li><a href="/newsletters/" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-Services"}' data-vanity-rewritten="true">Newsletters</a></li>
+                    <li><a href="https://cbsi.secure.force.com/CBSi/knowledgehome?referer=zdnet.com" data-omniture-track="moduleClick" data-omniture-track-data='{"moduleInfo": "Footer-Services"}'>Site Assistance</a></li>
+                </ul></div>
+        </div>
+    </div>
+</footer><script>
+	// Source: https://gist.github.com/jcxplorer/823878/
+	// Licence: Public Domain
+	function UUIDv4 (){var b="",a,c;for(a=0;32>a;a++){c=16*Math.random()|0;if(8==a||12==a||16==a||20==a)b+="-";b+=(12==a?4:16==a?c&3|8:c).toString(16)}return b};
+
+	var __tealium_data_guid = UUIDv4(),
+		utag_data = {"isEnabled":true,"articleAuthorId":["70d629cd-10d7-11e4-9732-00505685119a"],"articleAuthorName":["j.a. watson"],"articleId":"c00851df-21e8-46d8-acda-90af21b7d184","articlePubDate":"2015-12-11 10:35:35","articleTitle":"how to customise your linux desktop: lxde","articleType":"content_article","blogId":"be3b731d-ed4a-11e3-95d2-02911863765e","blogName":"jamie\u0027s mostly linux stuff","deviceType":"desktop","isDev":"0","pageType":"article","siteHier":["linux","open source"],"siteSection":"editorial","siteType":"responsive web","topicId":["10b2a4fa-ec91-11e3-95d2-02911863765e","10f422bf-ec91-11e3-95d2-02911863765e"],"topicName":["linux","open source"],"buyingCycle":"optimize","siteId":2,"bkSiteId":3330,"limit":4,"assetCompany":["canonical ltd.","microsoft","apple"],"rsid":"cnetzdnetglobalsite","siteName":"zdnet","tealium":{"profile":"zdnet","env":"prod"}};
+    	utag_data.pageViewGuid = __tealium_data_guid;
+</script><script type="text/javascript" src="http://zdnet3.cbsistatic.com/fly/517-fly/bundles/zdnetjs/js/libs/require-2.1.2.js"></script><script type="text/javascript">
+    require.config({"baseUrl":"\/517-fly\/bundles\/zdnetjs\/js-build","config":{"version":{"fly\/components\/accordion":"1.0","fly\/components\/alert":"1.0","fly\/components\/base":"1.0","fly\/components\/carousel":"1.0","fly\/components\/dependent-field":"1.0","fly\/components\/dropdown":"1.0","fly\/components\/expose":"2.0","fly\/components\/fixate":"1.0","fly\/components\/form-validate":"1.0","fly\/components\/image-gallery":"1.0","fly\/components\/iframe-messenger":"1.0","fly\/components\/livefyre-commentcount":"1.0","fly\/components\/livefyre-conversation":"1.0","fly\/components\/load-more":"1.0","fly\/components\/load-more-scroll":"1.0","fly\/components\/loading":"1.0","fly\/components\/modal":"1.0","fly\/components\/modal-async":"1.0","fly\/components\/modal-iframe":"1.0","fly\/components\/poll":"1.0","fly\/components\/social-button":"1.0","fly\/components\/social-counts":"1.0","fly\/components\/social-links":"1.0","fly\/components\/selectMenu":"1.0","fly\/components\/tabs":"1.0","fly\/components\/tooltip":"1.0","fly\/components\/video":"1.0","components\/css-map":"4.4.14","components\/alert-preferences":"1.0","components\/alert":"1.0","components\/broadband-speed-test":"1.0","components\/cookie-policy":"1.0","fly\/libs\/easy-xdm":"2.4.19.3","fly\/libs\/jquery.cookie":"1.2","fly\/libs\/jquery.mobile":"1.3.0","fly\/libs\/jquery.throttle-debounce":"1.1","fly\/libs\/jquery.widget":"1.9.2","fly\/libs\/urs":"1.0","fly\/managers\/ad":"2.0","fly\/managers\/clicktale":"1.0","fly\/managers\/components":"1.0","fly\/managers\/cookie":"1.0","fly\/managers\/debug":"1.0","fly\/managers\/geo":"1.0","fly\/managers\/gpt":"4.0","fly\/managers\/history":"1.0","fly\/managers\/madison":"1.0","fly\/managers\/social-authentication":"1.0","fly\/managers\/tealium":"1.0","fly\/managers\/user":"1.0","fly\/utils\/data-prefix":"1.0","fly\/utils\/data-selector":"1.0","fly\/utils\/function-natives":"1.0","fly\/utils\/guid":"1.0","fly\/utils\/jquery-mobile-init":"1.0","fly\/utils\/log":"1.0","fly\/utils\/object-helper":"1.0","fly\/utils\/string-helper":"1.0","fly\/utils\/string-vars":"1.0","fly\/utils\/url-helper":"1.0","libs\/jquery\/lazyload":"1.9.3","libs\/jquery\/mobile":"1.4.5","libs\/jquery\/ui\/jquery.ui.core":"1.9.2","libs\/jquery\/ui\/jquery.ui.draggable":"1.9.2","libs\/jquery\/ui\/jquery.ui.mouse":"1.9.2","libs\/jquery\/ui\/jquery.ui.position":"1.9.2","libs\/jquery\/ui\/jquery.ui.slider":"1.9.2","libs\/jquery\/ui\/jquery.ui.touch-punch":"0.2.2","libs\/flash-js-libs\/swfobject":"2.2","libs\/jquery\/jquery.tablesorter":"2.0.5","libs\/jquery\/scrollbar":"0.2.4.custom","libs\/jquery\/jquery.waypoints":"3.1.1","libs\/jquery\/waypoints.sticky":"3.1.1"}},"shim":{"version!libs\/jquery\/jqueryCssmap\/jquery.cssmap":["jquery"],"version!libs\/jquery\/lazyload":["jquery"],"version!libs\/jquery\/ui\/jquery.ui.core":["jquery"],"version!libs\/jquery\/ui\/jquery.ui.draggable":["jquery","version!libs\/jquery\/ui\/jquery.ui.core","version!fly\/libs\/jquery.widget","version!libs\/jquery\/ui\/jquery.ui.mouse"],"version!libs\/jquery\/ui\/jquery.ui.mouse":["jquery","version!libs\/jquery\/ui\/jquery.ui.core","version!fly\/libs\/jquery.widget"],"version!libs\/jquery\/ui\/jquery.ui.position":["jquery","version!libs\/jquery\/ui\/jquery.ui.core","version!fly\/libs\/jquery.widget"],"version!libs\/jquery\/ui\/jquery.ui.slider":["jquery","version!libs\/jquery\/ui\/jquery.ui.core","version!fly\/libs\/jquery.widget","version!libs\/jquery\/ui\/jquery.ui.mouse","version!libs\/jquery\/ui\/jquery.ui.touch-punch"],"version!libs\/jquery\/ui\/jquery.ui.touch-punch":["version!fly\/libs\/jquery.widget","version!libs\/jquery\/ui\/jquery.ui.mouse"],"version!libs\/jquery\/jquery.tablesorter":["jquery"],"version!libs\/jquery\/scrollbar":["jquery"],"version!libs\/jquery\/jquery.waypoints":["jquery"],"version!libs\/jquery\/waypoints.sticky":["jquery"],"tealium":["jquery"]},"map":{"*":{"anonc":"\/\/dw.cbsi.com\/anonc.js","bluekai":"\/\/tags.bkrtx.com\/js\/bk-coretag.js","facebook":"\/\/connect.facebook.net\/en_US\/all.js","facebook-debug":"\/\/connect.facebook.net\/en_US\/all\/debug.js","google":"https:\/\/apis.google.com\/js\/plusone.js","google-csa":"\/\/www.google.com\/adsense\/search\/async-ads.js","gpt":"\/\/www.googletagservices.com\/tag\/js\/gpt.js","gpt-mobile":"\/\/www.googletagservices.com\/tag\/js\/gpt_mobile.js","linked-in":"\/\/platform.linkedin.com\/in.js?async=true","livefyre":"\/\/zor.livefyre.com\/wjs\/v3.0\/javascripts\/livefyre.js","livefyre-commentcount":"\/\/cdn.livefyre.com\/libs\/commentcount\/v1.0\/commentcount.js","mpx":"http:\/\/zdnet3.cbsistatic.com\/fly\/bundles\/cnetmpxpdk\/pdk\/tpPdk_5_6_2.js","pinterest":"\/\/assets.pinterest.com\/js\/pinit.js","recaptcha":"http:\/\/www.google.com\/recaptcha\/api\/js\/recaptcha_ajax.js","twitter":"\/\/platform.twitter.com\/widgets.js","urs":"http:\/\/cn.cbsimg.net\/cnwk.1d\/Aud\/javascript\/urs.js","tealium":"\/\/tags.tiqcdn.com\/utag\/cbsi\/zdnetglobalsite\/prod\/utag.js","yahooAds":"https:\/\/s.yimg.com\/uq\/syndication\/yad.js","yahooMultiAds":"https:\/\/s.yimg.com\/uv\/dm\/scripts\/syndication.js","yahooNetseer":"http:\/\/ps.ns-cdn.com\/dsatserving2\/scripts\/netseerads.js","optimizely":"\/\/cdn.optimizely.com\/js\/328981956.js","google-ima":"\/\/s0.2mdn.net\/instream\/html5\/ima3.js","uvp_hi5":"\/\/vidtech.cbsinteractive.com\/h5\/2_4_1\/CBSI_PLAYER.js","uvp_preview":"\/\/vidtech.cbsinteractive.com\/skins\/js_simple\/2_0_0\/preview.js","uvp_controls":"\/\/vidtech.cbsinteractive.com\/skins\/js_simple\/2_0_0\/controls.js","uvp_ad_controls":"\/\/vidtech.cbsinteractive.com\/skins\/js_simple\/2_0_0\/adcontrols.js","taboola":"\/\/cdn.taboola.com\/libtrc\/cbsinteractive-zdnet\/loader.js"}}});
+    require(['http://zdnet1.cbsistatic.com/fly/517-fly/bundles/zdnetjs/js-build/main.common.js']);
+</script><script src="//cdn.optimizely.com/js/328981956.js"></script><script type="text/javascript" src="//native.sharethrough.com/assets/sfp.js" async></script><script async src="http://ps.ns-cdn.com/dsatserving2/scripts/netseerads.js" type="text/javascript"></script></body></html>

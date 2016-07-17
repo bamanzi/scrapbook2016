@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/QAPage" itemscope="">
+<head>
+<meta charset="UTF-8">
+
+
+<title>command line - Pane Title in Tmux - Stack Overflow</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Pane Title in Tmux">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="On my local machine I've got 3 node.js instances running simultaneously. Each has it's own pane in a tmux window called &quot;servers&quot;. The problem is that it's not that easy to figure out which node is ">
+    <meta property="og:url" content="http://stackoverflow.com/questions/9747952/pane-title-in-tmux">
+    <link rel="canonical" href="http://stackoverflow.com/questions/9747952/pane-title-in-tmux">
+
+    
+    
+    
+    
+    
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question 'Pane Title in Tmux'" href="http://stackoverflow.com/feeds/question/9747952">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/9747952/pane-title-in-tmux">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/9747952/pane-title-in-tmux">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/9747952/pane-title-in-tmux">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        
+
+
+    
+    
+        
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="question-page new-topbar">
+    
+    
+        
+        <iframe id="adzerk-user-match" src="index_1.html" style="display: none;" marginheight="0" marginwidth="0" frameborder="0" height="0" scrolling="no" width="0"></iframe>
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+                    <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+        </ul>
+    </div>
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f9747952%2fpane-title-in-tmux" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f9747952%2fpane-title-in-tmux" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+            </div>
+    </div>
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 158 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display: none;"></span>
+    </a>
+    <a href="#" class="topbar-icon icon-achievements yes-hover js-achievements-button" data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display: none;">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://stackoverflow.com/users/signup?ssrc=head&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f9747952%2fpane-title-in-tmux" class="login-link">sign up</a>
+                                <a href="https://stackoverflow.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f9747952%2fpane-title-in-tmux" class="login-link">log in</a>
+
+                            <a href="http://stackoverflow.com/tour">tour</a>
+    <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                    <li>
+                        <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                            About Us
+                            <span class="item-summary">
+                                Learn more about Stack Overflow the company
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                            Business
+                            <span class="item-summary">
+                                Learn more about hiring developers or posting ads with us
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-jobs" href="http://stackoverflow.com/jobs?med=site-ui&amp;ref=jobs-tab">Jobs</a></li>
+                                                <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+
+<div id="herobox">
+    <div id="hero-content">
+            <div id="close"><a title="click to minimize">_</a></div>
+        <div id="blurb">
+            Stack Overflow is a community of 4.7 million programmers, just like you, helping each other.
+            <br>
+                <br>Join them; it only takes a minute:<br>
+            <br>
+            <a href="http://stackoverflow.com/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f9747952%2fpane-title-in-tmux" id="tell-me-more" class="button">Sign up</a>
+        </div>
+        <div id="desc">
+            <b>Join the Stack Overflow community to:</b>
+            <ol id="hiw">
+                <li id="q">Ask programming questions
+                </li>
+                <li id="an">Answer and help your peers
+                </li>
+                <li id="b">Get recognized for your expertise
+                </li>
+            </ol>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    
+</div>
+			<div id="question-header">
+                <h1 itemprop="name"><a href="#" class="question-hyperlink">Pane Title in Tmux</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="9747952" id="question">
+
+    
+                <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="9747952" type="hidden">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">39</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>19</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>On my local machine I've got 3 node.js instances running simultaneously. Each has it's own pane in a tmux window called "servers". The problem is that it's not that easy to figure out which node is running in which pane, 'cause their logs are similar. </p>
+
+<p>What I need is a title for every pane. As I got, tmux itself doesn't have the feature: it has only titles for windows and not for panes. Launching a separate tmux session inside every pane for every node.js instance looks like an overkill. </p>
+
+<p>So is there some small program that launches a command, wrapping its output with a specified status bar?</p>
+
+<p>Thanks in advance</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/command-line" class="post-tag js-gps-track" title="show questions tagged 'command-line'" rel="tag">command-line</a> <a href="http://stackoverflow.com/questions/tagged/title" class="post-tag js-gps-track" title="show questions tagged 'title'" rel="tag">title</a> <a href="http://stackoverflow.com/questions/tagged/tmux" class="post-tag js-gps-track" title="show questions tagged 'tmux'" rel="tag">tmux</a> <a href="http://stackoverflow.com/questions/tagged/pane" class="post-tag js-gps-track" title="show questions tagged 'pane'" rel="tag">pane</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/9747952" title="short permalink to this question" class="short-link" id="link-post-9747952">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/9747952/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2012-03-17 06:46:08Z" class="relativetime">Mar 17 '12 at 6:46</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/314883/andrey-lushnikov"><div class="gravatar-wrapper-32"><img src="a2c5804b5abd253781b889090c2a47f0.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/314883/andrey-lushnikov">Andrey Lushnikov</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,387</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="12 silver badges"><span class="badge2"></span><span class="badgecount">12</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-9747952" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-9747952" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								5 Answers
+                                <span style="display: none;" itemprop="answerCount">5</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/9747952/pane-title-in-tmux?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="http://stackoverflow.com/questions/9747952/pane-title-in-tmux?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/9747952/pane-title-in-tmux?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="9757133"></a>
+<div id="answer-9757133" class="answer accepted-answer" data-answerid="9757133" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="9757133" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">54</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><em>tmux</em> does support per-pane titles, but it does not provide a per-pane location to display these titles.</p>
+
+<p>You can set a pane’s title with the escape sequence ESC <code>]2;</code> … ESC <code>\</code> (e.g. see the section called <em>Names and Titles</em> in the <em>tmux</em> manpage). You could do this from the shell like this:</p>
+
+<pre><code>printf '\033]2;%s\033\\' 'title goes here'
+</code></pre>
+
+<p>Each pane’s title defaults to the system’s hostname. By default the active pane’s title is displayed on the right side of the <em>tmux</em> status line (the default global value of the session variable <code>status-right</code> is <code>"#22T" %H:%M %d-%b-%y</code>, which shows 22 characters of the pane’s title, the time, and the date).</p>
+
+<p>So, as long as you are satisfied with being able to see the active pane’s title (i.e. willing to switch panes to see the title of an inactive pane), you can get by with the default functionality. Just send the appropriate title-setting escape sequence before starting the main command for each pane.</p>
+
+<hr>
+
+<p>If you absolutely need a dedicated line to display some per-pane information, then nested <em>tmux</em> sessions may not be as much (unnecessary) “overkill” as you might first think.</p>
+
+<p>In the general case, to provide an inviolate status line on some given terminal, you will need a full terminal (re)emulator that sits between the original terminal and a new terminal (one with one fewer lines). Such (re)emulation is needed to translate control sequences sent to the inner terminal and translate them for the original terminal. For example, to maintain a status line at the bottom of the outer terminal, the command</p>
+
+<blockquote>
+  <p>Move to the last line.</p>
+</blockquote>
+
+<p>sent to the inner terminal must be become</p>
+
+<blockquote>
+  <p>Move to the next to last line.</p>
+</blockquote>
+
+<p>when translated for and sent to the outer terminal. Likewise, an LF sent to the inner terminal must become</p>
+
+<blockquote>
+  <p>If the cursor is on the next to last line, then scroll this line and all the lines above it up one line, to provide a clear next-to-last line (protecting the status line on the last line).
+  Otherwise, send an LF.</p>
+</blockquote>
+
+<p>in the outer terminal.</p>
+
+<p>Programs like <em>tmux</em> and <em>screen</em> are just such terminal re-emulators. Sure, there is a lot of other functionality wrapped around the terminal emulator, but you would need a large chunk of terminal emulation code just to provide a <em>reliable</em> status line.</p>
+
+<hr>
+
+<p>There is, however, a light-weight solution as long as</p>
+
+<ol>
+<li>your programs (<em>Node.js</em> instances) have limited terminal interactions with the panes in which they are running (i.e. no cursor positioning), and</li>
+<li>you do not resize the panes while your programs are running.</li>
+</ol>
+
+<p>Like many terminal emulators, <em>tmux</em> supports a “set scrolling region” terminal control command in its panes. You could use this command to limit the scrolling region to the top (or bottom) N-1 lines of the terminal and write some sort of instance-identifying text into the non-scrolling line.</p>
+
+<p>The restrictions (no cursor movement commands allowed, no resizing) are required because the program that is generating the output (e.g. a <em>Node.js</em> instance) has no idea that scrolling has been limited to a particular region. If the output-generating program happened to move the cursor outside of the scrolling region, then the output might become garbled. Likewise, the terminal emulator probably automatically resets the scrolling region when the terminal is resized (so the “non-scrolling line” will probably end up scrolling away).</p>
+
+<p>I wrote a script that uses <code>tput</code> to generate the appropriate control sequences, write into the non-scrolling line, and run a program after moving the cursor into the scrolling region:</p>
+
+<pre><code>#!/bin/sh
+
+# usage: no_scroll_line top|bottom 'non-scrolling line content' command to run with args
+#
+#     Set up a non-scrolling line at the top (or the bottom) of the
+#     terminal, write the given text into it, then (in the scrolling
+#     region) run the given command with its arguments. When the
+#     command has finished, pause with a prompt and reset the
+#     scrolling region.
+
+get_size() {
+    set -- $(stty size)
+    LINES=$1
+    COLUMNS=$2
+}
+set_nonscrolling_line() {
+    get_size
+    case "$1" in
+        t|to|top)
+            non_scroll_line=0
+            first_scrolling_line=1
+            scroll_region="1 $(($LINES - 1))"
+            ;;
+        b|bo|bot|bott|botto|bottom)
+            first_scrolling_line=0
+            scroll_region="0 $(($LINES - 2))"
+            non_scroll_line="$(($LINES - 1))"
+            ;;
+        *)
+            echo 'error: first argument must be "top" or "bottom"'
+            exit 1
+            ;;
+    esac
+    clear
+    tput csr $scroll_region
+    tput cup "$non_scroll_line" 0
+    printf %s "$2"
+    tput cup "$first_scrolling_line" 0
+}
+reset_scrolling() {
+    get_size
+    clear
+    tput csr 0 $(($LINES - 1))
+}
+
+# Set up the scrolling region and write into the non-scrolling line
+set_nonscrolling_line "$1" "$2"
+shift 2
+
+# Run something that writes into the scolling region
+"$@"
+ec=$?
+
+# Reset the scrolling region
+printf %s 'Press ENTER to reset scrolling (will clear screen)'
+read a_line
+reset_scrolling
+
+exit "$ec"
+</code></pre>
+
+<p>You might use it like this:</p>
+
+<pre><code>tmux split-window '/path/to/no_scroll_line bottom "Node instance foo" node foo.js'
+tmux split-window '/path/to/no_scroll_line bottom "Node instance bar" node bar.js'
+tmux split-window '/path/to/no_scroll_line bottom "Node instance quux" node quux.js'
+</code></pre>
+
+<p>The script should also work outside of <em>tmux</em> as long as the terminal supports and publishes its <code>csr</code> and <code>cup</code> terminfo capabilities.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/9757133" title="short permalink to this answer" class="short-link" id="link-post-9757133">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/9757133/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-03-18 09:00:12Z" class="relativetime">Mar 18 '12 at 9:00</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/193688/chris-johnsen"><div class="gravatar-wrapper-32"><img src="c8134b3aced69c76a88722e3d36ba034.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/193688/chris-johnsen">Chris Johnsen</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 93,682" dir="ltr">93.7k</span><span title="19 gold badges"><span class="badge1"></span><span class="badgecount">19</span></span><span title="139 silver badges"><span class="badge2"></span><span class="badgecount">139</span></span><span title="152 bronze badges"><span class="badge3"></span><span class="badgecount">152</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-9757133" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-12420869" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">thanks so much for the great answer! No more questions!</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/314883/andrey-lushnikov" title="1,387 reputation" class="comment-user owner">Andrey Lushnikov</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12420869_9757133"><span title="2012-03-18 19:54:15Z" class="relativetime-clean">Mar 18 '12 at 19:54</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12420959" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">your script works exactly as I expected; the only question: what should I google to customize the color of the "non_scroll_line"?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/314883/andrey-lushnikov" title="1,387 reputation" class="comment-user owner">Andrey Lushnikov</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12420959_9757133"><span title="2012-03-18 20:00:05Z" class="relativetime-clean">Mar 18 '12 at 20:00</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12424488" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Maybe “terminfo capability foreground background color” (i.e. read about color in terminfo manpage). You can use <code>tput</code> to include the appropriate control sequences in the “line content” argument. With most terminals, you could make the line be “cyan (6) and green (3) on magenta (5)” with <code>no_scroll_line top "$(tput setaf 6; tput setab 5)Node: $(tput setaf 3)foo$(tput op)" node foo.js</code>. <code>setaf</code> sets the foreground, <code>setab</code> sets the background, <code>op</code> resets to the terminals default colors. The color capabilities take a number from 0–7, 0–15, 0–87, or 0–255, depending on your terminal emulation.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/193688/chris-johnsen" title="93,682 reputation" class="comment-user">Chris Johnsen</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12424488_9757133"><span title="2012-03-19 01:11:02Z" class="relativetime-clean">Mar 19 '12 at 1:11</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12452087" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Great, it works! Thank you!</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/314883/andrey-lushnikov" title="1,387 reputation" class="comment-user owner">Andrey Lushnikov</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12452087_9757133"><span title="2012-03-20 06:38:40Z" class="relativetime-clean">Mar 20 '12 at 6:38</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-57078085" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">We now released pymux. This displays pane title bars:<a href="https://github.com/jonathanslenders/pymux" rel="nofollow">github.com/jonathanslenders/pymux</a></span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1136285/jonathan-slenders" title="118 reputation" class="comment-user">Jonathan Slenders</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment57078085_9757133"><span title="2016-01-07 22:16:24Z" class="relativetime-clean">Jan 7 at 22:16</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-9757133" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+            <div class="everyonelovesstackoverflow" id="adzerk90629022"></div>
+  
+<a name="15968438"></a>
+<div id="answer-15968438" class="answer" data-answerid="15968438" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="15968438" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">9</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I'm working on the pane status bar for tmux - ticket.
+My development branch can be found here on github:
+<a href="https://github.com/jonathanslenders/tmux">https://github.com/jonathanslenders/tmux</a></p>
+
+<p>Right now, this already adds a working <strong>rename-pane "title"</strong> command. There are still some bugs, and the API will improve. The idea is to create a status bar per pane, which can have some formatting, like the session status bar. Like the rest of tmux, everything should become scriptable, and customizable. When finished and stable, it will probably be included in the official tmux.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/15968438" title="short permalink to this answer" class="short-link" id="link-post-15968438">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/15968438/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-04-12 10:01:35Z" class="relativetime">Apr 12 '13 at 10:01</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1136285/jonathan-slenders"><div class="gravatar-wrapper-32"><img src="4e0cb8849c5612f405eb12344060d8b7.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1136285/jonathan-slenders">Jonathan Slenders</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">118</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="6 bronze badges"><span class="badge3"></span><span class="badgecount">6</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-15968438" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-56701370" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">While you're in there, can you make it so that the pane title becomes the default window title during a break-pane?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/22369/djsadinoff" title="3,236 reputation" class="comment-user">djsadinoff</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment56701370_15968438"><span title="2015-12-27 11:14:29Z" class="relativetime-clean">Dec 27 '15 at 11:14</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-57078121" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This branch was never merged in tmux. But I created pymux instead, which has pane title bars: <a href="https://github.com/jonathanslenders/pymux" rel="nofollow">github.com/jonathanslenders/pymux</a></span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1136285/jonathan-slenders" title="118 reputation" class="comment-user">Jonathan Slenders</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment57078121_15968438"><span title="2016-01-07 22:17:39Z" class="relativetime-clean">Jan 7 at 22:17</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-15968438" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="9751768"></a>
+<div id="answer-9751768" class="answer" data-answerid="9751768" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="9751768" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">4</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Yes there is such a command: <code>tmux</code>.  Give your session a name and it will be displayed in an inner status bar:</p>
+
+<pre><code>TMUX=0 tmux new-session -s my-new-session
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/9751768" title="short permalink to this answer" class="short-link" id="link-post-9751768">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/9751768/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-03-17 16:41:41Z" class="relativetime">Mar 17 '12 at 16:41</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/903943/event-jr"><div class="gravatar-wrapper-32"><img src="9de1e20a26340515ff9f21aa998ea452.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/903943/event-jr">event_jr</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 12,968" dir="ltr">13k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="41 bronze badges"><span class="badge3"></span><span class="badgecount">41</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-9751768" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-12413283" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Yes, thank you for your answer! But thus I'll have to launch a new tmux session in every pane just for one title in the bottom of it - kind of overkill, isn't it?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/314883/andrey-lushnikov" title="1,387 reputation" class="comment-user owner">Andrey Lushnikov</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12413283_9751768"><span title="2012-03-18 07:48:23Z" class="relativetime-clean">Mar 18 '12 at 7:48</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12413708" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I don't know.  Is it?  Have you tried it?  How much extra memory is the extra session using?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/903943/event-jr" title="12,968 reputation" class="comment-user">event_jr</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12413708_9751768"><span title="2012-03-18 08:49:09Z" class="relativetime-clean">Mar 18 '12 at 8:49</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12421017" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">yeah, I've been using nested tmux sessions until today. I'm not sure about memory consumption and things like this - I just dislike the concept itself 'cause its not pure.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/314883/andrey-lushnikov" title="1,387 reputation" class="comment-user owner">Andrey Lushnikov</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12421017_9751768"><span title="2012-03-18 20:03:22Z" class="relativetime-clean">Mar 18 '12 at 20:03</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-9751768" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="12982452"></a>
+<div id="answer-12982452" class="answer" data-answerid="12982452" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="12982452" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">4</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>This is not helpful in the short-term, but there is a feature request for per-pane titles in tmux: <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3495916&amp;group_id=200378&amp;atid=973265#" rel="nofollow">http://sourceforge.net/tracker/?func=detail&amp;aid=3495916&amp;group_id=200378&amp;atid=973265#</a></p>
+
+<p>In the meantime, as others mentioned, nesting tmux works decently.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/12982452" title="short permalink to this answer" class="short-link" id="link-post-12982452">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/12982452/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-10-19 21:05:40Z" class="relativetime">Oct 19 '12 at 21:05</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/598094/newtonx"><div class="gravatar-wrapper-32"><img src="a248fd59efafa9444b6e2f531d8dc762.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/598094/newtonx">Newtonx</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,258</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="12 silver badges"><span class="badge2"></span><span class="badgecount">12</span></span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12982452" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-12982452" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="37602055"></a>
+<div id="answer-37602055" class="answer" data-answerid="37602055" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="37602055" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>This functionality has been added to tmux git in <a href="https://github.com/tmux/tmux/commit/0509be07404a4f4626bbdab56d858f657dc68604" rel="nofollow">this commit</a>. It is not in version 2.2, but it looks like it will be in 2.3. </p>
+
+<p>To enable it </p>
+
+<pre><code>tmux set -g pane-border-status top
+</code></pre>
+
+<p>or if you prefer</p>
+
+<pre><code>tmux set -g pane-border-status bottom
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/37602055" title="short permalink to this answer" class="short-link" id="link-post-37602055">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/37602055/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2016-06-02 21:02:26Z" class="relativetime">Jun 2 at 21:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1352437/kevmitch"><div class="gravatar-wrapper-32"><img src="ca23980dada04d72b448950f0dd2d1c6.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1352437/kevmitch">kevmitch</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">61</span><span title="3 bronze badges"><span class="badge3"></span><span class="badgecount">3</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-37602055" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-37602055" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/9747952/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="9747952" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+                            <input name="referrer" value="" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+            
+    
+
+
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="62beabf29022c8a9fdc9055a19135256" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://stackoverflow.com/users/login?ssrc=question_page&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f9747952%2fpane-title-in-tmux%23new-answer">log in</a></h3>
+                        
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Email and Password</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input name="use-google" class="use-google" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display: none;" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" value="" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" type="email">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="btn-clear discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/command-line" class="post-tag" title="show questions tagged 'command-line'" rel="tag">command-line</a> <a href="http://stackoverflow.com/questions/tagged/title" class="post-tag" title="show questions tagged 'title'" rel="tag">title</a> <a href="http://stackoverflow.com/questions/tagged/tmux" class="post-tag" title="show questions tagged 'tmux'" rel="tag">tmux</a> <a href="http://stackoverflow.com/questions/tagged/pane" class="post-tag" title="show questions tagged 'pane'" rel="tag">pane</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key" title="2012-03-17 06:46:08Z"><b>4 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key">
+			                        <b>22582 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px;">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/9747952/pane-title-in-tmux?lastactivity" class="lastactivity-link" title="2016-06-29 22:22:28Z">15 days ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			
+            <div class="everyonelovesstackoverflow" id="adzerk677944058"></div>
+            <div id="hireme"></div>
+        
+			<div class="module" id="chat-feature">
+
+    <h4><a title="91 users active in 53 rooms the last 60 minutes" href="http://chat.stackoverflow.com/" id="h-chat-link">91 People Chatting</a></h4>
+    <div class="related" id="ad502-rooms"><div class="ad502-room"><h3 class="ad502-room-h3"><span class="ad502-room-title" title="JavaScript Go! Gotta try { ... } catch (em) { ... } all!"><a href="http://chat.stackoverflow.com/rooms/17">JavaScript Go! Gotta try { ... } catch (em) { ... } all!</a></span></h3><span title="2016-07-15 05:19:00Z" class="ad502-last-message">3 hours ago - <a href="http://chat.stackoverflow.com/users/1435655">m59</a></span><br><div class="ad502-users"><a href="http://chat.stackoverflow.com/users/1435655"><img src="d4af7c516b8d8cc6fb40e65a0b6397dd.dat" title="m59: 3 hours ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/1947276"><img src="5YYk6.png" title="little pootis: 3 hours ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/2125913"><img src="vn9G9.png" title="Meredith: 5 hours ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/1386166"><img src="7ea079654bb159fdaa4043834688f57d.dat" title="phenomnomnominal: 5 hours ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/5026445"><img src="0d931b4570cdccc25ca9610a9c199a38.dat" title="cswl: 5 hours ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/1297248"><img src="TiaMw.jpg" title="Batman: 5 hours ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/785745"><img src="f9fc3249a341a64ee2721637915cd301.dat" title="Kendall Frey: 5 hours ago" height="23" width="23"></a></div></div><div class="ad502-room"><h3 class="ad502-room-h3"><span class="ad502-room-title" title="[iOS][Android][ChaosOverFlow]"><a href="http://chat.stackoverflow.com/rooms/26424">[iOS][Android][ChaosOverFlow]</a></span></h3><span title="2016-07-15 06:45:52Z" class="ad502-last-message">1 hour ago - <a href="http://chat.stackoverflow.com/users/5725512">Pushp</a></span><br><div class="ad502-users"><a href="http://chat.stackoverflow.com/users/5725512"><img src="GkzZg.jpg" title="Pushp: 1 hour ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/1095089"><img src="V6wia.jpg" title="Shubhank: 1 hour ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/6469969"><img src="picture.dat" title="Nosheen Ch: 1 hour ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/4661554"><img src="wyMx7.png" title="Amarbir Singh: 1 hour ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/6236360"><img src="wQmip.jpg" title="Kamini: 1 hour ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/1186818"><img src="yqRlh.jpg" title="iShwar: 1 hour ago" height="23" width="23"></a><a href="http://chat.stackoverflow.com/users/2455122"><img src="BFB5r.jpg" title="Lone Ranger: 2 hours ago" height="23" width="23"></a></div></div></div>
+    
+
+</div>  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/12921852?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">3</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/12921852/tmux-conf-update-status-commands-on-panel-focus?noredirect=1&amp;lq=1" class="question-hyperlink">.tmux.conf: update status commands on panel focus</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/10015575?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">62</div></a><a href="http://stackoverflow.com/questions/10015575/tmux-vs-iterm2-split-panes?rq=1" class="question-hyperlink">Tmux vs. iTerm2 split panes</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/12650768?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">1</div></a><a href="http://stackoverflow.com/questions/12650768/tmux-maximize-minimize-pane-bug-session-not-found-tmp?rq=1" class="question-hyperlink">tmux maximize/minimize pane bug — “Session not found: tmp”</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/14356857?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">2</div></a><a href="http://stackoverflow.com/questions/14356857/how-to-show-current-command-in-tmux-pane-title?rq=1" class="question-hyperlink">how to show current command in tmux pane title</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/15439294?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">9</div></a><a href="http://stackoverflow.com/questions/15439294/tmux-switch-the-split-style-of-two-adjacent-panes?rq=1" class="question-hyperlink">Tmux: Switch the split style of two adjacent panes</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/16624752?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">9</div></a><a href="http://stackoverflow.com/questions/16624752/tmux-how-to-configure-tmux-to-display-the-current-working-directory-of-a-pane-o?rq=1" class="question-hyperlink">Tmux: How to configure tmux to display the current working directory of a pane on the status bar?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/18644359?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">18</div></a><a href="http://stackoverflow.com/questions/18644359/select-pane-with-c-number-in-tmux?rq=1" class="question-hyperlink">Select Pane with C-&lt;number&gt; in tmux</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/25581210?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">1</div></a><a href="http://stackoverflow.com/questions/25581210/tmux-only-shows-current-pane-title-if-queried-from-a-key-binding?rq=1" class="question-hyperlink">tmux only shows current pane title if queried from a key binding</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/28608372?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://stackoverflow.com/questions/28608372/better-pane-navigation-in-tmux?rq=1" class="question-hyperlink">Better pane navigation in tmux?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/30682417?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://stackoverflow.com/questions/30682417/how-to-create-title-bars-for-tmux-panes?rq=1" class="question-hyperlink">how to create title bars for tmux panes</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/32810493?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">1</div></a><a href="http://stackoverflow.com/questions/32810493/efficient-pane-switching-in-tmux?rq=1" class="question-hyperlink">Efficient pane switching in tmux</a></div>
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/268009/the-speed-of-sound-is-a-single-value-yet-the-speed-of-atoms-is-distributed-over" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The speed of sound is a single value yet the speed of atoms is distributed over a many values. Does the sound wave front smear out?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1859871/how-to-understand-tensor-in-commutative-algebra" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to understand "tensor" in commutative algebra?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/120762/touppercases-based-on-the-original-string" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    ToUpperCases based on the original string
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-japanese" title="Japanese Language Stack Exchange"></div><a href="http://japanese.stackexchange.com/questions/36677/how-to-pronounce-the-english-alphabet-a-b-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:257 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to pronounce the English alphabet? (A, B, C, ...)
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/274373/which-pok%c3%a9mon-can-appear-by-hatching" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Which Pokémon can appear by hatching?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/67355/are-credit-cards-not-viewed-as-credit-until-you-miss-one-payment" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are credit cards not viewed as credit until you miss one payment?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/85363/ascii-art-reflection" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    ASCII art reflection
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/37564/a-tempting-path-for-many" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A tempting path for many
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-graphicdesign" title="Graphic Design Stack Exchange"></div><a href="http://graphicdesign.stackexchange.com/questions/74698/how-do-i-make-an-image-look-pixelated-like-old-school-arcade-graphics" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:174 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I make an image look pixelated, like old school arcade graphics?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="http://movies.stackexchange.com/questions/56722/does-george-lucas-mention-earth-in-star-wars" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does George Lucas mention Earth in "Star Wars"?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="http://cooking.stackexchange.com/questions/71424/ham-in-casserole-is-too-salty" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    ham in casserole is too salty
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/47224/heavy-water-icebergs" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Heavy water icebergs
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/274827/is-it-possible-to-put-more-than-one-pokemon-in-a-gym" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it possible to put more than one Pokemon in a gym?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/134528/how-do-these-refer-to-harrison-ford-and-patrick-stewart" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do these refer to Harrison Ford and Patrick Stewart?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/71278/why-describe-the-level-of-proficiency-in-a-skill-by-using-percentages" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why describe the level of proficiency in a skill by using percentages?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72680/is-obamas-jama-paper-ok" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is Obama's JAMA paper OK?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72801/is-it-unethical-for-someone-to-proofread-edit-your-cover-letter-or-cv" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it unethical for someone to proofread/edit your cover letter or CV?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72672/female-students-coming-to-office-hours-in-overly-revealing-clothing" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Female students coming to office hours in overly revealing clothing
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/267852/does-the-speed-of-light-in-vacuum-define-the-universal-speed-limit" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does the speed of light in vacuum define the universal speed limit?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/130095/what-is-the-difference-between-a-radius-server-and-active-directory" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the difference between a RADIUS server and Active Directory?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/47267/strategy-to-make-extraterrestrials-fear-us" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Strategy to make extraterrestrials fear us
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/71377/employer-has-my-signature-on-a-blank-form-is-this-allowed" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Employer has my signature on a blank form. Is this allowed?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/71366/is-it-worth-putting-a-skill-that-is-a-prerequisite-of-a-lot-of-other-skills-on-m" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it worth putting a skill that is a prerequisite of a lot of other skills on my resume
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1859609/find-all-even-numbers-that-can-be-represented-as-a-difference-of-squares-in-only" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Find all even numbers that can be represented as a difference of squares in only two ways
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/9747952" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	
+<div style="display: none;" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.7.14.3758
+            </div>
+                </div>
+    </div>
+    
+
+
+
+    
+        
+    
+            
+    
+<img style="display: none;" src="to.gif"></body>
+</html>

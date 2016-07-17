@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset="UTF-8">
+
+    
+    
+    
+    
+    
+    
+    
+
+    <link as="script" href="https://assets-cdn.github.com/assets/frameworks-386c3263a86b4f071b0f13a0cf369bcf73def558aade9e1cf6b871d4edf74e11.js" rel="preload">
+    
+    <link as="script" href="https://assets-cdn.github.com/assets/github-c9e017508dddfdaa47232ad7ab11a25a1f4da6823b2de70b30c8b54277df5206.js" rel="preload">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    <title>dot-files/emacs-eshell.org at master · howardabrams/dot-files</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" href="https://github.com/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://github.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://github.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://github.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://github.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://github.com/apple-touch-icon-180x180.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="https://avatars2.githubusercontent.com/u/500621?v=3&amp;s=400" name="twitter:image:src"><meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="howardabrams/dot-files" name="twitter:title"><meta content="dot-files - My Emacs initialization code and standard scripts I use for client and servers alike." name="twitter:description">
+      <meta content="https://avatars2.githubusercontent.com/u/500621?v=3&amp;s=400" property="og:image"><meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="howardabrams/dot-files" property="og:title"><meta content="https://github.com/howardabrams/dot-files" property="og:url"><meta content="dot-files - My Emacs initialization code and standard scripts I use for client and servers alike." property="og:description">
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="web-socket" href="wss://live.github.com/_sockets/Nzc1ODY3OjlmZTQ2MTk5MTY1NDY3MzkyYWY3MTE5NTA0ZTQyMTY2OjVhYmUwZjUyODA5OWNmMDdlODAwYjM5NTUzYzBmYzI4OTU5YWI0YjUyM2Q1MTgyMTEwYjAzZTk1ZGE2MDMxYzY=--123d7e330a42415e5a8cc70aaf443a8c7512b1a3">
+    <meta name="pjax-timeout" content="1000">
+    <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient="">
+
+    <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host"><meta content="github" name="octolytics-app-id"><meta content="3D8DB849:15C9:1FB53BB:5789EA06" name="octolytics-dimension-request_id"><meta content="775867" name="octolytics-actor-id"><meta content="bamanzi" name="octolytics-actor-login"><meta content="e1253ee97109340dbe6750e67f37cd50634b775c85ce81905686b977ca0464a6" name="octolytics-actor-hash">
+<meta content="/<user-name>/<repo-name>/blob/show" data-pjax-transient="true" name="analytics-location">
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+
+        <meta name="hostname" content="github.com">
+    <meta name="user-login" content="bamanzi">
+
+        <meta name="expected-hostname" content="github.com">
+      <meta name="js-proxy-site-detection-payload" content="ZWRiZGJhYmU5YmNiYzYxYTYxY2FiZGY1Y2FmYWUxNDYwODFlYzMzNzA3NjEwODUzNDQyNWY3YjQyMTg2YzBlZHx7InJlbW90ZV9hZGRyZXNzIjoiNjEuMTQxLjE4NC43MyIsInJlcXVlc3RfaWQiOiIzRDhEQjg0OToxNUM5OjFGQjUzQkI6NTc4OUVBMDYiLCJ0aW1lc3RhbXAiOjE0Njg2NTYxMzV9">
+
+
+      <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#4078c0">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <meta name="html-safe-nonce" content="d11c638644dcd3fdbeda73a5400ad45eef1bc730">
+    <meta content="1a42454efe675ae53171fedd8f0cbfd114945ee4" name="form-nonce">
+
+    <meta http-equiv="x-pjax-version" content="f970001d52ede580714bb46dce0161c4">
+    
+
+      
+  <meta name="description" content="dot-files - My Emacs initialization code and standard scripts I use for client and servers alike.">
+  <meta name="go-import" content="github.com/howardabrams/dot-files git https://github.com/howardabrams/dot-files.git">
+
+  <meta content="500621" name="octolytics-dimension-user_id"><meta content="howardabrams" name="octolytics-dimension-user_login"><meta content="8573336" name="octolytics-dimension-repository_id"><meta content="howardabrams/dot-files" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="8573336" name="octolytics-dimension-repository_network_root_id"><meta content="howardabrams/dot-files" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/howardabrams/dot-files/commits/master.atom" rel="alternate" title="Recent Commits to dot-files:master" type="application/atom+xml">
+
+
+      <link rel="canonical" href="https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org" data-pjax-transient="">
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+  <body class="logged-in   env-production linux vis-public page-blob">
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"></div>
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-in true" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="28" version="1.1" viewBox="0 0 16 16" width="28"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+
+
+        <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/howardabrams/dot-files/search" class="js-site-search-form" data-scoped-search-url="/howardabrams/dot-files/search" data-unscoped-search-url="/search" method="get"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+      <div class="header-search-scope">This repository</div>
+      <input class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable" data-hotkey="s" name="q" placeholder="Search" aria-label="Search this repository" data-unscoped-placeholder="Search GitHub" data-scoped-placeholder="Search" tabindex="1" autocapitalize="off" type="text">
+    </label>
+</form></div>
+
+
+      <ul class="header-nav left" role="navigation">
+        <li class="header-nav-item">
+          <a href="https://github.com/pulls" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+            Pull requests
+</a>        </li>
+        <li class="header-nav-item">
+          <a href="https://github.com/issues" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+            Issues
+</a>        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav right" id="user-links">
+  <li class="header-nav-item">
+    
+    <a href="https://github.com/notifications" aria-label="You have unread notifications" class="header-nav-link notification-indicator tooltipped tooltipped-s js-socket-channel js-notification-indicator" data-channel="tenant:1:notification-changed:775867" data-ga-click="Header, go to notifications, icon:unread" data-hotkey="g n">
+        <span class="mail-status unread"></span>
+        <svg aria-hidden="true" class="octicon octicon-bell" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 12v1H0v-1l.73-.58c.77-.77.81-2.55 1.19-4.42C2.69 3.23 6 2 6 2c0-.55.45-1 1-1s1 .45 1 1c0 0 3.39 1.23 4.16 5 .38 1.88.42 3.66 1.19 4.42l.66.58H14zm-7 4c1.11 0 2-.89 2-2H5c0 1.11.89 2 2 2z"></path></svg>
+</a>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link tooltipped tooltipped-s js-menu-target" href="https://github.com/new" aria-label="Create new…" data-ga-click="Header, create new, icon:add">
+      <svg aria-hidden="true" class="octicon octicon-plus left" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path></svg>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="https://github.com/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+  <a class="dropdown-item" href="https://github.com/new/import" data-ga-click="Header, import a repository">
+    Import repository
+  </a>
+
+
+  <a class="dropdown-item" href="https://github.com/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-header">
+    <span title="howardabrams/dot-files">This repository</span>
+  </div>
+    <a class="dropdown-item" href="https://github.com/howardabrams/dot-files/issues/new" data-ga-click="Header, create new issue">
+      New issue
+    </a>
+
+      </ul>
+    </div>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name tooltipped tooltipped-sw js-menu-target" href="https://github.com/bamanzi" aria-label="View profile and more" data-ga-click="Header, show menu, icon:avatar">
+      <img alt="@bamanzi" class="avatar" src="775867.dat" height="20" width="20">
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <div class="dropdown-menu dropdown-menu-sw">
+        <div class="dropdown-header header-nav-current-user css-truncate">
+          Signed in as <strong class="css-truncate-target">bamanzi</strong>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/bamanzi" data-ga-click="Header, go to profile, text:your profile">
+          Your profile
+        </a>
+        <a class="dropdown-item" href="https://github.com/stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a>
+        <a class="dropdown-item" href="https://github.com/explore" data-ga-click="Header, go to explore, text:explore">
+          Explore
+        </a>
+          <a class="dropdown-item" href="https://github.com/integrations" data-ga-click="Header, go to integrations, text:integrations">
+            Integrations
+          </a>
+        <a class="dropdown-item" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">
+          Help
+        </a>
+
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+          Settings
+        </a>
+
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="qLVEHnwm6FjvuMu55YutsRETbFk4K6Af/gS58AOponfL6p/7t4QoN5S4LOdsmKwdtfZ9aYy1slnWP3mScrq/mg==" type="hidden"></div>
+          <button class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+</form>      </div>
+    </div>
+  </li>
+</ul>
+
+
+    
+  </div>
+</div>
+
+
+      
+
+
+    <div id="start-of-content" class="accessibility-aid"></div>
+
+      <div id="js-flash-container">
+</div>
+
+
+    <div role="main">
+        <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container="">
+      
+<div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+  <div class="container repohead-details-container">
+
+    
+
+<ul class="pagehead-actions">
+
+  <li>
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="C6mKj1nR50704rX1MTw5o67LFkQ8jbRYMH995qFdE7G2KxLyQ0J9BBh+adVe6nrXlmBD+HydbAybNCFJ9piKbA==" type="hidden"></div>      <input class="form-control" id="repository_id" name="repository_id" value="8573336" type="hidden">
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="https://github.com/howardabrams/dot-files/subscription" class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" tabindex="0" aria-haspopup="true" data-ga-click="Repository, click Watch settings, action:blob#show">
+            <span class="js-select-button">
+              <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+              Watch
+            </span>
+          </a>
+          <a class="social-count js-social-count" href="https://github.com/howardabrams/dot-files/watchers">
+            22
+          </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content" aria-hidden="true">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" value="included" type="radio">
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" value="subscribed" type="radio">
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                      Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" value="ignore" type="radio">
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8 2.81v10.38c0 .67-.81 1-1.28.53L3 10H1c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2l3.72-3.72C7.19 1.81 8 2.14 8 2.81zm7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06L11.44 8 9.47 9.97l1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06L13.56 8l1.97-1.97z"></path></svg>
+                      Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/howardabrams/dot-files/unstar" class="starred" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="n33Weniz0Ehw7hVsOfvCpP+6J/DazMJFwIWb92uJPFWyRCQbcLEihduZvm+Xn8Nc4qHpx6Dyb3cY4VIfpL5dcA==" type="hidden"></div>
+      <button class="btn btn-sm btn-with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar howardabrams/dot-files" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/howardabrams/dot-files/stargazers">
+          230
+        </a>
+</form>
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/howardabrams/dot-files/star" class="unstarred" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="XNSm3HZxbNJgSwevwUT9uVFNwiQnM6egIWWbw5JtFrzL630G6inwV+jomGvw8IGMAzwsZGa+sq8gJwsLyickWQ==" type="hidden"></div>
+      <button class="btn btn-sm btn-with-count js-toggler-target" aria-label="Star this repository" title="Star howardabrams/dot-files" data-ga-click="Repository, click star button, action:blob#show; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/howardabrams/dot-files/stargazers">
+          230
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/howardabrams/dot-files/fork" class="btn-with-count" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="CpWwdXANbRwVVbNPpkFjmDt1Bmi8e9BmsmdBGQwG24EAhEMm85QSdGVhddxUx4Fgzw6w0NJFbPyTHLOmOAjibQ==" type="hidden"></div>
+            <button type="submit" class="btn btn-sm btn-with-count" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork" title="Fork your own copy of howardabrams/dot-files to your account" aria-label="Fork your own copy of howardabrams/dot-files to your account">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+              Fork
+            </button>
+</form>
+    <a href="https://github.com/howardabrams/dot-files/network" class="social-count">
+      34
+    </a>
+  </li>
+</ul>
+
+    <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
+  <span class="author" itemprop="author"><a href="https://github.com/howardabrams" class="url fn" rel="author">howardabrams</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="https://github.com/howardabrams/dot-files" data-pjax="#js-repo-pjax-container">dot-files</a></strong>
+
+</h1>
+
+  </div>
+  <div class="container">
+    
+<nav class="reponav js-repo-nav js-sidenav-container-pjax" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation" data-pjax="#js-repo-pjax-container">
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/howardabrams/dot-files" aria-selected="true" class="js-selected-navigation-item selected reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /howardabrams/dot-files" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="https://github.com/howardabrams/dot-files/issues" class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /howardabrams/dot-files/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>
+        <span itemprop="name">Issues</span>
+        <span class="counter">0</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/howardabrams/dot-files/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /howardabrams/dot-files/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="counter">0</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="https://github.com/howardabrams/dot-files/wiki" class="js-selected-navigation-item reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /howardabrams/dot-files/wiki">
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path></svg>
+      Wiki
+</a>
+
+  <a href="https://github.com/howardabrams/dot-files/pulse" class="js-selected-navigation-item reponav-item" data-selected-links="pulse /howardabrams/dot-files/pulse">
+    <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"></path></svg>
+    Pulse
+</a>
+  <a href="https://github.com/howardabrams/dot-files/graphs" class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors /howardabrams/dot-files/graphs">
+    <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"></path></svg>
+    Graphs
+</a>
+
+</nav>
+
+  </div>
+</div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+
+<a href="https://github.com/howardabrams/dot-files/blob/da5fcbd190236c546dfd4dc10a74efe1bed7ed7f/emacs-eshell.org" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+
+<!-- blob contrib key: blob_contributors:v21:cd2714332d125aad50efe45fed5312e2 -->
+
+<div class="file-navigation js-zeroclipboard-container has-zeroclipboard-disabled">
+  
+<div class="select-menu branch-select-menu js-menu-container js-select-menu left">
+  <button class="btn btn-sm select-menu-button js-menu-target css-truncate" data-hotkey="w" title="master" type="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <i>Branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </button>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax="" aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+        <span class="select-menu-title">Switch branches/tags</span>
+      </div>
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input aria-label="Filter branches/tags" id="context-commitish-filter-field" class="form-control js-filterable-field js-navigation-enable" placeholder="Filter branches/tags" type="text">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="branches" data-filter-placeholder="Filter branches/tags" class="js-select-menu-tab" role="tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="tags" data-filter-placeholder="Find a tag…" class="js-select-menu-tab" role="tab">Tags</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches" role="menu">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <a class="select-menu-item js-navigation-item js-navigation-open selected" href="#" data-name="master" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target js-select-menu-filter-text" title="master">
+                master
+              </span>
+            </a>
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <div class="btn-group right">
+    <a href="https://github.com/howardabrams/dot-files/find/master" class="js-pjax-capture-input btn btn-sm" data-pjax="" data-hotkey="t">
+      Find file
+    </a>
+    
+  </div>
+  <div class="breadcrumb js-zeroclipboard-target">
+    <span class="repo-root js-repo-root"><span class="js-path-segment"><a href="https://github.com/howardabrams/dot-files"><span>dot-files</span></a></span></span><span class="separator">/</span><strong class="final-path">emacs-eshell.org</strong>
+  </div>
+</div>
+
+
+  <div class="commit-tease">
+      <span class="right">
+        <a class="commit-tease-sha" href="https://github.com/howardabrams/dot-files/commit/2d1820f83414d2961c96da545b7969d66a804fb9" data-pjax="">
+          2d1820f
+        </a>
+        <relative-time title="Fri 20 May 2016 11:59:07 PM HKT" datetime="2016-05-20T15:59:07Z">on May 20</relative-time>
+      </span>
+      <div>
+        <img alt="@howardabrams" class="avatar" src="500621.dat" height="20" width="20">
+        <a href="https://github.com/howardabrams" class="user-mention" rel="author">howardabrams</a>
+          <a href="https://github.com/howardabrams/dot-files/commit/2d1820f83414d2961c96da545b7969d66a804fb9" class="message" data-pjax="true" title="Prompt for the command to make this interactive">Prompt for the command to make this interactive</a>
+      </div>
+
+    <div class="commit-tease-contributors">
+      <button type="button" class="btn-link muted-link contributors-toggle" data-facebox="#blob_contributors_box">
+        <strong>1</strong>
+         contributor
+      </button>
+      
+    </div>
+
+    <div id="blob_contributors_box" style="display: none;">
+      <h2 class="facebox-header" data-facebox-id="facebox-header">Users who have contributed to this file</h2>
+      <ul class="facebox-user-list" data-facebox-id="facebox-description">
+          <li class="facebox-user-list-item">
+            <img alt="@howardabrams" src="500621_001.dat" height="24" width="24">
+            <a href="https://github.com/howardabrams">howardabrams</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+
+<div class="file">
+  <div class="file-header">
+  <div class="file-actions">
+
+    <div class="btn-group">
+      <a href="https://github.com/howardabrams/dot-files/raw/master/emacs-eshell.org" class="btn btn-sm " id="raw-url">Raw</a>
+        <a href="https://github.com/howardabrams/dot-files/blame/master/emacs-eshell.org" class="btn btn-sm js-update-url-with-hash">Blame</a>
+      <a href="https://github.com/howardabrams/dot-files/commits/master/emacs-eshell.org" class="btn btn-sm " rel="nofollow">History</a>
+    </div>
+
+
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/howardabrams/dot-files/edit/master/emacs-eshell.org" class="inline-form js-update-url-with-hash" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="0TYo/JqJW67LpdkpoZ+QpA1jEi7Y/YNJPIUWK6KzHgMKnz7a0ROce07eSzkGykkSDthPW5oxDmebxPrF99l3tw==" type="hidden"></div>
+          <button class="btn-octicon tooltipped tooltipped-nw" type="submit" aria-label="Fork this project and edit the file" data-hotkey="e" data-disable-with="">
+            <svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"></path></svg>
+          </button>
+</form>        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/howardabrams/dot-files/delete/master/emacs-eshell.org" class="inline-form" data-form-nonce="1a42454efe675ae53171fedd8f0cbfd114945ee4" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="AQ56l1uzL0Dt5ENepeO8YOrzf5jpESYACUszpEU30cvC+SGskdoLFfkzQiYRPzwd47Z/xORc9jXTNeeqYCWRbA==" type="hidden"></div>
+          <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit" aria-label="Fork this project and delete the file" data-disable-with="">
+            <svg aria-hidden="true" class="octicon octicon-trashcan" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M11 2H9c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1H2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1v9c0 .55.45 1 1 1h7c.55 0 1-.45 1-1V5c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 12H3V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9zm1-10H2V3h9v1z"></path></svg>
+          </button>
+</form>  </div>
+
+  <div class="file-info">
+      677 lines (543 sloc)
+      <span class="file-info-divider"></span>
+    24.2 KB
+  </div>
+</div>
+
+  
+  <div id="readme" class="readme blob instapaper_body">
+    <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-emacs-eshell-parameters" class="anchor" href="#emacs-eshell-parameters" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Emacs EShell Parameters</h1>
+<p>My frustration with shells makes me enjoy Emacs Shell, but there are
+  some significant differences to address. To this end, I <a href="http://www.howardism.org/Technical/Emacs/eshell-fun.html">documented most features</a>.</p>
+<h1><a id="user-content-basics" class="anchor" href="#basics" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Basics</h1>
+<h2><a id="user-content-set-up-the-correct-path" class="anchor" href="#set-up-the-correct-path" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set up the Correct Path</h2>
+<p>Need the correct PATH even if we start Emacs from the GUI:</p>
+<div class="highlight highlight-source-lisp"><pre>(setenv <span class="pl-s"><span class="pl-pds">"</span>PATH<span class="pl-pds">"</span></span>
+        (concat
+         <span class="pl-s"><span class="pl-pds">"</span>/usr/local/bin:/usr/local/sbin:<span class="pl-pds">"</span></span>
+         (getenv <span class="pl-s"><span class="pl-pds">"</span>PATH<span class="pl-pds">"</span></span>)))</pre></div>
+<h2><a id="user-content-pager-setup" class="anchor" href="#pager-setup" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pager Setup</h2>
+<p>If any program wants to pause the output through the <code>$PAGER</code>
+  variable, well, we don’t really need that:</p>
+<div class="highlight highlight-source-lisp"><pre>(setenv <span class="pl-s"><span class="pl-pds">"</span>PAGER<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>cat<span class="pl-pds">"</span></span>)</pre></div>
+<h2><a id="user-content-dont-modify-the-text" class="anchor" href="#dont-modify-the-text" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Don’t Modify the Text</h2>
+<p>Scrolling through the output and searching for results that can be
+  copied to the kill ring is a great feature of Eshell. However,
+  instead of running <code>end-of-buffer</code> key-binding, the following
+  setting means any other key will jump back to the prompt:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">setq</span> eshell-scroll-to-bottom-on-input <span class="pl-c1">t</span>)</pre></div>
+<p><b>Note:</b> hitting return on any other line will copy that line to the
+  prompt and immediately execute it.</p>
+<h1><a id="user-content-aliases" class="anchor" href="#aliases" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Aliases</h1>
+<p>Gotta have some <a href="http://www.emacswiki.org/emacs/EshellAlias">shell aliases</a>, right?</p>
+<div class="highlight highlight-source-lisp"><pre>(defalias 'e 'find-file)
+(defalias 'ff 'find-file)
+(defalias 'emacs 'find-file)</pre></div>
+<p>Replacing the window with the new buffer may not be what I want.</p>
+<div class="highlight highlight-source-lisp"><pre>(defalias 'ee 'find-file-other-window)</pre></div>
+<p>Pull up dired, but without parameters, just use the current directory.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell</span>/d (&amp;rest args)
+  (dired (pop args) <span class="pl-s"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>))</pre></div>
+<p>Some of my favorite bash aliases, can be even more helpful in
+  Eshell. Like ‘ll’:</p>
+<div class="highlight highlight-source-lisp"><pre>(add-hook 'eshell-mode-hook
+          (<span class="pl-c1">lambda</span> ()
+            <span class="pl-c">;; The 'ls' executable requires the Gnu version on the Mac</span>
+            (<span class="pl-k">let</span> ((ls (<span class="pl-k">if</span> (file-exists-p <span class="pl-s"><span class="pl-pds">"</span>/usr/local/bin/gls<span class="pl-pds">"</span></span>)
+                          <span class="pl-s"><span class="pl-pds">"</span>/usr/local/bin/gls<span class="pl-pds">"</span></span>
+                        <span class="pl-s"><span class="pl-pds">"</span>/bin/ls<span class="pl-pds">"</span></span>)))
+              (eshell/alias <span class="pl-s"><span class="pl-pds">"</span>ll<span class="pl-pds">"</span></span> (concat ls <span class="pl-s"><span class="pl-pds">"</span> -AlohG --color=always<span class="pl-pds">"</span></span>)))))</pre></div>
+<p>I can never seem to remember that <code>find</code> and <code>chmod</code> behave
+  differently from Emacs than their Unix counterparts, so at this
+  time, I will prefer the native implementations.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">setq</span> eshell-prefer-lisp-functions <span class="pl-c1">nil</span>)</pre></div>
+<h2><a id="user-content-git" class="anchor" href="#git" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Git</h2>
+<p>My <code>gst</code> command is just an alias to <code>magit-status</code>, but using the
+  <code>alias</code> doesn’t pull in the current working directory, so I make it
+  a function, instead:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell</span>/gst (&amp;rest args)
+    (magit-status (pop args) <span class="pl-c1">nil</span>)
+    (eshell/echo))   <span class="pl-c">;; The echo command suppresses output</span></pre></div>
+<p>What about <code>gd</code> to call the Diff command?</p>
+<div class="highlight highlight-source-lisp"><pre>(defalias 'gd 'magit-diff-unstaged)
+(defalias 'gds 'magit-diff-staged)</pre></div>
+<h2><a id="user-content-find-file" class="anchor" href="#find-file" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Find File</h2>
+<p>We should have an “f” alias for searching the current directory for
+  a file, and a “ef” for editing that file.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell</span>/f (filename &amp;optional dir)
+  <span class="pl-s"><span class="pl-pds">"</span>Searches in the current directory for files that match the</span>
+<span class="pl-s">given pattern. A simple wrapper around the standard 'find'</span>
+<span class="pl-s">function.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">let</span> ((cmd (concat
+              <span class="pl-s"><span class="pl-pds">"</span>find <span class="pl-pds">"</span></span> (<span class="pl-k">or</span> dir <span class="pl-s"><span class="pl-pds">"</span>.<span class="pl-pds">"</span></span>)
+              <span class="pl-s"><span class="pl-pds">"</span>      -not -path '*/.git*'<span class="pl-pds">"</span></span>
+              <span class="pl-s"><span class="pl-pds">"</span> -and -not -path '*node_modules*'<span class="pl-pds">"</span></span>
+              <span class="pl-s"><span class="pl-pds">"</span> -and -not -path '*classes*'<span class="pl-pds">"</span></span>
+              <span class="pl-s"><span class="pl-pds">"</span> -and <span class="pl-pds">"</span></span>
+              <span class="pl-s"><span class="pl-pds">"</span> -type f -and <span class="pl-pds">"</span></span>
+              <span class="pl-s"><span class="pl-pds">"</span>-iname '<span class="pl-pds">"</span></span> filename <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>)))
+    (message cmd)
+    (shell-command-to-string cmd)))
+
+(<span class="pl-k">defun</span> <span class="pl-en">eshell</span>/ef (filename &amp;optional dir)
+  <span class="pl-s"><span class="pl-pds">"</span>Searches for the first matching filename and loads it into a</span>
+<span class="pl-s">file to edit.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">let</span>* ((files (eshell/f filename dir))
+         (file (<span class="pl-c1">car</span> (s-split <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span> files))))
+    (find-file file)))</pre></div>
+<p>Typing <code>find</code> in Eshell runs the <code>find</code> function, which doesn’t do
+  what I expect, and creating an alias is ineffective in overriding
+  it, so a function will do:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell</span>/find (&amp;rest args)
+  <span class="pl-s"><span class="pl-pds">"</span>Wrapper around the ‘find’ executable.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">let</span> ((cmd (concat <span class="pl-s"><span class="pl-pds">"</span>find <span class="pl-pds">"</span></span> (string-join args))))
+    (shell-command-to-string cmd)))</pre></div>
+<h1><a id="user-content-predicate-filters-and-modifiers" class="anchor" href="#predicate-filters-and-modifiers" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Predicate Filters and Modifiers</h1>
+<p>The <code>T</code> predicate filter allows me to limit file results that have
+  have internal <code>org-mode</code> tags. For instance, files that have a
+  <code>#+TAGS:</code> header with a <code>mac</code> label will be given to the <code>grep</code>
+  function:</p>
+<div class="highlight highlight-source-shell"><pre>$ grep brew <span class="pl-k">*</span>.org(T<span class="pl-s"><span class="pl-pds">'</span>mac<span class="pl-pds">'</span></span>)</pre></div>
+<p>To extend Eshell, we need a two-part function.</p>
+<ol>
+  <li>Parse the Eshell buffer to look for the parameter
+    (and move the point past the parameter).</li>
+  <li>A predicate function that takes a file as a parameter.</li>
+</ol>
+<p>For the first step, we have our function <i>called</i> as it helps
+  parse the text at this time.  Based on what it sees, it returns
+  the predicate function used to filter the files:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell-org-file-tags</span> ()
+  <span class="pl-s"><span class="pl-pds">"</span>Helps the eshell parse the text the point is currently on,</span>
+<span class="pl-s">looking for parameters surrounded in single quotes. Returns a</span>
+<span class="pl-s">function that takes a FILE and returns nil if the file given to</span>
+<span class="pl-s">it doesn't contain the org-mode #+TAGS: entry specified.<span class="pl-pds">"</span></span>
+
+  (<span class="pl-k">if</span> (looking-at <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-cce">\\</span>([^)']+<span class="pl-cce">\\</span>)'<span class="pl-pds">"</span></span>)
+      (<span class="pl-k">let</span>* ((tag (match-string <span class="pl-c1">1</span>))
+             (reg (concat <span class="pl-s"><span class="pl-pds">"</span>^#<span class="pl-cce">\\</span>+TAGS:.* <span class="pl-pds">"</span></span> tag <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\</span>b<span class="pl-pds">"</span></span>)))
+        (goto-char (match-end <span class="pl-c1">0</span>))
+
+        `(<span class="pl-c1">lambda</span> (file)
+           (with-temp-buffer
+             (insert-file-contents file)
+             (re-search-forward ,reg <span class="pl-c1">nil</span> <span class="pl-c1">t</span> <span class="pl-c1">1</span>))))
+    (error <span class="pl-s"><span class="pl-pds">"</span>The `T' predicate takes an org-mode tag value in single quotes.<span class="pl-pds">"</span></span>)))</pre></div>
+<p>Add it to the <code>eshell-predicate-alist</code> as the <code>T</code> tag:</p>
+<div class="highlight highlight-source-lisp"><pre>(add-hook 'eshell-pred-load-hook (<span class="pl-c1">lambda</span> ()
+  (add-to-list 'eshell-predicate-alist '(<span class="pl-c1">?T</span> . (eshell-org-file-tags)))))</pre></div>
+<p><b>Note:</b> We can’t add it to the list until after we start our first
+  eshell session, so we just add it to the <code>eshell-pred-load-hook</code>
+  which is sufficient.</p>
+<h1><a id="user-content-visual-executables" class="anchor" href="#visual-executables" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Visual Executables</h1>
+<p>Eshell would get somewhat confused if I ran the following commands
+  directly through the normal Elisp library, as these need the better
+  handling of ansiterm:</p>
+<div class="highlight highlight-source-lisp"><pre>(add-hook 'eshell-mode-hook
+   (<span class="pl-c1">lambda</span> ()
+      (add-to-list 'eshell-visual-commands <span class="pl-s"><span class="pl-pds">"</span>ssh<span class="pl-pds">"</span></span>)
+      (add-to-list 'eshell-visual-commands <span class="pl-s"><span class="pl-pds">"</span>tail<span class="pl-pds">"</span></span>)))</pre></div>
+<h1><a id="user-content-ignoring-directories" class="anchor" href="#ignoring-directories" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ignoring Directories</h1>
+<p>Great shell with some good tweaks taken from <a href="https://github.com/eschulte/emacs24-starter-kit/blob/master/starter-kit-eshell.org">the Starter Kit</a>
+  project. Ignoring the <code>.git</code> directories seem like a good idea.</p>
+<div class="highlight highlight-source-lisp"><pre>((<span class="pl-c1">setq</span>  )etq eshell-cmpl-cycle-completions <span class="pl-c1">nil</span>
+      eshell-save-history-on-exit <span class="pl-c1">t</span>
+      eshell-cmpl-dir-ignore <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\</span>`<span class="pl-cce">\\</span>(<span class="pl-cce">\\</span>.<span class="pl-cce">\\</span>.?<span class="pl-cce">\\</span>|CVS<span class="pl-cce">\\</span>|<span class="pl-cce">\\</span>.svn<span class="pl-cce">\\</span>|<span class="pl-cce">\\</span>.git<span class="pl-cce">\\</span>)/<span class="pl-cce">\\</span>'<span class="pl-pds">"</span></span>)</pre></div>
+<h1><a id="user-content-special-prompt" class="anchor" href="#special-prompt" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Special Prompt</h1>
+<p>Following <a href="http://blog.liangzan.net/blog/2012/12/12/customizing-your-emacs-eshell-prompt/">these instructions</a>, we build a better prompt with the Git
+  branch in it (Of course, it matches my Bash prompt). First, we need
+  a function that returns a string with the Git branch in it,
+  e.g. “:master”</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">curr-dir-git-branch-string</span> (pwd)
+  <span class="pl-s"><span class="pl-pds">"</span>Returns current git branch as a string, or the empty string if</span>
+<span class="pl-s">PWD is not in a git repo (or the git command is not found).<span class="pl-pds">"</span></span>
+  (interactive)
+  (<span class="pl-k">when</span> (<span class="pl-k">and</span> (eshell-search-path <span class="pl-s"><span class="pl-pds">"</span>git<span class="pl-pds">"</span></span>)
+             (locate-dominating-file pwd <span class="pl-s"><span class="pl-pds">"</span>.git<span class="pl-pds">"</span></span>))
+    (<span class="pl-k">let</span> ((git-output (shell-command-to-string (concat <span class="pl-s"><span class="pl-pds">"</span>cd <span class="pl-pds">"</span></span> pwd <span class="pl-s"><span class="pl-pds">"</span> &amp;&amp; git branch | grep '<span class="pl-cce">\\</span>*' | sed -e 's/^<span class="pl-cce">\\</span>* //'<span class="pl-pds">"</span></span>))))
+      (<span class="pl-k">if</span> (&gt; (length git-output) <span class="pl-c1">0</span>)
+          (concat <span class="pl-s"><span class="pl-pds">"</span> :<span class="pl-pds">"</span></span> (substring git-output <span class="pl-c1">0</span> -<span class="pl-c1">1</span>))
+        <span class="pl-s"><span class="pl-pds">"</span>(no branch)<span class="pl-pds">"</span></span>))))</pre></div>
+<p>The function takes the current directory passed in via <code>pwd</code> and
+  replaces the <code>$HOME</code> part with a tilde. I’m sure this function
+  already exists in the eshell source, but I didn’t find it…</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">pwd-replace-home</span> (pwd)
+  <span class="pl-s"><span class="pl-pds">"</span>Replace home in PWD with tilde (~) character.<span class="pl-pds">"</span></span>
+  (interactive)
+  (<span class="pl-k">let</span>* ((home (expand-file-name (getenv <span class="pl-s"><span class="pl-pds">"</span>HOME<span class="pl-pds">"</span></span>)))
+         (home-len (length home)))
+    (<span class="pl-k">if</span> (<span class="pl-k">and</span>
+         (&gt;= (length pwd) home-len)
+         (equal home (substring pwd <span class="pl-c1">0</span> home-len)))
+        (concat <span class="pl-s"><span class="pl-pds">"</span>~<span class="pl-pds">"</span></span> (substring pwd home-len))
+      pwd)))</pre></div>
+<p>Make the directory name be shorter…by replacing all directory
+  names with just its first names. However, we leave the last two to
+  be the full names. Why yes, I did steal this.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">pwd-shorten-dirs</span> (pwd)
+  <span class="pl-s"><span class="pl-pds">"</span>Shorten all directory names in PWD except the last two.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">let</span> ((p-lst (split-string pwd <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>)))
+    (<span class="pl-k">if</span> (&gt; (length p-lst) <span class="pl-c1">2</span>)
+        (concat
+         (mapconcat (<span class="pl-c1">lambda</span> (elm) (<span class="pl-k">if</span> (zerop (length elm)) <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+                               (substring elm <span class="pl-c1">0</span> <span class="pl-c1">1</span>)))
+                    (butlast p-lst <span class="pl-c1">2</span>)
+                    <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>)
+         <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>
+         (mapconcat (<span class="pl-c1">lambda</span> (elm) elm)
+                    (last p-lst <span class="pl-c1">2</span>)
+                    <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>))
+      pwd  <span class="pl-c">;; Otherwise, we just return the PWD</span>
+      )))
+
+<span class="pl-c">;; Turn off the default prompt.</span>
+(<span class="pl-c1">setq</span> eshell-highlight-prompt <span class="pl-c1">nil</span>)</pre></div>
+<p>Break up the directory into a “parent” and a “base”:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">split-directory-prompt</span> (directory)
+  (<span class="pl-k">if</span> (string-match-p <span class="pl-s"><span class="pl-pds">"</span>.*/.*<span class="pl-pds">"</span></span> directory)
+      (<span class="pl-c1">list</span> (file-name-directory directory) (file-name-base directory))
+    (<span class="pl-c1">list</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> directory)))</pre></div>
+<p>Now tie it all together with a prompt function can color each of the
+  prompts components.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">setq</span> eshell-prompt-function
+      (<span class="pl-c1">lambda</span> ()
+        (<span class="pl-k">let</span>* ((directory (split-directory-prompt (pwd-shorten-dirs (pwd-replace-home (eshell/pwd)))))
+               (parent (<span class="pl-c1">car</span> directory))
+               (name (cadr directory))
+               (branch (<span class="pl-k">or</span> (curr-dir-git-branch-string (eshell/pwd)) <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>)))
+
+          (<span class="pl-k">if</span> (<span class="pl-k">eq</span> 'dark (frame-parameter <span class="pl-c1">nil</span> 'background-mode))
+              (concat   <span class="pl-c">;; Prompt for Dark Themes</span>
+               (propertize parent 'face `(:foreground <span class="pl-s"><span class="pl-pds">"</span>#8888FF<span class="pl-pds">"</span></span>))
+               (propertize name   'face `(:foreground <span class="pl-s"><span class="pl-pds">"</span>#8888FF<span class="pl-pds">"</span></span> :weight bold))
+               (propertize branch 'face `(:foreground <span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>))
+               (propertize <span class="pl-s"><span class="pl-pds">"</span> $<span class="pl-pds">"</span></span>   'face `(:weight ultra-bold))
+               (propertize <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>    'face `(:weight bold)))
+
+            (concat    <span class="pl-c">;; Prompt for Light Themes</span>
+             (propertize parent 'face `(:foreground <span class="pl-s"><span class="pl-pds">"</span>blue<span class="pl-pds">"</span></span>))
+             (propertize name   'face `(:foreground <span class="pl-s"><span class="pl-pds">"</span>blue<span class="pl-pds">"</span></span> :weight bold))
+             (propertize branch 'face `(:foreground <span class="pl-s"><span class="pl-pds">"</span>dark green<span class="pl-pds">"</span></span>))
+             (propertize <span class="pl-s"><span class="pl-pds">"</span> $<span class="pl-pds">"</span></span>   'face `(:weight ultra-bold))
+             (propertize <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>    'face `(:weight bold)))))))</pre></div>
+<p>Turn off the default prompt, otherwise, it won’t use ours:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">setq</span> eshell-highlight-prompt <span class="pl-c1">nil</span>)</pre></div>
+<h1><a id="user-content-stack-the-buffer" class="anchor" href="#stack-the-buffer" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stack the Buffer</h1>
+<p>One of the few things I miss about ZShell is the ability to easily
+  save off a half-finished command for later invocation. I now have
+  <code>M-q</code> functionality with <a href="https://github.com/tom-tan/esh-buf-stack">esh-buf-stack</a>:</p>
+<div class="highlight highlight-source-lisp"><pre>(use-package esh-buf-stack
+  :ensure <span class="pl-c1">t</span>
+  :commands eshell-push-command
+  :config
+  (setup-eshell-buf-stack)
+  (define-key eshell-mode-map (kbd <span class="pl-s"><span class="pl-pds">"</span>M-q<span class="pl-pds">"</span></span>) 'eshell-push-command))</pre></div>
+<p>If half-way through typing a long command and need something else,
+  just <code>M-q</code> to hide it, type the new command, and continue where I
+  left off.</p>
+<h1><a id="user-content-shell-here" class="anchor" href="#shell-here" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Shell Here</h1>
+<p>If I make an alias that closes a window easily, I can have a quick
+  “x” alias that quickly exits and <a href="https://github.com/howardabrams/dot-files/blob/master/emacs.org">closes the window</a>.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell</span>/x ()
+  <span class="pl-s"><span class="pl-pds">"</span>Closes the EShell session and gets rid of the EShell window.<span class="pl-pds">"</span></span>
+  (kill-buffer)
+  (delete-window))</pre></div>
+<p>Now making little Shells whenever I need them makes sense:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell-here</span> ()
+  <span class="pl-s"><span class="pl-pds">"</span>Opens up a new shell in the directory associated with the</span>
+<span class="pl-s">current buffer's file. The eshell is renamed to match that</span>
+<span class="pl-s">directory to make multiple eshell windows easier.<span class="pl-pds">"</span></span>
+  (interactive)
+  (<span class="pl-k">let</span>* ((parent (<span class="pl-k">if</span> (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (height (/ (window-total-height) <span class="pl-c1">3</span>))
+         (name   (<span class="pl-c1">car</span> (last (split-string parent <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span> <span class="pl-c1">t</span>)))))
+    (split-window-vertically (- height))
+    (other-window <span class="pl-c1">1</span>)
+    (eshell <span class="pl-s"><span class="pl-pds">"</span>new<span class="pl-pds">"</span></span>)
+    (rename-buffer (concat <span class="pl-s"><span class="pl-pds">"</span>*eshell: <span class="pl-pds">"</span></span> name <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>))
+
+    (insert (concat <span class="pl-s"><span class="pl-pds">"</span>ls<span class="pl-pds">"</span></span>))
+    (eshell-send-input)))
+
+(global-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>C-!<span class="pl-pds">"</span></span>) 'eshell-here)</pre></div>
+<h1><a id="user-content-shell-there" class="anchor" href="#shell-there" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Shell There</h1>
+<p>Would be nice to be able to run an eshell session and use Tramp to
+  connect to the remote host in one fell swoop:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">eshell-there</span> (host)
+  (interactive <span class="pl-s"><span class="pl-pds">"</span>sHost: <span class="pl-pds">"</span></span>)
+  (<span class="pl-k">let</span> ((default-directory (<span class="pl-c1">format</span> <span class="pl-s"><span class="pl-pds">"</span>/%s:<span class="pl-pds">"</span></span> host)))
+    (eshell host)))</pre></div>
+<p>While Eshell <i>can</i> operate on remote systems, it doesn’t work too
+  well.  Instead, it is better to use the <code>shell</code> command.  Since all
+  the shell functions that Emacs supplies work with Tramp
+  references. This makes it very easy to spawn a shell, or a shell
+  command on a remote system…even as root.</p>
+<p>Since the Tramp syntax is a bit verbose, a few <i>wrapper functions</i>
+  would make things easier. Also, having a list of <i>favorite hosts</i>
+  with simpler names would also be a nice feature.</p>
+<p>Since Emacs doesn’t have a memoize function, define a global
+  variable, <code>remote-shell-fav-hosts</code>, a hash that maps nicknames of
+  hosts to their IP address.</p>
+<div class="highlight highlight-source-lisp"><pre>(defvar remote-shell-fav-hosts (make-hash-table :test 'equal)
+  <span class="pl-s"><span class="pl-pds">"</span>Table of host aliases for IPs or other actual references.<span class="pl-pds">"</span></span>)</pre></div>
+<p>Can we make a list of what hosts are <i>pre-known</i>? What if no hosts
+  have been defined? In this case, we want to call the function,
+  <code>remote-shell-fav-hosts-get</code> to populate it:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-fav-hosts-map</span> ()
+  <span class="pl-s"><span class="pl-pds">"</span>Returns the mapping between our simple names of our favorite</span>
+<span class="pl-s">hosts and their IP address. If the map is empty, and the function</span>
+<span class="pl-s">`remote-shell-fav-hosts-get' has been defined, it calls that</span>
+<span class="pl-s">function to populate the map prior to returning it. This may</span>
+<span class="pl-s">return an empty map.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">when</span> (<span class="pl-k">and</span> <span class="pl-c1">#'remote-shell-fav-hosts-get</span>
+             (hash-table-empty-p remote-shell-fav-hosts))
+    (remote-shell-fav-hosts-get))
+  remote-shell-fav-hosts)</pre></div>
+<p>In order to populate the <code>completing-read</code>, we need a list of hosts:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-fav-hosts-list</span> ()
+  <span class="pl-s"><span class="pl-pds">"</span>Simply returns a list of known hosts from the cached map, or</span>
+<span class="pl-s">populates it first if it is empty and the</span>
+<span class="pl-s">`remote-shell-fav-hosts-get' function has been defined.<span class="pl-pds">"</span></span>
+  (hash-table-keys (remote-shell-fav-hosts-map)))</pre></div>
+<p>Most remote access is done with Tramp, so this function simplifies
+  the complex Tramp string creation, mostly using an <code>sudo</code> pipe for
+  <code>root</code> access. If the <code>remote-shell-fav-hosts</code> hash is empty, we’ll
+  populate it when this is called.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-tramp-connection</span> (hostname &amp;optional root directory)
+  <span class="pl-s"><span class="pl-pds">"</span>Return a TRAMP connection string to HOSTNAME. If ROOT is</span>
+<span class="pl-s">non-nil, returns an sudo compatible string.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">when</span> (<span class="pl-c1">null</span> directory)
+    (<span class="pl-c1">setq</span> directory <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))
+
+  <span class="pl-c">;; The ip address is either the value from a key in our cache, or whatever we pass in:</span>
+  (<span class="pl-k">let</span> ((ipaddr (gethash hostname (remote-shell-fav-hosts-map) hostname)))
+    (<span class="pl-k">if</span> root
+        (<span class="pl-c1">format</span> <span class="pl-s"><span class="pl-pds">"</span>/ssh:%s|sudo:%s:%s<span class="pl-pds">"</span></span> ipaddr ipaddr directory)
+        (<span class="pl-c1">format</span> <span class="pl-s"><span class="pl-pds">"</span>/ssh:%s:%s<span class="pl-pds">"</span></span>         ipaddr directory))))</pre></div>
+<p>If the window containing the results of the shell connection or
+  shell command is the same, we can take advantage of that from
+  multiple functions, so:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-buffer-name</span> (hostname &amp;optional command-str default-name)
+  <span class="pl-s"><span class="pl-pds">"</span>Returns a standard format for our remote shell command buffer</span>
+<span class="pl-s">windows based on the HOSTNAME and the COMMAND-STR. Uses</span>
+<span class="pl-s">DEFAULT-NAME if specified.<span class="pl-pds">"</span></span>
+  (<span class="pl-c1">cond</span>
+   (default-name     default-name)
+   (command-str      (<span class="pl-k">let</span> ((command (<span class="pl-c1">car</span> (split-string command-str))))
+                        (<span class="pl-c1">format</span> <span class="pl-s"><span class="pl-pds">"</span>*%s:%s*<span class="pl-pds">"</span></span> hostname command)))
+   (<span class="pl-c1">t</span>                (<span class="pl-c1">format</span> <span class="pl-s"><span class="pl-pds">"</span>*%s*<span class="pl-pds">"</span></span> hostname))))</pre></div>
+<p>Our simple wrapper function for accessing a remote shell, should
+  use <code>ido</code> if available.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell</span> (hostname &amp;optional root)
+  <span class="pl-s"><span class="pl-pds">"</span>Start an shell experience on HOSTNAME, that can be an alias to</span>
+<span class="pl-s">a virtual machine in the overcloud. With prefix command, opens</span>
+<span class="pl-s">the shell as the root user account.<span class="pl-pds">"</span></span>
+  (interactive
+   (<span class="pl-c1">list</span> (<span class="pl-k">if</span> <span class="pl-c1">#'ido-completing-read</span>
+             (ido-completing-read <span class="pl-s"><span class="pl-pds">"</span>Hostname: <span class="pl-pds">"</span></span> (remote-shell-fav-hosts-list))
+           (completing-read <span class="pl-s"><span class="pl-pds">"</span>Hostname: <span class="pl-pds">"</span></span> (remote-shell-fav-hosts-list)))))
+
+  (<span class="pl-k">when</span> (equal current-prefix-arg '(<span class="pl-c1">4</span>))
+    (<span class="pl-c1">setq</span> root <span class="pl-c1">t</span>))
+  (<span class="pl-k">let</span> ((default-directory (remote-shell-tramp-connection hostname root)))
+    (shell (remote-shell-buffer-name hostname))))</pre></div>
+<p>Instead of starting a shell, what if we just ran a command using the
+  <code>shell-command</code> (so that commands that end in a <code>&amp;</code> are automatically
+  ran asynchronously.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-command</span> (hostname command
+                                      &amp;optional root bufname directory)
+  <span class="pl-s"><span class="pl-pds">"</span>On HOSTNAME, run COMMAND (if the command ends with &amp;, run</span>
+<span class="pl-s">asynchronously). With a `C-u' prefix, run the command as ROOT.</span>
+<span class="pl-s">When non-interactive, you can specify BUFNAME for the buffer's</span>
+<span class="pl-s">name, and DIRECTORY where the command should run.<span class="pl-pds">"</span></span>
+  (interactive
+   (<span class="pl-c1">list</span> (<span class="pl-k">if</span> <span class="pl-c1">#'ido-completing-read</span>
+             (ido-completing-read <span class="pl-s"><span class="pl-pds">"</span>Hostname: <span class="pl-pds">"</span></span> (remote-shell-fav-hosts-list))
+           (completing-read <span class="pl-s"><span class="pl-pds">"</span>Hostname: <span class="pl-pds">"</span></span> (remote-shell-fav-hosts-list)))
+         (read-string <span class="pl-s"><span class="pl-pds">"</span>Command: <span class="pl-pds">"</span></span>)))
+  (<span class="pl-k">when</span> (equal current-prefix-arg '(<span class="pl-c1">4</span>))
+    (<span class="pl-c1">setq</span> root <span class="pl-c1">t</span>))
+  (<span class="pl-k">let</span> ((default-directory (remote-shell-tramp-connection hostname root directory)))
+    (shell-command command (remote-shell-buffer-name hostname command bufname))))</pre></div>
+<p>With the above helper functions, we can loop over a list of machines,
+  and kick off remote work on each one:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-commands</span> (clients command
+                                      &amp;optional root async directory)
+  <span class="pl-s"><span class="pl-pds">"</span>On each host entry in CLIENTS, run the shell COMMAND,</span>
+<span class="pl-s">optionally as ROOT. If ASYNC is non-nil, appends the `&amp;' to the</span>
+<span class="pl-s">shell command in order to run it asynchronously. Runs the command</span>
+<span class="pl-s">in the default home directory unless DIRECTORY is specified.<span class="pl-pds">"</span></span>
+  (<span class="pl-k">if</span> async
+      (<span class="pl-c1">setq</span> command (concat command <span class="pl-s"><span class="pl-pds">"</span> &amp;<span class="pl-pds">"</span></span>)))
+  (dolist (host clients)
+    (remote-shell-command host command root <span class="pl-c1">nil</span> directory)))</pre></div>
+<p>The results of each command is stored in a separate buffer, and
+  since we know what the names are, this command will attempt to load
+  them on the side… yeah, this is a bit ugly.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">remote-shell-commands-show</span> (clients command)
+  <span class="pl-s"><span class="pl-pds">"</span>Shows each buffer of a previously executed command. For example:</span>
+<span class="pl-s"></span>
+<span class="pl-s">        (let ((my-favs '(<span class="pl-cce">\"</span>os-controller<span class="pl-cce">\"</span> <span class="pl-cce">\"</span>contrail-controller<span class="pl-cce">\"</span></span>
+<span class="pl-s">                         <span class="pl-cce">\"</span>compute<span class="pl-cce">\"</span> <span class="pl-cce">\"</span>nagios<span class="pl-cce">\"</span> <span class="pl-cce">\"</span>elk<span class="pl-cce">\"</span>))</span>
+<span class="pl-s">              (command <span class="pl-cce">\"</span>chef-client<span class="pl-cce">\"</span>))</span>
+<span class="pl-s">          (remote-shell-commands my-favs command t t)</span>
+<span class="pl-s">          (remote-shell-commands-show my-favs command))<span class="pl-pds">"</span></span>
+
+  (delete-other-windows)
+  (<span class="pl-k">let</span> ((first-time <span class="pl-c1">t</span>))
+    (dolist (host clients)
+      (<span class="pl-k">if</span> (not first-time)
+          (split-window-vertically)
+        (split-window-horizontally)
+        (<span class="pl-c1">setq</span> first-time <span class="pl-c1">nil</span>))
+
+      (other-window <span class="pl-c1">1</span>)
+      (switch-to-buffer (remote-shell-buffer-name host command))
+      (balance-windows)
+      (sit-for <span class="pl-c1">0.5</span>))))</pre></div>
+<p>All this work allows me to do magic:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">let</span> ((my-favs '(<span class="pl-s"><span class="pl-pds">"</span>os-controller<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>contrail-controller<span class="pl-pds">"</span></span>
+                 <span class="pl-s"><span class="pl-pds">"</span>compute<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>nagios<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>elk<span class="pl-pds">"</span></span>))
+      (command <span class="pl-s"><span class="pl-pds">"</span>chef-client<span class="pl-pds">"</span></span>))
+  (remote-shell-commands my-favs command <span class="pl-c1">t</span> <span class="pl-c1">t</span>)
+  (remote-shell-commands-show my-favs command))</pre></div>
+<p>Check out this <a href="https://www.youtube.com/watch?v=pSjrwSI4OHk">YouTube video recording</a> of this section in action.</p>
+<h1><a id="user-content-tramp" class="anchor" href="#tramp" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tramp</h1>
+<p>The ability to edit files on remote systems is a wonderful win,
+  since it means I don’t need to have my Emacs environment running on
+  remote machines (still a possibility, just not a requirement).</p>
+<p>According to <a href="http://www.gnu.org/software/emacs/manual/html_node/tramp/Filename-Syntax.html">the manual</a>, I can access a file over SSH, via:</p>
+<pre>/ssh:10.52.224.67:blah
+</pre>
+<p>However, if I set the default method to SSH, I can do this:</p>
+<pre>/10.52.224.67:blah
+</pre>
+<p>So, let’s do it…</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">setq</span> tramp-default-method <span class="pl-s"><span class="pl-pds">"</span>ssh<span class="pl-pds">"</span></span>)</pre></div>
+<h1><a id="user-content-better-command-line-history" class="anchor" href="#better-command-line-history" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Better Command Line History</h1>
+<p>On <a href="http://www.reddit.com/r/emacs/comments/1zkj2d/advanced_usage_of_eshell/">this discussion</a> a little gem for using IDO to search back through
+  the history, instead of <code>M-R</code> to display the history in a selectable
+  buffer.</p>
+<p>Also, while <code>M-p</code> cycles through the history, <code>M-P</code> actually moves
+  up the history in the buffer (easier than <code>C-c p</code> and <code>C-c n</code>?):</p>
+<div class="highlight highlight-source-lisp"><pre>(add-hook 'eshell-mode-hook
+     (<span class="pl-c1">lambda</span> ()
+       (local-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>M-P<span class="pl-pds">"</span></span>) 'eshell-previous-prompt)
+       (local-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>M-N<span class="pl-pds">"</span></span>) 'eshell-next-prompt)
+       (local-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>M-R<span class="pl-pds">"</span></span>) 'eshell-list-history)
+       (local-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>M-r<span class="pl-pds">"</span></span>)
+              (<span class="pl-c1">lambda</span> ()
+                (interactive)
+                (insert
+                 (ido-completing-read <span class="pl-s"><span class="pl-pds">"</span>Eshell history: <span class="pl-pds">"</span></span>
+                                      (delete-dups
+                                       (ring-elements eshell-history-ring))))))))</pre></div>
+<h1><a id="user-content-smarter-shell" class="anchor" href="#smarter-shell" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Smarter Shell</h1>
+<p>After reading Mickey Petersen’s <a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">Mastering EShell</a> article, I like the
+  <i>smart</i> approach where the cursor stays on the command (where it can
+  be re-edited). Sure, it takes a little while to get used to…</p>
+<div class="highlight highlight-source-lisp"><pre>(require 'em-smart)
+(<span class="pl-c1">setq</span> eshell-where-to-jump 'begin)
+(<span class="pl-c1">setq</span> eshell-review-quick-commands <span class="pl-c1">nil</span>)
+(<span class="pl-c1">setq</span> eshell-smart-space-goes-to-end <span class="pl-c1">t</span>)</pre></div>
+<h1><a id="user-content-helpers" class="anchor" href="#helpers" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Helpers</h1>
+<p>Sometimes you just need to change something about the current file
+  you are editing…like the permissions or even execute it. Hitting
+  <code>Command-1</code> will prompt for a shell command string and then append
+  the current file to it and execute it.</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">execute-command-on-file-buffer</span> (cmd)
+  (interactive <span class="pl-s"><span class="pl-pds">"</span>sCommand to execute: <span class="pl-pds">"</span></span>)
+  (<span class="pl-k">let</span>* ((file-name (buffer-file-name))
+         (full-cmd (concat cmd <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span> file-name)))
+    (shell-command full-cmd)))
+
+(<span class="pl-k">defun</span> <span class="pl-en">execute-command-on-file-directory</span> (cmd)
+  (interactive <span class="pl-s"><span class="pl-pds">"</span>sCommand to execute: <span class="pl-pds">"</span></span>)
+  (<span class="pl-k">let</span>* ((dir-name (file-name-directory (buffer-file-name)))
+         (full-cmd (concat <span class="pl-s"><span class="pl-pds">"</span>cd <span class="pl-pds">"</span></span> dir-name <span class="pl-s"><span class="pl-pds">"</span>; <span class="pl-pds">"</span></span> cmd)))
+    (shell-command full-cmd)))
+
+(global-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>A-1<span class="pl-pds">"</span></span>) 'execute-command-on-file-buffer)
+(global-set-key (kbd <span class="pl-s"><span class="pl-pds">"</span>A-!<span class="pl-pds">"</span></span>) 'execute-command-on-file-directory)</pre></div>
+<h1><a id="user-content-technical-artifacts" class="anchor" href="#technical-artifacts" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Technical Artifacts</h1>
+<p>Make sure that we can simply <code>require</code> this library.</p>
+<div class="highlight highlight-source-lisp"><pre>(provide 'init-eshell)</pre></div>
+</article>
+  </div>
+
+</div>
+
+<button type="button" data-facebox="#jump-to-line" data-facebox-class="linejump" data-hotkey="l" class="hidden">Jump to Line</button>
+<div id="jump-to-line" style="display: none;">
+  <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="" class="js-jump-to-line-form" method="get"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"></div>
+    <input class="form-control linejump-input js-jump-to-line-field" placeholder="Jump to line…" aria-label="Jump to line" autofocus="" type="text">
+    <button type="submit" class="btn">Go</button>
+</form></div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+
+    </div>
+  </div>
+
+    </div>
+
+        <div class="container site-footer-container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>© 2016 <span title="0.12711s from github-fe144-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com/" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+    
+
+    <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+      <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+        <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+      </button>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+      <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="#">Reload</a> to refresh your session.</span>
+      <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="#">Reload</a> to refresh your session.</span>
+    </div>
+    <div class="facebox" id="facebox" style="display: none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+    </button>
+  </div>
+</div>
+
+  
+
+
+</body>
+</html>

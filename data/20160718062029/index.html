@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+		<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://blog.no-panic.at/xmlrpc.php">
+	<title>Set tmux pane title on SSH connections – blog.no-panic.at</title>
+<link rel="alternate" type="application/rss+xml" title="blog.no-panic.at » Feed" href="http://blog.no-panic.at/feed/">
+<link rel="alternate" type="application/rss+xml" title="blog.no-panic.at » Comments Feed" href="http://blog.no-panic.at/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="blog.no-panic.at » Set tmux pane title on SSH connections Comments Feed" href="http://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/feed/">
+		
+		
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script src='http://blog.no-panic.at/wp-content/themes/flat/assets/js/html5shiv.min.js?ver=3.7.2'></script>
+<![endif]-->
+<link rel="https://api.w.org/" href="http://blog.no-panic.at/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.no-panic.at/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.no-panic.at/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Waiting for a server" href="http://blog.no-panic.at/2015/04/20/waiting-for-a-server/">
+<link rel="next" title="My dotfiles" href="http://blog.no-panic.at/2015/04/25/my-dotfiles/">
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="canonical" href="http://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/">
+<link rel="shortlink" href="http://wp.me/pafZS-1z2">
+<link rel="alternate" type="application/json+oembed" href="http://blog.no-panic.at/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.no-panic.at%2F2015%2F04%2F21%2Fset-tmux-pane-title-on-ssh-connections%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://blog.no-panic.at/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.no-panic.at%2F2015%2F04%2F21%2Fset-tmux-pane-title-on-ssh-connections%2F&amp;format=xml">
+<link type="image/x-icon" href="flo3.jpg" rel="shortcut icon">
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set tmux pane title on SSH connections">
+<meta property="og:url" content="http://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/">
+<meta property="og:description" content="I am frequently connecting to several servers over SSH at once and like to use tmux to organize those different sessions.&nbsp;To be able to keep track which pane is which server I am using the followin…">
+<meta property="article:published_time" content="2015-04-21T11:00:51+00:00">
+<meta property="article:modified_time" content="2015-05-10T08:04:59+00:00">
+<meta property="og:site_name" content="blog.no-panic.at">
+<meta property="og:image" content="http://blog.no-panic.at/wp-content/uploads/2015/04/Screen-Shot-2015-04-21-at-12.48.56-.png">
+<meta property="og:image:width" content="990">
+<meta property="og:image:height" content="702">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@azath0th">
+<meta name="twitter:image" content="http://blog.no-panic.at/wp-content/uploads/2015/04/Screen-Shot-2015-04-21-at-12.48.56-.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+	
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body class="single single-post postid-6016 single-format-standard custom-background" itemscope="" itemtype="http://schema.org/WebPage">
+<div id="page">
+	<div class="container">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<div id="secondary" class="col-lg-3">
+								<header id="masthead" class="site-header" role="banner">
+										<div class="hgroup">
+						<h1 class="site-title display-title"><a href="http://blog.no-panic.at/" title="blog.no-panic.at" rel="home"><span itemprop="name">blog.no-panic.at</span></a></h1><h2 itemprop="description" class="site-description">Whatever you do, don't panic</h2>					</div>
+					<button type="button" class="btn btn-link hidden-lg toggle-sidebar" data-toggle="offcanvas" aria-label="Sidebar"><i class="fa fa-gear"></i></button>
+					<button type="button" class="btn btn-link hidden-lg toggle-navigation" aria-label="Navigation Menu"><i class="fa fa-bars"></i></button>
+					<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+						<ul id="menu-main-menu" class="nav-menu"><li id="menu-item-5750" class="fa fa-home menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-5750"><a href="http://blog.no-panic.at/">Home</a></li>
+<li id="menu-item-3598" class="fa fa-check menu-item menu-item-type-post_type menu-item-object-page menu-item-3598"><a href="http://blog.no-panic.at/about/">About</a></li>
+<li id="menu-item-3597" class="fa fa-building menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3597"><a href="http://blog.no-panic.at/projects/">Projects</a>
+<ul class="sub-menu">
+	<li id="menu-item-6098" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6098"><a href="http://blog.no-panic.at/projects/mella-owncloud-upload-in-bash-via-webdav-using-curl/">Mella – ownCloud upload in bash</a></li>
+	<li id="menu-item-5965" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5965"><a href="http://blog.no-panic.at/projects/hactar-incremental-daily-backup/">Hactar – incremental daily backup</a></li>
+	<li id="menu-item-5790" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5790"><a href="http://blog.no-panic.at/projects/42dev-shop/">42dev shop</a></li>
+	<li id="menu-item-5794" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5794"><a href="http://blog.no-panic.at/projects/git-webhooks/">git webhooks</a></li>
+	<li id="menu-item-3984" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-3984"><a href="http://blog.no-panic.at/2011/04/26/facebook-send-button-wordpress-plugin/">Facebook Send Button Plugin</a></li>
+	<li id="menu-item-3938" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3938"><a href="http://blog.no-panic.at/projects/roundcube-webmail-piwik-analytics-plugin/">Roundcube Piwik Plugin</a></li>
+	<li id="menu-item-3905" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3905"><a href="http://blog.no-panic.at/projects/foursquare-latest-checkins-wordpress-widget-plugin/">Foursquare latest checkins Plugin</a></li>
+	<li id="menu-item-3814" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-3814"><a href="http://blog.no-panic.at/2010/11/08/bss-brainfusion-surveillance-system-2/">Brainfusion Surveillance System</a></li>
+	<li id="menu-item-3610" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3610"><a href="http://blog.no-panic.at/projects/microformats-thesis/">Microformats thesis</a></li>
+	<li id="menu-item-3608" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3608"><a href="http://blog.no-panic.at/projects/flickrss/">Flickrss</a></li>
+	<li id="menu-item-3609" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3609"><a href="http://blog.no-panic.at/projects/ini/">INI – Integration NFC Infoportal</a></li>
+	<li id="menu-item-3607" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3607"><a href="http://blog.no-panic.at/projects/feedmonsun_alpha/">FeedMonsun</a></li>
+</ul>
+</li>
+<li id="menu-item-5749" class="fa fa-wifi menu-item menu-item-type-custom menu-item-object-custom menu-item-5749"><a href="http://airfusion.net/">airfusion</a></li>
+<li id="menu-item-3857" class="fa fa-server menu-item menu-item-type-custom menu-item-object-custom menu-item-3857"><a href="http://42dev.eu/">42dev</a></li>
+<li id="menu-item-6071" class="fa fa-fire menu-item menu-item-type-custom menu-item-object-custom menu-item-6071"><a title="vimrcfu -Share your best vimrc snippets" href="http://vimrcfu.com/">vimrcfu</a></li>
+</ul>					</nav>
+									</header>
+				
+				<div class="sidebar-offcanvas">
+					<div id="main-sidebar" class="widget-area" role="complementary">
+											<aside id="search-3" class="widget widget_search">
+	<form method="get" id="searchform" action="http://blog.no-panic.at/">
+		<label for="s" class="assistive-text">Search</label>
+		<input class="field" name="s" id="s" placeholder="Search" type="text">
+		<input class="submit" name="submit" id="searchsubmit" value="Search" type="submit">
+	</form>
+					</aside>
+					<aside id="top-posts-2" class="widget widget_top-posts">
+						<h3 class="widget-title">Top Posts &amp; Pages</h3>
+<ul>				<li>
+										<a href="http://blog.no-panic.at/2005/06/03/rj45-stecker-belegung-fur-ethernet/" class="bump-view" data-bump-view="tp">
+						RJ45 Stecker Belegung für Ethernet					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/2007/01/26/installing-php5-cgi-on-debian/" class="bump-view" data-bump-view="tp">
+						Installing php5-cgi on Debian					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/2014/10/20/funny-initial-git-commit-messages/" class="bump-view" data-bump-view="tp">
+						Funny initial git commit messages					</a>
+									</li>
+							<li>
+										<a href="#" class="bump-view" data-bump-view="tp">
+						Set tmux pane title on SSH connections					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/2006/11/16/hatom-and-wordpress/" class="bump-view" data-bump-view="tp">
+						hAtom and Wordpress					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/projects/mella-owncloud-upload-in-bash-via-webdav-using-curl/" class="bump-view" data-bump-view="tp">
+						Mella - ownCloud upload in bash via WebDAV using curl					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/2007/01/25/periodically-delete-files-per-cronjob/" class="bump-view" data-bump-view="tp">
+						Periodically delete files per cronjob					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/2015/04/14/my-backup-strategy/" class="bump-view" data-bump-view="tp">
+						My backup strategy					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/2006/07/23/mount-your-server-home-directory-securly-via-a-openvpn-connection/" class="bump-view" data-bump-view="tp">
+						Mount your server home-directory securly via an OpenVPN connection					</a>
+									</li>
+							<li>
+										<a href="http://blog.no-panic.at/about/" class="bump-view" data-bump-view="tp">
+						About					</a>
+									</li>
+			</ul>					</aside>
+					<aside id="twitter_timeline-2" class="widget widget_twitter_timeline">
+						<h3 class="widget-title"></h3>
+<a class="twitter-timeline" data-width="300" data-height="400" data-theme="light" data-link-color="#1d70a8" data-border-color="#e8e8e8" data-lang="EN" data-chrome="nofooter noborders" data-widget-id="507424036507250688">My Tweets</a>					</aside>
+											</div>
+				</div>
+			</div>
+
+						<div id="primary" class="content-area col-lg-9" itemprop="mainContentOfPage">
+							<div id="content" class="site-content" role="main" itemscope="" itemtype="http://schema.org/Article">
+			<article id="post-6016" class="post-6016 post type-post status-publish format-standard has-post-thumbnail hentry category-mac category-server tag-bash tag-bashrc tag-mac tag-osx tag-script tag-server tag-tmux">
+	<header class="entry-header">
+		<h1 class="entry-title" itemprop="name">Set tmux pane title on SSH connections</h1>
+							<div class="entry-meta"><span class="entry-date"><a href="#" rel="bookmark"><time class="entry-date published" datetime="2015-04-21T13:00:51+00:00" itemprop="datepublished">21. April, 2015</time></a></span> by <span class="author vcard"><a class="url fn n" href="http://blog.no-panic.at/author/flo/" rel="author" itemprop="url">Florian Beer</a></span><span class="sep">·</span><span class="comments-link"><a href="#comments" itemprop="discussionUrl">2 Comments</a></span></div>
+			</header>
+		
+	
+	<div class="entry-content" itemprop="articleBody">
+				<p>I am frequently connecting to several servers over SSH at once and like to use <a title="tmux - Terminal multiplexer" href="http://tmux.sourceforge.net/" target="_blank">tmux</a> to organize those different sessions.&nbsp;To be able to keep track which pane is which server I am using the following function in my <code>.bashrc</code> file to display the machine name in tmux’s pane title.<br>
+</p></div></article></div></div></div></div></div></body>
+</html>

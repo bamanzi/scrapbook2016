@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" class="client-js" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>GNU Screen (简体中文) - ArchWiki</title>
+
+
+
+<!--[if IE 6]><link rel="stylesheet" href="/skins/ArchLinux/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/skins/ArchLinux/IE70Fixes.css?303" media="screen" /><![endif]-->
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+
+<meta name="generator" content="MediaWiki 1.26.3">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.archlinux.org/opensearch_desc.php" title="ArchWiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.archlinux.org/api.php?action=rsd">
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="ArchWiki Atom feed" href="https://wiki.archlinux.org/index.php?title=Special:RecentChanges&amp;feed=atom">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-GNU_Screen_简体中文 skin-archlinux action-view">
+
+		<div id="archnavbar"><!-- Arch Linux global navigation bar -->
+			<div id="archnavbarlogo">
+				<p><a id="logo" href="https://www.archlinux.org/"></a></p>
+			</div>
+			<div id="archnavbarmenu">
+				<ul id="archnavbarlist">
+					<li id="anb-home"><a href="https://www.archlinux.org/">Home</a></li><li id="anb-packages"><a href="https://www.archlinux.org/packages/">Packages</a></li><li id="anb-forums"><a href="https://bbs.archlinux.org/">Forums</a></li><li id="anb-wiki" class="anb-selected"><a href="https://wiki.archlinux.org/">Wiki</a></li><li id="anb-bugs"><a href="https://bugs.archlinux.org/">Bugs</a></li><li id="anb-aur"><a href="https://aur.archlinux.org/">AUR</a></li><li id="anb-download"><a href="https://www.archlinux.org/download/">Download</a></li>				</ul>
+			</div>
+		</div><!-- #archnavbar -->
+
+		<div id="globalWrapper">
+		<div id="column-content">
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+				
+				<div class="mw-indicators">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">GNU Screen (简体中文)</h1>
+				
+				<div id="bodyContent" class="mw-body-content">
+					<div id="siteSub">From ArchWiki</div>
+					<div id="contentSub"></div>
+										<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+
+					<!-- start content -->
+					<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p><a rel="nofollow" class="external text" href="http://www.gnu.org/s/screen/">GNU Screen</a> 是一个封装器，允许命令行程序和启动它的shell相分离。例如，可以在X下的终端中启动一个程序，关闭X，而继续使用此程序。以下有技巧和提示。
+</p><p>如果想看教程，Gentoo的维基有一个很好的教程：<a rel="nofollow" class="external free" href="http://wiki.gentoo.org/wiki/Screen">http://wiki.gentoo.org/wiki/Screen</a>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.AE.89.E8.A3.85"><span class="tocnumber">1</span> <span class="toctext">安装</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E5.9F.BA.E7.A1.80"><span class="tocnumber">2</span> <span class="toctext">基础</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#.E5.B8.B8.E8.A7.81.E5.91.BD.E4.BB.A4"><span class="tocnumber">2.1</span> <span class="toctext">常见命令</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#.E4.BB.8E.E7.AA.97.E5.8F.A3_1_.E5.BC.80.E5.A7.8B"><span class="tocnumber">3</span> <span class="toctext">从窗口 1 开始</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.E5.B5.8C.E5.A5.97.E7.9A.84_Screen_.E4.BC.9A.E8.AF.9D"><span class="tocnumber">4</span> <span class="toctext">嵌套的 Screen 会话</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E6.B6.88.E9.99.A4.E6.AE.8B.E4.BD.99.E7.9A.84.E7.BC.96.E8.BE.91.E6.96.87.E6.9C.AC"><span class="tocnumber">5</span> <span class="toctext">消除残余的编辑文本</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E4.BD.BF.E7.94.A8_256_.E8.89.B2"><span class="tocnumber">6</span> <span class="toctext">使用 256 色</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#.E5.9C.A8_Rxvt-Unicode_.28urxvt.29_.E4.B8.AD.E4.BD.BF.E7.94.A8_256_.E8.89.B2"><span class="tocnumber">7</span> <span class="toctext">在 Rxvt-Unicode (urxvt) 中使用 256 色</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#.E4.BF.A1.E6.81.AF.E7.8A.B6.E6.80.81.E6.A0.8F"><span class="tocnumber">8</span> <span class="toctext">信息状态栏</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#.E5.85.B3.E9.97.AD.E6.AC.A2.E8.BF.8E.E4.BF.A1.E6.81.AF"><span class="tocnumber">9</span> <span class="toctext">关闭欢迎信息</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#.E8.AE.A9.E6.A0.87.E9.A2.98.E6.A0.8F.E5.8A.A8.E6.80.81.E6.98.BE.E7.A4.BA_urxvt.7Cxterm.7Caterm_.E7.AA.97.E5.8F.A3.E5.90.8D.E7.A7.B0"><span class="tocnumber">10</span> <span class="toctext">让标题栏动态显示 urxvt|xterm|aterm 窗口名称</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#.E4.BD.BF.E7.94.A8_X_.E6.BB.9A.E5.8A.A8.E6.9C.BA.E5.88.B6"><span class="tocnumber">11</span> <span class="toctext">使用 X 滚动机制</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#.E6.B7.BB.E5.8A.A0_GRUB_.E6.9D.A1.E7.9B.AE.E6.9D.A5.E5.90.AF.E5.8A.A8.E8.BF.9B.E5.85.A5_Screen"><span class="tocnumber">12</span> <span class="toctext">添加 GRUB 条目来启动进入 Screen</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#.E4.BF.AE.E6.AD.A3.E5.90.AF.E5.8A.A8_screen_.E6.97.B6_Midnight_Commander_.E6.97.A0.E5.8F.8D.E5.BA.94.E7.9A.84.E9.97.AE.E9.A2.98"><span class="tocnumber">13</span> <span class="toctext">修正启动 screen 时 Midnight Commander 无反应的问题</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#See_Also"><span class="tocnumber">14</span> <span class="toctext">See Also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E5.AE.89.E8.A3.85">安装</span></h2>
+<p>可以用<a href="https://wiki.archlinux.org/index.php/Official_repositories_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="Official repositories (简体中文)">官方软件仓库</a>中的 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=screen">screen</a></span> 包来<a href="https://wiki.archlinux.org/index.php/Pacman_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="Pacman (简体中文)">安装</a> GNU Screen.
+</p>
+<h2><span class="mw-headline" id=".E5.9F.BA.E7.A1.80">基础</span></h2>
+<p>可以通过 <code>Ctrl+a</code> 和其他键来输入命令。通过 <code>~/.screenrc</code> 中的<i>escape</i>选项来改变 escape 键。例如：
+</p>
+<pre>escape ``
+</pre>
+<p>将 escape 键设为 <code>`</code>。
+</p>
+<h3><span class="mw-headline" id=".E5.B8.B8.E8.A7.81.E5.91.BD.E4.BB.A4">常见命令</span></h3>
+<p>C-a&nbsp;?
+</p>
+<dl><dd>列出命令和默认按键（非常重要）</dd></dl>
+<p>C-a "
+</p>
+<dl><dd>窗口列表</dd></dl>
+<p>C-a 0
+</p>
+<dl><dd>打开窗口 0</dd></dl>
+<p>C-a A
+</p>
+<dl><dd>重命名当前窗口</dd></dl>
+<p>C-a c
+</p>
+<dl><dd>创建新窗口</dd></dl>
+<p>C-a S
+</p>
+<dl><dd>将当前区域划分为两个区域</dd></dl>
+<p>C-a &lt;TAB&gt;
+</p>
+<dl><dd>将输入焦点转至下一区域</dd></dl>
+<p>C-a C-a
+</p>
+<dl><dd>在当前区域和之前区域间转换</dd></dl>
+<p>C-a &lt;ESC&gt; 
+</p>
+<dl><dd>进入复制模式（用 <code>enter</code> 键来选择一段文本）</dd></dl>
+<p>C-a ]
+</p>
+<dl><dd>粘贴文本</dd></dl>
+<p>C-a Q
+</p>
+<dl><dd>关闭除当前区域外所有区域</dd></dl>
+<p>C-a d
+</p>
+<dl><dd>从当前 screen 会话断开，并保持其运行。用 <code>screen -r</code> 来恢复。</dd></dl>
+<h2><span class="mw-headline" id=".E4.BB.8E.E7.AA.97.E5.8F.A3_1_.E5.BC.80.E5.A7.8B">从窗口 1 开始</span></h2>
+<p>默认的第一个窗口是 0 号。如果不想要窗口 0，而是从 1 号开始，将以下内容写入 <code>~/.screenrc</code>：
+</p>
+<pre>bind c screen 1
+bind ^c screen 1
+bind 0 select 10                                                            
+screen 1
+</pre>
+<h2><span class="mw-headline" id=".E5.B5.8C.E5.A5.97.E7.9A.84_Screen_.E4.BC.9A.E8.AF.9D">嵌套的 Screen 会话</span></h2>
+<p>在一个嵌套的 screen 会话中卡住是非常容易的。一个常见的情况是：你从一个 screen 会话内启动了一个 ssh 会话，在这个 ssh 会话中，你又启动了 screen。默认地，响应 C-a 命令的是最先启动的外层screen。如果要向内层 screen 输入命令，用 C-a a 加上你的命令。例如：
+C-a a d
+</p>
+<dl><dd>断开内层 screen 会话</dd></dl>
+<p>C-a a K
+</p>
+<dl><dd>杀死内层 screen 会话</dd></dl>
+<h2><span class="mw-headline" id=".E6.B6.88.E9.99.A4.E6.AE.8B.E4.BD.99.E7.9A.84.E7.BC.96.E8.BE.91.E6.96.87.E6.9C.AC">消除残余的编辑文本</span></h2>
+<p>当你在 screen 内打开文本编辑器再关掉它，文本内容仍然会在终端上显示。要解决这点，将下列内容加入 <code>~/.screenrc</code> 中：
+</p>
+<pre>altscreen on
+</pre>
+<h2><span class="mw-headline" id=".E4.BD.BF.E7.94.A8_256_.E8.89.B2">使用 256 色</span></h2>
+<p>默认地，screen 使用 8 色终端模拟器。如果你用的是支持 256 色的终端，可以通过如下命令来支持更多的色彩：
+</p>
+<pre>term screen-256color
+</pre>
+<p>如果在 <a href="https://wiki.archlinux.org/index.php/Xterm" title="Xterm">xterm</a> 中仍不能显示 256 色，试试下面的命令：
+</p>
+<pre>attrcolor b ".I"    # 允许加粗色彩--由于某些原因是必须的
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # 告诉screen如何设置颜色。AB 指背景，AF 指前景
+defbce on    # 使用当前背景色来显示删除的字符
+</pre>
+<h2><span class="mw-headline" id=".E5.9C.A8_Rxvt-Unicode_.28urxvt.29_.E4.B8.AD.E4.BD.BF.E7.94.A8_256_.E8.89.B2">在 Rxvt-Unicode (urxvt) 中使用 256 色</span></h2>
+<p>如果你用的是<a href="https://wiki.archlinux.org/index.php/Official_repositories_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="Official repositories (简体中文)">官方软件仓库</a>中的 <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=rxvt-unicode">rxvt-unicode</a></span>，你可以将下面这行加入你的 <code>~/.screenrc</code> 来启用256色：
+</p>
+<pre>terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+</pre>
+<h2><span class="mw-headline" id=".E4.BF.A1.E6.81.AF.E7.8A.B6.E6.80.81.E6.A0.8F">信息状态栏</span></h2>
+<p>默认的信息状态栏可能会有些简单。你可以使它变得更有用：
+</p>
+<pre>hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[&nbsp;%{G}%H&nbsp;%{g}][%=&nbsp;%{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%=&nbsp;%{g}][%{B}&nbsp;%m-%d&nbsp;%{W}&nbsp;%c&nbsp;%{g}]'
+</pre>
+<h2><span class="mw-headline" id=".E5.85.B3.E9.97.AD.E6.AC.A2.E8.BF.8E.E4.BF.A1.E6.81.AF">关闭欢迎信息</span></h2>
+<p>将下面这行加入到 <code>~/.screenrc</code>：
+</p>
+<pre>startup_message off
+</pre>
+<h2><span class="mw-headline" id=".E8.AE.A9.E6.A0.87.E9.A2.98.E6.A0.8F.E5.8A.A8.E6.80.81.E6.98.BE.E7.A4.BA_urxvt.7Cxterm.7Caterm_.E7.AA.97.E5.8F.A3.E5.90.8D.E7.A7.B0">让标题栏动态显示 urxvt|xterm|aterm 窗口名称</span></h2>
+<p>这非常简单，只是将你当前的 <code>hardstatus</code> 栏变成 <code>caption</code> 栏，并编辑对应项：
+</p>
+<pre>backtick 1 5 5 true
+termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]2;\007'
+hardstatus string "screen (%n:&nbsp;%t)"
+caption string "%{= kw}%Y-%m-%d;%c&nbsp;%{= kw}%-Lw%{= kG}%{+b}[%n&nbsp;%t]%{-b}%{= kw}%+Lw%1`"
+caption always
+</pre>
+<p>这会在你的终端模拟器标题栏显示 "screen (0 bash)" 之类的内容。标题栏提供日期、当前时间，并给 screen 窗口加上颜色。
+</p>
+<h2><span class="mw-headline" id=".E4.BD.BF.E7.94.A8_X_.E6.BB.9A.E5.8A.A8.E6.9C.BA.E5.88.B6">使用 X 滚动机制</span></h2>
+<p>滚动缓存可以用 C-a [ 来查看。但是这很不方便。要使用滚动条，如 xterm 或 konsole，将下面这行加入 <code>~/.screenrc</code>：
+</p>
+<pre>termcapinfo xterm* ti@:te@
+</pre>
+<h2><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0_GRUB_.E6.9D.A1.E7.9B.AE.E6.9D.A5.E5.90.AF.E5.8A.A8.E8.BF.9B.E5.85.A5_Screen">添加 GRUB 条目来启动进入 Screen</span></h2>
+<p>如果你主要使用 <a href="https://wiki.archlinux.org/index.php/Xorg" title="Xorg">X</a>，但偶尔将Screen作为窗口管理器运行，这里有种通过为 Screen 添加 <a href="https://wiki.archlinux.org/index.php/GRUB" title="GRUB">GRUB</a> 条目的方法。
+</p><p>GRUB 允许你指明想要的运行级别，因此在这里我们使用运行级别 4。复制一条合适的 GRUB 条目，并给内核选项表添加 <code>4</code>，像这样：
+</p>
+<pre># (0) Arch Linux
+title  Arch Linux Screen
+root   (hd0,2)
+kernel /vmlinuz-linux root=/dev/disk/your_disk ro acpi_no_auto_ssdt irqpoll 4
+initrd /initramfs-linux.img
+</pre>
+<p>给 <code>/etc/inittab</code> 添加一些条目来指明哪些将在运行级别 4 下进行，将 &lt;user&gt; 换为你的用户名：
+</p>
+<pre># GNU Screen on runlevel 4
+scr2:4:respawn:/sbin/mingetty --autologin &lt;user&gt; tty1 linux
+</pre>
+<p>上面这行使用 mingetty 来<a href="https://wiki.archlinux.org/index.php/Automatic_login_to_virtual_console" title="Automatic login to virtual console">启动时自动登陆</a>。你需要安装[Official repositories (简体中文)|官方软件仓库]]中的 (<span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/mingetty/">mingetty</a></span><sup><small>AUR</small></sup>。inittab 的行分隔符是冒号。第一部分(scr*)仅仅是一个id。第二部分是运行级别：只在运行级别 4 下进行（默认地 4 没有被使用--3 是默认的字符界面登陆，5 是 X 登陆）。'Respawn' 让 init 重复这条命令（即自动登陆），如果用户注销。
+当我们使用运行级别 4 时，我们需要没有其他任何程序在虚拟终端 1 下运行。所以将 <code>4</code>从 agetty 的第一行移去： 
+</p>
+<pre>c1:235:respawn:/sbin/agetty -8 38400 vc/1 linux
+</pre>
+<p>一旦我们登陆，我们想要保证 screen 已经启动。将下列内容添加到你的<code>~/.bash_profile</code>：
+</p>
+<pre>vico="$(tty | grep -oE ....$)"
+case "$vico" in
+  tty1) TERM=screen; exec /usr/bin/screen -R arch;;
+esac
+</pre>
+<p>这会检查当前运行级别，如果是 4 就在自动登陆后立即启动一个 screen 会话。
+</p><p>也可以改成 X 之后在一个虚拟终端里运行 screen，只需检查当前的 tty 而不是运行级别即可。下面是检查我们是否在虚拟终端 3 上：
+</p>
+<pre>vico="$(tty | grep -oE ....$)"
+case "$vico" in
+  vc/3) TERM=screen; exec /usr/bin/screen;;
+esac
+</pre>
+<p>将 inittab/mingetty 设为在运行级别 5 下自动登陆到 vc/3 即可。
+</p>
+<h2><span class="mw-headline" id=".E4.BF.AE.E6.AD.A3.E5.90.AF.E5.8A.A8_screen_.E6.97.B6_Midnight_Commander_.E6.97.A0.E5.8F.8D.E5.BA.94.E7.9A.84.E9.97.AE.E9.A2.98">修正启动 screen 时 Midnight Commander 无反应的问题</span></h2>
+<p>这个问题在某些情况下（需要进一步检查）<a rel="nofollow" class="external text" href="https://bugzilla.redhat.com/show_bug.cgi?id=168076">old gpm bug</a> 会出现。所以在 screen 内运行 mc，会得到无反应的 screen 窗口。尝试在运行 mc 之前杀死 gpm 守护进程，或是在 <code>/etc/<a href="https://wiki.archlinux.org/index.php/Rc.conf" title="Rc.conf" class="mw-redirect">rc.conf</a></code> 中禁止 gpm。
+In some cases (need deeper inspection) <a rel="nofollow" class="external text" href="https://bugzilla.redhat.com/show_bug.cgi?id=168076">old gpm bug</a> gets alive. So, then you try to run mc inside screen, you get a frozen screen window. Try to kill gpm daemon before starting mc and/or disable it in <code>/etc/<a href="https://wiki.archlinux.org/index.php/Rc.conf" title="Rc.conf" class="mw-redirect">rc.conf</a></code>.
+</p>
+<h2><span class="mw-headline" id="See_Also">See Also</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.macosxhints.com/article.php?story=20021114055617124">MacOSX Hints - Automatically using screen in your shell</a></li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.gentoo.org/wiki/Screen">Gentoo Wiki - Tutorial for screen</a></li>
+<li> <a rel="nofollow" class="external text" href="https://bbs.archlinux.org/viewtopic.php?id=50647">Arch Forums - Regarding 256 color issue with urxvt</a></li>
+<li> <a rel="nofollow" class="external text" href="https://bbs.archlinux.org/viewtopic.php?id=55618">Arch Forums - .screenrc configs with screenshots</a></li>
+<li> <a href="https://wiki.archlinux.org/index.php/Tmux" title="Tmux">tmux</a>, another multiplexer</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20160704041714
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.007 seconds
+Real time usage: 0.009 seconds
+Preprocessor visited node count: 212/1000000
+Preprocessor generated node count: 518/1000000
+Post‐expand include size: 795/2097152 bytes
+Template argument size: 217/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    5.174      1 - -total
+ 39.68%    2.053     18 - Template:Ic
+ 23.95%    1.239      2 - Template:Pkg
+ 14.57%    0.754      1 - Template:AUR
+-->
+
+<!-- Saved in parser cache with key archwiki:pcache:idhash:13384-0!*!0!!en!*!* and timestamp 20160704041714 and revision id 399038
+ -->
+</div><div class="printfooter">
+Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;oldid=399038">https://wiki.archlinux.org/index.php?title=GNU_Screen_(简体中文)&amp;oldid=399038</a>"</div>
+					<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.archlinux.org/index.php/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.archlinux.org/index.php/Category:%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" title="Category:简体中文">简体中文</a></li><li><a href="https://wiki.archlinux.org/index.php/Category:Software_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="Category:Software (简体中文)">Software (简体中文)</a></li></ul></div></div>					<!-- end content -->
+										<div class="visualClear"></div>
+				</div>
+			</div>
+		</div>
+		<div id="column-one">
+			<h2>Navigation menu</h2>
+					<div id="p-cactions" class="portlet" role="navigation">
+			<h3>Views</h3>
+
+			<div class="pBody">
+				<ul>
+				<li id="ca-nstab-main" class="selected"><a href="#" title="View the content page [Alt+Shift+c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="https://wiki.archlinux.org/index.php?title=Talk:GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [Alt+Shift+t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;action=edit" title="This page is protected.
+You can view its source [Alt+Shift+e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">History</a></li>
+				</ul>
+							</div>
+		</div>
+				<div class="portlet" id="p-personal" role="navigation">
+				<h3>Personal tools</h3>
+
+				<div class="pBody">
+					<ul>
+													<li id="pt-createaccount"><a href="https://wiki.archlinux.org/index.php?title=Special:UserLogin&amp;returnto=GNU+Screen+%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29&amp;type=signup" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li>
+													<li id="pt-login"><a href="https://wiki.archlinux.org/index.php?title=Special:UserLogin&amp;returnto=GNU+Screen+%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29" title="You are encouraged to log in; however, it is not mandatory [Alt+Shift+o]" accesskey="o">Log in</a></li>
+											</ul>
+				</div>
+			</div>
+			<div class="portlet" id="p-logo" role="banner">
+				<a href="https://wiki.archlinux.org/index.php/Main_page" class="mw-wiki-logo" title="Visit the main page"></a>
+			</div>
+				<div class="generated-sidebar portlet" id="p-navigation" role="navigation">
+		<h3>Navigation</h3>
+		<div class="pBody">
+							<ul>
+											<li id="n-mainpage-description"><a href="https://wiki.archlinux.org/index.php/Main_page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li>
+											<li id="n-categories"><a href="https://wiki.archlinux.org/index.php/Table_of_contents">Categories</a></li>
+											<li id="n-portal"><a href="https://wiki.archlinux.org/index.php/Getting_involved" title="Various ways Archers can contribute to the community">Getting involved</a></li>
+											<li id="n-currentevents"><a href="https://wiki.archlinux.org/index.php/ArchWiki:News" title="The latest lowdown on the wiki">Wiki news</a></li>
+											<li id="n-randompage"><a href="https://wiki.archlinux.org/index.php/Special:Random" title="Load a random page [Alt+Shift+x]" accesskey="x">Random page</a></li>
+									</ul>
+					</div>
+		</div>
+			<div id="p-search" class="portlet" role="search">
+			<h3><label for="searchInput">Search</label></h3>
+
+			<div id="searchBody" class="pBody">
+				<form action="https://wiki.archlinux.org/index.php" id="searchform">
+					<input name="title" value="Special:Search" type="hidden">
+					<input autocomplete="off" name="search" placeholder="Search" title="Search ArchWiki [Alt+Shift+f]" accesskey="f" id="searchInput" type="search">
+					<input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchGoButton" class="searchButton" type="submit">&nbsp;
+						<input name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" type="submit">
+				</form>
+
+							</div>
+		</div>
+		<div class="generated-sidebar portlet" id="p-interaction" role="navigation">
+		<h3>interaction</h3>
+		<div class="pBody">
+							<ul>
+											<li id="n-help"><a href="https://wiki.archlinux.org/index.php/Category:Help" title="Wiki navigation, reading, and editing help">Help</a></li>
+											<li id="n-Contributing"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Contributing">Contributing</a></li>
+											<li id="n-recentchanges"><a href="https://wiki.archlinux.org/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li>
+											<li id="n-Recent-talks"><a href="https://wiki.archlinux.org/index.php/Special:RecentChanges?namespace=0&amp;invert=1" rel="nofollow">Recent talks</a></li>
+											<li id="n-newpages"><a href="https://wiki.archlinux.org/index.php/Special:NewPages">New pages</a></li>
+											<li id="n-Statistics"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Statistics">Statistics</a></li>
+											<li id="n-Reports"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Reports">Reports</a></li>
+											<li id="n-Requests"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Requests">Requests</a></li>
+									</ul>
+					</div>
+		</div>
+			<div class="portlet" id="p-tb" role="navigation">
+			<h3>Tools</h3>
+
+			<div class="pBody">
+				<ul>
+											<li id="t-whatlinkshere"><a href="https://wiki.archlinux.org/index.php/Special:WhatLinksHere/GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="A list of all wiki pages that link here [Alt+Shift+j]" accesskey="j">What links here</a></li>
+											<li id="t-recentchangeslinked"><a href="https://wiki.archlinux.org/index.php/Special:RecentChangesLinked/GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li>
+											<li id="t-specialpages"><a href="https://wiki.archlinux.org/index.php/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li>
+											<li id="t-print"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;printable=yes" rel="alternate" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>
+											<li id="t-permalink"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;oldid=399038" title="Permanent link to this revision of the page">Permanent link</a></li>
+											<li id="t-info"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;action=info" title="More information about this page">Page information</a></li>
+									</ul>
+							</div>
+		</div>
+				<div id="p-lang" class="portlet" role="navigation">
+				<h3>In other languages</h3>
+
+				<div class="pBody">
+					<ul>
+													<li class="interlanguage-link interwiki-en"><a href="https://wiki.archlinux.org/index.php/GNU_Screen" title="GNU Screen – English" hreflang="en" lang="en">English</a></li>
+													<li class="interlanguage-link interwiki-ja"><a href="https://wiki.archlinuxjp.org/index.php/GNU_Screen" title="GNU Screen – 日本語" hreflang="ja" lang="ja">日本語</a></li>
+													<li class="interlanguage-link interwiki-ru"><a href="https://wiki.archlinux.org/index.php/GNU_Screen_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)" title="GNU Screen – русский" hreflang="ru" lang="ru">Русский</a></li>
+											</ul>
+
+									</div>
+			</div>
+				</div><!-- end of the left (by default at least) column -->
+		<div class="visualClear"></div>
+					<div id="footer" role="contentinfo">
+						<ul id="f-list">
+									<li id="lastmod"> This page was last modified on 9 September 2015, at 21:27.</li>
+									<li id="copyright">Content is available under <a class="external" rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+									<li id="privacy"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Privacy_policy" title="ArchWiki:Privacy policy">Privacy policy</a></li>
+									<li id="about"><a href="https://wiki.archlinux.org/index.php/ArchWiki:About" title="ArchWiki:About">About ArchWiki</a></li>
+									<li id="disclaimer"><a href="https://wiki.archlinux.org/index.php/ArchWiki:General_disclaimer" title="ArchWiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+		</div>
+		</div>
+		
+
+<div class="suggestions" style="display: none; font-size: 11.4667px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body><!-- Cached/compressed 20160704041714 -->
+</html>

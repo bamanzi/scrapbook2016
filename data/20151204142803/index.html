@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>LXDE/Openbox, Create Keyboard Shortcuts ⌨</title>
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+
+<nav id="t5">
+<span class="xsignet">∑</span><span class="xsignetxah">XAH</span>
+<ul>
+<li><a href="http://xahlee.info/math/math_index.html">Math</a></li>
+<li><a href="http://xahlee.info/comp/comp_index.html">Programing</a></li>
+<li><a href="http://xahlee.info/comp/unicode_index.html">Unicode ♥</a></li>
+<li><a href="http://xahlee.info/kbd/keyboarding.html">Keyboard ⌨</a></li>
+</ul>
+<button id="i54391" type="button">Random Page</button>
+• <a href="https://twitter.com/xah_lee">Follow me on Twitter</a>
+• <a href="https://plus.google.com/+XahLee">Follow me on g+</a>
+• <a class="rssfeed53141" href="http://xahlee.info/math/blog.xml">Math</a>
+• <a class="rssfeed53141" href="http://xahlee.info/comp/blog.xml">Programing</a>
+• <a class="rssfeed53141" href="http://xahlee.info/js/blog.xml">Web Dev</a>
+• <a class="buyxahjs83183" href="http://xahlee.info/js/buy_xah_js_tutorial.html">Buy Xah JavaScript Tutorial</a>
+<div class="xgcse"><gcse:searchbox-only></gcse:searchbox-only></div>
+</nav>
+
+<nav class="n1"><a href="http://xahlee.info/linux/linux_keybinding_index.html">Linux Keybinding Tutorial</a></nav>
+
+<aside id="id1">
+
+
+
+<!-- side300x600 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px;" data-ad-client="ca-pub-5125343095650532" data-ad-slot="7031204381"></ins>
+
+<div class="pp93653">
+Buy xahlee.info for offline reading.
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input name="cmd" value="_xclick" type="hidden">
+<input name="business" value="JPHAB7F7QZRPC" type="hidden">
+<input name="lc" value="US" type="hidden">
+<input name="item_name" value="xahlee.info content" type="hidden">
+<input name="amount" value="49.00" type="hidden">
+<input name="currency_code" value="USD" type="hidden">
+<input name="button_subtype" value="services" type="hidden">
+<input name="no_note" value="0" type="hidden">
+<input name="cn" value="Add special instructions to the seller:" type="hidden">
+<input name="no_shipping" value="1" type="hidden">
+<input name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted" type="hidden">
+<input src="btn_buynowcc_lg.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0" type="image">
+</form>
+</div>
+</aside>
+
+<div class="ad66704">
+
+<!-- 728x90, created 8/12/09 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-5125343095650532" data-ad-slot="8521101965"></ins>
+
+</div>
+
+<h1>LXDE/Openbox, Create Keyboard Shortcuts ⌨</h1>
+
+<div class="byline"><address class="author"><a href="mailto:xahlee@gmail.com" rel="author">Xah Lee</a></address>, <time>2015-03-14</time>, …, <time>2015-11-26</time></div>
+
+<p>Edit the file at <code class="path-α">~/.config/openbox/lxde-rc.xml</code></p>
+
+<p>For example, to make <kbd>F9</kbd> key to switch to emacs, add:</p>
+
+<pre class="xml"><span class="comment-delimiter">&lt;!-- </span><span class="comment">set F9 to switch to emacs </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F9"</span>&gt;
+    &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+        &lt;<span class="function-name">command</span>&gt;wmctrl -xa emacs&lt;/<span class="function-name">command</span>&gt;
+    &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;</pre>
+
+<p>You will need to install <code>wmctrl</code> for switching windows by name. See: <a href="http://xahlee.info/linux/linux_add_keyboard_shortcuts_to_switch_to_app.html">Linux: wmctrl Add Keyboard Shortcuts to Switch to App ⌨</a></p>
+
+<p>Here's more examples.</p>
+
+<pre class="xml"><span class="comment-delimiter">&lt;!-- </span><span class="comment">switch to Firefox </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F8"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;wmctrl -xa firefox&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">resize window </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-F1"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Resize"</span>/&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">move window </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-F2"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Move"</span>/&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F1"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Iconify"</span>/&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">prev tab </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F11"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;xvkbd -no-jump-pointer -xsendevent -text '\C\[ISO_Left_Tab]'&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">next tab </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F12"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;xvkbd -no-jump-pointer -xsendevent -text '\C\[Tab]'&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F13"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"ToggleMaximize"</span>/&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">close window. Ctrl+w </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F14"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;xvkbd -no-jump-pointer -xsendevent -text '\Cw'&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">like alt+tab </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"F15"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"NextWindow"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;yes&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">interactive</span>&gt;yes&lt;/<span class="function-name">interactive</span>&gt;
+    &lt;<span class="function-name">raise</span>&gt;yes&lt;/<span class="function-name">raise</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;</pre>
+
+<div class="question-box32371">
+<p class="q">How to reload lxde key config file?</p>
+<pre class="bash"><span class="comment-delimiter"># </span><span class="comment">reload lxde's config file at ~/.config/openbox/lxde-rc.xml
+</span>openbox-lxde --reconfigure</pre>
+</div>
+
+<h2>Key Syntax</h2>
+
+<p>Here's the modifier syntax.</p>
+
+<ul>
+<li><code>S</code> → <kbd>⇧&nbsp;Shift</kbd> key</li>
+<li><code>C</code> → <kbd>Ctrl</kbd> key</li>
+<li><code>A</code> → <kbd>Alt</kbd> key</li>
+<li><code>W</code> → <kbd>❖&nbsp;Super</kbd> key (the Microsoft Windows logo key)</li>
+<li><code>M</code> → <kbd>◆&nbsp;Meta</kbd> key</li>
+<li><code>H</code> → <kbd>Hyper</kbd> key</li>
+</ul>
+
+<p>For example, if you want 【<kbd>Alt</kbd>+<kbd>7</kbd>】, use <code>&lt;keybind key="A-7"&gt;</code>.</p>
+
+<p>The key names are standard X11 “keysyms”.
+〔➤&nbsp;<a href="http://xahlee.info/linux/linux_show_keycode_keysym.html">Linux: How to Find X11 Keycode/Keysym ⌨</a>〕
+</p>
+
+<p>Here's the common ones:</p>
+
+<ul>
+<li><kbd>⇞&nbsp;Page&nbsp;△</kbd> → <code>Prior</code></li>
+<li><kbd>⇟&nbsp;Page&nbsp;▽</kbd> → <code>Next</code></li>
+<li><kbd>↑</kbd> arrow → <code>Up</code></li>
+<li><kbd>↓</kbd> arrow → <code>Down</code></li>
+<li><kbd>→</kbd> arrow → <code>Right</code></li>
+<li><kbd>←</kbd> arrow → <code>Left</code></li>
+<li><kbd>Return&nbsp;↩</kbd> → <code>Return</code></li>
+<li><kbd>Space</kbd> → <code>space</code></li>
+<li><kbd>Tab&nbsp;↹</kbd> → <code>Tab</code></li>
+<li><kbd>⌫&nbsp;Backspace</kbd> → <code>Backspace</code></li>
+<li><kbd>⌦&nbsp;Delete</kbd> → <code>Delete</code></li>
+<li><kbd>Esc</kbd> → <code>Escape</code></li>
+</ul>
+
+<p>For example, if you want 【<kbd>Alt</kbd>+<kbd>↑</kbd>】, use <code>&lt;keybind key="A-Up"&gt;</code>.</p>
+
+<h2>Remove Keys</h2>
+
+<p>If you want to remove virtual desktop switching keys such as
+【<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>→</kbd>】, which is used by emacs,
+delete the following.</p>
+
+<pre class="xml">&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-Left"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopLeft"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-Right"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopRight"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-Up"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopUp"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-Down"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopDown"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"S-A-Left"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"SendToDesktopLeft"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"S-A-Right"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"SendToDesktopRight"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"S-A-Up"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"SendToDesktopUp"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"S-A-Down"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"SendToDesktopDown"</span>&gt;
+    &lt;<span class="function-name">dialog</span>&gt;no&lt;/<span class="function-name">dialog</span>&gt;
+    &lt;<span class="function-name">wrap</span>&gt;no&lt;/<span class="function-name">wrap</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"W-F1"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Desktop"</span>&gt;
+    &lt;<span class="function-name">desktop</span>&gt;1&lt;/<span class="function-name">desktop</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"W-F2"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Desktop"</span>&gt;
+    &lt;<span class="function-name">desktop</span>&gt;2&lt;/<span class="function-name">desktop</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"W-F3"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Desktop"</span>&gt;
+    &lt;<span class="function-name">desktop</span>&gt;3&lt;/<span class="function-name">desktop</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"W-F4"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Desktop"</span>&gt;
+    &lt;<span class="function-name">desktop</span>&gt;4&lt;/<span class="function-name">desktop</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"W-d"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"ToggleShowDesktop"</span>/&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-d"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"ToggleShowDesktop"</span>/&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-Tab"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"NextWindow"</span>&gt;
+    &lt;<span class="function-name">panels</span>&gt;yes&lt;/<span class="function-name">panels</span>&gt;
+    &lt;<span class="function-name">desktop</span>&gt;yes&lt;/<span class="function-name">desktop</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-T"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;lxterminal&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+
+&lt;<span class="function-name">mousebind</span> <span class="variable-name">button</span>=<span class="string">"C-A-Up"</span> <span class="variable-name">action</span>=<span class="string">"Click"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopPrevious"</span>/&gt;
+&lt;/<span class="function-name">mousebind</span>&gt;
+&lt;<span class="function-name">mousebind</span> <span class="variable-name">button</span>=<span class="string">"C-A-Down"</span> <span class="variable-name">action</span>=<span class="string">"Click"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopNext"</span>/&gt;
+&lt;/<span class="function-name">mousebind</span>&gt;
+
+&lt;<span class="function-name">mousebind</span> <span class="variable-name">button</span>=<span class="string">"C-A-Up"</span> <span class="variable-name">action</span>=<span class="string">"Click"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopPrevious"</span>/&gt;
+&lt;/<span class="function-name">mousebind</span>&gt;
+&lt;<span class="function-name">mousebind</span> <span class="variable-name">button</span>=<span class="string">"C-A-Down"</span> <span class="variable-name">action</span>=<span class="string">"Click"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"DesktopNext"</span>/&gt;
+&lt;/<span class="function-name">mousebind</span>&gt;
+
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"C-A-D"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">startupnotify</span>&gt;
+      &lt;<span class="function-name">enabled</span>&gt;true&lt;/<span class="function-name">enabled</span>&gt;
+      &lt;<span class="function-name">name</span>&gt;PCManFM&lt;/<span class="function-name">name</span>&gt;
+    &lt;/<span class="function-name">startupnotify</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;pcmanfm&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;
+
+
+<span class="comment-delimiter">&lt;!-- </span><span class="comment">Launch Task Manager with Ctrl+Alt+Del </span><span class="comment-delimiter">--&gt;</span>
+&lt;<span class="function-name">keybind</span> <span class="variable-name">key</span>=<span class="string">"A-C-Delete"</span>&gt;
+  &lt;<span class="function-name">action</span> <span class="variable-name">name</span>=<span class="string">"Execute"</span>&gt;
+    &lt;<span class="function-name">command</span>&gt;lxtask&lt;/<span class="function-name">command</span>&gt;
+  &lt;/<span class="function-name">action</span>&gt;
+&lt;/<span class="function-name">keybind</span>&gt;</pre>
+
+<h2>Reference</h2>
+
+<p><span class="ref"><a class="sorc" href="http://openbox.org/wiki/Help:Bindings" data-accessed="2015-03-14">http://openbox.org/wiki/Help:Bindings</a></span></p>
+
+<div class="google-recommend-content-64663">
+
+<!-- google recommended content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-5125343095650532" data-ad-slot="6356170789" data-ad-format="autorelaxed"></ins>
+
+</div>
+
+<div class="rltd">
+<ul>
+<li><a href="http://xahlee.info/linux/linux_lxde_keybinding.html">Linux: LXDE Keyboard Shortcuts ⌨</a></li>
+<li><a href="http://xahlee.info/linux/linux_lxde_key_repeat_rate.html">Linux: LXDE Set Key Repeat Rate ⌨</a></li>
+</ul>
+</div>
+
+<div class="ads-bottom-65900">
+
+<!-- 728x90, created 8/12/09 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-5125343095650532" data-ad-slot="8521101965"></ins>
+
+</div>
+
+<div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="index_1.html" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 0pt ! important;" title="Disqus" tabindex="0" allowtransparency="true" name="dsq-app1" id="dsq-app1" frameborder="0" scrolling="no" width="100%"></iframe></div><a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<footer><span class="xsignet">∑</span><span class="xsignetxah">XAH</span> <a href="http://xahlee.info/index.html">Xah Code</a> <div class="cpr">© 1995, …, 2015 Xah Lee.</div></footer>
+
+
+
+
+</body>
+</html>

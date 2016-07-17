@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/QAPage" itemscope="">
+<head>
+<meta charset="UTF-8">
+
+
+<title>log files - Colorize Monitoring of Logs - Server Fault</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png?v=6c3100d858bb">
+    <link rel="search" type="application/opensearchdescription+xml" title="Server Fault" href="http://serverfault.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@ServerFault">
+    <meta name="twitter:domain" content="serverfault.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon@2.png?v=9b1f48ae296b&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Colorize Monitoring of Logs">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="I sometimes monitor apache and php error logs using tail under FreeBSD. Is there any way to get colorized output, either using tail or some other command line app?
+
+Alternatively, what is your favo...">
+    <meta property="og:url" content="http://serverfault.com/questions/53894/colorize-monitoring-of-logs">
+    <link rel="canonical" href="http://serverfault.com/questions/53894/colorize-monitoring-of-logs">
+
+    
+    
+    
+    
+    
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question 'Colorize Monitoring of Logs'" href="http://serverfault.com/feeds/question/53894">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://serverfault.com/questions/53894/colorize-monitoring-of-logs">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://serverfault.com/questions/53894/colorize-monitoring-of-logs">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://serverfault.com/questions/53894/colorize-monitoring-of-logs">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        
+
+
+    
+    
+    
+        
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="question-page new-topbar">
+    
+    
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://serverfault.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://blog.serverfault.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+                    <a href="http://chat.stackexchange.com/?host=serverfault.com" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://serverfault.com/" class="current-site-link site-link js-gps-track" data-id="2" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-serverfault" title="Server Fault"></div>
+        Server Fault
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.serverfault.com/" class="site-link js-gps-track" data-id="78" data-gps-track="
+            site.switch({ target_site:78, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-serverfaultmeta" title="Meta Server Fault"></div>
+        Meta Server Fault
+    </a>
+
+                </li>
+        </ul>
+    </div>
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://serverfault.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f53894%2fcolorize-monitoring-of-logs" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://serverfault.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f53894%2fcolorize-monitoring-of-logs" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+            </div>
+    </div>
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 158 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display: none;"></span>
+    </a>
+    <a href="#" class="topbar-icon icon-achievements yes-hover js-achievements-button" data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display: none;">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://serverfault.com/users/signup?ssrc=head&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f53894%2fcolorize-monitoring-of-logs" class="login-link">sign up</a>
+                                <a href="https://serverfault.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f53894%2fcolorize-monitoring-of-logs" class="login-link">log in</a>
+
+                            <a href="http://serverfault.com/tour">tour</a>
+    <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://serverfault.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://serverfault.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="http://meta.serverfault.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                    <li>
+                        <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                            About Us
+                            <span class="item-summary">
+                                Learn more about Stack Overflow the company
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                            Business
+                            <span class="item-summary">
+                                Learn more about hiring developers or posting ads with us
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://serverfault.com/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://serverfault.com/">
+                    Server Fault
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://serverfault.com/questions">Questions</a></li>
+                                                <li><a id="nav-tags" href="http://serverfault.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://serverfault.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://serverfault.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://serverfault.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://serverfault.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png?v=6c3100d858bb">
+
+<div id="herobox">
+    <div id="hero-content">
+            <div id="close"><a title="click to minimize">_</a></div>
+        <div id="blurb">
+            Server Fault is a question and answer site for system and network administrators. It's 100% free, no registration required.
+            <br>
+            <br>
+            <a href="http://serverfault.com/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f53894%2fcolorize-monitoring-of-logs" id="tell-me-more" class="button">Sign up</a>
+        </div>
+        <div id="desc">
+            <b>Here's how it works:</b>
+            <ol id="hiw">
+                <li id="q">Anybody can ask a question
+                </li>
+                <li id="an">Anybody can answer
+                </li>
+                <li id="b">The best answers are voted up and rise to the top
+                </li>
+            </ol>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    
+</div>
+			<div id="question-header">
+                <h1 itemprop="name"><a href="#" class="question-hyperlink">Colorize Monitoring of Logs</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="53894" id="question">
+
+    <div class="everyonelovesstackoverflow" id="clc-tlb"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="53894" type="hidden">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">25</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>22</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>I sometimes monitor apache and php error logs using <code>tail</code> under FreeBSD. Is there any way to get colorized output, either using <code>tail</code> or some other command line app?</p>
+
+<p>Alternatively, what is your favorite way to monitor the various web-related logs in realtime?</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://serverfault.com/questions/tagged/monitoring" class="post-tag js-gps-track" title="show questions tagged 'monitoring'" rel="tag">monitoring</a> <a href="http://serverfault.com/questions/tagged/log-files" class="post-tag js-gps-track" title="show questions tagged 'log-files'" rel="tag">log-files</a> <a href="http://serverfault.com/questions/tagged/color" class="post-tag js-gps-track" title="show questions tagged 'color'" rel="tag">color</a> <a href="http://serverfault.com/questions/tagged/tail" class="post-tag js-gps-track" title="show questions tagged 'tail'" rel="tag">tail</a> <a href="http://serverfault.com/questions/tagged/realtime" class="post-tag js-gps-track" title="show questions tagged 'realtime'" rel="tag">realtime</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/q/53894" title="short permalink to this question" class="short-link" id="link-post-53894">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/53894/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2009-08-13 18:02:48Z" class="relativetime">Aug 13 '09 at 18:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/1030/ian"><div class="gravatar-wrapper-32"><img src="Kv9Kx.png" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/1030/ian">Ian</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">728</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="18 silver badges"><span class="badge2"></span><span class="badgecount">18</span></span><span title="28 bronze badges"><span class="badge3"></span><span class="badgecount">28</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-53894" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-53894" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								6 Answers
+                                <span style="display: none;" itemprop="answerCount">6</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://serverfault.com/questions/53894/colorize-monitoring-of-logs?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="http://serverfault.com/questions/53894/colorize-monitoring-of-logs?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="http://serverfault.com/questions/53894/colorize-monitoring-of-logs?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="53938"></a>
+<div id="answer-53938" class="answer" data-answerid="53938" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="53938" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">24</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><a href="http://korpus.juls.savba.sk/~garabik/software/grc.html">Generic Colouriser</a> (grc):</p>
+
+<p><img src="syslog.png" alt="http://korpus.juls.savba.sk/~garabik/software/grc/syslog.png"></p>
+
+<p>Works with many different file formats.</p>
+
+<p>Example:</p>
+
+<pre><code>grc tail -f /var/log/apache/access.log /var/log/apache/error.log
+</code></pre>
+
+<p><a href="http://www.vanheusden.com/multitail/">Multitail</a>:</p>
+
+<p><img src="multitail-gnome-terminal.png" alt="alt text"></p>
+
+<p>Works with even more file formats :) And is more of a full blown
+"tail" with multi windows, diff outputs etc.. Very useful.</p>
+
+<p>Examples:</p>
+
+<p>Merge 2 logfiles in one window: </p>
+
+<pre><code>multitail /var/log/apache/access.log -I /var/log/apache/error.log
+</code></pre>
+
+<p>In one window show all new TCP connections and their state changes 
+using netstat while in the other window displaying the merged access 
+and error logfiles of apache </p>
+
+<pre><code>multitail -R 2 -l "netstat -t" /var/log/apache/access.log -I /var/log/apache/error.log
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/53938" title="short permalink to this answer" class="short-link" id="link-post-53938">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/53938/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-08-13 19:44:43Z" class="relativetime">Aug 13 '09 at 19:44</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/6793/rkthkr"><div class="gravatar-wrapper-32"><img src="3a545805059816f69f67257e247713dc.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/6793/rkthkr">rkthkr</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">7,077</span><span title="16 silver badges"><span class="badge2"></span><span class="badgecount">16</span></span><span title="33 bronze badges"><span class="badge3"></span><span class="badgecount">33</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-53938" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-53938" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+<div class="everyonelovesstackoverflow" id="clc-mlb"></div>
+  
+<a name="53900"></a>
+<div id="answer-53900" class="answer" data-answerid="53900" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="53900" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">15</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Check out <a href="http://freshmeat.net/projects/ccze/" rel="nofollow">CCZE</a>, it does the job for me. You have a choice of curses, ansi and html output.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/53900" title="short permalink to this answer" class="short-link" id="link-post-53900">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/53900/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://serverfault.com/posts/53900/revisions" title="show all edits to this post">edited <span title="2015-06-16 12:12:09Z" class="relativetime">Jun 16 '15 at 12:12</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/138900/bostaf"><div class="gravatar-wrapper-32"><img src="R2hVg.jpg" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/138900/bostaf">bostaf</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">115</span><span title="5 bronze badges"><span class="badge3"></span><span class="badgecount">5</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-08-13 18:23:23Z" class="relativetime">Aug 13 '09 at 18:23</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/8505/coops"><div class="gravatar-wrapper-32"><img src="05e219d1eb19fa1c679e97066550cd86.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/8505/coops">Coops</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">4,705</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="19 silver badges"><span class="badge2"></span><span class="badgecount">19</span></span><span title="44 bronze badges"><span class="badge3"></span><span class="badgecount">44</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-53900" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-42701" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Where is the download link? It's broken at that site. Screenshot looks good, but, without a link....</span>
+                    –&nbsp;<a href="http://serverfault.com/users/9076/mpbloch" title="847 reputation" class="comment-user">mpbloch</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment42701_53900"><span title="2009-08-13 18:31:56Z" class="relativetime-clean">Aug 13 '09 at 18:31</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-42707" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Ok, I found it under Lenny packages, but I am missing some files I guess. I'll get ncurses.</span>
+                    –&nbsp;<a href="http://serverfault.com/users/9076/mpbloch" title="847 reputation" class="comment-user">mpbloch</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment42707_53900"><span title="2009-08-13 18:42:48Z" class="relativetime-clean">Aug 13 '09 at 18:42</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-978873" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">It's working for me in ubuntu 16.04LTS, just apt-get install ccze.  To use it, "tail -f /var/log/apache2/error.log | ccze"  It's really useful you can export the output to html too!</span>
+                    –&nbsp;<a href="http://serverfault.com/users/353795/salvador-p" title="101 reputation" class="comment-user">Salvador P.</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment978873_53900"><span title="2016-05-10 13:39:10Z" class="relativetime-clean">May 10 at 13:39</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-53900" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="70941"></a>
+<div id="answer-70941" class="answer" data-answerid="70941" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="70941" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">3</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Check out glTail (<a href="http://www.fudgie.org/" rel="nofollow">http://www.fudgie.org/</a>).  Does way more than you're asking, but maybe that's OK</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/70941" title="short permalink to this answer" class="short-link" id="link-post-70941">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/70941/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-10-02 22:45:19Z" class="relativetime">Oct 2 '09 at 22:45</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        BillAtHRST
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-70941" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-70941" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="126770"></a>
+<div id="answer-126770" class="answer" data-answerid="126770" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="126770" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><a href="http://www.flinkmann.de/71-1-Colorizepl.html" rel="nofollow">Colorize</a> is very good tool for simply piping your text through another filter to get fancy ANSI colors. In fact, it's one simple 4kB perl script (almost half of it is just documentation) and it's based on regular expressions.</p>
+
+<p>You can highlight whole line containing given patern (good for hiding unwanted debug logs or highlighting Exceptions) or just highlight pattern in uncolored line (highlighting http response codes).</p>
+
+<p>I have several presets for various file types in separate runnable files. Then I just run <code>mvn clear install | colorbuild</code>, <code>tail -f *.log* | colorlog</code> or <code>svn diff | colordif</code> to have really fancy output.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/126770" title="short permalink to this answer" class="short-link" id="link-post-126770">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/126770/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-03-26 22:21:01Z" class="relativetime">Mar 26 '10 at 22:21</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/24187/andrej"><div class="gravatar-wrapper-32"><img src="fda91509e401365df43fe5eba3fa190b.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/24187/andrej">andrej</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">244</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-126770" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-671239" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">available at <a href="https://web.archive.org/web/20080321072656/http://www.flinkmann.de/colorize-pl.71.1.html" rel="nofollow">web.archive.org/web/20080321072656/http://www.flinkmann.de/…</a></span>
+                    –&nbsp;<a href="http://serverfault.com/users/24187/andrej" title="244 reputation" class="comment-user">andrej</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment671239_126770"><span title="2014-02-13 15:40:18Z" class="relativetime-clean">Feb 13 '14 at 15:40</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-126770" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="70917"></a>
+<div id="answer-70917" class="answer" data-answerid="70917" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="70917" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Monitor '/applications' highlighted;</p>
+
+<pre><code>tail -f /var/log/system.log | grep /Applications --color
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/70917" title="short permalink to this answer" class="short-link" id="link-post-70917">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/70917/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://serverfault.com/posts/70917/revisions" title="show all edits to this post">edited <span title="2015-09-30 04:11:57Z" class="relativetime">Sep 30 '15 at 4:11</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/37681/hbruijn"><div class="gravatar-wrapper-32"><img src="FqptO.png" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/37681/hbruijn">HBruijn</a><span class="mod-flair" title="moderator">♦</span>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 27,780" dir="ltr">27.8k</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="41 silver badges"><span class="badge2"></span><span class="badgecount">41</span></span><span title="76 bronze badges"><span class="badge3"></span><span class="badgecount">76</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-10-02 21:14:28Z" class="relativetime">Oct 2 '09 at 21:14</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/4741/mowarren"><div class="gravatar-wrapper-32"><img src="45c87a7fa74271861eff8119d7dced1f.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/4741/mowarren">mowarren</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">41</span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-70917" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-487431" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">that grep will also filter the results</span>
+                    –&nbsp;<a href="http://serverfault.com/users/19478/nbv4" title="283 reputation" class="comment-user">nbv4</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment487431_70917"><span title="2012-11-12 21:36:39Z" class="relativetime-clean">Nov 12 '12 at 21:36</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-70917" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="53895"></a>
+<div id="answer-53895" class="answer" data-answerid="53895" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="53895" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You might want to try histring, lets you color most of the outputs with simple ANSI codes
+<a href="http://www.freebsdsoftware.org/misc/histring.html" rel="nofollow">http://www.freebsdsoftware.org/misc/histring.html</a></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://serverfault.com/a/53895" title="short permalink to this answer" class="short-link" id="link-post-53895">share</a><span class="lsep">|</span><a href="http://serverfault.com/posts/53895/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-08-13 18:07:54Z" class="relativetime">Aug 13 '09 at 18:07</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://serverfault.com/users/16628/ryan-coates"><div class="gravatar-wrapper-32"><img src="b34d6bb966993f4acaed53f79511666e.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://serverfault.com/users/16628/ryan-coates">Ryan Coates</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">156</span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-53895" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-532527" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">abandonware (master site no longer exists)</span>
+                    –&nbsp;<a href="http://serverfault.com/users/22758/sendmoreinfo" title="1,393 reputation" class="comment-user">sendmoreinfo</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment532527_53895"><span title="2013-02-17 00:33:59Z" class="relativetime-clean">Feb 17 '13 at 0:33</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-53895" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://serverfault.com/questions/53894/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="53894" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+                            <input name="referrer" value="" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+        
+
+
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="62beabf29022c8a9fdc9055a19135256" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://serverfault.com/users/login?ssrc=question_page&amp;returnurl=http%3a%2f%2fserverfault.com%2fquestions%2f53894%2fcolorize-monitoring-of-logs%23new-answer">log in</a></h3>
+                        
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Email and Password</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input name="use-google" class="use-google" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display: none;" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" value="" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" type="email">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="btn-clear discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://serverfault.com/questions/tagged/monitoring" class="post-tag" title="show questions tagged 'monitoring'" rel="tag">monitoring</a> <a href="http://serverfault.com/questions/tagged/log-files" class="post-tag" title="show questions tagged 'log-files'" rel="tag">log-files</a> <a href="http://serverfault.com/questions/tagged/color" class="post-tag" title="show questions tagged 'color'" rel="tag">color</a> <a href="http://serverfault.com/questions/tagged/tail" class="post-tag" title="show questions tagged 'tail'" rel="tag">tail</a> <a href="http://serverfault.com/questions/tagged/realtime" class="post-tag" title="show questions tagged 'realtime'" rel="tag">realtime</a>  or <a href="http://serverfault.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key" title="2009-08-13 18:02:48Z"><b>6 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key">
+			                        <b>11602 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px;">
+			                        <p class="label-key"><b><a href="http://serverfault.com/questions/53894/colorize-monitoring-of-logs?lastactivity" class="lastactivity-link" title="2015-09-30 04:11:57Z">9 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<div class="everyonelovesstackoverflow orange looking tagged clc-jobs-multi" id="hireme"><a href="http://stackoverflow.com/jobs" target="_blank" data-at="0" data-tz="1" data-ti="0" class="top "><span>Looking for a job?</span></a><div class="middle"><ul class="jobs"><li><div class="job-wrap"><a class="job" data-at="0" data-tz="3" data-ti="190137" href="http://stackoverflow.com/jobs/104208/system-admin-technical-support-work-remotely-powerfront" target="_blank" title="System Admin / Technical Support - Work Remotely Offshore at Powerfront. Click to learn more."><div class="title">System Admin / Technical Support - Work Remotely Offshore</div><div><span class="company">Powerfront</span><span class="location">Richmond, Australia</span></div><div class="opts"><span class="salary">$25,000 - $35,000</span><span class="opt remote">Remote</span></div><span class="post-tag">devops</span><span class="post-tag">iis</span></a></div></li><li><div class="job-wrap"><a class="job" data-at="0" data-tz="3" data-ti="126638" href="http://stackoverflow.com/jobs/40166/software-developer-jane-street" target="_blank" title="Software Developer at Jane Street. Click to learn more."><div class="title">Software Developer</div><div><span class="company">Jane Street</span><span class="location">Hong Kong Island, Hong Kong</span></div><span class="post-tag">linux</span><span class="post-tag">ocaml</span></a></div></li><li><div class="job-wrap"><a class="job" data-at="0" data-tz="3" data-ti="218415" href="http://stackoverflow.com/jobs/118415/contract-automation-engineer-hearst-television" target="_blank" title="Contract Automation Engineer at Hearst Television. Click to learn more."><div class="title">Contract Automation Engineer</div><div><span class="company">Hearst Television</span><span class="location">No office location</span></div><div class="opts"><span class="opt remote">Remote</span></div><span class="post-tag">php</span><span class="post-tag">javascript</span></a></div></li><li><div class="job-wrap"><a class="job" data-at="0" data-tz="3" data-ti="220376" href="http://stackoverflow.com/jobs/120376/unix-linux-systems-administrator-wallethub" target="_blank" title="UNIX/Linux Systems Administrator at WalletHub. Click to learn more."><div class="title">UNIX/Linux Systems Administrator</div><div><span class="company">WalletHub</span><span class="location">Washington, DC</span></div><div class="opts"><span class="opt remote">Remote</span></div><span class="post-tag">linux</span><span class="post-tag">unix</span></a></div></li></ul><div style="clear: both;"></div></div><img class="impression" src="soi.gif" style="display: none;"></div>
+        
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+	<a href="http://serverfault.com/q/216220?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://serverfault.com/questions/216220/color-awk-output-on-commandline?noredirect=1&amp;lq=1" class="question-hyperlink">Color awk output on commandline?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="http://serverfault.com/q/1845?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">42</div></a><a href="http://serverfault.com/questions/1845/how-to-monitor-a-windows-log-file-in-real-time?rq=1" class="question-hyperlink">How to monitor a windows log file in real time?</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/53699?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">17</div></a><a href="http://serverfault.com/questions/53699/continuosly-monitor-logs-with-tail-that-are-occasionally-rotated?rq=1" class="question-hyperlink">Continuosly monitor logs with tail that are occasionally rotated</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/53976?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">7</div></a><a href="http://serverfault.com/questions/53976/use-local-tools-to-monitor-remote-logs?rq=1" class="question-hyperlink">Use local tools to monitor remote logs</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/83398?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">6</div></a><a href="http://serverfault.com/questions/83398/log-file-rotation-and-tail-f?rq=1" class="question-hyperlink">Log file rotation and “tail -f”</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/105255?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">4</div></a><a href="http://serverfault.com/questions/105255/monitor-multiple-linux-log-files-in-real-time?rq=1" class="question-hyperlink">Monitor multiple Linux log files in real time</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/217192?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://serverfault.com/questions/217192/best-tools-for-ssh-tail-f-style-log-file-monitoring-and-analysis?rq=1" class="question-hyperlink">Best tools for “ssh tail -f” style log file monitoring and analysis</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/231906?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">1</div></a><a href="http://serverfault.com/questions/231906/monitor-log-files-in-realtime-like-top-monitors-processes-os-x?rq=1" class="question-hyperlink">Monitor log files in realtime, like “top” monitors processes [OS X]</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/339275?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://serverfault.com/questions/339275/tool-to-analyse-grep-log-files?rq=1" class="question-hyperlink">tool to analyse/grep  log files</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/417481?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">2</div></a><a href="http://serverfault.com/questions/417481/search-for-a-log-pattern-continuously?rq=1" class="question-hyperlink">Search for a log pattern continuously</a></div><div class="spacer js-gps-track"><a href="http://serverfault.com/q/661944?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">2</div></a><a href="http://serverfault.com/questions/661944/how-do-i-monitor-file-modifications-of-a-linux-user-from-the-user-process-instea?rq=1" class="question-hyperlink">How do I monitor file modifications of a Linux user from the user process instead of the file-system itself?</a></div>
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/84100/is-there-a-name-for-putting-op-enemies-against-op-characters" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a name for putting OP enemies against OP characters?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/71204/a-fatal-accident-happened-a-few-years-ago-with-a-product-that-i-now-work-with-h" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A fatal accident happened a few years ago with a product that I now work with. How can I tactfully ask what happened?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/295999/does-posix-limit-the-number-of-directories-in-the-os-root" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does POSIX limit the number of directories in the os root?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72680/is-obamas-jama-paper-ok" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is Obama's JAMA paper OK?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/73442/can-i-take-knitting-needles-on-an-international-flight" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can I take knitting needles on an international flight?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/38374987/select-specific-elements-from-a-vector" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Select specific elements from a vector
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/67368/would-i-ever-need-credit-card-if-my-debit-card-is-issued-by-master-visa" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would I ever need credit card if my debit card is issued by Master/Visa?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/336890/why-is-pok%c3%a9mon-written-with-an-accent" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is "Pokémon" written with an accent?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/130095/what-is-the-difference-between-a-radius-server-and-active-directory" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the difference between a RADIUS server and Active Directory?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/47278/how-to-make-being-a-mage-so-cutthroat-that-generally-only-power-mad-become-mages" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to make being a mage so cutthroat that generally only power mad become mages?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-christianity" title="Christianity Stack Exchange"></div><a href="http://christianity.stackexchange.com/questions/50708/what-is-the-origin-of-the-christian-tradition-of-praying-before-eating" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:304 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the origin of the Christian tradition of praying before eating?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1860012/is-math-an-exact-science" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is math an exact science?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/47239/could-a-star-explode-and-reform-with-new-planets" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Could a star explode and reform with new planets?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/71278/why-describe-the-level-of-proficiency-in-a-skill-by-using-percentages" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why describe the level of proficiency in a skill by using percentages?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/134339/what-do-the-death-stars-do-other-than-destroying-planets" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What do the Death Stars do, other than destroying planets?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="http://dba.stackexchange.com/questions/143901/combining-joining-tables-with-no-key" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Combining (joining) tables with no key
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-outdoors" title="The Great Outdoors Stack Exchange"></div><a href="http://outdoors.stackexchange.com/questions/13254/are-there-wild-camping-rules-in-scotland" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:395 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are there wild camping rules in Scotland?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72764/is-it-appropriate-to-make-a-pun-that-references-a-highly-charged-topic-in-curren" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it appropriate to make a pun that references a highly charged topic in current events, in a lecture on an unrelated subject?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-crypto" title="Cryptography Stack Exchange"></div><a href="http://crypto.stackexchange.com/questions/37743/when-would-i-need-dsa-as-opposed-to-rsa-for-digital-signature" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:281 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    When would I need DSA as opposed to RSA for digital signature?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/274827/is-it-possible-to-put-more-than-one-pokemon-in-a-gym" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it possible to put more than one Pokemon in a gym?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/1101006/how-to-completely-wipe-computer-including-os" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to completely wipe computer including OS
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/268062/why-dont-we-feel-the-subtle-speed-change-of-earths-elliptical-orbit" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why don't we feel the subtle speed change of Earth's elliptical orbit?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/1100961/breaker-got-tripped-when-switching-on-laptop-charger" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Breaker got tripped when switching on laptop charger
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/85141/draw-the-national-flag-of-iceland" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Draw the national flag of Iceland
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://serverfault.com/feeds/question/53894" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	
+<div style="display: none;" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://serverfault.com/tour">tour</a>
+                    <a href="http://serverfault.com/help">help</a>
+                    <a href="http://blog.serverfault.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a>mobile</a>
+                    <b><a href="http://serverfault.com/contact">contact us</a></b>
+                        <b><a href="http://meta.serverfault.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.7.14.3758
+            </div>
+                </div>
+    </div>
+    
+
+    
+        
+    
+            
+    
+</body><div class="" style="display: none; width: 24px; left: 735px; top: 1684px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 366px; width: 1px; left: 263px; top: 1350px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 506px; height: 1px; left: 263px; top: 1350px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 366px; width: 1px; left: 769px; top: 1350px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 506px; height: 1px; left: 263px; top: 1716px;" class="diigotb-border diigotb-bottom"></div>
+</html>

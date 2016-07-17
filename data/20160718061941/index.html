@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/QAPage" itemscope="">
+<head>
+<meta charset="UTF-8">
+
+
+<title>How can I automatically update the title in an xterm running screen? - Super User</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/Sites/superuser/img/apple-touch-icon.png?v=0ad5b7a83e49">
+    <link rel="search" type="application/opensearchdescription+xml" title="Super User" href="http://superuser.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@super_user">
+    <meta name="twitter:domain" content="superuser.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/superuser/img/apple-touch-icon@2.png?v=e869e4459439&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="How can I automatically update the title in an xterm running screen?">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="This is a bit of a followup to this question.  I'm working in tcsh within GNU screen in an xterm.
+
+I have the following in my .cshrc:
+
+alias res_t 'xtset -t %h:%d &quot;(%u:%g)&quot; %e'       # reset titlebar
+">
+    <meta property="og:url" content="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177">
+    <link rel="canonical" href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177">
+
+    
+    
+    
+    
+    
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question 'How can I automatically update the title in an xterm running screen?'" href="http://superuser.com/feeds/question/130407">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        
+
+
+    
+    
+    
+        
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="question-page new-topbar">
+    
+    
+        
+        <iframe id="adzerk-user-match" scrolling="no" src="index_1.html" style="display: none;" marginheight="0" marginwidth="0" frameborder="0" height="0" width="0"></iframe>
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://superuser.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://blog.superuser.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+                    <a href="http://chat.stackexchange.com/?tab=site&amp;host=superuser.com" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://superuser.com/" class="current-site-link site-link js-gps-track" data-id="3" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-superuser" title="Super User"></div>
+        Super User
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.superuser.com/" class="site-link js-gps-track" data-id="77" data-gps-track="
+            site.switch({ target_site:77, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-superusermeta" title="Meta Super User"></div>
+        Meta Super User
+    </a>
+
+                </li>
+        </ul>
+    </div>
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://superuser.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f130407%2fhow-can-i-automatically-update-the-title-in-an-xterm-running-screen%2f154177" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://superuser.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f130407%2fhow-can-i-automatically-update-the-title-in-an-xterm-running-screen%2f154177" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+            </div>
+    </div>
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 158 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display: none;"></span>
+    </a>
+    <a href="#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display: none;">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://superuser.com/users/signup?ssrc=head&amp;returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f130407%2fhow-can-i-automatically-update-the-title-in-an-xterm-running-screen%2f154177" class="login-link">sign up</a>
+                                <a href="https://superuser.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f130407%2fhow-can-i-automatically-update-the-title-in-an-xterm-running-screen%2f154177" class="login-link">log in</a>
+
+                            <a href="http://superuser.com/tour">tour</a>
+    <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://superuser.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://superuser.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="http://meta.superuser.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                    <li>
+                        <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                            About Us
+                            <span class="item-summary">
+                                Learn more about Stack Overflow the company
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                            Business
+                            <span class="item-summary">
+                                Learn more about hiring developers or posting ads with us
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://superuser.com/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://superuser.com/">
+                    Super User
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://superuser.com/questions">Questions</a></li>
+                                                <li><a id="nav-tags" href="http://superuser.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://superuser.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://superuser.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://superuser.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://superuser.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/Sites/superuser/img/apple-touch-icon.png?v=0ad5b7a83e49">
+
+<div id="herobox">
+    <div id="hero-content">
+            <div id="close"><a title="click to minimize">_</a></div>
+        <div id="blurb">
+            Super User is a question and answer site for computer enthusiasts and power users. It's 100% free, no registration required.
+            <br>
+            <br>
+            <a href="http://superuser.com/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f130407%2fhow-can-i-automatically-update-the-title-in-an-xterm-running-screen%2f154177" id="tell-me-more" class="button">Sign up</a>
+        </div>
+        <div id="desc">
+            <b>Here's how it works:</b>
+            <ol id="hiw">
+                <li id="q">Anybody can ask a question
+                </li>
+                <li id="an">Anybody can answer
+                </li>
+                <li id="b">The best answers are voted up and rise to the top
+                </li>
+            </ol>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    
+</div>
+			<div id="question-header">
+                <h1 itemprop="name"><a href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen" class="question-hyperlink">How can I automatically update the title in an xterm running screen?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="130407" id="question">
+
+    
+            <div class="everyonelovesstackoverflow" id="adzerk1099744149"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="130407" type="hidden">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">13</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>3</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>This is a bit of a followup to <a href="http://superuser.com/questions/79972/set-the-title-of-the-terminal-window-to-the-current-directory" title="Set the title of the terminal window to the current directory">this question</a>.  I'm working in <em>tcsh</em> within GNU <em>screen</em> in an <em>xterm</em>.</p>
+
+<p>I have the following in my .cshrc:</p>
+
+<pre><code>alias res_t 'xtset -t %h:%d "(%u:%g)" %e'       # reset titlebar
+res_t                                           # reset title right now
+alias precmd res_t
+</code></pre>
+
+<p>And this works fine!</p>
+
+<p>However, when I run screen I see that the title doesn't get updated with the current directory.  How can I make screen update the xterm title?</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://superuser.com/questions/tagged/gnu-screen" class="post-tag js-gps-track" title="show questions tagged 'gnu-screen'" rel="tag">gnu-screen</a> <a href="http://superuser.com/questions/tagged/xterm" class="post-tag js-gps-track" title="show questions tagged 'xterm'" rel="tag">xterm</a> <a href="http://superuser.com/questions/tagged/tcsh" class="post-tag js-gps-track" title="show questions tagged 'tcsh'" rel="tag">tcsh</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/q/130407" title="short permalink to this question" class="short-link" id="link-post-130407">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/130407/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/130407/revisions" title="show all edits to this post">edited <span title="2013-09-17 10:54:53Z" class="relativetime">Sep 17 '13 at 10:54</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/52387/udo"><div class="gravatar-wrapper-32"><img src="86e63e366a722ad7c77d34e26bc239a7.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/52387/udo">udo</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">3,322</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="26 silver badges"><span class="badge2"></span><span class="badgecount">26</span></span><span title="41 bronze badges"><span class="badge3"></span><span class="badgecount">41</span></span>
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2010-04-13 09:15:07Z" class="relativetime">Apr 13 '10 at 9:15</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/474/nathan-fellman"><div class="gravatar-wrapper-32"><img src="898c2217a5457bdef0a0ed58283010dc.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/474/nathan-fellman">Nathan Fellman</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">4,293</span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="44 silver badges"><span class="badge2"></span><span class="badgecount">44</span></span><span title="72 bronze badges"><span class="badge3"></span><span class="badgecount">72</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-130407" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-143864" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Have you found a solution that worked for you yet?</span>
+                    –&nbsp;<a href="http://superuser.com/users/28124/trey-hunner" title="1,485 reputation" class="comment-user">Trey Hunner</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment143864_130407"><span title="2010-05-16 03:48:41Z" class="relativetime-clean">May 16 '10 at 3:48</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-143886" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">No. I tried the suggested answers but they didn't work.  That's why I neither accepted them nor upvoted them.</span>
+                    –&nbsp;<a href="http://superuser.com/users/474/nathan-fellman" title="4,293 reputation" class="comment-user owner">Nathan Fellman</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment143886_130407"><span title="2010-05-16 06:17:22Z" class="relativetime-clean">May 16 '10 at 6:17</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-130407" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								6 Answers
+                                <span style="display: none;" itemprop="answerCount">6</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="140254"></a>
+<div id="answer-140254" class="answer" data-answerid="140254" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="140254" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">4</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You can set the xterm window title by adding this to your <code>.tcshrc</code> or <code>.cshrc</code> (replace your current <code>precmd</code> alias):</p>
+
+<pre><code>alias precmd 'echo -n "\033]0;${PWD}\a"'
+</code></pre>
+
+<p>Make sure this is the only precmd alias in your <code>.cshrc</code> and <code>.tcshrc</code> files when using this.  This method displays the current directory as the window title for me in both xterm a gnome-terminal regardless of whether a GNU screen session is open.</p>
+
+<p>My answer was based on <a href="http://zshwiki.org/home/examples/hardstatus" rel="nofollow">this</a>.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/140254" title="short permalink to this answer" class="short-link" id="link-post-140254">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/140254/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/140254/revisions" title="show all edits to this post">edited <span title="2010-05-21 05:16:39Z" class="relativetime">May 21 '10 at 5:16</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-05-12 09:28:48Z" class="relativetime">May 12 '10 at 9:28</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/28124/trey-hunner"><div class="gravatar-wrapper-32"><img src="945d10168a7817c64276c164a57fa8de.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/28124/trey-hunner">Trey Hunner</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,485</span><span title="12 silver badges"><span class="badge2"></span><span class="badgecount">12</span></span><span title="10 bronze badges"><span class="badge3"></span><span class="badgecount">10</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-140254" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-140254" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+            <div class="everyonelovesstackoverflow" id="adzerk1143677924"></div>
+  
+<a name="145546"></a>
+<div id="answer-145546" class="answer" data-answerid="145546" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="145546" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">3</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I understand you're using tcsh so this probably won't work... Just in case anyone is looking for the bash way to do this.</p>
+
+<p>If your systems (local / remote) are running bash then you can use the "PROMPT_COMMAND" environment variable to set the window title. PROMPT_COMMAND is eval'd before a prompt is displayed.</p>
+
+<p>(in your .bashrc):</p>
+
+<blockquote>
+  <p><code>export PROMPT_COMMAND='history -a &amp;&amp; echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007'</code></p>
+</blockquote>
+
+<p>Explanation:</p>
+
+<blockquote>
+  <p><code>'history -a'</code></p>
+</blockquote>
+
+<p>This sets the shell to append to the history file every time a command is completed, rather than when the whole shell is completed. (This is not related to this example).</p>
+
+<blockquote>
+  <p><code>'echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'</code></p>
+</blockquote>
+
+<p>This echoes the escape code "\033]0;" which sets the window title with "user" @ "host" variables (removing longest match from right to first ".") and then the working directory (substituting '~' for '$HOME').</p>
+
+<p>The above trick will work with any terminal application that supports dynamic changing of window title (which iTerm, Terminal.app, urxvt, aterm, eTerm. xterm etc all do). You can also look into the shell variable "TITLEBAR" in the bash documentation, it is similar.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/145546" title="short permalink to this answer" class="short-link" id="link-post-145546">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/145546/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-05-26 15:34:06Z" class="relativetime">May 26 '10 at 15:34</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/38348/wawawawa"><div class="gravatar-wrapper-32"><img src="c1c455d7be33455654fa4aadb5a66bb1.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/38348/wawawawa">wawawawa</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">251</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-145546" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-1063375" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">this will not work when inside gnuscreen. at least it is not working for me. thats why im here :)</span>
+                    –&nbsp;<a href="http://superuser.com/users/43268/gcb" title="986 reputation" class="comment-user">gcb</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment1063375_145546"><span title="2014-09-16 23:23:32Z" class="relativetime-clean">Sep 16 '14 at 23:23</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-1063615" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Does this help? <a href="http://aperiodic.net/screen/faq#how_can_screen_use_xterm_s_title_bar" rel="nofollow">aperiodic.net/screen/faq#how_can_screen_use_xterm_s_title_bar</a></span>
+                    –&nbsp;<a href="http://superuser.com/users/38348/wawawawa" title="251 reputation" class="comment-user">wawawawa</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment1063615_145546"><span title="2014-09-17 09:20:28Z" class="relativetime-clean">Sep 17 '14 at 9:20</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-145546" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="154177"></a>
+<div style="" id="answer-154177" class="answer" data-answerid="154177" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="154177" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>This should work in any shell, but it's a dirty .screenrc hack.  It takes over the your hardstatus line to work, which may be unacceptable to some users.  But it works in <em>gnome-terminal</em> on the latest Ubuntu, even without the <em>termcapinfo</em> line below.  Some situations may require deeper tweaks (I haven't tested on PuTTY, for example).</p>
+
+<pre><code># enable xterm title setting; may not be necessary on some platforms
+termcapinfo xterm*|rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+# dirty hack: put xterm title escapes in the hardstatus
+# this example will yield "user@host || screen Win#:(windowtitle)
+defhstatus "$USER@^EH || screen ^E:(^Et)"
+# now turn it off so it doesn't print in the hardstatus line
+hardstatus off
+
+# and finally, use caption as a replacement hardstatus
+caption always '%{= kG}[%{G}%H%{G}][%= %{= kw}%?%-Lw%?%{R}(%{W}%n*%f%t%?(%u)%?%{R})%{w}%?%+Lw%?%?%= %{G}][%{B}%C%a %M.%d%{G}]'
+</code></pre>
+
+<p>Found at <a href="http://aperiodic.net/phil/configs/screenrc" rel="nofollow">this link</a>.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/154177" title="short permalink to this answer" class="short-link" id="link-post-154177">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/154177/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-06-18 16:54:28Z" class="relativetime">Jun 18 '10 at 16:54</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/12786/quack-quixote"><div class="gravatar-wrapper-32"><img src="a40384c5bf41a2a3bb05a02ff6c401b4.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/12786/quack-quixote">quack quixote</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 30,833" dir="ltr">30.8k</span><span title="10 gold badges"><span class="badge1"></span><span class="badgecount">10</span></span><span title="65 silver badges"><span class="badge2"></span><span class="badgecount">65</span></span><span title="114 bronze badges"><span class="badge3"></span><span class="badgecount">114</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-154177" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-154177" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="348310"></a>
+<div id="answer-348310" class="answer" data-answerid="348310" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="348310" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<pre><code>setenv TITLE "%{\033]0;%n@%m:%~\007%}"
+set prompt = "${TITLE}%n@%m:%~%#"
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/348310" title="short permalink to this answer" class="short-link" id="link-post-348310">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/348310/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-10-19 12:53:17Z" class="relativetime">Oct 19 '11 at 12:53</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/102164/sirdice"><div class="gravatar-wrapper-32"><img src="b63269c95fae55d8a728aa1496ea9b98.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/102164/sirdice">SirDice</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">21</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-348310" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-382759" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">But will this update the title when running <code>screen</code></span>
+                    –&nbsp;<a href="http://superuser.com/users/474/nathan-fellman" title="4,293 reputation" class="comment-user owner">Nathan Fellman</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment382759_348310"><span title="2011-10-19 16:26:00Z" class="relativetime-clean">Oct 19 '11 at 16:26</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-414216" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This works fine with screen 4.00.02 + tcsh 6.12.00.  This assumes you have the screen <code>hardstatus</code> variable set appropriately and termcap/terminfo supports <code>hs|ts|fs|ds</code>.</span>
+                    –&nbsp;<a href="http://superuser.com/users/16039/darren-hall" title="5,007 reputation" class="comment-user">Darren Hall</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment414216_348310"><span title="2011-12-24 17:51:11Z" class="relativetime-clean">Dec 24 '11 at 17:51</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-1063376" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">what does hardstatus play here?</span>
+                    –&nbsp;<a href="http://superuser.com/users/43268/gcb" title="986 reputation" class="comment-user">gcb</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment1063376_348310"><span title="2014-09-16 23:26:11Z" class="relativetime-clean">Sep 16 '14 at 23:26</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-348310" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="371681"></a>
+<div id="answer-371681" class="answer" data-answerid="371681" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="371681" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><a href="http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x395.html" rel="nofollow">This page</a> (which has been linked above) is the solution, however <strong>you need to make sure the entry's terminal string lines up with your terminal's id string</strong> (ie; what the variable TERM is set to) otherwise it won't have any effect.</p>
+
+<p>Here a summary of what I did, which worked for me after years of not investing enough time to figure this out:</p>
+
+<ol>
+<li><p>Find out what your terminal's ID string is by running:</p>
+
+<pre><code>echo $TERM
+</code></pre>
+
+<p>It probably will say something like 'xterm' or 'linux' or 'rxvt'.</p></li>
+<li><p>Now add the following line to your .screenrc file (or make one if it doesn't exist)
+located in your homedir (~/.screenrc):</p>
+
+<pre><code>termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+</code></pre>
+
+<p>The key is to make sure that 'xterm' is your TERM's ID string that you got above.  You can do multiple lines for each different term type that you use.</p></li>
+</ol>
+
+<p>For example I have this as my .screenrc file because I use both xterms and the 'linux' term type when SShing into a box:</p>
+
+<pre><code>termcapinfo linux 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+</code></pre>
+
+<p>Hopefully this helps, and is totally shell agnostic.  Remember if you run screen as root you'd need to modify ~root/.screenrc in addition to your own ~/.screenrc file like this.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/371681" title="short permalink to this answer" class="short-link" id="link-post-371681">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/371681/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/371681/revisions" title="show all edits to this post">edited <span title="2011-12-26 19:39:42Z" class="relativetime">Dec 26 '11 at 19:39</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/80670/simon-sheehan"><div class="gravatar-wrapper-32"><img src="1add119a20dbc042cc63eb865904adfd.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/80670/simon-sheehan">Simon Sheehan</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">6,829</span><span title="10 gold badges"><span class="badge1"></span><span class="badgecount">10</span></span><span title="38 silver badges"><span class="badge2"></span><span class="badgecount">38</span></span><span title="62 bronze badges"><span class="badge3"></span><span class="badgecount">62</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-12-26 13:53:35Z" class="relativetime">Dec 26 '11 at 13:53</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/111010/adam-strohl"><div class="gravatar-wrapper-32"><img src="18516deb885e59afcea291f1c39c1ab4.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/111010/adam-strohl">Adam Strohl</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">101</span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-371681" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-371681" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="361382"></a>
+<div id="answer-361382" class="answer" data-answerid="361382" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="361382" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>The instructions <a href="https://wiki.archlinux.org/index.php/GNU_Screen#Informative_statusbar" rel="nofollow">here</a> allowed me to update the title in rxvt from bash for me - which is prehaps not of any help but I thought it might be worth investigating (section Informative Statusbar if the link doesn't jump to the right part of the page)</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/361382" title="short permalink to this answer" class="short-link" id="link-post-361382">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/361382/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-11-25 14:49:59Z" class="relativetime">Nov 25 '11 at 14:49</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/106829/barry"><div class="gravatar-wrapper-32"><img src="46b2f36c14fcbd965215cec953af9721.dat" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/106829/barry">Barry</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">11</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-361382" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-361382" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://superuser.com/questions/130407/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="130407" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+                            <input name="referrer" value="" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+        
+
+
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="ca34c252389b3d989c9aba4d1b30b402" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://superuser.com/users/login?ssrc=question_page&amp;returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f130407%2fhow-can-i-automatically-update-the-title-in-an-xterm-running-screen%23new-answer">log in</a></h3>
+                        
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Email and Password</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input name="use-google" class="use-google" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display: none;" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" value="" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" type="email">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="btn-clear discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://superuser.com/questions/tagged/gnu-screen" class="post-tag" title="show questions tagged 'gnu-screen'" rel="tag">gnu-screen</a> <a href="http://superuser.com/questions/tagged/xterm" class="post-tag" title="show questions tagged 'xterm'" rel="tag">xterm</a> <a href="http://superuser.com/questions/tagged/tcsh" class="post-tag" title="show questions tagged 'tcsh'" rel="tag">tcsh</a>  or <a href="http://superuser.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key" title="2010-04-13 09:15:07Z"><b>6 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key">
+			                        <b>8647 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px;">
+			                        <p class="label-key"><b><a href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177?lastactivity" class="lastactivity-link" title="2013-09-17 10:54:53Z">2 years ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			
+            <div class="everyonelovesstackoverflow" id="adzerk1708293825"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+	<a href="http://superuser.com/q/79972?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">62</div>
+	</a>
+	<a href="http://superuser.com/questions/79972/set-the-title-of-the-terminal-window-to-the-current-directory?noredirect=1&amp;lq=1" class="question-hyperlink">Set the title of the terminal window to the current directory</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="http://superuser.com/q/31575?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">2</div></a><a href="http://superuser.com/questions/31575/gnu-screen-fails-to-resize-with-snow-leopard-xterm?rq=1" class="question-hyperlink">GNU screen fails to resize with Snow Leopard xterm</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/161392?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">6</div></a><a href="http://superuser.com/questions/161392/in-tcsh-how-can-i-fork-multiple-shell-commands-wait-until-they-all-complete-a?rq=1" class="question-hyperlink">In tcsh, how can I fork multiple shell commands, wait until they all complete, and then do another command?</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/211043?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">2</div></a><a href="http://superuser.com/questions/211043/how-to-correctly-set-gnu-screen-to-display-currently-running-program-in-hardstat?rq=1" class="question-hyperlink">How to correctly set GNU Screen to display currently running program in hardstatus</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/244299?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">5</div></a><a href="http://superuser.com/questions/244299/gnu-screen-how-to-update-dynamically-the-title-of-a-window?rq=1" class="question-hyperlink">Gnu screen, how to update dynamically the title of a window?</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/381939?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">6</div></a><a href="http://superuser.com/questions/381939/how-can-i-run-byobu-from-xterm-at-starting?rq=1" class="question-hyperlink">How can I run byobu from xterm at starting?</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/401296?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">2</div></a><a href="http://superuser.com/questions/401296/set-terminal-app-proxy-icon-with-xterm-and-screen?rq=1" class="question-hyperlink">Set Terminal.app proxy icon with xterm and screen</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/556040?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">2</div></a><a href="http://superuser.com/questions/556040/clearing-screen-after-quit-in-windows-vim-with-conemu-cygwin?rq=1" class="question-hyperlink">Clearing screen after quit in Windows vim with ConEmu/Cygwin</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/557043?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">0</div></a><a href="http://superuser.com/questions/557043/how-to-disable-truetype-fonts-in-xterm?rq=1" class="question-hyperlink">how to disable truetype fonts in xterm?</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/609402?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">10</div></a><a href="http://superuser.com/questions/609402/how-to-disable-alternate-buffer-in-gnu-screen-itself-but-not-for-vim-less-insid?rq=1" class="question-hyperlink">How to disable alternate buffer in GNU screen itself but not for vim, less inside it?</a></div><div class="spacer js-gps-track"><a href="http://superuser.com/q/726073?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">1</div></a><a href="http://superuser.com/questions/726073/how-can-i-disable-the-mouse-in-xterm?rq=1" class="question-hyperlink">How can I disable the mouse in xterm?</a></div>
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-japanese" title="Japanese Language Stack Exchange"></div><a href="http://japanese.stackexchange.com/questions/36677/how-to-pronounce-the-english-alphabet-a-b-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:257 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to pronounce the English alphabet? (A, B, C, ...)
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/134712/help-identify-this-pre-1985ish-science-fiction-paperback" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Help identify this pre 1985ish science fiction paperback
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/336890/why-is-pok%c3%a9mon-written-with-an-accent" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is "Pokémon" written with an accent?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/84186/can-an-unconscious-person-drink-a-potion" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can an unconscious person drink a potion?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/120808/why-does-mathematica-return-indeterminate-for-this-converging-infinite-sum" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does Mathematica return Indeterminate for this converging infinite sum?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/268202/is-there-a-theoretical-lower-limit-to-watts-needed-for-lumens" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a theoretical lower limit to watts needed for lumens?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/96467/can-vehicles-sell-themselves-shouldnt-it-be-passive-voice" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can vehicles sell themselves? Shouldn't it be passive voice?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-programmers" title="Programmers Stack Exchange"></div><a href="http://programmers.stackexchange.com/questions/324797/would-unit-tests-have-helped-citigroup-to-avoid-this-expensive-mistake" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would unit tests have helped Citigroup to avoid this expensive mistake?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/246205/why-does-voltage-split-when-an-additional-resistor-is-added" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does voltage split when an additional resistor is added?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72801/is-it-unethical-for-someone-to-proofread-edit-your-cover-letter-or-cv" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it unethical for someone to proofread/edit your cover letter or CV?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1860746/amazing-isomorphisms" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Amazing isomorphisms
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/268271/how-would-cold-neutrinos-get-trapped-by-stars" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How would cold neutrinos get trapped by stars?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/85487/i-programming-puzzles-il-code-golf" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    I programming puzzles, il code golf
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/67368/would-i-ever-need-credit-card-if-my-debit-card-is-issued-by-master-visa" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would I ever need credit card if my debit card is issued by Master/Visa?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/1100961/breaker-got-tripped-when-switching-on-laptop-charger" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Breaker got tripped when switching on laptop charger
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/319589/produce-matrix-with-col-vector-on-right-and-row-vector-on-bottom" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    produce Matrix with col-vector on right and row-vector on bottom
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/1101447/two-programs-having-their-stdin-and-stdout-tied" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Two Programs having their StdIn and StdOut tied
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/120841/create-polynomial-of-given-degree" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Create polynomial of given degree
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/275113/benefits-of-having-an-army-of-raticates" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Benefits of having an army of Raticates?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mechanics" title="Motor Vehicle Maintenance &amp; Repair Stack Exchange"></div><a href="http://mechanics.stackexchange.com/questions/32900/what-is-this-electrical-connection-to-windscreen-maybe-a-sensor" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:224 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is this? Electrical connection to windscreen. Maybe a sensor?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/85141/draw-the-national-flag-of-iceland" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Draw the national flag of Iceland
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-apple" title="Ask Different"></div><a href="http://apple.stackexchange.com/questions/246161/how-do-i-prevent-my-mac-from-autocorrecting-my-username" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:118 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I prevent my Mac from autocorrecting my username?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/130151/does-anybody-not-store-salts" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does anybody not store salts?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/67355/are-credit-cards-not-viewed-as-credit-until-you-miss-one-payment" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are credit cards not viewed as credit until you miss one payment?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://superuser.com/feeds/question/130407" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	
+<div style="display: none;" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://superuser.com/tour">tour</a>
+                    <a href="http://superuser.com/help">help</a>
+                    <a href="http://blog.superuser.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/?tab=site&amp;host=superuser.com">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a>mobile</a>
+                    <b><a href="http://superuser.com/contact">contact us</a></b>
+                        <b><a href="http://meta.superuser.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.7.15.3761
+            </div>
+                </div>
+    </div>
+    
+
+
+
+    
+        
+    
+            
+    
+</body>
+</html>

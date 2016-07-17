@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EmacsWiki: Eshell Completion</title><link rel="alternate" type="application/wiki" title="編輯本頁" href="http://www.emacswiki.org/emacs?action=edit;id=EshellCompletion">
+
+
+<meta name="robots" content="INDEX,FOLLOW"><link rel="alternate" type="application/rss+xml" title="EmacsWiki" href="http://www.emacswiki.org/emacs?action=rss"><link rel="alternate" type="application/rss+xml" title="EmacsWiki: EshellCompletion" href="http://www.emacswiki.org/emacs?action=rss;rcidonly=EshellCompletion"><link rel="alternate" type="application/rss+xml" title="Follow-ups for BaManzi" href="http://www.emacswiki.org/emacs?action=rss;followup=BaManzi">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content" href="http://www.emacswiki.org/emacs/full.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content and diff" href="http://www.emacswiki.org/emacs/full-diff.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki including minor differences" href="http://www.emacswiki.org/emacs/minor-edits.rss">
+<link rel="alternate" type="application/rss+xml" title="Changes for EshellCompletion only" href="http://www.emacswiki.org/emacs?action=rss;rcidonly=EshellCompletion">
+<link rel="alternate" type="application/rss+xml" title="Follow-ups to BaManzi" href="http://www.oddmuse.org/cgi-bin/oddmuse?action=rss;followup=BaManzi">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+<!--[if !(lt IE 8)]><!-->
+   
+<!--<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="http://www.emacswiki.org/emacs"><div class="header container"><div class="navbar"><div class="navbar-inner"><ul class="nav"><li><a href="http://www.emacswiki.org/" class="brand"><img src="ew_logo.png"></a></li><li><a class="local" href="http://www.emacswiki.org/emacs/%e7%b6%b2%e7%ab%99%e5%9c%b0%e5%9c%96">網站地圖</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/%e6%9c%80%e8%bf%91%e6%9b%b4%e6%96%b0">最近更新</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/News">News</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/ElispArea">ElispArea</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/%e6%95%99%e5%af%bc">教导</a></li></ul></div><form style="float: right; margin-top: 10px;" method="get" action="http://www.emacswiki.org/cgi-bin/emacs" enctype="multipart/form-data" accept-charset="utf-8" class="search">
+<p> <input value="" class="input-medium search-query" name="search" size="20" accesskey="f" id="search" type="text">   </p></form></div><h1><a title="按下即可以搜尋參考至本頁的資料" rel="nofollow" href="http://www.emacswiki.org/emacs?search=%22EshellCompletion%22"><span style="padding-right: 0.5ex;">Eshell</span><span style="padding-right: 0.5ex;">Completion</span></a></h1><p><a class="comment local edit btn btn-warning" accesskey="c" href="http://www.emacswiki.org/emacs/Comments_on_EshellCompletion">讨论</a></p></div><div class="wrapper container"><div class="content browse"><div class="toc"><ol><li><a href="#toc1">Customization</a></li><li><a href="#toc2">Remote Files</a></li><li><a href="#toc3">Miscellaneous</a></li><li><a href="#toc4">AutoComplete</a></li></ol></div><h2 id="toc1">Customization</h2><p>Eshell offers you completion of filenames. If several filenames are possible, the most recently modified file will be used first.</p><p>This is determined by <code>‘eshell-cmpl-compare-entry-function’</code> and defaults to <code>‘file-newer-than-file-p’</code>. The idea is that once you start working with a certain file, you will want it to appear first in your completion list.</p><p>Here’s some untested code to reverse this order, and to take <code>‘completion-ignored-extensions’</code> into account.</p><pre> (setq eshell-cmpl-compare-entry-function
+       (function
+	(lambda (left right)
+	  (let ((exts completion-ignored-extensions) found)
+	    (while exts
+	      (if (string-match (concat "\\" (car exts) "$") right)
+		  (setq found t exts nil))
+	      (setq exts (cdr exts)))
+	    (if found
+		nil
+	      (file-newer-than-file-p left right))))))</pre><p>Contributors: <a class="local" href="http://www.emacswiki.org/emacs/KaiGrossjohann">KaiGrossjohann</a>, <a class="local" href="http://www.emacswiki.org/emacs/JohnWiegley">JohnWiegley</a></p><h2 id="toc2">Remote Files</h2><p>If I want to change directory to /scratch, then pressing TAB after typing “cd /sc” leads to <a class="local" href="http://www.emacswiki.org/emacs/TrampMode">TrampMode</a> trying to open a connection. This is because the tramp-completion-file-name-handler entry in file-name-handler-alist leads to:</p><pre> (file-name-all-completions "sc" "/") =&gt;
+  ("scpx:" "scp2_old:" "scp1_old:" "scp2:" "scp1:" "scp:" "scratch/")</pre><p>and pcomplete tries to run file-directory-p on all these entries.</p><p>One way to avoid this is to use the following:</p><pre> (defadvice pcomplete (around avoid-remote-connections activate)
+   (let ((file-name-handler-alist (copy-alist file-name-handler-alist)))
+     (setq file-name-handler-alist
+           (delete (rassoc 'tramp-completion-file-name-handler
+                           file-name-handler-alist) file-name-handler-alist))
+     ad-do-it))</pre><p>Note that completion of “cd <i>su::</i>” still works because this is handled by tramp-file-name-handler.</p><p>Perhaps there are better ways of doing this? – Matt Hodges</p><h2 id="toc3">Miscellaneous</h2><p>If I set my own prompt, like this:</p><pre> (setq eshell-prompt-function
+       (lambda ()
+         (concat "[" (user-login-name) "@" (system-name) " " (eshell/pwd) "]"
+                 (if (= (user-uid) 0) "# " "$ "))))</pre><p>completion stops working. When I press tab, I get the message “Text is read-only”. Can anyone explain this? – <a class="local" href="http://www.emacswiki.org/emacs/bkhl">bkhl</a></p><dl class="quote"><dt></dt><dd>This happens because you haven’t modified eshell-prompt-regexp accordingly (see the documentation for eshell-prompt-function). This should work:</dd></dl><pre> (setq eshell-prompt-regexp "^[^#$\n]*[#$] ")</pre><dl class="quote"><dt></dt><dd>See <a class="local" href="http://www.emacswiki.org/emacs/EshellFunctions">EshellFunctions</a> for more examples. – <a class="local" href="http://www.emacswiki.org/emacs/MattHodges">MattHodges</a></dd></dl><hr><p>Ok, thanks. I like pcomplete-list better than the completion cycling. I tried this:</p><pre> (add-hook 'eshell-mode-hook
+           '(lambda () (define-key eshell-mode-map "\t" 'pcomplete-list)))</pre><p>but it doesn’t work. How should this be done properly? – <a class="local" href="http://www.emacswiki.org/emacs/bkhl">bkhl</a></p><dl class="quote"><dt></dt><dd>I use:</dd></dl><pre> (setq eshell-cmpl-cycle-completions nil)</pre><dl class="quote"><dt></dt><dd>to avoid completion cycling. – <a class="local" href="http://www.emacswiki.org/emacs/MattHodges">MattHodges</a></dd></dl><h2 id="toc4">AutoComplete</h2><p>I use the amazing <a class="local" href="http://www.emacswiki.org/emacs/AutoComplete">AutoComplete</a> package for completion. Eshell provides completion through the <a class="local" href="http://www.emacswiki.org/emacs/ProgrammableCompletion">ProgrammableCompletion</a> package. I did not found a suitable auto-complete source for pcomplete, so I use the following code:</p><pre class="real">(defun ac-pcomplete ()
+  ;; eshell uses `insert-and-inherit' to insert a \t if no completion
+  ;; can be found, but this must not happen as auto-complete source
+  (flet ((insert-and-inherit (&amp;rest args)))
+    ;; this code is stolen from `pcomplete' in pcomplete.el
+    (let* (tramp-mode ;; do not automatically complete remote stuff
+           (pcomplete-stub)
+           (pcomplete-show-list t) ;; inhibit patterns like * being deleted
+           pcomplete-seen pcomplete-norm-func
+           pcomplete-args pcomplete-last pcomplete-index
+           (pcomplete-autolist pcomplete-autolist)
+           (pcomplete-suffix-list pcomplete-suffix-list)
+           (candidates (pcomplete-completions))
+           (beg (pcomplete-begin))
+           ;; note, buffer text and completion argument may be
+           ;; different because the buffer text may bet transformed
+           ;; before being completed (e.g. variables like $HOME may be
+           ;; expanded)
+           (buftext (buffer-substring beg (point)))
+           (arg (nth pcomplete-index pcomplete-args)))
+      ;; we auto-complete only if the stub is non-empty and matches
+      ;; the end of the buffer text
+      (when (and (not (zerop (length pcomplete-stub)))
+                 (or (string= pcomplete-stub ; Emacs 23
+                              (substring buftext
+                                         (max 0
+                                              (- (length buftext)
+                                                 (length pcomplete-stub)))))
+                     (string= pcomplete-stub ; Emacs 24
+                              (substring arg
+                                         (max 0
+                                              (- (length arg)
+                                                 (length pcomplete-stub)))))))
+        ;; Collect all possible completions for the stub. Note that
+        ;; `candidates` may be a function, that's why we use
+        ;; `all-completions`.
+        (let* ((cnds (all-completions pcomplete-stub candidates))
+               (bnds (completion-boundaries pcomplete-stub
+                                            candidates
+                                            nil
+                                            ""))
+               (skip (- (length pcomplete-stub) (car bnds))))
+          ;; We replace the stub at the beginning of each candidate by
+          ;; the real buffer content.
+          (mapcar #'(lambda (cand) (concat buftext (substring cand skip)))
+                  cnds))))))
+
+(defvar ac-source-pcomplete
+  '((candidates . ac-pcomplete)))
+
+(add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete)))
+(add-to-list 'ac-modes 'eshell-mode)
+</pre><hr><p><a class="local" href="http://www.emacswiki.org/emacs/CategoryEshell">CategoryEshell</a></p></div><div class="wrapper close container"></div></div><div class="footer_wrapper"><div class="footer container"><hr><span class="translation bar">  <a class="translation new" rel="nofollow" href="http://www.emacswiki.org/emacs?action=translate;id=EshellCompletion;missing=de_es_fr_it_ja_ko_pt_ru_se_zh">Add Translation</a></span><hr><span class="edit bar"><br>  <a class="edit btn" accesskey="e" title="按此即可編輯此頁面" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=EshellCompletion">編輯本頁</a> <a class="history btn" rel="nofollow" href="http://www.emacswiki.org/emacs?action=history;id=EshellCompletion">參閱其他版本</a> <a class="admin btn" rel="nofollow" href="http://www.emacswiki.org/emacs?action=admin;id=EshellCompletion">管理 Oddmuse</a></span><hr><span class="time"><br> 最後編輯於 2013-02-08 21:18 UTC 由 <a class="author" title="i59F6CE2C.versanet.de" href="http://www.emacswiki.org/emacs/FrankFischer">FrankFischer</a> <a class="diff" rel="nofollow" href="http://www.emacswiki.org/emacs?action=browse;diff=2;id=EshellCompletion">(比較差異)</a></span><div style="float: right; margin-left: 1ex; margin-right: 120px; opacity: 0.3; padding-top: 1em;">
+<!-- Creative Commons License -->
+<a class="licence" href="http://creativecommons.org/licenses/GPL/2.0/"><img alt="CC-GNU GPL" style="border: medium none;" src="cc-gpl-a.png"></a>
+<!-- /Creative Commons License -->
+</div>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+  <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
+</License>
+</rdf:RDF>
+-->
+
+<p class="legal">
+This work is licensed to you under version 2 of the
+<a href="http://www.gnu.org/">GNU</a> <a href="http://www.emacswiki.org/GPL">General Public License</a>.
+Alternatively, you may choose to receive this work under any other
+license that grants the right to use, copy, modify, and/or distribute
+the work, as long as that license imposes the restriction that
+derivative works have to grant the same rights and impose the same
+restriction. For example, you may choose to receive this work under
+the
+<a href="http://www.gnu.org/">GNU</a>
+<a href="http://www.emacswiki.org/FDL">Free Documentation License</a>, the
+<a href="http://creativecommons.org/">CreativeCommons</a>
+<a href="http://creativecommons.org/licenses/sa/1.0/">ShareAlike</a>
+License, the XEmacs manual license, or
+<a href="http://www.emacswiki.org/OLD">similar licenses</a>.
+</p>
+</div></div>
+
+
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="SecureCRT支持用 [代码片段] 和 [代码片段] 命令在SSH会话中上传和下载文件，但如果用 [代码片段] 和 [代码片段]
+的同学怎么办呢？已经有人提供了解决方案，在Putty的基础上新做了一个LePutty，支持 [代码片段] 协议，新版本的KiTTY也支持ZModem。
+一、下载LePutty。 进入 LeP
+
+">
+    <meta name="keywords" content=" 让KiTTY/Putty支持ZModem">
+    <title>让KiTTY/Putty支持ZModem - 为程序员服务</title>
+    
+    
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><div style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;" id="BAIDU_DUP_fp_wrapper"><iframe style="width: 0px; height: 0px; visibility: hidden; display: none;" src="index_1.html" id="BAIDU_DUP_fp_iframe"></iframe></div>
+
+<header class="head">
+<div class="head-left">
+    <div class="logo"><a href="http://outofmemory.cn/">OutOfMemory.CN</a></div>
+    <div class="beta"><sup>β</sup></div>
+    <div class="nav">
+        <ul id="headNav">
+            <li class="current"><a href="http://ju.outofmemory.cn/" title="聚客：编程技术网站牛人牛博聚集地">聚客</a></li>
+            <li><a href="http://outofmemory.cn/code-snippet/" title="代码：分享代码 分享经验">代码</a></li>
+            <li><a href="http://j.outofmemory.cn/" title="技术专栏，精华">专栏</a></li>
+            <li><a href="http://outofmemory.cn/tutorial/" title="简单易学的技术教程">教程</a></li>
+            <li style="width: 65px;"><a href="http://maven.outofmemory.cn/" title="Maven信息库速查">Maven</a></li>
+            <li><a href="http://outofmemory.cn/github/" title="Github上的中国开源人">Gitter</a></li>
+            <li><a href="http://outofmemory.cn/tag/" title="标签">标签</a></li>
+        </ul>
+    </div>
+</div>
+<div class="head-right">
+<div class="userStatus"><a class="signin" target="_self" href="http://outofmemory.cn/user/login"><i></i><b>登录</b></a><a class="signup" target="_self" href="http://outofmemory.cn/user/register"><i></i><b>注册</b></a></div>
+</div>
+</header>
+
+
+<div class="tgL"><span>&nbsp;</span><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DbTl5VO3wHOQcQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClAmdnyY6SK%2Ftx9j339oKaTnpOQQ5Yan1IkwC%2BT0oB1%2BVdPW64dz9nenbG9O0kFhOOAedn1BbglxZYxUhy8exlzcq9AmARIwX9K%2BnbtOD3UdznPV1H2z0iQv9NkKVMHClW0QbMqOpFMIvnvjQXzzpXdTHGJe8N%2FwNpGw%3D%3D" target="_blank">阿里云服务器，值得信赖</a>&nbsp; &nbsp; <span>&nbsp;</span><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DA%2Fv2yRskvKAcQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClAkUiQq8D77j1tpJN%2F%2BiWF9pOQQ5Yan1IkwC%2BT0oB1%2BVdPW64dz9nenbG9O0kFhOOAedn1BbglxZYxUhy8exlzcq9AmARIwX9K%2BnbtOD3UdznPV1H2z0iQv9NkKVMHClW0QbMqOpFMIvnvjQXzzpXdTHGJe8N%2FwNpGw%3D%3D" target="_blank">服务器只买<font color="red">阿里云</font>，<font color="red">140万</font>企业与开发者的信赖</a></div><div class="wrap">
+<div class="content"><h1>让KiTTY/Putty支持ZModem</h1>
+<div class="meta">
+    <a href="http://ju.outofmemory.cn/feed/2915/" title="0与1构筑世界，程序员创造时代"><i class="ico man"></i>0与1构筑世界，程序员创造时代</a>
+    <time><i class="ico date"></i>2015-02-28</time>
+    <span class="pv"><b>163</b> 阅读</span>
+</div>
+<div class="tags">
+&nbsp;
+</div>
+
+
+<div>
+ <p>
+  SecureCRT支持用
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> sz </span></code>
+  和
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> rz </span></code>
+  命令在SSH会话中上传和下载文件，但如果用
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="typ">KiTTY</span><span class="pln"> </span></code>
+  和
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="typ">Putty</span><span class="pln"> </span></code>
+  的同学怎么办呢？已经有人提供了解决方案，在Putty的基础上新做了一个LePutty，支持
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="typ">ZModem</span><span class="pln"> </span></code>
+  协议，新版本的KiTTY也支持ZModem。
+ </p>
+ <h1 id="一、下载leputty。">
+  一、下载LePutty。
+ </h1>
+ <p>
+  进入
+  <a rel="nofollow external" href="http://sourceforge.net/projects/leputty/" style="text-decoration: none; vertical-align: baseline; color: rgb(50, 105, 160);">
+   LePutty官网
+  </a>
+  ，点击红色方框下载LePutty。
+  <br style="clear: both;">
+ </p>
+ <div>
+  <img alt="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代" src="imgr.dat" style="margin: 0px 10px 0px 0px;" title="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代">
+ </div>
+ <h1>
+  二、获取rz.exe和sz.exe。
+ </h1>
+ <p>
+  1、打开LePutty的压缩包，可看到里面有一个win32-lrzsz-*.zip的压缩文件。
+  <br style="clear: both;">
+ </p>
+ <div>
+  <img alt="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代" src="imgr_001.dat" style="margin: 0px 10px 0px 0px;" title="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代">
+ </div>
+ <p>
+  2、打开win32-lrzsz-
+  <em>
+   .zip，可看到里面有sz.exe和rz.exe。
+   <br style="clear: both;">
+  </em>
+ </p>
+ <div>
+  <img alt="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代" src="imgr_002.dat" style="margin: 0px 10px 0px 0px;" title="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代">
+ </div>
+ <p>
+  3、将sz.exe和rz.exe提取出来。
+ </p>
+ <h1>
+  三、配置KiTTY
+ </h1>
+ <p>
+  1、打开KiTTY的配置文件：
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="pun">%</span><span class="pln">APPDATA</span><span class="pun">%</span><span class="str">/KiTTY/</span><span class="pln">kitty</span><span class="pun">.</span><span class="pln">ini </span></code>
+  ，增加zmodem支持。
+ </p>
+ <pre style="" class="prettyprint prettyprinted"><code class="prettyprint"><span class="pun">[</span><span class="typ">KiTTY</span><span class="pun">]</span><span class="pln">
+zmodem</span><span class="pun">=</span><span class="pln">yes</span></code></pre>
+ <p>
+  2、打开Session，找到
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="typ">ZModem</span><span class="pln"> </span></code>
+  项，分别填入rz和sz命令的完整地址。
+  <br style="clear: both;">
+ </p>
+ <div>
+  <img alt="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代" src="imgr_003.dat" style="margin: 0px 10px 0px 0px;" title="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代">
+ </div>
+ <br>
+ 3、打开Session，在标题栏上右键，打开右键菜单，可以看到出现了"Zmodem Receive"和"Zmodem Upload"两个菜单项。
+ <br>
+ <div>
+  <img alt="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代" src="imgr_004.dat" style="margin: 0px 10px 0px 0px;" title="让KiTTY支持ZModem - 傲风 - 0与1构筑世界，程序员创造时代">
+ </div>
+ <br>
+ <h1>
+  四、使用ZModem上传下载文件
+ </h1>
+ <p>
+  1、下载文件。
+ </p>
+ <p>
+  输入命令
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> sz </span><span class="pun">文件路径</span><span class="pln"> </span></code>
+  ，示例如下：
+ </p>
+ <pre style="" class="prettyprint prettyprinted"><code class="prettyprint"><span class="pln">sz </span><span class="pun">~/</span><span class="lit">20150208</span><span class="pun">-</span><span class="pln">account</span><span class="pun">.</span><span class="kwd">register</span><span class="pun">-</span><span class="pln">ucidlist</span><span class="pun">.</span><span class="pln">log</span></code></pre>
+ <p>
+  然后在KiTTY/Putty的标题栏右键, 选择
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="typ">Zmodem</span><span class="pln"> </span><span class="typ">Receive</span><span class="pln"> </span></code>
+  。
+ </p>
+ <p>
+  <br>
+ </p>
+ <p>
+  2、上传文件。
+ </p>
+ <p>
+  输入命令
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> rz </span></code>
+  ，示例如下：
+ </p>
+ <pre style="" class="prettyprint prettyprinted"><code class="prettyprint"><span class="pln">rz</span></code></pre>
+ <p>
+  然后在KiTTY/Putty的标题栏右键, 选择
+  <code class="prettyprint prettyprinted" style="border-radius: 3px 3px 3px 3px; padding: 0px 5px; margin: 0px 2px; color: rgb(0, 0, 0); background-color: rgb(254, 236, 221); border: 1px solid rgb(239, 223, 208);"><span class="pln"> </span><span class="typ">Zmodem</span><span class="pln"> </span><span class="typ">Upload</span><span class="pln"> </span></code>
+  。
+ </p>
+ <br>
+ &lt;正文结束&gt;
+ <br>
+ <br>
+ <div>
+  <div style="padding: 1px; float: left; width: 16px; background-color: rgb(11, 95, 152); color: White;">
+   文章声明
+  </div>
+  <div>
+   <p>
+    <br>
+    作者：
+    <a href="mailto:aofengblog@163.com" rel="nofollow">
+     傲风(aofengblog@163.com)
+    </a>
+    编写时间：2014年10月31日
+   </p>
+   <p>
+    网址：
+    <a rel="nofollow external" href="http://aofengblog.blog.163.com/" target="_blank">
+     http://aofengblog.blog.163.com
+    </a>
+   </p>
+   <p>
+    作者保留所有权利，转载请保留文章全部内容或者说明原作者和转载地址！
+   </p>
+  </div>
+ </div>
+ <br>
+</div>
+<div class="like">
+    <a class="assertLogin" rel="nofollow" target="_self">点赞</a>
+</div>
+<div class="tags">
+&nbsp;
+</div>
+
+<div class="author">
+    <span class="name">作者：<a href="http://ju.outofmemory.cn/feed/2915/" title="0与1构筑世界，程序员创造时代">0与1构筑世界，程序员创造时代</a></span>
+    <div class="authorAvatar">
+        <a href="http://ju.outofmemory.cn/feed/2915/">
+            <img valign="absmiddle" src="2915.png" alt="0与1构筑世界，程序员创造时代" width="128" align="middle">
+        </a>
+    </div>
+    <div class="small">
+        软件架构设计 Java编程
+    </div>
+    <div class="small">原文地址：<a rel="nofollow external" target="_blank" href="http://aofengblog.blog.163.com/blog/static/6317021201493144520160">让KiTTY/Putty支持ZModem</a>, 感谢原作者分享。</div>
+</div>
+
+<div class="pn">
+    <span class="next"><mark>→</mark><a href="http://ju.outofmemory.cn/entry/143930">事件驱动的异步化框架:event4j</a></span>
+    <span class="pre"><mark>←</mark><a href="http://ju.outofmemory.cn/entry/143928">Linux - 用less命令让man帮助手册彩色显示 | Colored Man Pages Wi</a></span>
+</div>
+<div style="width: 956px; text-align: center; overflow: hidden; border: 1px solid transparent; border-radius: 2px 2px 2px 2px;" class="tgBD">
+
+<div style="box-sizing: content-box; text-align: center; display: block; font-size: 0px; width: 100%; height: 80px;" id="BAIDU_SSP__wrapper_u2080713_0"><div style="box-sizing: content-box; width: 798px; height: 80px; position: relative; margin: 0px auto;"><iframe id="iframeu2080713_0" src="index_2.html" vspace="0" hspace="0" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom; margin: 0px;" allowtransparency="true" frameborder="0" height="80" scrolling="no" width="798" align="center,center"></iframe></div></div>
+</div>
+
+<div class="comments">
+<a name="comments"></a>
+</div>
+
+
+<div class="newComment"><a name="newComment"></a>
+<h3>发表评论</h3>
+<form action="http://ju.outofmemory.cn/entry/comment/add" method="POST">
+    <input name="targetId" value="143929" type="hidden">
+    <input name="title" value="回复:让KiTTY/Putty支持ZModem" type="hidden">
+    <input name="replyId" type="hidden">
+    <textarea name="content" cols="100" rows="6" class="mdInput" style="width: 98%;"></textarea>
+    <p>
+        <button type="button" id="btnComment">发表评论</button><span id="commentTip"></span>
+    </p>
+</form>
+</div>
+
+
+
+
+</div>
+<div class="sidebar">
+    <div class="similar entry">
+    <span class="title">您可能感兴趣的博客</span>
+    <div><ul class="similarEntries">
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/1336/" title="崔凯">崔凯</a> 发表 <span title="2015-12-30 12:59:28" class="time">2月前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248153" class="codeTitle">备用服务器</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4557/" title="沈拓2011">沈拓2011</a> 发表 <span title="2016-03-21 04:31:01" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248152" class="codeTitle">【互联网+时代的组织变革】未来组织的“市场内化”</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4682/" title="博主">博主</a> 发表 <span title="2016-03-21 01:02:17" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248151" class="codeTitle">替换密码解谜题</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4682/" title="博主">博主</a> 发表 <span title="2016-03-21 01:07:39" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248150" class="codeTitle">移位密码解密题</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4363/" title="Draveness">Draveness</a> 发表 <span title="2016-03-21 02:57:38" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248149" class="codeTitle">AFNetworking 概述（一）</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/1427/" title="Joyous">Joyous</a> 发表 <span title="2016-03-21 05:24:27" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248148" class="codeTitle">Ubuntu搭建pure-ftpd简单使用</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4297/" title="heguanpei">heguanpei</a> 发表 <span title="2016-03-21 00:53:30" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248147" class="codeTitle">314 企业BIM决策要点之十四：BIM应用大赛能获奖和生产出效益不是一回事</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/4268/" title="peter">peter</a> 发表 <span title="2016-03-21 03:35:56" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248146" class="codeTitle">如何阅读一本书？</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/1957/" title="博主">博主</a> 发表 <span title="2016-03-21 08:19:47" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248145" class="codeTitle">BCTF 2016 hsab及BetaFour命题报告</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/1707/" title="annhe">annhe</a> 发表 <span title="2016-03-21 09:48:01" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248144" class="codeTitle">Tengine使用proxy_upstream_tries模块</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/3563/" title="zhanghao">zhanghao</a> 发表 <span title="2016-03-21 08:58:56" class="time">2天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248143" class="codeTitle">卓忆整理：Windows下Git入门常用命令的使用，用Git来对Odoo开发进行版本管理</a>
+</li>
+    <li><span class="meta"><a href="http://ju.outofmemory.cn/feed/3728/" title="白翼">白翼</a> 发表 <span title="2016-03-21 19:12:00" class="time">1天前</span></span>
+<a href="http://ju.outofmemory.cn/entry/248142" class="codeTitle">已經更換新的Wildcard SSL證書</a>
+</li>
+</ul>
+</div>
+</div>
+
+
+
+
+    <div class="tgSide">
+<div id="BAIDU_UNION__wrapper_u2114285_0"><iframe id="iframeu2114285_0" src="index_3.html" vspace="0" hspace="0" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom; margin: 0px;" allowtransparency="true" frameborder="0" height="280" scrolling="no" width="336" align="center,center"></iframe></div></div>
+    <div class="similar code">
+    <span class="title">您可能感兴趣的代码</span>
+    <div><ul class="similarCodes">
+    <li><span title="2016-03-22 12:27:05" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39607/Map-string-to-sys-stout-write">Map string to sys.stout.write</a> by <a href="http://outofmemory.cn/user/85">xwz</a>
+</li>
+    <li><span title="2016-03-22 10:52:27" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39606/Check-an-Array-for-a-Certain-Item">Check an Array for a Certain Item</a> by <a href="http://outofmemory.cn/user/45">LeoSun</a>
+</li>
+    <li><span title="2016-03-22 09:56:15" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39605/Parse-line-value-value">Parse line: value|value</a> by <a href="http://outofmemory.cn/user/141">jeffsui</a>
+</li>
+    <li><span title="2016-03-22 09:51:06" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39604/Create-octal-number-base-eight-numbers-by-prefacing-them-with-a-0">Create  octal number - base eight - numbers by prefacing them with a 0</a> by <a href="http://outofmemory.cn/user/117">JustForFly</a>
+</li>
+    <li><span title="2016-03-22 09:29:52" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39603/When-the-and-or-Trick-Fails">When the and-or Trick Fails</a> by <a href="http://outofmemory.cn/user/73">蟋蟀MM</a>
+</li>
+    <li><span title="2016-03-22 09:14:23" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39602/aligning-positive-and-negative-numbers">aligning positive and negative numbers</a> by <a href="http://outofmemory.cn/user/73">蟋蟀MM</a>
+</li>
+    <li><span title="2016-03-22 09:05:29" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39601/Stripping-whitespace-from-a-string">Stripping whitespace from a string.</a> by <a href="http://outofmemory.cn/user/169">阿明娃儿</a>
+</li>
+    <li><span title="2016-03-21 19:19:41" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39600/Connection-string-for-Oracle">Connection string for Oracle</a> by <a href="http://outofmemory.cn/user/33">杨洋</a>
+</li>
+    <li><span title="2016-03-21 15:09:13" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39599/Add-double-upto-method-to-Fixnum">Add double_upto method to Fixnum</a> by <a href="http://outofmemory.cn/user/81">永明</a>
+</li>
+    <li><span title="2016-03-21 13:51:00" class="time">1天前</span><a href="http://outofmemory.cn/code-snippet/39598/floor-Returns-the-largest-integer-less-than-or-equal">floor Returns the largest integer less than or equal.</a> by <a href="http://outofmemory.cn/user/153">Ω油菜</a>
+</li>
+    <li><span title="2016-03-21 12:01:46" class="time">2天前</span><a href="http://outofmemory.cn/code-snippet/39597/File-read-500-bytes">File read 500 bytes</a> by <a href="http://outofmemory.cn/user/45">LeoSun</a>
+</li>
+    <li><span title="2016-03-21 11:10:21" class="time">2天前</span><a href="http://outofmemory.cn/code-snippet/39596/Try-different-formats">Try different formats</a> by <a href="http://outofmemory.cn/user/117">JustForFly</a>
+</li>
+</ul>
+</div>
+</div>
+
+
+
+    <div class="tgSide">
+<div id="BAIDU_UNION__wrapper_u2114293_0"><iframe id="iframeu2114293_0" src="index_4.html" vspace="0" hspace="0" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom; margin: 0px;" allowtransparency="true" frameborder="0" height="280" scrolling="no" width="336" align="center,center"></iframe></div>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<footer class="foot">
+© 2015 <a href="http://outofmemory.cn/">内存溢出</a>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="bdtj">
+</div>
+
+
+
+<div class="pop_win_bg" style="height: 245px; width: 325px; left: 519px; top: 166px; z-index: 8888;"></div>
+<div class="pop_win" style="display: block; left: 527px; top: 173px; visibility: visible; z-index: 9999;">
+    <a class="pop_win_close">X</a>
+    <h3>
+        登录之后更精彩
+    </h3>
+    <div id="pop_win_login">
+        <form method="POST" action="http://outofmemory.cn/user/login?url=%2F">
+            <dl>
+                <dt><label for="user">账号：</label></dt>
+                <dd>
+                    <input id="user" class="textbox" name="user" size="20" type="text">
+                    <br><span class="tip">用户名或email</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt><label for="password">密码：</label></dt>
+                <dd>
+                    <input id="password" class="textbox" name="password" size="20" type="password">
+                </dd>
+            </dl>
+            <dl>
+                <dt>&nbsp;</dt>
+                <dd>
+                    <input id="rememberMe_True" value="True" name="rememberMe" type="checkbox"><label for="rememberMe_True">记住我</label>
+
+                    <button type="submit" class="primaryBtn">登录</button>
+                </dd>
+            </dl>
+            <div id="divPleaseReg" style="margin: 5px 0px 0px;">
+                没注册？请<a href="http://outofmemory.cn/user/register">注册</a>或用<a href="http://outofmemory.cn/weibo/login?returnUrl=%2F" class="weibo-login">微博</a>
+                或
+                <a href="http://outofmemory.cn/qq/login?returnUrl=%2F" class="qq-login">QQ</a>
+                账户登录
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

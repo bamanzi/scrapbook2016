@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EmacsWiki: Eshell W Thirty Two</title><link rel="alternate" type="application/wiki" title="編輯本頁" href="http://www.emacswiki.org/emacs?action=edit;id=EshellWThirtyTwo">
+
+
+<meta name="robots" content="INDEX,FOLLOW"><link rel="alternate" type="application/rss+xml" title="EmacsWiki" href="http://www.emacswiki.org/emacs?action=rss"><link rel="alternate" type="application/rss+xml" title="EmacsWiki: EshellWThirtyTwo" href="http://www.emacswiki.org/emacs?action=rss;rcidonly=EshellWThirtyTwo"><link rel="alternate" type="application/rss+xml" title="Follow-ups for BaManzi" href="http://www.emacswiki.org/emacs?action=rss;followup=BaManzi">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content" href="http://www.emacswiki.org/emacs/full.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content and diff" href="http://www.emacswiki.org/emacs/full-diff.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki including minor differences" href="http://www.emacswiki.org/emacs/minor-edits.rss">
+<link rel="alternate" type="application/rss+xml" title="Changes for EshellWThirtyTwo only" href="http://www.emacswiki.org/emacs?action=rss;rcidonly=EshellWThirtyTwo">
+<link rel="alternate" type="application/rss+xml" title="Follow-ups to BaManzi" href="http://www.oddmuse.org/cgi-bin/oddmuse?action=rss;followup=BaManzi">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+<!--[if !(lt IE 8)]><!-->
+   
+<!--<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="http://www.emacswiki.org/emacs"><div class="header container"><div class="navbar"><div class="navbar-inner"><ul class="nav"><li><a href="http://www.emacswiki.org/" class="brand"><img src="ew_logo.png"></a></li><li><a class="local" href="http://www.emacswiki.org/emacs/%e7%b6%b2%e7%ab%99%e5%9c%b0%e5%9c%96">網站地圖</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/%e6%9c%80%e8%bf%91%e6%9b%b4%e6%96%b0">最近更新</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/News">News</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/ElispArea">ElispArea</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/%e6%95%99%e5%af%bc">教导</a></li></ul></div><form style="float: right; margin-top: 10px;" method="get" action="http://www.emacswiki.org/cgi-bin/emacs" enctype="multipart/form-data" accept-charset="utf-8" class="search">
+<p> <input value="" class="input-medium search-query" name="search" size="20" accesskey="f" id="search" type="text">   </p></form></div><h1><a title="按下即可以搜尋參考至本頁的資料" rel="nofollow" href="http://www.emacswiki.org/emacs?search=%22EshellWThirtyTwo%22"><span style="padding-right: 0.5ex;">Eshell</span><span style="padding-right: 0.5ex;">W</span><span style="padding-right: 0.5ex;">Thirty</span><span style="padding-right: 0.5ex;">Two</span></a></h1><p><a class="comment local edit btn btn-warning" accesskey="c" href="http://www.emacswiki.org/emacs/Comments_on_EshellWThirtyTwo">讨论</a></p></div><div class="wrapper container"><div class="content browse"><h3>Open a file like "Open" in Explorer</h3><p>Definition for Emacs 23.4.1:</p><pre>  (<span class="keyword">defun</span> <span class="function">eshell/op</span> (file)
+    <span class="string">"Invoke (w32-shell-execute \"Open\" file) and substitute
+    slashes for backslashes"</span>
+    (w32-shell-execute <span class="string">"Open"</span>
+                       (subst-char-in-string ?\\ ?/ (expand-file-name file)))
+    nil)</pre><p>Definition for certain versions of Emacs predating 23.4.1:</p><pre> (<span class="keyword">defun</span> <span class="function">eshell/op</span> (FILE)
+  <span class="string">"Invoke (w32-shell-execute \"Open\" FILE) and substitute slashes for backslashes"</span>
+  (w32-shell-execute <span class="string">"Open"</span> (substitute ?\\ ?/ (expand-file-name FILE))))</pre><p>Use like this</p><pre> $ op my_doc.doc</pre><p>The following command opens current dir in Explorer</p><pre> $ op . (same as op $PWD)</pre><p>Same, but for c:</p><pre> $ op c:</pre><p>UNC paths work too:</p><pre> $ op //server/share</pre><h3>Substitute doesn't work</h3><p>Under emacs 21.2 on Windows XP “substitute” doesn’t work for me. “subst-char-in-string” works.</p><p>By the way, the evaluation of the w32-shell-execute command shows up in the eshell buffer like this.</p><pre>  d<span class="builtin">:/Mahesh</span> $ op c:
+  t
+  d<span class="builtin">:/Mahesh</span> $</pre><p>How do I prevent it ? Thanks.</p><p>This happens when an eshell command function has a non-nil Lisp value. To fix this, redefine the command thusly:</p><pre>  (<span class="keyword">defun</span> <span class="function">eshell/op</span> (file)
+    (w32-shell-execute <span class="string">"Open"</span>
+                       (substitute ?\\ ?/ (expand-file-name file)))
+    nil)</pre><p>– <a class="local" href="http://www.emacswiki.org/emacs/LucasBergman">LucasBergman</a></p><h3>Play all mp3:s matching pattern</h3><p>This is very important stuff: ☺</p><pre> $ alias mp3 'for f in $1 {C<span class="builtin">:/Program</span>\ Files/Winamp/winamp.exe $f <span class="type">&amp;}</span>'</pre><p>and to use:</p><pre> $ mp3 dio*.mp3 </pre><p>or even:</p><pre> $ mp3 **/*.mp3</pre><p>though it <strong>killed</strong> my Emacs (two times) now that I tried it… Maybe this puts too much strain on Emacs’ process handling? I will investigate further. – <a class="local" href="http://www.emacswiki.org/emacs/MathiasDahl">MathiasDahl</a></p><h3>Convert %var% to $var so the PATH variable in Windows gets evaluated correctly</h3><p>I don’t know if anyone else had this problem, but GNU emacs 22.1.1 on Windows XP failed to find anything in the <code>c:\windows\system32</code> directory for me in spite of <code>%systemroot%\system32</code> being in my search path. The solution I came up with:</p><pre> (setenv <span class="string">"PATH"</span> (replace-regexp-in-string <span class="string">"%\\([<span class="negation">^</span>%]+\\)%"</span> <span class="string">"$\\1"</span> (getenv <span class="string">"PATH"</span>)))</pre><p>It simply converts anything that looks like <code>%var%</code> to <code>$var</code>. In my case <code>%SystemRoot%</code> was converted to <code>$SystemRoot</code>, which was then interpolated correctly (presumeably with <code>(getenv "SystemRoot")</code>).</p><p>– <a class="local" href="http://www.emacswiki.org/emacs/KevinHammack">KevinHammack</a></p><hr><p><a class="local" href="http://www.emacswiki.org/emacs/CategoryEshell">CategoryEshell</a>, <a class="local" href="http://www.emacswiki.org/emacs/EshellAlias">EshellAlias</a>, <a class="local" href="http://www.emacswiki.org/emacs/EshellForLoop">EshellForLoop</a>, <a class="local" href="http://www.emacswiki.org/emacs/CategoryWThirtyTwo">CategoryWThirtyTwo</a>, <a class="local" href="http://www.emacswiki.org/emacs/EshellLnkFileSupport">EshellLnkFileSupport</a></p></div><div class="wrapper close container"></div></div><div class="footer_wrapper"><div class="footer container"><hr><span class="translation bar">  <a class="translation new" rel="nofollow" href="http://www.emacswiki.org/emacs?action=translate;id=EshellWThirtyTwo;missing=de_es_fr_it_ja_ko_pt_ru_se_zh">Add Translation</a></span><hr><span class="edit bar"><br>  <a class="edit btn" accesskey="e" title="按此即可編輯此頁面" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=EshellWThirtyTwo">編輯本頁</a> <a class="history btn" rel="nofollow" href="http://www.emacswiki.org/emacs?action=history;id=EshellWThirtyTwo">參閱其他版本</a> <a class="admin btn" rel="nofollow" href="http://www.emacswiki.org/emacs?action=admin;id=EshellWThirtyTwo">管理 Oddmuse</a></span><hr><span class="time"><br> 最後編輯於 2013-08-24 12:07 UTC 由 <a class="author" title="178-83-163-103.dynamic.hispeed.ch" href="http://www.emacswiki.org/emacs/AlexSchroeder">AlexSchroeder</a> <a class="diff" rel="nofollow" href="http://www.emacswiki.org/emacs?action=browse;diff=2;id=EshellWThirtyTwo">(比較差異)</a></span><div style="float: right; margin-left: 1ex; margin-right: 120px; opacity: 0.3; padding-top: 1em;">
+<!-- Creative Commons License -->
+<a class="licence" href="http://creativecommons.org/licenses/GPL/2.0/"><img alt="CC-GNU GPL" style="border: medium none;" src="cc-gpl-a.png"></a>
+<!-- /Creative Commons License -->
+</div>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+  <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
+</License>
+</rdf:RDF>
+-->
+
+<p class="legal">
+This work is licensed to you under version 2 of the
+<a href="http://www.gnu.org/">GNU</a> <a href="http://www.emacswiki.org/GPL">General Public License</a>.
+Alternatively, you may choose to receive this work under any other
+license that grants the right to use, copy, modify, and/or distribute
+the work, as long as that license imposes the restriction that
+derivative works have to grant the same rights and impose the same
+restriction. For example, you may choose to receive this work under
+the
+<a href="http://www.gnu.org/">GNU</a>
+<a href="http://www.emacswiki.org/FDL">Free Documentation License</a>, the
+<a href="http://creativecommons.org/">CreativeCommons</a>
+<a href="http://creativecommons.org/licenses/sa/1.0/">ShareAlike</a>
+License, the XEmacs manual license, or
+<a href="http://www.emacswiki.org/OLD">similar licenses</a>.
+</p>
+</div></div>
+
+
+</body>
+</html>

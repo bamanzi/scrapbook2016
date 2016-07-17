@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Differences between tmux vs screen - Wesley Tanaka</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="search" href="http://wtanaka.com/sites/all/modules/opensearch_link/opensearch.xml" type="application/opensearchdescription+xml" title="Wesley Tanaka">
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="All Posts - Wesley Tanaka" href="http://wtanaka.com/rss.xml">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head><body><h1 class="name"><a href="http://wtanaka.com/"><img alt="wesley tanaka" src="wesleytanaka.gif"></a></h1><div class="belowheader"><div class="betweensidebars has-left-sidebar"><h2 class="pagetitle">Differences between tmux vs screen</h2><div class="breadcrumb"><a href="http://wtanaka.com/">Home</a> » <a href="http://wtanaka.com/node">All Posts</a></div><div class="tabs"></div><div class="node"><div class="story-navigation"><a href="http://wtanaka.com/node/8135" class="topic-previous" title="Go to previous post">‹ Why were you sad?</a> | <a href="http://wtanaka.com/node/8137" class="topic-next" title="Go to next post">Ubuntu on a Toshiba Satellite C55-A ›</a></div><span class="submitted">Submitted by wtanaka on Sat, 2015-01-17 19:18.</span> (<ul class="links inline"><li class="first last taxonomy_term_3"><a href="http://wtanaka.com/taxonomy/term/3" rel="tag" title="" class="taxonomy_term_3">Tech</a></li>
+</ul>)<div class="content"><!-- google_ad_section_start --><p>I evaluated switching from <code>screen</code> to <code>tmux</code>. <code>tmux</code> is a much younger project with some vocal advocates online. After looking into the differences between them, I will likely switch to <code>tmux</code> for a while to become familiar with it, but may end up switching back to <code>screen</code> because I'm used to clients being more independent from each other.</p>
+
+<p>Both programs create one or more virtual terminals within a single terminal, let you switch back and forth between the virtual terminals, let you attach multiple physical terminals to the same virtual terminals, and let you reattach to your virtual terminals if your network connection is interrupted. Both <code>tmux</code> and <code>screen</code> work by creating two separate processes which they refer to by different names:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <th></th>
+      <th>tmux name</th>
+      <th>GNU screen name</th>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">The long-lived process that stores your virtual terminal state</td>
+      <td style="vertical-align: top;">server</td>
+      <td style="vertical-align: top;">detached session</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">UI process that attaches to, views, and controls the long-lived process</td>
+      <td style="vertical-align: top;">client</td>
+      <td style="vertical-align: top;">display</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The screen model is simpler. Each (backend) session has a list of virtual terminal "windows." When you attach to or resume one of these backend sessions, your (frontend) "display" can be split into several regions. Each region displays one of the windows. With the exception of starting, stopping, and resizing the virtual windows, one display does not affect another. You can create multiple sessions which are completely independent from each other. Each display attaches to one and only one of the sessions.</p>
+
+<p><img src="gnu-screen.png"></p>
+
+<p>In tmux, you normally only create one (backend) server for a given user on a given computer. Each server contains a list of "sessions." Each session has multiple "windows." Each window can then be split into one or more virtual terminal "panes." When you attach a (frotnend) "client", it is associated with one of the sessions, and all clients attached to that session share a current window and the session's width/height is set to the lower-bound width and lower-bound height of all currently attached clients. What are purely client-side operations in screen like switching to a different window or pulling up a pick list of windows are server-side operations in tmux which are displayed on all connected clients.</p>
+
+<p><img src="tmux.png"></p>
+
+<p>In reality, the tmux model is a little bit more complicated. Each session is attached to a "group" of windows.  Different sessions with the same group can have different lower bound widths and heights and a different "current window" being displayed. Each window in the gropu is actually a link into a global pool of windows for the server, so it's possible to include the same window in multiple groups, or move a window from one group to another.</p>
+
+<p><img src="tmux-full.png"></p>
+
+<p>Some of the common complaints about screen are about its codebase and the status line configuration syntax. Neither of those affects me; I turned off the tmux status line, and I don't picture needing to configure it more than once. Here are the differences I found that mattered to me:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <th>feature</th>
+      <th>tmux</th>
+      <th>screen</th>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Good choice of "prefix" command character</td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span> <kbd>Ctrl-B</kbd> (move cursor left)<kbd><br>
+        </kbd></td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span> <kbd>Ctrl-A</kbd> (move to start of line)<kbd><br>
+        </kbd></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Vertical/Horizontal split into panes</td>
+      <td style="vertical-align: top;"><kbd>[PREFIX]</kbd> <kbd>"</kbd> and <kbd>[PREFIX]</kbd> <kbd>%</kbd></td>
+      <td style="vertical-align: top;"><kbd>[PREFIX]</kbd> <kbd>S</kbd> and <kbd>[PREFIX]</kbd> <kbd>|</kbd></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Initial "Server" memory usage (RSS)</td>
+      <td style="vertical-align: top;">1632</td>
+      <td style="vertical-align: top;">1308</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Initial "Client" memory usage (RSS)</td>
+      <td style="vertical-align: top;">972</td>
+      <td style="vertical-align: top;">992</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Multiple sessions</td>
+      <td style="vertical-align: top;">1 server process</td>
+      <td style="vertical-align: top;">multiple server processes</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Multiple paste buffers</td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span></td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Search all scrollback buffers at once</td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span> <kbd>[PREFIX]</kbd> <kbd>f</kbd></td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span>
+        only can search one with <kbd>[PREFIX] [</kbd> or <kbd>[PREFIX] Esc</kbd> followed by <kbd>/</kbd> or <kbd>?</kbd></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Can be configured at runtime by executing command lines</td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span></td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Switch session</td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span> <code>tmux switch -t mysession</code></td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span> Detach with <kbd>[PREFIX] d</kbd> and then reattach with <code>screen -x [PID.TTY.HOSTNAME]</code></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Screens can be moved between sessions or shared between multiple
+        sessions</td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span></td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Virtual terminal can be larger than currently-attached physical terminal</td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span></td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">zmodem client</td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span></td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Multiple clients with a different current screen</td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span> this is possible with <code>tmux new-session -t [existing_session_name]</code> to clone the session and attach to the clone, followed by <code>tmux kill-session -t [name_of_clone_session]</code></td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span> <code>screen -x</code></td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Automatic window renaming</td>
+      <td style="vertical-align: top;"><span style="color: green;">✓</span> windows are named based on the program running in the currently focused pane</td>
+      <td style="vertical-align: top;"><span style="color: red;">✗</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Comparison was made using screen 4.01.00devel and tmux 1.8 on Ubuntu 14.04.</p>
+<!-- google_ad_section_end --></div><div class="links">» <ul class="links inline"><li class="first last comment_add"><a href="http://wtanaka.com/comment/reply/8136#comment-form" title="Share your thoughts and opinions related to this posting." class="comment_add">Add new comment</a></li>
+</ul></div></div>
+<div id="comments"></div><center class="bottomad"><div class="adsense adsense_managed">
+
+
+</div></center><a href="http://wtanaka.com/rss.xml" class="feed-icon"><img src="feed.png" alt="Syndicate content" title="Syndicate content" height="16" width="16"></a></div><div id="sidebar-left"><ul class="links primary-links"><li class="first menu-1-1-2"><a href="http://wtanaka.com/" class="menu-1-1-2">Home</a></li>
+<li class="menu-1-2-2"><a href="http://wtanaka.com/node" class="menu-1-2-2">Journal</a></li>
+<li class="menu-1-3-2"><a href="http://wtanaka.com/creative" class="menu-1-3-2">Creative</a></li>
+<li class="last menu-1-4-2"><a href="http://wtanaka.com/projects" class="menu-1-4-2">Projects</a></li>
+</ul></div><div id="footer">
+</div></div>
+
+
+<div class="goog_plus_authorship">by <a href="https://plus.google.com/115959152088190246057?rel=author">Wesley Tanaka</a></div>
+</body>
+</html>

@@ -1,0 +1,1476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+			<title>  A Complete Guide to Mastering Eshell | Mastering Emacs</title>
+	
+	<!-- Basic Meta Data -->
+	<meta name="Copyright" content="Design is copyright 2008 - 2014 The Theme Foundry">
+	<meta http-equiv="imagetoolbar" content="no">
+	
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<!--Stylesheets-->
+	
+	<!--[if lt IE 8]>
+	<link rel="stylesheet" type="text/css" media="screen" href="http://www.masteringemacs.org/wp-content/themes/titan/stylesheets/ie.css" />
+	<![endif]-->
+
+	<!--Scripts-->
+	<!--[if lte IE 7]>
+	<script type="text/javascript">
+	sfHover=function(){var sfEls=document.getElementById("nav").getElementsByTagName("LI");for(var i=0;i<sfEls.length;i++){sfEls[i].onmouseover=function(){this.className+=" sfhover";}
+	sfEls[i].onmouseout=function(){this.className=this.className.replace(new RegExp(" sfhover\\b"),"");}}}
+	if (window.attachEvent)window.attachEvent("onload",sfHover);
+	</script>
+	<![endif]-->
+
+	<!--WordPress-->
+	<link rel="alternate" type="application/rss+xml" title="Mastering Emacs RSS Feed" href="http://www.masteringemacs.org/feed/">
+	<link rel="pingback" href="http://www.masteringemacs.org/xmlrpc.php">
+
+	<!--WP Hook-->
+		<link rel="alternate" type="application/rss+xml" title="Mastering Emacs » Mastering Eshell Comments Feed" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/feed/">
+
+
+
+
+
+
+
+
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.masteringemacs.org/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Converting between tabs and whitespace" href="http://www.masteringemacs.org/articles/2010/12/02/converting-tabs-whitespace/">
+<link rel="next" title="Fixing the mark commands in transient mark mode" href="http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/">
+<link rel="canonical" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">
+<link rel="shortlink" href="http://www.masteringemacs.org/?p=170">
+
+
+<!-- HeadSpace SEO 3.6.41 by John Godley - urbangiraffe.com -->
+<meta name="description" content="There are several shells for Emacs, but none can match the versatility and integration with Emacs like Eshell.">
+<!-- HeadSpace -->
+<!-- Meta tags added by Robots Meta: http://yoast.com/wordpress/meta-robots-wordpress-plugin/ -->
+<meta name="robots" content="noarchive">
+<link rel="shortcut icon" href="favicon_001.ico" type="image/x-icon"><!-- Favi --><!--[if IE]>
+<style type="text/css">
+.addtoany_list a img{filter:alpha(opacity=70)}
+.addtoany_list a:hover img,.addtoany_list a.addtoany_share_save img{filter:alpha(opacity=100)}
+</style>
+<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body data-twttr-rendered="true" class="single single-post postid-170 single-format-standard"><iframe src="index_1.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;" name="twttrHubFrameSecure" tabindex="0" allowtransparency="true" id="twttrHubFrameSecure" frameborder="0" scrolling="no"></iframe><iframe src="index_2.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;" name="twttrHubFrame" tabindex="0" allowtransparency="true" id="twttrHubFrame" frameborder="0" scrolling="no"></iframe><div style="position: static;"><iframe src="index_3.html" allowtransparency="true" transparency="true" style="border: 0pt none; left: 0pt; top: 0pt; position: absolute; z-index: 100000; display: none;" id="a2apage_sm_ifr" frameborder="0" height="1" width="1"></iframe><div id="a2apage_dropdown" class="a2a_menu" style="display: none;"><div class="a2a_menu_inside"><div id="a2apage_title_container" class="a2a_menu_title_container" style="display: none;"><input value="" id="a2apage_title" class="a2a_menu_title"></div><div class="a2apage_wide a2a_wide"><div class="a2a_tabs a2a_tabs_default"><div id="a2apage_DEFAULT" class="a2a_tab_selected" style="margin-right: 1px;"><span class="a2a_i_a2a">分享</span></div></div><div class="a2a_tabs"><div title="通过电子邮件分享" id="a2apage_EMAIL" style="margin-right: 1px;"><span class="a2a_i_email_bw">电子邮件</span></div></div></div><div class="a2a_clear"></div><div id="a2apage_find_container" class="a2a_menu_find_container"><input value="" id="a2apage_find" class="a2a_menu_find" onclick="a2a.focus_find()" onkeyup="a2a.do_find()" autocomplete="off" onfocus="a2a['page'].find_focused=true;a2a.onMouseOver_stay()" title="快速查找您使用的服务" type="text"><span id="a2apage_find_icon" class="a2a_i_find" onclick="a2a.focus_find()"></span></div><div id="a2apage_cols_container" class="a2a_cols_container"><div class="a2a_col1" id="a2apage_col1"><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_qq"><span style="background-image: url('favicon_002.ico');">QQ</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_sina_weibo"><span style="background-image: url('miniblog_icon_str16.png');">Sina Weibo</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_facebook"><span class="a2a_i_facebook">Facebook</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_twitter"><span class="a2a_i_twitter">Twitter</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_google_plus"><span class="a2a_i_google_plus">Google+</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_pinterest"><span class="a2a_i_pinterest">Pinterest</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_linkedin"><span class="a2a_i_linkedin">LinkedIn</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_stumbleupon"><span class="a2a_i_stumbleupon">StumbleUpon</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_reddit"><span class="a2a_i_reddit">Reddit</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_google_bookmarks"><span class="a2a_i_google">Google Bookmarks</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_wordpress"><span class="a2a_i_wordpress">WordPress</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_tumblr"><span class="a2a_i_tumblr">Tumblr</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_delicious"><span class="a2a_i_delicious">Delicious</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_digg"><span class="a2a_i_digg">Digg</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_myspace"><span class="a2a_i_myspace">MySpace</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_yahoo_bookmarks"><span class="a2a_i_yahoo">Yahoo Bookmarks</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_bebo"><span class="a2a_i_bebo">Bebo</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_mister_wong"><span class="a2a_i_mister-wong">Mister-Wong</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_app_net"><span class="a2a_i_app_net">App.net</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_wanelo"><span class="a2a_i_wanelo">Wanelo</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_orkut"><span class="a2a_i_orkut">Orkut</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_xing"><span class="a2a_i_xing">XING</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_buffer"><span class="a2a_i_buffer">Buffer</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_evernote"><span class="a2a_i_evernote">Evernote</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_whatsapp"><span class="a2a_i_whatsapp">WhatsApp</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_mendeley"><span class="a2a_i_mendeley">Mendeley</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_pocket"><span class="a2a_i_pocket">Pocket</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_vk"><span class="a2a_i_vk">VK</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_pinboard"><span class="a2a_i_pinboard">Pinboard</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_springpad"><span class="a2a_i_springpad">Springpad</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_flipboard"><span class="a2a_i_flipboard">Flipboard</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_arto"><span class="a2a_i_arto">Arto</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_aim"><span class="a2a_i_aim">AIM</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_yahoo_messenger"><span class="a2a_i_yim">Yahoo Messenger</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_plurk"><span class="a2a_i_plurk">Plurk</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_diaspora"><span class="a2a_i_diaspora">Diaspora</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_blogger_post"><span class="a2a_i_blogger">Blogger Post</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_typepad_post"><span class="a2a_i_typepad">TypePad Post</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_box_net"><span class="a2a_i_box">Box.net</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_kindle_it"><span class="a2a_i_kindle">Kindle It</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_baidu"><span class="a2a_i_baidu">Baidu</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_netlog"><span class="a2a_i_netlog">Netlog</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_citeulike"><span class="a2a_i_citeulike">CiteULike</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_jumptags"><span class="a2a_i_jumptags">Jumptags</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_funp"><span class="a2a_i_funp">FunP</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_instapaper"><span class="a2a_i_instapaper">Instapaper</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_phonefavs"><span class="a2a_i_phonefavs">PhoneFavs</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_xerpi"><span class="a2a_i_xerpi">Xerpi</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_netvouz"><span class="a2a_i_netvouz">Netvouz</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_diigo"><span class="a2a_i_diigo">Diigo</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_bibsonomy"><span class="a2a_i_bibsonomy">BibSonomy</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_blogmarks"><span class="a2a_i_blogmarks">BlogMarks</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_startaid"><span class="a2a_i_startaid">StartAid</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_khabbr"><span class="a2a_i_khabbr">Khabbr</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_meneame"><span class="a2a_i_meneame">Meneame</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_yoolink"><span class="a2a_i_yoolink">Yoolink</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_bookmarks_fr"><span class="a2a_i_bookmarks_fr">Bookmarks.fr</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_technotizie"><span class="a2a_i_technotizie">Technotizie</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_newsvine"><span class="a2a_i_newsvine">NewsVine</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_friendfeed"><span class="a2a_i_friendfeed">FriendFeed</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_protopage_bookmarks"><span class="a2a_i_protopage">Protopage Bookmarks</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_blinklist"><span class="a2a_i_blinklist">Blinklist</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_yigg"><span class="a2a_i_yigg">YiGG</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_webnews"><span class="a2a_i_webnews">Webnews</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_segnalo"><span class="a2a_i_segnalo">Segnalo</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_pusha"><span class="a2a_i_pusha">Pusha</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_youmob"><span class="a2a_i_youmob">YouMob</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_slashdot"><span class="a2a_i_slashdot">Slashdot</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_fark"><span class="a2a_i_fark">Fark</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_allvoices"><span class="a2a_i_allvoices">Allvoices</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_jamespot"><span class="a2a_i_jamespot">Jamespot</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_twiddla"><span class="a2a_i_twiddla">Twiddla</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_linkagogo"><span class="a2a_i_linkagogo">LinkaGoGo</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_nowpublic"><span class="a2a_i_nowpublic">NowPublic</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_livejournal"><span class="a2a_i_livejournal">LiveJournal</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_linkatopia"><span class="a2a_i_linkatopia">Linkatopia</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_buddymarks"><span class="a2a_i_buddymarks">BuddyMarks</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_viadeo"><span class="a2a_i_viadeo">Viadeo</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_wists"><span class="a2a_i_wists">Wists</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_sitejot"><span class="a2a_i_sitejot">SiteJot</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_dzone"><span class="a2a_i_dzone">DZone</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_care2_news"><span class="a2a_i_care2">Care2 News</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_bitty_browser"><span class="a2a_i_bitty">Bitty Browser</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_odnoklassniki"><span class="a2a_i_odnoklassniki">Odnoklassniki</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_mail_ru"><span class="a2a_i_mail_ru">Mail.Ru</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_symbaloo_feeds"><span class="a2a_i_symbaloo">Symbaloo Feeds</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_folkd"><span class="a2a_i_folkd">Folkd</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_newstrust"><span class="a2a_i_newstrust">NewsTrust</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_amazon_wish_list"><span class="a2a_i_amazon">Amazon Wish List</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_printfriendly"><span class="a2a_i_printfriendly">PrintFriendly</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_tuenti"><span class="a2a_i_tuenti">Tuenti</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_email"><span class="a2a_i_email">Email</span></a><a style="display: none;" target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_rediff"><span class="a2a_i_rediff">Rediff MyPage</span></a></div><div id="a2apage_2_col1" style="display: none;"><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_google_gmail"><span class="a2a_i_gmail">Google Gmail</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_yahoo_mail"><span class="a2a_i_yahoo">Yahoo Mail</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_outlook_com"><span class="a2a_i_outlook_com">Outlook.com</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i" rel="nofollow" id="a2apage_aol_mail"><span class="a2a_i_aol">AOL Mail</span></a><a target="_top" href="http://www.masteringemacs.org/" class="a2a_i a2a_emailer" rel="nofollow" id="a2apage_any_email"><span class="a2a_i_email">Any email</span></a><a target="" href="http://www.masteringemacs.org/" class="a2a_i a2a_emailer a2a_email_client" rel="nofollow" id="a2apage_email_client"><span class="a2a_i_outlook">&nbsp;</span><span class="a2a_i_windows_mail">&nbsp;</span><span class="a2a_i_apple_mail">&nbsp;</span><span class="a2a_i_thunderbird">&nbsp;</span></a></div><div class="a2a_clear"></div></div><div class="a2apage_wide a2a_wide"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/" id="a2apage_show_more_less" class="a2a_menu_show_more_less" title="显示全部/展开"><span class="a2a_i_darr"></span></a></div><div class="a2a_menu_powered_by" id="a2apage_powered_by">By <a href="http://www.addtoany.com/" target="_top" title="Share Buttons">AddToAny</a></div></div></div></div>
+	<div class="skip-content"><a href="#content">Skip to content</a></div>
+	<div id="header" class="clear">
+		<div id="follow">
+			<div class="wrapper clear">
+				<dl>
+					<dt>Follow:</dt>
+					<dd><a class="rss" href="http://www.masteringemacs.org/feed/">RSS</a></dd>
+										 <dd><a class="email" href="#">Email</a></dd>
+															 <dd><a class="twitter" href="http://www.twitter.com/mickeynp">Twitter</a></dd>
+									</dl>
+			</div><!--end wrapper-->
+		</div><!--end follow-->
+		<div class="wrapper">
+			<div id="title"><a href="http://www.masteringemacs.org/"><img src="emacs22.png" alt="Emacs 22 Logo">Mastering Emacs</a></div>			<div id="description">
+				a blog about mastering the world's best text editor			</div><!--end description-->
+			<div id="navigation">
+				<ul id="nav">
+					<li class="page_item "><a href="http://www.masteringemacs.org/">Home</a></li>
+											<li class="page_item page-item-2"><a href="http://www.masteringemacs.org/about/">About</a></li>
+<li class="page_item page-item-277"><a href="http://www.masteringemacs.org/effective-editing-series/">Effective Editing</a></li>
+<li class="page_item page-item-496"><a href="http://www.masteringemacs.org/reading-guide/">Reading Guide</a></li>
+																	<li class="cat-item cat-item-5"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/articles/" title="View all posts filed under All Articles">All Articles</a>
+</li>
+	<li class="cat-item cat-item-3"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/beginner/" title="View all posts filed under For Beginners">For Beginners</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/tutorial/" title="View all posts filed under Tutorials">Tutorials</a>
+</li>
+									</ul>
+			</div><!--end navigation-->
+		</div><!--end wrapper-->
+	</div><!--end header-->
+<div class="content-background">
+	<div class="wrapper">
+		<div class="notice"></div>
+		<div id="content">				<div id="post-170" class="post-170 post type-post status-publish format-standard hentry category-articles category-tutorial tag-elisp tag-eshell tag-guide tag-productivity tag-repl tag-shell tag-tramp">
+                
+			<div class="post-header">
+                          
+				<div class="tags"><span>Tags</span> <p><a href="http://www.masteringemacs.org/articles/tag/elisp/" rel="nofollow tag">elisp</a>, <a href="http://www.masteringemacs.org/articles/tag/eshell/" rel="nofollow tag">eshell</a>, <a href="http://www.masteringemacs.org/articles/tag/guide/" rel="nofollow tag">guide</a>, <a href="http://www.masteringemacs.org/articles/tag/productivity/" rel="nofollow tag">productivity</a>, <a href="http://www.masteringemacs.org/articles/tag/repl/" rel="nofollow tag">repl</a>, <a href="http://www.masteringemacs.org/articles/tag/shell/" rel="nofollow tag">shell</a>, <a href="http://www.masteringemacs.org/articles/tag/tramp/" rel="nofollow tag">tramp</a></p></div>
+				<h1>Mastering Eshell</h1>
+				<div class="author">by mickey on December 13th, 2010</div>
+                                <div class="breadcrumbs"> <!-- Breadcrumb NavXT 4.4.0 -->
+<a title="Go to Mastering Emacs." href="http://www.masteringemacs.org/" class="home">Mastering Emacs</a> &gt; <a title="Go to the All Articles category archives." href="http://www.masteringemacs.org/articles/category/articles/" class="category">All Articles</a> &gt; Mastering Eshell </div>
+			</div><!--end post header-->
+			<div class="entry clear">
+								<p>There are several shells for Emacs, but none can match the versatility and integration with Emacs like Eshell. Eshell is a shell written entirely in Emacs-Lisp, and it replicates most of the features and commands from GNU CoreUtils and the Bourne-like shells. So by re-writing common commands like <code>ls</code> and <code>cp</code> in Emacs-Lisp, Eshell will function identically on any environment Emacs itself runs on.</p>
+<p>Unfortunately, there is a problem: Eshell is woefully underdocumented — a rare sight in GNU Emacs — so I’ve compiled this guide to help people make full use of what Eshell has to offer.<br>
+<span id="more-170"></span></p>
+<h2>Overview</h2>
+<p>Unlike the other shells in Emacs, Eshell does not inherit from <em>comint-mode</em>, the default mode for interacting with inferior processes in Emacs. But because Eshell is not an inferior process, it does not have to use comint; but while that may seem like a good thing, it does mean that hooks and routines written for <em>comint-mode</em> won’t work with Eshell.</p>
+<p>However, almost all the Emacs commands common to <em>comint-mode</em> are reimplemented natively in Eshell — and most share the same keybinds — but there are a few new advances that haven’t been ported over to Eshell, like the spiffy <code>comint-history-isearch-backward-regexp</code> in Emacs 23.2, bound to <code>M-r</code>.</p>
+<p>Eshell works well on any platform Emacs itself runs on, as Eshell interacts with a common middleware (namely the Emacs-Lisp/C source library) and that middleware will in turn communicate with your OS on how to go about copying files and what have you. That middleware support enables Eshell to take advantage of <a href="http://www.gnu.org/software/tramp/">TRAMP</a> as well.</p>
+<p>Given Emacs’ UNIX origin, Eshell emulates traditional UNIX shells like <em>bash</em> and the GNU toolchain. This is good news if you are using Windows and cannot be bothered fidgeting with cygwin, or if you require a completely portable Emacs with few or no external dependencies.</p>
+<p>And actually, the Windows support in Eshell is a lot better, in many ways, than cygwin’s bash. You do not have the <code>/cygdrive/c</code> crud to contend with, as Eshell natively supports Windows/MS-DOS drive paths (so <code>cd D:</code> and <code>D:</code> both work equally well.)</p>
+<p>Despite all the advantages offered by Eshell, there are some points I want to make that seem to confuse some people:</p>
+<ol>
+<li>Eshell is <em>not</em> a terminal emulator. It does not talk to a shell, for it <em>is</em> the shell. Everything it does — from displaying stuff on the screen, to fetching the contents of a directory — it does through Emacs, and Emacs in turn talks to your operating system.</li>
+<li>Because of the way Eshell talks to other processes (asynchronous ones especially) there may be issues with the way it buffers text and how interrupts work.</li>
+<li>Eshell does not support interactive (or “visual” in Eshell parlance) programs, like <em>top</em>, directly; you must tell Eshell to launch them in a separate <code>ansi-term</code> instance instead.</li>
+<li>It is not <em>bash</em> or <em>zsh</em> or even <em>csh</em>; do not treat it as such, even though it is heavily inspired by them. To use Eshell effectively you should treat it as if you are using a completely alien shell.</li>
+</ol>
+<h2>Commands</h2>
+<p>Eshell is capable of invoking almost any elisp function loaded in Emacs. That sort of flexibility is unmatched; there are no shells out there capable of approximating what Eshell can do. In fact, this functionality is heavily used (and encouraged!) by Eshell. If you want to open the file <code>foobar.txt</code> in Emacs you simply invoke <code>find-file foobar.txt</code> and Eshell will map that to the elisp call <code>(find-file "foobar.txt")</code> and open the file for you.</p>
+<h3>Technical Details</h3>
+<p>All commands evaluated by Eshell have an <em>evaluation order</em>, which is an ordered list your command must pass through to determine what part of Eshell handles it. If there is nothing on the list that wants to evaluate your command, you will be told your command is invalid.</p>
+<p>Assuming you want to execute the command <code>cp</code>, the evaluation order is:</p>
+<ol>
+<li>A full filepath (e.g. <code>/bin/cp</code>) runs <code>cp</code> in <code>/bin</code></li>
+<li>Look for the command prefix, <code>eshell-explicit-command-char</code> (default is <code>*</code>), and if it is found then look for the command in the search path.</li>
+<li>Look for a shell-defined alias (<code>alias</code> command)</li>
+<li>Look for <code>cp</code> in the search path, <code>$PATH</code> (or <code>eshell-path-env</code>)</li>
+<li>Look for a Lisp function named <code>cp</code> or the elisp function <code>eshell/cp</code></li>
+</ol>
+<p>The variable <code>eshell-prefer-lisp-functions</code> makes internal elisp calls take priority over external calls. What that means is when it’s set to <code>t</code> Eshell will look for an elisp function <em>first</em>, instead of <em>last</em>. If the command prefix is specified, though, this directive is ignored.</p>
+<h3>Built-In Commands</h3>
+<p>Eshell has a handful of commands written in Emacs-Lisp that closely emulate a large subset of what the real GNU Coreutils (or your favorite shell) has. Those commands are called "Alias functions."</p>
+<p>EShell only implements a subset of the functionality provided by the real commands, but if you pass an unknown argument to Eshell it will defer to the <em>real</em> commandline tool (if it is installed) automatically.</p>
+<p>Here’s what Eshell currently re-implements in elisp:</p>
+<p><code>cat</code>, <code>cp</code>, <code>ls</code>, <code>cd</code>, <code>export</code>, <code>dirs</code>, <code>du</code>, <code>echo</code>, <code>env</code>, <code>kill</code>, <code>ln</code>, <code>mkdir</code>, <code>mv</code>, <code>alias</code>, <code>popd</code>, <code>pushd</code>, <code>pwd</code>, <code>rm</code>, <code>rmdir</code>, <code>time</code>, <code>umask</code>.</p>
+<p>There is a big emphasis on adhering to the original GNU functionality, so the fact they are emulated is unlikely to cause you any trouble.</p>
+<h3>Command Interception</h3>
+<p>Eshell has a cool mechanism where certain commands are <em>intercepted</em> and passed on to Emacs proper. This enables you to invoke a command like <code>man ls</code> and have Emacs’s built-in <code>man</code> formatter handle it instead. This functionality is especially important for interactive commands (as they will not work properly in Eshell) as Eshell would not be able to call them otherwise.</p>
+<p>But where the feature really shines is with complex commands like <code>grep</code>, or <code>diff</code> as Emacs comes with awesome grep and diff tools built in. This feature alone shows the power of Eshell.</p>
+<p>The following commands are redirected to Emacs proper:</p>
+<p><code>agrep</code>, <code>diff</code>, <code>egrep</code>, <code>fgrep</code>, <code>glimpse</code>, <code>grep</code>, <code>info</code>, <code>jobs</code>, <code>locate</code>, <code>man</code>, <code>occur</code>, <code>su</code>, <code>sudo</code>, <code>whoami</code>.</p>
+<p>The commands <code>su</code>, <code>sudo</code> and <code>whoami</code> are TRAMP aware commands (in Emacs 23.2), so if you are connected to a remote shell they work as expected.</p>
+<h3>Subshells</h3>
+<p>You can use <code>$()</code> to in-line elisp calls and use their output as arguments, in much the same way as you would in bash. The only caveat here is you cannot use the backquote (backtick) to spawn a subshell, but that syntax was never universally supported anyway. It’s also possible (though I would not recommend it, for there are cases where it does not work) to use a standard elisp form like this: <code>(form ...)</code> — so the same as the subshell syntax I explained before, but without the <code>$</code>.</p>
+<h3>Useful Elisp Commands</h3>
+<p>Eshell comes with a selection of helper functions that make your day-to-day life just <em></em>. That, combined with the power to invoke almost any elisp function, means you have incredible flexibility and control over your shell. Some of the commands I’ve listed in the table below were written for Eshell specifically, and the rest are elisp commands I find useful.</p>
+<p>I’ve compiled a table of elisp functions (some are made for Eshell; others are not.)</p>
+<table>
+<tbody><tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>listify ARGS</code></td>
+<td>Parses an argument string into elisp list notation and prints it to the screen. It’s clever enough to handle both MS-DOS/Windows and POSIX-style argument syntax.</td>
+</tr>
+<tr>
+<td><code>addpath PATH</code></td>
+<td>Adds the argument, which must be a path, to the <code>$PATH</code> environment variable. If no argument is specified the existing paths are pretty-printed to the screen.</td>
+</tr>
+<tr>
+<td><code>unset ENV-VAR</code></td>
+<td>Unsets an existing environment variable</td>
+</tr>
+<tr>
+<td><code>find-file FILE</code></td>
+<td>Finds the file FILE and opens it in Emacs. This function is TRAMP aware and will therefore work remotely.</td>
+</tr>
+<tr>
+<td><code>dired DIRECTORY</code></td>
+<td>Opens a dired buffer in DIRECTORY.</td>
+</tr>
+<tr>
+<td><code>calc-eval EXPR</code></td>
+<td>Runs EXPR through the Emacs calculator.</td>
+</tr>
+<tr>
+<td><code>upcase STR</code>/<code>downcase STR</code></td>
+<td>Converts STR to upper- or lowercase.</td>
+</tr>
+<tr>
+<td><code>vc-dir DIRECTORY</code></td>
+<td>Reports the status of a version controlled directory (equivalent to the <code>status</code> command in most VCS)</td>
+</tr>
+<tr>
+<td><code>ediff-files FILE1 FILE2</code></td>
+<td>Diffs FILE1 and FILE2 using ediff, Emacs’ diff engine.</td>
+</tr>
+</tbody></table>
+<p>If you’re an Eshell user and you use elisp commands not listed in the table above, post a comment and let tell me what it is.</p>
+<h3>Aliasing</h3>
+<p>Aliasing in Eshell works in much the same way as it does in other mainstream shells, except you can freely mix elisp and Eshell commands. The command <code>alias</code> takes an <code>alias-name</code> and a <code>definition</code>. The <code>definition</code> must be surrounded by <em>single quotes</em>. You can use the usual argument references known from other shells: <code>$1</code> for the first argument, <code>$2</code> for the second, …, or <code>$*</code> to use all arguments, or omit them entirely as Eshell will magically append them on to the end of a command if they weren’t referenced in the definition.</p>
+<p>To delete an alias, simply leave out the <code>definition</code> argument and it will be removed automagically. To list all the aliases, leave out both arguments.</p>
+<p>Eshell will write the alias definitions to <code>eshell-aliases-file</code>, which in turn is governed by the <code>Eshell-directory-name</code> and that put together means your alias file will be put in <code>~/.Eshell/alias</code> by default. This is done every time you alter an alias.</p>
+<p>Another useful thing to know is the <em>auto-correcting aliasing</em>. If you type an invalid command too many times (governed by <code>eshell-bad-command-tolerance</code>, which is 3 by default) Eshell will offer to alias it to its intended command for you. If you don’t like that, you can bump up the aforementioned variable to a large number.</p>
+<h4>Useful Examples</h4>
+<p>Let’s map the cumbersome command <code>find-file</code> to the more manageable <code>ff</code>:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a28a2302450606" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">alias ff 'find-file $1'</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a28a2302450606-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a28a2302450606-1"><span class="crayon-r">alias</span><span class="crayon-h"> </span><span class="crayon-i">ff</span><span class="crayon-h"> </span><span class="crayon-s">'find-file $1'</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0075 seconds] -->
+<p></p>
+<p>And let’s map <code>dired</code> to <code>d</code>:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a28bf679660417" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">alias d 'dired $1'</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a28bf679660417-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a28bf679660417-1"><span class="crayon-r">alias</span><span class="crayon-h"> </span><span class="crayon-i">d</span><span class="crayon-h"> </span><span class="crayon-s">'dired $1'</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0066 seconds] -->
+<p></p>
+<h3>Visual Commands</h3>
+<p>Some commands are too complex to be displayed by Eshell directly, and require special handling. An example would be <code>top</code>, a program that won’t work with a dumb terminal. To support these commands Eshell will run a <code>term</code> session when you invoke a command Eshell considers visual.</p>
+<p>To modify the list of visual commands, you can alter <code>eshell-visual-commands</code>.</p>
+<h2>Command History</h2>
+<p>Eshell comes with a feature-rich command history facility. Because Eshell does not use <code>comint-mode</code> it does not have <em>all</em> the history features available to it, but most of them are reimplemented.</p>
+<table>
+<tbody><tr>
+<th>Keybind</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>M-r / M-s</code></td>
+<td>Search backwards or forwards for a command by regexp</td>
+</tr>
+<tr>
+<td><code>M-p / M-n</code></td>
+<td>Goes backwards or forwards in the command history list</td>
+</tr>
+<tr>
+<td><code>C-p / C-n</code></td>
+<td>Jump to the previous or next command position in Eshell</td>
+</tr>
+<tr>
+<td><code>C-c M-r / C-c M-s</code></td>
+<td>Jumps to the previous or next command that shares the command currently used as input. So it jumps to other instances of the command <code>foo</code> if that is the current input.</td>
+</tr>
+</tbody></table>
+<p>Unfortunately, the new-and-improved <code>comint-history-isearch-backward-regexp</code> (bound to <code>M-r</code> in comint) doesn’t work in Eshell because it not inherit from <code>comint</code> (and therefore misses out on upgrades.).</p>
+<h3>History Interaction</h3>
+<p>Like bash and other shells, Eshell has support for history modification and interaction. It’s probably easier to refer you to the bash info manual for detailed information on how the history interaction works. I’ve included a small table below that describes most of the history syntax Eshell supports.</p>
+<table>
+<tbody><tr>
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>!!</code></td>
+<td>Repeats the last command</td>
+</tr>
+<tr>
+<td><code>!ls</code></td>
+<td>Repeats the last command <strong>beginning</strong> with <code>ls</code></td>
+</tr>
+<tr>
+<td><code>!?ls</code></td>
+<td>Repeats the last command <strong>containing</strong> <code>ls</code></td>
+</tr>
+<tr>
+<td><code>!ls:n</code></td>
+<td>Extract the <em>nth</em> argument from the last command <strong>beginning</strong> with <code>ls</code></td>
+</tr>
+<tr>
+<td><code>!ls<tab></tab></code></td>
+<td>Using <em>pcomplete</em>, show completion results matches <code>ls</code></td>
+</tr>
+<tr>
+<td><code>^old^new</code></td>
+<td>Quick substitution. Using the last command, replace<code>old</code> with <code>new</code> and run it again. Appears to be buggy.</td>
+</tr>
+<tr>
+<td><code>$_</code></td>
+<td>Returns the last parameter in the last executed command.</td>
+</tr>
+</tbody></table>
+<p>Eshell also has some support for bash history modifiers (like <code>!!:s/old/new/</code>) and <a href="http://www.gnu.org/software/bash/manual/bash.html#History-Interaction">the bash reference on history interaction</a> would be a good place to brush up on that.</p>
+<h2>Commandline Interaction</h2>
+<h3>The Eshell Prompt</h3>
+<p>You can customize the Eshell prompt by modifying <code>eshell-prompt-function</code>, a variable that takes a function that defines what the prompt should contain. By relegating prompt configuration to elisp you can do just about anything you like with it. The only problem is, of course, that Eshell will need to be told <em>what</em> the prompt “looks” like, so you must also edit the variable <code>eshell-prompt-regexp</code> so Eshell knows what the prompt is.</p>
+<h3>The Commandline</h3>
+<p>Eshell supports <code></code> to escape newlines and supports rudimentary multi-line input that way. Another way of doing multi-line <em>literal strings</em> is with single quotes: begin a single quote and hit enter, and you are free to enter text until the closing quote delimiter is encountered. If you use double quotes Eshell will expand subshell commands and do variable expansion.</p>
+<p>Due to the way Eshell works, you can even go back and modify the text you entered, in quotes. This is very handy as you can go back and change stuff you don’t like, and get it right the first time.</p>
+<h3>Useful Keybindings</h3>
+<p>Eshell comes equipped with a couple of quality-of-life improvements that make interacting with Emacs and Eshell a lot easier.</p>
+<table>
+<tbody><tr>
+<th>Keybind</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>C-c M-b</code></td>
+<td>Inserts the printed buffer name at point</td>
+</tr>
+<tr>
+<td><code>C-c M-i</code></td>
+<td>Inserts the printed process name at point</td>
+</tr>
+<tr>
+<td><code>C-c M-v</code></td>
+<td>Inserts an environment variable name at point</td>
+</tr>
+<tr>
+<td><code>C-c M-d</code></td>
+<td>Toggles between direct input and delayed input (send on RET).<p></p>
+<p>    Useful for some programs that don’t work correctly with buffered input.</p></td>
+</tr>
+</tbody></table>
+<h2>Argument Predicates</h2>
+<p>Argument predicates are a cool way of quickly filtering lists of files or even elisp lists. The predicate syntax is based on the one used in zsh, so if you are familiar with argument predication in zsh, you can apply most of your knowledge to Eshells’ version.</p>
+<p>Unlike most other areas of Eshell, argument predicates are documented in Eshell itself. You can access the help files by typing <code>eshell-display-predicate-help</code> or <code>eshell-display-modifier-help</code>.</p>
+<p>Filtering globbed lists of files is very useful, as it saves you the hassle of using tools like <code>find</code> or abusing <code>ls</code> to do your thing.</p>
+<p>The help file is fairly spartan and only serves as a simple reference, so I’ve included a small guide here; but actually, the only real way to learn something as flexible as argument predication is simply by trial and error.</p>
+<h3>Syntax Reference</h3>
+<p>I’ve opted not to reprint the sizeable list of predicates and modifiers, as the Eshell manual (see the commands above) do a good enough job of explaining how they work. </p>
+<h3>Globbing</h3>
+<p>Globbing in Eshell follow the same rules as it does in most other common shells: it is the shell that does the expansion of globs and <em>it</em> passes the expanded list of matches on to commands like <code>ls</code>. That’s why when you use <code>find</code> and <code>xargs</code> together it’s critical that you pass <code>-print0</code> to <code>find</code>, and <code>-0</code> to <code>xargs</code>. If you don’t, filenames with obscure characters or spaces in them may trip up xargs; by using the NUL character as a separator ensures tokenization takes place correctly as the NUL character is an invalid character (along with <code>/</code>) in files.</p>
+<h3>Elisp Lists</h3>
+<p>Eshell’s “lists” are actually elisp lists in their printed form as well as internally. That makes life a lot simpler if you think about it, as Eshell can paw off list handling to elisp, which is something Lisp does well.</p>
+<p>Simplest glob example is <code>echo *</code>, which echos a list of all the wildcard matches in the current directory. Because — as I just mentioned above — wildcard expansion takes place <em>inline</em>, I can immediately apply a modifier to the <code>*</code> wildcard above.</p>
+<p>Let’s uppercase the globbed result set:</p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a28db202266203" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">/ $ echo *(:U)
+("BAR" "BIN/" "DEV/" "ETC/" "FOO" "HOME/" "LIB/" "TMP/" "USR/" "VAR/")</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a28db202266203-1">1</div><div class="crayon-num" data-line="crayon-53117905a28db202266203-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a28db202266203-1"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-i">U</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-53117905a28db202266203-2"><span class="crayon-sy">(</span><span class="crayon-s">"BAR"</span><span class="crayon-h"> </span><span class="crayon-s">"BIN/"</span><span class="crayon-h"> </span><span class="crayon-s">"DEV/"</span><span class="crayon-h"> </span><span class="crayon-s">"ETC/"</span><span class="crayon-h"> </span><span class="crayon-s">"FOO"</span><span class="crayon-h"> </span><span class="crayon-s">"HOME/"</span><span class="crayon-h"> </span><span class="crayon-s">"LIB/"</span><span class="crayon-h"> </span><span class="crayon-s">"TMP/"</span><span class="crayon-h"> </span><span class="crayon-s">"USR/"</span><span class="crayon-h"> </span><span class="crayon-s">"VAR/"</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0072 seconds] -->
+<p></p>
+<p>Notice how I used <code>()</code> immediately following the glob pattern. The brackets are what makes argument modifiers or predicates possible. Modifiers are things that <em>modify</em> (big surprise!) the resulting list. Modifier commands always begin with <code>:</code>, and predicates do not.</p>
+<p>Another example, but this time I filter directories using a predicate:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a28ec762551217" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">/ $ echo *(^/)
+("bar" "foo")</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a28ec762551217-1">1</div><div class="crayon-num" data-line="crayon-53117905a28ec762551217-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a28ec762551217-1"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-sy">(</span><span class="crayon-o">^</span><span class="crayon-o">/</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-53117905a28ec762551217-2"><span class="crayon-sy">(</span><span class="crayon-s">"bar"</span><span class="crayon-h"> </span><span class="crayon-s">"foo"</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p></p>
+<p>The circumflex, <code>^</code>, in this case, like in regular expressions, is negation. The <code>/</code> means “directories” only.</p>
+<p>But I don’t have to use globs to apply modifiers or predicates to lists:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a28fc719247980" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">/ $ echo ("foo" "bar" "baz" "foo")(:gs/foo/blarg/)
+("blarg" "bar" "baz" "blarg")</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a28fc719247980-1">1</div><div class="crayon-num" data-line="crayon-53117905a28fc719247980-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a28fc719247980-1"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-s">"foo"</span><span class="crayon-h"> </span><span class="crayon-s">"bar"</span><span class="crayon-h"> </span><span class="crayon-s">"baz"</span><span class="crayon-h"> </span><span class="crayon-s">"foo"</span><span class="crayon-sy">)</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-i">gs</span><span class="crayon-o">/</span><span class="crayon-i">foo</span><span class="crayon-o">/</span><span class="crayon-i">blarg</span><span class="crayon-o">/</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-53117905a28fc719247980-2"><span class="crayon-sy">(</span><span class="crayon-s">"blarg"</span><span class="crayon-h"> </span><span class="crayon-s">"bar"</span><span class="crayon-h"> </span><span class="crayon-s">"baz"</span><span class="crayon-h"> </span><span class="crayon-s">"blarg"</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0062 seconds] -->
+<p></p>
+<p>This time I replaced all occurrences of <em>foo</em> with <em>blarg</em>. Observe that the syntax is identical, except instead of using globs to get a list of files, I used a list of my own choosing.</p>
+<p>The advantages provided by argument predicates and modifiers will greatly reduce commandline clutter as the predicates cover permissions, ownership, file attributes, and much more.</p>
+<h3>Adding New Modifiers and Predicates</h3>
+<p>You can even add your own predicates (<code>eshell-predicate-alist</code>) or modifiers (<code>eshell-modifier-alist</code>):</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a290c840778195" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Lisp</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">(add-to-list 'eshell-modifier-alist '(?X . '(lambda (lst) (mapcar 'rot13 lst))))</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a290c840778195-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a290c840778195-1"><span class="crayon-o">(</span><span class="crayon-k">add-to-list</span><span class="crayon-h"> </span>'<span class="crayon-i">eshell-modifier-alist</span><span class="crayon-h"> </span>'<span class="crayon-o">(</span><span class="crayon-sy">?</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-h"> </span>'<span class="crayon-o">(</span><span class="crayon-r">lambda</span><span class="crayon-h"> </span><span class="crayon-o">(</span><span class="crayon-k">lst</span><span class="crayon-o">)</span><span class="crayon-h"> </span><span class="crayon-o">(</span><span class="crayon-r">mapcar</span><span class="crayon-h"> </span>'<span class="crayon-i">rot</span>13<span class="crayon-h"> </span><span class="crayon-i">lst</span><span class="crayon-o">)</span><span class="crayon-o">)</span><span class="crayon-o">)</span><span class="crayon-o">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.1280 seconds] -->
+<p></p>
+<p>Here I’ve bound <code>X</code> to <code>rot13</code>, the substitution cipher:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a291a046484093" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">/ $ echo ("foo" "bar" "baz")(:X)
+("sbb" "one" "onm")</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a291a046484093-1">1</div><div class="crayon-num" data-line="crayon-53117905a291a046484093-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a291a046484093-1"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-s">"foo"</span><span class="crayon-h"> </span><span class="crayon-s">"bar"</span><span class="crayon-h"> </span><span class="crayon-s">"baz"</span><span class="crayon-sy">)</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-53117905a291a046484093-2"><span class="crayon-sy">(</span><span class="crayon-s">"sbb"</span><span class="crayon-h"> </span><span class="crayon-s">"one"</span><span class="crayon-h"> </span><span class="crayon-s">"onm"</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0026 seconds] -->
+<p></p>
+<h2>Plan 9 Smart Shell</h2>
+<p>Eshell comes with a pared-down facsimile of Plan 9′s terminal, called <em>the Eshell smart display</em>. The smart display is meant to improve the write-run-revise cycle all commandline hackers go through. It works by not letting the point follow the output of a command you execute, like a normal terminal would. Instead, the point is kept on the line of the command you executed, letting you revise it easily without having to use <code>M-p</code> and <code>M-n</code> or the history modification commands.</p>
+<p>If smart display is enabled it will also let you review the output of long-running commands by using <code>SPC</code> to move down a page and <code>BACKSPACE</code> to move up a page. If any other key is pressed it will jump the end of the buffer, essentially acting in the same way as if smart display wasn’t enabled.</p>
+<p>Essentially, if Eshell detects that you want to <em>review</em> the last executed command, it will help you do so; if, on the other hand, you do not then Eshell will jump to the end of the buffer instead. It’s pretty clever about it, and there are switches you can toggle to fine-tune the behavior.</p>
+<p>Where the smart display really shines is that it lets you modify the command you just executed by using the movement keys — like you normally would — to change the command, say to fix a typo or tweak an argument.</p>
+<p>The smart display can also be set not to use this extended “edit mode” if the command returns successfully, and without displaying output, like <code>chown</code> for instance. This is how I prefer it.</p>
+<p>To enable it put this in your .emacs file:</p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a292c926025391" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Lisp</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">  (require 'eshell)
+  (require 'em-smart)
+  (setq eshell-where-to-jump 'begin)
+  (setq eshell-review-quick-commands nil)
+  (setq eshell-smart-space-goes-to-end t)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a292c926025391-1">1</div><div class="crayon-num" data-line="crayon-53117905a292c926025391-2">2</div><div class="crayon-num" data-line="crayon-53117905a292c926025391-3">3</div><div class="crayon-num" data-line="crayon-53117905a292c926025391-4">4</div><div class="crayon-num" data-line="crayon-53117905a292c926025391-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a292c926025391-1"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">(</span><span class="crayon-k">require</span><span class="crayon-h"> </span>'<span class="crayon-i">eshell</span><span class="crayon-o">)</span></div><div class="crayon-line" id="crayon-53117905a292c926025391-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">(</span><span class="crayon-k">require</span><span class="crayon-h"> </span>'<span class="crayon-i">em-smart</span><span class="crayon-o">)</span></div><div class="crayon-line" id="crayon-53117905a292c926025391-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">(</span><span class="crayon-r">setq</span><span class="crayon-h"> </span><span class="crayon-i">eshell-where-to-jump</span><span class="crayon-h"> </span>'<span class="crayon-i">begin</span><span class="crayon-o">)</span></div><div class="crayon-line" id="crayon-53117905a292c926025391-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">(</span><span class="crayon-r">setq</span><span class="crayon-h"> </span><span class="crayon-i">eshell-review-quick-commands</span><span class="crayon-h"> </span><span class="crayon-t">nil</span><span class="crayon-o">)</span></div><div class="crayon-line" id="crayon-53117905a292c926025391-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">(</span><span class="crayon-r">setq</span><span class="crayon-h"> </span><span class="crayon-i">eshell-smart-space-goes-to-end</span><span class="crayon-h"> </span><span class="crayon-i">t</span><span class="crayon-o">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0235 seconds] -->
+<p></p>
+<p>If Eshell has already initialized (that is, you’ve already launched an instance of Eshell in Emacs) then evaluating the changes above will not work. You must switch to the Eshell buffer and type <code>M-: (shell-smart-initialize)</code> (or restart Emacs.)</p>
+<p>The smart display is a pretty useful feature and it won’t get in your way once you’re used to it. Simply typing in new commands will make Eshell jump to the end of buffer as if the point was already there.</p>
+<h2>Redirection</h2>
+<p>Redirection in Eshell works in much the same way as it does in other shells. The key difference is that Eshell has to emulate the pseudo-devices as they may not be present (or may not be present in the same form) on platforms such as Windows where <code>/dev/null</code> is actually <code>NUL</code>.</p>
+<p>Another caveat is that Eshell does not support <em>input</em> redirection, though it does support output redirection. To skirt around the lack of input redirection you should use pipes instead.</p>
+<p>Redirection to stdout, stdin and stderr work as you would expect, and you can send things to multiple targets as well, which is very nice.</p>
+<h3>To Emacs</h3>
+<p>Because Eshell has to reimplement pseudo-devices internally it is not at the mercy of dealing with just UNIX device files — it is actually capable of implementing its own pseudo-devices.</p>
+<p>A good example would be redirection to a buffer of your choosing, and that can be done with the following syntax:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a293d090061882" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">/ $ cat mylog.log &gt;&gt; #&lt;buffer *scratch*&gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a293d090061882-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a293d090061882-1"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">cat</span><span class="crayon-h"> </span><span class="crayon-v">mylog</span><span class="crayon-e">.log</span><span class="crayon-h"> </span><span class="crayon-o">&gt;&gt;</span><span class="crayon-h"> </span><span class="crayon-p">#&lt;buffer *scratch*&gt;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0048 seconds] -->
+<p></p>
+<p>The keybind I mentioned before <code>C-c M-b</code> will insert the printed name of a buffer.</p>
+<p>You can also output straight to an elisp symbol (but be careful you don’t fry the wrong settings):</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905a294d449681837" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div style="display: none;" class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">/ $ echo foo bar baz &gt; #'myvar
+/ $ echo $(cadr myvar)
+bar</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905a294d449681837-1">1</div><div class="crayon-num" data-line="crayon-53117905a294d449681837-2">2</div><div class="crayon-num" data-line="crayon-53117905a294d449681837-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905a294d449681837-1"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-e">foo </span><span class="crayon-e">bar </span><span class="crayon-i">baz</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-p">#'myvar</span></div><div class="crayon-line" id="crayon-53117905a294d449681837-2"><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">(</span><span class="crayon-e">cadr </span><span class="crayon-i">myvar</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-53117905a294d449681837-3"><span class="crayon-i">bar</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0737 seconds] -->
+<p></p>
+<p>If you set <code>eshell-buffer-shorthand</code> to <code>t</code> you can use the shorthand <code>#'*scratch*</code> instead, but it means you will not be able to redirect straight to elisp symbols.</p>
+<h3>To Pseudo-Devices</h3>
+<p>Eshell reimplements the following pseudo-devices:</p>
+<table>
+<tbody><tr>
+<th>Device</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>/dev/eshell</code></td>
+<td>Prints the output interactively to Eshell.</td>
+</tr>
+<tr>
+<td><code>/dev/null</code></td>
+<td>Sends the output to the NULL device.</td>
+</tr>
+<tr>
+<td><code>/dev/clip</code></td>
+<td>Sends the output to the clipboard.</td>
+</tr>
+<tr>
+<td><code>/dev/kill</code></td>
+<td>Sends the output to the kill ring.</td>
+</tr>
+</tbody></table>
+<p>The usual redirection rules like overwrite (<code>&gt;</code>) and append (<code>&gt;&gt;</code>) apply here.</p>
+<h3>To custom virtual targets</h3>
+<p>You can design your own virtual targets by modifying <code>eshell-virtual-targets</code>, an alist that takes the name of the pseudo-device you want to create, and a function that takes one parameter, <code>mode</code>, that determines if it’s <code>overwrite</code>, <code>append</code> or <code>insert</code>.</p>
+<h2>TRAMP</h2>
+<p>Eshell now supports TRAMP natively, which means commands like <code>su</code>, <code>sudo</code> and <code>whoami</code> now query the remote system if the directory Eshell is in is <em>remote</em>.</p>
+<p>To use the TRAMP functionality simply enter the same TRAMP command string you’d use in <code>C-x C-f</code> and off it goes. The TRAMP support in Eshell can be a bit flakey, but it <em>does</em> give you a remote shell courtesy of TRAMP. You don’t have to limit your TRAMP use to <em>remote</em> shells, as TRAMP is also capable of using <code>sudo</code> and <code>su</code> for local use.</p>
+<p>I’ll cover TRAMP in greater detail in a separate article, but the <a href="http://www.gnu.org/software/tramp/">official manual</a> is a good place to start.</p>
+<h2>Startup Scripts</h2>
+<p>Like most shells, Eshell supports both login and profile/rc shell scripts. The full filepaths for both are stored in the variables <code>eshell-login-script</code> and <code>eshell-rc-script</code>, but by default the files <code>login</code> and <code>profile</code> are stored in <code>~/.eshell/</code>.</p>
+<p>It bears mention that the comment syntax is <code>#</code>.</p>
+<h2>More Customization…</h2>
+<p>Eshell has hundreds of options you can tweak to your liking. To configure Eshell, type <code>M-x customize-group RET eshell RET</code>.</p>
+<h2>Conclusion</h2>
+<p>Phew. I think I’ve covered all major areas of Eshell, and I hope it paints it in a good light. Eshell is remarkably versatile thanks to its tight integration with Emacs. It’s not a full-on replacement for bash and your favorite terminal emulator, but it’ll do most of the commandline stuff we all inevitably end up doing. If you use a lot of interactive programs then Eshell is probably not very useful, as it has to spawn a separate term instance for every visual program you run.</p>
+<p>Eshell has TRAMP support, custom pseudo-devices, a pocket-sized elisp REPL and lots of useful utility commands like being able to <code>find-file</code> or <code>dired</code> any directory or file you’re in, and that makes it a trusty tool in my toolbox.</p><div class="addtoany_share_save_container"><div class="a2a_kit a2a_target addtoany_list" id="wpa2a_1"><a class="a2a_button_google_plusone addtoany_special_service" data-href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/"><div id="___plusone_0" style="text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="index_4.html" name="I1_1393677102486" id="I1_1393677102486" vspace="0" tabindex="0" style="position: static; top: 0pt; width: 90px; margin: 0px; border-style: none; left: 0pt; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div></a><a class="a2a_button_twitter_tweet addtoany_special_service" data-count="horizontal" data-url="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/" data-text="Mastering Eshell"><iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="index_5.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe></a><a class="a2a_dd addtoany_share_save" href="http://www.addtoany.com/share_save#url=http%3A%2F%2Fwww.masteringemacs.org%2Farticles%2F2010%2F12%2F13%2Fcomplete-guide-mastering-eshell%2F&amp;title=Mastering%20Eshell&amp;description=There%20are%20several%20shells%20for%20Emacs%2C%20but%20none%20can%20match%20the%20versatility%20and%20integration%20with%20Emacs%20like%20Eshell." style="background: url('favicon.png') no-repeat scroll 9px 0px transparent ! important; padding: 0pt 0pt 0pt 30px; display: inline-block; height: 16px; line-height: 16px; vertical-align: middle;"><span class="a2a_img a2a_i_a2a a2a_img_text"></span>Share</a></div>
+
+</div>											</div><!--end entry-->
+			<div class="meta clear">
+				<p>From → <a href="http://www.masteringemacs.org/articles/category/articles/" title="View all posts in All Articles" rel="category tag">All Articles</a>, <a href="http://www.masteringemacs.org/articles/category/tutorial/" title="View all posts in Tutorials" rel="category tag">Tutorials</a></p>
+			</div><!--end meta-->
+		</div><!--end post-->
+			<!-- You can start editing here. -->
+<div id="comments">
+	<div class="comment-number">
+		<span>59 Comments</span>
+					<a id="leavecomment" href="#respond" title="Leave One"> →</a>
+			</div><!--end comment-number-->
+	<ol class="commentlist">
+			<li class="comment even thread-even depth-1" id="comment-109">
+		<div class="c-grav"><img alt="" src="c9debb2d34d84d03f4e0ac0658bdb158" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				llahwehttam <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-109">permalink</a></span>
+			</div>
+						<p>I really appreciate this blog.  You’ve made me more productive already <img src="icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+<p>Regarding globbing, I’ve noticed that globbing is unsorted by default, which has been a bit of a hassle for me.  </p>
+<p><code>echo test_?_???.xml</code></p>
+<p>vs</p>
+<p><code>echo (sort (eshell-extended-glob "test_?_???.xml") 'string&lt;)</code></p>
+<p>Of course, the eshell ‘ls’ command does sort the output, which in some way masks the issue.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=109#respond" onclick='return addComment.moveForm("comment-109", "109", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="comment-110">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-110">permalink</a></span>
+			</div>
+						<p>That’s peculiar. I can’t seem to reproduce that on my machine.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905de1a7363366117" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; z-index: 4;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">$ echo test_?_??.xml
+("test_1_10.xml" "test_1_11.xml" "test_1_12.xml" "test_2_12.xml" "test_3_12.xml")</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905de1a7363366117-1">1</div><div class="crayon-num" data-line="crayon-53117905de1a7363366117-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905de1a7363366117-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-i">test_</span><span class="crayon-sy">?</span><span class="crayon-i">_</span><span class="crayon-sy">?</span><span class="crayon-sy">?</span><span class="crayon-e">.xml</span></div><div class="crayon-line" id="crayon-53117905de1a7363366117-2"><span class="crayon-sy">(</span><span class="crayon-s">"test_1_10.xml"</span><span class="crayon-h"> </span><span class="crayon-s">"test_1_11.xml"</span><span class="crayon-h"> </span><span class="crayon-s">"test_1_12.xml"</span><span class="crayon-h"> </span><span class="crayon-s">"test_2_12.xml"</span><span class="crayon-h"> </span><span class="crayon-s">"test_3_12.xml"</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0090 seconds] -->
+<p></p>
+<p>Of course, if it is a problem, you can use the argument modifier <code>(:o)</code> to sort a list.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=110#respond" onclick='return addComment.moveForm("comment-110", "110", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-3" id="comment-114">
+		<div class="c-grav"><img alt="" src="c9debb2d34d84d03f4e0ac0658bdb158" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				llahwehttam <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-114">permalink</a></span>
+			</div>
+						<p>My use case is in a directory with a great deal of history, so there’s no telling the order of the directory entries.  Nonetheless, <code>echo test_?_???.xml(:o)</code> works quite well.</p>
+<p>Thanks!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=114#respond" onclick='return addComment.moveForm("comment-114", "114", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-111">
+		<div class="c-grav"><img alt="" src="c9a82c17d27c7aa011b00ae22df51458" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://www.io.com/%7Ejimm/" rel="external nofollow" class="url">Jim Menard</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-111">permalink</a></span>
+			</div>
+						<p>It took me a while to figure out for loops in eshell. Here are a few examples:</p><!-- Crayon Syntax Highlighter v2.3.0 -->
+
+		<div id="crayon-53117905ddf1c927367356" class="crayon-syntax crayon-theme-classic crayon-font-consolas crayon-os-pc print-yes" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 12px ! important; line-height: 15px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important; margin-top: -19px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px ! important; height: 18px ! important; line-height: 18px ! important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px ! important; line-height: 16.8px ! important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly="readonly" style="-moz-tab-size: 4; font-size: 12px ! important; line-height: 15px ! important; z-index: 0; opacity: 0; overflow: hidden;">&lt;code&gt;
+  for f in web1 web2 { scp info.php $f:/var/www/html/oscmax/catalog }
+  for f in {ls -1d *} {echo $f; svn up $f}
+  for f in {find . -name '*.java'} {mv $f (replace-regexp-in-string "\\.java$" ".scala" f)}
+  # Those parens may also be curly braces. Paren for lisp, curly for subshell.
+  # See how $f is used in curly brace but f is used in parens
+  for f in db1 db2 {mysqldump -d -uuser -ppwd (concat "prefix_" f "_suffix") &gt;(concat "/tmp/backup_" f ".sql")}
+&lt;/code&gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table style="" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-1">1</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-2">2</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-3">3</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-4">4</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-5">5</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-6">6</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-7">7</div><div class="crayon-num" data-line="crayon-53117905ddf1c927367356-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px ! important; line-height: 15px ! important;"><div class="crayon-line" id="crayon-53117905ddf1c927367356-1"><span class="crayon-o">&lt;</span><span class="crayon-e">code</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">f</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">web1</span><span class="crayon-h"> </span><span class="crayon-e">web2</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-e">scp </span><span class="crayon-v">info</span><span class="crayon-sy">.</span><span class="crayon-i">php</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-i">f</span><span class="crayon-o">:</span><span class="crayon-o">/</span><span class="crayon-t">var</span><span class="crayon-o">/</span><span class="crayon-i">www</span><span class="crayon-o">/</span><span class="crayon-i">html</span><span class="crayon-o">/</span><span class="crayon-i">oscmax</span><span class="crayon-o">/</span><span class="crayon-i">catalog</span><span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">f</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-i">ls</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1d</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-i">echo</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-i">f</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-e">svn </span><span class="crayon-i">up</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-i">f</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">f</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-v">find</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-h"> </span><span class="crayon-s">'*.java'</span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-i">mv</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-e">f</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">replace</span><span class="crayon-o">-</span><span class="crayon-i">regexp</span><span class="crayon-o">-</span><span class="crayon-st">in</span><span class="crayon-o">-</span><span class="crayon-t">string</span><span class="crayon-h"> </span><span class="crayon-s">"\\.java$"</span><span class="crayon-h"> </span><span class="crayon-s">".scala"</span><span class="crayon-h"> </span><span class="crayon-i">f</span><span class="crayon-sy">)</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-p"># Those parens may also be curly braces. Paren for lisp, curly for subshell.</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-p"># See how $f is used in curly brace but f is used in parens</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-7"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">f</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">db1</span><span class="crayon-h"> </span><span class="crayon-e">db2</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-i">mysqldump</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">d</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">uuser</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-e">ppwd</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">concat</span><span class="crayon-h"> </span><span class="crayon-s">"prefix_"</span><span class="crayon-h"> </span><span class="crayon-i">f</span><span class="crayon-h"> </span><span class="crayon-s">"_suffix"</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-sy">(</span><span class="crayon-i">concat</span><span class="crayon-h"> </span><span class="crayon-s">"/tmp/backup_"</span><span class="crayon-h"> </span><span class="crayon-i">f</span><span class="crayon-h"> </span><span class="crayon-s">".sql"</span><span class="crayon-sy">)</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-53117905ddf1c927367356-8"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">code</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0478 seconds] -->
+<p></p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=111#respond" onclick='return addComment.moveForm("comment-111", "111", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-2" id="comment-857">
+		<div class="c-grav"><img alt="" src="caa8733f82bb31d5ed20451f11110fd6" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Z <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-857">permalink</a></span>
+			</div>
+						<p>Thanks for this. I use a lot of for loops in my daily bash hacking but am moving more and more towards an emacs centric perspective for everything I do!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=857#respond" onclick='return addComment.moveForm("comment-857", "857", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+	<li class="comment odd alt thread-even depth-1" id="comment-112">
+		<div class="c-grav"><img alt="" src="7e44a2a4b5dc35fe1415552e02ee9def" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://www.newartisans.com/" rel="external nofollow" class="url">John Wiegley</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-112">permalink</a></span>
+			</div>
+						<p>Great article!  Just wanted to point out a few things:</p>
+<p>1. If you enable the optional “rebind” module, then all the interactive keybinding you’re familiar with in Bash will be available at the Eshell prompt: C-r, C-s, C-w, C-u, etc.  The behavior of C-r here is perhaps similar to the new comint functionality you mentioned.</p>
+<p>2. eshell/X is always preferred to a native binary X.</p>
+<p>3. You didn’t mention &gt;&gt;&gt; redirection, which inserts at point.  &gt;&gt; inserts at the end of the buffer.</p>
+<p>4. All I/O in Eshell must passt through a buffer.  This is why devices can’t be read/written directly.  It also means that bulk I/O in Eshell is orders of magnitude slower than a regular shell.  It should really only be used for interactive use.</p>
+<p>5. Putting &amp; at the end of a command backgrounds it, if the command executed is external.  But there is no job control.</p>
+<p>6. Full Zsh globbing syntax is supported, like **/*.c.</p>
+<p>John (Eshell author)</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=112#respond" onclick='return addComment.moveForm("comment-112", "112", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor even depth-2" id="comment-121">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-121">permalink</a></span>
+			</div>
+						<p>John,</p>
+<p>Seems akismet ate your comment – sorry. Thanks for your feedback (and for making Eshell a possibility), I’ll update the article to reflect your changes. Thanks!</p>
+<p>-Mickey.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=121#respond" onclick='return addComment.moveForm("comment-121", "121", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt depth-2" id="comment-157">
+		<div class="c-grav"><img alt="" src="97491d01925fa492d5ff71ef9962b0f6" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Ingolf Jandt <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-157">permalink</a></span>
+			</div>
+						<p>&gt; “6. Full Zsh globbing syntax is supported, like **/*.c.”</p>
+<p>Unfortunately eshell hands over the globbing string if nothing matches. This can be worked around by adding a predicate, i.e. “**/*.c(.)”, but IMHO this is a design flaw. Opinions?</p>
+<p>(zsh reports an error if nothing matches, I am not sure this is the right thing to do either, but it prevents obscure errors.)</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=157#respond" onclick='return addComment.moveForm("comment-157", "157", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment even depth-2" id="comment-18723">
+		<div class="c-grav"><img alt="" src="f68c62bb9a7d4a53c6534b84bf0eaacf" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				k <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-18723">permalink</a></span>
+			</div>
+						<p>all IO going through buffers: is it really necessary? I tend to do a lot of sort+awk in my daily interactive shell usage – that’s pretty much all I do outside of emacs <img src="icon_wink.gif" alt=";)" class="wp-smiley">  I like the concept of eshell, but because of the slowness I never manage to use it for real work.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=18723#respond" onclick='return addComment.moveForm("comment-18723", "18723", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-3" id="comment-19173">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-19173">permalink</a></span>
+			</div>
+						<p>You should check out my article on sorting in Emacs; you might be surprised to learn that Emacs has excellent and regexp-aware sorting mechanisms.</p>
+<p>As for IO through buffers: that’s pretty much how Emacs does the bulk of its communications. As it goes, Emacs has thousands of commands for operating on buffers but few that operate on internal data structures, like strings, as it would unnecessarily duplicate the functionality already available to a near-infinite-length buffer.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=19173#respond" onclick='return addComment.moveForm("comment-19173", "19173", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="comment even thread-odd thread-alt depth-1" id="comment-115">
+		<div class="c-grav"><img alt="" src="663baf85feee9a1c4cc16767c03e4b45" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://www.dave-cohen.com/" rel="external nofollow" class="url">Dave Cohen</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-115">permalink</a></span>
+			</div>
+						<p>Nice post!  Nice blog!</p>
+<p>I find in eshell, when I run a command and redirect output to a file, both stdout and stderr are redirected.  I would expect only stdout to be redirected, and stderr to be shown in the shell.  But I can’t find any way to make it work that way.</p>
+<p>So for example,</p>
+<p>path/to/my/script &gt; /path/to/my/file</p>
+<p>will write *both* stdout and stderr to file.  There’s no way to see stderr in the shell!</p>
+<p>Thanks for the highly detailed original post.  I’m curious if you or anyone know how to solve this stderr problem.</p>
+<p>-Dave</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=115#respond" onclick='return addComment.moveForm("comment-115", "115", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="comment-122">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-122">permalink</a></span>
+			</div>
+						<p>You could try doing it with <code>1&gt;</code> and <code>2&gt;</code>. They should redirect stdout and stderr specifically.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=122#respond" onclick='return addComment.moveForm("comment-122", "122", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-3" id="comment-131">
+		<div class="c-grav"><img alt="" src="663baf85feee9a1c4cc16767c03e4b45" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Dave Cohen <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-131">permalink</a></span>
+			</div>
+						<p>No luck.  Seems to treat 1&gt; exactly the same as &gt;.  2&gt; seems to have no effect.</p>
+<p>I’m using a build of emacs 24.0.50.1 on arch linux.  It’s a dev build, might have a bug not present in other versions.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=131#respond" onclick='return addComment.moveForm("comment-131", "131", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment odd alt depth-4" id="comment-310">
+		<div class="c-grav"><img alt="" src="39534615a85aba909ef858f6972499bf" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Lukas <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-310">permalink</a></span>
+			</div>
+						<p>I have the same issue with Emacs 23.1.2 on Fedora.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=310#respond" onclick='return addComment.moveForm("comment-310", "310", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="comment even thread-even depth-1" id="comment-116">
+		<div class="c-grav"><img alt="" src="617e90b81bfac5bad55202a239b53cc8" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://ghalib.me/" rel="external nofollow" class="url">Ghalib Suleiman</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-116">permalink</a></span>
+			</div>
+						<p>One irritating thing about eshell, hitting C-a at the prompt does not take you to the beginning of your input, but instead goes all the way to the beginning of the shell prompt text. Useless!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=116#respond" onclick='return addComment.moveForm("comment-116", "116", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment odd alt depth-2" id="comment-117">
+		<div class="c-grav"><img alt="" src="617e90b81bfac5bad55202a239b53cc8" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://ghalib.me/" rel="external nofollow" class="url">Ghalib Suleiman</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-117">permalink</a></span>
+			</div>
+						<p>Ok I just found out that the behaviour I want is the function eshell-bol, bound to C-c C-a. by default.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=117#respond" onclick='return addComment.moveForm("comment-117", "117", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor even depth-3" id="comment-120">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-120">permalink</a></span>
+			</div>
+						<p>It is also bound to <code>C-a</code> in Emacs 23.2 (at least)</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=120#respond" onclick='return addComment.moveForm("comment-120", "120", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-118">
+		<div class="c-grav"><img alt="" src="8b945295f00d175718cf04a8cdc5dd56" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Phil <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-118">permalink</a></span>
+			</div>
+						<p>Thanks mickey, that was excellent. Perhaps GNU should adopt it for the official documentation <img src="icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=118#respond" onclick='return addComment.moveForm("comment-118", "118", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-2" id="comment-1439">
+		<div class="c-grav"><img alt="" src="e33b88db6bc04e1c93db25c702baea28" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://emacswiki.org/alex/Emacs" rel="external nofollow" class="url">Alex Schroeder</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-1439">permalink</a></span>
+			</div>
+						<p>I hope this ends up in the GNU Emacs manual!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=1439#respond" onclick='return addComment.moveForm("comment-1439", "1439", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+	<li class="comment odd alt thread-even depth-1" id="comment-123">
+		<div class="c-grav"><img alt="" src="4748f4b52a2a0fe03843414eef3eb8b7" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Leo <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-123">permalink</a></span>
+			</div>
+						<p>Thanks to mickey for sharing so many tips on using ESHELL. I have discovered many new things here. Thanks.</p>
+<p>I have one bug that is really annoying but I personally don’t know how to fix.</p>
+<p>It can be reproduced following these simple steps:</p>
+<p>1. Emacs -q<br>
+2. M-x eshell<br>
+3. cd /usr/include<br>
+4. ack time</p>
+<p>After about 5 seconds, I see colours completely mixed up like this <a href="http://i.imgur.com/Dg3VH.png" rel="nofollow">http://i.imgur.com/Dg3VH.png</a> even the ESHELL prompt is in that disgusting colour.</p>
+<p>Anyone has any idea how to fix that?</p>
+<p>I have tried at least twice to fix it myself but unfortunately due to the asynchronous nature of the process filter I alway gave up in the end. The closest workaround I have found is:</p>
+<p>(defadvice eshell-handle-ansi-color (around test activate)<br>
+  “Handle ANSI color codes.”<br>
+  (ansi-color-apply-on-region (1- eshell-last-output-start)<br>
+                              (1- eshell-last-output-end)))</p>
+<p>Leo</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=123#respond" onclick='return addComment.moveForm("comment-123", "123", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor even depth-2" id="comment-124">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-124">permalink</a></span>
+			</div>
+						<p>Hmm. That stuff is always fiddly to deal with. I think the easiest is to make an elisp eshell command called <code>eshell/ack</code> and have it intercept the command and display the output in its own buffer. Look at how <code>eshell/grep</code> and <code>eshell-grep</code> is implemented.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=124#respond" onclick='return addComment.moveForm("comment-124", "124", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment odd alt depth-3" id="comment-125">
+		<div class="c-grav"><img alt="" src="4748f4b52a2a0fe03843414eef3eb8b7" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Leo <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-125">permalink</a></span>
+			</div>
+						<p>Thanks for your prompt reply. Sorry it seems ‘ack’ caught your attention. I only used it to demonstrate the problem.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=125#respond" onclick='return addComment.moveForm("comment-125", "125", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="comment even thread-odd thread-alt depth-1" id="comment-126">
+		<div class="c-grav"><img alt="" src="9e9811051ba67fb24f80d0beb607b179" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				ST <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-126">permalink</a></span>
+			</div>
+						<p>One thing I found lacking in eshell was the <code>find</code> utility. But found it in the <code>find-lisp</code> library — <code>find-lisp-find-files</code> and <code>find-lisp-find-dired</code> (which could be aliased to <code>find</code> if desired). Unfortunate about the missing input redirection, but otherwise eshell is complete for my purposes!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=126#respond" onclick='return addComment.moveForm("comment-126", "126", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment odd alt depth-2" id="comment-127">
+		<div class="c-grav"><img alt="" src="9e9811051ba67fb24f80d0beb607b179" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				ST <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-127">permalink</a></span>
+			</div>
+						<p>(*Very* nice post by the way)</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=127#respond" onclick='return addComment.moveForm("comment-127", "127", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+	<li class="comment even thread-even depth-1" id="comment-130">
+		<div class="c-grav"><img alt="" src="6c0fbb0d8cca6d14781c2342cfacec46" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				brad clawsie <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-130">permalink</a></span>
+			</div>
+						<p>great article! it is frustrating to find good eshell docs.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=130#respond" onclick='return addComment.moveForm("comment-130", "130", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-135">
+		<div class="c-grav"><img alt="" src="15282987576143d31c70480ff4f539fe" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				danlei <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-135">permalink</a></span>
+			</div>
+						<p>What an excellent article — Thanks a million!</p>
+<p>Although I’ve been using Eshell on a regular basis, it’d never have occured to me that all those nifty zsh predicates/modifiers are working in eshell. The redirection features seem pretty nice too.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=135#respond" onclick='return addComment.moveForm("comment-135", "135", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment even thread-even depth-1" id="comment-141">
+		<div class="c-grav"><img alt="" src="2fe72e045e4f7198cc236fd721449294" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Eugene <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-141">permalink</a></span>
+			</div>
+						<p>I am willing to user eshell instead of shell but I would like to know better how to customize my eshell-prompt especially to remain with ~ instead of the full path. Thanks.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=141#respond" onclick='return addComment.moveForm("comment-141", "141", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-147">
+		<div class="c-grav"><img alt="" src="af97b6f39f27bb7b403874c29beb158c" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				<a href="http://metasandwich.com/" rel="external nofollow" class="url">Selah</a> <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-147">permalink</a></span>
+			</div>
+						<p>Very nice article.</p>
+<p>One thing that’s continually kept me from adopting eshell is that I work almost exclusively over Tramp, and every time I pass eshell a non-built-in command, it takes a few seconds to open the connection before I get my result.</p>
+<p>With M-x shell, the connection is opened once at the beginning of the session, and all subsequent commands execute immediately. Does anyone have any experience with this or know of any workarounds?</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=147#respond" onclick='return addComment.moveForm("comment-147", "147", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment even thread-even depth-1" id="comment-298">
+		<div class="c-grav"><img alt="" src="39534615a85aba909ef858f6972499bf" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Lukas <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-298">permalink</a></span>
+			</div>
+						<p>I never knew eshell could do all these cool things, thanks!</p>
+<p>One question though: In Bash, I use Alt+. all the time to cycle through the last argument of previous commands.  Is there anything like it for eshell?</p>
+<p>I read that the $_ variable gives me the last argument of the previous command but that’s only a small subset of  what Alt+. in Bash does.</p>
+<p>Lukas</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=298#respond" onclick='return addComment.moveForm("comment-298", "298", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-468">
+		<div class="c-grav"><img alt="" src="ab1c0a3172eecaa6ad0a44b6c84bc723" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Mathias Dahl <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-468">permalink</a></span>
+			</div>
+						<p>There is also a great deal of information about Eshell over at EmacsWiki: <a href="http://www.emacswiki.org/emacs/CategoryEshell" rel="nofollow">http://www.emacswiki.org/emacs/CategoryEshell</a></p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=468#respond" onclick='return addComment.moveForm("comment-468", "468", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment even thread-even depth-1" id="comment-859">
+		<div class="c-grav"><img alt="" src="caa8733f82bb31d5ed20451f11110fd6" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Z <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-859">permalink</a></span>
+			</div>
+						<p>This is maybe more of an Elisp question than an Eshell question, but having the full path in the eshell prompt is driving me nuts. There are some decent examples of changing your eshell prompt, but how do I chop off all of the directories which are parents of the CWD? Instead of /home/me/Sandbox/repo1/proj5/src/foo $ as my prompt I just want foo $</p>
+<p>Thanks</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=859#respond" onclick='return addComment.moveForm("comment-859", "859", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-860">
+		<div class="c-grav"><img alt="" src="caa8733f82bb31d5ed20451f11110fd6" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Z <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-860">permalink</a></span>
+			</div>
+						<p>One more thought then I’ll stop spamming your blog with comments:<br>
+I find the KDE file browser option to include a terminal in a pane below the current directory really nice, as I navigate with the gui file manager the terminal automagically cd’s to the CWD. Anybody know of any packages, or have thoughts on the difficulty of emulating this behaviour between an eshell buffer and a dired buffer? (This option is available in Konqueror as of at least KDE 3.5.x and also dolphin in KDE 4.x. An extension can be added to the gnome file browser, nautilus to also enable this functionality.)</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=860#respond" onclick='return addComment.moveForm("comment-860", "860", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment even thread-even depth-1" id="comment-987">
+		<div class="c-grav"><img alt="" src="22a5cc617809fed3c309300a28e8adc4" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mk <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-987">permalink</a></span>
+			</div>
+						<p>Just a little detail (a possible typo). In the part about how one can output to a symbol, I think it should be “echo $(cadr myvar)” instead of “echo $(cadr foo)”. </p>
+<p>Thanks a bunch for this great article!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=987#respond" onclick='return addComment.moveForm("comment-987", "987", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="comment-988">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-988">permalink</a></span>
+			</div>
+						<p>Good catch. Thanks!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=988#respond" onclick='return addComment.moveForm("comment-988", "988", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+	<li class="comment even thread-odd thread-alt depth-1" id="comment-3309">
+		<div class="c-grav"><img alt="" src="b48def645758b95537d4424c84d1a9ff" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Anonymous <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-3309">permalink</a></span>
+			</div>
+						<p>Just to point out a small typo.</p>
+<p>When you said:<br>
+“You must switch to the Eshell buffer and type M-: (shell-smart-initialize)”</p>
+<p>you probably meant “M-: (eshell-smart-initialize)” right?</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=3309#respond" onclick='return addComment.moveForm("comment-3309", "3309", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="comment-3320">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-3320">permalink</a></span>
+			</div>
+						<p>Great catch. Thanks!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=3320#respond" onclick='return addComment.moveForm("comment-3320", "3320", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+	<li class="comment even thread-even depth-1" id="comment-4408">
+		<div class="c-grav"><img alt="" src="37c8f6ba837be84dab4aeaf4098df05c" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				SomeOne <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-4408">permalink</a></span>
+			</div>
+						<p>Superb article — brilliant introduction to Eshell. </p>
+<p>I have replace most of my Cygwin usage, was facing exactly the same problems as you mentioned.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=4408#respond" onclick='return addComment.moveForm("comment-4408", "4408", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-5920">
+		<div class="c-grav"><img alt="" src="02b26047665178fc2da0d2e2ce35475b" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				jj <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-5920">permalink</a></span>
+			</div>
+						<p>alias cp ‘cp -i $*’ doesn’t work for me.  When I define this alias I get “cp: missing destination file or directory”.  I’m using emacs 23.3.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=5920#respond" onclick='return addComment.moveForm("comment-5920", "5920", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-2" id="comment-5921">
+		<div class="c-grav"><img alt="" src="02b26047665178fc2da0d2e2ce35475b" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				jj <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-5921">permalink</a></span>
+			</div>
+						<p>Oh, and thanks for the nice tutorial. <img src="icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=5921#respond" onclick='return addComment.moveForm("comment-5921", "5921", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+	<li class="comment odd alt thread-even depth-1" id="comment-8651">
+		<div class="c-grav"><img alt="" src="474d1a08bd58e60077c9bb31bad15c5c" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				LongList <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-8651">permalink</a></span>
+			</div>
+						<p>Does eshell have anything similar to dired’s </p>
+<p>(setq ls-lisp-verbosity nil)</p>
+<p>to remove the uid and gid columns from<br>
+“ls -l” long-form directory listings?</p>
+<p>(Emacs 24.0.92.1)</p>
+<p>And yes, thanks for a terrific guide!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=8651#respond" onclick='return addComment.moveForm("comment-8651", "8651", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment even thread-odd thread-alt depth-1" id="comment-22912">
+		<div class="c-grav"><img alt="" src="69bc538c4644581689883e654f15bce0" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Tassilo Horn <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22912">permalink</a></span>
+			</div>
+						<p>Nice post.  I’m just giving eshell a try, and so far I like it.  Especially since I don’t need to omit “visual” commands like top, which used to keep me away from emacs internal shells.  (I don’t like M-x term.  I can’t cope with its bindings…</p>
+<p>Now there’re just a few things left to make me really enjoy eshell for all my cmd line needs:</p>
+<p>1. How can I teach it to show things like “git log” or “bzr log” also in a term?</p>
+<p>2. How can I configure this command interception?</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=22912#respond" onclick='return addComment.moveForm("comment-22912", "22912", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="comment-22913">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22913">permalink</a></span>
+			</div>
+						<p>Hi Tassilo,</p>
+<p>1. You can tweak the list variable <code>eshell-visual-commands</code></p>
+<p>2. As for configuring it, you can try the customize group <code>M-x customize-group RET eshell-term RET</code></p>
+<p>Thanks.</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=22913#respond" onclick='return addComment.moveForm("comment-22913", "22913", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-3" id="comment-22914">
+		<div class="c-grav"><img alt="" src="69bc538c4644581689883e654f15bce0" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Tassilo Horn <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22914">permalink</a></span>
+			</div>
+						<p>1. The problem is that eshell-visual-commands have to be plain commands whereas “git log” is a command with one argument (subcommand).  Adding “git log” to the list has no effect.</p>
+<p>2. No, I’ve meant how to configure the *interception* feature.  M-x apropos-variable doesn’t find any variable, M-x apropos finds the function eshell-intercept-command, but that doesn’t really help me.  How can I add other commands to be intercepted and their output being shown in emacs itself?</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=22914#respond" onclick='return addComment.moveForm("comment-22914", "22914", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment byuser comment-author-admin bypostauthor odd alt depth-4" id="comment-22916">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22916">permalink</a></span>
+			</div>
+						<p>Not sure if it’s easily possible then as it’s not something I’ve ever had to do in eshell. You could probably ghetto some code but I think this might be easier:</p>
+<p><a href="http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/" rel="nofollow">http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/</a></p>
+<p>My article on pcomplete (which is what eshell uses also) shows how to intercept arguments to, coincidentally, <code>git</code>. You should be able to use that to spawn a term session with a bit of elisp hackery <img src="icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=22916#respond" onclick='return addComment.moveForm("comment-22916", "22916", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+<ul class="children">
+	<li class="comment even depth-5" id="comment-22917">
+		<div class="c-grav"><img alt="" src="69bc538c4644581689883e654f15bce0" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Tassilo Horn <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22917">permalink</a></span>
+			</div>
+						<p>Ok, thanks!</p>
+						<div class="reply">
+							</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment odd alt depth-5" id="comment-22939">
+		<div class="c-grav"><img alt="" src="69bc538c4644581689883e654f15bce0" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Tassilo Horn <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22939">permalink</a></span>
+			</div>
+						<p>Hi Mickey,</p>
+<p>I’ve added that feature to eshell.  See <a href="http://bzr.savannah.gnu.org/lh/emacs/trunk/revision/112822" rel="nofollow">http://bzr.savannah.gnu.org/lh/emacs/trunk/revision/112822</a></p>
+<p>Bye,<br>
+Tassilo</p>
+						<div class="reply">
+							</div>
+					</div><!--end c-body-->
+</li>
+	<li class="comment byuser comment-author-admin bypostauthor even depth-5" id="comment-22940">
+		<div class="c-grav"><img alt="" src="ca56988fe68d78f575685973591ed2ab" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				mickey <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22940">permalink</a></span>
+			</div>
+						<p>Impressive work, Tassilo! Thank you!</p>
+						<div class="reply">
+							</div>
+					</div><!--end c-body-->
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="comment odd alt thread-even depth-1" id="comment-22946">
+		<div class="c-grav"><img alt="" src="f265f78334e84d3aec881bb2c5c346c2" class="avatar avatar-40 photo" height="40" width="40"></div>
+		<div class="c-body">
+			<div class="c-head">
+				Matt Ford <span class="c-permalink"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#comment-22946">permalink</a></span>
+			</div>
+						<p>Hi, I had some trouble with recent emacs getting the smart shell stuff to initialise, a recent patch looks to have taken all the initialize function calls out of eshell hooks.  Perhaps it all now works in a different way but I couldn’t see how.</p>
+<p>I got it loaded with your additions plus</p>
+<p>(add-hook ‘eshell-mode-hook ‘eshell-smart-initialize)</p>
+<p>Nice post!</p>
+						<div class="reply">
+				<a class="comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?replytocom=22946#respond" onclick='return addComment.moveForm("comment-22946", "22946", "respond", "170")'>Reply</a>			</div>
+					</div><!--end c-body-->
+</li>
+	</ol>
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+			<h3 class="pinghead">Trackbacks &amp; Pingbacks</h3>
+		<ol class="pinglist">
+				<li id="comment-113"><a href="http://topsy.com/www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/?utm_source=pingback&amp;utm_campaign=L2" rel="external nofollow" class="url">Tweets that mention A Complete Guide to Mastering Eshell | Mastering Emacs -- Topsy.com</a></li>
+	<li id="comment-218"><a href="http://www.masteringemacs.org/articles/2010/11/01/running-shells-in-emacs-overview/" rel="external nofollow" class="url">Running Shells in Emacs: An Overview | Mastering Emacs</a></li>
+	<li id="comment-600"><a href="http://cootcraig.wordpress.com/2011/03/08/emacs/" rel="external nofollow" class="url">Emacs « Cootcraig's Blog</a></li>
+	<li id="comment-2940"><a href="http://www.yuiworld.kr/suguni/?p=666" rel="external nofollow" class="url">eshell – 따라쟁이</a></li>
+	<li id="comment-4168"><a href="http://www.masteringemacs.org/articles/2011/12/06/what-is-new-in-emacs-24-part-1/" rel="external nofollow" class="url">What’s New In Emacs 24 (part 1) | Mastering Emacs</a></li>
+	<li id="comment-5681"><a href="http://gossipcoder.com/?p=924" rel="external nofollow" class="url">迁移Emacs笔记 | Gossip Coder</a></li>
+	<li id="comment-6853"><a href="http://www.johndcook.com/blog/2012/02/22/eshell/" rel="external nofollow" class="url">Playing with Eshell — The Endeavour</a></li>
+	<li id="comment-19290"><a href="http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/" rel="external nofollow" class="url">PComplete: Context-Sensitive Completion in Emacs | Mastering Emacs</a></li>
+	<li id="comment-22885"><a href="http://irreal.org/blog/?p=1944" rel="external nofollow" class="url">Eshell | Irreal</a></li>
+	<li id="comment-22929"><a href="http://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/" rel="external nofollow" class="url">Eshell completion for git, bzr, and hg | Tassilo's Blog</a></li>
+	<li id="comment-23165"><a href="http://datko.net/2013/07/11/open-emacs-dired-buffer-from-dired/" rel="external nofollow" class="url">Open Emacs dired buffer from shell | fortune datko</a></li>
+		</ol>
+			</div><!--end comments-->
+
+
+	<div id="respond">
+		<div class="cancel-comment-reply">
+			<small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/#respond" style="display: none;">Click here to cancel reply.</a></small>
+		</div>
+		<h4 id="postcomment">Leave a Reply</h4>
+				<form action="http://www.masteringemacs.org/wp-comments-post.php" method="post" id="commentform">
+							<fieldset>
+					<label for="author" class="comment-field"><small>Name: (required):</small></label>
+					<input class="text-input" name="author" id="author" value="" tabindex="1" type="text">
+				</fieldset>
+				<fieldset>
+					<label for="email" class="comment-field"><small>Email: (required):</small></label>
+					<input class="text-input" name="email" id="email" value="" tabindex="2" type="text">
+				</fieldset>
+				<fieldset>
+					<label for="url" class="comment-field"><small>Website:</small></label>
+					<input class="text-input" name="url" id="url" value="" tabindex="3" type="text">
+				</fieldset>
+						<fieldset>
+				<label for="comment" class="comment-field"><small>Comment:</small></label>
+				<textarea name="comment" id="comment" cols="50" rows="10" tabindex="4"></textarea>
+			</fieldset>
+			<p class="guidelines"><strong>Note:</strong> XHTML is allowed. Your email address will <strong>never</strong> be published.</p>
+			<p class="comments-rss"><a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/feed/">Subscribe to this comment feed via RSS</a></p>
+			<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="a658f9310c" type="hidden"></p>			<fieldset>
+				<input name="submit" id="submit" tabindex="5" value="Submit Comment" type="submit">
+				<input name="comment_post_ID" value="170" type="hidden">
+			</fieldset>
+			<input name="comment_post_ID" value="170" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+		</form><!--end commentform-->
+	</div><!--end respond-->
+
+
+	</div><!--end content-->
+<div id="sidebar">
+			<ul>	<li id="tag_cloud-2" class="widget widget_tag_cloud"><h2 class="widgettitle">Tags</h2><div class="tagcloud"><a href="http://www.masteringemacs.org/articles/tag/ansi-term/" class="tag-link-38" title="1 topic" style="font-size: 8pt;">ansi-term</a>
+<a href="http://www.masteringemacs.org/articles/tag/autocomplete/" class="tag-link-24" title="1 topic" style="font-size: 8pt;">autocomplete</a>
+<a href="http://www.masteringemacs.org/articles/tag/beginner-2/" class="tag-link-18" title="9 topics" style="font-size: 15.9032pt;">beginner</a>
+<a href="http://www.masteringemacs.org/articles/tag/buffer/" class="tag-link-44" title="13 topics" style="font-size: 17.5968pt;">buffer</a>
+<a href="http://www.masteringemacs.org/articles/tag/customization/" class="tag-link-11" title="30 topics" style="font-size: 21.4355pt;">customization</a>
+<a href="http://www.masteringemacs.org/articles/tag/cygwin/" class="tag-link-17" title="1 topic" style="font-size: 8pt;">cygwin</a>
+<a href="http://www.masteringemacs.org/articles/tag/dired/" class="tag-link-52" title="2 topics" style="font-size: 10.0323pt;">dired</a>
+<a href="http://www.masteringemacs.org/articles/tag/editing/" class="tag-link-13" title="21 topics" style="font-size: 19.7419pt;">editing</a>
+<a href="http://www.masteringemacs.org/articles/tag/elisp/" class="tag-link-9" title="33 topics" style="font-size: 21.8871pt;">elisp</a>
+<a href="http://www.masteringemacs.org/articles/tag/eshell/" class="tag-link-8" title="3 topics" style="font-size: 11.3871pt;">eshell</a>
+<a href="http://www.masteringemacs.org/articles/tag/eval/" class="tag-link-27" title="1 topic" style="font-size: 8pt;">eval</a>
+<a href="http://www.masteringemacs.org/articles/tag/files/" class="tag-link-37" title="9 topics" style="font-size: 15.9032pt;">files</a>
+<a href="http://www.masteringemacs.org/articles/tag/guide/" class="tag-link-19" title="5 topics" style="font-size: 13.4194pt;">guide</a>
+<a href="http://www.masteringemacs.org/articles/tag/ido/" class="tag-link-15" title="6 topics" style="font-size: 14.2097pt;">ido</a>
+<a href="http://www.masteringemacs.org/articles/tag/ielm/" class="tag-link-25" title="2 topics" style="font-size: 10.0323pt;">ielm</a>
+<a href="http://www.masteringemacs.org/articles/tag/info/" class="tag-link-54" title="2 topics" style="font-size: 10.0323pt;">info</a>
+<a href="http://www.masteringemacs.org/articles/tag/inspect/" class="tag-link-28" title="1 topic" style="font-size: 8pt;">inspect</a>
+<a href="http://www.masteringemacs.org/articles/tag/key-bind/" class="tag-link-40" title="2 topics" style="font-size: 10.0323pt;">key bind</a>
+<a href="http://www.masteringemacs.org/articles/tag/mark/" class="tag-link-34" title="4 topics" style="font-size: 12.5161pt;">mark</a>
+<a href="http://www.masteringemacs.org/articles/tag/multilingual/" class="tag-link-14" title="1 topic" style="font-size: 8pt;">multilingual</a>
+<a href="http://www.masteringemacs.org/articles/tag/navigation/" class="tag-link-12" title="14 topics" style="font-size: 17.9355pt;">navigation</a>
+<a href="http://www.masteringemacs.org/articles/tag/news/" class="tag-link-49" title="4 topics" style="font-size: 12.5161pt;">news</a>
+<a href="http://www.masteringemacs.org/articles/tag/opinion/" class="tag-link-23" title="20 topics" style="font-size: 19.5161pt;">opinion</a>
+<a href="http://www.masteringemacs.org/articles/tag/orgmode/" class="tag-link-55" title="2 topics" style="font-size: 10.0323pt;">orgmode</a>
+<a href="http://www.masteringemacs.org/articles/tag/productivity/" class="tag-link-21" title="34 topics" style="font-size: 22pt;">productivity</a>
+<a href="http://www.masteringemacs.org/articles/tag/prompt/" class="tag-link-22" title="3 topics" style="font-size: 11.3871pt;">prompt</a>
+<a href="http://www.masteringemacs.org/articles/tag/python/" class="tag-link-41" title="3 topics" style="font-size: 11.3871pt;">python</a>
+<a href="http://www.masteringemacs.org/articles/tag/readability/" class="tag-link-10" title="4 topics" style="font-size: 12.5161pt;">readability</a>
+<a href="http://www.masteringemacs.org/articles/tag/recentf/" class="tag-link-39" title="1 topic" style="font-size: 8pt;">recentf</a>
+<a href="http://www.masteringemacs.org/articles/tag/regexp/" class="tag-link-50" title="7 topics" style="font-size: 14.7742pt;">regexp</a>
+<a href="http://www.masteringemacs.org/articles/tag/region/" class="tag-link-35" title="3 topics" style="font-size: 11.3871pt;">region</a>
+<a href="http://www.masteringemacs.org/articles/tag/repl/" class="tag-link-31" title="1 topic" style="font-size: 8pt;">repl</a>
+<a href="http://www.masteringemacs.org/articles/tag/scratch/" class="tag-link-26" title="1 topic" style="font-size: 8pt;">scratch</a>
+<a href="http://www.masteringemacs.org/articles/tag/shell/" class="tag-link-7" title="5 topics" style="font-size: 13.4194pt;">shell</a>
+<a href="http://www.masteringemacs.org/articles/tag/tabs/" class="tag-link-29" title="1 topic" style="font-size: 8pt;">tabs</a>
+<a href="http://www.masteringemacs.org/articles/tag/term/" class="tag-link-16" title="1 topic" style="font-size: 8pt;">term</a>
+<a href="http://www.masteringemacs.org/articles/tag/terminology/" class="tag-link-20" title="1 topic" style="font-size: 8pt;">terminology</a>
+<a href="http://www.masteringemacs.org/articles/tag/tips/" class="tag-link-51" title="4 topics" style="font-size: 12.5161pt;">tips</a>
+<a href="http://www.masteringemacs.org/articles/tag/tramp/" class="tag-link-32" title="1 topic" style="font-size: 8pt;">tramp</a>
+<a href="http://www.masteringemacs.org/articles/tag/transient/" class="tag-link-33" title="1 topic" style="font-size: 8pt;">transient</a>
+<a href="http://www.masteringemacs.org/articles/tag/trash-can/" class="tag-link-36" title="1 topic" style="font-size: 8pt;">trash can</a>
+<a href="http://www.masteringemacs.org/articles/tag/twitter/" class="tag-link-43" title="1 topic" style="font-size: 8pt;">twitter</a>
+<a href="http://www.masteringemacs.org/articles/tag/vimgolf/" class="tag-link-56" title="4 topics" style="font-size: 12.5161pt;">vimgolf</a>
+<a href="http://www.masteringemacs.org/articles/tag/whitespace/" class="tag-link-30" title="1 topic" style="font-size: 8pt;">whitespace</a>
+<a href="http://www.masteringemacs.org/articles/tag/workflow/" class="tag-link-42" title="18 topics" style="font-size: 19.0645pt;">workflow</a></div>
+</li><li id="pages-4" class="widget widget_pages"><h2 class="widgettitle">Pages</h2>		<ul>
+			<li class="page_item page-item-2"><a href="http://www.masteringemacs.org/about/">About</a></li>
+<li class="page_item page-item-277"><a href="http://www.masteringemacs.org/effective-editing-series/">Effective Editing</a></li>
+<li class="page_item page-item-496"><a href="http://www.masteringemacs.org/reading-guide/">Reading Guide</a></li>
+		</ul>
+		</li><li id="linkcat-2" class="widget widget_links"><h2 class="widgettitle">Blogroll</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.reddit.com/r/emacs">Emacs on Reddit</a></li>
+<li><a href="http://www.twitter.com/mickeynp">Follow me on Twitter</a></li>
+<li><a href="http://irreal.org/blog/">Irreal's Emacs blog</a></li>
+<li><a href="http://www.emacswiki.org/">The Emacs Wiki</a></li>
+<li><a href="http://wikemacs.org/wiki/Main_Page">WikEmacs</a></li>
+
+	</ul>
+</li>
+	</ul></div><!--end sidebar--></div><!--end wrapper-->
+</div><!--end content-background-->
+<div id="footer">
+	<div class="wrapper clear">
+		<div id="footer-about" class="footer-column">
+			<h2>About</h2>
+							<p>Hi, I'm Mickey and this is my blog about mastering Emacs. I've been using Emacs for eight years and I'd like to share with you all the things I've learned over the years.</p>
+<p>The blog will cover all facets of Emacs and will be suitable for beginners and -- I hope -- experts alike.</p>
+					</div>
+		<div id="footer-flickr" class="footer-column">
+							<ul>
+											<li class="widget widget_categories">
+							<h2 class="widgettitle">Categories</h2>
+							<ul>
+									<li class="cat-item cat-item-5"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/articles/" title="View all posts filed under All Articles">All Articles</a>
+</li>
+	<li class="cat-item cat-item-3"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/beginner/" title="View all posts filed under For Beginners">For Beginners</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="http://www.masteringemacs.org/articles/category/tutorial/" title="View all posts filed under Tutorials">Tutorials</a>
+</li>
+							</ul>
+						</li>
+									</ul>
+					</div>
+		<div id="footer-search" class="footer-column">
+			<h2>Search</h2>
+			<form method="get" id="search_form" action="http://www.masteringemacs.org/">
+	<div>
+		<input value="" name="s" id="s" class="search" type="text">
+		<input id="searchsubmit" value="Search" type="submit">
+	</div>
+</form>
+		</div>
+		<div id="copyright">
+			<p class="copyright-notice">Copyright © 2014 Mickey Petersen. <a href="http://thethemefoundry.com/titan/">Titan Theme</a> by <a href="http://thethemefoundry.com/">The Theme Foundry</a>.</p>
+		</div><!--end copyright-->
+	</div><!--end wrapper-->
+</div><!--end footer-->
+
+
+
+
+
+
+
+<iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="index_6.html" id="oauth2relay1559882640" name="oauth2relay1559882640"></iframe></body>
+</html>

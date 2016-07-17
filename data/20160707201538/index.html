@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="width-wide font-sentinel mode-day size-medium js no-touch backgroundsize boxshadow opacity cssanimations cssgradients csstransforms csstransitions formvalidation" style="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KiTTY : pscp and WinSCP integration — www.9bis.net</title>
+
+    <meta name="description" content="To send a file into the running session with pscp.exe you have to select the &quot;Send with pscp&quot; item from the main menu, or press CTRL+F3. The file will be sent into the root of the account defined in&amp;hellip;">
+    <meta name="google-site-verification" content="Fv7Ys2BGVN-um85BOm5lkmXkiDto5-sztk6PR1ybqFI">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@readability">
+    <meta name="twitter:url" content="http://www.readability.com/articles/ey7jxe4w">
+    <meta name="twitter:title" content="KiTTY : pscp and WinSCP integration">
+    <meta name="twitter:description" content="To send a file into the running session with pscp.exe you have to select the " send="" with="" pscp"="" item="" from="" the="" main="" menu,="" or="" press="" ctrl+f3.="" file="" will="" be="" sent="" into="" root="" of="" account="" defined="" in&hellip;"="">
+    
+
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="KiTTY : pscp and WinSCP integration">
+    <meta property="og:description" content="To send a file into the running session with pscp.exe you have to select the " send="" with="" pscp"="" item="" from="" the="" main="" menu,="" or="" press="" ctrl+f3.="" file="" will="" be="" sent="" into="" root="" of="" account="" defined="" in&hellip;"="">
+    
+    <meta property="og:image" content="https://d370mdr42phnax.cloudfront.net/8dc896/images/facebook-default-og-image.png">
+
+    
+
+    
+    <link rel="shortcut icon" href="http___www.9bis.net_kitty_index.php_page=pscp%2520and%2520WinSCP%2520integration">
+
+
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/oknpjjbmpnndlpmnhmekjpocelpnlfdi">
+
+    
+    
+    
+    
+        
+    
+
+
+    
+
+    
+
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="https://d370mdr42phnax.cloudfront.net/8dc896/js/libs/respond/respond.min.js"></script>
+    <link rel="respond-proxy" href="https://d370mdr42phnax.cloudfront.net/8dc896/respond/respond-proxy.html" id="respond-proxy">
+    <link rel="respond-redirect" href="/static/respond/respond.proxy.gif" id="respond-redirect">
+    <script src="/static/respond/respond.proxy.js"></script>
+    <![endif]-->
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body data-twttr-rendered="true" class="article" data-user-authed="1">
+    
+<div class="container
+    bookmark
+    
+    " data-bookmark-id="117009943">
+
+    <article class="hentry" data-article-id="ey7jxe4w" data-tag-count="0" data-read-percent="0" data-is-archived="0" data-is-favorite="0" data-next-page-id="" role="article">
+
+        <header role="banner">
+
+            <div class="entry-origin">
+                <a href="http://www.9bis.net/kitty/index.php?page=pscp%20and%20WinSCP%20integration" id="article-url" title="View the original article" class="original-source" data-stat="rv-banner-original">
+                    9bis.net
+                </a>
+
+                
+            </div>
+
+            <h1 class="entry-title">KiTTY : pscp and WinSCP integration</h1>
+            
+
+            <ul class="entry-meta">
+                
+                
+                <li class="article-read-time">
+                    1 min read
+                </li>
+                <li>
+                    <a href="http://www.9bis.net/kitty/index.php?page=pscp%20and%20WinSCP%20integration" data-stat="rv-banner-meta-original">
+                        original
+                    </a>
+                </li>
+            </ul>
+        </header>
+
+        <section role="main">
+            <span id="scroll-bullet">•</span>
+
+            <div class="entry-content">
+                <div>
+<br><br>
+		
+			To send a file into the running session with <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" class="url">pscp.exe</a> you have to select the "<strong>Send with pscp</strong>" item from the main menu, or press <strong>CTRL+F3</strong>. The file will be sent into the root of the account defined in the session. Binary pscp.exe should be in the same directory as kitty.exe. It is possible to define another path where the pscp.exe is located by setting the following entries in the <strong>kitty.ini</strong> file:<br><pre><code>[KiTTY]PSCPPath=C:\Program Files\PuTTY\kscp.exepscpport=22</code></pre><br> You can also send a file or a directory with a simple drag'n drop into the session window.<p> On UNIX system, to easily get a file, it is also possible to create this build-in ksh function:</p><pre><code>get() { printf "\033]0;__pw:"`pwd`"\007" ; for file in $* ; do printf "\033]0;__rv:"${file}"\007" ; done ; printf "\033]0;__ti\007" ; }</code></pre><br> <br> <br> To start a <a href="http://www.winscp.net/" class="url">WinSCP</a> session (if WinSCP is installed), in the same KiTTY session, you have to select the "<strong>Start WinSCP</strong>" item in the main menu, or press <strong>SHIFT+F3</strong>. It is possible to define another path where the WinSCP program is located by setting the following entries in the <strong>kitty.ini</strong> file:.<br><pre><code>[KiTTY]WinSCPPath=C:\Program Files\WinSCP\WinSCP.exe</code></pre><br><strong>WinSCPPath</strong> variable can also point to a <strong>.BAT</strong> Windows script file. It can be useful to pass specific setting to WinSCP binary. For example, if you need to log all WinSCP sessions: <pre><code>@ECHO OFFSTART "C:\Program Files\WinSCP\WinSCP.exe" /log="C:\winscp.log" "%1" "%2" "%3" "%4" "%5" "%6" "%7" "%8" "%9"</code></pre><br> <p> On UNIX system it is possible to start a WinSCP session directly into the current directory with this build-in ksh function:</p><pre><code>winscp() { printf "\033]0;__ws:"`pwd`"\007" ; printf "\033]0;__ti\007" ; }</code></pre> or this bash function:<pre><code>winscp() { echo -ne "\033];__ws:${PWD}\007"; }</code></pre><br> <p><a href="http://www.9bis.net/kitty/index.php?page=Welcome&amp;zone=en" class="url">Back to home</a><br>
+</p>
+</div>
+            </div>
+
+            
+
+            <section id="print-url">
+                <h1>Original URL:</h1>
+
+                <p>http://www.9bis.net/kitty/index.php?page=pscp%20and%20WinSCP%20integration</p>
+            </section>
+        </section>
+    </article>
+
+    <div class="article-actions">
+    
+        <form action="https://www.readability.com/articles/ey7jxe4w/favorite" method="post" class="toggle-bm-attr" data-bm-attr="favorite" data-bm-id="117009943">
+            <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+
+            
+            <button type="submit" class="icon icon-only icon-favorite" title="Favorite this article" data-alt-title="Unfavorite this article">
+                Favorite
+            </button>
+            
+        </form>
+
+        <form action="https://www.readability.com/articles/ey7jxe4w/archive" method="post" class="toggle-bm-attr" data-bm-attr="archive" data-bm-id="117009943">
+            <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+
+            
+            <button type="submit" class="icon icon-only icon-archive" title="Archive this article" data-alt-title="Unarchive this article">
+                Archive
+            </button>
+            
+        </form>
+
+        <form action="https://www.readability.com/articles/ey7jxe4w/delete" method="post" class="toggle-bm-attr" data-bm-attr="is_active" data-bm-id="117009943">
+            <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+            <button type="submit" class="icon icon-delete">
+                Delete
+            </button>
+        </form>
+
+        <a class="article-tags opens-flyout icon icon-tag" title="Manage tags for this article" data-flyout-selector="#flyout-add-tags" data-flyout-target=".article-tags:last" data-stat="rv-footer-tagging">
+            Tags
+        </a>
+    
+        <a href="https://www.readability.com/recommendations/new/article/ey7jxe4w" class="bookmark-recommend icon icon-only icon-recommend" title="Recommend this article">
+            
+            Recommend
+        </a>
+        <a class="article-share-export opens-flyout icon icon-share" href="#flyout-share-export" data-flyout-selector="#flyout-share-export" data-flyout-target=".article-share-export:last" data-stat="rv-footer-share_export" title="Share or export this article">
+            Share/export
+        </a>
+
+        <div class="parse-reporting">
+            <p class="question">
+                Did this article display correctly?
+
+                <span class="options">
+                    <a data-value="1" data-stat="rv-parse_report-yes">
+                        Yes
+                    </a>
+                    <a data-value="0" data-stat="rv-parse_report-no">
+                        No
+                    </a>
+                </span>
+            </p>
+            <p class="submitting">
+                Sending…
+            </p>
+            <p class="confirmation">
+                Thank you for your feedback.
+            </p>
+        </div>
+    </div>
+
+    <ul class="tools">
+        <li>
+            <a class="logo icon icon-couch" href="https://www.readability.com/reading-list" title="Go to reading list">
+                Readability
+            </a>
+        </li>
+        <li class="non-semantic-dividing-element"></li>
+    
+        <li>
+            <form action="https://www.readability.com/articles/ey7jxe4w/favorite" method="post" class="toggle-bm-attr" data-bm-attr="favorite" data-bm-id="117009943">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+
+                
+                <button type="submit" class="icon icon-only icon-favorite" title="Favorite this article" data-alt-title="Unfavorite this article">
+                    Favorite
+                </button>
+                
+            </form>
+        </li>
+        <li>
+            <form action="https://www.readability.com/articles/ey7jxe4w/archive" method="post" class="toggle-bm-attr" data-bm-attr="archive" data-bm-id="117009943">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+
+                
+                <button type="submit" class="icon icon-only icon-archive" title="Archive this article" data-alt-title="Unarchive this article">
+                    Archive
+                </button>
+                
+            </form>
+        </li>
+        <li>
+            <form action="https://www.readability.com/articles/ey7jxe4w/delete" method="post" class="toggle-bm-attr" data-bm-attr="is_active" data-bm-id="117009943">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                <button type="submit" class="icon icon-delete">
+                    Delete
+                </button>
+            </form>
+        </li>
+        <li class="">
+            <a class="article-tags toolbar-tags opens-flyout icon icon-tag" title="Manage tags for this article" data-flyout-selector="#flyout-add-tags" data-stat="rv-sidebar-tagging">
+                Tags
+            </a>
+        </li>
+        <li class="non-semantic-dividing-element"></li>
+    
+        <li>
+            <a class="article-appearance opens-flyout icon icon-style" href="#flyout-appearance" title="Change the article appearance" data-flyout-selector="#flyout-appearance" data-stat="rv-sidebar-appearance">
+                Appearance
+            </a>
+        </li>
+        <li class="non-semantic-dividing-element"></li>
+        <li>
+            <a href="https://www.readability.com/recommendations/new/article/ey7jxe4w" class="bookmark-recommend icon icon-only icon-recommend" title="Recommend this article">
+                
+                Recommend
+            </a>
+        </li>
+        <li class="">
+            <a class="article-share-export opens-flyout icon icon-share" href="#flyout-share-export" data-flyout-selector="#flyout-share-export" data-stat="rv-sidebar-share_export" title="Share, send, or download this article">
+                Share, send, download
+            </a>
+        </li>
+        
+        <li>
+            <a class="toolbar-visibility icon icon-left-triangle" title="Hide toolbar" data-stat="rv-sidebar-hide">
+                Hide toolbar
+            </a>
+        </li>
+    </ul>
+
+    <div class="flyout tip-left flyout-appearance hidden" id="flyout-appearance">
+        <div class="appearance-option appearance-mode appearance-opt-radio">
+            <form action="https://www.readability.com/account/visual_settings" method="post">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                <label for="day-mode-opt" class="icon icon-mode-day mode-day-label">Day Mode
+                    <input checked="checked" name="mode" value="mode-day" id="day-mode-opt" type="radio">
+                </label>
+                <label for="night-mode-opt" class="icon icon-mode-night mode-night-label">Night Mode
+                    <input name="mode" value="mode-night" id="night-mode-opt" type="radio">
+                </label>
+            </form>
+        </div>
+
+        <div class="appearance-option appearance-font appearance-opt-radio">
+            <form action="https://www.readability.com/account/visual_settings" method="post">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                <label for="font-sentinel-opt" class="icon icon-sentinel font-sentinel-label">Sentinel
+                    <input checked="checked" name="font" value="font-sentinel" id="font-sentinel-opt" type="radio">
+                </label>
+                <label for="font-whitney-opt" class="icon icon-whitney font-whitney-label">Whitney
+                    <input name="font" value="font-whitney" id="font-whitney-opt" type="radio">
+                </label>
+                <label for="font-mercury-opt" class="icon icon-mercury font-mercury-label">Mercury
+                    <input name="font" value="font-mercury" id="font-mercury-opt" type="radio">
+                </label>
+            </form>
+        </div>
+
+        <div class="appearance-option appearance-font-size">
+            <form action="https://www.readability.com/account/visual_settings" method="post" class="appearance-form hidden">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                <label for="font-size">Font Size</label>
+                <select name="size" id="font-size" class="controls-slider">
+                    <option value="size-xsmall">Extra Small</option>
+                    <option value="size-small">Small</option>
+                    <option value="size-medium">Medium</option>
+                    <option value="size-large">Large</option>
+                    <option value="size-xlarge">Extra Large</option>
+                </select>
+            </form>
+            <div data-selected-index="2" class="appearance-slider">
+                 <span class="slider-control decrease">-Aa</span>
+
+                <div class="slider-container">
+                    <div aria-disabled="false" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div style="width: 50%;" class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div><a style="left: 50%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
+
+                    <div class="slider-inactive">
+                        <div class="slider-track"></div>
+                        <b class="divot zero"></b>
+                        <b class="divot one"></b>
+                        <b class="divot two"></b>
+                        <b class="divot three"></b>
+                        <b class="divot four"></b>
+                    </div>
+
+                    <div class="slider-active">
+                        <div style="width: 53%;" class="slider-track"></div>
+                        <b class="divot zero"></b>
+                        <b class="divot one"></b>
+                        <b class="divot two"></b>
+                        <b class="divot three"></b>
+                        <b class="divot four"></b>
+                    </div>
+                </div>
+
+                <span class="slider-control increase">+Aa</span>
+            </div>
+        </div>
+
+        <div class="appearance-option appearance-column-width">
+            <form action="https://www.readability.com/account/visual_settings" method="post" class="appearance-form hidden">
+                <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                <label for="col-width">Column Width</label>
+                <select name="width" id="col-width" class="controls-slider">
+                    <option value="width-narrow">Narrow</option>
+                    <option value="width-medium">Medium</option>
+                    <option value="width-wide">Wide</option>
+                    <option value="width-xwide">Extra Wide</option>
+                </select>
+            </form>
+            <div data-selected-index="2" class="appearance-slider">
+                <span class="slider-control decrease">&gt;&lt;</span>
+
+                <div class="slider-container">
+                    <div aria-disabled="false" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div style="width: 66.6667%;" class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div><a style="left: 66.6667%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
+
+                    <div class="slider-inactive">
+                        <div class="slider-track"></div>
+                        <b class="divot zero"></b>
+                        <b class="divot one"></b>
+                        <b class="divot two"></b>
+                        <b class="divot three"></b>
+                    </div>
+
+                    <div class="slider-active">
+                        <div style="width: 63%;" class="slider-track"></div>
+                        <b class="divot zero"></b>
+                        <b class="divot one"></b>
+                        <b class="divot two"></b>
+                        <b class="divot three"></b>
+                    </div>
+                </div>
+
+                <span class="slider-control increase">&lt;&gt;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="flyout tip-left flyout-share-export hidden" id="flyout-share-export">
+        <ul>
+            <li>
+                <a class="share-facebook icon icon-facebook" title="Share this article on Facebook" data-stat="rv-sidebar-share-facebook" href="http://www.facebook.com/sharer.php?u=http://www.readability.com/articles/ey7jxe4w&amp;t=KiTTY%20:%20pscp%20and%20WinSCP%20integration">
+                    Facebook
+                </a>
+            </li>
+            <li>
+                <a class="icon icon-twitter" title="Tweet this article" data-stat="rv-sidebar-share-twitter" href="https://twitter.com/intent/tweet?text=%22KiTTY%20:%20pscp%20and%20WinSCP%20integration%22&amp;url=http://rdd.me/ey7jxe4w&amp;via=readability&amp;related=topreads,readlists">
+                    Tweet
+                </a>
+            </li>
+            <li>
+                <a class="share-email icon icon-email" title="Email this article" data-stat="rv-sidebar-share-email" href="https://www.readability.com/articles/ey7jxe4w/email">
+                    Email
+                </a>
+            </li>
+            <li>
+                <form action="https://www.readability.com/api/session/v1/kindle/send/" method="post" class="article-to-kindle">
+                    <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                    <input name="article_id" value="ey7jxe4w" type="hidden">
+                    <button type="submit" title="Send this article to your Kindle">
+                        <span class="icon icon-kindle">Kindle</span>
+                    </button>
+                </form>
+            </li>
+            
+            
+            <li>
+                <a class="article-to-epub icon icon-epub" href="https://www.readability.com/articles/ey7jxe4w/download/epub/" data-ajax-href="/articles/ey7jxe4w/ajax/download/epub/" target="_blank" title="Download an ePub of this article" data-stat="rv-article-download_epub">
+                    ePub
+                </a>
+            </li>
+            
+            <li>
+                <a class="article-print icon icon-print" href="#" title="Print this article" data-stat="rv-sidebar-print">
+                    Print
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="flyout tip-bottom flyout-parse-feedback hidden" id="flyout-parse-feedback">
+        <form id="submit-feedback-form" method="POST" novalidate="">
+            <fieldset>
+                <p class="msg sending">
+                    Sending…
+                </p>
+                <p class="msg confirmation">
+                    Thank you for your feedback.
+                </p>
+                <p class="msg error">
+                    We ran into trouble. Mind trying again?
+                </p>
+                <div class="form-content">
+                    <label class="list-label">What did we miss?</label>
+                    <ul class="parsing-issues">
+                        <li>
+                            <label>
+                                <input value="0" type="checkbox">
+                                Title incorrect or missing
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input value="1" checked="" type="checkbox">
+                                Author incorrect or missing
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input value="2" checked="" type="checkbox">
+                                Date incorrect or missing
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input value="3" type="checkbox">
+                                Article images incorrect or missing
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input value="4" type="checkbox">
+                                Article content incorrect or missing
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input value="5" type="checkbox">
+                                Article pages repeated or missing
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input value="6" class="other-checkbox" type="checkbox">
+                                Other
+                            </label>
+                        </li>
+                    </ul>
+                    <p class="other-details">
+                        <label for="parse-feedback">
+                            Other details:
+                        </label>
+                        <textarea id="parse-feedback" name="parse-feedback" placeholder="Feel free to provide any other details that will help us parse this article better." rows="3"></textarea>
+                        <b class="msg error hidden"></b>
+                    </p>
+
+                    <input class="cancel" value="Cancel" data-stat="rv-parse_form-cancel" type="button">
+                    <input value="Report Issue" data-stat="rv-parse_form-submit" type="submit">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+
+
+    <div class="flyout tip-left flyout-add-tags hidden" id="flyout-add-tags">
+
+        <label for="add-tags">Tags:</label>
+        <ul class="bookmark-tags-list">
+        
+        </ul>
+
+        <div class="bookmark-add-tags ui-front">
+            <form class="add-tags-form" method="post" action="https://www.readability.com/tagging/bookmark/117009943/ajax">
+                <fieldset>
+                    <input name="csrfmiddlewaretoken" value="CjY69FdLvMe9UppAHTRPxtnKGxTcJlJ0" type="hidden">
+                    <span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span><input name="tags" class="add-tags-input ui-autocomplete-input" id="add-tags" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Comma-separated. Spaces in tags are OK." required="" type="text">
+
+                    
+
+                    <button type="submit" class="standard-btn">
+                        <span>Tag</span>
+                    </button>
+                </fieldset>
+            </form>
+        <ul style="display: none;" tabindex="0" id="ui-id-1" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all"></ul></div>
+    </div>
+
+</div>
+
+
+    <div class="success-indicator hidden off-screen"><span></span></div>
+
+    
+    
+    
+
+
+</body>
+</html>

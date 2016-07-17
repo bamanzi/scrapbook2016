@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="client-js" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Window Maker - ArchWiki</title>
+
+
+
+<!--[if IE 6]><link rel="stylesheet" href="/skins/ArchLinux/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/skins/ArchLinux/IE70Fixes.css?303" media="screen" /><![endif]-->
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+
+<meta name="generator" content="MediaWiki 1.26.3">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.archlinux.org/opensearch_desc.php" title="ArchWiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.archlinux.org/api.php?action=rsd">
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="ArchWiki Atom feed" href="https://wiki.archlinux.org/index.php?title=Special:RecentChanges&amp;feed=atom">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Window_Maker skin-archlinux action-view">
+
+		<div id="archnavbar"><!-- Arch Linux global navigation bar -->
+			<div id="archnavbarlogo">
+				<p><a id="logo" href="https://www.archlinux.org/"></a></p>
+			</div>
+			<div id="archnavbarmenu">
+				<ul id="archnavbarlist">
+					<li id="anb-home"><a href="https://www.archlinux.org/">Home</a></li><li id="anb-packages"><a href="https://www.archlinux.org/packages/">Packages</a></li><li id="anb-forums"><a href="https://bbs.archlinux.org/">Forums</a></li><li id="anb-wiki" class="anb-selected"><a href="https://wiki.archlinux.org/">Wiki</a></li><li id="anb-bugs"><a href="https://bugs.archlinux.org/">Bugs</a></li><li id="anb-aur"><a href="https://aur.archlinux.org/">AUR</a></li><li id="anb-download"><a href="https://www.archlinux.org/download/">Download</a></li>				</ul>
+			</div>
+		</div><!-- #archnavbar -->
+
+		<div id="globalWrapper">
+		<div id="column-content">
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+				
+				<div class="mw-indicators">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Window Maker</h1>
+				
+				<div id="bodyContent" class="mw-body-content">
+					<div id="siteSub">From ArchWiki</div>
+					<div id="contentSub"></div>
+										<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+
+					<!-- start content -->
+					<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p>Window Maker is a <a href="https://wiki.archlinux.org/index.php/Window_manager" title="Window manager">window manager</a> (WM) for the X Window System. It is designed to emulate the NeXT user interface as an OpenStep-compatible environment, and is characterized by low memory demands and high flexibility. As one of the lighter WMs, it is well suited for machines with modest performance specifications.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Starting_Window_Maker"><span class="tocnumber">2</span> <span class="toctext">Starting Window Maker</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Graphically"><span class="tocnumber">2.1</span> <span class="toctext">Graphically</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Manually"><span class="tocnumber">2.2</span> <span class="toctext">Manually</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Configuration"><span class="tocnumber">3</span> <span class="toctext">Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Files"><span class="tocnumber">3.1</span> <span class="toctext">Files</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Styles"><span class="tocnumber">3.2</span> <span class="toctext">Styles</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Keyboard_shortcuts"><span class="tocnumber">3.3</span> <span class="toctext">Keyboard shortcuts</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Background"><span class="tocnumber">3.4</span> <span class="toctext">Background</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Dock"><span class="tocnumber">4</span> <span class="toctext">Dock</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Clip"><span class="tocnumber">5</span> <span class="toctext">Clip</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Dockapps"><span class="tocnumber">6</span> <span class="toctext">Dockapps</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#System-tray"><span class="tocnumber">7</span> <span class="toctext">System-tray</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Tips_and_tricks"><span class="tocnumber">8</span> <span class="toctext">Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Removing_unwanted_application_icons"><span class="tocnumber">8.1</span> <span class="toctext">Removing unwanted application icons</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Troubleshooting"><span class="tocnumber">9</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Can.27t_disable_smooth_fonts"><span class="tocnumber">9.1</span> <span class="toctext">Can't disable smooth fonts</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#The_dock_is_not_covered_by_fullscreen_windows"><span class="tocnumber">9.2</span> <span class="toctext">The dock is not covered by fullscreen windows</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#No_application_icons_for_some_applications"><span class="tocnumber">9.3</span> <span class="toctext">No application icons for some applications</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#See_Also"><span class="tocnumber">10</span> <span class="toctext">See Also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a href="https://wiki.archlinux.org/index.php/Install" title="Install" class="mw-redirect">Install</a> the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=windowmaker">windowmaker</a></span> package. You may also wish to install the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=windowmaker-extra">windowmaker-extra</a></span> package which contains a number of extra icons and themes.
+</p><p>Before starting Window Maker, take some time to setup GNUstep and the default Window Maker settings. Create a directory for your Window Maker settings. Traditionally, it is in <code>$HOME/GNUstep</code>.
+</p>
+<pre>$ mkdir ~/GNUstep</pre>
+<p>Set the <code>GNUSTEP_USER_ROOT</code> variable to your GNUstep settings directory. You can set this variable in a file such as <code>$HOME/.bashrc</code>.
+</p>
+<pre>export GNUSTEP_USER_ROOT="${HOME}/GNUstep"
+</pre>
+<p>Make sure the file is sourced, for example, by logging out and back in.
+</p><p>Run the Window Maker settings installation program to setup the default settings.
+</p>
+<pre>$ wmaker.inst</pre>
+<h2><span class="mw-headline" id="Starting_Window_Maker">Starting Window Maker</span></h2>
+<h3><span class="mw-headline" id="Graphically">Graphically</span></h3>
+<p>Select the <i>windowmaker</i> session from the display manager's session menu.
+</p>
+<h3><span class="mw-headline" id="Manually">Manually</span></h3>
+<p>Once installed create or edit the file <a href="https://wiki.archlinux.org/index.php/~/.xinitrc" title="~/.xinitrc" class="mw-redirect">~/.xinitrc</a> as follows:
+</p>
+<pre>exec wmaker
+</pre>
+<p>To start Window Maker:
+</p>
+<pre>$ startx</pre>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<h3><span class="mw-headline" id="Files">Files</span></h3>
+<p>All of the settings for Window Maker can be found in the <code>GNUSTEP_USER_ROOT</code> directory, under <code>Default</code> and <code>Library</code>. They are saved as simple text files. You can use the <code>Preferences Utility</code> (<code>WPrefs</code>) GUI application to change the settings, or edit them by hand.
+</p>
+<ul><li> <code>Defaults/WindowMaker</code> - The current Window Maker settings.</li>
+<li> <code>Defaults/WMGLOBAL</code></li>
+<li> <code>Defaults/WMRootMenu</code> - The desktop main menu. It uses a simple text format that can be edited by hand. For more details, see the menu editing section in the Preferences Utility application.</li>
+<li> <code>Defaults/WMState</code> - Used to restore a Window Maker session.</li>
+<li> <code>Defaults/WMWindowAttributes</code> - Individual application and window settings, such as application icon settings and title bar settings. You can also edit this by right clicking on any application or window icon and selecting "Attributes".</li>
+<li> <code>Defaults/WPrefs</code> - Settings for the Preferences Utility.</li>
+<li> <code>Library/Colors/</code></li>
+<li> <code>Library/Icons/</code> - One of the default locations Window Maker looks for application icons. You can personally save your favorite icons here and use them by changing application or window attributes.</li>
+<li> <code>Library/WindowMaker/autostart</code> - Add applications that you want to automatically start when Window Maker starts. Be sure to run them in the background by using "&amp;".</li>
+<li> <code>Library/exitscript</code> - Same as autostart, but used when exiting.</li>
+<li> <code>Library/Backgrounds</code> - One of the default locations where Window Maker looks for desktop wallpapers.</li>
+<li> <code>Library/Styles</code> - One of the default locations where Window Maker looks for styles.</li></ul>
+<h3><span class="mw-headline" id="Styles">Styles</span></h3>
+<p>Styles are simple text files that change the appearance of Window Maker. They are very similar in appearance to the <code>Defaults/WindowMaker</code> file. Whatever settings are in the style file will be applied to the <code>Defaults/WindowMaker</code> file. Here is an example style that gives Window Maker a blue and gray Arch Linux like look:
+</p><p><code>Arch.style</code>
+</p>
+<pre>{
+  FTitleBack = (solid, "#0088CC");
+  FTitleColor = white;
+  UTitleBack = (solid, "#333333");
+  UTitleColor = "#999999";
+  PTitleBack = (solid, "#333333");
+  PTitleColor = "#999999";
+  MenuTextBack = (solid, "#ECF2F5");
+  MenuTextColor = black;
+  IconTitleBack = "#333333";
+  IconTitleColor = white;
+  MenuTitleBack = (solid, "#0088CC");
+  MenuTitleColor = white;
+  HighlightTextColor = white;
+  HighlightColor = "#333333";
+  MenuDisabledColor = "#999999";
+  ClipTitleColor = black;
+  IconBack = (solid, "#ECF2F5");
+  ResizebarBack = (solid, "#333333");
+  MenuStyle = flat;
+  WorkspaceBack = (solid, black);
+  ClipTitleFont = "Arial:slant=0:weight=200:width=100:pixelsize=10";
+  IconTitleFont = "Arial:slant=0:weight=80:width=100:pixelsize=9";
+  LargeDisplayFont = "Arial:slant=0:weight=80:width=100:pixelsize=24";
+  MenuTextFont = "Arial:slant=0:weight=80:width=100:pixelsize=12";
+  MenuTitleFont = "Arial:slant=0:weight=200:width=100:pixelsize=12";
+  WindowTitleFont = "Arial:slant=0:weight=200:width=100:pixelsize=12";
+}</pre>
+<p>Styles can also be edited by using the Preferences Utility application.
+</p>
+<h3><span class="mw-headline" id="Keyboard_shortcuts">Keyboard shortcuts</span></h3>
+<p>Window maker allows keyboard shortcuts to be assigned both to window manager actions and to menu entries. 
+</p><p>To assign a keyboard shortcut to a window manager action, start the WPrefs application and navigate to the <i>Keyboard Shortcut Preferences</i> tab. Choose an action, click the <i>Capture</i> button and hit the desired keyboard combination. Then hit <i>Save</i>.
+</p><p>You can also assign keyboard shortcuts to menu entries. For instance, if one were using GNOME Screensaver to lock the screen, one could create a Lock Screen menu entry with the command <code>gnome-screensaver-command --lock</code>. To then assign a keyboard shortcut to this menu entry, start the WPrefs application and navigate to the <i>Application Menu Definition</i> tab. In the root menu that appears on screen, click on the Lock Screen entry. In the Wprefs window, click the <i>Capture</i> button, hit the desired keyboard combination and then click <i>Save</i>.
+</p>
+<h3><span class="mw-headline" id="Background">Background</span></h3>
+<p>To use an image as a background in Window Maker, copy the image to the <code>~/GNUstep/Library/WindowMaker/Backgrounds</code> directory. Then, from the root menu, select <i>Appearance</i> -&gt; <i>Background</i> -&gt; <i>Images</i> -&gt; <i>image-name</i>.
+</p><p>Alternatively, you could use a standalone background setter such as <a href="https://wiki.archlinux.org/index.php/Nitrogen" title="Nitrogen">Nitrogen</a>.
+</p>
+<h2><span class="mw-headline" id="Dock">Dock</span></h2>
+<p>The user interface of Mac OS X evolved from the style of user interface that Window Maker uses. There is a "dock" that contains applications icons that are "pinned" to the dock by the user. Also, the dock can hold special small applications called "dockapps", which run only inside the dock. By default, all applications run in Window Maker will have an application icon, which you can use to run a new instance of the application, hide and unhide all windows of the application, or kill the application. The application icon does not represent a window. Instead, if you minimize a window, a small icon representing the window will appear on the desktop.
+</p><p>After starting any application, (for example, from the command line) the application icon will appear on the desktop. You can pin it to the dock by clicking and dragging the icon into the dock area. To remove the application icon from the dock, click and drag the icon away from the dock area. You change settings, such as making an application automatically start when Window Maker starts, by right clicking on the application icon in the dock.
+</p><p>The default action to activate application icons and window icons is to double click them. You can change a setting to allow you to activate them with a single click.
+</p>
+<h2><span class="mw-headline" id="Clip">Clip</span></h2>
+<p>The "clip" is a button that has the image of a paperclip on it. You can change the name of the current workspace by right clicking on the clip. You can change workspaces by clicking the arrows that are on the clip.
+</p><p>The clip also has similar functionality to the dock. Application icons that are added to the dock are visible on all workspaces, while application icons that are attached to the clip are only seen on the workspace where they are attached. This allows you to conveniently associate specific application icons with specific workspaces.
+</p><p>Double click the clip to hide and unhide the application icons that are attached to it.
+</p>
+<h2><span class="mw-headline" id="Dockapps">Dockapps</span></h2>
+<p>Dockapps are small applications that run in the dock. They can be useful for showing system information. Some useful dockapps that are in the <a href="https://wiki.archlinux.org/index.php/AUR" title="AUR" class="mw-redirect">AUR</a> include:
+</p>
+<ul><li> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/wmclockmon/">wmclockmon</a></span><sup><small>AUR</small></sup> - Show time and date.</li>
+<li> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/wmcpuload/">wmcpuload</a></span><sup><small>AUR</small></sup> - Show CPU status and usage.</li>
+<li> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/wmnetload/">wmnetload</a></span><sup><small>AUR</small></sup> - Show network status. Usage: <code>wmnetload -i eth0</code></li>
+<li> <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/wmdiskmon/">wmdiskmon</a></span><sup><small>AUR</small></sup> - Show disk usage. Usage: <code>wmdiskmon -p /dev/sda1 -p /dev/sda2</code></li></ul>
+<p>See the Window Maker website for more information about dockapps.
+</p>
+<h2><span class="mw-headline" id="System-tray">System-tray</span></h2>
+<p>There is no native system-tray for the windowmaker but there are one or two options around. This is potentially helpful if you want to have let's say nm-applet or so in your desktop.
+</p><p>The first one  is <b>stalonetray</b> which Prior to version 0.8, stalonetray does not work as a dockapp in WindowMaker, use Docker instead. Moreover, NW is the only grow gravity that works reliably in WindowMaker for those versions.
+</p><p>Starting from version 0.8, there is very basic support for WindowMaker dockapp mode which can be enabled via <code>--dockapp-mode wmaker</code>. Following options are also required: <code>--slot-size 32 --geometry 2x2 --parent-bg --scrollbars none</code>.
+</p><p>But also there are some easy ways, too: 
+</p>
+<ul><li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/wmsystray/">wmsystray</a></span><sup><small>AUR</small></sup>&nbsp;: which practically do the job for you.</li>
+<li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/wmsystemtray/">wmsystemtray</a></span><sup><small>AUR</small></sup>&nbsp;: The same but with no border and it suppose to work nicely on other desktops too.</li>
+<li><span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/Peksystray/">Peksystray</a></span><sup><small>AUR</small></sup>&nbsp;: which is a small system tray (also called notification tray) designed for all the light window managers <i>supporting docking</i>. </li></ul>
+<p>Peksystray provides a window where icons will automatically add up depending on the requests from the applications. Both the size of the window and the size of the icons can be selected by the user. If the window is full, it can automatically display another window in order to display more icons.
+</p>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Removing_unwanted_application_icons">Removing unwanted application icons</span></h3>
+<p>For some applications, you may not want Window Maker to display an application icon or appicon. To disable the appicon for an application, right click on the application's titlebar and choose <i>Attributes...</i> and from the drop down menu choose <i>Application Specific</i>. Tick the <i>No application icon</i> option and then hit <i>Apply</i> and <i>Save</i>.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Can.27t_disable_smooth_fonts">Can't disable smooth fonts</span></h3>
+<p>Delete (but keep a backup) the <code>~/.fontconfig/</code> directory and <code>~/.fonts.conf</code> file, then restart Window Maker.
+</p>
+<h3><span class="mw-headline" id="The_dock_is_not_covered_by_fullscreen_windows">The dock is not covered by fullscreen windows</span></h3>
+<p>To correct this issue, right click on any pinned application and, from the <i>Dock position</i> submenu, choose <i>Normal</i>. Then start the WPrefs tool. Under the <i>Window Handling Preferences</i> tab, tick the <i>...do not cover dock</i> option. This will ensure that maximised applications do not cover the dock but that fullscreen applications do.
+</p>
+<h3><span class="mw-headline" id="No_application_icons_for_some_applications">No application icons for some applications</span></h3>
+<p>Some applications such as <a href="https://wiki.archlinux.org/index.php/Chromium" title="Chromium">Chromium</a> will not display an application icon. For a workaround involving Chromium, see the following <a rel="nofollow" class="external text" href="https://code.google.com/p/chromium/issues/detail?id=375758#c3">bug report</a>.
+</p>
+<h2><span class="mw-headline" id="See_Also">See Also</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://www.windowmaker.org/">Official website</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Window_Maker" class="extiw" title="wikipedia:Window Maker">Window Maker (Wikipedia)</a></li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20160715050534
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.013 seconds
+Real time usage: 0.015 seconds
+Preprocessor visited node count: 406/1000000
+Preprocessor generated node count: 1002/1000000
+Post‐expand include size: 3451/2097152 bytes
+Template argument size: 1858/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    9.417      1 - -total
+ 31.98%    3.012     31 - Template:Ic
+ 17.13%    1.613      7 - Template:AUR
+ 12.93%    1.218      2 - Template:Pkg
+ 12.53%    1.180      4 - Template:Bc
+-->
+
+<!-- Saved in parser cache with key archwiki:pcache:idhash:6632-0!*!0!!en!*!* and timestamp 20160715050534 and revision id 422974
+ -->
+</div><div class="printfooter">
+Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=Window_Maker&amp;oldid=422974">https://wiki.archlinux.org/index.php?title=Window_Maker&amp;oldid=422974</a>"</div>
+					<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.archlinux.org/index.php/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="https://wiki.archlinux.org/index.php/Category:Stacking_WMs" title="Category:Stacking WMs">Stacking WMs</a></li></ul></div></div>					<!-- end content -->
+										<div class="visualClear"></div>
+				</div>
+			</div>
+		</div>
+		<div id="column-one">
+			<h2>Navigation menu</h2>
+					<div id="p-cactions" class="portlet" role="navigation">
+			<h3>Views</h3>
+
+			<div class="pBody">
+				<ul>
+				<li id="ca-nstab-main" class="selected"><a href="#" title="View the content page [Alt+Shift+c]" accesskey="c">Page</a></li>
+				<li id="ca-talk"><a href="https://wiki.archlinux.org/index.php/Talk:Window_Maker" rel="discussion" title="Discussion about the content page [Alt+Shift+t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="https://wiki.archlinux.org/index.php?title=Window_Maker&amp;action=edit" title="This page is protected.
+You can view its source [Alt+Shift+e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="https://wiki.archlinux.org/index.php?title=Window_Maker&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">History</a></li>
+				</ul>
+							</div>
+		</div>
+				<div class="portlet" id="p-personal" role="navigation">
+				<h3>Personal tools</h3>
+
+				<div class="pBody">
+					<ul>
+													<li id="pt-createaccount"><a href="https://wiki.archlinux.org/index.php?title=Special:UserLogin&amp;returnto=Window+Maker&amp;type=signup" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li>
+													<li id="pt-login"><a href="https://wiki.archlinux.org/index.php?title=Special:UserLogin&amp;returnto=Window+Maker" title="You are encouraged to log in; however, it is not mandatory [Alt+Shift+o]" accesskey="o">Log in</a></li>
+											</ul>
+				</div>
+			</div>
+			<div class="portlet" id="p-logo" role="banner">
+				<a href="https://wiki.archlinux.org/index.php/Main_page" class="mw-wiki-logo" title="Visit the main page"></a>
+			</div>
+				<div class="generated-sidebar portlet" id="p-navigation" role="navigation">
+		<h3>Navigation</h3>
+		<div class="pBody">
+							<ul>
+											<li id="n-mainpage-description"><a href="https://wiki.archlinux.org/index.php/Main_page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li>
+											<li id="n-categories"><a href="https://wiki.archlinux.org/index.php/Table_of_contents">Categories</a></li>
+											<li id="n-portal"><a href="https://wiki.archlinux.org/index.php/Getting_involved" title="Various ways Archers can contribute to the community">Getting involved</a></li>
+											<li id="n-currentevents"><a href="https://wiki.archlinux.org/index.php/ArchWiki:News" title="The latest lowdown on the wiki">Wiki news</a></li>
+											<li id="n-randompage"><a href="https://wiki.archlinux.org/index.php/Special:Random" title="Load a random page [Alt+Shift+x]" accesskey="x">Random page</a></li>
+									</ul>
+					</div>
+		</div>
+			<div id="p-search" class="portlet" role="search">
+			<h3><label for="searchInput">Search</label></h3>
+
+			<div id="searchBody" class="pBody">
+				<form action="https://wiki.archlinux.org/index.php" id="searchform">
+					<input name="title" value="Special:Search" type="hidden">
+					<input autocomplete="off" name="search" placeholder="Search" title="Search ArchWiki [Alt+Shift+f]" accesskey="f" id="searchInput" type="search">
+					<input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchGoButton" class="searchButton" type="submit">&nbsp;
+						<input name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" type="submit">
+				</form>
+
+							</div>
+		</div>
+		<div class="generated-sidebar portlet" id="p-interaction" role="navigation">
+		<h3>interaction</h3>
+		<div class="pBody">
+							<ul>
+											<li id="n-help"><a href="https://wiki.archlinux.org/index.php/Category:Help" title="Wiki navigation, reading, and editing help">Help</a></li>
+											<li id="n-Contributing"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Contributing">Contributing</a></li>
+											<li id="n-recentchanges"><a href="https://wiki.archlinux.org/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li>
+											<li id="n-Recent-talks"><a href="https://wiki.archlinux.org/index.php/Special:RecentChanges?namespace=0&amp;invert=1" rel="nofollow">Recent talks</a></li>
+											<li id="n-newpages"><a href="https://wiki.archlinux.org/index.php/Special:NewPages">New pages</a></li>
+											<li id="n-Statistics"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Statistics">Statistics</a></li>
+											<li id="n-Reports"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Reports">Reports</a></li>
+											<li id="n-Requests"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Requests">Requests</a></li>
+									</ul>
+					</div>
+		</div>
+			<div class="portlet" id="p-tb" role="navigation">
+			<h3>Tools</h3>
+
+			<div class="pBody">
+				<ul>
+											<li id="t-whatlinkshere"><a href="https://wiki.archlinux.org/index.php/Special:WhatLinksHere/Window_Maker" title="A list of all wiki pages that link here [Alt+Shift+j]" accesskey="j">What links here</a></li>
+											<li id="t-recentchangeslinked"><a href="https://wiki.archlinux.org/index.php/Special:RecentChangesLinked/Window_Maker" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li>
+											<li id="t-specialpages"><a href="https://wiki.archlinux.org/index.php/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li>
+											<li id="t-print"><a href="https://wiki.archlinux.org/index.php?title=Window_Maker&amp;printable=yes" rel="alternate" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>
+											<li id="t-permalink"><a href="https://wiki.archlinux.org/index.php?title=Window_Maker&amp;oldid=422974" title="Permanent link to this revision of the page">Permanent link</a></li>
+											<li id="t-info"><a href="https://wiki.archlinux.org/index.php?title=Window_Maker&amp;action=info" title="More information about this page">Page information</a></li>
+									</ul>
+							</div>
+		</div>
+				<div id="p-lang" class="portlet" role="navigation">
+				<h3>In other languages</h3>
+
+				<div class="pBody">
+					<ul>
+													<li class="interlanguage-link interwiki-de"><a href="https://wiki.archlinux.de/title/Window_Maker" title="Window Maker – Deutsch" hreflang="de" lang="de">Deutsch</a></li>
+													<li class="interlanguage-link interwiki-it"><a href="https://wiki.archlinux.org/index.php/Window_Maker_(Italiano)" title="Window Maker – italiano" hreflang="it" lang="it">Italiano</a></li>
+													<li class="interlanguage-link interwiki-ja"><a href="https://wiki.archlinuxjp.org/index.php/Window_Maker" title="Window Maker – 日本語" hreflang="ja" lang="ja">日本語</a></li>
+											</ul>
+
+									</div>
+			</div>
+				</div><!-- end of the left (by default at least) column -->
+		<div class="visualClear"></div>
+					<div id="footer" role="contentinfo">
+						<ul id="f-list">
+									<li id="lastmod"> This page was last modified on 27 February 2016, at 23:08.</li>
+									<li id="copyright">Content is available under <a class="external" rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+									<li id="privacy"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Privacy_policy" title="ArchWiki:Privacy policy">Privacy policy</a></li>
+									<li id="about"><a href="https://wiki.archlinux.org/index.php/ArchWiki:About" title="ArchWiki:About">About ArchWiki</a></li>
+									<li id="disclaimer"><a href="https://wiki.archlinux.org/index.php/ArchWiki:General_disclaimer" title="ArchWiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+		</div>
+		</div>
+		
+
+<div class="suggestions" style="display: none; font-size: 11.4667px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body><!-- Cached/compressed 20160715050534 -->
+</html>

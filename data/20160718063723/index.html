@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="vMTIonDRzJwGHGCQdTAk_u0KZbpX3ZewAjjD7EeaKMA">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="">
+    <!-- feed -->
+    <link rel="alternate" type="application/rss+xml" title="Mastering Emacs RSS Feed" href="https://www.masteringemacs.org/feed">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>Mastering Eshell - Mastering Emacs </title>
+
+    <!-- Bootstrap -->
+    
+    
+    
+    
+
+    
+    
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#me-navbar-collapse">
+              <span class="sr-only">Toggle menu</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="me-navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar-links">
+              <a class="navbar-brand col-hide-cs hidden-xs hidden-sm" href="https://www.masteringemacs.org/"><h1>Mastering Emacs</h1></a>
+              <li><a href="https://www.masteringemacs.org/about">About</a></li>
+    <li><a href="https://www.masteringemacs.org/all-articles">Article Index</a></li>
+    <li><a href="https://www.masteringemacs.org/reading-guide">Reading Guide</a></li>
+    <li><a href="https://www.masteringemacs.org/my-emacs-packages">My Emacs Packages</a></li>
+    
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    
+
+    
+    
+  <div class="container">
+  <div class="container-fluid">
+    <div class="row vertical-center-row">
+      <div id="book-announcement">
+    <div class="col-xs-12 col-sm-5">
+      <h1><a href="https://www.masteringemacs.org/book"><img src="bookcover35.png" class="img-small extra-margin" id="partial-responsive" alt="The Mastering Emacs ebook cover art"></a></h1>
+    </div>
+    <div class="col-xs-12 col-sm-5">
+      <div class="button-spacer">
+        <h2>Out now</h2>
+        
+  
+  <a href="https://www.masteringemacs.org/order" id="">
+    <div class="button-fill blue">
+      <div class="button-text">$31.99 Buy&nbsp;Now</div>
+    </div>
+  </a>
+
+
+        <hr>
+        
+  <a href="https://www.masteringemacs.org/book" id="learn-more-button">
+    <div class="button-fill red">
+      <div class="button-text">Learn More</div>
+    </div>
+  </a>
+
+      </div>
+    </div>
+  </div>
+
+      <div class="col-xs-11 col-xs-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-lg-10 col-lg-offset-1">
+        <article>
+    
+    
+    
+      
+    
+    
+      <h1 class="text-center">Mastering Eshell</h1>
+    
+    
+      
+        <div class="byline">By <em>Mickey Petersen</em></div>
+      
+      <img src="fleuron2.gif" class="img-responsive center-block">
+      
+<p class=" text-justify drop-cap">There are several shells for Emacs, but none can match the versatility and integration with Emacs like Eshell. Eshell is a shell written entirely in Emacs-Lisp, and it replicates most of the features and commands from GNU CoreUtils and the Bourne-like shells. So by re-writing common commands like <code>ls</code> and <code>cp</code> in Emacs-Lisp, Eshell will function identically on any environment Emacs itself runs on.</p><p class=" text-justify">Unfortunately, there is a problem: Eshell is woefully underdocumented – a rare sight in GNU Emacs – so I’ve compiled this guide to help people make full use of what Eshell has to offer.</p><h2 id="overview">Overview</h2><p class=" text-justify">Unlike the other shells in Emacs, Eshell does not inherit from <em>comint-mode</em>, the default mode for interacting with inferior processes in Emacs. But because Eshell is not an inferior process, it does not have to use comint; but while that may seem like a good thing, it does mean that hooks and routines written for <em>comint-mode</em> won’t work with Eshell.</p><p class=" text-justify">However, almost all the Emacs commands common to <em>comint-mode</em> are reimplemented natively in Eshell – and most share the same keybinds – but there are a few new advances that haven’t been ported over to Eshell, like the spiffy <code>comint-history-isearch-backward-regexp</code> in Emacs 23.2, bound to <code>M-r</code>.</p><p class=" text-justify">Eshell works well on any platform Emacs itself runs on, as Eshell interacts with a common middleware (namely the Emacs-Lisp/C source library) and that middleware will in turn communicate with your OS on how to go about copying files and what have you. That middleware support enables Eshell to take advantage of <a href="http://www.gnu.org/software/tramp/" class=" article-link">TRAMP</a> as well.</p><p class=" text-justify">Given Emacs’ UNIX origin, Eshell emulates traditional UNIX shells like <em>bash</em> and the GNU toolchain. This is good news if you are using Windows and cannot be bothered fidgeting with cygwin, or if you require a completely portable Emacs with few or no external dependencies.</p><p class=" text-justify">And actually, the Windows support in Eshell is a lot better, in many ways, than cygwin’s bash. You do not have the <code>/cygdrive/c</code> crud to contend with, as Eshell natively supports Windows/MS-DOS drive paths (so <code>cd D:</code> and <code>D:</code> both work equally well.)</p><p class=" text-justify">Despite all the advantages offered by Eshell, there are some points I want to make that seem to confuse some people:</p><ol><li>Eshell is <em>not</em> a terminal emulator. It does not talk to a shell, for it <em>is</em> the shell. Everything it does – from displaying stuff on the screen, to fetching the contents of a directory – it does through Emacs, and Emacs in turn talks to your operating system.</li><li>Because of the way Eshell talks to other processes (asynchronous ones especially) there may be issues with the way it buffers text and how interrupts work.</li><li>Eshell does not support interactive (or “visual” in Eshell parlance) programs, like <em>top</em>, directly; you must tell Eshell to launch them in a separate <code>ansi-term</code> instance instead.</li><li>It is not <em>bash</em> or <em>zsh</em> or even <em>csh</em>; do not treat it as such, even though it is heavily inspired by them. To use Eshell effectively you should treat it as if you are using a completely alien shell.</li></ol><h2 id="commands">Commands</h2><p class=" text-justify">Eshell is capable of invoking almost any elisp function loaded in Emacs. That sort of flexibility is unmatched; there are no shells out there capable of approximating what Eshell can do. In fact, this functionality is heavily used (and encouraged!) by Eshell. If you want to open the file <code>foobar.txt</code> in Emacs you simply invoke <code>find-file foobar.txt</code> and Eshell will map that to the elisp call <code>(find-file "foobar.txt")</code> and open the file for you.</p><h3 id="technical-details">Technical Details</h3><p class=" text-justify">All commands evaluated by Eshell have an <em>evaluation order</em>, which is an ordered list your command must pass through to determine what part of Eshell handles it. If there is nothing on the list that wants to evaluate your command, you will be told your command is invalid.</p><p class=" text-justify">Assuming you want to execute the command <code>cp</code>, the evaluation order is:</p><ol><li>A full filepath (e.g. <code>/bin/cp</code>) runs <code>cp</code> in <code>/bin</code></li><li>Look for the command prefix, <code>eshell-explicit-command-char</code> (default is <code>*</code>), and if it is found then look for the command in the search path.</li><li>Look for a shell-defined alias (<code>alias</code> command)</li><li>Look for <code>cp</code> in the search path, <code>$PATH</code> (or <code>eshell-path-env</code>)</li><li>Look for a Lisp function named <code>cp</code> or the elisp function <code>eshell/cp</code></li></ol><p class=" text-justify">The variable <code>eshell-prefer-lisp-functions</code> makes internal elisp calls take priority over external calls. What that means is when it’s set to <code>t</code> Eshell will look for an elisp function <em>first</em>, instead of <em>last</em>. If the command prefix is specified, though, this directive is ignored.</p><h3 id="built-in-commands">Built-In Commands</h3><p class=" text-justify">Eshell has a handful of commands written in Emacs-Lisp that closely emulate a large subset of what the real GNU Coreutils (or your favorite shell) has. Those commands are called “Alias functions.”</p><p class=" text-justify">EShell only implements a subset of the functionality provided by the real commands, but if you pass an unknown argument to Eshell it will defer to the <em>real</em> commandline tool (if it is installed) automatically.</p><p class=" text-justify">Here’s what Eshell currently re-implements in elisp:</p><p class=" text-justify"><code>cat</code>, <code>cp</code>, <code>ls</code>, <code>cd</code>, <code>export</code>, <code>dirs</code>, <code>du</code>, <code>echo</code>, <code>env</code>, <code>kill</code>, <code>ln</code>, <code>mkdir</code>, <code>mv</code>, <code>alias</code>, <code>popd</code>, <code>pushd</code>, <code>pwd</code>, <code>rm</code>, <code>rmdir</code>, <code>time</code>, <code>umask</code>.</p><p class=" text-justify">There is a big emphasis on adhering to the original GNU functionality, so the fact they are emulated is unlikely to cause you any trouble.</p><h3 id="command-interception">Command Interception</h3><p class=" text-justify">Eshell has a cool mechanism where certain commands are <em>intercepted</em> and passed on to Emacs proper. This enables you to invoke a command like <code>man ls</code> and have Emacs’s built-in <code>man</code> formatter handle it instead. This functionality is especially important for interactive commands (as they will not work properly in Eshell) as Eshell would not be able to call them otherwise.</p><p class=" text-justify">But where the feature really shines is with complex commands like <code>grep</code>, or <code>diff</code> as Emacs comes with awesome grep and diff tools built in. This feature alone shows the power of Eshell.</p><p class=" text-justify">The following commands are redirected to Emacs proper:</p><p class=" text-justify"><code>agrep</code>, <code>diff</code>, <code>egrep</code>, <code>fgrep</code>, <code>glimpse</code>, <code>grep</code>, <code>info</code>, <code>jobs</code>, <code>locate</code>, <code>man</code>, <code>occur</code>, <code>su</code>, <code>sudo</code>, <code>whoami</code>.</p><p class=" text-justify">The commands <code>su</code>, <code>sudo</code> and <code>whoami</code> are TRAMP aware commands (in Emacs 23.2), so if you are connected to a remote shell they work as expected.</p><h3 id="subshells">Subshells</h3><p class=" text-justify">You can use <code>$()</code> to in-line elisp calls and use their output as arguments, in much the same way as you would in bash. The only caveat here is you cannot use the backquote (backtick) to spawn a subshell, but that syntax was never universally supported anyway. It’s also possible (though I would not recommend it, for there are cases where it does not work) to use a standard elisp form like this: <code>(form ...)</code> – so the same as the subshell syntax I explained before, but without the <code>$</code>.</p><h3 id="useful-elisp-commands">Useful Elisp Commands</h3><p class=" text-justify">Eshell comes with a selection of helper functions that make your day-to-day life just **. That, combined with the power to invoke almost any elisp function, means you have incredible flexibility and control over your shell. Some of the commands I’ve listed in the table below were written for Eshell specifically, and the rest are elisp commands I find useful.</p><p class=" text-justify">I’ve compiled a table of elisp functions (some are made for Eshell; others are not.)</p><dl><dt><code>listify ARGS</code></dt><dd><p class=" text-justify">Parses an argument string into elisp list notation and prints it to the screen. It’s clever enough to handle both MS-DOS/Windows and POSIX-style argument syntax.</p></dd><dt><code>addpath PATH</code></dt><dd><p class=" text-justify">Adds the argument, which must be a path, to the <code>$PATH</code> environment variable. If no argument is specified the existing paths are pretty-printed to the screen.</p></dd><dt><code>unset ENV-VAR</code></dt><dd><p class=" text-justify">Unsets an existing environment variable</p></dd><dt><code>find-file FILE</code></dt><dd><p class=" text-justify">Finds the file FILE and opens it in Emacs. This function is TRAMP aware and will therefore work remotely.</p></dd><dt><code>dired DIRECTORY</code></dt><dd><p class=" text-justify">Opens a dired buffer in DIRECTORY.</p></dd><dt><code>calc-eval EXPR</code></dt><dd><p class=" text-justify">Runs EXPR through the Emacs calculator.</p></dd><dt><code>upcase STR</code>/<code>downcase STR</code></dt><dd><p class=" text-justify">Converts STR to upper- or lowercase.</p></dd><dt><code>vc-dir DIRECTORY</code></dt><dd><p class=" text-justify">Reports the status of a version controlled directory (equivalent to the <code>status</code> command in most VCS)</p></dd><dt><code>ediff-files FILE1 FILE2</code></dt><dd><p class=" text-justify">Diffs FILE1 and FILE2 using ediff, Emacs’ diff engine.</p></dd></dl><p class=" text-justify">If you’re an Eshell user and you use elisp commands not listed in the table above, post a comment and let tell me what it is.</p><h3 id="aliasing">Aliasing</h3><p class=" text-justify">Aliasing in Eshell works in much the same way as it does in other mainstream shells, except you can freely mix elisp and Eshell commands. The command <code>alias</code> takes an <code>alias-name</code> and a <code>definition</code>. The <code>definition</code> must be surrounded by <em>single quotes</em>. You can use the usual argument references known from other shells: <code>$1</code> for the first argument, <code>$2</code> for the second, …, or <code>$*</code> to use all arguments, or omit them entirely as Eshell will magically append them on to the end of a command if they weren’t referenced in the definition.</p><p class=" text-justify">To delete an alias, simply leave out the <code>definition</code> argument and it will be removed automagically. To list all the aliases, leave out both arguments.</p><p class=" text-justify">Eshell will write the alias definitions to <code>eshell-aliases-file</code>, which in turn is governed by the <code>Eshell-directory-name</code> and that put together means your alias file will be put in <code>~/.Eshell/alias</code> by default. This is done every time you alter an alias.</p><p class=" text-justify">Another useful thing to know is the <em>auto-correcting aliasing</em>. If you type an invalid command too many times (governed by <code>eshell-bad-command-tolerance</code>, which is 3 by default) Eshell will offer to alias it to its intended command for you. If you don’t like that, you can bump up the aforementioned variable to a large number.</p><h4 id="useful-examples">Useful Examples</h4><p class=" text-justify">Let’s map the cumbersome command <code>find-file</code> to the more manageable <code>ff</code>:</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">alias ff 'find-file $<span class="dv">1</span>'</code></pre><p class=" text-justify">And let’s map <code>dired</code> to <code>d</code>:</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">alias d 'dired $<span class="dv">1</span>'</code></pre><h3 id="visual-commands">Visual Commands</h3><p class=" text-justify">Some commands are too complex to be displayed by Eshell directly, and require special handling. An example would be <code>top</code>, a program that won’t work with a dumb terminal. To support these commands Eshell will run a <code>term</code> session when you invoke a command Eshell considers visual.</p><p class=" text-justify">To modify the list of visual commands, you can alter <code>eshell-visual-commands</code>.</p><h2 id="command-history">Command History</h2><p class=" text-justify">Eshell comes with a feature-rich command history facility. Because Eshell does not use <code>comint-mode</code> it does not have <em>all</em> the history features available to it, but most of them are reimplemented.</p><dl><dt><code>M-r / M-s</code></dt><dd><p class=" text-justify">Search backwards or forwards for a command by regexp</p></dd><dt><code>M-p / M-n</code></dt><dd><p class=" text-justify">Goes backwards or forwards in the command history list</p></dd><dt><code>C-p / C-n</code></dt><dd><p class=" text-justify">Jump to the previous or next command position in Eshell</p></dd><dt><code>C-c M-r / C-c M-s</code></dt><dd><p class=" text-justify">Jumps to the previous or next command that shares the command currently used as input. So it jumps to other instances of the command <code>foo</code> if that is the current input.</p></dd></dl><p class=" text-justify">Unfortunately, the new-and-improved <code>comint-history-isearch-backward-regexp</code> (bound to <code>M-r</code> in comint) doesn’t work in Eshell because it not inherit from <code>comint</code> (and therefore misses out on upgrades.).</p><h3 id="history-interaction">History Interaction</h3><p class=" text-justify">Like bash and other shells, Eshell has support for history modification and interaction. It’s probably easier to refer you to the bash info manual for detailed information on how the history interaction works. I’ve included a small table below that describes most of the history syntax Eshell supports.</p><dl><dt><code>!!</code></dt><dd><p class=" text-justify">Repeats the last command</p></dd><dt><code>!ls</code></dt><dd><p class=" text-justify">Repeats the last command <strong>beginning</strong> with <code>ls</code></p></dd><dt><code>!?ls</code></dt><dd><p class=" text-justify">Repeats the last command <strong>containing</strong> <code>ls</code></p></dd><dt><code>!ls:n</code></dt><dd><p class=" text-justify">Extract the <em>nth</em> argument from the last command <strong>beginning</strong> with <code>ls</code></p></dd><dt><code>!ls&lt;tab&gt;</code></dt><dd><p class=" text-justify">Using <em>pcomplete</em>, show completion results matches <code>ls</code></p></dd><dt><code>^old^new</code></dt><dd><p class=" text-justify">Quick substitution. Using the last command, replace<code>old</code> with <code>new</code> and run it again. Appears to be buggy.</p></dd><dt><code>$_</code></dt><dd><p class=" text-justify">Returns the last parameter in the last executed command.</p></dd></dl><p class=" text-justify">Eshell also has some support for bash history modifiers (like <code>!!:s/old/new/</code>) and <a href="http://www.gnu.org/software/bash/manual/bash.html#History-Interaction" class=" article-link">the bash reference on history interaction</a> would be a good place to brush up on that.</p><h2 id="commandline-interaction">Commandline Interaction</h2><h3 id="the-eshell-prompt">The Eshell Prompt</h3><p class=" text-justify">You can customize the Eshell prompt by modifying <code>eshell-prompt-function</code>, a variable that takes a function that defines what the prompt should contain. By relegating prompt configuration to elisp you can do just about anything you like with it. The only problem is, of course, that Eshell will need to be told <em>what</em> the prompt “looks” like, so you must also edit the variable <code>eshell-prompt-regexp</code> so Eshell knows what the prompt is.</p><h3 id="the-commandline">The Commandline</h3><p class=" text-justify">Eshell supports <code>\</code> to escape newlines and supports rudimentary multi-line input that way. Another way of doing multi-line <em>literal strings</em> is with single quotes: begin a single quote and hit enter, and you are free to enter text until the closing quote delimiter is encountered. If you use double quotes Eshell will expand subshell commands and do variable expansion.</p><p class=" text-justify">Due to the way Eshell works, you can even go back and modify the text you entered, in quotes. This is very handy as you can go back and change stuff you don’t like, and get it right the first time.</p><h3 id="useful-keybindings">Useful Keybindings</h3><p class=" text-justify">Eshell comes equipped with a couple of quality-of-life improvements that make interacting with Emacs and Eshell a lot easier.</p><dl><dt><code>C-c M-b</code></dt><dd><p class=" text-justify">Inserts the printed buffer name at point</p></dd><dt><code>C-c M-i</code></dt><dd><p class=" text-justify">Inserts the printed process name at point</p></dd><dt><code>C-c M-v</code></dt><dd><p class=" text-justify">Inserts an environment variable name at point</p></dd><dt><code>C-c M-d</code></dt><dd><p class=" text-justify">Toggles between direct input and delayed input (send on RET).</p></dd></dl><p class=" text-justify">Useful for some programs that don’t work correctly with buffered input.</p><h2 id="argument-predicates">Argument Predicates</h2><p class=" text-justify">Argument predicates are a cool way of quickly filtering lists of files or even elisp lists. The predicate syntax is based on the one used in zsh, so if you are familiar with argument predication in zsh, you can apply most of your knowledge to Eshells’ version.</p><p class=" text-justify">Unlike most other areas of Eshell, argument predicates are documented in Eshell itself. You can access the help files by typing <code>eshell-display-predicate-help</code> or <code>eshell-display-modifier-help</code>.</p><p class=" text-justify">Filtering globbed lists of files is very useful, as it saves you the hassle of using tools like <code>find</code> or abusing <code>ls</code> to do your thing.</p><p class=" text-justify">The help file is fairly spartan and only serves as a simple reference, so I’ve included a small guide here; but actually, the only real way to learn something as flexible as argument predication is simply by trial and error.</p><h3 id="syntax-reference">Syntax Reference</h3><p class=" text-justify">I’ve opted not to reprint the sizeable list of predicates and modifiers, as the Eshell manual (see the commands above) do a good enough job of explaining how they work.</p><h3 id="globbing">Globbing</h3><p class=" text-justify">Globbing in Eshell follow the same rules as it does in most other common shells: it is the shell that does the expansion of globs and <em>it</em> passes the expanded list of matches on to commands like <code>ls</code>. That’s why when you use <code>find</code> and <code>xargs</code> together it’s critical that you pass <code>-print0</code> to <code>find</code>, and <code>-0</code> to <code>xargs</code>. If you don’t, filenames with obscure characters or spaces in them may trip up xargs; by using the NUL character as a separator ensures tokenization takes place correctly as the NUL character is an invalid character (along with <code>/</code>) in files.</p><h3 id="elisp-lists">Elisp Lists</h3><p class=" text-justify">Eshell’s “lists” are actually elisp lists in their printed form as well as internally. That makes life a lot simpler if you think about it, as Eshell can paw off list handling to elisp, which is something Lisp does well.</p><p class=" text-justify">Simplest glob example is <code>echo *</code>, which echos a list of all the wildcard matches in the current directory. Because – as I just mentioned above – wildcard expansion takes place <em>inline</em>, I can immediately apply a modifier to the <code>*</code> wildcard above.</p><p class=" text-justify">Let’s uppercase the globbed result set:</p><pre><code>/ $ echo *(:U)
+("BAR" "BIN/" "DEV/" "ETC/" "FOO" "HOME/" "LIB/" "TMP/" "USR/" "VAR/")</code></pre><p class=" text-justify">Notice how I used <code>()</code> immediately following the glob pattern. The brackets are what makes argument modifiers or predicates possible. Modifiers are things that <em>modify</em> (big surprise!) the resulting list. Modifier commands always begin with <code>:</code>, and predicates do not.</p><p class=" text-justify">Another example, but this time I filter directories using a predicate:</p><pre><code>/ $ echo *(^/)
+("bar" "foo")</code></pre><p class=" text-justify">The circumflex, <code>^</code>, in this case, like in regular expressions, is negation. The <code>/</code> means “directories” only.</p><p class=" text-justify">But I don’t have to use globs to apply modifiers or predicates to lists:</p><pre><code>/ $ echo ("foo" "bar" "baz" "foo")(:gs/foo/blarg/)
+("blarg" "bar" "baz" "blarg")</code></pre><p class=" text-justify">This time I replaced all occurrences of <em>foo</em> with <em>blarg</em>. Observe that the syntax is identical, except instead of using globs to get a list of files, I used a list of my own choosing.</p><p class=" text-justify">The advantages provided by argument predicates and modifiers will greatly reduce commandline clutter as the predicates cover permissions, ownership, file attributes, and much more.</p><h3 id="adding-new-modifiers-and-predicates">Adding New Modifiers and Predicates</h3><p class=" text-justify">You can even add your own predicates (<code>eshell-predicate-alist</code>) or modifiers (<code>eshell-modifier-alist</code>):</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(add-to-list 'eshell-modifier-alist '(?X . '(<span class="kw">lambda</span> (lst) (<span class="kw">mapcar</span> 'rot13 lst))))</code></pre><p class=" text-justify">Here I’ve bound <code>X</code> to <code>rot13</code>, the substitution cipher:</p><pre><code>/ $ echo ("foo" "bar" "baz")(:X)
+("sbb" "one" "onm")</code></pre><h2 id="plan-9-smart-shell">Plan 9 Smart Shell</h2><p class=" text-justify">Eshell comes with a pared-down facsimile of Plan 9’s terminal, called <em>the Eshell smart display</em>. The smart display is meant to improve the write-run-revise cycle all commandline hackers go through. It works by not letting the point follow the output of a command you execute, like a normal terminal would. Instead, the point is kept on the line of the command you executed, letting you revise it easily without having to use <code>M-p</code> and <code>M-n</code> or the history modification commands.</p><p class=" text-justify">If smart display is enabled it will also let you review the output of long-running commands by using <code>SPC</code> to move down a page and <code>BACKSPACE</code> to move up a page. If any other key is pressed it will jump the end of the buffer, essentially acting in the same way as if smart display wasn’t enabled.</p><p class=" text-justify">Essentially, if Eshell detects that you want to <em>review</em> the last executed command, it will help you do so; if, on the other hand, you do not then Eshell will jump to the end of the buffer instead. It’s pretty clever about it, and there are switches you can toggle to fine-tune the behavior.</p><p class=" text-justify">Where the smart display really shines is that it lets you modify the command you just executed by using the movement keys – like you normally would – to change the command, say to fix a typo or tweak an argument.</p><p class=" text-justify">The smart display can also be set not to use this extended “edit mode” if the command returns successfully, and without displaying output, like <code>chown</code> for instance. This is how I prefer it.</p><p class=" text-justify">To enable it put this in your .emacs file:</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">require</span> 'eshell)
+(<span class="kw">require</span> 'em-smart)
+(<span class="kw">setq</span> eshell-where-to-jump 'begin)
+(<span class="kw">setq</span> eshell-review-quick-commands <span class="kw">nil</span>)
+(<span class="kw">setq</span> eshell-smart-space-goes-to-end <span class="kw">t</span>)</code></pre><p class=" text-justify">If Eshell has already initialized (that is, you’ve already launched an instance of Eshell in Emacs) then evaluating the changes above will not work. You must switch to the Eshell buffer and type <code>M-: (shell-smart-initialize)</code> (or restart Emacs.)</p><p class=" text-justify">The smart display is a pretty useful feature and it won’t get in your way once you’re used to it. Simply typing in new commands will make Eshell jump to the end of buffer as if the point was already there.</p><h2 id="redirection">Redirection</h2><p class=" text-justify">Redirection in Eshell works in much the same way as it does in other shells. The key difference is that Eshell has to emulate the pseudo-devices as they may not be present (or may not be present in the same form) on platforms such as Windows where <code>/dev/null</code> is actually <code>NUL</code>.</p><p class=" text-justify">Another caveat is that Eshell does not support <em>input</em> redirection, though it does support output redirection. To skirt around the lack of input redirection you should use pipes instead.</p><p class=" text-justify">Redirection to stdout, stdin and stderr work as you would expect, and you can send things to multiple targets as well, which is very nice.</p><h3 id="to-emacs">To Emacs</h3><p class=" text-justify">Because Eshell has to reimplement pseudo-devices internally it is not at the mercy of dealing with just UNIX device files – it is actually capable of implementing its own pseudo-devices.</p><p class=" text-justify">A good example would be redirection to a buffer of your choosing, and that can be done with the following syntax:</p><pre><code>/ $ cat mylog.log &gt;&gt; #&lt;buffer *scratch*&gt;</code></pre><p class=" text-justify">The keybind I mentioned before <code>C-c M-b</code> will insert the printed name of a buffer.</p><p class=" text-justify">You can also output straight to an elisp symbol (but be careful you don’t fry the wrong settings):</p><pre><code>/ $ echo foo bar baz &gt; #'myvar
+/ $ echo $(cadr myvar)
+bar</code></pre><p class=" text-justify">If you set <code>eshell-buffer-shorthand</code> to <code>t</code> you can use the shorthand <code>#'*scratch*</code> instead, but it means you will not be able to redirect straight to elisp symbols.</p><h3 id="to-pseudo-devices">To Pseudo-Devices</h3><p class=" text-justify">Eshell reimplements the following pseudo-devices:</p><dl><dt><code>/dev/eshell</code></dt><dd><p class=" text-justify">Prints the output interactively to Eshell.</p></dd><dt><code>/dev/null</code></dt><dd><p class=" text-justify">Sends the output to the NULL device.</p></dd><dt><code>/dev/clip</code></dt><dd><p class=" text-justify">Sends the output to the clipboard.</p></dd><dt><code>/dev/kill</code></dt><dd><p class=" text-justify">Sends the output to the kill ring.</p></dd></dl><p class=" text-justify">The usual redirection rules like overwrite (<code>&gt;</code>) and append (<code>&gt;&gt;</code>) apply here.</p><h3 id="to-custom-virtual-targets">To custom virtual targets</h3><p class=" text-justify">You can design your own virtual targets by modifying <code>eshell-virtual-targets</code>, an alist that takes the name of the pseudo-device you want to create, and a function that takes one parameter, <code>mode</code>, that determines if it’s <code>overwrite</code>, <code>append</code> or <code>insert</code>.</p><h2 id="tramp">TRAMP</h2><p class=" text-justify">Eshell now supports TRAMP natively, which means commands like <code>su</code>, <code>sudo</code> and <code>whoami</code> now query the remote system if the directory Eshell is in is <em>remote</em>.</p><p class=" text-justify">To use the TRAMP functionality simply enter the same TRAMP command string you’d use in <code>C-x C-f</code> and off it goes. The TRAMP support in Eshell can be a bit flakey, but it <em>does</em> give you a remote shell courtesy of TRAMP. You don’t have to limit your TRAMP use to <em>remote</em> shells, as TRAMP is also capable of using <code>sudo</code> and <code>su</code> for local use.</p><p class=" text-justify">I’ll cover TRAMP in greater detail in a separate article, but the <a href="http://www.gnu.org/software/tramp/" class=" article-link">official manual</a> is a good place to start.</p><h2 id="startup-scripts">Startup Scripts</h2><p class=" text-justify">Like most shells, Eshell supports both login and profile/rc shell scripts. The full filepaths for both are stored in the variables <code>eshell-login-script</code> and <code>eshell-rc-script</code>, but by default the files <code>login</code> and <code>profile</code> are stored in <code>~/.eshell/</code>.</p><p class=" text-justify">It bears mention that the comment syntax is <code>#</code>.</p><h2 id="more-customization">More Customization…</h2><p class=" text-justify">Eshell has hundreds of options you can tweak to your liking. To configure Eshell, type <code>M-x customize-group RET eshell RET</code>.</p><h2 id="conclusion">Conclusion</h2><p class=" text-justify">Phew. I think I’ve covered all major areas of Eshell, and I hope it paints it in a good light. Eshell is remarkably versatile thanks to its tight integration with Emacs. It’s not a full-on replacement for bash and your favorite terminal emulator, but it’ll do most of the commandline stuff we all inevitably end up doing. If you use a lot of interactive programs then Eshell is probably not very useful, as it has to spawn a separate term instance for every visual program you run.</p><p class=" text-justify">Eshell has TRAMP support, custom pseudo-devices, a pocket-sized elisp REPL and lots of useful utility commands like being able to <code>find-file</code> or <code>dired</code> any directory or file you’re in, and that makes it a trusty tool in my toolbox.</p>
+
+    
+  </article>
+      </div>
+    </div>
+    <img src="fleuron1.gif" class="img-responsive center-block">
+    <div id="footer" class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2 col-xs-12" id="further-reading">
+
+          
+            <h2>Further Reading</h2>
+            <p>Have you read my
+              <a href="https://www.masteringemacs.org/reading-guide" id="further-reading-link">Reading Guide</a> yet?
+              It's a curated guide to most of my articles and I guarantee you'll learn something whether you're a beginner or an expert. <a href="https://www.masteringemacs.org/book">Or why not buy my new book?</a></p>
+          
+        </div>
+        <div class="col-md-4 col-xs-12 inverted" id="subscribe-group">
+          <div class="inverted-title text-center">
+            Subscribe to the Mastering Emacs newsletter
+          </div>
+          <p class="small text-center">I write infrequently, so go on — sign up and receive an e-mail when I write new articles</p>
+          <form action="https://masteringemacs.us9.list-manage.com/subscribe/post?u=09fae16ebcde0fee42a8bd99f&amp;id=777fab9be9" method="post" name="mastering-emacs-subscribe-form" id="subscribe-form" target="_blank" novalidate="" role="form">
+            <div class="form-group">
+	      <label class="sr-only" for="me-EMAIL">Email Address </label>
+	      <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" value="" id="me-EMAIL" name="EMAIL" class="form-control" placeholder="Your E-mail address" type="email">
+            </div>
+            <div class="form-group">
+	      <label class="sr-only" for="me-FNAME">First Name </label>
+	      <input value="" id="me-FNAME" name="FNAME" class="form-control" placeholder="Your First name" type="text">
+            </div>
+            <div style="position: absolute; left: -5000px;">
+              <input name="b_09fae16ebcde0fee42a8bd99f_777fab9be9" tabindex="-1" value="" type="text">
+            </div>
+            <input value="Subscribe" name="subscribe" id="me-subscribe" class="btn btn-default" type="submit">
+            <div class="pull-right">
+              <a class="twitter-follow-button center-block" href="https://twitter.com/mickeynp" data-show-count="false" data-size="large" data-lang="en">Follow @mickeynp</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-xs-12 col-md-offset-2">
+        <img src="fleuron1.gif" class="img-responsive center-block">
+        
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>I really appreciate this blog.  You've made me more productive already :)</p>
+<p>Regarding globbing, I've noticed that globbing is unsorted by default, which has been a bit of a hassle for me.  </p>
+<p><code>echo test_?_???.xml</code></p>
+<p>vs</p>
+<p><code>echo (sort (eshell-extended-glob "test_?_???.xml") 'string&lt;)</code></p>
+<p>Of course, the eshell 'ls' command does sort the output, which in some way masks the issue.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>llahwehttam</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="109">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>That's peculiar. I can't seem to reproduce that on my machine.</p>
+<pre lang="bash">$ echo test_?_??.xml
+("test_1_10.xml" "test_1_11.xml" "test_1_12.xml" "test_2_12.xml" "test_3_12.xml")
+</pre>
+<p>Of course, if it is a problem, you can use the argument modifier <code>(:o)</code> to sort a list.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="110">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>My use case is in a directory with a great deal of history, so there's no telling the order of the directory entries.  Nonetheless, <code>echo test_?_???.xml(:o)</code> works quite well.</p>
+<p>Thanks!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>llahwehttam</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="114">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>It took me a while to figure out for loops in eshell. Here are a few examples:</p>
+<pre><code>
+  for f in web1 web2 { scp info.php $f:/var/www/html/oscmax/catalog }
+  for f in {ls -1d *} {echo $f; svn up $f}
+  for f in {find . -name '*.java'} {mv $f (replace-regexp-in-string "\\.java$" ".scala" f)}
+  # Those parens may also be curly braces. Paren for lisp, curly for subshell.
+  # See how $f is used in curly brace but f is used in parens
+  for f in db1 db2 {mysqldump -d -uuser -ppwd (concat "prefix_" f "_suffix") &gt;(concat "/tmp/backup_" f ".sql")}
+</code></pre><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://www.io.com/~jimm/" rel="nofollow">Jim Menard</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="111">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thanks for this. I use a lot of for loops in my daily bash hacking but am moving more and more towards an emacs centric perspective for everything I do!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Z</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="857">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Great article!  Just wanted to point out a few things:</p>
+<p>1. If you enable the optional "rebind" module, then all the interactive keybinding you're familiar with in Bash will be available at the Eshell prompt: C-r, C-s, C-w, C-u, etc.  The behavior of C-r here is perhaps similar to the new comint functionality you mentioned.</p>
+<p>2. eshell/X is always preferred to a native binary X.</p>
+<p>3. You didn't mention &gt;&gt;&gt; redirection, which inserts at point.  &gt;&gt; inserts at the end of the buffer.</p>
+<p>4. All I/O in Eshell must passt through a buffer.  This is why devices can't be read/written directly.  It also means that bulk I/O in Eshell is orders of magnitude slower than a regular shell.  It should really only be used for interactive use.</p>
+<p>5. Putting &amp; at the end of a command backgrounds it, if the command executed is external.  But there is no job control.</p>
+<p>6. Full Zsh globbing syntax is supported, like **/*.c.</p>
+<p>John (Eshell author)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://www.newartisans.com/" rel="nofollow">John Wiegley</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="112">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>John,</p>
+<p>Seems akismet ate your comment - sorry. Thanks for your feedback (and for making Eshell a possibility), I'll update the article to reflect your changes. Thanks!</p>
+<p>-Mickey.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="121">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>&gt; "6. Full Zsh globbing syntax is supported, like **/*.c."</p>
+<p>Unfortunately eshell hands over the globbing string if nothing matches. This can be worked around by adding a predicate, i.e. "**/*.c(.)", but IMHO this is a design flaw. Opinions?</p>
+<p>(zsh reports an error if nothing matches, I am not sure this is the right thing to do either, but it prevents obscure errors.)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Ingolf Jandt</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="157">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>all IO going through buffers: is it really necessary? I tend to do a lot of sort+awk in my daily interactive shell usage – that's pretty much all I do outside of emacs ;) I like the concept of eshell, but because of the slowness I never manage to use it for real work.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>k</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="18723">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>You should check out my article on sorting in Emacs; you might be surprised to learn that Emacs has excellent and regexp-aware sorting mechanisms.</p>
+<p>As for IO through buffers: that's pretty much how Emacs does the bulk of its communications. As it goes, Emacs has thousands of commands for operating on buffers but few that operate on internal data structures, like strings, as it would unnecessarily duplicate the functionality already available to a near-infinite-length buffer.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="19173">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Nice post!  Nice blog!</p>
+<p>I find in eshell, when I run a command and redirect output to a file, both stdout and stderr are redirected.  I would expect only stdout to be redirected, and stderr to be shown in the shell.  But I can't find any way to make it work that way.</p>
+<p>So for example,</p>
+<p>path/to/my/script &gt; /path/to/my/file</p>
+<p>will write *both* stdout and stderr to file.  There's no way to see stderr in the shell!</p>
+<p>Thanks for the highly detailed original post.  I'm curious if you or anyone know how to solve this stderr problem.</p>
+<p>-Dave</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://www.dave-cohen.com/" rel="nofollow">Dave Cohen</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="115">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>You could try doing it with <code>1&gt;</code> and <code>2&gt;</code>. They should redirect stdout and stderr specifically.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="122">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>No luck.  Seems to treat 1&gt; exactly the same as &gt;.  2&gt; seems to have no effect.</p>
+<p>I'm using a build of emacs 24.0.50.1 on arch linux.  It's a dev build, might have a bug not present in other versions.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Dave Cohen</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="131">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>I have the same issue with Emacs 23.1.2 on Fedora.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Lukas</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="310">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>One irritating thing about eshell, hitting C-a at the prompt does not take you to the beginning of your input, but instead goes all the way to the beginning of the shell prompt text. Useless!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://ghalib.me/" rel="nofollow">Ghalib Suleiman</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="116">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Ok I just found out that the behaviour I want is the function eshell-bol, bound to C-c C-a. by default.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://ghalib.me/" rel="nofollow">Ghalib Suleiman</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="117">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>It is also bound to <code>C-a</code> in Emacs 23.2 (at least)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="120">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thanks mickey, that was excellent. Perhaps GNU should adopt it for the official documentation :)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Phil</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="118">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>I hope this ends up in the GNU Emacs manual!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://emacswiki.org/alex/Emacs" rel="nofollow">Alex Schroeder</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="1439">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thanks to mickey for sharing so many tips on using ESHELL. I have discovered many new things here. Thanks.</p>
+<p>I have one bug that is really annoying but I personally don't know how to fix.</p>
+<p>It can be reproduced following these simple steps:</p>
+<p>1. Emacs -q</p>
+<p>2. M-x eshell</p>
+<p>3. cd /usr/include</p>
+<p>4. ack time</p>
+<p>After about 5 seconds, I see colours completely mixed up like this http://i.imgur.com/Dg3VH.png even the ESHELL prompt is in that disgusting colour.</p>
+<p>Anyone has any idea how to fix that?</p>
+<p>I have tried at least twice to fix it myself but unfortunately due to the asynchronous nature of the process filter I alway gave up in the end. The closest workaround I have found is:</p>
+<p>(defadvice eshell-handle-ansi-color (around test activate)</p>
+<p>  "Handle ANSI color codes."</p>
+<p>  (ansi-color-apply-on-region (1- eshell-last-output-start)</p>
+<p>                              (1- eshell-last-output-end)))</p>
+<p>Leo</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Leo</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="123">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Hmm. That stuff is always fiddly to deal with. I think the easiest is to make an elisp eshell command called <code>eshell/ack</code> and have it intercept the command and display the output in its own buffer. Look at how <code>eshell/grep</code> and <code>eshell-grep</code> is implemented.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="124">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thanks for your prompt reply. Sorry it seems 'ack' caught your attention. I only used it to demonstrate the problem.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Leo</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="125">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>One thing I found lacking in eshell was the `find` utility. But found it in the `find-lisp` library -- `find-lisp-find-files` and `find-lisp-find-dired` (which could be aliased to `find` if desired). Unfortunate about the missing input redirection, but otherwise eshell is complete for my purposes!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>ST</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="126">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>(*Very* nice post by the way)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>ST</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="127">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>great article! it is frustrating to find good eshell docs.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>brad clawsie</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="130">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>What an excellent article -- Thanks a million!</p>
+<p>Although I've been using Eshell on a regular basis, it'd never have occured to me that all those nifty zsh predicates/modifiers are working in eshell. The redirection features seem pretty nice too.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>danlei</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="135">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>I am willing to user eshell instead of shell but I would like to know better how to customize my eshell-prompt especially to remain with ~ instead of the full path. Thanks.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Eugene</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="141">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Very nice article.</p>
+<p>One thing that's continually kept me from adopting eshell is that I work almost exclusively over Tramp, and every time I pass eshell a non-built-in command, it takes a few seconds to open the connection before I get my result.</p>
+<p>With M-x shell, the connection is opened once at the beginning of the session, and all subsequent commands execute immediately. Does anyone have any experience with this or know of any workarounds?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://metasandwich.com/" rel="nofollow">Selah</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="147">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>I never knew eshell could do all these cool things, thanks!</p>
+<p>One question though: In Bash, I use Alt+. all the time to cycle through the last argument of previous commands.  Is there anything like it for eshell?</p>
+<p>I read that the $_ variable gives me the last argument of the previous command but that's only a small subset of  what Alt+. in Bash does.</p>
+<p>Lukas</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Lukas</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="298">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>There is also a great deal of information about Eshell over at EmacsWiki: http://www.emacswiki.org/emacs/CategoryEshell</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Mathias Dahl</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="468">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>This is maybe more of an Elisp question than an Eshell question, but having the full path in the eshell prompt is driving me nuts. There are some decent examples of changing your eshell prompt, but how do I chop off all of the directories which are parents of the CWD? Instead of /home/me/Sandbox/repo1/proj5/src/foo $ as my prompt I just want foo $</p>
+<p>Thanks</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Z</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="859">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>One more thought then I'll stop spamming your blog with comments:</p>
+<p>I find the KDE file browser option to include a terminal in a pane below the current directory really nice, as I navigate with the gui file manager the terminal automagically cd's to the CWD. Anybody know of any packages, or have thoughts on the difficulty of emulating this behaviour between an eshell buffer and a dired buffer? (This option is available in Konqueror as of at least KDE 3.5.x and also dolphin in KDE 4.x. An extension can be added to the gnome file browser, nautilus to also enable this functionality.)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Z</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="860">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>You might want to use the function defined in this article to pop in and out of an eshell-buffer.</p>
+<p>http://howardism.org/Technical/Emacs/eshell-fun.html#sec-2</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>kluck</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="60037">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Just a little detail (a possible typo). In the part about how one can output to a symbol, I think it should be "echo $(cadr myvar)" instead of "echo $(cadr foo)". </p>
+<p>Thanks a bunch for this great article!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mk</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="987">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Good catch. Thanks!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="988">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Just to point out a small typo.</p>
+<p>When you said:</p>
+<p>"You must switch to the Eshell buffer and type M-: (shell-smart-initialize)"</p>
+<p>you probably meant "M-: (eshell-smart-initialize)" right?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Anonymous</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="3309">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Great catch. Thanks!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="3320">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Superb article -- brilliant introduction to Eshell. </p>
+<p>I have replace most of my Cygwin usage, was facing exactly the same problems as you mentioned.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>SomeOne</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="4408">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>alias cp 'cp -i $*' doesn't work for me.  When I define this alias I get "cp: missing destination file or directory".  I'm using emacs 23.3.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>jj</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5920">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Oh, and thanks for the nice tutorial. :)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>jj</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5921">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Does eshell have anything similar to dired's </p>
+<p>(setq ls-lisp-verbosity nil)</p>
+<p>to remove the uid and gid columns from </p>
+<p>"ls -l" long-form directory listings?</p>
+<p>(Emacs 24.0.92.1)</p>
+<p>And yes, thanks for a terrific guide!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>LongList</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="8651">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Nice post.  I'm just giving eshell a try, and so far I like it.  Especially since I don't need to omit "visual" commands like top, which used to keep me away from emacs internal shells.  (I don't like M-x term.  I can't cope with its bindings...</p>
+<p>Now there're just a few things left to make me really enjoy eshell for all my cmd line needs:</p>
+<p>1. How can I teach it to show things like "git log" or "bzr log" also in a term?</p>
+<p>2. How can I configure this command interception?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Tassilo Horn</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22912">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Hi Tassilo,</p>
+<p>1. You can tweak the list variable <code>eshell-visual-commands</code></p>
+<p>2. As for configuring it, you can try the customize group <code>M-x customize-group RET eshell-term RET</code></p>
+<p>Thanks.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22913">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>1. The problem is that eshell-visual-commands have to be plain commands whereas "git log" is a command with one argument (subcommand).  Adding "git log" to the list has no effect.</p>
+<p>2. No, I've meant how to configure the *interception* feature.  M-x apropos-variable doesn't find any variable, M-x apropos finds the function eshell-intercept-command, but that doesn't really help me.  How can I add other commands to be intercepted and their output being shown in emacs itself?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Tassilo Horn</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22914">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Not sure if it's easily possible then as it's not something I've ever had to do in eshell. You could probably ghetto some code but I think this might be easier:</p>
+<p>http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/</p>
+<p>My article on pcomplete (which is what eshell uses also) shows how to intercept arguments to, coincidentally, <code>git</code>. You should be able to use that to spawn a term session with a bit of elisp hackery :)</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22916">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Hi Mickey,</p>
+<p>I've added that feature to eshell.  See http://bzr.savannah.gnu.org/lh/emacs/trunk/revision/112822</p>
+<p>Bye,</p>
+<p>Tassilo</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Tassilo Horn</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22939">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Impressive work, Tassilo! Thank you!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22940">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Ok, thanks!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Tassilo Horn</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22917">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Hi, I had some trouble with recent emacs getting the smart shell stuff to initialise, a recent patch looks to have taken all the initialize function calls out of eshell hooks.  Perhaps it all now works in a different way but I couldn't see how.</p>
+<p>I got it loaded with your additions plus</p>
+<p>(add-hook 'eshell-mode-hook 'eshell-smart-initialize)</p>
+<p>Nice post!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Matt Ford</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="22946">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>So far, I confess I have been very happy with eshell and outside of a few warts where the TRAMP has failed me, I have had very few issues.</p>
+<p>Today, though, I hit a huge one.  Why is it I can't run something like:</p>
+<p>    echo "^hello^world"</p>
+<p>I'm guessing it has to do with the reader macro, but the caret symbol is hard to search for on google.  Also, I found I can do</p>
+<p>    echo "^hello world."</p>
+<p>It is only when the second caret appears that problems arise.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Josh Berry</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="60051">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Great Emacs blog, is very useful for beginners. Like me</p>
+<p>How I get this alias in eshell?</p>
+<p>alias tif='ls *.{tif,tiff,TIFF,TIF}'</p>
+<p>I want listing the tiff files only.</p>
+<p>It works in bash.</p>
+<p>Thank you </p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>farliz</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="60084">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Excuse my bad English! </p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>farliz</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="60085">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>I think I may have found a typo: M-: (shell-smart-initialize) should actually be ~M-: (shell-smart-initialize)~.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="https://www.masteringemacs.org/article/bryangarza.github.io" rel="nofollow">bryan</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="60089">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Oops, didn't fix it there :p</p>
+<p>I mean `M-: (eshell-smart-initialize)`</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="https://www.masteringemacs.org/article/bryangarza.github.io" rel="nofollow">bryan</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="60090">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Under "Technical Details" you describe the order commands are evaluated in. However, when I use eshell it seems to prefer the eshell versions of most commands, and even through the value of `eshell-prefer-lisp-functions` is set to nil. Do you know if this is something that has changed, or is it a bug maybe?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Ethan</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="60092">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-xs-12 col-md-offset-2" id="post-comment">
+          <img src="fleuron1.gif" class="img-responsive center-block">
+          <form class="form-horizontal" role="form" id="comment-form" data-article-id="170">
+            <div class="row">
+              <div id="form-error" class="col-sm-8 col-md-offset-2">
+              </div>
+            </div>
+            <input id="parent_id" name="parent_id" value="" type="hidden">
+            <div class="form-group">
+              <label for="author" class="col-sm-4 control-label">Name</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="comment-author" name="author" placeholder="" required="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-sm-4 control-label">Email</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="comment-email" name="email" placeholder="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="url" class="col-sm-4 control-label">Website</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="comment-website" name="url" placeholder="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="captcha" class="col-sm-4 control-label"><code>C-x C-f</code> is what command?</label>
+              <div class="col-sm-8">
+                <input autocomplete="off" class="form-control" id="comment-captcha" name="captcha" placeholder="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="content" class="col-sm-4 control-label">Comment Content</label>
+              <div class="col-sm-8">
+                <textarea autocomplete="off" class="form-control" id="comment-content" name="content" placeholder=""></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-8 col-sm-offset-4">
+                <button type="button" class="btn btn-success" id="comment-submit-button">Comment</button>
+                <button type="button" class="btn btn-default" id="comment-cancel-button">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    
+      <div class="container-fluid nav-footer">
+        <div class="row-fluid">
+          <div class="col-xs-12 center-column">
+            <p>Copyright 2010-2015 Mickey Petersen. <a href="https://www.masteringemacs.org/terms" id="terms">Terms &amp; Privacy Policy</a></p>
+          </div>
+        </div>
+      </div>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    
+      
+    
+    
+    
+    
+    
+  
+</body>
+</html>

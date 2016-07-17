@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/QAPage">
+<head>
+
+<title>Using the scrollwheel in GNU screen - Stack Overflow</title>
+    <link rel="shortcut icon" href="//cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+    <link rel="apple-touch-icon image_src" href="//cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com"/>
+    <meta property="og:type" content="website" />    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&a" />
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Using the scrollwheel in GNU screen" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="How can I setup GNU screen to allow the mouse&#39;s scrollwheel to scroll around in the scrollback buffer? I tried to Google about this, but most hits where on how to allow applications inside screen t..." />
+    <meta property="og:url" content="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen"/>
+    <link rel="canonical" href="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen" />
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//cdn.sstatic.net/Js/stub.en.js?v=0ca4610bc4ea"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.sstatic.net/Sites/stackoverflow/all.css?v=44a73cad850d">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Using the scrollwheel in GNU screen&#39;" href="/feeds/question/359109">
+            <meta name="twitter:app:country" content="US" />
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:iphone" content="871299723" />
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen" />
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:ipad" content="871299723" />
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen" />
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:2,shownCommentCount:2,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:359109});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '359109');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","serverTime":1467894994,"routeName":"Questions/Show","site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"enableInsertDocLinkDialog":false,"enableSocialMediaInSharePopup":true},"user":{"fkey":"458f60665156ae9a257f58412dac831c","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true}}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true},"tags":{},"flags":{},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"markdown":{"asteriskIntraWordEmphasis":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"c3a4b5c6f8c5","js/moderator.en.js":"2dc7215c84c2","js/full-anon.en.js":"7ce54c5ff70c","js/full.en.js":"19f85d884c40","js/wmd.en.js":"7f01dadfab1a","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"a37bf4b341d0","js/help.en.js":"a9d821110060","js/tageditor.en.js":"9c6df10dabc4","js/tageditornew.en.js":"bd40f425abf0","js/inline-tag-editing.en.js":"4fa1a4a3339e","js/revisions.en.js":"47de10a8358f","js/review.en.js":"ff16e1f41e63","js/tagsuggestions.en.js":"b278f9a0b23b","js/post-validation.en.js":"991865b0743e","js/explore-qlist.en.js":"e71f14781288","js/events.en.js":"ee7c7a0fe90e","js/keyboard-shortcuts.en.js":"04c821bd5251","js/external-editor.en.js":"34f78799ad2d","js/external-editor.en.js":"34f78799ad2d","js/snippet-javascript.en.js":"61c0c7bd5b76","js/snippet-javascript-codemirror.en.js":"fcc2910a0764"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+</head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    
+        <script>(function () { var old = $.fn.contents; $.fn.contents = function () { try { return old.apply(this, arguments); } catch (e) { return $([]); } } })()</script>
+        <iframe id="adzerk-user-match" width="0" height="0" frameborder="0" scrolling="no" onload="window.AUMIframeDone=true"
+                src="https://ssum-sec.casalemedia.com/usermatch?s=183712&amp;cb=https%3A%2F%2Fengine.adzerk.net%2Fudb%2F22%2Fsync%2Fi.gif%3FpartnerId%3D1%26userId%3D"
+                style="display: none;" marginheight="0" marginwidth="0"></iframe>
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="//stackoverflow.com">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+                    <a href="http://chat.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:6 })"
+>chat</a>
+            </div>
+
+
+
+
+    <a href="//stackoverflow.com"
+       class="current-site-link site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="552"
+       data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+        </ul>
+    </div>
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen" class="login-link js-gps-track"     data-gps-track="site_switcher.click({ item_type:10 })"
+>Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen" class="login-link js-gps-track"     data-gps-track="site_switcher.click({ item_type:11 })"
+>log in</a> to customize your list.
+            </div>
+    </div>
+    <div class="header">
+        <h3><a href="//stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="//stackexchange.com"
+               class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track"
+               data-gps-track="site_switcher.show"
+               title="A list of all 157 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="#"
+       class="topbar-icon icon-inbox yes-hover js-inbox-button"
+       title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display:none"></span>
+    </a>
+    <a href="#"
+       class="topbar-icon icon-achievements yes-hover js-achievements-button "
+       data-unread-class=""
+       title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display:none">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen" class="login-link">sign up</a>
+                                <a href="https://stackoverflow.com/users/login?ssrc=head&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen" class="login-link">log in</a>
+
+                            <a href="/tour">tour</a>
+    <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="//meta.stackoverflow.com" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                    <li>
+                        <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                            About Us
+                            <span class="item-summary">
+                                Learn more about Stack Overflow the company
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                            Business
+                            <span class="item-summary">
+                                Learn more about hiring developers or posting ads with us
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/" >
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="/questions">Questions</a></li>
+                            <li><a id="nav-jobs" href="/jobs?med=site-ui&ref=jobs-tab">Jobs</a></li>
+                        <li><a id="nav-tags" href="/tags">Tags</a></li>
+                        <li><a id="nav-users" href="/users">Users</a></li>
+                        <li><a id="nav-badges" href="/help/badges">Badges</a></li>
+                                            </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion"  href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope itemtype="http://schema.org/Question">
+    <link itemprop="image" href="//cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+
+<div id="herobox">
+    <div id="hero-content">
+            <div id="close"><a title="click to minimize">_</a></div>
+        <div id="blurb">
+            Stack Overflow is a community of 4.7 million programmers, just like you, helping each other.
+            <br/>
+                <br/>Join them; it only takes a minute:<br/>
+            <br/>
+            <a href="/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen" id="tell-me-more" class="button">Sign up</a>
+        </div>
+        <div id="desc">
+            <b>Join the Stack Overflow community to:</b>
+            <ol id="hiw">
+                <li id="q">Ask programming questions
+                </li>
+                <li id="an">Answer and help your peers
+                </li>
+                <li id="b">Get recognized for your expertise
+                </li>
+            </ol>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <script>
+        StackExchange.ready(function () {
+
+            var location = 0;
+            if ($("body").hasClass("questions-page")) {
+                location = 1;;
+            } else if ($("body").hasClass("question-page")) {
+                location = 1;;
+            } else if ($("body").hasClass("faq-page")) {
+                location = 5;;
+            } else if ($("body").hasClass("home-page")) {
+                location = 3;;
+            }
+
+            $('#tell-me-more').click(function () {
+                StackExchange.using("gps", function () {
+                    StackExchange.gps.track("hero.action", { hero_action_type: 'cta', location: location }, true);
+                });
+            });
+            $('#herobox #close').click(function () {
+                StackExchange.using("gps", function () {
+                    StackExchange.gps.track("hero.action", { hero_action_type: "minimize", location: location }, true);
+                });
+                $.cookie("hero", "mini", { path: "/", expires: 365 });
+                $.ajax({
+                    url: "/hero-mini",
+                    success: function (data) {
+                        $("#herobox").fadeOut("fast", function () {
+                            $("#herobox").replaceWith(data);
+                            $("#herobox-mini").fadeIn("fast");
+                        });
+                    }
+                });
+                return false;
+            });
+        });
+
+    </script>
+</div>
+			<div id="question-header">
+                <h1 itemprop="name"><a href="/questions/359109/using-the-scrollwheel-in-gnu-screen" class="question-hyperlink">Using the scrollwheel in GNU screen</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="359109"  id="question">
+
+    <script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk195040153",4).setZone(43); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk195040153"></div>    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="359109">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">155</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>68</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>How can I setup GNU screen to allow the mouse's scrollwheel to scroll around in the scrollback buffer? I tried to Google about this, but most hits where on how to allow applications inside screen to use the scrollwheel.</p>
+    </div>
+    <div class="post-taglist">
+        <a href="/questions/tagged/gnu-screen" class="post-tag" title="show questions tagged &#39;gnu-screen&#39;" rel="tag">gnu-screen</a> <a href="/questions/tagged/scrollwheel" class="post-tag" title="show questions tagged &#39;scrollwheel&#39;" rel="tag">scrollwheel</a> 
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/q/359109" title="short permalink to this question" class="short-link" id="link-post-359109">share</a><span class="lsep">|</span><a href="/posts/359109/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2008-12-11 12:01:42Z" class="relativetime">Dec 11 '08 at 12:01</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/13051/jespere"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/05f4118d01fe03a82a43d8ab7ae17034?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/13051/jespere">JesperE</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 42,526" dir="ltr">42.5k</span><span title="10 gold badges"><span class="badge1"></span><span class="badgecount">10</span></span><span title="97 silver badges"><span class="badge2"></span><span class="badgecount">97</span></span><span title="163 bronze badges"><span class="badge3"></span><span class="badgecount">163</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-359109" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-35241481" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">JesperE - Can you change the chosen answer? I got confused, and the comments are right, the other answer is way better.</span>
+                    &ndash;&nbsp;<a href="/users/310165/geoff"
+                       title="4,535 reputation"
+                       class="comment-user">Geoff</a>
+                <span class="comment-date" dir="ltr"><span title="2014-04-14 14:13:35Z" class="relativetime-clean">Apr 14 '14 at 14:13</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-35266299" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Not using screen nowadays, but the upvotes seem convincing enough. :)</span>
+                    &ndash;&nbsp;<a href="/users/13051/jespere"
+                       title="42,526 reputation"
+                       class="comment-user owner">JesperE</a>
+                <span class="comment-date" dir="ltr"><span title="2014-04-15 06:08:31Z" class="relativetime-clean">Apr 15 '14 at 6:08</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-359109" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>        </table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								8 Answers
+                                <span style="display:none;" itemprop="answerCount">8</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="/questions/359109/using-the-scrollwheel-in-gnu-screen?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="/questions/359109/using-the-scrollwheel-in-gnu-screen?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="/questions/359109/using-the-scrollwheel-in-gnu-screen?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="1125947"></a>
+<div id="answer-1125947" class="answer accepted-answer" data-answerid="1125947"  itemscope itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="1125947">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">204</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I believe you can just add a line like this to your <code>~/.screenrc</code>:</p>
+
+<pre><code>termcapinfo xterm* ti@:te@
+</code></pre>
+
+<p>Where "xterm*" is a glob match of your current TERM. To confirm it works, ^A^D to detach from your screen, then <code>screen -d -r</code> to reattach, then <code>ls</code> a few times, and try to scroll back.  It works for me.</p>
+
+<hr>
+
+<p>What is this magic? Well, let's consult the manual pages.</p>
+
+<p><code>screen(1)</code> says:</p>
+
+<pre><code>termcapinfo term terminal-tweaks [window-tweaks]
+  [..]
+  The first argument specifies which terminal(s) should be affected by this
+  definition. You can specify multiple terminal names by separating them with
+  `|'s. Use `*' to match all terminals and `vt*' to match all terminals that
+  begin with "vt".
+  [..]
+  Some examples:
+
+      termcap xterm*  LP:hs@
+
+  Informs screen that all terminals that begin with `xterm' have firm
+  auto-margins that allow the last position on the screen to be updated (LP),
+  but they don't really have a status line (no 'hs' -  append  `@'  to turn
+  entries off).  Note that we assume `LP' for all terminal names that start
+  with "vt", but only if you don't specify a termcap command for that terminal.
+</code></pre>
+
+<p>From <code>termcap(5)</code>:</p>
+
+<pre><code>String capabilities
+    [..]
+    te   End program that uses cursor motion
+    ti   Begin program that uses cursor motion
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/1125947" title="short permalink to this answer" class="short-link" id="link-post-1125947">share</a><span class="lsep">|</span><a href="/posts/1125947/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/1125947/revisions" title="show all edits to this post">edited <span title="2013-05-31 08:55:13Z" class="relativetime">May 31 '13 at 8:55</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/427545/lekensteyn"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/285b1f0f4caadc088a38c40aea22feba?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/427545/lekensteyn">Lekensteyn</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 31,994" dir="ltr">32k</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="84 silver badges"><span class="badge2"></span><span class="badgecount">84</span></span><span title="122 bronze badges"><span class="badge3"></span><span class="badgecount">122</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-07-14 14:54:46Z" class="relativetime">Jul 14 '09 at 14:54</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/28558/pistos"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/5f44dde4b4617356f9a4880cb2f8fcdc?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/28558/pistos">Pistos</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 12,650" dir="ltr">12.7k</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="43 silver badges"><span class="badge2"></span><span class="badgecount">43</span></span><span title="61 bronze badges"><span class="badge3"></span><span class="badgecount">61</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-1125947" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="18"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-1359339" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="hot">21</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I followed Pistos&#39;s suggestion, and it partially works. As he describes, I can enter some commands (to produce enough output to scroll the screen), and then use the mouse-wheel to scroll back through the preceding lines.  In fact, I&#39;m using screen via Konsole in KDE (tabbed xterm, basically), and the scrollbar for the Konsole window works the same way.  But there&#39;s a problem: If you switch between screen&#39;s windows (^A-n, ^A-p), your scrollback buffer gets messed up. The contents of any windows you switch into will just get &#39;tucked&#39; up into your scrollback buffer. That really diminishes it.</span>
+                    &ndash;&nbsp;<a href="/users/116801/ryan-b-lynch"
+                       title="853 reputation"
+                       class="comment-user">Ryan B. Lynch</a>
+                <span class="comment-date" dir="ltr"><span title="2009-10-01 19:23:32Z" class="relativetime-clean">Oct 1 '09 at 19:23</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-2407239" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="hot">16</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">But this scrolls around in the command history. I want to scroll through the output buffer.</span>
+                    &ndash;&nbsp;<a href="/users/13051/jespere"
+                       title="42,526 reputation"
+                       class="comment-user owner">JesperE</a>
+                <span class="comment-date" dir="ltr"><span title="2010-03-11 11:01:18Z" class="relativetime-clean">Mar 11 '10 at 11:01</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-5934867" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="warm">13</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@JesperE: I experienced it scrolling the command history as well (I&#39;m using Ubuntu&#39;s GNOME terminal).  I fixed it by going to Edit -&gt; Profile Preferences -&gt; Scrolling, and unchecking &quot;Use keystrokes to scroll on alternate screen&quot;.  Note that I still needed to use Pistos&#39;s fix.</span>
+                    &ndash;&nbsp;<a href="/users/162530/michael-krebs"
+                       title="4,641 reputation"
+                       class="comment-user">Michael Krebs</a>
+                <span class="comment-date" dir="ltr"><span title="2011-03-11 02:19:06Z" class="relativetime-clean">Mar 11 '11 at 2:19</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-14612283" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">In addition to working in OS X Lion, this also works in Putty, iSSH and Prompt (by Panic). This line should be present in all .screenrc files!</span>
+                    &ndash;&nbsp;<a href="/users/878969/funroll"
+                       title="13,520 reputation"
+                       class="comment-user">funroll</a>
+                <span class="comment-date" dir="ltr"><span title="2012-06-21 20:03:26Z" class="relativetime-clean">Jun 21 '12 at 20:03</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-30534089" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="warm">5</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This enables scrolling in the terminal not scrolling in the screen session. I.e. if you work with split regions or switch a window you won&#39;t be able to scroll back in this region and instead you&#39;ll scroll back in the terminal output and see the output as it was before you split the region or changed the window.</span>
+                    &ndash;&nbsp;<a href="/users/1262310/g-daniel"
+                       title="176 reputation"
+                       class="comment-user">g_daniel</a>
+                <span class="comment-date" dir="ltr"><span title="2013-12-07 08:56:43Z" class="relativetime-clean">Dec 7 '13 at 8:56</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-1125947" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link  dno"
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   ></a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link " title="expand to show all comments on this post" href=# onclick="">show <b>18</b> more comments</a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk738643922",4).setZone(44); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk738643922"></div>
+  
+<a name="475332"></a>
+<div id="answer-475332" class="answer" data-answerid="475332"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="475332">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">45</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>In screen, you must first enter "scrollback mode" (or "copy mode") to be able to scroll around in the scrollback buffer: key combo <kbd>Ctrl</kbd>-<kbd>a</kbd> <kbd>Esc</kbd>, or <kbd>Ctrl</kbd>-<kbd>a</kbd> <kbd>Ctrl</kbd>-<kbd>[</kbd>. Then you can scroll around the history using  Up and Down keys (or <kbd>Ctrl</kbd>-<kbd>b</kbd>, <kbd>Ctrl</kbd>-<kbd>f</kbd> to move a page).</p>
+
+<p>In that mode, your mousewheel should also work, if it works in other apps.
+You end  "scrollback mode" with <kbd>Esc</kbd>.</p>
+
+<p>As for scrolling the scrollback buffer without first entering scrollback mode, that is probably not possible without modifying screen. I have never heard of a way to access the scrollback buffer, apart from scrollback mode.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/475332" title="short permalink to this answer" class="short-link" id="link-post-475332">share</a><span class="lsep">|</span><a href="/posts/475332/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/475332/revisions" title="show all edits to this post">edited <span title="2014-12-09 15:03:20Z" class="relativetime">Dec 9 '14 at 15:03</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-01-24 02:01:32Z" class="relativetime">Jan 24 '09 at 2:01</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/43681/sleske"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/6c2dd6a39d3f38f1bb47a8c1fe8325e2?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/43681/sleske">sleske</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 42,686" dir="ltr">42.7k</span><span title="13 gold badges"><span class="badge1"></span><span class="badgecount">13</span></span><span title="106 silver badges"><span class="badge2"></span><span class="badgecount">106</span></span><span title="151 bronze badges"><span class="badge3"></span><span class="badgecount">151</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-475332" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-293836" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="warm">13</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Yes, I know about scrollback mode. I was hoping that I would not have to manually enter scrollback mode in order to use the mouse. Thanks.</span>
+                    &ndash;&nbsp;<a href="/users/13051/jespere"
+                       title="42,526 reputation"
+                       class="comment-user owner">JesperE</a>
+                <span class="comment-date" dir="ltr"><span title="2009-01-24 20:34:18Z" class="relativetime-clean">Jan 24 '09 at 20:34</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-43210292" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">&quot;Scrollback mode&quot; is rather an unofficial term IMHO. :) <b>Ctrl+a Esc</b> will enter the <b>copy mode</b>; this mode has always been called that, as its primary purpose is to make it possible to copy text to and fro. The possibility to scroll with the mouse wheel in copy mode (nb. does not work for me) should rather be seen as a kind of &quot;additional gimmick&quot;, but not as the main purpose of this mode.</span>
+                    &ndash;&nbsp;<a href="/users/1337416/syntaxerror"
+                       title="227 reputation"
+                       class="comment-user">syntaxerror</a>
+                <span class="comment-date" dir="ltr"><span title="2014-12-09 13:59:00Z" class="relativetime-clean">Dec 9 '14 at 13:59</span></span>
+                    <span class="edited-yes" title="this comment was edited 3 times"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-43212804" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@syntaxerror: Well, the docs call it &quot;copy/scrollback mode&quot;, and mention a &quot;scrollback buffer&quot; (<a href="https://www.gnu.org/software/screen/manual/screen.html#Copy-and-Paste" rel="nofollow">gnu.org/software/screen/manual/screen.html#Copy-and-Paste</a> ), so I guess we&#39;re both right :-). Anyway, I added &quot;copy mode&quot; to my answer.</span>
+                    &ndash;&nbsp;<a href="/users/43681/sleske"
+                       title="42,686 reputation"
+                       class="comment-user">sleske</a>
+                <span class="comment-date" dir="ltr"><span title="2014-12-09 15:03:08Z" class="relativetime-clean">Dec 9 '14 at 15:03</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-43214123" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Great! I wanted to do this too, but before messing into such old answers, I am known for asking first (even though I am aware the SO/SE rules do not prescribe it; but that&#39;s the thing with unwritten rules.)</span>
+                    &ndash;&nbsp;<a href="/users/1337416/syntaxerror"
+                       title="227 reputation"
+                       class="comment-user">syntaxerror</a>
+                <span class="comment-date" dir="ltr"><span title="2014-12-09 15:33:51Z" class="relativetime-clean">Dec 9 '14 at 15:33</span></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-475332" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="3474732"></a>
+<div id="answer-3474732" class="answer" data-answerid="3474732"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="3474732">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">19</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>The excellent article that Jon Z is referring to is no longer available, but I was able to fish the text-only version of it from the Google cache. I'm saving it here in case Google drops that as well in the future. Original post was by Mikael Ståldal so credit where credit is due.</p>
+
+<p>--</p>
+
+<p><strong>How to use mousewheel in GNU Screen</strong></p>
+
+<p>GNU Screen has support for scrollback, but by default you have to use awkward keys to use it. I would like to be able to use Shift-PageUp, Shift-PageDown and the mousewheel to scroll, just like you can do in xterm.</p>
+
+<p>It was not easy to configure Screen for this, and it involves cooperation with the terminal emulator. But I finally managed to achieve a solution which works pretty well. Add this to your ~/.Xresources file (you need to log out for this to take effect):</p>
+
+<pre><code>XTerm*saveLines: 0
+XTerm*vt100.translations: #override \n\
+  Ctrl &lt;Btn4Down&gt;: string(0x1b) string("[25S") \n\
+  Lock Ctrl &lt;Btn4Down&gt;: string(0x1b) string("[25S") \n\
+  Lock @Num_Lock Ctrl &lt;Btn4Down&gt;: string(0x1b) string("[25S") \n\
+  @Num_Lock Ctrl &lt;Btn4Down&gt;: string(0x1b) string("[25S") \n\
+  &lt;Btn4Down&gt;: string(0x1b) string("[5S") \n\
+  Ctrl &lt;Btn5Down&gt;: string(0x1b) string("[25T") \n\
+  Lock Ctrl &lt;Btn5Down&gt;: string(0x1b) string("[25T") \n\
+  Lock @Num_Lock Ctrl &lt;Btn5Down&gt;: string(0x1b) string("[25T") \n\
+  @Num_Lock Ctrl &lt;Btn5Down&gt;: string(0x1b) string("[25T") \n\
+  &lt;Btn5Down&gt;: string(0x1b) string("[5T") \n\
+  Shift &lt;KeyPress&gt; Prior: string(0x1b) string("[25S") \n\
+  Shift &lt;KeyPress&gt; Next: string(0x1b) string("[25T") \n
+</code></pre>
+
+<p>Then add this to your ~/.screenrc file:</p>
+
+<pre><code>defscrollback 1000
+
+# Scroll up
+bindkey -d "^[[5S" eval copy "stuff 5\025"
+bindkey -m "^[[5S" stuff 5\025
+
+# Scroll down
+bindkey -d "^[[5T" eval copy "stuff 5\004"
+bindkey -m "^[[5T" stuff 5\004
+
+# Scroll up more
+bindkey -d "^[[25S" eval copy "stuff \025"
+bindkey -m "^[[25S" stuff \025
+
+# Scroll down more
+bindkey -d "^[[25T" eval copy "stuff \004"
+bindkey -m "^[[25T" stuff \004
+</code></pre>
+
+<p>This works in xterm. I’m not sure if it works in other terminal emulators.</p>
+
+<p>Note that this disables the normal scrolling support in xterm, you will only be able to scroll when using Screen. You might want to start xterm like this to always use Screen:</p>
+
+<pre><code>xterm -e screen
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/3474732" title="short permalink to this answer" class="short-link" id="link-post-3474732">share</a><span class="lsep">|</span><a href="/posts/3474732/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-08-13 07:22:28Z" class="relativetime">Aug 13 '10 at 7:22</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/128698/tommi-r"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/60135fccd51696c12b0e5aabfc893068?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/128698/tommi-r">Tommi R.</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">226</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="4 bronze badges"><span class="badge3"></span><span class="badgecount">4</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-3474732" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-8452405" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="warm">5</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">For me the original link in Jon Z&#39;s answer still works.</span>
+                    &ndash;&nbsp;<a href="/users/396967/kynan"
+                       title="4,771 reputation"
+                       class="comment-user">kynan</a>
+                <span class="comment-date" dir="ltr"><span title="2011-08-15 13:42:59Z" class="relativetime-clean">Aug 15 '11 at 13:42</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-3474732" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="13628522"></a>
+<div id="answer-13628522" class="answer" data-answerid="13628522"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="13628522">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">10</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>For OS X (Snow Leopard), the following worked for me:</p>
+
+<p><a href="http://slaptijack.com/system-administration/mac-os-x-terminal-and-gnu-screen-scrollback/">http://slaptijack.com/system-administration/mac-os-x-terminal-and-gnu-screen-scrollback/</a></p>
+
+<p>Briefly, it involves adding the following to ~/.screenrc on the remote host (the one you're running screen on):</p>
+
+<pre><code>defscrollback 5000
+termcapinfo xterm* ti@:te@
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/13628522" title="short permalink to this answer" class="short-link" id="link-post-13628522">share</a><span class="lsep">|</span><a href="/posts/13628522/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-11-29 14:58:42Z" class="relativetime">Nov 29 '12 at 14:58</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/745831/jesse-crossen"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/8f8bf389cdf63466cc5692fa7faec159?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/745831/jesse-crossen">Jesse Crossen</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">5,120</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="32 bronze badges"><span class="badge3"></span><span class="badgecount">32</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-13628522" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-13628522" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="7878579"></a>
+<div id="answer-7878579" class="answer" data-answerid="7878579"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="7878579">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">5</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>And to use the scrollwheel in a VIM inside GNU Screen:</p>
+
+<p>[.vimrc]</p>
+
+<pre><code>set mouse=a             " hold shift to copy xterm
+set ttymouse=xterm2     " necessary for gnu screen &amp; mouse
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/7878579" title="short permalink to this answer" class="short-link" id="link-post-7878579">share</a><span class="lsep">|</span><a href="/posts/7878579/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-10-24 16:09:26Z" class="relativetime">Oct 24 '11 at 16:09</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1011229/edench"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/220ca5928c8a791af10646740965fd11?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1011229/edench">edench</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">51</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-7878579" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-11577314" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Awesome, this in combination with the screenrc trick made my day since I use awesomewm and terminals are my life</span>
+                    &ndash;&nbsp;<a href="/users/309514/fotios"
+                       title="1,843 reputation"
+                       class="comment-user">Fotios</a>
+                <span class="comment-date" dir="ltr"><span title="2012-02-08 18:12:21Z" class="relativetime-clean">Feb 8 '12 at 18:12</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-7878579" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="13343660"></a>
+<div id="answer-13343660" class="answer" data-answerid="13343660"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="13343660">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">4</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Press <kbd>Ctrl</kbd>+<kbd>a</kbd> followed by <kbd>[</kbd></p>
+
+<p>The title bar of your terminal should now say Copy mode.</p>
+
+<p>Now the arrow keys and the mouse wheel should work as expected.</p>
+
+<p>To return to normal press Esc or press Enter a couple of times.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/13343660" title="short permalink to this answer" class="short-link" id="link-post-13343660">share</a><span class="lsep">|</span><a href="/posts/13343660/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="/posts/13343660/revisions" title="show all edits to this post">edited <span title="2012-11-12 12:44:58Z" class="relativetime">Nov 12 '12 at 12:44</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/569101/j0k"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/aee3b44e5f0b4dfa0e2da672897b3751?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/569101/j0k">j0k</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 17,013" dir="ltr">17k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="48 silver badges"><span class="badge2"></span><span class="badgecount">48</span></span><span title="60 bronze badges"><span class="badge3"></span><span class="badgecount">60</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-11-12 12:24:14Z" class="relativetime">Nov 12 '12 at 12:24</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/327932/peter-crotty"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/430a446f7e047d62c281a407c8925990?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/327932/peter-crotty">Peter Crotty</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">133</span><span title="5 bronze badges"><span class="badge3"></span><span class="badgecount">5</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-13343660" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-13343660" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="21235819"></a>
+<div id="answer-21235819" class="answer" data-answerid="21235819"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="21235819">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">3</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>The following worked for me in both Cygwin and Putty:
+Edit .screenrc and add</p>
+
+<pre><code>terminfo xterm* ti=:te=
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/21235819" title="short permalink to this answer" class="short-link" id="link-post-21235819">share</a><span class="lsep">|</span><a href="/posts/21235819/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/21235819/revisions" title="show all edits to this post">edited <span title="2014-08-15 23:16:34Z" class="relativetime">Aug 15 '14 at 23:16</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/2065875/ngks"><div class="gravatar-wrapper-32"><img src="https://i.stack.imgur.com/4h6jO.jpg?s=32&amp;g=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/2065875/ngks">ngks</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">121</span><span title="9 bronze badges"><span class="badge3"></span><span class="badgecount">9</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-01-20 13:51:47Z" class="relativetime">Jan 20 '14 at 13:51</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1374936/torbj%c3%b6r-weiland"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/e4d03b9101bfc09460e356091e402322?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1374936/torbj%c3%b6r-weiland">Torbj&#246;r Weiland</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">31</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-21235819" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-21235819" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="26211291"></a>
+<div id="answer-26211291" class="answer" data-answerid="26211291"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="26211291">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">3</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Setting <code>TERM</code> variable to <code>vt100</code> instead of <code>xterm</code> before running screen also works.<br>
+I've been using this for a long time, works like a charm.</p>
+
+<p>Add this to your <code>.bashrc</code>:</p>
+
+<pre><code># make scrollbar / wheel scrolling work when running screen in gnome-terminal (or other)
+if [ "$TERM" = "xterm" ]; then
+  export TERM=vt100
+fi
+</code></pre>
+
+<p>--</p>
+
+<p>For reference, my <code>.screenrc</code> has this (not needed for this AFAIK):</p>
+
+<pre><code># Extend the vt100 desciption by some sequences.
+termcap  vt100* ms:AL=\E[%dL:DL=\E[%dM:UP=\E[%dA:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC
+terminfo vt100* ms:AL=\E[%p1%dL:DL=\E[%p1%dM:UP=\E[%p1%dA:DO=\E[%p1%dB:LE=\E[%p1%dD:RI=\E[%p1%dC
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/26211291" title="short permalink to this answer" class="short-link" id="link-post-26211291">share</a><span class="lsep">|</span><a href="/posts/26211291/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-10-06 07:02:38Z" class="relativetime">Oct 6 '14 at 7:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1883178/lemonsqueeze"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/8e7ea841ff110275fae97f93e729473f?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1883178/lemonsqueeze">lemonsqueeze</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">469</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="12 bronze badges"><span class="badge3"></span><span class="badgecount">12</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-26211291" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-48901827" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Setting the environment variable TERM as described (before running screen) worked for me. It&#39;s as simple as keying in &quot;export TERM=vt100&quot;. Thanks a lot. PS: I&#39;m on a Mac, ssh into a Linux box and there I run screen.</span>
+                    &ndash;&nbsp;<a href="/users/2987152/daniel-k"
+                       title="225 reputation"
+                       class="comment-user">Daniel K.</a>
+                <span class="comment-date" dir="ltr"><span title="2015-05-22 23:07:35Z" class="relativetime-clean">May 22 '15 at 23:07</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-54750534" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">As mentioned above this doesn&#39;t work as intended.  Yes you can scroll however your scroll buffer get overridden when you change windows.</span>
+                    &ndash;&nbsp;<a href="/users/543700/halsafar"
+                       title="1,072 reputation"
+                       class="comment-user">Halsafar</a>
+                <span class="comment-date" dir="ltr"><span title="2015-11-02 16:54:22Z" class="relativetime-clean">Nov 2 '15 at 16:54</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-26211291" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+									<a name='new-answer'></a>
+						<form id="post-form" action="/questions/359109/answer/submit" method="post"  class="post-form">
+						    <input type="hidden" id="post-id" value="359109" />
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" />
+                            <input type="hidden" name="referrer" value="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen"/>
+							<h2 class="space">Your Answer</h2>
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.settings.snippets.snippetsEnabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                prepareEditor({
+                    heartbeatType: 'answer',
+                convertImagesToLinks: true,
+                reputationToPostImages: 10,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                    ,immediatelyShowMarkdownHelp:true
+                    });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="458f60665156ae9a257f58412dac831c">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item dno new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="/users/login?ssrc=question_page&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Email and Password</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid" />
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false" />
+                    <input type="hidden" name="use-google" class="use-google" value="false" />
+                    <input type="button" class="submit-openid" value="Submit" style="display:none" />
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', 'http%3a%2f%2fstackoverflow.com%2fquestions%2f359109%2fusing-the-scrollwheel-in-gnu-screen%23new-answer', 'question_page');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="#" class="btn-clear discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href='http://stackexchange.com/legal/privacy-policy' target='_blank'>privacy policy</a> and <a href='http://stackexchange.com/legal/terms-of-service' target='_blank'>terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1" />								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you&#39;re looking for?							Browse other questions tagged <a href="/questions/tagged/gnu-screen" class="post-tag" title="show questions tagged &#39;gnu-screen&#39;" rel="tag">gnu-screen</a> <a href="/questions/tagged/scrollwheel" class="post-tag" title="show questions tagged &#39;scrollwheel&#39;" rel="tag">scrollwheel</a>  or <a href="/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2008-12-11 12:01:42Z"><b>7 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>42598 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="?lastactivity" class="lastactivity-link" title="2016-04-20 19:52:50Z">2 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Blog
+                </div>
+                <hr />
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://blog.stackoverflow.com/2016/07/podcast-71-a-bunch-of-bald-yaks/" class="question-hyperlink">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://blog.stackoverflow.com/2016/07/podcast-71-a-bunch-of-bald-yaks/" class="question-hyperlink">Podcast #71 - A Bunch of Bald Yaks</a>
+                </div>
+                <br class="cbt" />
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk1820676617",[5,17,2221]).setZone(45); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1820676617"></div>
+            <div id="hireme"></div>
+        <script>
+;"use strict";(function(n){var r=["stackoverflow.com","serverfault.com","careers.stackoverflow.com","blog.codinghorror.com","joelonsoftware.com","www.joelonsoftware.com"],t,i;(r[0]==="*"||r.indexOf(location.hostname)!==-1)&&(t=window,t.clc_opts=n,n.autoload&&(t.clc_init=t.clc_init||[],t.clc_init.push(function(){return t.clc.load()})),i=document.createElement("script"),i.async=!0,i.src=n.lib,document.head.appendChild(i))}).call(null, {"az":true,"kt":2000,"tto":true,"autoload":true,"d":{"sb":["hireme","clc-sb"],"tlb":["careers1","clc-tlb"],"mlb":["careers3","clc-mlb"]},"h":"clc.stackoverflow.com","u":"//clc.stackoverflow.com/p.js","lib":"//cdn.sstatic.net/clc/clc.min.js?v=543c26517d31"});        </script>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="/q/31949288" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="/questions/31949288/gnu-screen-scroll-history-after-reattach" class="question-hyperlink">GNU Screen scroll history after reattach</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer">
+<a href="/q/70614" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">95
+    </div>
+</a><a href="/questions/70614/gnu-screen-survival-guide" class="question-hyperlink">GNU Screen Survival Guide</a>
+</div>
+<div class="spacer">
+<a href="/q/3202111" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">238
+    </div>
+</a><a href="/questions/3202111/set-screen-names-with-gnu-screen" class="question-hyperlink">Set screen names with GNU screen</a>
+</div>
+<div class="spacer">
+<a href="/q/4807474" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">98
+    </div>
+</a><a href="/questions/4807474/copying-gnu-screen-scrollback-buffer-to-file-extended-hardcopy" class="question-hyperlink">Copying GNU screen scrollback buffer to file (extended hardcopy)?</a>
+</div>
+<div class="spacer">
+<a href="/q/10778114" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">4
+    </div>
+</a><a href="/questions/10778114/in-gnu-screen-is-it-possible-to-programmatically-read-the-status-message" class="question-hyperlink">In GNU screen, is it possible to programmatically read the status message?</a>
+</div>
+<div class="spacer">
+<a href="/q/10932487" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="/questions/10932487/gnu-screen-how-to-clear-scrollback-and-screen-at-once" class="question-hyperlink">GNU screen: how to clear scrollback and screen at once</a>
+</div>
+<div class="spacer">
+<a href="/q/11772328" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">6
+    </div>
+</a><a href="/questions/11772328/custom-gnu-screen-session-log-filename" class="question-hyperlink">custom gnu-screen session log filename</a>
+</div>
+<div class="spacer">
+<a href="/q/11802755" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="/questions/11802755/scripting-gnu-screen" class="question-hyperlink">Scripting GNU screen</a>
+</div>
+<div class="spacer">
+<a href="/q/16309081" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="/questions/16309081/gnu-screen-disable-scrollback" class="question-hyperlink">GNU-screen disable scrollback</a>
+</div>
+<div class="spacer">
+<a href="/q/23795698" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="/questions/23795698/gnu-screen-how-to-check-current-scrollback-value" class="question-hyperlink">GNU screen: how to check current scrollback value?</a>
+</div>
+<div class="spacer">
+<a href="/q/33318276" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="/questions/33318276/gnu-screen-reverse-focus-tabbing" class="question-hyperlink">GNU Screen: Reverse focus tabbing</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="//stackexchange.com/questions?tab=hot" 
+           class="js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li >
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/37171/what-is-my-real-name" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is my real name?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-vi" title="Vi and Vim Stack Exchange"></div><a href="http://vi.stackexchange.com/questions/8621/substitute-second-occurence-on-line" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:599 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Substitute second occurence on line
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/795823/command-to-install-bin-without-user-interruption-in-terminal" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Command to install .bin without user interruption in terminal
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/266492/why-can-we-see-the-moon-when-it-is-between-the-earth-and-the-sun" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why can we see the moon when it is between the Earth and the Sun?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="http://space.stackexchange.com/questions/17054/what-defines-the-radius-of-a-ball-of-gas-like-jupiter" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What defines the radius of a ball of gas like Jupiter?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/133966/trying-to-find-the-name-of-the-movie-were-young-men-entered-a-cyber-world-and-me" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Trying to find the name of the movie were young men entered a cyber world and meet a girl with pink hair
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-music" title="Music: Practice &amp; Theory Stack Exchange"></div><a href="http://music.stackexchange.com/questions/45940/how-do-i-notate-sharps-in-abc-notation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I notate sharps in ABC notation?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/84712/print-a-bunch-of-uninteresting-numbers" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Print a bunch of uninteresting numbers!
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-serverfault" title="Server Fault"></div><a href="http://serverfault.com/questions/788121/good-idea-refuse-incoming-emails-with-our-own-domain-ending-because-they-must" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:2 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Good idea? Refuse incoming emails with our own domain ending? (because they must be fake)
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/244802/using-unsuitable-relay-in-transistor-switching-circuit" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Using unsuitable relay in transistor switching circuit?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/272708/do-these-leaves-signify-anything" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do these leaves signify anything?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/29808/why-did-this-plane-fly-in-a-zigzag-pattern" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why did this plane fly in a zigzag pattern?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/336034/word-for-a-person-who-hates-india" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Word for a person who hates India
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/38239281/exception-during-list-comprehension-are-intermediate-result-kept-anywhere" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Exception during list comprehension. Are intermediate result kept anywhere?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/134116/project-euler-4-largest-palindrome-product" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Project Euler #4: Largest palindrome product
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/133945/which-sci-fi-work-introduced-the-concept-of-an-artificial-independent-plurality" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Which Sci-Fi work introduced the concept of an artificial, independent plurality?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/795713/why-does-redirecting-sed-output-to-same-input-file-make-my-machine-unresponsive" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does redirecting sed output to same input file make my machine unresponsive?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/72334/how-to-deal-with-grammatically-incorrect-suggestions-from-my-advisor-on-masters" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to deal with grammatically incorrect suggestions from my advisor on master&#39;s thesis?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/129436/is-pinging-a-website-essentially-the-same-as-visiting-the-website-through-a-brow" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is pinging a website essentially the same as visiting the website through a browser?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/335784/why-does-mickey-mouse-operation-refer-to-a-poorly-run-company" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does &quot;Mickey Mouse Operation&quot; refer to a poorly run company?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/29865/do-any-airplanes-really-have-this-piece-tom-cruise-is-hanging-onto-in-this-movie" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do any airplanes really have this piece Tom Cruise is hanging onto in this movie?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/795599/why-doesnt-the-command-ls-file-work" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why doesn&#39;t the command &quot;ls | file&quot; work?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/46339/how-can-communication-with-ancestors-be-explained-without-magic" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can communication with ancestors be explained without magic?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-bitcoin" title="Bitcoin Stack Exchange"></div><a href="http://bitcoin.stackexchange.com/questions/46414/when-we-can-agree-on-mempool-sorting-order-we-can-just-confirm-first-n-transact" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:308 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    When we can agree on mempool sorting order, we can just confirm first n-transactions that are at least 10 mins old. What&#39;s missing?
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="#" 
+           class="show-more js-show-more js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="/feeds/question/359109" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/359109/ivc/a811');});
+</script>
+<noscript>
+    <div><img src="/posts/359109/ivc/a811" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="/tour">tour</a>
+                    <a href="/help">help</a>
+                    <a href="http://blog.stackoverflow.com?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com">chat</a>
+                    <a href="http://data.stackexchange.com">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tr>
+            <th colspan=3>
+                Technology
+            </th>
+            <th >
+                Life / Arts
+            </th>
+            <th >
+                Culture / Recreation
+            </th>
+            <th >
+                Science
+            </th>
+            <th >
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="//stackoverflow.com" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="//serverfault.com" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="//superuser.com" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="//webapps.stackexchange.com" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="//askubuntu.com" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="//webmasters.stackexchange.com" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="//gamedev.stackexchange.com" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="//tex.stackexchange.com" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//programmers.stackexchange.com" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="//unix.stackexchange.com" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="//apple.stackexchange.com" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="//wordpress.stackexchange.com" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="//gis.stackexchange.com" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="//electronics.stackexchange.com" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="//android.stackexchange.com" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="//security.stackexchange.com" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//dba.stackexchange.com" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="//drupal.stackexchange.com" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="//sharepoint.stackexchange.com" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="//ux.stackexchange.com" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="//mathematica.stackexchange.com" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="//salesforce.stackexchange.com" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="//expressionengine.stackexchange.com" title="administrators, end users, developers and designers for ExpressionEngine&#174; CMS">ExpressionEngine&#174; Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//photo.stackexchange.com" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="//scifi.stackexchange.com" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="//graphicdesign.stackexchange.com" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="//movies.stackexchange.com" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="//cooking.stackexchange.com" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="//diy.stackexchange.com" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="//money.stackexchange.com" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="//academia.stackexchange.com" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//english.stackexchange.com" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="//skeptics.stackexchange.com" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="//judaism.stackexchange.com" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="//travel.stackexchange.com" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="//christianity.stackexchange.com" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="//gaming.stackexchange.com" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="//bicycles.stackexchange.com" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="//rpg.stackexchange.com" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//math.stackexchange.com" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="//stats.stackexchange.com" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="//cstheory.stackexchange.com" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="//physics.stackexchange.com" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="//mathoverflow.net" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="//chemistry.stackexchange.com" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="//biology.stackexchange.com" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//stackapps.com" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="//meta.stackexchange.com" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="//area51.stackexchange.com" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="//careers.stackoverflow.com">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo &#169; 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.7.7.3738
+            </div>
+                </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    
+    
+        
+        ados.run.push(function () {
+                setTimeout(function () { $("#adzerk-user-match").remove(); }, window.AUMIframeDone ? 0 : 2000);
+                ados_setKeywords('gnu-screen,scrollwheel');; ados_load();
+        });   
+        
+</script>
+
+    <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function() { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            
+            ga('create', 'UA-5620270-1');
+            ga('set', 'dimension2', '|gnu-screen|scrollwheel|');             ga('send', 'pageview');
+        
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+                qc.async = true;
+                qc.src = (ssl ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js';
+                s.parentNode.insertBefore(qc, s);
+                _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+                            var sc=document.createElement('script');
+                sc.async=true;
+                sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+                s.parentNode.insertBefore(sc, s);
+                _comscore.push({ c1: "2", c2: "17440561" });
+        })();
+
+    </script>
+        
+    
+    </body>
+</html>

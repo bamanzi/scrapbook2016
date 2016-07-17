@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Eschewing Zshell for Emacs Shell</title>
+<!-- 2015-07-05 Sun 11:13 -->
+<meta charset="UTF-8">
+<meta name="generator" content="Org-mode">
+<meta name="description" content="The Emacs Shell, or EShell, is a unique and quite powerful shell that allows you to write your supporting functions in Lisp. This article explores its features.">
+
+            
+            
+            
+
+            
+            <link rel="icon" href="dragon.svg">
+            <link rel="shortcut icon" href="dragon-head.png">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="top-bar" class="gray-gradient">
+  <a href="http://www.howardabrams.com/" id="portrait">
+    <img src="me-circle.png" alt="www.howardism.org">
+  </a>
+  <div id="title">
+    <a href="http://www.howardism.org/">
+      Howardisms
+    </a>
+  </div>
+  <div id="subtitle">Writings of a dual-bladed elf ranger trapped in a pudgy geek body...with a +2 Coffee Mug of Holding.</div>
+  <div id="search-area">
+    <a href="http://www.howardism.org/Technical/Emacs/index.xml" id="rss-button" class="button">
+      <img src="rss.svg" alt="RSS" title="Get updates via my RSS Feed." width="32">
+    </a>
+    <a href="http://www.howardism.org/formmail/mail?to=howardism" id="mail-button" class="button" target="_new">
+      <img src="mail.svg" alt="Mail" title="Mail me a message comment." width="32">
+    </a>
+    <form method="get" id="searchform" action="http://www.google.com/search">
+      <input class="field" name="q" id="s" placeholder="Search" title="Use Google to search this site" type="text">
+      <input name="q" value="site:www.howardism.org" type="hidden">
+    </form>
+  </div>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Eschewing Zshell for Emacs Shell</h1>
+<p>
+I’ve done it. I’m now done with Zshell and Fish and Bash and all of
+those guys…mostly. While they all have nice features, I find that
+what drives my workflow is my editor. I start in Emacs, and then pop
+over to shell for file manipulation and whatnot. I don’t start in the
+shell and move around and <i>then</i> edit files.
+</p>
+
+<p>
+Most Emacs users split the Emacs window and start a shell inside
+Emacs, and pop over and back to that window. However, I’m finding that
+Emacs’ <code>eshell</code> to be a better fit, for the more I use it, the better
+I like it.
+</p>
+
+<p>
+It’s problem is the lack of documentation…and a bit of misunderstanding.
+Hence this essay. Before I get started, I would like to put a plug for
+Mickey Petersen’s new book, <a href="https://www.masteringemacs.org/">Mastering Emacs</a>, as he has an excellent
+chapter on <a href="https://www.masteringemacs.org/article/complete-guide-mastering-eshell">mastering the eshell</a> (which happens to be free).
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Why?</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+A shell is a command-driven REPL. You type in a command and view the
+results, type in another command…rinse and repeat. Fine until you type
+something you expect to have a few lines, but if it responds with
+hundreds of lines, you redo the command and pipe it through <code>less</code>.
+</p>
+
+<p>
+But with EShell, you don’t need to bother with a pager, since if you
+received too much information, hit <code>C-c C-p</code> which jumps you to the top
+of the last command, and then <code>C-v</code> your way down. Or better yet, just
+search for what you want. EShell means every command goes through the
+<i>Emacs pager</i>.
+</p>
+
+<p>
+To be even cooler, try the <a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/">Plan 9-like</a> approach using the <i>Eshell
+smart display</i>, where you automatically begin at the top of the
+command until you type a non-cursor-movement key.
+</p>
+
+<p>
+The Emacs Shell has a few other advantages:
+</p>
+
+<ul class="org-ul">
+<li>Since it is written in Emacs Lisp, it has the same shell behavior
+between different operating systems.
+</li>
+<li>Along with access to all your scripts and programs, you also have
+access to Emacs functions … write your shell scripts in Lisp?
+Sure!
+</li>
+<li>Craft and extend your shell experience.
+</li>
+</ul>
+
+<p>
+Eshell’s primary disadvantage shows when a program attempts to
+control the terminal.<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>
+</p>
+
+<p>
+While you might have <i>tried</i> EShell in the past, I doubt you inhaled
+and noticed its <i>uniqueness</i>. Let’s level up…
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Starting the Shell</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Since my workflow is <i>driven from Emacs</i>, shells are temporary. I
+pop out to a shell for a few commands, and then return to my work.
+When I say <i>pop out to the shell</i>, I use the following function which
+creates a buffer-specific window in the lower third portion and start
+Eshell (which picks up that buffer’s directory).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(197, 200, 198);">(</span><span style="color: rgb(181, 189, 104);">defun</span> <span style="color: rgb(222, 147, 95);">eshell-here</span> <span style="color: rgb(138, 190, 183);">()</span>
+  <span style="color: rgb(178, 148, 187);">"Opens up a new shell in the directory associated with the</span>
+<span style="color: rgb(178, 148, 187);">current buffer's file. The eshell is renamed to match that</span>
+<span style="color: rgb(178, 148, 187);">directory to make multiple eshell windows easier."</span>
+  <span style="color: rgb(138, 190, 183);">(</span><span style="color: rgb(181, 189, 104);">interactive</span><span style="color: rgb(138, 190, 183);">)</span>
+  <span style="color: rgb(138, 190, 183);">(</span><span style="color: rgb(181, 189, 104);">let*</span> <span style="color: rgb(240, 198, 116);">(</span><span style="color: rgb(181, 189, 104);">(</span>parent <span style="color: rgb(129, 162, 190);">(</span><span style="color: rgb(181, 189, 104);">if</span> <span style="color: rgb(197, 200, 198);">(</span>buffer-file-name<span style="color: rgb(197, 200, 198);">)</span>
+                     <span style="color: rgb(197, 200, 198);">(</span>file-name-directory <span style="color: rgb(138, 190, 183);">(</span>buffer-file-name<span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span>
+                   default-directory<span style="color: rgb(129, 162, 190);">)</span><span style="color: rgb(181, 189, 104);">)</span>
+         <span style="color: rgb(181, 189, 104);">(</span>height <span style="color: rgb(129, 162, 190);">(</span>/ <span style="color: rgb(197, 200, 198);">(</span>window-total-height<span style="color: rgb(197, 200, 198);">)</span> 3<span style="color: rgb(129, 162, 190);">)</span><span style="color: rgb(181, 189, 104);">)</span>
+         <span style="color: rgb(181, 189, 104);">(</span>name   <span style="color: rgb(129, 162, 190);">(</span>car <span style="color: rgb(197, 200, 198);">(</span>last <span style="color: rgb(138, 190, 183);">(</span>split-string parent <span style="color: rgb(138, 190, 183);">"/"</span> t<span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span><span style="color: rgb(129, 162, 190);">)</span><span style="color: rgb(181, 189, 104);">)</span><span style="color: rgb(240, 198, 116);">)</span>
+    <span style="color: rgb(240, 198, 116);">(</span>split-window-vertically <span style="color: rgb(181, 189, 104);">(</span>- height<span style="color: rgb(181, 189, 104);">)</span><span style="color: rgb(240, 198, 116);">)</span>
+    <span style="color: rgb(240, 198, 116);">(</span>other-window 1<span style="color: rgb(240, 198, 116);">)</span>
+    <span style="color: rgb(240, 198, 116);">(</span>eshell <span style="color: rgb(138, 190, 183);">"new"</span><span style="color: rgb(240, 198, 116);">)</span>
+    <span style="color: rgb(240, 198, 116);">(</span>rename-buffer <span style="color: rgb(181, 189, 104);">(</span>concat <span style="color: rgb(138, 190, 183);">"*eshell: "</span> name <span style="color: rgb(138, 190, 183);">"*"</span><span style="color: rgb(181, 189, 104);">)</span><span style="color: rgb(240, 198, 116);">)</span>
+
+    <span style="color: rgb(240, 198, 116);">(</span>insert <span style="color: rgb(181, 189, 104);">(</span>concat <span style="color: rgb(138, 190, 183);">"ls"</span><span style="color: rgb(181, 189, 104);">)</span><span style="color: rgb(240, 198, 116);">)</span>
+    <span style="color: rgb(240, 198, 116);">(</span>eshell-send-input<span style="color: rgb(240, 198, 116);">)</span><span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span>
+
+<span style="color: rgb(197, 200, 198);">(</span>global-set-key <span style="color: rgb(138, 190, 183);">(</span>kbd <span style="color: rgb(138, 190, 183);">"C-!"</span><span style="color: rgb(138, 190, 183);">)</span> 'eshell-here<span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+My function, <code>x</code> exits that shell and closes that window.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(197, 200, 198);">(</span><span style="color: rgb(181, 189, 104);">defun</span> <span style="color: rgb(222, 147, 95);">eshell/x</span> <span style="color: rgb(138, 190, 183);">()</span>
+  <span style="color: rgb(138, 190, 183);">(</span>insert <span style="color: rgb(138, 190, 183);">"exit"</span><span style="color: rgb(138, 190, 183);">)</span>
+  <span style="color: rgb(138, 190, 183);">(</span>eshell-send-input<span style="color: rgb(138, 190, 183);">)</span>
+  <span style="color: rgb(138, 190, 183);">(</span>delete-window<span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Lisp REPL? Almost</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+EShell is a Lisp REPL. The following works as you’d expect from such
+a REPL:
+</p>
+
+<pre class="example">$ (message "hello world")
+"hello world"
+</pre>
+
+<p>
+However, in a shell, we care more for simplicity and speed of typing
+that we do for semantic clearness, so we can, in this case, drop the
+parens with the same results:
+</p>
+
+<pre class="example">$ message "hello world"
+"hello world"
+</pre>
+
+<p>
+Functions that begin with <code>eshell/</code> are available in Eshell without
+the prefix, so calling the <code>eshell/echo</code> function makes the shell
+experience less surprising:
+</p>
+
+<pre class="example">$ echo "hello world"
+"hello world"
+</pre>
+
+<p>
+If you put it in parens, you need to give it the full name:
+</p>
+
+<pre class="example">$ (eshell/echo "hello world")
+"hello world"
+</pre>
+
+<p>
+What about types? In a normal shell, everything is a string, but EShell
+has a foot in both worlds:
+</p>
+
+<pre class="example">$ echo hello world
+("hello" "world")
+</pre>
+
+<p>
+A list of two strings. However, you can NOT attempt to pass that <code>echo</code>
+to <code>car</code>… at least not directly:
+</p>
+
+<pre class="example">$ car echo hello world
+</pre>
+
+<p>
+Returns an error, as does:
+</p>
+
+<pre class="example">$ car (list hello world)
+</pre>
+
+<p>
+You see, once you bring in parens, you also bring in syntactic
+specific-ness, so you would need to do this:
+</p>
+
+<pre class="example">$ car (list "hello" "world")
+</pre>
+
+<p>
+EShell has a <code>listify</code> that converts its arguments to a list of strings:
+</p>
+
+<pre class="example">$ listify hello world
+("hello" "world")
+</pre>
+
+<p>
+But if you want to pass that data to something like <code>car</code>, you need to
+surround it in curly braces, which is EShell’s way of saying, call some
+shell-like-goodness, but return it like Lisp:
+</p>
+
+<pre class="example">$ car { listify hello world }
+hello
+</pre>
+
+<p>
+Not really sure what is the real difference between <code>list</code> and
+<code>listify</code>, as they seem to behave the same to me:
+</p>
+
+<pre class="example">$ listify hello world
+("hello" "world")
+
+$ list hello world
+("hello" "world")
+
+$ listify 1 2 3
+(1 2 3)
+
+$ list 1 2 3
+(1 2 3)
+
+$ list "hello world"
+(#("hello world" 0 11
+   (escaped t)))
+
+$ listify "hello world"
+(#("hello world" 0 11
+   (escaped t)))
+</pre>
+
+<p>
+I guess my point to this little exploration is that you can pretend it
+is a shell, and you can pretend it is a Lisp REPL, and you have ways to
+weave between the two, but be a bit careful.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Variables</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+As the documentation says,
+</p>
+
+<blockquote>
+<p>
+Since Eshell is just an Emacs REPL(1), it does not have its own scope,
+and simply stores variables the same you would in an Elisp program.
+</p>
+</blockquote>
+
+<p>
+Running <code>printenv</code> only displays the environment variables:
+</p>
+
+<pre class="example">$ setenv A "hello world"
+$ getenv A
+"hello world"
+</pre>
+
+<p>
+Use the <code>setq</code> to assign normal, Emacs variables:
+</p>
+
+<pre class="example">$ setq B hello world
+$ echo $B
+hello
+$ setq B "hello world"
+$ echo $B
+hello world
+</pre>
+
+<p>
+Preface with a <code>$</code>, you can access any Emacs variable:
+</p>
+
+<pre class="example">$ echo $recentf-max-menu-items
+25
+</pre>
+
+<p>
+Keep in mind that environment variables over-shadow Emacs variables:
+</p>
+
+<pre class="example">$ setenv C hello
+$ setq C goodbye
+$ echo $C
+hello
+</pre>
+
+<p>
+Finally, you can <code>source</code> Eshell variables from a file:
+</p>
+
+<pre class="example">$ cat blah.eshell
+setq FOO 42
+setq BLING "bongy"
+
+$ . blah.eshell
+42
+bongy
+
+$ echo $FOO
+42
+
+$ echo $BLING
+bongy
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Loops</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Executing a series of commands on each matching file is a standard use
+case for shells. While you <i>could</i> use a Lisp-like <code>dolist</code>, EShell
+attempts to give you a similar shell-like syntax:
+</p>
+
+<pre class="example">$ for file in *.org {
+  echo "Upcasing: $file"
+  mv $file $file(:U)
+}
+</pre>
+
+<p>
+The <code>(:U)</code> converts the contents before it to upper case format. It
+is a modifier, and I’ll babble on about this in the next section
+(since this is one of Eshell’s best feature).
+</p>
+
+<p>
+I find it interesting to note that <code>*.org</code> gives the <code>for</code> loop a list
+to iterate over, but if there is more than one argument, a list is
+created, as in:
+</p>
+
+<pre class="example">$ for i in 1 2 3 4 { echo $i }
+</pre>
+
+<p>
+Passing more than one list <i>flattens</i> them into one list, so the
+following works as you expect:
+</p>
+
+<pre class="example">$ for file in emacs* zsh* { ... }
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">File Selection</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+If all you were doing was renaming a single file, or changing access
+permissions on all files in a directory, you’d hardly need a flexible
+shell, as <i>dired</i> or even Finder is sufficient for those tasks. A shell
+comes in handy when selecting a subset of files based on a pattern, and
+EShell really shines here, because of its filters (that it stole
+from <a href="http://zsh.sourceforge.net/Doc/Release/Expansion.html">Zshell’s modifiers</a>):
+</p>
+
+<pre class="example">$ ls -al *.mp3(U)   # Show songs I own
+</pre>
+
+<p>
+The <code>*.mp3</code> part is just a normal globbing pattern we all know and
+love, but the <code>(U)</code> part further filters the selection. In this
+case limiting the selection to files you own.
+</p>
+
+<p>
+The help for this feature is available in the shell, so type the
+following:
+</p>
+
+<pre class="example">$ eshell-display-predicate-help
+$ eshell-display-modifier-help
+</pre>
+
+<p>
+While you may have seen the predicates before (since they are
+similar to ZShell’s), the coolest part is that you can write some
+ELisp code to add your own predicates and modifiers.
+</p>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1">File Filter Predicates</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Here is a list of the filter predicates. These can be stacked, so
+typing, <code>ls **/*(IW)</code> will display all the files in the current
+directory (and sub-directories) that are readable by the group
+owner or all accounts on the system.
+</p>
+
+<table>
+
+
+<colgroup>
+<col class="left">
+
+<col class="left">
+</colgroup>
+<tbody>
+<tr class="even">
+<td class="left"><code>/</code></td>
+<td class="left">Directories  (may accept <code>d</code> … gotta verify that)</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>.</code></td>
+<td class="left">Regular files</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>*</code></td>
+<td class="left">Executable files</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>@</code></td>
+<td class="left">Symlinks</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>p</code></td>
+<td class="left">named pipes</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>s</code></td>
+<td class="left">sockets</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>U</code></td>
+<td class="left">Owned by current UID</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>u</code></td>
+<td class="left">Owned by the given user account or UID, e.g. <code>(u'howard')</code></td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>g</code></td>
+<td class="left">Owned by the given group account or GID, e.g. <code>(g100)</code></td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>r</code></td>
+<td class="left">Readable by owner (A is readable by group)</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>R</code></td>
+<td class="left">Readable by World</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>w</code></td>
+<td class="left">Writable by owner (I is writable by group)</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>W</code></td>
+<td class="left">Writable by World</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>x</code></td>
+<td class="left">Executable by owner (E is executable by group)</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>X</code></td>
+<td class="left">Executable by world</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>s</code></td>
+<td class="left"><code>setuid</code> (for user)</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>S</code></td>
+<td class="left"><code>setgid</code> (for group)</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>t</code></td>
+<td class="left">Sticky bit</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>%</code></td>
+<td class="left">Other file types.</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+These are fairly straight-forward. For example, list all the
+directories:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ls -ld *<span style="color: rgb(197, 200, 198);">(</span>/<span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+Some symbols take options, like to list all files owned by the
+<code>howard</code> account, specify the string with single quotes:
+</p>
+
+<pre class="example">ls -ld *(u'howard')
+</pre>
+
+<p>
+The <code>%</code> requires a second parameter to specify the file type to
+filter. These are taken from the <code>ls</code>, so <code>%c</code> will display char
+devices. Here is the list if stole from the <code>ls</code> man page:
+</p>
+
+<table>
+
+
+<colgroup>
+<col class="left">
+
+<col class="left">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td class="left"><code>b</code></td>
+<td class="left">Block special file</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>c</code></td>
+<td class="left">Character special file</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>d</code></td>
+<td class="left">Directory</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>l</code></td>
+<td class="left">Symbolic link</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>s</code></td>
+<td class="left">Socket link</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>p</code></td>
+<td class="left">FIFO</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>-</code></td>
+<td class="left">Regular file</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The options can be combined. For instance, list all symbolic links
+owned by your account:
+</p>
+
+<pre class="example">ls -l *(@U)
+</pre>
+
+<p>
+Or, list all symbolic links that you <i>don’t</i> own by prefixing the
+<code>^</code> symbol:
+</p>
+
+<pre class="example">ls -l *(@^U)
+</pre>
+
+<p>
+Gets more interesting with time and size filters which take
+parameters. This is the cheat-sheet-like output from
+<code>eshell-display-predicate-help</code>:
+</p>
+
+<dl class="org-dl">
+<dt> <code>a[Mwhms][+-](N|'FILE')</code> </dt><dd>access time +/-/= N
+months/weeks/hours/mins/secs (days if unspecified) if FILE
+specified, use as comparison basis; so a+’file.c’ shows files
+accessed before <code>file.c</code> was last accessed.
+</dd>
+<dt> <code>m[Mwhms][+-](N|'FILE')</code> </dt><dd>modification time…
+</dd>
+<dt> <code>c[Mwhms][+-](N|'FILE')</code> </dt><dd>change time…
+</dd>
+<dt> <code>L[kmp][+-]N</code>            </dt><dd>file size +/-/= N Kb/Mb/blocks
+</dd>
+</dl>
+
+<p>
+The following examples should clarify how to use these:
+</p>
+
+<p>
+To display all <code>org-mode</code> files in my directory that I’ve modified
+since yesterday, I would type:
+</p>
+
+<pre class="example">ls *.org(m-1)
+</pre>
+
+<p>
+Where the <code>m</code> is the modification time, the <code>-</code> means <i>less than</i>
+and <code>1</code> refers to the day, since we didn’t specify any other time
+period. To display the files we’ve modified over the last 8 hours,
+we’d enter:
+</p>
+
+<pre class="example">ls *.org(mh-8)
+</pre>
+
+<p>
+Compress everything which hasn’t been accessed in 30 days:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">bzip2 -9v **/*<span style="color: rgb(197, 200, 198);">(</span>a+30<span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+The <code>**</code> symbol is recursive access to sub-directories.
+</p>
+
+<p>
+Shell scripts (that end with a <code>.sh</code> and are executable (we specify
+the <code>*</code> character first) that are 50k or larger (we use the <code>+</code> symbol):
+</p>
+
+<pre class="example">ls ***/*.sh(*Kl+50)
+</pre>
+
+<p>
+To specify 50K, we first write <code>k</code> then <code>+</code> (to mean <i>or larger</i>)
+and finally the size. The three stars, <code>***</code> is a recursive search
+into sub-directories, but not to follow symbolic links.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2">Modifiers</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Modifiers are similar to filters mentioned above, except that begin
+with a colon symbol, and they change the string, file or list that
+precedes it. For instance, <code>:U</code> upper-cases a string or file name:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: rgb(181, 189, 104);">for</span> f<span style="color: rgb(181, 189, 104);"> in</span> *<span style="color: rgb(197, 200, 198);">(</span>:U<span style="color: rgb(197, 200, 198);">)</span> <span style="color: rgb(197, 200, 198);">{</span> <span style="color: rgb(178, 148, 187);">echo</span> $<span style="color: rgb(240, 198, 116);">f</span> <span style="color: rgb(197, 200, 198);">}</span>
+</pre>
+</div>
+
+<p>
+Returns:
+</p>
+
+<pre class="example">AB-TESTING-EXPERIMENTS.ORG
+AB-TESTING-PRESENTATION.ORG
+ACTIONSCRIPT-NOTES.ORG
+ADIUM-PLUGINS-AND-EXTENSIONS.ORG
+ALFRED.ORG
+ANGULARJS-BOILERPLATE.ORG
+ANGULARJS-MODULES.ORG
+ANGULARJS-TESTING.ORG
+APPLESCRIPT-RECIPES.ORG
+APPLESCRIPT-SKYPE.ORG
+...
+</pre>
+
+<p>
+The modifiers can also affect a variable. The following example
+behaves the same as the previous example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: rgb(181, 189, 104);">for</span> f<span style="color: rgb(181, 189, 104);"> in</span> * <span style="color: rgb(197, 200, 198);">{</span> <span style="color: rgb(178, 148, 187);">echo</span> $<span style="color: rgb(240, 198, 116);">f</span><span style="color: rgb(138, 190, 183);">(</span>:U<span style="color: rgb(138, 190, 183);">)</span> <span style="color: rgb(197, 200, 198);">}</span>
+</pre>
+</div>
+
+<p>
+Here is the complete list of modifiers for an individual string or
+file name:
+</p>
+
+<table>
+
+
+<colgroup>
+<col class="left">
+
+<col class="left">
+</colgroup>
+<tbody>
+<tr class="even">
+<td class="left"><code>:L</code></td>
+<td class="left">lowercase</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:U</code></td>
+<td class="left">uppercase</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:C</code></td>
+<td class="left">capitalize</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:h</code></td>
+<td class="left">dirname</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:t</code></td>
+<td class="left">basename</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:e</code></td>
+<td class="left">file extension</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:r</code></td>
+<td class="left">strip file extension</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:q</code></td>
+<td class="left">escape special characters</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:S</code></td>
+<td class="left">split string at any whitespace character</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:S/PAT/</code></td>
+<td class="left">split string at each occurrence of <code>/PAT/</code></td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:E</code></td>
+<td class="left">evaluate again</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Here is the list of modifiers for a list:
+</p>
+
+<table>
+
+
+<colgroup>
+<col class="left">
+
+<col class="left">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td class="left"><code>:o</code></td>
+<td class="left">sort alphabetically</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:O</code></td>
+<td class="left">reverse sort alphabetically</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:u</code></td>
+<td class="left">unique list (typically used after <code>:o</code> or <code>:O</code>)</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:R</code></td>
+<td class="left">reverse the list</td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:j</code></td>
+<td class="left">join list members, separated by a space</td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:j/PAT/</code></td>
+<td class="left">join list members, separated by <code>PAT</code></td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:i/PAT/</code></td>
+<td class="left">exclude all members not matching <code>PAT</code></td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:x/PAT/</code></td>
+<td class="left">exclude all members matching <code>PAT</code></td>
+</tr>
+
+<tr class="odd">
+<td class="left"><code>:s/pat/match/</code></td>
+<td class="left">substitute <code>PAT</code> with <code>MATCH</code></td>
+</tr>
+
+<tr class="even">
+<td class="left"><code>:g/pat/match/</code></td>
+<td class="left">substitute <code>PAT</code> with <code>MATCH</code> for all occurrences</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+To append the string, <code>-foobar</code>, to all files owned by you, <i>before</i>
+the extension, you would type:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: rgb(181, 189, 104);">for</span> F<span style="color: rgb(181, 189, 104);"> in</span> *<span style="color: rgb(197, 200, 198);">(</span>U<span style="color: rgb(197, 200, 198);">)</span> <span style="color: rgb(197, 200, 198);">{</span> mv $<span style="color: rgb(240, 198, 116);">F</span> $<span style="color: rgb(240, 198, 116);">F</span><span style="color: rgb(138, 190, 183);">(</span>:r<span style="color: rgb(138, 190, 183);">)</span>-foobar.$<span style="color: rgb(240, 198, 116);">F</span><span style="color: rgb(138, 190, 183);">(</span>:e<span style="color: rgb(138, 190, 183);">)</span> <span style="color: rgb(197, 200, 198);">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3">Custom Filter Predicates</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+As you know, the best part of Emacs is its ability to customize
+everything…including your shell experience.
+</p>
+
+<p>
+As <a href="https://www.masteringemacs.org/article/complete-guide-mastering-eshell#adding-new-modifiers-and-predicates">Mickey Petersen mentions</a>, we can create our own predicates to
+filter out files. Wouldn’t it be nice if we could specify files
+based on their internal <code>org-mode</code> <code>#+TAGS</code> entry. For instance, at
+the top of my files, I add the following headers:
+</p>
+
+<pre class="example">#+TITLE:  Alfred
+#+AUTHOR: Howard Abrams
+#+DATE:   [2013-05-15 Wed]
+#+TAGS:   mac technical
+</pre>
+
+<p>
+I would like Eshell to be able to list files that end in <code>org</code>, but
+with contents that include the <code>mac</code> tag, like:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ls *.org<span style="color: rgb(197, 200, 198);">(</span>T<span style="color: rgb(138, 190, 183);">'mac'</span><span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+If the filter used a single symbol, we would append a <i>tuple</i> to
+<code>eshell-predicate-alist</code> that specifies the symbol and the
+predicate function (that returns <code>true</code> or <code>nil</code>). Something like
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(197, 200, 198);">(</span>add-to-list 'eshell-predicate-alist '<span style="color: rgb(138, 190, 183);">(</span>?P . eshell-primary-file<span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+However, in our example, the <code>T</code> symbol takes the tag as a
+parameter. In this case, we need a two-step process:
+</p>
+
+<ol class="org-ol">
+<li>A function to parse the Eshell buffer to look for the parameter
+(and move the point past the parameter)
+</li>
+<li>A predicate function that takes a file as a parameter
+</li>
+</ol>
+
+<p>
+For the first step, we have our function <i>called</i> as it helps
+<i>parse</i> the text at this time.  Based on what it sees, it returns
+the predicate function used to filter the files:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(197, 200, 198);">(</span>add-to-list 'eshell-predicate-alist '<span style="color: rgb(138, 190, 183);">(</span>?T . <span style="color: rgb(240, 198, 116);">(</span>eshell-org-file-tags<span style="color: rgb(240, 198, 116);">)</span><span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+I combine the two steps into a single function, as after the
+function is done with Step 1, we will return a lambda expression
+for Step 2.
+</p>
+
+<p>
+The first step is to <i>parse</i> the text following the point looking
+for the tag (surround in single quotes), and move the point forward
+over the <i>option</i> for our filter function (notice the <code>goto-char</code>
+to the end of the match).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: rgb(197, 200, 198);">(</span><span style="color: rgb(181, 189, 104);">defun</span> <span style="color: rgb(222, 147, 95);">eshell-org-file-tags</span> <span style="color: rgb(138, 190, 183);">()</span>
+  <span style="color: rgb(178, 148, 187);">"Helps the eshell parse the text the point is currently on,</span>
+<span style="color: rgb(178, 148, 187);">looking for parameters surrounded in single quotes. Returns a</span>
+<span style="color: rgb(178, 148, 187);">function that takes a FILE and returns nil if the file given to</span>
+<span style="color: rgb(178, 148, 187);">it doesn't contain the org-mode #+TAGS: entry specified."</span>
+
+  <span style="color: rgb(150, 152, 150); font-style: italic;">;; </span><span style="color: rgb(150, 152, 150); font-style: italic;">Step 1. Parse the eshell buffer for our tag between quotes</span>
+  <span style="color: rgb(150, 152, 150); font-style: italic;">;;         </span><span style="color: rgb(150, 152, 150); font-style: italic;">Make sure to move point to the end of the match:</span>
+  <span style="color: rgb(138, 190, 183);">(</span><span style="color: rgb(181, 189, 104);">if</span> <span style="color: rgb(240, 198, 116);">(</span>looking-at <span style="color: rgb(138, 190, 183);">"'</span><span style="color: rgb(240, 198, 116);">\\</span><span style="color: rgb(178, 148, 187);">(</span><span style="color: rgb(138, 190, 183);">[</span><span style="color: rgb(129, 162, 190);">^</span><span style="color: rgb(138, 190, 183);">)']+</span><span style="color: rgb(240, 198, 116);">\\</span><span style="color: rgb(178, 148, 187);">)</span><span style="color: rgb(138, 190, 183);">'"</span><span style="color: rgb(240, 198, 116);">)</span>
+      <span style="color: rgb(240, 198, 116);">(</span><span style="color: rgb(181, 189, 104);">let*</span> <span style="color: rgb(181, 189, 104);">(</span><span style="color: rgb(129, 162, 190);">(</span>tag <span style="color: rgb(197, 200, 198);">(</span>match-string 1<span style="color: rgb(197, 200, 198);">)</span><span style="color: rgb(129, 162, 190);">)</span>
+             <span style="color: rgb(129, 162, 190);">(</span>reg <span style="color: rgb(197, 200, 198);">(</span>concat <span style="color: rgb(138, 190, 183);">"^#\\+TAGS:.* "</span> tag <span style="color: rgb(138, 190, 183);">"\\b"</span><span style="color: rgb(197, 200, 198);">)</span><span style="color: rgb(129, 162, 190);">)</span><span style="color: rgb(181, 189, 104);">)</span>
+        <span style="color: rgb(181, 189, 104);">(</span>goto-char <span style="color: rgb(129, 162, 190);">(</span>match-end 0<span style="color: rgb(129, 162, 190);">)</span><span style="color: rgb(181, 189, 104);">)</span>
+
+        <span style="color: rgb(150, 152, 150); font-style: italic;">;; </span><span style="color: rgb(150, 152, 150); font-style: italic;">Step 2. Return the predicate function:</span>
+        <span style="color: rgb(150, 152, 150); font-style: italic;">;;         </span><span style="color: rgb(150, 152, 150); font-style: italic;">Careful when accessing the `</span><span style="color: rgb(129, 162, 190); font-style: italic;">reg</span><span style="color: rgb(150, 152, 150); font-style: italic;">' variable.</span>
+        `<span style="color: rgb(181, 189, 104);">(</span><span style="color: rgb(181, 189, 104);">lambda</span> <span style="color: rgb(129, 162, 190);">(</span>file<span style="color: rgb(129, 162, 190);">)</span>
+           <span style="color: rgb(129, 162, 190);">(</span><span style="color: rgb(181, 189, 104);">with-temp-buffer</span>
+             <span style="color: rgb(197, 200, 198);">(</span>insert-file-contents file<span style="color: rgb(197, 200, 198);">)</span>
+             <span style="color: rgb(197, 200, 198);">(</span>re-search-forward ,reg nil t 1<span style="color: rgb(197, 200, 198);">)</span><span style="color: rgb(129, 162, 190);">)</span><span style="color: rgb(181, 189, 104);">)</span><span style="color: rgb(240, 198, 116);">)</span>
+    <span style="color: rgb(240, 198, 116);">(</span><span style="color: rgb(204, 102, 102); font-weight: bold;">error</span> <span style="color: rgb(138, 190, 183);">"The `T' predicate takes an org-mode tag value in single quotes."</span><span style="color: rgb(240, 198, 116);">)</span><span style="color: rgb(138, 190, 183);">)</span><span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+The returned function loads the given file into a <code>temp-buffer</code>,
+and search the contents for the regular expression. Returns <code>nil</code>
+if the match wasn’t found (<code>false</code>), and anything else is
+interpreted as <code>true</code>.
+</p>
+
+<p>
+Now I can search for Homebrew commands without bringing up my beer
+notes:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ grep brew *.org<span style="color: rgb(197, 200, 198);">(</span>T<span style="color: rgb(138, 190, 183);">'mac'</span><span style="color: rgb(197, 200, 198);">)</span>
+</pre>
+</div>
+
+<p>
+Since the <code>grep</code> is really the Emacs <code>grep</code> function, it brings the
+results up in a buffer that I can click to load/edit.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">Summary</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Of course the real beauty of EShell is the Emacs integration, for
+instance, using <code>highlight-regexp</code> to colorize key words from expected
+output, or piping the results to an Emacs buffer:
+</p>
+
+<pre class="example">$ ls -al &gt; #&lt;buffer some-notes.org&gt;
+</pre>
+
+<p>
+And then issue a <code>C-c |</code> on that results to create an <code>org-mode</code> table
+you can continue to manipulate.
+</p>
+
+<p>
+While the Eshell is baked into Emacs, and requires no customization,
+I have <a href="https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org">made a few improvements</a> that may be helpful to others.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+Programs like <code>top</code> wouldn’t work well in Eshell since it
+these programs are still attempting to manipulate the world with
+ancient VT100 control codes, and the Eshell mostly is expecting
+standard textual output.
+</p>
+
+<p class="footpara">
+However, if you type <code>top</code>, <code>eshell</code> notices <code>top</code> on its <i>naughty
+list</i> (actually, the list is called <code>eshell-visual-commands</code>), and
+will farm it out to a special <code>comint</code> buffer.
+</p>
+
+<p class="footpara">
+In practice, I don’t notice this limitation, since most applications I
+would like, I usually just use a similar program re-written in Emacs.
+However, if you find an app that doesn’t work well in EShell, append
+it to this list.
+</p></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<div id="bottom-section">
+  <ul>
+    <li>
+      <a href="http://www.howardism.org/formmail/mail?to=howardism" class="bottom-link" target="_blank">
+        <img src="mail.png" title="Message Me" alt="Message Me">
+      </a>
+    </li>
+    <li>
+      <a href="http://www.howardism.org/index.xml" class="bottom-link" target="_blank">
+        <img src="rss.png" title="RSS Feed for howardisms" alt="RSS">
+      </a>
+    </li>
+    <li>
+      <a href="http://github.com/howardabrams" class="bottom-link" target="_blank">
+        <img src="github.png" title="My Github Projects" alt="Github">
+      </a>
+    </li>
+    <li>
+      <a href="http://linkedin.com/howardeabrams" class="bottom-link" target="_blank">
+        <img src="linkedin.png" title="Connect via LinkedIn" alt="LinkedIn">
+      </a>
+    </li>
+    <li>
+      <a href="http://youtube.com/user/howardabrams" class="bottom-link" target="_blank">
+        <img src="youtube.png" title="View my lectures and instructional videos" alt="YouTube">
+      </a>
+    </li>
+    <li>
+      <a href="http://twitter.com/howardabrams" class="bottom-link" target="_blank">
+        <img src="twitter.png" title="Follow me: @howardabrams" alt="Twitter">
+      </a>
+    </li>
+  </ul>
+</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# ">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Use vimdiff to resolve git/subversion/mercurial merge conflicts effectively | Chen's blog</title>
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.binchen.org/rss.xml">
+<link rel="canonical" href="http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.html">
+<!--[if lt IE 9]><script src="/assets/js/html5.js"></script><![endif]-->
+
+<meta name="author" content="Chen Bin">
+<meta property="og:site_name" content="Chen's blog">
+<meta property="og:title" content="Use vimdiff to resolve git/subversion/mercurial merge conflicts effect">
+<meta property="og:url" content="http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.html">
+<meta property="og:description" content="If you are already a vim master and you are impatient, please jump to the Quick start section at the end of this article.   In this post, I use git as an example of version control software. But you c">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2013-06-10T19:08:00Z">
+<meta property="article:tag" content="en">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="merge">
+<meta property="article:tag" content="mergetool">
+<meta property="article:tag" content="vim">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+    <section class="social"><ul>
+<li><a href="http://blog.binchen.org/index.html" title="Home"><i class="icon-home"></i></a></li>
+            <li><a href="http://blog.binchen.org/archive.html" title="Archives"><i class="icon-folder-open-alt"></i></a></li>
+            <li><a href="http://blog.binchen.org/categories/index.html" title="Tags"><i class="icon-tags"></i></a></li>
+            <li><a href="http://blog.binchen.org/rss.xml" title="RSS"><i class="icon-rss"></i></a></li>
+            <li><a href="http://blog.binchen.org/stories/about.html" title="About me"><i class="icon-user"></i></a></li>
+            <li><a href="https://twitter.com/chen_bin" title="My Twitter"><i class="icon-twitter"></i></a></li>
+            <li><a href="https://github.com/redguardtoo" title="My Github"><i class="icon-github"></i></a></li>
+
+        </ul></section><section class="page-content"><div class="content" rel="main">
+            
+    <div class="post">
+    
+    <h1 class="p-name entry-title" itemprop="headline name">Use vimdiff to resolve git/subversion/mercurial merge conflicts effectively</h1>
+
+        <div class="meta">
+            <div class="authordate">
+                <time title="2013-06-10 19:08" class="timeago" datetime="2013-06-10T19:08:00+00:00">3 years ago</time>
+            
+
+            
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.wp" id="sourcelink">Source</a>
+
+            </div>
+            
+        <div itemprop="keywords" class="tags">
+        <ul>
+        Tags&nbsp;:&nbsp;
+           <li><a class="tag p-category" href="http://blog.binchen.org/categories/en.html" rel="tag">en</a></li>
+           <li><a class="tag p-category" href="http://blog.binchen.org/categories/git.html" rel="tag">git</a></li>
+           <li><a class="tag p-category" href="http://blog.binchen.org/categories/merge.html" rel="tag">merge</a></li>
+           <li><a class="tag p-category" href="http://blog.binchen.org/categories/mergetool.html" rel="tag">mergetool</a></li>
+           <li><a class="tag p-category" href="http://blog.binchen.org/categories/vim.html" rel="tag">vim</a></li>
+        </ul>
+</div>
+
+        </div>
+        <div class="body">
+            <div>
+<p></p>
+<p>If you are already a vim master and you are impatient, please jump to the <a href="http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.html#sec-7">Quick start</a> section at the end of this article. </p> <p> In this post, I use git as an example of version control software. But you can use any other version control softwares instead. </p>  <div id="outline-container-1" class="outline-3"> <h4 id="sec-1">The reasons to use vimdiff to do the merge?</h4> <div class="outline-text-3" id="text-1">  <ul>
+<li>vimdiff is free (vim) </li> <li>vimdiff works on any OS  </li> <li>vimdiff works on non-GUI environment </li> <li>Efficient, all the operations are finished by keyboard </li> <li>light weight </li> </ul>
+</div>  </div>  <div id="outline-container-2" class="outline-3"> <h4 id="sec-2">Set up vimdiff</h4> <div class="outline-text-3" id="text-2">  <p>The vimdiff as a merge tool will display several buffers to show YOURS/THEIRS/ORIGINAL code. </p> <p> First, add following code into your ~/.vimrc, </p>   
+<pre class="prettyprint ">
+set laststatus=2 "show the status line
+
+set statusline=%-10.3n  "buffer number
+</pre>
+
+<p></p>
+<p> The purpose of above two lines is to display buffer number at the status line of vim. It's OPTIONAL. You don't need see the buffer number is you are familiar with the all the buffer's position. The left top is buffer number 2. The middle top is buffer number 3. The right top is buffer number 4. </p> <p> Second, if you know the buffer number, you can use hot key like ",2" (press comma first, then press two key as quickly as possible) to pull change from buffer number 2. Add below code into your ~/.vimrc to set up hot keys: </p>   
+<pre class="prettyprint ">
+map &lt;silent&gt; &lt;leader&gt;2 :diffget 2&lt;CR&gt; :diffupdate&lt;CR&gt;
+
+map &lt;silent&gt; &lt;leader&gt;3 :diffget 3&lt;CR&gt; :diffupdate&lt;CR&gt;
+
+map &lt;silent&gt; &lt;leader&gt;4 :diffget 4&lt;CR&gt; :diffupdate&lt;CR&gt;
+</pre>
+
+<p></p>
+</div>  </div>  <div id="outline-container-3" class="outline-3"> <h4 id="sec-3">Set up git</h4> <div class="outline-text-3" id="text-3">  <p>To use vimdiff as default merge tool: </p>   
+<pre class="prettyprint ">
+git config --global merge.tool vimdiff
+
+git config --global mergetool.prompt false
+</pre>
+
+<p></p>
+</div>  </div>  <div id="outline-container-4" class="outline-3"> <h4 id="sec-4">Create a git project which has conflicting merges</h4> <div class="outline-text-3" id="text-4">  <p>I already set up a "hello world" project at <a href="https://github.com/redguardtoo/test-git-mergetool">https://github.com/redguardtoo/test-git-mergetool</a> for your practice. </p> <p> It has three branches "master", "bob", and "chen". </p>   
+<pre class="prettyprint ">
+git clone git://github.com/redguardtoo/test-git-mergetool.git
+
+cd test-git-mergetool
+
+git checkout -b bob origin/bob # create local mirror of bob branch
+
+git checkout -b chen origin/chen # create local mirror of chen branch
+</pre>
+
+<p></p>
+<p> Bob and Chen has edited same files. So please merge branch "bob" into "master" at first. Then merge from "chen". The merge conflicts will be created. </p>   
+<pre class="prettyprint ">
+git branch # double check that we got three local branches: master, bob, chen
+
+git checkout master # set master branch as main branch
+
+git merge bob #this is ok, because bob is the first one to merge changes
+
+git merge chen # now some conflicts created because Bob has already edited and merged same files
+</pre>
+
+<p></p>
+</div>  </div>  <div id="outline-container-5" class="outline-3"> <h4 id="sec-5">Resolve merge conflict</h4> <div class="outline-text-3" id="text-5">  <p>Now start merge tool: </p>   
+<pre class="prettyprint ">
+git mergetool
+</pre>
+
+<p></p>
+<p> Git will invoke vimdiff with the following window layout. There are four buffers in this layout: <img src="wpid-git-merge-tool-nq8.png" alt="http://blog.binchen.org/wp-content/uploads/2013/06/wpid-git-merge-tool-nq8.png"></p> <p> Here is the explanation of each buffer: </p>
+<table rules="groups" frame="hsides" border="2" cellpadding="6" cellspacing="0">
+<caption></caption> <colgroup>
+<col class="left">
+<col class="left">
+<col class="right">
+</colgroup>
+<thead><tr>
+<th scope="col" class="left">Buffer</th>
+<th scope="col" class="left">Explanation</th>
+<th scope="col" class="right">Buffer Number</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">THEIRS (LOCAL)</td>
+<td class="left">contents of the file on the current branch</td>
+<td class="right">2</td>
+</tr>
+<tr>
+<td class="left">BASE</td>
+<td class="left">common base for the merge</td>
+<td class="right">3</td>
+</tr>
+<tr>
+<td class="left">YOURS (REMOTE)</td>
+<td class="left">contents of the file to be merged.</td>
+<td class="right">4</td>
+</tr>
+<tr>
+<td class="left">MERGED</td>
+<td class="left">The file containing the conflict markers. You need edit and commit this file.</td>
+<td class="right">1</td>
+</tr>
+</tbody>
+</table>
+<p> Some people name THEIRS and YOURS buffer to LOCAL and REMOTE buffer. That's totally fine because names are just names. The point is that the top middle buffer is the BASE one which contains the original code before Bob and Chen committing any code. And the bottom buffer is the mess which contains resolved/unresolved conflicts where you actual editing work happens. </p> <p> You could press hot key ",2" (comma + two), Then you pick the content from THEIRS buffer (the top left buffer). It means you will use the Bob's code and discard Chen's code in MERGED buffer. </p> <p> You could press hot key ",3" (comma + three), Then you pick the content from BASE buffer (the top middle buffer). It means you will discard either Bob's code or Chen's code in MERGED buffer. </p> <p> You could press hot key ",4" (comma + four), Then you pick the content from YOURS buffer (the top right buffer). It means you will use Chen's code and discard Bob code in MERGED buffer. </p> <p> Or you can edit the content directly in MERGED buffer. Anyway, git only care about the file binding to MERGED buffer. Any other buffer will be ignored by git. </p> <p> You can use hot key "[c language=" and "][/c]c" to navigate to previous/next conflict (including the conflict resolved by git automatically) in current file which is binding to MERGED buffer. </p> <p> After finishing editing of the conflicting file in MERGED buffer, you can use hot key ":xa" to exit vimdiff. Git will open next conflicting file with vimdiff automatically. </p> <p> When you have resolved all the conflicts, follow the hint of git to commit your changes. </p> </div>  </div>  <div id="outline-container-6" class="outline-3"> <h4 id="sec-6">Tips</h4> <div class="outline-text-3" id="text-6">  <ul>
+<li>A vim plugin called fugitive.vim (<a href="https://github.com/tpope/vim-fugitive">https://github.com/tpope/vim-fugitive</a>) can do this too. Actually it can do much more git stuff than merge. I cannot write this article without reading its code. </li> <li>You can use Emacs to do the similar job (<a href="http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool">http://stackoverflow.com/questions/1817370/using-ediff-as-git-mergetool</a>). For me, Emacs start up time is too much for this task. Some people use emacsclient which has other overhead which I don't like. </li> <li>If you prefer merge tool with GUI, you can use command line <code>git mergetool -t gvimdiff</code> instead. </li> <li>The ":diffget" command is valid if and only if there are <b>MARKED</b> conflicts in merged buffer. If there are <b>NOT</b> any marked string like "&gt;&gt;&gt;&gt;" or "&lt;&lt;&lt;&lt;&lt;" around current change (you can jump to previous/next change by press "[c language=" or "][/c]c"), it means the git have automatically resolved potential conflict for you. Review this kind of change is still wise because git is not as smart as human. </li> <li>If you prefer navigating between the unresolved conflicts <b>only</b>, you can install Tim Pope's <a href="https://github.com/tpope/vim-unimpaired">vim-unimpaired</a> and use hot key "[n" and "]n" to do the navigation. </li> <li>I map "[n" and "]n" to more handy hot keys: </li> </ul>
+<pre class="prettyprint ">
+map ]] ]n
+
+map [[ [n
+</pre>
+
+<p></p>
+</div>  </div>  <div id="outline-container-7" class="outline-3"> <h4 id="sec-7"><a name="Quick-start" class="target">Quick start</a></h4> <div class="outline-text-3" id="text-7">  <p>You can use command line like "git mergetool -t vimdiff" to start vimdiff from git. </p> <p> So the minimum set up is adding three lines of code into your ~/.vimrc: </p>   
+<pre class="prettyprint ">
+map &lt;silent&gt; &lt;leader&gt;2 :diffget 2&lt;CR&gt; :diffupdate&lt;CR&gt;
+
+map &lt;silent&gt; &lt;leader&gt;3 :diffget 3&lt;CR&gt; :diffupdate&lt;CR&gt;
+
+map &lt;silent&gt; &lt;leader&gt;4 :diffget 4&lt;CR&gt; :diffupdate&lt;CR&gt;
+</pre>
+
+<p></p>
+<p> Then you can press hot key ",2" ",3" ",4" in vimdiff to pull change from top three buffer. The bottom buffer is for editing the code with markers which is actually your only work space. </p> <p> ":help vimdiff" for other hot keys. </p> </div> </div> </div>
+        </div>
+        
+        <ul class="pager hidden-print">
+<li class="previous">
+                <a href="http://blog.binchen.org/posts/open-readme-under-git-root-directory-in-emacs.html" rel="prev" title="open README under git root directory in Emacs">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="http://blog.binchen.org/posts/an-example-to-abuse-the-git-merge.html" rel="next" title="An example to abuse the git merge">Next post</a>
+            </li>
+        </ul>
+<div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="index_1.html" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 0pt ! important;" title="Disqus" tabindex="0" allowtransparency="true" name="dsq-app1" id="dsq-app1" frameborder="0" scrolling="no" width="100%"></iframe></div>
+        
+    
+
+
+        
+
+    </div>
+
+        
+       <footer id="footer"><p>Contents © 2015         <a href="mailto:chenbin.sh@gmail.com">Chen Bin</a> - Powered by         <a href="http://getnikola.com/" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </section>
+
+
+</body>
+</html>

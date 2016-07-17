@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" class="client-js" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>GNU Screen - ArchWiki</title>
+
+
+
+<!--[if IE 6]><link rel="stylesheet" href="/skins/ArchLinux/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/skins/ArchLinux/IE70Fixes.css?303" media="screen" /><![endif]-->
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+
+<meta name="generator" content="MediaWiki 1.26.3">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.archlinux.org/opensearch_desc.php" title="ArchWiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.archlinux.org/api.php?action=rsd">
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="ArchWiki Atom feed" href="https://wiki.archlinux.org/index.php?title=Special:RecentChanges&amp;feed=atom">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-GNU_Screen skin-archlinux action-view">
+
+		<div id="archnavbar"><!-- Arch Linux global navigation bar -->
+			<div id="archnavbarlogo">
+				<p><a id="logo" href="https://www.archlinux.org/"></a></p>
+			</div>
+			<div id="archnavbarmenu">
+				<ul id="archnavbarlist">
+					<li id="anb-home"><a href="https://www.archlinux.org/">Home</a></li><li id="anb-packages"><a href="https://www.archlinux.org/packages/">Packages</a></li><li id="anb-forums"><a href="https://bbs.archlinux.org/">Forums</a></li><li id="anb-wiki" class="anb-selected"><a href="https://wiki.archlinux.org/">Wiki</a></li><li id="anb-bugs"><a href="https://bugs.archlinux.org/">Bugs</a></li><li id="anb-aur"><a href="https://aur.archlinux.org/">AUR</a></li><li id="anb-download"><a href="https://www.archlinux.org/download/">Download</a></li>				</ul>
+			</div>
+		</div><!-- #archnavbar -->
+
+		<div id="globalWrapper">
+		<div id="column-content">
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+				
+				<div class="mw-indicators">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">GNU Screen</h1>
+				
+				<div id="bodyContent" class="mw-body-content">
+					<div id="siteSub">From ArchWiki</div>
+					<div id="contentSub"></div>
+										<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+
+					<!-- start content -->
+					<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><div style="float: right; clear: right; width: 25%; margin: 0px 0px 0.5em 0.5em;"><p style="background: none repeat scroll 0% 0% rgb(51, 51, 51); color: white; padding: 0.2em; border-bottom: 5px solid rgb(0, 136, 204); margin: 0px; text-align: center; font-weight: bold;">Related articles</p><ul style="list-style-type: none; margin: 0px; padding: 0.3em;">
+<li style="padding: 0.4em 0px; line-height: 1;"><a href="https://wiki.archlinux.org/index.php/Tmux" title="Tmux">tmux</a></li>
+</ul></div>
+<p><a rel="nofollow" class="external text" href="http://www.gnu.org/s/screen/">GNU Screen</a> is a wrapper that allows separation between the text program and the shell from which it was launched. This allows the user to, for example, start a text program in a terminal in X, kill X, and continue to interact with the program.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Usage"><span class="tocnumber">2</span> <span class="toctext">Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Common_Commands"><span class="tocnumber">2.1</span> <span class="toctext">Common Commands</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Command_Prompt_Commands"><span class="tocnumber">2.2</span> <span class="toctext">Command Prompt Commands</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Named_sessions"><span class="tocnumber">2.3</span> <span class="toctext">Named sessions</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Autostart_with_systemd"><span class="tocnumber">2.4</span> <span class="toctext">Autostart with systemd</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Tips_and_tricks"><span class="tocnumber">3</span> <span class="toctext">Tips and tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Change_the_escape_key"><span class="tocnumber">3.1</span> <span class="toctext">Change the escape key</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Start_at_window_1"><span class="tocnumber">3.2</span> <span class="toctext">Start at window 1</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Nested_Screen_Sessions"><span class="tocnumber">3.3</span> <span class="toctext">Nested Screen Sessions</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Use_256_colors"><span class="tocnumber">3.4</span> <span class="toctext">Use 256 colors</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Informative_statusbar"><span class="tocnumber">3.5</span> <span class="toctext">Informative statusbar</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Turn_welcome_message_off"><span class="tocnumber">3.6</span> <span class="toctext">Turn welcome message off</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Turn_your_hardstatus_line_into_a_dynamic_urxvt.7Cxterm.7Caterm_window_title"><span class="tocnumber">3.7</span> <span class="toctext">Turn your hardstatus line into a dynamic urxvt|xterm|aterm window title</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Use_X_scrolling_mechanism"><span class="tocnumber">3.8</span> <span class="toctext">Use X scrolling mechanism</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Attach_an_existing_running_program_to_screen"><span class="tocnumber">3.9</span> <span class="toctext">Attach an existing running program to screen</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Setting_a_different_bash_prompt_while_in_screen"><span class="tocnumber">3.10</span> <span class="toctext">Setting a different bash prompt while in screen</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Turn_off_visual_bell"><span class="tocnumber">3.11</span> <span class="toctext">Turn off visual bell</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-20"><a href="#Fix_Midnight_Commander_hard_hang_when_starting_in_screen"><span class="tocnumber">4.1</span> <span class="toctext">Fix Midnight Commander hard hang when starting in screen</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Fix_for_residual_editor_text"><span class="tocnumber">4.2</span> <span class="toctext">Fix for residual editor text</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Fix_for_Name_column_in_windowlist_only_show_.22bash.22"><span class="tocnumber">4.3</span> <span class="toctext">Fix for Name column in windowlist only show "bash"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>GNU Screen can be <a href="https://wiki.archlinux.org/index.php/Pacman" title="Pacman">installed</a> using the <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=screen">screen</a></span> package found in the <a href="https://wiki.archlinux.org/index.php/Official_repositories" title="Official repositories">official repositories</a>.
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>Commands are entered pressing the "escape key" <code>ctrl+a</code> and then the key binding.
+</p><p>Some users find the default escape key <code>ctrl+a</code> inconvenient. The escape key can be changed to another key as <a href="#Change_the_escape_key">described below</a>.
+</p>
+<h3><span class="mw-headline" id="Common_Commands">Common Commands</span></h3>
+<ul><li> <code>ctrl+a</code> <code>?</code> Displays commands and its defaults (VERY important)</li>
+<li> <code>ctrl+a</code> <code>:</code> Enter to the command prompt of screen</li>
+<li> <code>ctrl+a</code> <code>"</code> Window list</li>
+<li> <code>ctrl+a</code> <code>0</code> opens window 0</li>
+<li> <code>ctrl+a</code> <code>A</code> Rename the current window</li>
+<li> <code>ctrl+a</code> <code>a</code> Sends <code>ctrl+a</code> to the current window</li>
+<li> <code>ctrl+a</code> <code>c</code> Create a new window (with shell)</li>
+<li> <code>ctrl+a</code> <code>S</code> Split current region into two regions</li>
+<li> <code>ctrl+a</code> <code>tab</code> Switch the input focus to the next region</li>
+<li> <code>ctrl+a</code> <code>ctrl+a</code> Toggle between current and previous region</li>
+<li> <code>ctrl+a</code> <code>Esc</code> Enter Copy Mode (use enter to select a range of text)</li>
+<li> <code>ctrl+a</code> <code>]</code> Paste text</li>
+<li> <code>ctrl+a</code> <code>Q</code> Close all regions but the current one</li>
+<li> <code>ctrl+a</code> <code>X</code> Close the current region</li>
+<li> <code>ctrl+a</code> <code>d</code> Detach from the current screen session, and leave it running. Use <code>screen -r</code> to resume</li></ul>
+<h3><span class="mw-headline" id="Command_Prompt_Commands">Command Prompt Commands</span></h3>
+<ul><li> <code>ctrl+a</code> <code>:quit</code> Closes all windows and closes screen session</li>
+<li> <code>ctrl+a</code> <code>:source ~/.screenrc</code> Reloads screenrc configuration file (can alternatively use /etc/screenrc)</li></ul>
+<h3><span class="mw-headline" id="Named_sessions">Named sessions</span></h3>
+<p>To create a named session, run screen with the following command:
+</p>
+<pre>$ screen -S <i>session_name</i>
+</pre>
+<p>To (re)name an existing a session, run the following command while screen is running:
+</p><p><code>ctrl+a</code> <code>:sessionname <i>session_name</i></code>  
+</p><p>To print a list of <i>pid.tty.host</i> strings identifying your screen sessions:
+</p>
+<pre>$ screen -list
+</pre>
+<p>To attach to a named screen session, run this command:
+</p>
+<pre>$ screen -x <i>session_name</i>
+</pre>
+<p>or
+</p>
+<pre>$ screen -r <i>session_name</i>
+</pre>
+<h3><span class="mw-headline" id="Autostart_with_systemd">Autostart with systemd</span></h3>
+<p>This service autostarts screen for the specified user (e.g. <code>systemctl enable screen@florian</code>). Running this as a system unit is important, because <a href="https://wiki.archlinux.org/index.php/Systemd/User" title="Systemd/User">systemd --user</a> instance is not guaranteed to be running and will be killed when the last session for given user is closed.
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">/etc/systemd/system/screen@.service</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">[Unit]
+Description=screen
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+ExecStart=/usr/bin/screen -DmS autoscreen
+ExecStop=/usr/bin/screen -S autoscreen -X quit
+
+[Install]
+WantedBy=multi-user.target
+</pre>
+<h2><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h2>
+<h3><span class="mw-headline" id="Change_the_escape_key"><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"><div title="" style="bottom: 0px; left: 0px;" class="diigoIcon id_8fe34c0eb59def0aaca6792d77c3444a type_9 TextIcon private diigoEdit"></div>Change the escape key</em></span></h3>
+<p><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">It can be a good idea to change the default escape key, not only because "a" is usually typed with the left pinky, but also because </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">ctrl+a</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> is mapped to the common command </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">beginning-of-line</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> in </em><a href="https://wiki.archlinux.org/index.php/Readline" title="Readline"><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">GNU Readline</em></a><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> and </em><a href="https://wiki.archlinux.org/index.php/Bash" title="Bash"><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">Bash</em></a><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">-like shells.
+</em></p><p><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">The escape key can be changed with the </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">escape</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> option in </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">~/.screenrc</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">, or the </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">-e</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> option to </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">screen</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">.
+</em></p><p><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">For example, if you find that you rarely type </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">ctrl+j</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> in your shell or editor, you could use </em><code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow">escape ^Jj</em></code><em class="diigoHighlight a_style id_8fe34c0eb59def0aaca6792d77c3444a type_0 yellow"> to</em> set the escape key to <code>ctrl-j</code>. The second "j" means that a literal <code>ctrl-j</code> can be sent to the terminal via the sequence <code>ctrl-j j</code>. For <a href="https://wiki.archlinux.org/index.php/Dvorak" title="Dvorak">Dvorak</a> keyboard users, <code>ctrl-t</code> (<code>escape ^Tt</code>) might be more convenient.
+</p><p>More exotic options include <code>escape ``</code> which sets the escape key to <code>`</code>, or <code>escape ^^^</code> which sets it to <code>ctrl+^</code>.
+</p><p>The escape key is also called the "command character" in Screen documentation.
+</p>
+<h3><span class="mw-headline" id="Start_at_window_1">Start at window 1</span></h3>
+<p>By default, the first screen window is 0. If you'd rather never have a window 0 and start instead with 1, add the following lines on your configuration:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">bind c screen 1
+bind ^c screen 1
+bind 0 select 10                                                            
+screen 1
+</pre>
+<h3><span class="mw-headline" id="Nested_Screen_Sessions">Nested Screen Sessions</span></h3>
+<p>It is possible to get stuck in a nested screen session. A common scenario: you start an ssh session from within a screen session. Within the ssh session, you start screen. By default, the outer screen session that was launched first responds to <code>ctrl+a</code> commands. To send a command to the inner screen session, use <code>ctrl+a</code> <code>a</code>, followed by your command. For example:
+</p>
+<ul><li> <code>ctrl+a</code> <code>a</code> <code>d</code> Detaches the inner screen session.</li>
+<li> <code>ctrl+a</code> <code>a</code> <code>K</code> Kills the inner screen session.</li></ul>
+<h3><span class="mw-headline" id="Use_256_colors">Use 256 colors</span></h3>
+<p>By default, screen uses an 8-color terminal emulator. To enable more colors, you need to be using a terminal that supports them and set the correct <a rel="nofollow" class="external text" href="http://aperiodic.net/screen/commands:term">term</a> value. This will use <a href="https://en.wikipedia.org/wiki/Terminfo" class="extiw" title="wikipedia:Terminfo">terminfo</a> to describe how the <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" class="extiw" title="wikipedia:ANSI escape code">ANSI escape codes</a> will be interpreted. An entry in the terminfo database structure must exist, <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=ncurses">ncurses</a></span> provides many common descriptions stored under <code>/usr/share/terminfo/</code>.
+</p><p>First try the generic value:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;"><em class="diigoHighlight a_style id_2f098c5b265b857b25208f56c8893316 type_0 yellow"><div title="" style="bottom: 0px; left: 0px;" class="diigoIcon id_2f098c5b265b857b25208f56c8893316 type_9 TextIcon private diigoEdit"></div>term screen-256color</em>
+</pre>
+<p>If that does not work, try setting it based on the used terminal. When using <a href="https://wiki.archlinux.org/index.php/Xterm" title="Xterm">xterm</a>-based terminal:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">term xterm-256color
+</pre>
+<p>When using <a href="https://wiki.archlinux.org/index.php/Rxvt-unicode" title="Rxvt-unicode">rxvt-unicode</a>:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">term rxvt-unicode-256color
+</pre>
+<div style="padding: 5px; margin: 0.5em 0px; background-color: rgb(221, 221, 255); border: thin solid rgb(187, 187, 221); overflow: hidden;"><strong> Note: </strong><code>/usr/share/terminfo/r/rxvt-unicode-256color</code> is provided by <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=rxvt-unicode-terminfo">rxvt-unicode-terminfo</a></span>, which is installed as a dependency of <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=rxvt-unicode">rxvt-unicode</a></span>. However, if you log into a server via <a href="https://wiki.archlinux.org/index.php/SSH" title="SSH" class="mw-redirect">SSH</a> and run <i>screen</i> there, this terminfo file might not be available on the server. In this case it is recommended to copy <code>/usr/share/terminfo/r/rxvt-unicode-256color</code> on the server, it can be saved in <code>~/.terminfo</code>.</div>
+<p>As a last resort, try setting <a rel="nofollow" class="external text" href="http://aperiodic.net/screen/commands:termcapinfo">termcapinfo</a> instead:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">attrcolor b ".I"    # allow bold colors - necessary for some reason
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+defbce on    # use current bg color for erased chars
+</pre>
+<h3><span class="mw-headline" id="Informative_statusbar">Informative statusbar</span></h3>
+<p>The default statusbar may be a little lacking. You may find this one more helpful:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
+</pre>
+<p>Another possibility, taken from <a rel="nofollow" class="external text" href="http://www.fordfrog.com/2012/09/02/71/">frodfrog's blog</a> is:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">hardstatus alwayslastline '%{= G}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n*%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}][ %{y}Load: %l %{g}][%{B}%Y-%m-%d %{W}%c:%s %{g}]'
+</pre>
+<h3><span class="mw-headline" id="Turn_welcome_message_off">Turn welcome message off</span></h3>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">startup_message off
+</pre>
+<h3><span class="mw-headline" id="Turn_your_hardstatus_line_into_a_dynamic_urxvt.7Cxterm.7Caterm_window_title">Turn your hardstatus line into a dynamic urxvt|xterm|aterm window title</span></h3>
+<p>This one is pretty simple; just switch your current <code>hardstatus</code> line into a <code>caption</code> line with notification, and edit accordingly:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">backtick 1 5 5 true
+termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]2;\007'
+hardstatus string "screen (%n: %t)"
+caption string "%{= kw}%Y-%m-%d;%c %{= kw}%-Lw%{= kG}%{+b}[%n %t]%{-b}%{= kw}%+Lw%1`"
+<em class="diigoHighlight a_style id_577a78e1964c3ee5a5ed1f72b2938d61 type_0 yellow"><div title="" style="bottom: 0px; left: 0px;" class="diigoIcon id_577a78e1964c3ee5a5ed1f72b2938d61 type_9 TextIcon private diigoEdit"></div>caption always</em>
+</pre>
+<p>This will give you something like <code>screen (0 bash)</code> in the title of your terminal emulator. The caption supplies the date, current time, and colorizes your screen window collection.
+</p>
+<h3><span class="mw-headline" id="Use_X_scrolling_mechanism">Use X scrolling mechanism</span></h3>
+<p>The scroll buffer of GNU Screen can be accessed with <code>ctrl+a</code> <code>[</code>. However, this is very inconvenient. To use the scroll bar of e.g. xterm or konsole, add the following line:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">termcapinfo xterm* ti@:te@
+</pre>
+<h3><span class="mw-headline" id="Attach_an_existing_running_program_to_screen">Attach an existing running program to screen</span></h3>
+<p>If you started a program outside screen, but now you would like it to be inside, you can use <b>reptyr</b> to reparent the process from it's current tty to one inside screen.
+</p><p><a href="https://wiki.archlinux.org/index.php/Install" title="Install" class="mw-redirect">Install</a> the package <span class="plainlinks archwiki-template-pkg"><a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/?name=reptyr">reptyr</a></span> from the <a href="https://wiki.archlinux.org/index.php/Official_repositories" title="Official repositories">official repositories</a>. 
+</p><p>Get the PID of the process (you can use <code>ps ax</code> for that). Now just enter the PID as argument to reptyr inside a screen window.
+</p>
+<pre>$ reptyr <i>&lt;pid&gt;</i></pre>
+<h3><span class="mw-headline" id="Setting_a_different_bash_prompt_while_in_screen">Setting a different bash prompt while in screen</span></h3>
+<p>If you want a different bash prompt when in a screen session, add the following to your .bashrc:
+</p>
+<pre>if [ -z $STY ]
+then
+        PS1="YOUR REGULAR PROMPT"
+else  
+        PS1="YOUR SCREEN PROMPT"
+fi
+</pre>
+<p><a rel="nofollow" class="external autonumber" href="http://serverfault.com/questions/257975/how-to-check-if-im-in-screen-session">[1]</a>
+</p>
+<h3><span class="mw-headline" id="Turn_off_visual_bell">Turn off visual bell</span></h3>
+<p>With this setting, screen will not make an ugly screen flash instead of a bell sound.
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;"><em class="diigoHighlight a_style id_944d728a357e7a584b2742a5d6d7f4f2 type_0 yellow"><div title="" style="bottom: 0px; left: 0px;" class="diigoIcon id_944d728a357e7a584b2742a5d6d7f4f2 type_9 TextIcon private diigoEdit"></div>vbell off</em>
+</pre>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Fix_Midnight_Commander_hard_hang_when_starting_in_screen">Fix Midnight Commander hard hang when starting in screen</span></h3>
+<p>In some cases (need deeper inspection) <a rel="nofollow" class="external text" href="https://bugzilla.redhat.com/show_bug.cgi?id=168076">old gpm bug</a> gets alive. So, then you try to run mc inside screen, you get a frozen screen window. Try to kill gpm daemon before starting mc and/or disable it in <code>/etc/<a href="https://wiki.archlinux.org/index.php/Rc.conf" title="Rc.conf" class="mw-redirect">rc.conf</a></code>.
+</p>
+<h3><span class="mw-headline" id="Fix_for_residual_editor_text">Fix for residual editor text</span></h3>
+<p>When you open a text editor like nano in screen and then close it, the text may stay visible in your terminal. To fix this, put the following:
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">altscreen on
+</pre>
+<h3><span class="mw-headline" id="Fix_for_Name_column_in_windowlist_only_show_.22bash.22">Fix for Name column in windowlist only show "bash"</span></h3>
+<p>add following to ~/.screenrc
+</p>
+<pre style="margin-bottom: 0px; border-bottom: medium none; padding-bottom: 0.8em;">~/.screenrc</pre>
+<pre style="margin-top: 0px; border-top-style: dashed; padding-top: 0.8em;">windowlist string "%4n&nbsp;%h%=%f"</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.macosxhints.com/article.php?story=20021114055617124">MacOSX Hints - Automatically using screen in your shell</a></li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.gentoo.org/wiki/Screen">Gentoo Wiki - Tutorial for screen</a></li>
+<li> <a rel="nofollow" class="external text" href="https://bbs.archlinux.org/viewtopic.php?id=50647">Arch Forums - Regarding 256 color issue with urxvt</a></li>
+<li> <a rel="nofollow" class="external text" href="https://bbs.archlinux.org/viewtopic.php?id=55618">Arch Forums - .screenrc configs with screenshots</a></li>
+<li> <a href="https://wiki.archlinux.org/index.php/Ratpoison" title="Ratpoison">Ratpoison - A window manager based on gnu screen</a></li>
+<li> <a href="https://wiki.archlinux.org/index.php/Xpra" title="Xpra">Xpra - An utility to detach/reattach X programs, in a way similar as screen does for command line based programs</a></li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20160704004455
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.023 seconds
+Real time usage: 0.026 seconds
+Preprocessor visited node count: 941/1000000
+Preprocessor generated node count: 2571/1000000
+Post‐expand include size: 8244/2097152 bytes
+Template argument size: 3398/2097152 bytes
+Highest expansion depth: 8/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   16.726      1 - -total
+ 30.76%    5.144     78 - Template:Ic
+ 12.25%    2.049     14 - Template:Hc
+ 10.78%    1.803      1 - Template:Note
+  8.42%    1.409      1 - Template:META_Box_Blue
+  6.69%    1.119      1 - Template:Related_articles_start
+  6.16%    1.031      1 - Template:META_Box
+  4.39%    0.734      5 - Template:Pkg
+  3.44%    0.576      2 - Template:Bc
+  3.40%    0.569      1 - Template:META_Related_articles_start
+-->
+
+<!-- Saved in parser cache with key archwiki:pcache:idhash:3376-0!*!0!!en!*!* and timestamp 20160704004455 and revision id 433240
+ -->
+</div><div class="printfooter">
+Retrieved from "<a dir="ltr" href="https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;oldid=433240">https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;oldid=433240</a>"</div>
+					<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.archlinux.org/index.php/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="https://wiki.archlinux.org/index.php/Category:Terminal_emulators" title="Category:Terminal emulators">Terminal emulators</a></li></ul></div></div>					<!-- end content -->
+										<div class="visualClear"></div>
+				</div>
+			</div>
+		</div>
+		<div id="column-one">
+			<h2>Navigation menu</h2>
+					<div id="p-cactions" class="portlet" role="navigation">
+			<h3>Views</h3>
+
+			<div class="pBody">
+				<ul>
+				<li id="ca-nstab-main" class="selected"><a href="#" title="View the content page [Alt+Shift+c]" accesskey="c">Page</a></li>
+				<li id="ca-talk"><a href="https://wiki.archlinux.org/index.php/Talk:GNU_Screen" rel="discussion" title="Discussion about the content page [Alt+Shift+t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;action=edit" title="This page is protected.
+You can view its source [Alt+Shift+e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">History</a></li>
+				</ul>
+							</div>
+		</div>
+				<div class="portlet" id="p-personal" role="navigation">
+				<h3>Personal tools</h3>
+
+				<div class="pBody">
+					<ul>
+													<li id="pt-createaccount"><a href="https://wiki.archlinux.org/index.php?title=Special:UserLogin&amp;returnto=GNU+Screen&amp;type=signup" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li>
+													<li id="pt-login"><a href="https://wiki.archlinux.org/index.php?title=Special:UserLogin&amp;returnto=GNU+Screen" title="You are encouraged to log in; however, it is not mandatory [Alt+Shift+o]" accesskey="o">Log in</a></li>
+											</ul>
+				</div>
+			</div>
+			<div class="portlet" id="p-logo" role="banner">
+				<a href="https://wiki.archlinux.org/index.php/Main_page" class="mw-wiki-logo" title="Visit the main page"></a>
+			</div>
+				<div class="generated-sidebar portlet" id="p-navigation" role="navigation">
+		<h3>Navigation</h3>
+		<div class="pBody">
+							<ul>
+											<li id="n-mainpage-description"><a href="https://wiki.archlinux.org/index.php/Main_page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li>
+											<li id="n-categories"><a href="https://wiki.archlinux.org/index.php/Table_of_contents">Categories</a></li>
+											<li id="n-portal"><a href="https://wiki.archlinux.org/index.php/Getting_involved" title="Various ways Archers can contribute to the community">Getting involved</a></li>
+											<li id="n-currentevents"><a href="https://wiki.archlinux.org/index.php/ArchWiki:News" title="The latest lowdown on the wiki">Wiki news</a></li>
+											<li id="n-randompage"><a href="https://wiki.archlinux.org/index.php/Special:Random" title="Load a random page [Alt+Shift+x]" accesskey="x">Random page</a></li>
+									</ul>
+					</div>
+		</div>
+			<div id="p-search" class="portlet" role="search">
+			<h3><label for="searchInput">Search</label></h3>
+
+			<div id="searchBody" class="pBody">
+				<form action="https://wiki.archlinux.org/index.php" id="searchform">
+					<input name="title" value="Special:Search" type="hidden">
+					<input autocomplete="off" name="search" placeholder="Search" title="Search ArchWiki [Alt+Shift+f]" accesskey="f" id="searchInput" type="search">
+					<input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchGoButton" class="searchButton" type="submit">&nbsp;
+						<input name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" type="submit">
+				</form>
+
+							</div>
+		</div>
+		<div class="generated-sidebar portlet" id="p-interaction" role="navigation">
+		<h3>interaction</h3>
+		<div class="pBody">
+							<ul>
+											<li id="n-help"><a href="https://wiki.archlinux.org/index.php/Category:Help" title="Wiki navigation, reading, and editing help">Help</a></li>
+											<li id="n-Contributing"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Contributing">Contributing</a></li>
+											<li id="n-recentchanges"><a href="https://wiki.archlinux.org/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li>
+											<li id="n-Recent-talks"><a href="https://wiki.archlinux.org/index.php/Special:RecentChanges?namespace=0&amp;invert=1" rel="nofollow">Recent talks</a></li>
+											<li id="n-newpages"><a href="https://wiki.archlinux.org/index.php/Special:NewPages">New pages</a></li>
+											<li id="n-Statistics"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Statistics">Statistics</a></li>
+											<li id="n-Reports"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Reports">Reports</a></li>
+											<li id="n-Requests"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Requests">Requests</a></li>
+									</ul>
+					</div>
+		</div>
+			<div class="portlet" id="p-tb" role="navigation">
+			<h3>Tools</h3>
+
+			<div class="pBody">
+				<ul>
+											<li id="t-whatlinkshere"><a href="https://wiki.archlinux.org/index.php/Special:WhatLinksHere/GNU_Screen" title="A list of all wiki pages that link here [Alt+Shift+j]" accesskey="j">What links here</a></li>
+											<li id="t-recentchangeslinked"><a href="https://wiki.archlinux.org/index.php/Special:RecentChangesLinked/GNU_Screen" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li>
+											<li id="t-specialpages"><a href="https://wiki.archlinux.org/index.php/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li>
+											<li id="t-print"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;printable=yes" rel="alternate" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>
+											<li id="t-permalink"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;oldid=433240" title="Permanent link to this revision of the page">Permanent link</a></li>
+											<li id="t-info"><a href="https://wiki.archlinux.org/index.php?title=GNU_Screen&amp;action=info" title="More information about this page">Page information</a></li>
+									</ul>
+							</div>
+		</div>
+				<div id="p-lang" class="portlet" role="navigation">
+				<h3>In other languages</h3>
+
+				<div class="pBody">
+					<ul>
+													<li class="interlanguage-link interwiki-ja"><a href="https://wiki.archlinuxjp.org/index.php/GNU_Screen" title="GNU Screen – 日本語" hreflang="ja" lang="ja">日本語</a></li>
+													<li class="interlanguage-link interwiki-ru"><a href="https://wiki.archlinux.org/index.php/GNU_Screen_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)" title="GNU Screen – русский" hreflang="ru" lang="ru">Русский</a></li>
+													<li class="interlanguage-link interwiki-zh-cn"><a href="https://wiki.archlinux.org/index.php/GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" title="GNU Screen – 中文（中国大陆）‎" hreflang="zh-CN" lang="zh-CN">中文（中国大陆）‎</a></li>
+											</ul>
+
+									</div>
+			</div>
+				</div><!-- end of the left (by default at least) column -->
+		<div class="visualClear"></div>
+					<div id="footer" role="contentinfo">
+						<ul id="f-list">
+									<li id="lastmod"> This page was last modified on 30 April 2016, at 11:15.</li>
+									<li id="copyright">Content is available under <a class="external" rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+									<li id="privacy"><a href="https://wiki.archlinux.org/index.php/ArchWiki:Privacy_policy" title="ArchWiki:Privacy policy">Privacy policy</a></li>
+									<li id="about"><a href="https://wiki.archlinux.org/index.php/ArchWiki:About" title="ArchWiki:About">About ArchWiki</a></li>
+									<li id="disclaimer"><a href="https://wiki.archlinux.org/index.php/ArchWiki:General_disclaimer" title="ArchWiki:General disclaimer">Disclaimers</a></li>
+							</ul>
+		</div>
+		</div>
+		
+
+<div class="suggestions" style="display: none; font-size: 11.4667px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body><!-- Cached/compressed 20160704041213 -->
+</html>

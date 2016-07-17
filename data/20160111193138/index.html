@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>15 Linux Yum Command Examples – Install, Uninstall, Update Packages</title>
+<meta name="description" content="Installing, removing, and updating packages is a typical activity on Linux. Most of the Linux distributions provides some kind of package manager utility.">
+<meta name="robots" content="noodp, noydir">
+<link rel="canonical" href="http://www.thegeekstuff.com/2011/08/yum-command-examples/">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff feed" href="http://www.thegeekstuff.com/feed/">
+<link rel="pingback" href="http://www.thegeekstuff.com/xmlrpc.php">
+
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[295,375] -->
+<meta name="description" content="Installing, removing, and updating packages is a typical activity on Linux. Most of the Linux distributions provides some kind of package manager utility. For">
+
+<link rel="canonical" href="http://www.thegeekstuff.com/2011/08/yum-command-examples/">
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff » 15 Linux Yum Command Examples – Install, Uninstall, Update Packages Comments Feed" href="http://www.thegeekstuff.com/2011/08/yum-command-examples/feed/">
+		
+		
+<link rel="shortcut icon" href="favicon.ico.gzip">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="template-single">
+
+<div class="container">
+	<div id="header" class="header">
+<p id="logo"><a href="http://www.thegeekstuff.com/"><img src="thegeekstuff.gif" alt="The Geek Stuff"></a></p><div id="header_ad"><div id="header_ad1">
+
+<!-- TGS Logo Header -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-8090601437064582" data-ad-slot="4708993701"></ins>
+
+</div></div>
+	</div>
+	<span class="menu_control">≡ Menu</span>
+<ul id="menu-tgs-menu" class="menu"><li id="menu-item-15798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-15798"><a href="http://www.thegeekstuff.com/">Home</a></li>
+<li id="menu-item-15797" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15797"><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Free eBook</a></li>
+<li id="menu-item-15805" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15805"><a href="http://www.thegeekstuff.com/best-of-the-blog/">Start Here</a></li>
+<li id="menu-item-15800" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15800"><a href="http://www.thegeekstuff.com/contact/">Contact</a></li>
+<li id="menu-item-15802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15802"><a href="http://www.thegeekstuff.com/about/">About</a></li>
+</ul>
+	<div class="columns">
+		<div class="content">
+			<div id="post-8221" class="post_box grt top" itemscope="" itemtype="http://schema.org/Article">
+				<div class="headline_area">
+					<h1 class="headline" itemprop="name">15 Linux Yum Command Examples – Install, Uninstall, Update Packages</h1>
+					<div class="byline small">
+						<span class="post_author_intro">by</span> <span class="post_author" itemprop="author">Balakrishnan Mariyappan</span>
+						<meta itemprop="datePublished" content="2011-08-31">
+						<meta itemprop="dateModified" content="2011-08-30">
+						<span class="post_date_intro">on</span> <span class="post_date" title="2011-08-31">August 31, 2011</span>
+					</div>
+				</div>
+				<div class="post_content" itemprop="articleBody">
+<div style="margin: 7px 0px 6px; padding: 5px;">
+
+<div style="float: left;">
+<g:plusone size="medium"></g:plusone>
+</div>
+
+<div style="float: left; padding: 2px; width: 90px;"><iframe src="index_1.html" style="border: medium none; overflow: hidden; width: 450px; height: 21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div style="">
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+</div>
+
+</div>
+<p><img src="yum-package-management.png" alt="" title="yum package manager" class="alignright size-full wp-image-8386" height="257" width="288">Installing, removing, and updating packages is a typical activity on Linux. Most of the Linux distributions provides some kind of package manager utility. For example, apt-get, dpkg, rpm, yum, etc.</p>
+<p>On some Linux distributions, yum is the default package manager.</p>
+<p>Yum stands for Yellowdog Updater Modified.</p>
+<p>This article explains 15 most frequently used yum commands with examples.<br>
+<span id="more-8221"></span></p>
+<h3>1. Install a package using yum install</h3>
+<p>To install a package, do ‘yum install packagename’. This will also identify the dependencies automatically and install them.</p>
+<p>The following example installs postgresql package.</p>
+<pre># yum install postgresql.x86_64
+Resolving Dependencies
+Install       2 Package(s)
+Is this ok [y/N]: y
+
+Package(s) data still to download: 3.0 M
+(1/2): postgresql-9.0.4-5.fc15.x86_64.rpm          | 2.8 MB     00:11
+(2/2): postgresql-libs-9.0.4-5.fc15.x86_64.rpm    | 203 kB     00:00
+------------------------------------------------------------------
+Total                                        241 kB/s | 3.0 MB     00:12     
+
+Running Transaction
+  Installing : postgresql-libs-9.0.4-5.fc15.x86_64             1/2
+  Installing : postgresql-9.0.4-5.fc15.x86_64                   2/2 
+
+Complete!</pre>
+<p>By default ‘yum install’, will prompt you to accept or decline before installing the packages. If you want yum to install automatically without prompting, use -y option as shown below.</p>
+    <center>
+      <div style="margin-left: 2px; margin-top: 10px; margin-bottom: 10px;">
+
+        <!-- AD BLOCK -->
+		
+
+<!-- TGS Inside Content -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-8090601437064582" data-ad-slot="8643685131"></ins>
+
+
+        <!-- END AD BLOCK -->
+
+	  </div>
+    </center>
+
+
+<pre># yum -y install postgresql.x86_64</pre>
+<h3>2. Uninstall a package using yum remove</h3>
+<p>To remove a package (along with all its dependencies), use ‘yum remove package’ as shown below.</p>
+<pre># yum remove  postgresql.x86_64
+Resolving Dependencies
+---&gt; Package postgresql.x86_64 0:9.0.4-5.fc15 will be erased
+
+Is this ok [y/N]: y
+
+Running Transaction
+  Erasing    : postgresql-9.0.4-5.fc15.x86_64       1/1 
+
+Removed:
+  postgresql.x86_64 0:9.0.4-5.fc15
+
+Complete!</pre>
+<h3>3. Upgrade an existing package using yum update</h3>
+<p>If you have a older version of a package, use ‘yum update package’ to upgrade it to the latest current version. This will also identify and install all required dependencies.</p>
+<pre># yum update postgresql.x86_64</pre>
+<h3>4. Search for a package to be installed using yum search</h3>
+<p>If you don’t know the exact package name to be installed, use ‘yum search keyword’, which will search all the packages that matches the ‘keyword’ and display it.</p>
+<p>The following examples searches the yum repository for all the packages that matches the keyword ‘firefox’ and lists the available packages.</p>
+<pre># yum search firefox
+Loaded plugins: langpacks, presto, refresh-packagekit
+============== N/S Matched: firefox ======================
+firefox.x86_64 : Mozilla Firefox Web browser
+gnome-do-plugins-firefox.x86_64 : gnome-do-plugins for firefox
+mozilla-firetray-firefox.x86_64 : System tray extension for firefox
+mozilla-adblockplus.noarch : Adblocking extension for Mozilla Firefox
+mozilla-noscript.noarch : JavaScript white list extension for Mozilla Firefox
+
+Name and summary matches only, use "search all" for everything.</pre>
+<h3>5. Display additional information about a package using yum info</h3>
+<p>Once you search for a package using yum search, you can use ‘yum info package’ to view additional information about the package.</p>
+<p>The following examples displays additional information about the samba-common package.</p>
+<pre># yum info samba-common.i686
+Loaded plugins: langpacks, presto, refresh-packagekit
+Available Packages
+Name        : samba-common
+Arch        : i686
+Epoch       : 1
+Version     : 3.5.11
+Release     : 71.fc15.1
+Size        : 9.9 M
+Repo        : updates
+Summary     : Files used by both Samba servers and clients
+URL         : http://www.samba.org/
+License     : GPLv3+ and LGPLv3+
+Description : Samba-common provides files necessary for both the server and client
+            : packages of Samba.</pre>
+<h3>6. View all available packages using yum list</h3>
+<p>The following command will list all the packages available in the yum database.</p>
+<pre># yum list | less</pre>
+<h3>7. List only the installed packages using yum list installed</h3>
+<p>To view all the packages that are installed on your system, execute the following yum command.</p>
+<pre># yum list installed | less</pre>
+<h3>8. Which package does a file belong to? – Use yum provides</h3>
+<p>Use ‘yum provides’ if you like to know which package a particular file belongs to. For example, if you like to know the name of the package that has the /etc/sysconfig/nfs file, do the following.</p>
+<pre># yum provides /etc/sysconfig/nfs
+Loaded plugins: langpacks, presto, refresh-packagekit
+1:nfs-utils-1.2.3-10.fc15.x86_64 : NFS utilities and supporting clients and
+                                 : daemons for the kernel NFS server
+Repo        : fedora
+Matched from:
+Filename    : /etc/sysconfig/nfs
+
+1:nfs-utils-1.2.4-1.fc15.x86_64 : NFS utilities and supporting clients and
+                                : daemons for the kernel NFS server
+Repo        : updates
+Matched from:
+Filename    : /etc/sysconfig/nfs
+
+1:nfs-utils-1.2.4-1.fc15.x86_64 : NFS utilities and supporting clients and
+                                : daemons for the kernel NFS server
+Repo        : installed
+Matched from:
+Other       : Provides-match: /etc/sysconfig/nfs</pre>
+<h3>9. List available software groups using yum grouplist</h3>
+<p>In yum, several related packages are grouped together in a specific group. Instead of searching and installing all the individual packages that belongs to a specific function, you can simply install the group, which will install all the packages that belongs to the group.</p>
+<p>To view all the available software groups execute ‘yum grouplist’ as shown below. The output is listed in three groups–Installed Groups, Installed Language Groups and Available Groups.</p>
+<pre># yum grouplist
+
+Installed Groups:
+   Administration Tools
+   Base
+   Design Suite
+   ....
+
+Installed Language Groups:
+   Arabic Support [ar]
+   Armenian Support [hy]
+   Bengali Support [bn]
+   ....
+
+Available Groups:
+   Authoring and Publishing
+   Books and Guides
+   Clustering
+   DNS Name Server
+   Development Libraries
+   Development Tools
+   Directory Server
+   Dogtag Certificate System
+   ...</pre>
+<h3>10. Install a specific software group using yum groupinstall</h3>
+<p>To install specific software group, use groupinstall option as shown below. In the following example, ‘DNS Name Server’ group contains bind and bind-chroot.</p>
+<pre># yum groupinstall 'DNS Name Server'
+
+Dependencies Resolved
+Install       2 Package(s)
+Is this ok [y/N]: y
+
+Package(s) data still to download: 3.6 M
+(1/2): bind-9.8.0-9.P4.fc15.x86_64.rpm             | 3.6 MB     00:15
+(2/2): bind-chroot-9.8.0-9.P4.fc15.x86_64.rpm   |  69 kB     00:00
+-----------------------------------------------------------------
+Total               235 kB/s | 3.6 MB     00:15
+
+Installed:
+  bind-chroot.x86_64 32:9.8.0-9.P4.fc15
+
+Dependency Installed:
+  bind.x86_64 32:9.8.0-9.P4.fc15
+
+Complete!</pre>
+<p>Note: You can also <a href="http://www.thegeekstuff.com/2010/04/yum-groupinstall-mysql-database/">install MySQL database using yum groupinstall</a> as we discussed earlier.</p>
+<h3>11. Upgrade an existing software group using groupupdate</h3>
+<p>If you’ve already installed a software group using yum groupinstall, and would like to upgrade it to the latest version, use ‘yum groupupdate’ as shown below.</p>
+<pre># yum groupupdate 'Graphical Internet'
+
+Dependencies Resolved
+Upgrade       5 Package(s)
+Is this ok [y/N]: y   
+
+Running Transaction
+  Updating   : evolution-data-server-3.0.2-1.fc15.x86_64     1/10
+  Updating   : evolution-3.0.2-3.fc15.x86_64                 2/10
+  Updating   : evolution-NetworkManager-3.0.2-3.fc15.x86_64  3/10
+  Updating   : evolution-help-3.0.2-3.fc15.noarch            4/10
+  Updating   : empathy-3.0.2-3.fc15.x86_64                   5/10
+  Cleanup    : evolution-NetworkManager-3.0.1-1.fc15.x86_64  6/10
+  Cleanup    : evolution-help-3.0.1-1.fc15.noarch            7/10
+  Cleanup    : evolution-3.0.1-1.fc15.x86_64                 8/10
+  Cleanup    : empathy-3.0.1-3.fc15.x86_64                   9/10
+  Cleanup    : evolution-data-server-3.0.1-1.fc15.x86_64     10/10 
+
+Complete!</pre>
+<h3>12. Uninstall a software group using yum groupremove</h3>
+<p>To delete an existing software group use ‘yum groupremove’ as shown below.</p>
+<pre># yum groupremove 'DNS Name Server'
+Dependencies Resolved
+Remove        2 Package(s)
+Is this ok [y/N]: y
+
+Running Transaction
+  Erasing    : 32:bind-chroot-9.8.0-9.P4.fc15.x86_64  1/2
+  Erasing    : 32:bind-9.8.0-9.P4.fc15.x86_64            2/2 
+
+Complete!</pre>
+<h3>13. Display your current yum repositories</h3>
+<p>All yum commands goes against one or more yum repositories. To view all the yum repositories that are configured in your system, do ‘yum repolist’ as shown below.</p>
+<p>The following will display only the enabled repositories.</p>
+<pre># yum repolist
+repo id     repo name                        status
+fedora      Fedora 15 - x86_64               24,085
+updates     Fedora 15 - x86_64 - Updates     5,612</pre>
+<p>To display all the repositories (both enabled and disabled), use ‘yum repolist all’.</p>
+<pre># yum repolist all
+repo id                   repo name                                status
+fedora                    Fedora 15 - x86_64                       enabled: 24,085
+fedora-debuginfo          Fedora 15 - x86_64 - Debug               disabled
+fedora-source             Fedora 15 - Source                       disabled
+rawhide-debuginfo         Fedora - Rawhide - Debug                 disabled
+rawhide-source            Fedora - Rawhide - Source                disabled
+updates                   Fedora 15 - x86_64 - Updates             enabled:  5,612
+updates-debuginfo         Fedora 15 - x86_64 - Updates - Debug     disabled
+updates-source            Fedora 15 - Updates Source               disabled
+updates-testing           Fedora 15 - x86_64 - Test Updates        disabled
+updates-testing-debuginfo Fedora 15 - x86_64 - Test Updates Debug  disabled
+updates-testing-source    Fedora 15 - Test Updates Source          disabled</pre>
+<p>To view only the disabled repositories, use ‘yum repositories disabled’.</p>
+<h3>14. Install from a disabled repositories using yum –enablerepo</h3>
+<p>By default yum installs only from the enabled repositories. For some reason if you like to install a package from a disabled repositories, use –enablerepo option in the ‘yum install’ as shown below.</p>
+<pre># yum --enablerepo=fedora-source install vim-X11.x86_64
+Dependencies Resolved
+Install       1 Package(s)
+Is this ok [y/N]: y
+
+Running Transaction
+  Installing : 2:vim-X11-7.3.138-1.fc15.x86_64   1/1 
+
+Complete!</pre>
+<h3>15. Execute yum commands interactively using Yum Shell</h3>
+<p>Yum provides the interactive shell to run multiple commands as shown below.</p>
+<pre># yum shell
+Setting up Yum Shell
+<strong>&gt; info samba.x86_64</strong>
+Available Packages
+Name        : samba
+Arch        : x86_64
+Epoch       : 1
+Version     : 3.5.11
+Release     : 71.fc15.1
+Size        : 4.6 M
+Repo        : updates
+Summary     : Server and Client software to interoperate with Windows machines
+URL         : http://www.samba.org/
+License     : GPLv3+ and LGPLv3+
+Description :
+            : Samba is the suite of programs by which a lot of PC-related
+            : machines share files, printers, and other information (such as
+            : lists of available files and printers). The Windows NT, OS/2, and
+            : Linux operating systems support this natively, and add-on packages
+            : can enable the same thing for DOS, Windows, VMS, UNIX of all
+            : kinds, MVS, and more. This package provides an SMB/CIFS server
+            : that can be used to provide network services to SMB/CIFS clients.
+            : Samba uses NetBIOS over TCP/IP (NetBT) protocols and does NOT
+            : need the NetBEUI (Microsoft Raw NetBIOS frame) protocol.
+
+<strong>&gt; </strong></pre>
+<p>Yum can also read commands from a text file and execute it one by one. This is very helpful when you have multiple systems. Instead of executing the same command on all the systems, create a text file with those commands, and use ‘yum shell’ to execute those commands as shown below.</p>
+<pre># <strong>cat yum_cmd.txt</strong>
+repolist
+info nfs-utils-lib.x86_64
+
+# <strong>yum shell yum_cmd.txt </strong>
+repo id     repo name                        status
+fedora      Fedora 15 - x86_64               24,085
+updates     Fedora 15 - x86_64 - Updates     5,612
+
+Available Packages
+Name        : nfs-utils-lib
+Arch        : x86_64
+Version     : 1.1.5
+Release     : 5.fc15
+Size        : 61 k
+Repo        : fedora
+Summary     : Network File System Support Library
+URL         : http://www.citi.umich.edu/projects/nfsv4/linux/
+License     : BSD
+Description : Support libraries that are needed by the commands and
+            : daemons the nfs-utils rpm.
+
+Leaving Shell</pre>
+<div style="margin: 7px 0px 3px; padding: 5px; background: none repeat scroll 0% 0% rgb(242, 240, 232);">
+
+<div style="float: left;">
+<g:plusone size="medium"></g:plusone>
+</div>
+
+<div style="float: left;">
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+</div>
+
+<div style="float: left; padding: 2px; width: 90px;"><iframe src="index_2.html" style="border: medium none; overflow: hidden; width: 450px; height: 21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div style="padding: 1px;">
+&gt;&nbsp;<a href="#commentform" rel="nofollow">Add your comment</a>
+</div>
+
+</div>
+<h3>If you enjoyed this article, you might also like..</h3>
+<table>
+<tbody><tr>
+<td valign="top">
+<ol>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! – 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a>&nbsp;<img title="Linux 101 Hacks Book" src="free-small.png" alt="Linux 101 Hacks Book"></li>
+</ol>
+</td>
+<td>
+<ul>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/8-essential-vim-editor-navigation-fundamentals/">8 Essential Vim Editor Navigation Fundamentals</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<br>
+<center>
+<table id="booktable">
+<tbody><tr>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="bash-132.png" alt="Bash 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="sed-and-awk-132.png" alt="Sed and Awk 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="nagios-core-132.png" alt="Nagios Core 3 Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="vim-101-hacks-132.png" alt="Vim 101 Hacks Book"></a>
+</td>
+</tr>
+</tbody></table>
+</center>
+<br>
+				</div>
+			</div>
+			<div id="comments">
+				<p class="comments_intro"><span class="bracket">{</span> <span class="num_comments">20</span> comments… <a href="#commentform" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				<ul class="comment_list">
+					<li class="comment even thread-even depth-1" id="comment-125003">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://blog.it4sport.de/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://blog.it4sport.de/" rel="external nofollow" class="url">Gerd</a></span>
+							<span class="comment_date">August 31, 2011, 12:30 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125003"><p>I am missing “yum localinstall …”</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125003" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-125014">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://gsr-linux.blogspot.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://gsr-linux.blogspot.com/" rel="external nofollow" class="url">Gowrishankar Rajaiyan</a></span>
+							<span class="comment_date">August 31, 2011, 2:40 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125014"><p>yum localinstall package-name.rpm</p>
+<p>localinstall – Is used to install a set of local rpm files. If required the enabled repositories will be used  to resolve  dependencies.</p>
+<p>This command is pretty useful if you don’t want to download the dependencies manually.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125014" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-125017">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">TK Nallppan</span>
+							<span class="comment_date">August 31, 2011, 2:57 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125017"><p>Very useful.. Thanks for your sharing.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125017" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-125028">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kunal Udapi</span>
+							<span class="comment_date">August 31, 2011, 4:09 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125028"><p>You are doing really great job, could you please post how to resolve package dependencies.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125028" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-125035">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://ashok-linux-tips.blogspot.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://ashok-linux-tips.blogspot.com/" rel="external nofollow" class="url">Ashok</a></span>
+							<span class="comment_date">August 31, 2011, 5:10 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125035"><p>Hi Balakrishnan, Thanks for this article. Good Job. I was actually looking for a good article on Yum.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125035" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-125039">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Rob Roy</span>
+							<span class="comment_date">August 31, 2011, 5:44 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125039"><p>Is there a way to TEST a yum install in advance without actually doing an install? Something similar to the way you’d do so with the rpm “–test” flag?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125039" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-125044">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Kundan</span>
+							<span class="comment_date">August 31, 2011, 6:46 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125044"><p>Nice article I didn’t knew some of them before I like yum over apt-get.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125044" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-125366">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">shru</span>
+							<span class="comment_date">September 1, 2011, 9:27 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125366"><p>Hi Everybody,</p>
+<p>I just started learning unix. I had question gor grep command.<br>
+I want to display 3rd Character of all lines from abc file.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125366" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-125383">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Pankaj</span>
+							<span class="comment_date">September 1, 2011, 11:54 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-125383"><p>good article…. few of them is new to me….. thanks…..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-125383" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-126301">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Yogesh</span>
+							<span class="comment_date">September 8, 2011, 8:01 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-126301"><p>Missed:<br>
+yum reinstall package-name<br>
+Quite handy if you deleted a file by mistake<br>
+e.g.<br>
+rm /etc/init.d/httpd<br>
+yum reinstall httpd.i386</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-126301" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-128122">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">mike</span>
+							<span class="comment_date">September 19, 2011, 6:40 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-128122"><p>to answer rob roy’s question, yes you can pre-test a yum install.</p>
+<p>first, you need the plugin.<br>
+ yum install yum-downloadonly     (on older versions of fedora/rhel)<br>
+OR<br>
+ yum install yum-plugin-downloadonly   (on newer versions of fedora/rhel)</p>
+<p>that will allow you to add the “–downloadonly” option to yum install, for example:</p>
+<p>yum –downloadonly install postgresql</p>
+<p>after you answer Yes to download, it will just exit.</p>
+<p>=== </p>
+<p>here are some other yum items:</p>
+<p>yum check-update      (to see which installed RPMs have updates/patches)</p>
+<p>put this line in /etc/yum.conf to have old software repackaged into an RPM to allow for rollbacks:<br>
+tsflags=repackage</p>
+<p>put this in /etc/yum.conf if you want to keep the RPMs after you’ve installed them (instead of having them deleted).<br>
+keepcache=1</p>
+<p>thanks.   -mike</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-128122" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-227515">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://ashok-linux-tips.blogspot.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://ashok-linux-tips.blogspot.com/" rel="external nofollow" class="url">Ashok</a></span>
+							<span class="comment_date">April 27, 2012, 1:08 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-227515"><p>Awesome examples !!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-227515" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-347715">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Avinash Jadhav</span>
+							<span class="comment_date">October 22, 2012, 7:52 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-347715"><p>Very much helpfull</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-347715" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-548636">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Pavan</span>
+							<span class="comment_date">February 22, 2013, 6:31 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-548636"><p>Hi all,</p>
+<p>Please help me in resolving amy doubt.</p>
+<p>If any one by mistake deletes YUM from server then the system will not allow me to reinstall using a DVD, please suggest me with valid options to resolve this.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-548636" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-643227">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Adam</span>
+							<span class="comment_date">April 9, 2013, 8:53 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-643227"><p>shouldn’t “yum repositories disabled” be “yum repolist disabled” ??</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-643227" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-750151">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Frank</span>
+							<span class="comment_date">May 18, 2013, 3:26 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-750151"><p>Can you give an example of using “yum –setopt=SETOPTS”<br>
+What does it do\mean<br>
+man yum doesn’t say much extra:<br>
+–setopt=repoid.option=value</p>
+<p>Can it allow me download updates for an i386 pc on a x86_64 pc?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-750151" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-943158">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">elle</span>
+							<span class="comment_date">September 21, 2013, 11:18 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-943158"><p>how to install all the packages of a file by one command</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-943158" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-970029">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">shaju</span>
+							<span class="comment_date">October 8, 2013, 11:52 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-970029"><p>Very good article.</p>
+<p>Thanks a lot</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-970029" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-3765289">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Nyilas MISY</span>
+							<span class="comment_date">February 8, 2015, 7:20 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3765289"><p>yum autoremove<br>
+yum -y autoremove<br>
+yum downgrade<br>
+yum -y downgrade </p>
+<p>and (just for fun) :: # yum -y install wine</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-3765289" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3954823">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Shankar</span>
+							<span class="comment_date">March 24, 2015, 7:28 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3954823"><p>Hi Ramesh…. there are two repos  in list ..Im having one software with old and updated versions …if i do yum update , its gng to latest versions..i need older version also for few servers,….how can i do this ??</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-3954823" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+				</ul>
+				<form id="commentform" method="post" action="http://www.thegeekstuff.com/wp-comments-post.php">
+					<a rel="nofollow" id="cancel-comment-reply-link" href="http://www.thegeekstuff.com/2011/08/yum-command-examples/#respond" style="display: none;">Cancel reply</a>
+					<p class="comment_form_title">Leave a Comment</p>
+					<p id="comment_form_name">
+						<label for="author">Name</label>
+						<input id="author" class="input_text" name="author" value="" tabindex="1" type="text">
+					</p>
+					<p id="comment_form_email">
+						<label for="email">Email</label>
+						<input id="email" class="input_text" name="email" value="" tabindex="2" type="text">
+					</p>
+					<p id="comment_form_url">
+						<label for="url">Website</label>
+						<input id="url" class="input_text" name="url" value="" tabindex="3" type="text">
+					</p>
+					<p id="comment_form_comment">
+						<label for="comment">Comment</label>
+						<textarea name="comment" id="comment" class="input_text" tabindex="4" rows="6"></textarea>
+					</p>
+					<p id="comment_form_submit">
+						<input id="submit" class="input_submit" name="submit" tabindex="5" value="Submit" type="submit">
+					</p>
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="3a7a8950f0" type="hidden"></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" type="checkbox">
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input id="ak_js" name="ak_js" value="13" type="hidden"></p><input name="comment_post_ID" value="8221" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+				</form>
+			</div>
+			<div class="prev_next">
+				<p class="next_post">Next post: <a href="http://www.thegeekstuff.com/2011/09/linux-htop-examples/" rel="next">Top on Steroids – 15 Practical Linux HTOP Examples</a></p>
+				<p class="previous_post">Previous post: <a href="http://www.thegeekstuff.com/2011/08/it-disaster-recovery/" rel="prev">20 Things to Plan for an IT Disaster Recovery</a></p>
+			</div>
+		</div>
+		<div class="sidebar">
+<div class="widget widget_text" id="text-21">			<div class="textwidget"><a title="Subscribe via RSS" href="http://www.thegeekstuff.com/feed" rel="nofollow">RSS</a>&nbsp; | &nbsp;<a title="Subscribe via Email" href="http://feedburner.google.com/fb/a/mailverify?uri=TheGeekStuff&amp;loc=en_US" rel="nofollow">Email</a>&nbsp; | &nbsp;<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Twitter</a>&nbsp; | &nbsp;<a title="Become a fan" href="http://www.facebook.com/thegeekstuff" rel="nofollow">Facebook</a>&nbsp; | &nbsp;<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Google+</a>
+<br><br>
+<form action="http://www.thegeekstuff.com/search" id="cse-search-box">
+  <div>
+    <input name="cx" value="005666763606120661560:zkmegbt_djm" type="hidden">
+    <input name="cof" value="FORID:10" type="hidden">
+    <input name="ie" value="UTF-8" type="hidden">
+    <input value="" style="background-color: rgb(255, 254, 238);" name="q" size="30" type="text">
+    <input style="border-color: rgb(204, 204, 204) rgb(153, 153, 153) rgb(153, 153, 153) rgb(204, 204, 204); border-style: double; border-width: 1px; overflow: visible;" name="sa" value="Search" type="submit">
+  </div>
+</form>
+</div></div></div></div></div></body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>
+    GNU screen    [quick_reference]
+  </title>
+
+  <meta name="generator" content="DokuWiki Release 2009-12-25c &quot;Lemming&quot;">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2016-05-19T08:35:19+0000">
+<meta name="keywords" content="quick_reference">
+<link rel="search" type="application/opensearchdescription+xml" href="http://aperiodic.net/screen/lib/exe/opensearch.php" title="GNU screen">
+<link rel="start" href="http://aperiodic.net/screen/">
+<link rel="contents" href="http://aperiodic.net/screen/quick_reference?do=index" title="Index">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://aperiodic.net/screen/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://aperiodic.net/screen/feed.php?mode=list&amp;ns=">
+<link rel="edit" title="Edit this page" href="http://aperiodic.net/screen/quick_reference?do=edit">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://aperiodic.net/screen/_export/xhtml/quick_reference">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="http://aperiodic.net/screen/_export/raw/quick_reference">
+<link rel="canonical" href="http://aperiodic.net/screen/quick_reference">
+
+
+
+
+
+
+  <link rel="shortcut icon" href="favicon.ico">
+
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+      <div class="header_left"></div>
+      <div class="logo">
+        <a href="http://aperiodic.net/screen/" name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[ALT+H]">GNU screen</a>      </div>
+      <div class="header_right"></div>
+      <div class="pagename">
+        [[<a href="http://aperiodic.net/screen/quick_reference?do=backlink" title="Backlinks">quick_reference</a>]]
+      </div>
+
+      <div id="tabnavi" class="tabnavi">
+	    <ul>
+<li><a href="http://aperiodic.net/screen/start">Home</a></li>
+<li><a href="http://aperiodic.net/screen/man:start">screen(1)</a></li>
+<li><a href="http://aperiodic.net/screen/commands:start">Commands</a></li>
+<li><a href="http://aperiodic.net/screen/quick_reference?do=recent" class="action recent" accesskey="r" rel="nofollow">Recent Changes</a></li>
+</ul>
+	  </div>
+	  
+	  <div class="clearer"></div>
+      	</div>  
+  </div>
+    
+  
+  <div class="page">
+    <!-- ......... wikipage start ......... -->
+    <!-- TOC START -->
+<div class="toc">
+<div style="cursor: pointer;" class="tocheader toctoggle" id="toc__header"><span class="toc_close" style="cursor: pointer;" id="toc__toggle"><span>−</span></span>Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#screen_quick_reference" class="toc">screen Quick Reference</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#getting_in" class="toc">Getting in</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#escape_key" class="toc">Escape key</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#getting_out" class="toc">Getting out</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#help" class="toc">Help</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#window_management" class="toc">Window Management</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#split_screen" class="toc">Split screen</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#scripting" class="toc">Scripting</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#misc" class="toc">Misc</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="screen_quick_reference" id="screen_quick_reference">screen Quick Reference</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="1-38" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="screen Quick Reference" type="submit"></div></form></div>
+<h2><a name="getting_in" id="getting_in">Getting in</a></h2>
+<div class="level2">
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0"> start a new screen session with session name </td><td class="col1"> <code>screen -S <em>&lt;name&gt;</em></code> </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> list running sessions/screens </td><td class="col1"> <code>screen -ls</code> </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> attach to a running session </td><td class="col1"> <code>screen -x</code> </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> … to session with name </td><td class="col1"> <code>screen -r <em>&lt;name&gt;</em></code> </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> the “ultimate attach” </td><td class="col1"> <code>screen -dRR</code> (Attaches to a screen session.  If the session is attached elsewhere, detaches that other display.  If no session exists, creates one.  If multiple sessions exist, uses the first one.) </td>
+	</tr>
+</tbody></table>
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0"> detach a running session </td><td class="col1"> <code>screen -d <em>&lt;name&gt;</em></code> </td>
+	</tr>
+</tbody></table>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="39-580" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Getting in" type="submit"></div></form></div>
+<h2><a name="escape_key" id="escape_key">Escape key</a></h2>
+<div class="level2">
+
+<p>
+
+All screen commands are prefixed by an escape key, by default <code>C-a</code>
+(that's Control-a, sometimes written <code>^a</code>).  To send a literal <code>C-a</code>
+to the programs in screen, use <code>C-a a</code>. This is useful when working with screen within screen. For example <code>C-a a n</code> will move screen to a new window on the screen within screen.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="581-931" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Escape key" type="submit"></div></form></div>
+<h2><a name="getting_out" id="getting_out">Getting out</a></h2>
+<div class="level2">
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0"> detach </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:detach" class="wikilink1" title="commands:detach">C-a d</a></code> </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> detach and logout (quick exit) </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:pow_detach" class="wikilink1" title="commands:pow_detach">C-a D D</a></code> </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> exit screen </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:quit" class="wikilink1" title="commands:quit">C-a \</a></code> Exit all of the programs in screen. (<em>not</em> recommended) </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> force-exit screen </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:quit" class="wikilink1" title="commands:quit">C-a C-\</a></code> (<em>not</em> recommended) </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> getting out of the screen session </td><td class="col1"> exit </td>
+	</tr>
+</tbody></table>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="932-1299" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Getting out" type="submit"></div></form></div>
+<h2><a name="help" id="help">Help</a></h2>
+<div class="level2">
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0"> See help </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:help" class="wikilink1" title="commands:help">C-a ?</a></code> (lists keybindings) </td>
+	</tr>
+</tbody></table>
+
+<p>
+
+The <a href="http://aperiodic.net/screen/man:start" class="wikilink1" title="man:start">man page</a> is the complete reference, but it's very long.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="1300-1455" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Help" type="submit"></div></form></div>
+<h2><a name="window_management" id="window_management">Window Management</a></h2>
+<div class="level2">
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0"> create new window </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:screen" class="wikilink1" title="commands:screen">C-a c</a></code> </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> change to last-visited active window </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:other" class="wikilink1" title="commands:other">C-a C-a</a></code> (commonly used to flip-flop between two windows) </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> change to window by number </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:select" class="wikilink1" title="commands:select">C-a &lt;number&gt;</a></code> (only for windows 0 to 9) </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> change to window by number or name </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:select" class="wikilink1" title="commands:select">C-a ' &lt;number or title&gt;</a></code> </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> change to next window in list </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:next" class="wikilink1" title="commands:next">C-a n</a></code> or <code><a href="http://aperiodic.net/screen/commands:next" class="wikilink1" title="commands:next">C-a &lt;space&gt;</a></code> </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"> change to previous window in list </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:prev" class="wikilink1" title="commands:prev">C-a p</a></code> or <code><a href="http://aperiodic.net/screen/commands:prev" class="wikilink1" title="commands:prev">C-a &lt;backspace&gt;</a></code> </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 leftalign"> see window list     </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:windowlist" class="wikilink1" title="commands:windowlist">C-a "</a></code> (allows you to select a window to change to) </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 leftalign"> show window bar       </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:windows" class="wikilink1" title="commands:windows">C-a w</a></code> (if you don't have window bar) </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 leftalign"> close current window  </td><td class="col1"> Close all applications in the current window (including shell) </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0 leftalign"> kill current window   </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:kill" class="wikilink1" title="commands:kill">C-a k</a></code> (not recommended) </td>
+	</tr>
+	<tr class="row10">
+		<td class="col0 leftalign"> kill all windows   </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:kill" class="wikilink1" title="commands:kill">C-a \</a></code> (not recommended) </td>
+	</tr>
+	<tr class="row11">
+		<td class="col0"> rename current window </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:title" class="wikilink1" title="commands:title">C-a A</a></code> </td>
+	</tr>
+</tbody></table>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="1456-2547" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Window Management" type="submit"></div></form></div>
+<h2><a name="split_screen" id="split_screen">Split screen</a></h2>
+<div class="level2">
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0 leftalign"> split display horizontally  </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:split" class="wikilink1" title="commands:split">C-a S</a></code> </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"> split display vertically    </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:split" class="wikilink1" title="commands:split">C-a | or C-a V (for the vanilla vertical screen patch)</a></code> </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> jump to next display region </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:focus" class="wikilink1" title="commands:focus">C-a tab</a></code> </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 leftalign"> remove current region       </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:remove" class="wikilink1" title="commands:remove">C-a X</a></code> </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> remove all regions but the current one </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:only" class="wikilink1" title="commands:only">C-a Q</a></code> </td>
+	</tr>
+</tbody></table>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="2548-2951" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Split screen" type="submit"></div></form></div>
+<h2><a name="scripting" id="scripting">Scripting</a></h2>
+<div class="level2">
+
+<p>
+# the screen name session has to be valid or else, message: No screen session found.
+</p>
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0 leftalign"> send a command to a named session                </td><td class="col1"> <code>screen -S <em>&lt;name&gt;</em> -X <em>&lt;command&gt;</em></code> </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> create a new window and run <em>ping example.com</em> </td><td class="col1"> <code>screen -S <em>&lt;name&gt;</em> -X screen <em>ping example.com</em></code> </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> stuff characters into the input buffer<br>
+using bash to expand a newline character<br>
+(<a href="http://lists.gnu.org/archive/html/screen-users/2007-06/msg00012.html" class="urlextern" title="http://lists.gnu.org/archive/html/screen-users/2007-06/msg00012.html" rel="nofollow">from here</a>) </td><td class="col1"> <pre class="code bash"><span class="kw2">screen</span> <span class="re5">-S</span> <span class="sy0">&lt;</span>name<span class="sy0">&gt;</span> <span class="br0">[</span>-p <span class="sy0">&lt;</span>page<span class="sy0">&gt;</span><span class="br0">]</span> <span class="re5">-X</span> stuff $<span class="st_h">'quit\r'</span></pre>
+</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> a full example </td><td class="col1"> <pre class="code bash"><span class="co0"># run bash within screen</span>
+<span class="kw2">screen</span> <span class="re5">-AmdS</span> bash_shell <span class="kw2">bash</span>
+<span class="co0"># run top within that bash session</span>
+<span class="kw2">screen</span> <span class="re5">-S</span> bash_shell <span class="re5">-p</span> 0 <span class="re5">-X</span> stuff $<span class="st_h">'top\r'</span>
+&nbsp;
+<span class="co0"># ... some time later</span>
+&nbsp;
+<span class="co0"># stuff 'q' to tell top to quit</span>
+<span class="kw2">screen</span> <span class="re5">-S</span> bash_shell <span class="re5">-X</span> stuff <span class="st_h">'q'</span>
+<span class="co0"># stuff 'exit\n' to exit bash session</span>
+<span class="kw2">screen</span> <span class="re5">-S</span> bash_shell <span class="re5">-X</span> stuff $<span class="st_h">'exit\r'</span></pre>
+</td>
+	</tr>
+</tbody></table>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="2952-3850" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Scripting" type="submit"></div></form></div>
+<h2><a name="misc" id="misc">Misc</a></h2>
+<div class="level2">
+<table class="inline">
+	<tbody><tr class="row0">
+		<td class="col0 leftalign"> redraw window               </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:redisplay" class="wikilink1" title="commands:redisplay">C-a C-l</a></code> </td>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> enter copy mode </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:copy" class="wikilink1" title="commands:copy">C-a [</a></code> or <code><a href="http://aperiodic.net/screen/commands:copy" class="wikilink1" title="commands:copy">C-a &lt;esc&gt;</a></code> (also used for viewing scrollback buffer) </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 leftalign"> paste                       </td><td class="col1 leftalign"> <code><a href="http://aperiodic.net/screen/commands:paste" class="wikilink1" title="commands:paste">C-a ] </a></code>  </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> monitor window for activity </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:monitor" class="wikilink1" title="commands:monitor">C-a M</a></code> </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 leftalign"> monitor window for silence  </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:silence" class="wikilink1" title="commands:silence">C-a _</a></code> </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"> enter digraph (for producing non-<acronym title="American Standard Code for Information Interchange">ASCII</acronym> characters) </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:digraph" class="wikilink1" title="commands:digraph">C-a C-v</a></code> </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"> lock (password protect) display </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:lockscreen" class="wikilink1" title="commands:lockscreen">C-a x</a></code> </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 leftalign"> enter screen command        </td><td class="col1"> <code><a href="http://aperiodic.net/screen/commands:colon" class="wikilink1" title="commands:colon">C-a :</a></code> </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0"> enable logging in the screen session </td><td class="col1"> C-a H </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0"> getting out of the screen session </td><td class="col1"> exit </td>
+	</tr>
+</tbody></table>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="3851-" type="hidden"><input name="rev" value="1463646919" type="hidden"><input value="Edit" class="button" title="Misc" type="submit"></div></form></div>
+    <!-- ......... wikipage stop  ......... -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+ 
+  <!--  footer -->  
+  <div class="stylefoot">
+
+        <div class="meta">
+      <div class="user">
+	          </div>
+      <div class="doc">
+		quick_reference.txt · Last modified: 2016/05/19 08:35 by asciiphil	  </div>
+	</div>
+
+    <div class="bar" id="bar__bottom">
+       <!--  breadcrumbs and search -->
+	  		<div class="breadcrumbs">
+		  <span class="bchead">Trace:</span> <span class="bcsep">»</span> <span class="curid"><a href="#" class="breadcrumbs" title="quick_reference">quick_reference</a></span>		</div>
+	  	
+	  
+      <div class="bar-left" id="bar__bottomleft">
+        <form class="button btn_edit" method="post" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="edit" type="hidden"><input name="rev" value="" type="hidden"><input value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" type="submit"></div></form>        <form class="button btn_login" method="get" action="http://aperiodic.net/screen/quick_reference"><div class="no"><input name="do" value="login" type="hidden"><input name="sectok" value="4183f14daeb1262ae74587f0c76a903a" type="hidden"><input value="Login" class="button" title="Login" type="submit"></div></form>      </div>
+      <div class="bar-right" id="bar__bottomright">
+        <a href="http://aperiodic.net/screen/quick_reference?do=revisions" class="action revisions" accesskey="o" rel="nofollow">Old revisions | </a>         
+                        <a href="http://aperiodic.net/screen/quick_reference?do=index" class="action index" accesskey="x" rel="nofollow">Index | </a>                <form action="http://aperiodic.net/screen/" accept-charset="utf-8" class="search" id="dw__search"><div class="no"><input name="do" value="search" type="hidden"><input id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" type="text"><input value="Search" class="button" title="Search" type="submit"><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>      </div>
+       
+      <div class="clearer"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footerinc">
+  <a href="http://aperiodic.net/screen/feed.php" title="Recent changes RSS feed"><img src="button-rss.png" alt="Recent changes RSS feed" height="15" width="80"></a>
+
+  <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="license" title="GNU General Public License (2.0 or later)"><img src="button-gpl.gif" alt="GNU General Public License" height="15" width="80"></a>
+
+  <a href="http://wiki.splitbrain.org/wiki:dokuwiki" title="Driven by DokuWiki"><img src="button-dw.png" alt="Driven by DokuWiki" height="15" width="80"></a>
+
+
+</div>
+
+<div class="no"><img src="indexer.php" alt="" height="1" width="1"></div>
+
+
+</body>
+</html>

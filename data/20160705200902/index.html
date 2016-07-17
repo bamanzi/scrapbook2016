@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" class="dj_gecko dj_contentbox">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>对话 UNIX: 使用 Screen 创建并管理多个 shell</title>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM Corporation&nbsp;2009">
+<meta name="Keywords" content="Martin Streicher, UNIX, screen, shell, terminal, SSH, console, speaking unix, 屏幕, 终端, 控制台, 对话 UNIX, dddauca, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2009-04-29">
+<meta name="Source" content="v17 delivery:developerWorks">
+<meta name="Security" content="Public">
+<meta name="Abstract" content="命令行是一种强大的工具，但是它有一个严重的缺点：如果 shell 中断了，您的工作也就停止了。要想让 shell 和您的工作保持活动状态（甚至是跨多个会话和中断的连接），可以使用 GNU Screen 作为控制台的窗口系统。">
+<meta name="Description" content="命令行是一种强大的工具，但是它有一个严重的缺点：如果 shell 中断了，您的工作也就停止了。要想让 shell 和您的工作保持活动状态（甚至是跨多个会话和中断的连接），可以使用 GNU Screen 作为控制台的窗口系统。">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2009-04-29">
+<meta name="Owner" content="developerWorks/China/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.Country" content="CN">
+<meta name="Robots" content="index,follow">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWG10">
+<meta name="dW.ContentArea" content="34,2">
+<meta name="dW.Topic" content="850,444,214,361,352,602,92,492,247">
+
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCAIXCN">
+
+<link rel="canonical" href="http://www.ibm.com/developerworks/cn/aix/library/au-gnu_screen/index.html">
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+
+
+<!-- Masthead/footer -->
+
+
+
+
+        
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+
+<!--END -->
+
+   
+
+  <!-- LEADSPACE_STYLES -->
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body aria-busy="false" class="v17" id="ibm-com">
+<div style="opacity: 1; top: 0px;" id="dw-regbar" class="dw-home-band" aria-labelledby="dw-regbar-vp" role="complementary">
+    <div class="ibm-columns">
+        <div class="ibm-col-6-6">
+            <span id="dw-regbar-bluemix">IBM <strong>Bluemix</strong></span>
+            <span id="dw-regbar-vp">点击按钮，开始云上的开发！</span>
+            <p class="ibm-button-link-alternate dw-button-green">
+                <a id="article-rbar-bmix-home-regbar" class="dw-button-large dw-regbar-btn" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-au-gnu_screen-_-regbar-article">开始您的试用</a>
+            </p>
+        </div>
+    </div>
+    <span>
+        <a role="button">
+            <span id="dw-close-regbar" aria-label="Close the registration bar" title="Close the registration bar" role="button">
+        </span></a>
+    </span>
+</div>
+	<div style="margin-top: 42px;" id="ibm-top" class="ibm-landing-page ibm-no-scroll"><img src="ibm_logo_print.png" id="ibm-print-masthead" alt="IBM Print" height="15" width="43">
+
+<!-- MASTHEAD_BEGIN -->		
+<div role="banner" id="ibm-masthead">
+
+    <!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar" aria-label="Masthead navigation">
+			<li id="dw-mast-top-4" role="presentation">
+				<a href="http://www.ibm.com/developerworks/cn/" tabindex="0"><img src="dwn-dw-badge.png" alt="dW" aria-label="dW" height="22" width="43"></a>
+			</li>
+			<li id="dw-mast-top-0" role="presentation">
+				<div id="dw-mast-signin">
+					<a id="dw-mf-signin-link" class="" href="http://www.ibm.com/developerworks/dwwi/jsp/ssologin.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="2">登录</a>
+					<span class="dw-mf-signin-spacer">|</span>
+					<a id="dw-mf-reg-link" class="" href="http://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;lang=zh_CN&amp;a=dwmav" title="" tabindex="3">注册</a>
+				</div>
+				<div id="dw-mast-auth-link" class="dw-mf-hide">
+					<a class="authenticated ibm-active" href="#" role="button" tabindex="2"></a>
+					<ul id="dw-mast-auth-menu" class="dw-mf-hide">
+						<li class="dw-mast-auth-menu-title" aria-hidden="true">developerWorks 社区</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=zh" tabindex="3">我的概要信息</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=zh" tabindex="4">我的社区</a>
+						</li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a href="http://www.ibm.com/developerworks/community/news/?lang=zh" tabindex="5">设置</a>
+						</li>
+						<li class="dw-mast-auth-menu-divider"><hr></li>
+						<li>
+							<span class="dw-mast-auth-menu-arrow" aria-hidden="true">›</span><a id="dw-mast-signout-link" href="http://www.ibm.com/developerworks/dwwi/jsp/ssologout.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2F&amp;a=dwmav" tabindex="6">退出</a>
+						</li>
+					</ul>				
+				</div>
+			</li>
+			<li id="dw-mast-top-1">
+				<div></div>
+			</li>
+			<li id="dw-mast-top-3" role="presentation">
+				<a href="http://www.ibm.com/cn/zh/" tabindex="1">IBM</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerworks/cn/"><img src="dwn-dw-wordmark.png" alt="developerWorks®" height="28" width="225"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" class="ibm-menu-links-dw-cn" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/cn/topics/" tabindex="0">技术主题</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/cn/downloads/" tabindex="0">软件下载</a></li>
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/?lang=zh" tabindex="0">社区</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=6d7f9e5d-5f89-4767-a006-a81b8d186370&amp;lang=zh" tabindex="0">技术讲座</a></li>
+		</ul>
+		<form id="ibm-search-form" action="http://www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="搜索 developerWorks" role="search">
+			<p>
+				<label for="q"><span class="ibm-access">搜索 developerWorks</span></label>
+				<input id="q" name="q" value="搜索 developerWorks" maxlength="100" type="text">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="zh" type="hidden">
+				<input name="cc" value="CN" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="cndw" type="hidden">
+				<input name="lo" value="zh" type="hidden">
+				<input id="ibm-search" class="ibm-btn-search" value="提交" type="submit">
+			</p>
+		</form>
+	</div>    
+	
+<div aria-label="社交工具" role="navigation" style="display: block;" id="ibm-social-tools"><ul aria-label="Social tool list" role="toolbar"><li><a tabindex="0" role="button" dojoattrid="0" rel="print" href="#" title="打印本页面" class="ibm-share-print">打印本页面</a></li><li><a tabindex="-1" role="button" dojoattrid="1" rel="email" href="#" title="用电子邮件发送本页面" class="ibm-share-email">用电子邮件发送本页面</a></li><li></li><li></li><li><a class="ibm-share-weibo" tabindex="-1" role="button" dojoattrid="2" rel="新浪微博" title="新浪微博" href="http://service.weibo.com/share/share.php?title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;language=zh_cn">新浪微博</a></li><li><a class="ibm-share-renren" tabindex="-1" role="button" dojoattrid="3" rel="人人网" title="人人网" href="http://share.renren.com/share/buttonshare?title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell&amp;link=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F">人人网</a></li><li><a class="dwcn-tencent-link" tabindex="-1" role="button" dojoattrid="4" rel="腾讯微博" title="腾讯微博" href="http://v.t.qq.com/share/share.php?title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F">腾讯微博</a></li><li><a class="dwcn-sohu-link" tabindex="-1" role="button" dojoattrid="5" rel="搜狐微博" title="搜狐微博" href="http://t.sohu.com/third/post.jsp?title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell%20&amp;link=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F">搜狐微博</a></li><li><a class="dwcn-netease-link" tabindex="-1" role="button" dojoattrid="6" rel="网易微博" title="网易微博" href="http://t.163.com/article/user/checkLogin.do?info=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell%20http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F">网易微博</a></li><li><a class="ibm-share-digg" title="Digg" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell" rel="digg" dojoattrid="7" role="button" tabindex="-1">Digg</a></li><li><a class="ibm-share-facebook" title="Facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;t=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell" rel="facebook" dojoattrid="8" role="button" tabindex="-1">Facebook</a></li><li><a class="ibm-share-twitter" title="Twitter" href="http://twitter.com/?status=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F%20-%20%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell" rel="twitter" dojoattrid="9" role="button" tabindex="-1">Twitter</a></li><li><a class="ibm-share-delicious" title="Delicious" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell" rel="delicious" dojoattrid="10" role="button" tabindex="-1">Delicious</a></li><li><a class="ibm-share-linkedin" title="Linked In" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F&amp;title=%E5%AF%B9%E8%AF%9D%20UNIX%3A%20%E4%BD%BF%E7%94%A8%20Screen%20%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AA%20shell" rel="linkedin" dojoattrid="11" role="button" tabindex="-1">Linked In</a></li></ul></div></div>
+<div id="fdiv" class="ibm-access"></div><!-- MASTHEAD_END -->
+	    
+<!-- LAYOUT -->
+<!-- LEADSPACE_BEGIN --> 
+<div role="main" id="ibm-access-cntr"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+      <ul aria-label="Bread Crumbs" role="directory" id="ibm-navigation-trail"><li><a href="http://www.ibm.com/developerworks/cn/">developerWorks 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></li><li><a href="http://www.ibm.com/developerworks/cn/aix/">AIX and UNIX</a></li><li><a href="http://www.ibm.com/developerworks/cn/views/aix/libraryview.jsp">文档库</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>对话 UNIX: 使用 Screen 创建并管理多个 shell</h1>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>命令行是一种强大的工具，但是它有一个严重的缺点：如果 shell 停止了，您的工作也就停止了。要想让 shell 和您的工作保持活动状态（甚至是跨多个会话和中断的连接），可以使用 GNU Screen 作为控制台的窗口系统。</p>
+		<p class="ibm-no-print ibm-ind-link">
+<a class="ibm-forward-link" href="http://www.ibm.com/developerworks/cn/aix/lp/speakingunixnew.html">查看本系列更多内容</a> <span class="dw-summary-bar">|</span>
+			
+			<span id="nCmts"><span>0</span><img class="dw-cmts-arrow" alt="" src="dw-cmts-arrow.png" height="7" width="7"> <a href="#icomments" class="dw-cmt-link">评论</a></span>
+		</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a role="button" href="#authorN10022" class="ibm-popup-link">Martin Streicher</a>, 自由软件开发人员, 自由职业者</p>
+<div id="authorN10022" class="ibm-common-overlay"><div class="ibm-head"><p><a href="#close" class="ibm-common-overlay-close">关闭 [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+<img class="dw-summary-bio-image-x64" alt="Martin Streicher 的照片" src="p-mstreicher.jpg" width="64">Martin Streicher 是一名自由 Ruby on Rails 开发人员，他还是 <em><a href="http://www.linux-mag.com/">Linux Magazine</a></em> 的前任主编。Martin 获得 Purdue University 的计算机科学硕士学位，并从 1986 年开始编写类 UNIX 系统。他的爱好是收藏艺术品和玩具。</p><br><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">2009 年 4 月 29 日</p>
+			
+
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="c.gif" alt="expand"></a><span class="ibm-twisty-head">内容</span><div style="display: none;" class="ibm-twisty-body"><ul style="font-size: 0.8em;" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="#build">构建并安装 Screen</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#getstarted">开始使用 Screen</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#smarter">更智能化的屏幕</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#tips">有帮助的 Screen 提示</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#advanced_use">Screen 的高级用法</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#magic">结束语</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#resources">参考资料 </a></li>
+<li><a class="ibm-anchor-down-em-link" href="#icomments">评论</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1"><div class="dw-article-sidebar dw-bluemix" id="dwc-exp-a"><img src="bluemix-graphic.png" alt="" height="64" width="64"><p>在 IBM Bluemix 云平台上开发并部署您的下一个应用。</p><p class="ibm-button-link-alternate dw-button-green"><a id="tutc-sbar-bmix-home-btn-ABa" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-au-gnu_screen-_-sidebar" class="dw-button-large">开始您的试用</a></p></div>
+
+<p>哈利波特有魔杖，雷神托尔有金色的巨锤，Buckethead 有斧子，但是这些武器与 QWERTY 键盘相比只是小儿科。只需在命令行上敲几下，就可以启动网站、招募军团或击败可怕的火龙。 
+	</p><p>但是，QWERTY 键盘有一个严重的缺点：它很容易发生连接中断。电话线上的噪音、无线连接中断或者网络超时都可能导致远程 shell 中断。如果您已经在某个工作（比如调试一个应用程序）上花费了好几小时，而一下子就丢失了所有成果，一定会很沮丧的。
+	</p><p>不过这种灾难是可以避免的。使用 GNU Screen 就可以了。Screen 可以在一个控制台（即与主机物理连接的哑终端）、<code>xterm</code> 窗口或 Secure Shell (SSH) 登录 shell 中创建和管理多个 shell 窗口。可以从一个 shell 窗口迅速切换到另一个窗口，可以离开正在运行的 shell 并在任何时候重新连接。实际上，Screen 提供许多虚拟化的控制台。
+	</p><p>图 1 到图 5 展示 Screen 的特性和操作。看一下 <a href="#fig1">图 1</a>，这里假设用户已经使用 SSH 登录到一台远程主机。最初，在本地主机（比如您的笔记本或桌面计算机）上有一个本地 shell 和一个远程 shell。通常，使用远程 shell 在远程主机上运行命令；输出经过加密之后通过 SSH 连接发送到本地 shell。（在各张图中，用蓝色表示当前可见的 shell 输出）。但是，如果本地 shell 或远程 shell 或它们之间的连接中断了，远程 shell 就会终止，您的工作成果就会丢失。
+	</p><h5 id="fig1">图 1. 典型的 SSH 连接</h5><img alt="典型的 SSH 连接" src="Figure_1.gif" width="86"><p><a href="#fig2">图 2</a> 显示在远程主机上启动 Screen 之后的情况。Screen 实用程序启动，进而启动一个新的 shell 窗口 <em>A</em>，可以在此窗口中运行命令。A 的输出是可见的（由蓝色表示）；这个 shell 的输出经过 Screen，再经过远程登录 shell，最后通过 SSH 到达本地登录 shell。
+	</p><h5 id="fig2">图 2. Screen 管理 shell 窗口</h5><img alt="Screen 管理 shell 窗口" src="Figure_2.gif" width="86"><p>Screen 本身并不 “露面”；它是一个代理，其作用是在它管理的正在运行的可用窗口中做出选择。在任何时候，Screen 只能显示一个窗口的输出。可以把 Screen 看作虚拟的键盘-视频-鼠标 (KVM) 开关。
+	</p><p>但是，也可以断开与 Screen 的连接，见 <a href="#fig3">图 3</a>。Screen 代理仍然存在，它控制的所有窗口也还存在，但是与 Screen 的连接临时切断了，这会让用户返回到远程登录 shell。
+	</p><h5 id="fig3">图 3. 可以断开与 Screen 的连接，而它管理的窗口仍然存在
+			</h5><img alt="可以断开与 Screen 的连接，而它管理的窗口仍然存在" src="Figure_3.gif" width="86"><p><a href="#fig4">图 4</a> 显示一种可能出现的情况。已经重新建立了到 Screen 的连接，还创建了另外两个窗口（<em>B</em> 和 <em>C</em>）。窗口 A 和 B 继续运行 shell 和所有附属作业，但是只有 C 的输出是可见的。当然，可以在窗口之间切换以监视各个作业的状态。
+	</p><h5 id="fig4">图 4. Screen 可以管理多个窗口</h5><img alt="Screen 可以管理多个窗口" src="Figure_4.gif" width="213"><p>最后，<a href="#fig5">图 5</a> 显示中断与 Screen 的连接并终止远程登录 shell 的情况。Screen 和它的窗口仍然存在。可以重新登录并连接 Screen（并通过 Screen 代理连接到它的窗口），继续您的工作。
+	</p><h5 id="fig5">图 5. 可以随意中断与 Screen 的连接和重新连接</h5><img alt="可以随意中断与 Screen 的连接和重新连接" src="Figure_5.gif" width="213"><p>如果您常常要访问远程服务器以执行维护或开发软件，那么 GNU Screen 是必不可少的工具。
+	</p><h2 id="build">构建并安装 Screen</h2><p>Screen 的最初版本早在 10 多年前就发布了，所以您的系统上很可能有这个实用程序（通常名为 <em>/usr/bin/screen</em>）。但是，如果系统上没有 Screen，也很容易通过发行版的包管理器安装它。例如，如果您使用 Debian Linux® 的变体（比如 Ubuntu），那么可以用 <code>apt-get</code> 简便地安装 Screen：
+		</p><div class="codesection"><pre class="displaycode">  $ sudo apt-get install screen</pre></div><p>另外，如果您喜欢从源代码构建软件，可以访问 GNU Screen 项目页面（见 <a href="#resources">参考资料</a> 中的链接）并下载最新的代码包。在撰写本文时，Screen 的最新版本是 4.0.3，于 2008 年 8 月发布。下载并提取代码，进入生成的源代码目录，然后依次运行 <code>./configure</code>、<code>make</code> 和 <code>sudo make install</code>：
+		</p><div class="codesection"><pre class="displaycode"><strong>$ wget http://ftp.gnu.org/gnu/screen/screen-4.0.3.tar.gz
+$ tar xzf tar xzf screen-4.0.3.tar.gz 
+$ cd screen-4.0.3
+$ ./configure</strong>
+this is screen version 4.0.3
+...
+<strong>$ make</strong>
+CPP="gcc -E " srcdir=. sh ./osdef.sh
+...
+<strong>$ sudo make install</strong>
+...
+You may also want to install ./etc/etcscreenrc in 
+	/usr/etc/screenrc.
+<strong>$ sudo cp ./etc/etcscreenrc /usr/etc/screenrc</strong></pre></div><p>Screen 现在就安装好了，可以使用了。输入 <strong><code>man screen</code></strong> 查看 Screen 的手册页。
+		</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="getstarted">开始使用 Screen</h2><p>启动 Screen。在出现许可协议消息时，按 <strong>Return</strong>；现在应该会看到一个新的登录 shell 提示。（在下面的清单中，在每个 shell 提示前面人为地添加一个昵称，以此区分各个 shell 实例并与图 1 到图 5 联系起来）
+。</p><div class="codesection"><pre class="displaycode">Local $ <strong>ssh remote.example.com</strong> 
+Last login: Sun Dec 21 17:23:16 2008 from local.example.com
+Remote $ <strong>hostname</strong>
+remote.example.com
+Remote $ <strong>screen</strong>
+A $ <strong>top</strong></pre></div><p>现在处于 <a href="#fig2">图 2</a> 所示的状态。一个 Screen 会话正在运行（尽管看不到），窗口 A 处于活动状态，它正在运行系统监视器 top，每隔几秒刷新一次系统性能信息。
+		</p><p>为了临时断开与 Screen 会话及其所有窗口的连接，按 <strong>Ctrl-a</strong>，然后按 <strong>d</strong>（小写的字母 D，代表 “detach”）。Ctrl-a 是 Screen 命令的前缀，d 是用于断开连接的命令。现在处于 <a href="#fig3">图 3</a> 所示的状态。Screen 会话和窗口 A 仍然存在。可以通过运行 <strong><code>screen -list</code></strong> 确认这一点：
+		</p><div class="codesection"><pre class="displaycode"><strong>$ screen -list</strong>
+There is a screen on:
+21020.pts-2.remote  (Detached)
+1 Socket in /tmp/screens/S-strike.</pre></div><p><code>screen -list</code> 命令显示所有可用的 Screen 会话。（顺便说一句，可以同时运行多个 Screen 会话，每个会话有一组同时运行的窗口。<a href="#fig6">图 6</a> 显示这种情况。每个 Screen 实例跟踪它自己的当前窗口。稍后会提供一些关于 Screen 的高级用法的提示）。编号为 <em>21020</em> 的会话已经断开连接并相应地加上了标志。因为只有一个 Screen 会话，所以可以直接用 <code>screen -r</code> 重新连接它。由于运行了 Screen，<code>top</code> 会一直运行。
+		</p><h5 id="fig6">图 6. Screen 提供多个会话，每个会话有多个窗口
+				</h5><img alt="Screen 提供多个会话，每个会话有多个窗口" src="Figure_6.gif" width="529"><p>为了进入 <a href="#fig4">图 4</a> 所示的状态，重新连接当前会话，然后按 <strong>Ctrl-a</strong>，然后按 <strong>c</strong>（小写的字母 C，代表 “create”）创建一个新窗口。接下来，按 <strong>Ctrl-a</strong>，然后再次按 <strong>c</strong>。现在，Screen 会话管理三个窗口。
+		</p><p>按 <strong>Ctrl-a</strong>，然后在当前窗口中按双引号键（<strong><code>"</code></strong>），就可以看到会话中可用窗口的列表：
+		</p><div class="codesection"><pre class="displaycode">Num  Name           Flags
+
+ 0   bash           $
+ 1   bash           $
+ 2   bash           $</pre></div><p>在默认情况下，窗口的名称取自它启动的第一个命令（通常是一个 shell）。因此，在上面的列表中有三个 <em>bash</em> 窗口。可以用箭头键在窗口列表中上下移动；只需按回车即可选择窗口。
+		</p><p>终止当前窗口的方法是，在窗口的 shell 提示上输入 <code>exit</code>，或者按键盘快捷键 <strong>Ctrl-a</strong>，然后按 <strong>k</strong>（小写的字母 K，代表 “kill”）。如果使用后一种方法，那么在窗口底部会出现一个警告，要求您确认要杀死此窗口。按 <strong>y</strong>（小写的字母 Y，代表 “yes”）确认，或按 <strong>n</strong>（小写的字母 N，代表 “no”）拒绝。如果杀死一个 Screen 会话中运行的所有窗口，屏幕命令就会输出一个消息并终止：
+		</p><div class="codesection"><pre class="displaycode">Remote $ <strong>screen</strong>
+... Create and manipulate windows ...
+... Exit from all windows...
+[screen is terminating]
+Remote $ <strong>screen -list</strong>
+No Sockets found in /tmp/uscreens/S-supergiantrobot.</pre></div><p>如果杀死了所有打开的窗口，那么 <code>screen -list</code> 命令输出 <code>No sockets...</code>，表示没有 Screen 会话可用。
+		</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="smarter">更智能化的屏幕</h2><p>到目前为止，已经看到了如何在一个 Screen 会话中创建多个窗口。只需这么做，就足以确保命令行工作不会丢失。
+		</p><p>但是坦率地说，由于同时运行多个看起来相同的窗口，管理时可能引起混乱。最好能够轻松地区分窗口，而不需要逐一打开每个窗口。如果在断开连接和重新连接之间间隔的时间比较长的话，这种特性尤其有意义。
+		</p><p>实际上，Screen 提供了许多选项和工具来帮助定制您的工作环境。可以给每个窗口指定名称，还可以在每个窗口的底部显示一个状态栏以帮助区分窗口。
+		</p><p>指定窗口名称的方法是，激活窗口，按 <strong>Ctrl-a A</strong>（大写的字母 A，代表 “Annotate”），根据需要按 <strong>Backspace</strong> 删除现有的名称，然后在提示上输入一个有意义的名称：
+		</p><div class="codesection"><pre class="displaycode">Num  Name            Flags
+
+ 0   Window A       $
+ 1   Window B       $
+ 2   Window C       $</pre></div><p>在 <a href="#fig7">图 7</a> 中，窗口的标题被设置为 <em>Window A</em>。窗口的昵称不必是惟一的。
+		</p><h5 id="fig7">图 7. 可以给每个窗口指定描述性的名称
+				</h5><img alt="可以给每个窗口指定描述性的名称" src="Figure_7.jpg" width="459"><p>可以使用状态栏在视觉上进一步区分各个窗口。启动您喜欢的文本编辑器，在主目录中创建包含以下代码的 <em>.screenrc</em> 文件：
+		</p><div class="codesection"><pre class="displaycode">hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "</pre></div><p>创建这样的 .screenrc 配置文件之后，每个新窗口就会显示状态栏，其中包含窗口的名称。<a href="#fig8">图 8</a> 显示一个包含状态栏的窗口。
+		</p><h5 id="fig8">图 8. 使用状态栏帮助识别每个窗口
+				</h5><img alt="使用状态栏帮助识别每个窗口" src="Figure_8.jpg" width="549"><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="tips">有帮助的 Screen 提示</h2><p>Screen 的特性非常多，无法在这里一一介绍。下面给出一些提示并介绍几个比较有用的选项，帮助您更顺畅地使用 Screen：
+		</p><ul class="ibm-bullet-list"><li><strong>在任何窗口中输入 <code>screen</code>，不带任何参数，就会打开一个新窗口。</strong>按 <strong>Ctrl-a</strong>，然后按 <strong>c</strong> 与输入 <code><strong>screen</strong></code> 的作用相同，差异只是后一种方式通过提供命令行选项立即配置新会话。
+				</li><li><strong>可以使用 <code>screen -t <em>name</em></code> 命令在创建窗口时指定窗口名称。</strong>例如，要想创建一个新窗口并把它命名为 <em>debugger</em>，只需进入 Screen 管理的一个窗口，然后输入 <code><strong>screen -t debugger</strong></code>。如果打开窗口列表，其中一个窗口的标签应该是 <em>debugger</em>。
+				</li><li><strong>如果已经断开了与 Screen 会话的连接，可以用 <code>screen -p <em>ID</em></code> 命令重新连接特定的窗口，其中的 <em>ID</em> 是一个数字或名称。</strong>我们来试一下：
+
+
+<div class="codesection"><pre class="displaycode">Local $ ssh remote.example.com
+Remote $ screen -t ghost
+Ghost $ screen -t new
+New $ 
+... Press Control-a d to detach...
+Remote $ screen -r -p ghost
+Ghost $</pre></div></li><li><strong>可以用 <code>screen -L</code> 命令把每个窗口的输出记录在日志中。</strong>每个窗口有自己的日志文件，文件名通常是 <em>~/screenlog.</em>n，其中的 <em>n</em> 是窗口列表中显示的窗口编号。这个特性对于记录复杂的步骤（比如重新配置系统）非常有帮助。
+				</li><li><strong>在 Screen 文档中记录了所有快捷键。</strong>最有用的组合键包括：按 <strong>Ctrl-a</strong>，然后按 <strong>0</strong>（数字零）到 <strong>9</strong> 立即切换到特定的窗口；按 <strong>Ctrl-a</strong>，然后按 <strong>C</strong>（大写的字母 C，代表 “Clear”）清除一个窗口的内容；按 <strong>Ctrl-a</strong>，然后按 <strong>H</strong> 启用或禁用日志记录；按 <strong>Ctrl-a</strong>，然后按 <strong>Ctrl-a</strong> 在当前窗口和前一个窗口之间来回切换；按 <strong>Ctrl-a</strong>，然后按 <strong>Ctrl-\</strong>（反斜杠）杀死所有窗口并终止当前的 Screen 会话。
+				</li></ul><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="advanced_use">Screen 的高级用法</h2><p>正如前面提到的，可以创建多个同时运行的 Screen 会话，每个会话可以管理一系列窗口。每个会话有一个惟一标识符；使用 <code><strong>screen -list</strong></code> 列出可用的所有会话。与窗口一样，可以给会话指定名称以便引用它。使用 <code><strong>screen -S <em>label</em></strong></code> 给新会话分配标签。
+		</p><p>共享是 Screen 会话的最佳用法之一。如果允许，可以连接现有的会话并在此会话的任何窗口中与其他用户协作。甚至可以独立地切换到会话中的另一个窗口。如果您与其他用户在同一窗口中，输入或显示的任何内容都会反映给所有伙伴。我们来试一下：
+		</p><ol><li>选择一台工作计算机并登录。</li><li>输入 <code><strong>screen -S sharing -t one</strong></code> 创建一个名为 <em>sharing</em> 的 Screen 会话和一个名为 <em>one</em> 的新窗口。
+				</li><li>用 <code><strong>screen -t two</strong></code> 创建另一个窗口。</li><li>如果愿意，检查一下目前的状态：按 <strong>Ctrl-a</strong>，然后按 <strong>d</strong>，然后输入 <code><strong>screen -list</strong></code> 和 <code><strong>screen -r sharing</strong></code>，然后按 <strong>Ctrl-a</strong>，然后按 <strong>"</strong>。
+				</li><li>在 <em>one</em> 窗口中输入 <code><strong>echo</strong></code>，在此窗口中产生一些输出。
+				</li><li>在同一台计算机上，打开第二个登录窗口。</li><li>在此窗口中，输入 <code><strong>screen -x -r sharing -p one</strong></code>。
+				    
+<p><code>-x</code> 选项指定多用户模式；<code>-p one</code> 直接连接到 <em>one</em> 窗口。应该会马上看到与另一个登录会话相同的输出，见 <a href="#fig9">图 9</a>。
+					</p><h5 id="fig9">图 9. 可以共享会话</h5><img alt="可以共享会话" src="Figure_9.jpg" width="489"></li></ol><p>在每个登录窗口中，运行 UNIX® 命令产生输出，按 Screen 快捷键在共享的会话中的窗口之间切换并查看结果。
+		</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="magic">结束语</h2><p>要想进一步掌握 Screen，可以研究一下多屏幕模式，学习如何用老式的锁防止对各个窗口的访问。
+		</p><p>Screen 是一个很实用的工具，它对于在命令行上执行的任何工作都很有价值。实际上，一旦掌握了它，您就会觉得离不开它了。
+		</p><!--CMA ID: true--><!--Site ID: 10--><!--XSLT stylesheet used to transform this file: dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">参考资料 </h2><h3 class="dw-resources-category-heading">学习</h3><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/cn/aix/lp/speakingunixnew.html">对话 UNIX</a>：阅读本系列中的其他文章。
+	</li><li>
+了解关于 <a href="http://en.wikipedia.org/wiki/Unix_shell">UNIX shells</a> 的更多信息。 
+	</li><li><a href="http://www.ibm.com/developerworks/cn/aix">AIX and UNIX 专区</a>：developerWorks 的“AIX and UNIX 专区”提供了大量与 AIX 系统管理的所有方面相关的信息，您可以利用它们来扩展自己的 UNIX 技能。</li><li><a href="http://www.ibm.com/developerworks/cn/aix/newto">AIX and UNIX 新手入门</a>：访问“AIX and UNIX 新手入门”页面可了解更多关于 AIX 和 UNIX 的内容。</li><li><a href="http://www.ibm.com/developerworks/cn/aix/lpsummary.html">AIX and UNIX 专题汇总</a>：AIX and UNIX 专区已经为您推出了很多的技术专题，为您总结了很多热门的知识点。我们在后面还会继续推出很多相关的热门专题给您，为了方便您的访问，我们在这里为您把本专区的所有专题进行汇总，让您更方便的找到您需要的内容。</li><li>
+		在 <a href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">技术书店</a> 浏览关于这些主题和其他技术主题的图书。
+	</li></ul><h3 class="dw-resources-category-heading">获得产品和技术</h3><ul class="ibm-bullet-list"><li>
+下载 <a href="http://www.gnu.org/software/screen/">Screen 的源代码</a>。
+	</li></ul><h3 class="dw-resources-category-heading">讨论</h3><ul class="ibm-bullet-list"><li>
+通过加入 <a href="mailto:screen-users@gnu.org">Screen 邮件列表</a>，获得提示和技巧。 
+	</li><li>
+参与 <a href="http://www.ibm.com/developerworks/blogs/">developerWorks blogs</a> 并加入 <a href="http://www.ibm.com/developerworks/community">developerWorks 社区</a>。
+	</li><li>
+参与 AIX 和 UNIX 论坛：
+			
+<ul><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=747&amp;amp;cat=72">AIX 论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=905&amp;amp;cat=72">针对开发人员的 AIX 论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=907&amp;amp;cat=72">Cluster Systems Management</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=935&amp;amp;cat=72">IBM Support Assistant 论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=749&amp;amp;cat=72">性能工具论坛</a></li><li><a href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=748">虚拟化论坛</a></li><li>更多 <a href="http://www.ibm.com/developerworks/forums/dw_auforums.jsp">AIX 和 UNIX 论坛</a></li></ul></li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">条评论</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img style="display: none;" id="imgPlHdr" src="animated-progress-38x38c.gif" alt=""><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect">请 <a href="#">登录</a> 或 <a href="http://www.ibm.com/developerworks/dwwi/jsp/ssoregister.jsp?d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Faix%2Flibrary%2Fau-gnu_screen%2F%23icomments&amp;lang=cn&amp;a=dwmav">注册</a>  后发表评论。</p><p id="cmtHead"><label for="newCmt"><strong>添加评论:</strong></label></p><p>注意：评论中不支持 HTML 语法</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><span class="ibm-input-group"><input value="1" name="comment_notification" id="comment_notification" disabled="disabled" type="checkbox"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">有新评论时提醒我</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount">剩余 <span id="charCount">1000</span> 字符</span><p class="ibm-buttons-row"><input value="发布" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled" type="button"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts">0</span>)</strong></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts"><label for="howManyComments"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table class="dw-icomment-body" width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td><p>快来添加第一条评论</p></td></tr></tbody></table></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts2">0</span>)</strong></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts2"><label for="howManyComments2"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论 </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+
+ <div class="ibm-title">
+<h2>developerWorks: 登录</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAVVJREFUOBGlUr9LhWAUvf5AZ6eWGt2CDEFEGjMI+id6Q9DY2xoEdWmqKYIe9Cc0NbZFQ1NIq0vx3CycDdTOpXh8+j1s8IMj5xzvvd77eYkmnDiO79UJ+Zy6oaPKAcgl8A4cQ38CAfg18PXnFWma7rRtu4D+1jRtFkVRDk7cwV3XddvAEficTZwb6F1gHzxiA8lX0B6w1zTNBXt8po5AqqIoM+ANeDAMg0chVVVPoV+BR13XU/ZwzqBfgCeMcP5rTXzirp6VYY0kSQ4x5y2wNXwnanSyRMyHLprMYS6AzaE/1PwBFFGkS1yXbNs2eZ5Hpmn26nCs1IEYgQ9QGIYUBLwWRHmeU13XYsj4b3Qch3zfp6qqekmiGO0gyzIqy5Jc1yXLssS8FZfuYPUGBDNSURSiJfHRAlL0GmNyAWmRsF28IP/uATeDv1RIHcA8AZZruu1ZHMOxP66qe9DAZLEcAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" name="ibm-id" id="ibmid" size="25" value="" class="required" type="text">
+    <br><a href="#" class="ibm-forward-link">需要一个 IBM ID？</a> <br>
+    <a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a> 
+</span>
+</p> 
+<p><label for="password">密码：<span class="ibm-required">*</span></label><span>
+    <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAVVJREFUOBGlUr9LhWAUvf5AZ6eWGt2CDEFEGjMI+id6Q9DY2xoEdWmqKYIe9Cc0NbZFQ1NIq0vx3CycDdTOpXh8+j1s8IMj5xzvvd77eYkmnDiO79UJ+Zy6oaPKAcgl8A4cQ38CAfg18PXnFWma7rRtu4D+1jRtFkVRDk7cwV3XddvAEficTZwb6F1gHzxiA8lX0B6w1zTNBXt8po5AqqIoM+ANeDAMg0chVVVPoV+BR13XU/ZwzqBfgCeMcP5rTXzirp6VYY0kSQ4x5y2wNXwnanSyRMyHLprMYS6AzaE/1PwBFFGkS1yXbNs2eZ5Hpmn26nCs1IEYgQ9QGIYUBLwWRHmeU13XYsj4b3Qch3zfp6qqekmiGO0gyzIqy5Jc1yXLssS8FZfuYPUGBDNSURSiJfHRAlL0GmNyAWmRsF28IP/uATeDv1RIHcA8AZZruu1ZHMOxP66qe9DAZLEcAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" name="password" id="password" size="25" value="" class="required" type="password">
+    <br><a class="ibm-forward-link" href="#">忘记密码？</a>
+    <br><a class="ibm-forward-link" href="#">更改您的密码</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" name="perm_name" type="checkbox"><label for="perm"> 保持登录。</label></span>
+</p>
+<p>单击提交则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>。</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+ <div class="ibm-overlay-rule"><hr></div> 
+
+<p>在您首次登录 developerWorks 时，会为您创建一份个人概要。<strong>您的个人概要中的信息（您的姓名、国家/地区，以及公司名称）是公开显示的，而且会随着您发布的任何内容一起显示，除非您选择隐藏您的公司名称。</strong>您可以随时更新您的 IBM 帐户。</p>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>选择您的昵称</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 
+    您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*</span>）号的字段是必填字段。</p> 
+<form id="dFormId" method="post" action="" name="dForm" class="ibm-column-form">
+<p><label for="displayname">昵称：<span class="ibm-required">*</span></label><span>
+    <input aria-required="true" name="displayname" id="displayname" size="25" value="" type="text"></span>
+    <span class="ibm-form-note">(昵称长度在 3 至 31 个字符之间)</span>
+</p>
+<p>单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="http://www.ibm.com/developerworks/community/terms?lang=zh">查看条款和条件</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" name="ibm-cancel" class="ibm-btn-cancel-sec" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/"><img src="sm-f-bluemixrobot60.png" alt="IBM Bluemix 资源中心" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/cloud/bluemix/">IBM Bluemix 资源中心</a></h3>
+<p>文章、教程、演示，帮助您构建、部署和管理云应用。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/cn/community/"><img src="sm-f-comcommunity60.png" alt="developerWorks 中文社区" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a></h3>
+<p>立即加入来自 IBM 的专业 IT 社交网络。</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://bluemixathon.devpost.com/"><img src="sm-f-bluemixathon60.png" alt="Bluemixathon 挑战赛" height="60" width="60"></a>
+<h3><a class="ibm-feature-link" href="http://bluemixathon.devpost.com/">Bluemixathon 挑战赛</a></h3>
+<p>为灾难恢复构建应用，赢取现金大奖。</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=AIX and UNIX, Linux</div><div class="metavalue">ArticleID=386130</div><div class="metavalue">ArticleTitle=对话 UNIX: 使用 Screen 创建并管理多个 shell</div><div class="metavalue">publish-date=04292009</div><div class="metavalue">url=http://www.ibm.com/developerworks/cn/aix/library/au-gnu_screen/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>
+<!-- LEADSPACE_END -->
+
+
+<!-- END_IBM_PCON -->
+<!-- FOOTER_BEGIN -->
+<div aria-label="页脚" id="ibm-footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1 dw-footer-col-6-1-cn">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/secure/feedback.jsp?domain=dwchina" tabindex="0">帮助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/author/" tabindex="0">联系编辑</a></li>
+				<li><a href="https://www.ibm.com/developerworks/secure/myideas2.jsp?domain=dwchina" tabindex="0">提交内容</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/rss/" tabindex="0">订阅源</a></li>
+			</ul>
+        </div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a class="dwcn-sina-link" href="http://weibo.com/ibmdw/" target="_blank" tabindex="0">新浪微博</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/report?lang=zh" tabindex="0">报告滥用</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms?lang=zh" tabindex="0">使用条款</a></li>
+				<li><a href="https://www.ibm.com/developerworks/cn/community/terms/thirdparty/" tabindex="0">第三方提示</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<ul>
+				<li><a href="http://www.ibm.com/privacy/cn/zh/" tabindex="0">隐私条约</a></li>
+				<li><a href="http://www.ibm.com/ibm/accessibility/cn/" tabindex="0">浏览辅助</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/academic/" tabindex="0">IBM 教育学院教育培养计划</a></li><li><a href="http://www.ibm.com/developerworks/cn/gep/">IBM 创业企业全球扶持计划</a></li><li><a href="http://www.ibm.com/partnerworld/isv/">ISV 资源 (英语)</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4"> 
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/cn/newsletter/" tabindex="0">dW 中国每周时事通讯</a></li>
+			</ul>
+			
+		</div>
+		<div class="dw-footer-col-6-5">
+			<ul>
+				<li class="dw-footer-lang-head">选择语言：</li>
+				<li><a href="http://www.ibm.com/developerworks/" tabindex="0">English</a></li>
+				<li><a href="http://www.ibm.com/developerworks/cn/" tabindex="0" lang="zh">中文</a></li>
+				<li><a href="http://www.ibm.com/developerworks/jp/" tabindex="0" lang="ja">日本語</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ru/" tabindex="0" lang="ru">Русский</a></li>
+				<li><a href="http://www.ibm.com/developerworks/br/" tabindex="0" lang="pt">Português (Brasil)</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ssa/" tabindex="0" lang="es">Español</a></li>
+				<li><a href="http://www.ibm.com/developerworks/vn/" tabindex="0" lang="vi">Việt</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-6">
+			<img alt="IBM®" src="dwn-ibm-logo-v17.png" height="46" width="223">
+			<img class="dw-preload" src="ibm_sprite_social_blue_ON.png" alt="" height="1" width="1">
+		</div>
+	</div>
+</div>
+
+</div><!-- FOOTER_END -->
+
+<!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+
+
+
+
+
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+
+</div>
+
+
+
+<div id="ads"></div></body>
+</html>

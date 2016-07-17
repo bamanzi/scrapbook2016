@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Emacs: Python Debugging, Send Code to an Arbitrary Buffer | 肉山博客 (Wenshan's Blog)</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://wenshanren.org/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://wenshanren.org/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="肉山博客 (Wenshan's Blog) » Feed" href="http://wenshanren.org/?feed=rss2">
+<link rel="alternate" type="application/rss+xml" title="肉山博客 (Wenshan's Blog) » Comments Feed" href="http://wenshanren.org/?feed=comments-rss2">
+<link rel="alternate" type="application/rss+xml" title="肉山博客 (Wenshan's Blog) » Emacs: Python Debugging, Send Code to an Arbitrary Buffer Comments Feed" href="http://wenshanren.org/?feed=rss2&amp;p=351">
+
+
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='http://wenshanren.org/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+
+
+
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://wenshanren.org/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://wenshanren.org/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Emacs：Python 调试，发送代码至任意 buffer" href="http://wenshanren.org/?p=348">
+<link rel="next" title="Emacs：设置 speedbar 的起始路径" href="http://wenshanren.org/?p=359">
+<meta name="generator" content="WordPress 4.1.8">
+<link rel="canonical" href="http://wenshanren.org/?p=351">
+<link rel="shortlink" href="http://wp.me/p36Cpv-5F">
+
+<link rel="dns-prefetch" href="http://jetpack.wordpress.com/">
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://s1.wp.com/">
+<link rel="dns-prefetch" href="http://s2.wp.com/">
+<link rel="dns-prefetch" href="http://public-api.wordpress.com/">
+<link rel="dns-prefetch" href="http://0.gravatar.com/">
+<link rel="dns-prefetch" href="http://1.gravatar.com/">
+<link rel="dns-prefetch" href="http://2.gravatar.com/">
+<link rel="dns-prefetch" href="http://widgets.wp.com/">
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+	
+
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Emacs: Python Debugging, Send Code to an Arbitrary Buffer">
+<meta property="og:url" content="http://wenshanren.org/?p=351">
+<meta property="og:description" content="OpenERP development is part of my current job, which means I debug a lot of Python code. This blog summarizes a few tips on how to debug Python in Emacs. In theory, these tips could also be applied...">
+<meta property="article:published_time" content="2013-06-13T10:37:00+00:00">
+<meta property="article:modified_time" content="2013-08-21T03:42:05+00:00">
+<meta property="og:site_name" content="肉山博客 (Wenshan's Blog)">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-351 single-format-standard custom-background custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="http://wenshanren.org/" title="肉山博客 (Wenshan's Blog)" rel="home">肉山博客 (Wenshan's Blog)</a></h1>
+			<h2 class="site-description"></h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<h3 class="menu-toggle">Menu</h3>
+			<a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
+			<div class="menu-menu-1-container"><ul id="menu-menu-1" class="nav-menu"><li id="menu-item-505" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-505"><a href="http://wenshanren.org/">主页 (Home)</a></li>
+<li id="menu-item-507" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-507"><a href="http://wenshanren.org/?page_id=137">简介 (About Me)</a></li>
+<li id="menu-item-668" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-668"><a href="http://wenshanren.org/?page_id=664">订阅 (RSS)</a></li>
+<li id="menu-item-506" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-506"><a href="http://wenshanren.org/?page_id=469">杯中</a></li>
+<li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-508"><a href="http://wenshanren.org/?page_id=316">解老</a></li>
+</ul></div>		</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-351" class="post-351 post type-post status-publish format-standard hentry category-emacs tag-elisp tag-emacs tag-python">
+				<header class="entry-header">
+									<h1 class="entry-title">Emacs: Python Debugging, Send Code to an Arbitrary Buffer</h1>
+										<div class="comments-link">
+					<a href="http://wenshanren.org/?p=351#comments" title="Comment on Emacs: Python Debugging, Send Code to an Arbitrary Buffer">5 Replies</a>				</div><!-- .comments-link -->
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p></p>
+<div id="preamble">
+</div>
+<div id="content">
+<p>OpenERP development is part of my current job, which means I debug a lot of<br>
+Python code. This blog offers a few tips on how to debug Python in Emacs. In<br>
+theory, these tips could also be applied to any other dynamic programming<br>
+languages.
+</p>
+<p><span id="more-351"></span></p>
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Entering Python Interactive Interpreter from PDB</h2>
+<div class="outline-text-2" id="text-1">
+<p>  There are a few different ways to debug Python code using PDB (The Python<br>
+  Debugger, actually I use IPDB, an enhanced version of PDB). What I usually do<br>
+  is insert the following line into the position where I want a break point:
+</p>
+<pre class="src src-python"><span style="color: rgb(180, 250, 112);">import</span> ipdb; ipdb.set_trace()
+</pre>
+<p>
+  Of course, as a frequently used operation, I have found an Elisp function to<br>
+  help me do it:
+</p>
+<pre class="src src-emacs-lisp"><span class="linenr">1:  </span><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">defun</span> <span style="color: rgb(252, 233, 79);">python-add-breakpoint</span> <span style="color: rgb(105, 105, 105);">()</span>
+<span class="linenr">2:  </span>  <span style="color: rgb(233, 185, 110);">"Add a break point"</span>
+<span class="linenr">3:  </span>  <span style="color: rgb(105, 105, 105);">(</span>interactive<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">4:  </span>  <span style="color: rgb(105, 105, 105);">(</span>newline-and-indent<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">5:  </span>  <span style="color: rgb(105, 105, 105);">(</span>insert <span style="color: rgb(233, 185, 110);">"import ipdb; ipdb.set_trace()"</span><span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">6:  </span>  <span style="color: rgb(105, 105, 105);">(</span>highlight-lines-matching-regexp <span style="color: rgb(233, 185, 110);">"^[ ]*import ipdb; ipdb.set_trace()"</span><span style="color: rgb(105, 105, 105);">))</span>
+<span class="linenr">7:  </span>
+<span class="linenr">8:  </span><span style="color: rgb(105, 105, 105);">(</span>define-key python-mode-map <span style="color: rgb(105, 105, 105);">(</span>kbd <span style="color: rgb(233, 185, 110);">"C-c C-b"</span><span style="color: rgb(105, 105, 105);">)</span> 'python-add-breakpoint<span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+<p>
+  This function will insert the Python code mentioned above and highlight it.
+</p>
+<p>
+  Then I create a shell in Emacs and run a Python program in the newly created<br>
+  shell, when the program reaches the “break point” it will automatically get<br>
+  into PDB.
+</p>
+<p>
+  Say if I have a Python source code file ~/test.py:
+</p>
+<pre class="src src-python"><span class="linenr"> 1:  </span><span style="color: rgb(115, 210, 22);">#</span><span style="color: rgb(115, 210, 22);">!/usr/bin/env python</span>
+<span class="linenr"> 2:  </span><span style="color: rgb(115, 210, 22);"># </span><span style="color: rgb(115, 210, 22);">-*- encoding: utf-8 -*-</span>
+<span class="linenr"> 3:  </span><span style="color: rgb(115, 210, 22);">#</span>
+<span class="linenr"> 4:  </span><span style="color: rgb(115, 210, 22);"># </span><span style="color: rgb(115, 210, 22);">Author: 任文山 (Ren Wenshan)</span>
+<span class="linenr"> 5:  </span>
+<span class="linenr"> 6:  </span>
+<span class="linenr"> 7:  </span><span style="color: rgb(180, 250, 112);">def</span> <span style="color: rgb(252, 233, 79);">f</span>(a, b):
+<span class="linenr"> 8:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(180, 250, 112);">return</span> <span style="color: rgb(233, 185, 110);">"%d - %d"</span> % (a, b)
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span><span style="color: rgb(180, 250, 112);">if</span> <span style="color: rgb(173, 127, 168);">__name__</span> == <span style="color: rgb(233, 185, 110);">"__main__"</span>:
+<span class="linenr">11:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(180, 250, 112);">for</span> i <span style="color: rgb(180, 250, 112);">in</span> <span style="color: rgb(173, 127, 168);">xrange</span>(9, 1, -1):
+<span class="linenr">12:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(180, 250, 112);">if</span> i == 6: <span style="color: rgb(180, 250, 112);">import</span> ipdb; ipdb.set_trace()
+<span class="linenr">13:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(180, 250, 112);">print</span> f(i, i - 2)
+</pre>
+<p>
+  You can see that I have set a break point at line #12. Now press <i>M-x shell</i><br>
+  to open a shell, and then run the Python file in it:
+</p>
+<pre class="src src-sh"><span style="color: rgb(173, 127, 168);">cd</span> ~ &amp;&amp; python test.py
+</pre>
+<p>
+  It gets into PDB when the variable i is equal to 6:
+</p>
+<pre class="src src-text"><span class="linenr"> 1:  </span>wenshan@debian-vm-home:~$ cd ~ &amp;&amp; python test.py
+<span class="linenr"> 2:  </span>9 - 7
+<span class="linenr"> 3:  </span>8 - 6
+<span class="linenr"> 4:  </span>7 - 5
+<span class="linenr"> 5:  </span>&gt; /home/wenshan/test.py(13)&lt;module&gt;()
+<span class="linenr"> 6:  </span>     11     for i in xrange(9, 1, -1):
+<span class="linenr"> 7:  </span>     12         if i == 6: import ipdb; ipdb.set_trace()
+<span class="linenr"> 8:  </span>---&gt; 13         print f(i, i - 2)
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>ipdb&gt;
+</pre>
+<p>
+  Now, if you want to redefine the f() method, you could do it in PDB. But that<br>
+  isn’t convenient at all, alternatively, we could enter the Python interactive<br>
+  interpreter, which is a much nicer programming environment, by executing the<br>
+  following line in PDB:
+</p>
+<pre class="src src-python">!<span style="color: rgb(180, 250, 112);">import</span> code; code.interact(local=<span style="color: rgb(173, 127, 168);">vars</span>())
+</pre>
+<p>
+  Again, I have written an Elisp function to do it because I use this often:
+</p>
+<pre class="src src-emacs-lisp"><span class="linenr">1:  </span><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">defun</span> <span style="color: rgb(252, 233, 79);">python-interactive</span> <span style="color: rgb(105, 105, 105);">()</span>
+<span class="linenr">2:  </span>  <span style="color: rgb(233, 185, 110);">"Enter the interactive Python environment"</span>
+<span class="linenr">3:  </span>  <span style="color: rgb(105, 105, 105);">(</span>interactive<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">4:  </span>  <span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">progn</span>
+<span class="linenr">5:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(105, 105, 105);">(</span>insert <span style="color: rgb(233, 185, 110);">"!import code; code.interact(local=vars())"</span><span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">6:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(105, 105, 105);">(</span>move-end-of-line 1<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">7:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(105, 105, 105);">(</span>comint-send-input<span style="color: rgb(105, 105, 105);">)))</span>
+<span class="linenr">8:  </span>
+<span class="linenr">9:  </span><span style="color: rgb(105, 105, 105);">(</span>global-set-key <span style="color: rgb(105, 105, 105);">(</span>kbd <span style="color: rgb(233, 185, 110);">"C-c i"</span><span style="color: rgb(105, 105, 105);">)</span> 'python-interactive<span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+<p>
+  With this function, pressing <i>C-c i</i> (in PDB) will invoke an interactive<br>
+  interpreter.
+</p>
+<p>
+  And now you could write code in the interpreter, interactively.
+</p>
+<p>
+  But I’m not satisfied with this, because Python is very strict with<br>
+  indentation, so quite often you will have to rewrite your code for a few<br>
+  times due to some small mistake. Hence, I want to write Python code in a<br>
+  normal python-mode buffer, which brings auto indentation, error checking,<br>
+  auto completion and etc, and send the code to the interactive interpreter for<br>
+  execution.
+</p>
+</div>
+</div>
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> isend: Installation and Configuration</h2>
+<div class="outline-text-2" id="text-2">
+<p>  The python.el that comes with the standard Emacs has code sending<br>
+  functionality, but you are not allowed to specify the destination<br>
+  buffer. Although it is said that the python-mode maintained by the Python<br>
+  community could send code to an arbitrary buffer, it requires too much effort<br>
+  for me to switch to it because my current configuration is based on the<br>
+  standard python.el.
+</p>
+<p>
+  After Googling, I found isend-mode.el, which is a generic (could also be used<br>
+  for Shell, Perl, Ruby, etc) code sending package for Emacs.
+</p>
+<p>
+  Clone isend-mode from Github to your local machine:
+</p>
+<pre class="src src-sh">git clone git://github.com/ffevotte/isend-mode.el.git
+</pre>
+<p>
+  Open the <i>isend-mode.el</i> file in the newly cloned directory and find the<br>
+  following two lines:
+</p>
+<pre class="src src-emacs-lisp"><span class="linenr">1:  </span><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">defvar</span> <span style="color: rgb(252, 175, 62);">isend--command-buffer</span><span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">2:  </span><span style="color: rgb(105, 105, 105);">(</span>make-variable-buffer-local 'isend--command-buffer<span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+<p>
+  Delete the second line to make `isend–command-buffer’ a global variable,<br>
+  this is for defining the advice (see next section).
+</p>
+<p>
+  Finally, add the following code to your Emacs configuration file:
+</p>
+<pre class="src src-emacs-lisp"><span class="linenr">1:  </span><span style="color: rgb(115, 210, 22);">;; </span><span style="color: rgb(115, 210, 22);">Python send code</span>
+<span class="linenr">2:  </span><span style="color: rgb(105, 105, 105);">(</span>add-to-list 'load-path <span style="color: rgb(233, 185, 110);">"~/.emacs.d/dotEmacs/isend-mode.el"</span><span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">3:  </span><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">require</span> '<span style="color: rgb(230, 168, 223);">isend</span><span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">4:  </span><span style="color: rgb(105, 105, 105);">(</span>setq isend-skip-empty-lines nil<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">5:  </span><span style="color: rgb(105, 105, 105);">(</span>setq isend-strip-empty-lines nil<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">6:  </span><span style="color: rgb(105, 105, 105);">(</span>setq isend-delete-indentation t<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">7:  </span><span style="color: rgb(105, 105, 105);">(</span>setq isend-end-with-empty-line t<span style="color: rgb(105, 105, 105);">)</span>
+</pre>
+<p>
+  <b>Note</b> Please replace “~/.emacs.d/dotEmacs/isend-mode.el” with the path of<br>
+  isend-mode on your machine.
+</p>
+<p>
+  Now in Emacs, press <i>M-x isend-associate</i> and type in the destination buffer,<br>
+  for example, <i>*shell*</i>, then select the code block you want to send and press<br>
+  <i>C-Enter</i> to send it to the Python interpreter in <i>*shell*</i>.
+</p>
+</div>
+</div>
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Defining Advice for isend</h2>
+<div class="outline-text-2" id="text-3">
+<p>  But there is another annoying problem, isend only sends the code to a<br>
+  specified buffer, but the code won’t be executed automatically.
+</p>
+<p>
+  With the following advice (with an advice you could run some<br>
+  commands <b>before/after</b> a specified function is invoked), after sending code,<br>
+  Emacs will switch to the destination buffer, execute the code that is sent<br>
+  and switch back to the original buffer.
+</p>
+<pre class="src src-emacs-lisp"><span class="linenr">1:  </span><span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">defadvice</span> <span style="color: rgb(252, 233, 79);">isend-send</span> <span style="color: rgb(105, 105, 105);">(</span>after advice-run-code-sent activate compile<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">2:  </span>  <span style="color: rgb(233, 185, 110);">"Execute whatever sent to the (Python) buffer"</span>
+<span class="linenr">3:  </span>  <span style="color: rgb(105, 105, 105);">(</span>interactive<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">4:  </span>  <span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">let</span> <span style="color: rgb(105, 105, 105);">((</span>old-buf <span style="color: rgb(105, 105, 105);">(</span>buffer-name<span style="color: rgb(105, 105, 105);">)))</span>
+<span class="linenr">5:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(105, 105, 105);">(</span><span style="color: rgb(180, 250, 112);">progn</span>
+<span class="linenr">6:  </span><span style="background-color: rgb(33, 37, 38);"> </span>     <span style="color: rgb(105, 105, 105);">(</span>switch-to-buffer isend--command-buffer<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">7:  </span><span style="background-color: rgb(33, 37, 38);"> </span>     <span style="color: rgb(105, 105, 105);">(</span>goto-char <span style="color: rgb(105, 105, 105);">(</span>point-max<span style="color: rgb(105, 105, 105);">))</span>
+<span class="linenr">8:  </span><span style="background-color: rgb(33, 37, 38);"> </span>     <span style="color: rgb(105, 105, 105);">(</span>comint-send-input<span style="color: rgb(105, 105, 105);">)</span>
+<span class="linenr">9:  </span><span style="background-color: rgb(33, 37, 38);"> </span>     <span style="color: rgb(105, 105, 105);">(</span>switch-to-buffer old-buf<span style="color: rgb(105, 105, 105);">))))</span>
+</pre>
+<p>
+  <b>Note</b> Variable `isend–command-buffer’ is used here. I made it global<br>
+  because I defined this advice in my init.el.
+</p>
+</div>
+</div>
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Test</h2>
+<div class="outline-text-2" id="text-4">
+<p>  In the first section, the program paused and entered PDB when variable i was<br>
+  equal to 6:
+</p>
+<pre class="src src-text"><span class="linenr">1:  </span>9 - 7
+<span class="linenr">2:  </span>8 - 6
+<span class="linenr">3:  </span>7 - 5
+<span class="linenr">4:  </span>&gt; /home/wenshan/test.py(13)&lt;module&gt;()
+<span class="linenr">5:  </span>     11     for i in xrange(9, 1, -1):
+<span class="linenr">6:  </span>     12         if i == 6: import ipdb; ipdb.set_trace()
+<span class="linenr">7:  </span>---&gt; 13         print f(i, i - 2)
+<span class="linenr">8:  </span>
+<span class="linenr">9:  </span>ipdb&gt;
+</pre>
+<p>
+  Press <i>C-c i</i> to get into the interactive Python interpreter:
+</p>
+<pre class="src src-text"><span class="linenr">1:  </span>     12         if i == 6: import ipdb; ipdb.set_trace()
+<span class="linenr">2:  </span>---&gt; 13         print f(i, i - 2)
+<span class="linenr">3:  </span>
+<span class="linenr">4:  </span>ipdb&gt; !import code; code.interact(local=vars())
+<span class="linenr">5:  </span>Python 2.7.3 (default, Jan  2 2013, 16:53:07)
+<span class="linenr">6:  </span>[GCC 4.7.2] on linux2
+<span class="linenr">7:  </span>Type "help", "copyright", "credits" or "license" for more information.
+<span class="linenr">8:  </span>(InteractiveConsole)
+<span class="linenr">9:  </span>In :
+</pre>
+<p>
+  After that, associate isend with the shell we opened: <i>M-x isend-associate   RET *shell* RET</i>
+</p>
+<p>
+  Invoke isend-mode in any python-mode buffer: <i>M-x isend-mode</i> , then write<br>
+  some code such as redefining the f() method:
+</p>
+<pre class="src src-python"><span class="linenr">1:  </span><span style="color: rgb(180, 250, 112);">def</span> <span style="color: rgb(252, 233, 79);">f</span>(a, b):
+<span class="linenr">2:  </span><span style="background-color: rgb(33, 37, 38);"> </span>   <span style="color: rgb(180, 250, 112);">print</span> <span style="color: rgb(233, 185, 110);">"汝不知夫螳螂乎，怒其臂以当履带。 ——《庄子·查水表》"</span>
+</pre>
+<p>
+  Select the newly defined f() and press <i>C-RET</i> to send it to the Python<br>
+  interpreter in <i>*shell*</i> :
+</p>
+<pre class="src src-text"><span class="linenr"> 1:  </span>ipdb&gt; !import code; code.interact(local=vars())
+<span class="linenr"> 2:  </span>Python 2.7.3 (default, Jan  2 2013, 16:53:07)
+<span class="linenr"> 3:  </span>[GCC 4.7.2] on linux2
+<span class="linenr"> 4:  </span>Type "help", "copyright", "credits" or "license" for more information.
+<span class="linenr"> 5:  </span>(InteractiveConsole)
+<span class="linenr"> 6:  </span>In : def f(a, b):
+<span class="linenr"> 7:  </span>    print "汝不知夫螳螂乎，怒其臂以当履带。 ——《庄子·查水表》"
+<span class="linenr"> 8:  </span>
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>...: ...: In : In :
+</pre>
+<p>
+  Now, if you evaluate f(1, 2) in <i>*shell*</i> you will find that the original f()<br>
+  has been overridden.
+</p>
+<pre class="src src-text"><span class="linenr">1:  </span>In : f(1, 2)
+<span class="linenr">2:  </span>汝不知夫螳螂乎，怒其臂以当履带。 ——《庄子·查水表》
+</pre>
+<p>
+  Press <i>C-d</i> in <i>*shell*</i> to exit the interactive interpreter and go back to<br>
+  PDB. Enter <i>c</i> to continue the program and you can see the f() method is<br>
+  still overridden.
+</p>
+<pre class="src src-text"><span class="linenr">1:  </span>In :
+<span class="linenr">2:  </span>ipdb&gt; c
+<span class="linenr">3:  </span>汝不知夫螳螂乎，怒其臂以当履带。 ——《庄子·查水表》
+<span class="linenr">4:  </span>.
+<span class="linenr">5:  </span>.
+<span class="linenr">6:  </span>.
+</pre>
+<p>
+  Done.
+</p>
+<p>
+Happy Hacking!
+</p>
+<p>
+<b>Note</b>: English is not my first language, so please feel free to point out any<br>
+mistakes you may find.</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="date">Date: 2013-06-13</p>
+<p class="author">Author: 任文山 (Ren Wenshan)</p>
+<p class="creator"><a href="http://orgmode.org/">Org</a> version 7.9.3d with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<p><a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a></p>
+</div>
+<p></p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><div class="fb-share-button" data-href="http://wenshanren.org/?p=351" data-layout="button_count"></div></li><li class="share-email"><a rel="nofollow" data-shared="" class="share-email sd-button" href="http://wenshanren.org/?p=351&amp;share=email" target="_top" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://wenshanren.org/?p=351"></div></div></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button" href="http://wenshanren.org/?p=351#print" target="_top" title="Click to print"><span>Print</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded" id="like-post-wrapper-45906629-351-56612b3e4634f" data-src="//widgets.wp.com/likes/#blog_id=45906629&amp;post_id=351&amp;origin=wenshanren.org&amp;obj_id=45906629-351-56612b3e4634f" data-name="like-post-frame-45906629-351-56612b3e4634f"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><span class="sd-text-color"></span><a class="sd-link-color"></a></div>					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://wenshanren.org/?cat=10" rel="category">Emacs</a> and tagged <a href="http://wenshanren.org/?tag=elisp" rel="tag">Elisp</a>, <a href="http://wenshanren.org/?tag=emacs" rel="tag">Emacs</a>, <a href="http://wenshanren.org/?tag=python" rel="tag">Python</a> on <a href="http://wenshanren.org/?p=351" title="8:37 pm" rel="bookmark"><time class="entry-date" datetime="2013-06-13T20:37:00+00:00">2013/06/13</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://wenshanren.org/?author=1" title="View all posts by Wenshan" rel="author">Wenshan</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">Post navigation</h3>
+					<span class="nav-previous"><a href="http://wenshanren.org/?p=348" rel="prev"><span class="meta-nav">←</span> Emacs：Python 调试，发送代码至任意 buffer</a></span>
+					<span class="nav-next"><a href="http://wenshanren.org/?p=359" rel="next">Emacs：设置 speedbar 的起始路径 <span class="meta-nav">→</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			5 thoughts on “<span>Emacs: Python Debugging, Send Code to an Arbitrary Buffer</span>”		</h2>
+
+		<ol class="commentlist">
+				<li class="pingback even thread-even depth-1" id="comment-141">
+		<p>Pingback: <a href="http://wenshanren.org/?p=382" rel="external nofollow" class="url">Starred Links – June 2013 | 肉山博客 (Wenshan's Blog)</a> </p>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-456">
+		<article id="comment-456" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<img alt="" src="a9fa36b78441d7830bb024a801defc13" class="avatar avatar-44 photo" height="44" width="44"><cite class="fn">Paw </cite><a href="http://wenshanren.org/?p=351#comment-456"><time datetime="2013-10-27T05:46:12+00:00">2013/10/27 at 5:46 am</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Thanks for this!<br>
+The trick with python-interactive is especial good!</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+				<a rel="nofollow" class="comment-reply-login" href="http://wenshanren.org/wp-login.php?redirect_to=http%3A%2F%2Fwenshanren.org%2F%3Fp%3D351">Log in to Reply</a> <span>↓</span>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment byuser comment-author-wenshan bypostauthor even depth-2" id="li-comment-457">
+		<article id="comment-457" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<img alt="" src="e3acaff4e5599cc36d01f5db9844c8b1" class="avatar avatar-44 photo" height="44" width="44"><cite class="fn">Wenshan <span> Post author</span></cite><a href="http://wenshanren.org/?p=351#comment-457"><time datetime="2013-10-27T09:02:55+00:00">2013/10/27 at 9:02 am</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>I’m glad it’s helpful <img src="icon_smile.gif" alt=":)" class="wp-smiley"></p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+				<a rel="nofollow" class="comment-reply-login" href="http://wenshanren.org/wp-login.php?redirect_to=http%3A%2F%2Fwenshanren.org%2F%3Fp%3D351">Log in to Reply</a> <span>↓</span>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="li-comment-597">
+		<article id="comment-597" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<img alt="" src="a3d990de38f3e4672615fa61443ca45f_normal.jpeg" class="avatar avatar-44 photo" height="44" width="44"><cite class="fn"><a href="http://twitter.com/_ZPH" rel="external nofollow" class="url">Zander (@_ZPH)</a> </cite><a href="http://wenshanren.org/?p=351#comment-597"><time datetime="2014-05-03T15:34:14+00:00">2014/05/03 at 3:34 pm</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Finally!!! I’ve been searching for a few hours for this solution :).</p>
+<p>I’ve been using a comparable workflow in Vim (slimux with tmux) and it wasn’t until finding your article that I could adopt a similar behavior in Emacs.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+				<a rel="nofollow" class="comment-reply-login" href="http://wenshanren.org/wp-login.php?redirect_to=http%3A%2F%2Fwenshanren.org%2F%3Fp%3D351">Log in to Reply</a> <span>↓</span>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	<ol class="children">
+	<li class="comment byuser comment-author-wenshan bypostauthor even depth-2" id="li-comment-605">
+		<article id="comment-605" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<img alt="" src="e3acaff4e5599cc36d01f5db9844c8b1" class="avatar avatar-44 photo" height="44" width="44"><cite class="fn">Wenshan <span> Post author</span></cite><a href="http://wenshanren.org/?p=351#comment-605"><time datetime="2014-05-04T05:06:29+00:00">2014/05/04 at 5:06 am</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>Glad it helps.</p>
+<p>I changed my job and now I don’t hack in Python much. I’m really happy that isend (the emacs plugin mentioned in the article) also works with Ruby, JavaScript, Guile (Scheme) and potentially any programming language that comes with a REPL.</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+				<a rel="nofollow" class="comment-reply-login" href="http://wenshanren.org/wp-login.php?redirect_to=http%3A%2F%2Fwenshanren.org%2F%3Fp%3D351">Log in to Reply</a> <span>↓</span>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+		
+	
+						<p class="must-log-in">You must <a href="http://wenshanren.org/wp-login.php?redirect_to=http%3A%2F%2Fwenshanren.org%2F%3Fp%3D351%23respond">log in</a> to post a comment.</p>
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="search-2" class="widget widget_search"><h3 class="widget-title">搜索 (Search)</h3><form role="search" method="get" id="searchform" class="searchform" action="http://wenshanren.org/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input value="" name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></aside><aside id="linkcat-2" class="widget widget_links"><h3 class="widget-title">Blogroll</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://blog.zhenggangzhao.tk/" target="_top">Galen's Blog</a></li>
+<li><a href="http://gaochao.me/" rel="friend" title="高超的博客" target="_top">GeekGao is Hacking</a></li>
+<li><a href="http://ellochen.github.io/">God-Mode</a></li>
+
+	</ul>
+</aside>
+<aside id="tag_cloud-2" class="widget widget_tag_cloud"><h3 class="widget-title">标签云 (Tag Cloud)</h3><div class="tagcloud"><a href="http://wenshanren.org/?tag=android" class="tag-link-44" title="3 topics" style="font-size: 10.9371pt;">Android</a>
+<a href="http://wenshanren.org/?tag=book-review" class="tag-link-19" title="1 topic" style="font-size: 8pt;">Book Review</a>
+<a href="http://wenshanren.org/?tag=clojure" class="tag-link-26" title="2 topics" style="font-size: 9.76224pt;">Clojure</a>
+<a href="http://wenshanren.org/?tag=common-lisp" class="tag-link-27" title="2 topics" style="font-size: 9.76224pt;">Common Lisp</a>
+<a href="http://wenshanren.org/?tag=drm" class="tag-link-62" title="1 topic" style="font-size: 8pt;">DRM</a>
+<a href="http://wenshanren.org/?tag=elisp" class="tag-link-24" title="50 topics" style="font-size: 21.8042pt;">Elisp</a>
+<a href="http://wenshanren.org/?tag=emacs" class="tag-link-10" title="53 topics" style="font-size: 22pt;">Emacs</a>
+<a href="http://wenshanren.org/?tag=en" class="tag-link-56" title="10 topics" style="font-size: 15.2448pt;">en</a>
+<a href="http://wenshanren.org/?tag=erc" class="tag-link-38" title="2 topics" style="font-size: 9.76224pt;">ERC</a>
+<a href="http://wenshanren.org/?tag=firefox" class="tag-link-11" title="6 topics" style="font-size: 13.3846pt;">Firefox</a>
+<a href="http://wenshanren.org/?tag=gnome" class="tag-link-55" title="2 topics" style="font-size: 9.76224pt;">gnome</a>
+<a href="http://wenshanren.org/?tag=gnu" class="tag-link-64" title="1 topic" style="font-size: 8pt;">GNU</a>
+<a href="http://wenshanren.org/?tag=gnus" class="tag-link-65" title="1 topic" style="font-size: 8pt;">gnus</a>
+<a href="http://wenshanren.org/?tag=gpg" class="tag-link-66" title="1 topic" style="font-size: 8pt;">gpg</a>
+<a href="http://wenshanren.org/?tag=i3" class="tag-link-61" title="2 topics" style="font-size: 9.76224pt;">i3</a>
+<a href="http://wenshanren.org/?tag=java" class="tag-link-45" title="1 topic" style="font-size: 8pt;">Java</a>
+<a href="http://wenshanren.org/?tag=keysnail" class="tag-link-60" title="2 topics" style="font-size: 9.76224pt;">keysnail</a>
+<a href="http://wenshanren.org/?tag=kindle" class="tag-link-63" title="1 topic" style="font-size: 8pt;">kindle</a>
+<a href="http://wenshanren.org/?tag=linux" class="tag-link-16" title="7 topics" style="font-size: 13.8741pt;">Linux</a>
+<a href="http://wenshanren.org/?tag=lisp" class="tag-link-23" title="2 topics" style="font-size: 9.76224pt;">Lisp</a>
+<a href="http://wenshanren.org/?tag=mac" class="tag-link-69" title="1 topic" style="font-size: 8pt;">Mac</a>
+<a href="http://wenshanren.org/?tag=misc" class="tag-link-37" title="5 topics" style="font-size: 12.6993pt;">Misc</a>
+<a href="http://wenshanren.org/?tag=moz-controller" class="tag-link-59" title="3 topics" style="font-size: 10.9371pt;">moz-controller</a>
+<a href="http://wenshanren.org/?tag=openerp" class="tag-link-35" title="13 topics" style="font-size: 16.3217pt;">OpenERP</a>
+<a href="http://wenshanren.org/?tag=org-mode" class="tag-link-39" title="2 topics" style="font-size: 9.76224pt;">org-mode</a>
+<a href="http://wenshanren.org/?tag=org2blog" class="tag-link-57" title="2 topics" style="font-size: 9.76224pt;">org2blog</a>
+<a href="http://wenshanren.org/?tag=python" class="tag-link-34" title="16 topics" style="font-size: 17.1049pt;">Python</a>
+<a href="http://wenshanren.org/?tag=rails" class="tag-link-74" title="1 topic" style="font-size: 8pt;">Rails</a>
+<a href="http://wenshanren.org/?tag=recommendation-2" class="tag-link-31" title="9 topics" style="font-size: 14.8531pt;">recommendation</a>
+<a href="http://wenshanren.org/?tag=restructuredtext" class="tag-link-41" title="2 topics" style="font-size: 9.76224pt;">reStructuredText</a>
+<a href="http://wenshanren.org/?tag=ruby" class="tag-link-73" title="1 topic" style="font-size: 8pt;">Ruby</a>
+<a href="http://wenshanren.org/?tag=scheme" class="tag-link-28" title="2 topics" style="font-size: 9.76224pt;">Scheme</a>
+<a href="http://wenshanren.org/?tag=speedbar" class="tag-link-40" title="2 topics" style="font-size: 9.76224pt;">speedbar</a>
+<a href="http://wenshanren.org/?tag=ssh" class="tag-link-71" title="1 topic" style="font-size: 8pt;">SSH</a>
+<a href="http://wenshanren.org/?tag=vnc" class="tag-link-72" title="1 topic" style="font-size: 8pt;">VNC</a>
+<a href="http://wenshanren.org/?tag=zh" class="tag-link-53" title="15 topics" style="font-size: 16.8112pt;">zh</a>
+<a href="http://wenshanren.org/?tag=%e4%b9%a6%e8%af%84" class="tag-link-49" title="2 topics" style="font-size: 9.76224pt;">书评</a>
+<a href="http://wenshanren.org/?tag=%e5%8a%a0%e5%af%86" class="tag-link-67" title="1 topic" style="font-size: 8pt;">加密</a>
+<a href="http://wenshanren.org/?tag=%e5%ae%89%e5%85%a8" class="tag-link-68" title="1 topic" style="font-size: 8pt;">安全</a>
+<a href="http://wenshanren.org/?tag=%e6%80%bb%e7%bb%93" class="tag-link-52" title="2 topics" style="font-size: 9.76224pt;">总结</a>
+<a href="http://wenshanren.org/?tag=%e6%8e%a8%e8%8d%90" class="tag-link-30" title="9 topics" style="font-size: 14.8531pt;">推荐</a>
+<a href="http://wenshanren.org/?tag=%e6%9d%82" class="tag-link-36" title="5 topics" style="font-size: 12.6993pt;">杂</a>
+<a href="http://wenshanren.org/?tag=%e8%bf%9c%e7%a8%8b%e6%8e%a7%e5%88%b6" class="tag-link-70" title="1 topic" style="font-size: 8pt;">远程控制</a></div>
+</aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">归档 (Archives)</h3>		<ul>
+	<li><a href="http://wenshanren.org/?m=201510">October 2015</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201507">July 2015</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201503">March 2015</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201410">October 2014</a>&nbsp;(3)</li>
+	<li><a href="http://wenshanren.org/?m=201408">August 2014</a>&nbsp;(5)</li>
+	<li><a href="http://wenshanren.org/?m=201406">June 2014</a>&nbsp;(3)</li>
+	<li><a href="http://wenshanren.org/?m=201405">May 2014</a>&nbsp;(6)</li>
+	<li><a href="http://wenshanren.org/?m=201404">April 2014</a>&nbsp;(6)</li>
+	<li><a href="http://wenshanren.org/?m=201403">March 2014</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201312">December 2013</a>&nbsp;(2)</li>
+	<li><a href="http://wenshanren.org/?m=201310">October 2013</a>&nbsp;(5)</li>
+	<li><a href="http://wenshanren.org/?m=201309">September 2013</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201308">August 2013</a>&nbsp;(4)</li>
+	<li><a href="http://wenshanren.org/?m=201307">July 2013</a>&nbsp;(4)</li>
+	<li><a href="http://wenshanren.org/?m=201306">June 2013</a>&nbsp;(9)</li>
+	<li><a href="http://wenshanren.org/?m=201305">May 2013</a>&nbsp;(10)</li>
+	<li><a href="http://wenshanren.org/?m=201304">April 2013</a>&nbsp;(2)</li>
+	<li><a href="http://wenshanren.org/?m=201303">March 2013</a>&nbsp;(8)</li>
+	<li><a href="http://wenshanren.org/?m=201302">February 2013</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201301">January 2013</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201208">August 2012</a>&nbsp;(1)</li>
+	<li><a href="http://wenshanren.org/?m=201206">June 2012</a>&nbsp;(2)</li>
+	<li><a href="http://wenshanren.org/?m=201205">May 2012</a>&nbsp;(1)</li>
+		</ul>
+</aside>
+        
+
+        <aside id="jetpack-post-views-widget-2" class="widget jetpack-post-views"><h3 class="widget-title">最受欢迎的文章 (Most Popular Posts)</h3><ul><li class="JPV_list"><a href="http://wenshanren.org/?p=418" title="Famous Emacs Users (that are not famous for using Emacs)" class="JPV_">Famous Emacs Users (that are not famous for using Emacs)</a> - 33,226 views</li><li class="JPV_list"><a href="http://wenshanren.org/?p=267" title="The Popularity of Four Lisp Dialects on Github" class="JPV_">The Popularity of Four Lisp Dialects on Github</a> - 6,147 views</li><li class="JPV_list"><a href="http://wenshanren.org/?p=111" title="mu4e: an E-mail Client for Emacs" class="JPV_">mu4e: an E-mail Client for Emacs</a> - 5,832 views</li><li class="JPV_list"><a href="http://wenshanren.org/?p=351" title="Emacs: Python Debugging, Send Code to an Arbitrary Buffer" class="JPV_">Emacs: Python Debugging, Send Code to an Arbitrary Buffer</a> - 4,318 views</li><li class="JPV_list"><a href="http://wenshanren.org/?p=334" title="Emacs：insert source code block in org-mode" class="JPV_">Emacs：insert source code block in org-mode</a> - 1,766 views</li></ul></aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">最新评论 (Recent Comments)</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Wenshan</span> on <a href="http://wenshanren.org/?p=386#comment-4908">著名 Emacs 用户列表</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://everet.org/" rel="external nofollow" class="url">Stupid ET</a></span> on <a href="http://wenshanren.org/?p=386#comment-4722">著名 Emacs 用户列表</a></li><li class="recentcomments"><span class="comment-author-link">Wenshan</span> on <a href="http://wenshanren.org/?p=744#comment-4603">在 Emacs 中控制 Firefox 翻页、刷新、关闭页面</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://everet.org/" rel="external nofollow" class="url">Stupid ET</a></span> on <a href="http://wenshanren.org/?p=744#comment-4580">在 Emacs 中控制 Firefox 翻页、刷新、关闭页面</a></li><li class="recentcomments"><span class="comment-author-link">Wenshan</span> on <a href="http://wenshanren.org/?p=744#comment-4579">在 Emacs 中控制 Firefox 翻页、刷新、关闭页面</a></li></ul></aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">类别 (Categories)</h3>		<ul>
+	<li class="cat-item cat-item-44"><a href="http://wenshanren.org/?cat=44">Android</a> (2)
+</li>
+	<li class="cat-item cat-item-19"><a href="http://wenshanren.org/?cat=19">Book Review</a> (1)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://wenshanren.org/?cat=5">Career</a> (1)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://wenshanren.org/?cat=10">Emacs</a> (40)
+</li>
+	<li class="cat-item cat-item-16"><a href="http://wenshanren.org/?cat=16">Linux</a> (4)
+</li>
+	<li class="cat-item cat-item-23"><a href="http://wenshanren.org/?cat=23">Lisp</a> (2)
+</li>
+	<li class="cat-item cat-item-58"><a href="http://wenshanren.org/?cat=58">MISC</a> (2)
+</li>
+	<li class="cat-item cat-item-35"><a href="http://wenshanren.org/?cat=35">OpenERP</a> (4)
+</li>
+	<li class="cat-item cat-item-14"><a href="http://wenshanren.org/?cat=14">Personal</a> (4)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://wenshanren.org/?cat=7">Psychology</a> (1)
+</li>
+	<li class="cat-item cat-item-29"><a href="http://wenshanren.org/?cat=29">Recommendation</a> (9)
+</li>
+	<li class="cat-item cat-item-49"><a href="http://wenshanren.org/?cat=49">书评</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://wenshanren.org/?cat=30">推荐</a> (9)
+</li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+			<li><a href="http://wenshanren.org/wp-login.php?action=register">Register</a></li>			<li><a href="http://wenshanren.org/wp-login.php">Log in</a></li>
+			<li><a href="http://wenshanren.org/?feed=rss2">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wenshanren.org/?feed=comments-rss2">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<p>Proudly powered by Emacs and org2blog, not so proudly powered by WordPress</p>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+	<div style="display: none;">
+	<div class="grofile-hash-map-a9fa36b78441d7830bb024a801defc13">
+	</div>
+	<div class="grofile-hash-map-e3acaff4e5599cc36d01f5db9844c8b1">
+	</div>
+	<div class="grofile-hash-map-625679daf176414d2bfcdcbcce61a363">
+	</div>
+	</div>
+		
+		<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0pt; width: 0pt;"><div><iframe src="index_1.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="index_2.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div></div>	<div id="sharing_email" style="display: none;">
+		<form action="http://wenshanren.org/?p=351" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" value="" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" value="" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" value="" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off" type="text">
+			
+			
+			<img style="float: right; display: none;" class="loading" src="loading.gif" alt="loading" height="16" width="16">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div>
+			
+			
+</body>
+</html>

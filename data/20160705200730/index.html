@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Why You Should Try tmux Instead of screen</title>
+    
+    
+    
+    <meta name="generator" content="nanoc 3.1.6">
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="http://dominik.honnef.co/atom.xml">
+    <link rel="index" title="Dominik Honnef" href="http://dominik.honnef.co/">
+    
+    <meta name="Description" content="This article describes the various differences between tmux and screen and portrays why tmux is a modern alternative.">
+    
+    
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+  <body>
+    <header id="top">
+      <div>
+        <h1><a href="http://dominik.honnef.co/">Dominik Honnef</a></h1>
+        <div class="feed">
+          <a href="http://dominik.honnef.co/atom.xml"><img src="atom.png"></a>
+        </div>
+      </div>
+    </header>
+
+    <div id="content">
+      
+
+<article class="post">
+  <div id="hire-me">
+    Are you looking for a Go programmer to implement your latest idea?<br>
+    <a href="mailto:dominik@honnef.co">Send me an email!</a>
+  </div>
+
+  <h2 class="post-title">Why You Should Try tmux Instead of screen</h2>
+  
+<h3 id="what-screen-is">What screen is</h3>
+
+<p>If you’re reading this article, you probably already know what <em>GNU
+Screen</em> is: the most well-known terminal multiplexer in the world of
+Unix. If that doesn’t ring any bells, I recommend reading
+<a href="http://en.wikipedia.org/wiki/GNU_Screen">the Wikipedia article about GNU Screen</a>
+before continuing with this article.</p>
+
+<h3 id="an-alternative">An Alternative</h3>
+
+<p>There are, however, also some other terminal multiplexers besides GNU
+screen, most notably <a href="http://sourceforge.net/projects/tmux/">tmux</a>. While technically screen and tmux serve the
+same purpose – multiplexing terminals – their functionality and
+quality differ drastically.</p>
+
+<h3 id="the-history-of-screen-and-tmux">The History of screen And tmux</h3>
+
+<p>Development of screen started in 1987; additions and fixes have
+been contributed ever since. On the one hand, that means that screen
+is a solid and proven piece of software; On the other hand, though, it
+also means that the codebase isn’t the cleanest one nor easy to
+understand. As a result of this, new additions are rare and
+development mostly concentrates on fixing existing bugs.</p>
+
+<p>Tmux, on the other side, saw the light of day in late 2007. And
+because the developer was able to learn from screen’s mistakes while
+at the same time picking up existing and field-tested features, tmux
+has a solid and extensible code base – and it is actively developed by
+a very responsive developer.</p>
+
+<h3 id="actual-new-features">Actual New Features</h3>
+
+<p>So, tmux has a better codebase and has (nearly, more on that later)
+all the features screen has – but chances are high that you are not
+interested in the code at all, so why should you care? Because tmux
+has a lot of features that screen has always been missing.</p>
+
+<h4 id="a-sensible-configuration-format">A Sensible Configuration Format</h4>
+
+<p>If there was only one shortcoming of screen that you were allowed to
+name, which one would it be? Right, the format of the configuration
+files…</p>
+
+<p>Let’s look at a prominent example: a hardstatus (called “status line”
+in tmux) that contains the computer’s hostname, a list of all windows,
+the load average and a clock:</p>
+
+<pre class="text"><code>hardstatus alwayslastline '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f%t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{y}][%{G} %l%{y}] %{y}[%{G} %m/%d %c %{y}]%{W}'
+</code></pre>
+<p>
+  <img src="screen_status_bar.png" alt="screen status_bar">
+</p>
+
+<p>If I didn’t tell you what that option did, were you able to understand
+it, or more importantly, able to write it yourself? No, you probably
+wouldn’t. (If you, in fact, are able to: congratulations, and sincere
+condolences).</p>
+
+<p>So, how would that look like in tmux? Here’s how:</p>
+
+<pre class="text"><code>set -g status-left ' #[fg=green,bold]#H#[default]'
+set -g status-right '#[fg=yellow,bold]#(cut -d " " -f 1-4 /proc/loadavg)#[default] #[fg=cyan,bold]%Y-%m-%d %H:%M:%S#[default] '
+</code></pre>
+<p>
+  <img src="tmux_status_bar.png" alt="tmux status_bar">
+</p>
+
+<p>Okay, so it’s easy to see where colors are being set (and yes, they do
+differ from the screen example, just ignore that. It would look the
+same for other colors, too), it’s kind of obvious what “#H” means (and
+the man pages of tmux have a complete list of all available codes), we
+instantly can see how the load average is displayed, and the clock
+format string should be obvious.</p>
+
+<p>But wait, where’s the list of windows? That’s a built-in feature of
+tmux and thus doesn’t have to be set explicitly.</p>
+
+<p>Of course there are a lot of more options, like the following one,
+which loads the emacs keymap:</p>
+
+<pre class="text"><code>set-window-option -g mode-keys emacs
+</code></pre>
+
+<p>Another major aspect of tmux’s config format is that it is basically a
+batch script: it is a simple list of commands that will be executed
+when tmux is started – they’re the same commands that you use in
+keybinds, the command prompt and shell scripts (more on that in a
+minute). If you want to always create two windows when a session is
+created, you can put this into your configuration:</p>
+
+<pre class="text"><code>new-window -n some_name
+new-window -n another_name
+</code></pre>
+
+<h4 id="scriptable">Scriptable</h4>
+
+<p>Another major aspect of tmux is that nearly all commands can be
+invoked from the command line, allowing complex scripts controlling
+tmux sessions. <code>tmux new-window</code>, for example, would create a new
+window. Splitting, moving and resizing windows, setting options and a
+lot more actions are possible as well. Even the status bar can
+dynamically be changed.</p>
+
+<h4 id="emacs-and-vi-keymaps">Emacs And Vi Keymaps</h4>
+
+<p>tmux supports two different keymaps, imitating either Emacs or vi.
+Those keymaps will be used in copy mode and the command prompt.</p>
+
+<h4 id="mouse-support">Mouse Support</h4>
+
+<p>Yeah, power users will smile at this feature, but novices might
+actually like it: panes can be selected using the mouse, and in copy
+mode, the mouse wheel is supported as well.</p>
+
+<h4 id="menus">Menus</h4>
+
+<p>Nice to have, tmux has menus for selecting windows and sessions.
+<img src="tmux_menu.png" alt="menu in tmux"></p>
+
+<h4 id="multiple-buffers">Multiple buffers</h4>
+
+<p>Much like the kill ring in Emacs, tmux can keep more than one
+selection/piece of copied text in memory.</p>
+
+<h4 id="bsd-license">BSD License</h4>
+
+<p>Unlike GNU Screen, tmux is licensed under the simplified BSD license.
+Obviously this will please everyone who dislikes the GPL – but there’s
+even a real benefit from the choice in license: tmux is part of
+OpenBSD since version 4.6.</p>
+
+<h3 id="differences-to-screen">Differences to screen</h3>
+
+<h4 id="server-model">Server Model</h4>
+
+<p>One speciality of tmux is that when creating your first session, it
+spawns a server which manages said session and all future sessions. In
+fact it is also possible to change the current session on the fly,
+using commands or even a fancy navigatable menu.</p>
+
+<p>With tmux, it is not uncommon to have a set of different sessions (one
+for work, one for server management, and so on) and to quickly switch
+between them, effectively creating another level of grouping of
+windows.</p>
+
+<p>Sessions can also be grouped, which means that they share the same set
+of windows but have independent options and allow multiple users to
+work with the same windows – much like <code>screen -x</code>, just a tad more
+flexible.</p>
+
+<h4 id="window-splitting">Window Splitting</h4>
+
+<p>This one is probably the most confusing aspect of tmux, to people
+coming from screen. While splitting in screen means displaying
+multiple windows at once, in tmux it means splitting a window into
+multiple panes. It is, however, possible to take a pane and convert it
+into a window and vice versa. It is, however, not possible to display
+a window in a pane, without converting it to a pane.</p>
+
+<p>Tmux does, however, natively support both horizontal <strong>and</strong> vertical
+splits, without the need for a custom patch, as is the case with
+screen.
+<img src="tmux_splits.png" alt="screen status_bar"></p>
+
+<p>Additionally, tmux has presets for pane arrangements, eliminating the
+need for arranging splits by hand.</p>
+
+<h4 id="missing-features">Missing Features</h4>
+
+<p>As mentioned earlier, there is in fact a feature missing in tmux:
+built-in serial and telnet support, while screen is able to directly
+connect to for example a serial null modem. Even more so, tmux will
+probably never include that feature, because the developer considers
+it bloat and says, that other, specialized tools should be used for
+that task instead.</p>
+
+<h3 id="final-words">Final words</h3>
+
+<p>I hope that this article is giving you enough reasons to at least try
+tmux. Of course there might be users who are just happy with screen or
+even users who need its support for serial consoles, but most of you
+should be able to at least give it a try. I can assure you that you
+will not regret it.</p>
+
+<p>I also recommend reading the
+<a href="http://wisconsinlinux.org/tmux-manpage-from-cvs/tmux.1.txt">man pages of tmux</a>,
+which are written in a very clear and readable way, and just playing
+with some of the options.</p>
+
+<h3 id="links">Links</h3>
+<dl>
+  <dt>Wikipedia article about GNU Screen</dt>
+  <dd><a href="http://en.wikipedia.org/wiki/GNU_Screen">http://en.wikipedia.org/wiki/GNU_Screen</a></dd>
+  <dt>tmux</dt>
+  <dd><a href="http://sourceforge.net/projects/tmux/">http://sourceforge.net/projects/tmux/</a></dd>
+  <dt>man pages of tmux</dt>
+  <dd><a href="http://wisconsinlinux.org/tmux-manpage-from-cvs/tmux.1.txt">http://wisconsinlinux.org/tmux-manpage-from-cvs/tmux.1.txt</a></dd>
+</dl>
+
+
+  <footer class="meta">
+    <div id="article_navigation">
+      <h3>Related articles</h3>
+      
+      <ul class="postlist">
+        
+        <li>
+          <time datetime="2010-08-04T01:45:20+02:00" class="timestamp">
+          04 Aug 2010
+          </time><a href="http://dominik.honnef.co/posts/2010/08/newton_and_cinch_____one_awesome_framework___/">Newton and Cinch â One awesome framework</a>
+        </li>
+        
+        <li>
+          <time datetime="2011-05-01T16:39:47+02:00" class="timestamp">
+          01 May 2011
+          </time><a href="http://dominik.honnef.co/posts/2011/05/rsemantic___latent_semantic_analysis_for_ruby/">rsemantic â Latent Semantic Analysis for Ruby</a>
+        </li>
+        
+      </ul>
+      
+    </div>
+
+    <time pubdate="pubdate" datetime="2010-10-27T03:42:05+02:00">Wednesday, October 27, 2010</time> - by <a rel="author" href="http://dominik.honnef.co/about/">Dominik Honnef</a>
+  </footer>
+</article>
+
+    </div>
+
+    <footer id="footer">
+      <p class="left">
+        <a href="http://github.com/dominikh">Github</a><br>
+        <a href="http://twitter.com/dominikhonnef">Twitter</a><br>
+        <!-- <a href="http://resume.github.com/?dominikh"> GITHUB RÉSUMÉ</a> -->
+      </p>
+      <p class="right">
+        © 2011 <a rel="me" href="https://profiles.google.com/111031610679270691456">Dominik Honnef</a><br>
+        <a href="mailto:dominik@honnef.co">Email me</a>
+      </p>
+    </footer>
+  
+
+</body>
+</html>

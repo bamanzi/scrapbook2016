@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>EmacsWiki: Eshell Bmk</title><link rel="alternate" type="application/wiki" title="Edit this page" href="https://www.emacswiki.org/emacs?action=edit;id=EshellBmk"><meta name="robots" content="INDEX,FOLLOW"><link rel="alternate" type="application/rss+xml" title="EmacsWiki" href="https://www.emacswiki.org/emacs?action=rss"><link rel="alternate" type="application/rss+xml" title="EmacsWiki: EshellBmk" href="https://www.emacswiki.org/emacs?action=rss;rcidonly=EshellBmk">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content" href="https://www.emacswiki.org/full.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content and diff" href="https://www.emacswiki.org/full-diff.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki including minor differences" href="https://www.emacswiki.org/minor-edits.rss">
+<link rel="alternate" type="application/rss+xml" title="Changes for EshellBmk only" href="https://www.emacswiki.org/emacs?action=rss;rcidonly=EshellBmk"><meta content="width=device-width" name="viewport">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head><body class="default"><div class="header"><a class="logo" href="https://www.emacswiki.org/emacs/SiteMap"><img class="logo" alt="[Home]" src="logo218x38.png"></a><div class="menu"><span class="gotobar bar"><a href="https://www.emacswiki.org/emacs/SiteMap" class="local">SiteMap</a> <a href="https://www.emacswiki.org/emacs/Search" class="local">Search</a> <a href="https://www.emacswiki.org/emacs/ElispArea" class="local">ElispArea</a> <a href="https://www.emacswiki.org/emacs/HowTo" class="local">HowTo</a> <a class="local" href="https://www.emacswiki.org/emacs/Glossary">Glossary</a> <a href="https://www.emacswiki.org/emacs/RecentChanges" class="local">RecentChanges</a> <a href="https://www.emacswiki.org/emacs/News" class="local">News</a> <a href="https://www.emacswiki.org/emacs/Problems" class="local">Problems</a> <a href="https://www.emacswiki.org/emacs/Suggestions" class="local">Suggestions</a> </span><form method="get" action="https://www.emacswiki.org/emacs" enctype="multipart/form-data" class="search" accept-charset="utf-8"><p><label for="search">Search:</label> <input name="search" size="20" accesskey="f" id="search" type="text"> <label for="searchlang">Language:</label> <input name="lang" size="10" id="searchlang" type="text"> <input name="dosearch" value="Go!" type="submit"></p></form></div><h1><a href="https://www.emacswiki.org/emacs?search=%22EshellBmk%22" title="Click to search for references to this page" rel="nofollow"><span style="padding-right: 0.5ex;">Eshell</span><span style="padding-right: 0.5ex;">Bmk</span></a></h1></div><div class="wrapper"><div class="content browse"><p>The code below is a hack to integrate Eshell and <a href="https://www.emacswiki.org/emacs/bookmark" class="local">bookmark</a>s, for changing directories. This could be integrated into eshell/cd (using a prefix like `:’ in a similar way to how `=’ can be used) but it was easier, especially considering completion, to create a new command. There is most certain room for enhancements and fixes, but it works quite well as it is. – <a href="https://www.emacswiki.org/emacs/MaDa" class="local">MaDa</a></p><p>Rather than complain that a specified bookmark is not a directory, I suggest that we just execute ‘bookmark-jump’ with the specified bookmark. In this way, more of the default bookmark functionality is available via eshell/bmk’. – guivho</p><pre><span class="comment">;; eshell/bmk - version 0.1.3</span>
+
+(<span class="keyword">defun</span> <span class="function">pcomplete/eshell-mode/bmk</span> ()
+  <span class="string">"Completion for `<span class="constant important">bmk</span>'"</span>
+  (pcomplete-here (bookmark-all-names)))
+
+(<span class="keyword">defun</span> <span class="function">eshell/bmk</span> (<span class="type">&amp;rest</span> args)
+  <span class="string">"Integration between EShell and bookmarks.
+For usage, execute without arguments."</span>
+  (setq args (eshell-flatten-list args))
+  (<span class="keyword elisp">let</span> ((bookmark (car args))
+        filename name)
+    (<span class="keyword elisp">cond</span>
+     ((eq nil args)
+      (format <span class="string">"Usage: 
+* bmk BOOKMARK to
+** either change directory pointed to by BOOKMARK
+** or bookmark-jump to the BOOKMARK if it is not a directory.
+* bmk . BOOKMARK to bookmark current directory in BOOKMARK.
+Completion is available."</span>))
+     ((string= <span class="string">"."</span> bookmark)
+      <span class="comment">;; Store current path in EShell as a bookmark</span>
+      (<span class="keyword elisp">if</span> (setq name (car (cdr args)))
+          (<span class="keyword elisp">progn</span>
+            (bookmark-set name)
+            (bookmark-set-filename name (eshell/pwd))
+            (format <span class="string">"Saved current directory in bookmark %s"</span> name))
+        (<span class="warning">error</span> <span class="string">"You must enter a bookmark name"</span>)))
+     (t
+       <span class="comment">;; Check whether an existing bookmark has been specified</span>
+       (<span class="keyword elisp">if</span> (setq filename (bookmark-get-filename bookmark))
+           <span class="comment">;; If it points to a directory, change to it.</span>
+           (<span class="keyword elisp">if</span> (file-directory-p filename)
+               (eshell/cd filename)
+             <span class="comment">;; otherwise, just jump to the bookmark </span>
+             (bookmark-jump bookmark))
+         (<span class="warning">error</span> <span class="string">"%s is not a bookmark"</span> bookmark))))))
+</pre><hr><p><a href="https://www.emacswiki.org/emacs/CategoryEshell" class="local">CategoryEshell</a> <a class="local" href="https://www.emacswiki.org/emacs/BookMarks">BookMarks</a></p></div><div class="wrapper close"></div></div><div class="footer"><hr><span class="translation bar"><br>  <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=translate;id=EshellBmk;missing=de_es_fr_it_ja_ko_pt_ru_se_uk_zh" class="translation new">Add Translation</a></span><div class="edit bar"><a accesskey="c" class="comment local edit" href="https://www.emacswiki.org/emacs/Comments_on_EshellBmk">Talk</a> <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=password" class="password">This page is read-only</a> <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=history;id=EshellBmk" class="history">View other revisions</a> <a class="admin" rel="nofollow" href="https://www.emacswiki.org/emacs?action=admin;id=EshellBmk">Administration</a></div><div class="time">Last edited 2015-04-15 21:12 UTC by <a class="author" href="https://www.emacswiki.org/emacs/guivho" title="78.21.109.135">guivho</a> <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=browse;diff=2;id=EshellBmk" class="diff">(diff)</a></div><div style="float: right; margin-left: 1ex;">
+<!-- Creative Commons License -->
+<a class="licence" href="https://creativecommons.org/licenses/GPL/2.0/"><img alt="CC-GNU GPL" style="border: medium none;" src="cc-GPL-a.png"></a>
+<!-- /Creative Commons License -->
+</div>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <license rdf:resource="https://creativecommons.org/licenses/GPL/2.0/" />
+  <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
+</Work>
+
+<License rdf:about="https://creativecommons.org/licenses/GPL/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
+</License>
+</rdf:RDF>
+-->
+
+<p class="legal">
+This work is licensed to you under version 2 of the
+<a href="https://www.gnu.org/">GNU</a> <a href="https://www.emacswiki.org/GPL">General Public License</a>.
+Alternatively, you may choose to receive this work under any other
+license that grants the right to use, copy, modify, and/or distribute
+the work, as long as that license imposes the restriction that
+derivative works have to grant the same rights and impose the same
+restriction. For example, you may choose to receive this work under
+the
+<a href="https://www.gnu.org/">GNU</a>
+<a href="https://www.emacswiki.org/FDL">Free Documentation License</a>, the
+<a href="https://creativecommons.org/">CreativeCommons</a>
+<a href="https://creativecommons.org/licenses/sa/1.0/">ShareAlike</a>
+License, the XEmacs manual license, or
+<a href="https://www.emacswiki.org/OLD">similar licenses</a>.
+</p>
+<p class="legal" style="padding-top: 0.5em;">Please note our <a href="https://www.emacswiki.org/emacs/Privacy">Privacy Statement</a>.</p>
+</div>
+
+
+</body>
+</html>

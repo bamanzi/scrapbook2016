@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" class="linux firefox">
+<head>
+  
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
+  
+  <title>
+  Set tmux pane title to short hostname on ssh connections  — Bitbucket
+</title>
+  
+
+
+<meta id="bb-canon-url" name="bb-canon-url" content="https://bitbucket.org">
+
+<meta name="bb-view-name" content="bitbucket.apps.snippets.api.v20.snippets.SnippetResource">
+<meta name="ignore-whitespace" content="False">
+<meta name="tab-size" content="None">
+
+<meta name="application-name" content="Bitbucket">
+<meta name="apple-mobile-web-app-title" content="Bitbucket">
+<meta name="theme-color" content="#205081">
+<meta name="msapplication-TileColor" content="#205081">
+<meta name="msapplication-TileImage" content="https://d301sr5gafysq2.cloudfront.net/53f44cd8792e/img/logos/bitbucket/white-256.png">
+<link rel="apple-touch-icon" sizes="192x192" type="image/png" href="https://d301sr5gafysq2.cloudfront.net/53f44cd8792e/img/bitbucket_avatar/192/bitbucket.png">
+<link rel="icon" sizes="192x192" type="image/png" href="bitbucket.png">
+<link rel="icon" sizes="16x16 32x32" type="image/x-icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://bitbucket.org/opensearch.xml" title="Bitbucket">
+  <meta name="description" content="">
+  
+    
+  
+
+
+
+  
+
+
+
+
+
+  
+  
+    
+        
+    
+  
+  
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body data-aui-version="5.9.4" class="production " data-static-url="https://d301sr5gafysq2.cloudfront.net/53f44cd8792e/" data-base-url="https://bitbucket.org" data-base-api-url="https://api.bitbucket.org" data-no-avatar-image="img/default_avatar/user_blue.svg" data-current-user="{&quot;isKbdShortcutsEnabled&quot;: true, &quot;isSshEnabled&quot;: false, &quot;isAuthenticated&quot;: false}" data-atlassian-id="{&quot;loginStatusUrl&quot;: &quot;https://id.atlassian.com/profile/rest/profile&quot;}" data-settings="{&quot;MENTIONS_MIN_QUERY_LENGTH&quot;: 3}" data-browser-monitoring="true">
+<div id="page">
+  <div id="wrapper">
+    
+  
+
+
+    
+      <header id="header" role="banner" data-module="header/tracking">
+        
+  
+
+
+        <nav data-aui-responsive="true" class="aui-header aui-dropdown2-trigger-group" role="navigation">
+          <div class="aui-header-inner">
+            <div class="aui-header-primary">
+              
+  
+
+              
+                <h1 class="aui-header-logo aui-header-logo-bitbucket logged-out" id="logo">
+                  <a title="( type g then d )" href="https://bitbucket.org/">
+                    <span class="aui-header-logo-device">Bitbucket</span>
+                  </a>
+                </h1>
+              
+              
+  
+
+
+<ul resolved="" style="width: auto;" class="aui-nav">
+  
+    <li>
+      <a href="https://bitbucket.org/product/features">
+        Features
+      </a>
+    </li>
+    <li>
+      <a href="https://bitbucket.org/plans">
+        Pricing
+      </a>
+    </li>
+  
+</ul>
+
+            </div>
+            <div class="aui-header-secondary">
+              
+  
+
+<ul resolved="" role="menu" class="aui-nav">
+  
+  <li>
+    <form action="https://bitbucket.org/repo/all" method="get" class="aui-quicksearch">
+      <label for="search-query" class="assistive">owner/repository</label>
+      <input title="( type / )" id="search-query" class="bb-repo-typeahead" placeholder="Find a repository…" name="name" autocomplete="off" data-bb-typeahead-focus="false" type="text">
+    </form>
+  </li>
+  <li>
+    <a resolved="" aria-haspopup="true" aria-expanded="false" id="help-menu-link" class="aui-nav-link" href="#" aria-controls="help-menu-dialog" data-aui-trigger="">
+      <span id="help-menu-icon" class="aui-icon aui-icon-small aui-iconfont-help"></span>
+    </a>
+  </li>
+  
+    <li>
+      <a aria-expanded="false" resolved="" class="aui-dropdown2-trigger" href="#" aria-controls="header-language" aria-owns="header-language" aria-haspopup="true" data-container="#header .aui-header-inner">
+        <span>English</span></a>
+      <nav tabindex="0" aria-checked="false" resolved="" id="header-language" class="aui-dropdown2 aui-style-default aui-dropdown2-radio aui-dropdown2-in-header aui-layer" aria-hidden="true">
+        <form method="post" action="https://bitbucket.org/account/language/setlang/" data-module="i18n/header-language-form">
+          <input name="language" value="" type="hidden">
+          <ul>
+          <li><a tabindex="0" aria-checked="true" resolved="" class="aui-dropdown2-radio interactive checked aui-dropdown2-checked" data-value="en" href="#en">English</a></li>
+          
+          <li><a tabindex="0" aria-checked="false" resolved="" class="aui-dropdown2-radio interactive " data-value="ja" href="#ja">日本語</a></li>
+          </ul>
+        </form>
+      </nav>
+    </li>
+  
+  
+      <li id="header-signup-button">
+        <a resolved="" id="sign-up-link" data-ct="header.signup" class="aui-button aui-button-primary" href="https://bitbucket.org/account/signup/">
+          Sign up
+        </a>
+      </li>
+    <li id="user-options">
+      <a href="https://bitbucket.org/account/signin/?next=/snippets/bamanzi/z6XpM" class="aui-nav-link login-link">Log in</a>
+    </li>
+  
+</ul>
+
+            </div>
+          </div>
+        </nav>
+      </header>
+    
+
+    
+  
+
+<header id="account-warning" role="banner" data-module="header/account-warning" class="aui-message-banner warning
+        ">
+  <div class="aui-message-banner-inner">
+    <span class="aui-icon aui-icon-warning"></span>
+    <span class="message">
+    
+    </span>
+  </div>
+</header>
+
+
+
+    
+  
+<header id="aui-message-bar">
+  
+</header>
+
+
+    <div id="content" role="main">
+      
+      
+  <header id="view-snippet-header" class="snippet-header aui-page-header">
+    <div class="aui-page-header-inner">
+      <div class="aui-page-header-image">
+        <a href="https://bitbucket.org/snippets/bamanzi/" title="Owned by Ba Manzi">
+          <span class="aui-avatar aui-avatar-medium">
+            <span class="aui-avatar-inner">
+              <img src="untitled.dat">
+            </span>
+          </span>
+        </a>
+      </div>
+      <div class="aui-page-header-main">
+        <h1>
+          <a href="https://bitbucket.org/snippets/bamanzi/" title="Owned by Ba Manzi" class="owner-name">Ba Manzi</a>
+          <span class="snippet-title">Set tmux pane title to short hostname on ssh connections </span>
+          
+        </h1>
+      </div>
+      <div class="aui-page-header-actions">
+        
+
+        <div class="aui-buttons">
+          <button resolved="" id="snippets-clone-trigger" class="aui-button aui-button-light" data-gravity="n" data-module="components/clone/clone-dialog" data-dialog-id="snippets-clone-dialog" data-popup-id="snippets-clone-dialog">Clone</button>
+
+          
+
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav id="snippet-view-tabs" class="aui-navgroup aui-navgroup-horizontal aui-navgroup-horizontal-roomy">
+    <div class="aui-navgroup-inner">
+      <div class="aui-navgroup-primary">
+        <ul resolved="" class="aui-nav">
+          <li class="aui-nav-selected" id="snippet-source-tab">
+            <a href="#">Source</a>
+          </li>
+          <li id="snippet-revisions-tab">
+            <a href="https://bitbucket.org/snippets/bamanzi/z6XpM/revisions/">Revisions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+      
+  <section id="view-snippet" class="aui-page-panel snippet-content" data-comments-api-url="/api/internal/snippets/bamanzi/z6XpM/comments" data-id="z6XpM">
+    <div class="aui-page-panel-inner">
+      <div id="repo-content" class="aui-page-panel-content maskable">
+        
+  
+
+
+
+
+
+
+
+
+
+<div id="snippet-source" class="snippet-info clearfix">
+  
+    
+    
+    
+      
+        Created by
+        <a href="https://bitbucket.org/bamanzi/">Ba Manzi</a>
+        <time title="12 May 2016 14:02" datetime="2016-05-12T14:02:54+08:00">2016-05-12</time>
+      
+    
+  
+</div>
+<div>
+  
+    <div class="bb-content-container bb-row">
+      <div class="bb-content-container-header">
+        <div class="bb-content-container-header-primary">
+          <span class="bb-content-container-heading"><a href="#file-snippet.sh" id="file-snippet.sh">snippet.sh</a></span>
+        </div>
+        <div class="bb-content-container-header-secondary">
+          
+          <div class="aui-buttons">
+            <a resolved="" href="https://bitbucket.org/!api/2.0/snippets/bamanzi/z6XpM/18d720d915b3163dc498a5d6ecd611231056453f/files/snippet.sh" class="aui-button aui-button-light">
+              Raw
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="bb-content-container-body snippet-source has-header">
+        
+          
+
+
+  
+    <div class="file-source">
+      <table class="codehilite highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><a href="#snippet.sh-1"> 1</a>
+<a href="#snippet.sh-2"> 2</a>
+<a href="#snippet.sh-3"> 3</a>
+<a href="#snippet.sh-4"> 4</a>
+<a href="#snippet.sh-5"> 5</a>
+<a href="#snippet.sh-6"> 6</a>
+<a href="#snippet.sh-7"> 7</a>
+<a href="#snippet.sh-8"> 8</a>
+<a href="#snippet.sh-9"> 9</a>
+<a href="#snippet.sh-10">10</a>
+<a href="#snippet.sh-11">11</a>
+<a href="#snippet.sh-12">12</a>
+<a href="#snippet.sh-13">13</a>
+<a href="#snippet.sh-14">14</a>
+<a href="#snippet.sh-15">15</a>
+<a href="#snippet.sh-16">16</a>
+<a href="#snippet.sh-17">17</a>
+<a href="#snippet.sh-18">18</a>
+<a href="#snippet.sh-19">19</a></pre></div></td><td class="code"><div class="codehilite highlight"><pre><span></span><a name="snippet.sh-1"></a><span class="c1"># by Florian Beer</span>
+<a name="snippet.sh-2"></a><span class="c1"># http://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/</span>
+<a name="snippet.sh-3"></a><span class="c1">#</span>
+<a name="snippet.sh-4"></a><span class="c1"># I am frequently connecting to several servers over SSH at once </span>
+<a name="snippet.sh-5"></a><span class="c1"># and like to use tmux to organize those different sessions. </span>
+<a name="snippet.sh-6"></a><span class="c1"># To be able to keep track which pane is which server I am using </span>
+<a name="snippet.sh-7"></a><span class="c1"># the following function in my .bashrc file to display the machine</span>
+<a name="snippet.sh-8"></a><span class="c1"># name in tmux’s pane title.</span>
+<a name="snippet.sh-9"></a>
+<a name="snippet.sh-10"></a><span class="c1"># https://gist.github.com/florianbeer/ee02c149a7e25f643491</span>
+<a name="snippet.sh-11"></a>ssh<span class="o">()</span> <span class="o">{</span>
+<a name="snippet.sh-12"></a>    <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="k">$(</span>ps -p <span class="k">$(</span>ps -p <span class="nv">$$</span> -o <span class="nv">ppid</span><span class="o">=</span><span class="k">)</span> -o <span class="nv">comm</span><span class="o">=</span><span class="k">)</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"tmux"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<a name="snippet.sh-13"></a>        tmux rename-window <span class="s2">"</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$*</span> <span class="p">|</span> cut -d . -f 1<span class="k">)</span><span class="s2">"</span>
+<a name="snippet.sh-14"></a>        <span class="nb">command</span> ssh <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<a name="snippet.sh-15"></a>        tmux set-window-option automatic-rename <span class="s2">"on"</span> 1&gt;/dev/null
+<a name="snippet.sh-16"></a>    <span class="k">else</span>
+<a name="snippet.sh-17"></a>        <span class="nb">command</span> ssh <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<a name="snippet.sh-18"></a>    <span class="k">fi</span>
+<a name="snippet.sh-19"></a><span class="o">}</span>
+</pre></div>
+</td></tr></tbody></table>
+    </div>
+  
+
+
+        
+      </div>
+    </div>
+  
+</div>
+
+<span id="user-repo-privilege-data" data-priv=""></span>
+
+
+  
+  
+<section id="general-comments" class="main">
+  <h1>
+    
+      Comments (<span class="comment-count">2</span>)
+    
+  </h1>
+  <ol id="comments-list" class="comments-list line-commenting">
+    <div id="general-thread-ids" data-value="[12798, 12801]"></div>
+    
+      
+
+  
+    
+      <li class="comment"> 
+
+
+<article id="comment-12798" class="iterable-item" data-content="Actually, what changed by the above script changed is just the **window title**. If you have two panes in the window, sshed to two remote servers, the window title would remain the last one set by the last `ssh` command.
+
+The pane title actually show in the right of the status bar.  Acorrding to the manpage of tmux (section [Name and Titles](http://manpages.ubuntu.com/manpages/trusty/en/man1/tmux.1.html#contenttoc10 )):
+
+> When a pane is first created, its title is the hostname.  A pane's title
+>  can be set via the OSC title setting sequence, for example:
+>
+>           $ printf '\033]2;My Title\033\\'
+
+See also:
+
+- [command line - Pane Title in Tmux - Stack Overflow](http://stackoverflow.com/a/9757133 )
+" data-comment-id="12798" data-convert-markup="False">
+  <header>
+    <a href="https://bitbucket.org/bamanzi/">
+      <div class="aui-avatar aui-avatar-medium">
+        <div class="aui-avatar-inner">
+          <img src="untitled.dat" alt="">
+        </div>
+      </div>
+    </a>
+    <a href="https://bitbucket.org/bamanzi/" class="author">Ba Manzi</a>
+    
+    
+  </header>
+  <div class="wiki-content comment-content">
+    <p>Actually, what changed by the above script changed is just the <strong>window title</strong>. If you have two panes in the window, sshed to two remote servers, the window title would remain the last one set by the last <code>ssh</code> command.</p>
+<p>The pane title actually show in the right of the status bar.  Acorrding to the manpage of tmux (section <a href="http://manpages.ubuntu.com/manpages/trusty/en/man1/tmux.1.html#contenttoc10">Name and Titles</a>):</p>
+<blockquote>
+<p>When a pane is first created, its title is the hostname.  A pane's title
+ can be set via the OSC title setting sequence, for example:</p>
+<div class="codehilite"><pre><span></span>      $ printf '\033]2;My Title\033\\'
+</pre></div>
+
+
+</blockquote>
+<p>See also:</p>
+<ul>
+<li><a href="http://stackoverflow.com/a/9757133">command line - Pane Title in Tmux - Stack Overflow</a></li>
+</ul>
+  </div>
+  <ul class="comment-actions">
+    
+
+<li class="comment-actions--like-info hidden" data-likes="[]"><span class="aui-icon aui-icon-small aui-iconfont-like-small"></span>
+  <span></span>
+
+</li>
+<li>
+  <a class="permalink" href="#comment-12798" title="Link directly to this comment"><time title="12 May 2016 14:14" datetime="2016-05-12T14:14:22+08:00" data-title="true">2016-05-12</time></a>
+</li>
+
+  </ul>
+</article>
+
+      
+
+
+
+    
+  
+
+  
+    <ol class="child-comments">
+  
+
+  
+    </ol></li>
+  
+
+
+    
+      
+
+  
+    
+      <li class="comment"> 
+
+
+<article id="comment-12801" class="iterable-item" data-content="With the help of [sshrc](https://github.com/Russell91/sshrc ), we can update the tmux pane title &amp; remote's prompt as this:
+
+file: `~/.sshrc`
+```sh
+this_ip=$(ip addr | grep -e '10\.' | awk '{print $2}' | sed -e 's^/2[0-9]$^^' | head -1)
+
+win_title() {
+  # set xterm title (and tmux pane title)
+  #printf '\033]0;%s\007' $1
+  printf  '\033]2;%s\007\033]1;\007' $1
+}
+
+win_title &quot;`whoami`@$this_ip&quot;
+
+COLOR_NONE=&quot;\[\033[00m\]&quot;
+COLOR_1=&quot;\[\033[01;33m\]&quot;
+COLOR_2=&quot;\[\033[01;35m\]&quot;
+export PS1=&quot;${COLOR_1}\u@$this_ip${COLOR_NONE}:${COLOR_2}\w${COLOR_NONE} \n\$ &quot;
+```
+
+But tmux pane title won't be updated if exit from ssh connection. We need another call to `win_title` locally.
+" data-comment-id="12801" data-convert-markup="False">
+  <header>
+    <a href="https://bitbucket.org/bamanzi/">
+      <div class="aui-avatar aui-avatar-medium">
+        <div class="aui-avatar-inner">
+          <img src="untitled.dat" alt="">
+        </div>
+      </div>
+    </a>
+    <a href="https://bitbucket.org/bamanzi/" class="author">Ba Manzi</a>
+    
+    
+  </header>
+  <div class="wiki-content comment-content">
+    <p>With the help of <a href="https://github.com/Russell91/sshrc">sshrc</a>, we can update the tmux pane title &amp; remote's prompt as this:</p>
+<p>file: <code>~/.sshrc</code></p>
+<div class="codehilite"><pre><span></span><span class="nv">this_ip</span><span class="o">=</span><span class="k">$(</span>ip addr <span class="p">|</span> grep -e <span class="s1">'10\.'</span> <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> sed -e <span class="s1">'s^/2[0-9]$^^'</span> <span class="p">|</span> head -1<span class="k">)</span>
+
+win_title<span class="o">()</span> <span class="o">{</span>
+  <span class="c1"># set xterm title (and tmux pane title)</span>
+  <span class="c1">#printf '\033]0;%s\007' $1</span>
+  <span class="nb">printf</span>  <span class="s1">'\033]2;%s\007\033]1;\007'</span> <span class="nv">$1</span>
+<span class="o">}</span>
+
+win_title <span class="s2">"`whoami`@</span>$<span class="s2">this_ip"</span>
+
+<span class="nv">COLOR_NONE</span><span class="o">=</span><span class="s2">"\[\033[00m\]"</span>
+<span class="nv">COLOR_1</span><span class="o">=</span><span class="s2">"\[\033[01;33m\]"</span>
+<span class="nv">COLOR_2</span><span class="o">=</span><span class="s2">"\[\033[01;35m\]"</span>
+<span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">COLOR_1</span><span class="si">}</span><span class="s2">\u@</span>$<span class="s2">this_ip</span><span class="si">${</span><span class="nv">COLOR_NONE</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">COLOR_2</span><span class="si">}</span><span class="s2">\w</span><span class="si">${</span><span class="nv">COLOR_NONE</span><span class="si">}</span><span class="s2"> \n\$ "</span>
+</pre></div>
+
+
+<p>But tmux pane title won't be updated if exit from ssh connection. We need another call to <code>win_title</code> locally.</p>
+  </div>
+  <ul class="comment-actions">
+    
+
+<li class="comment-actions--like-info hidden" data-likes="[]"><span class="aui-icon aui-icon-small aui-iconfont-like-small"></span>
+  <span></span>
+
+</li>
+<li>
+  <a class="permalink" href="#comment-12801" title="Link directly to this comment"><time title="12 May 2016 15:43" datetime="2016-05-12T15:43:48+08:00" data-title="true">2016-05-12</time></a>
+</li>
+
+  </ul>
+</article>
+
+      
+
+
+
+    
+  
+
+  
+    <ol class="child-comments">
+  
+
+  
+    </ol></li>
+  
+
+
+    
+    
+  </ol>
+</section>
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+  
+
+<div id="snippets-clone-dialog" class="hidden">
+  <div class="clone-url" data-module="components/clone/url-dropdown">
+  <div class="aui-buttons">
+    <a aria-expanded="false" aria-controls="clone-url-dropdown-snippets" resolved="" href="#" class="aui-button aui-dropdown2-trigger" aria-haspopup="true">
+      <span class="dropdown-text">HTTPS</span>
+    </a>
+    <div aria-hidden="true" resolved="" id="clone-url-dropdown-snippets" class="clone-url-dropdown aui-dropdown2 aui-style-default aui-layer" data-aui-alignment="bottom left">
+      <ul class="aui-list-truncate">
+        <li>
+          <a href="https://bitbucket.org/snippets/bamanzi/z6XpM/set-tmux-pane-title-to-short-hostname-on" data-command="hg clone https://bitbucket.org/snippets/bamanzi/z6XpM/set-tmux-pane-title-to-short-hostname-on" class="item-link https">HTTPS
+          </a>
+        </li>
+        <li>
+          <a href="ssh://hg@bitbucket.org/snippets/bamanzi/z6XpM/set-tmux-pane-title-to-short-hostname-on" data-command="hg clone ssh://hg@bitbucket.org/snippets/bamanzi/z6XpM/set-tmux-pane-title-to-short-hostname-on" class="item-link ssh">SSH
+          </a>
+        </li>
+      </ul>
+    </div>
+    <input readonly="readonly" class="clone-url-input" value="hg clone https://bitbucket.org/snippets/bamanzi/z6XpM/set-tmux-pane-title-to-short-hostname-on" type="text">
+  </div>
+  
+</div>
+  <p>
+    You can clone a snippet to your computer for local editing.
+      <a href="https://confluence.atlassian.com/x/KoXcKg" target="_blank">
+        Learn more</a>.
+  </p>
+</div>
+
+
+    </div>
+  </div>
+
+  <footer id="footer" role="contentinfo" data-module="components/footer">
+    <section class="footer-body">
+      
+  <ul>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="Blog" href="http://blog.bitbucket.org/">Blog</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="Home" href="https://bitbucket.org/support">Support</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" data-support-gaq-page="PlansPricing" href="https://bitbucket.org/plans">Plans &amp; pricing</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="DocumentationHome" href="https://confluence.atlassian.com/display/BITBUCKET">Documentation</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="DocumentationAPI" href="https://confluence.atlassian.com/x/IYBGDQ">API</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="SiteStatus" href="http://status.bitbucket.org/">Site status</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" id="meta-info" data-support-gaq-page="MetaInfo" href="#">Version info</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="EndUserAgreement" href="https://www.atlassian.com/legal/customer-agreement?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=footer">Terms of service</a>
+  </li>
+  <li>
+    <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="PrivacyPolicy" href="https://www.atlassian.com/legal/privacy-policy">Privacy policy</a>
+  </li>
+</ul>
+<div id="meta-info-content" style="display: none;">
+  <ul>
+    
+      <li>English</li>
+    
+    <li>
+      <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="GitDocumentation" href="http://git-scm.com/">Git 2.7.4.1.g5468f9e</a>
+    </li>
+    <li>
+      <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="HgDocumentation" href="https://www.mercurial-scm.org/">Mercurial 3.6.3</a>
+    </li>
+    <li>
+      <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="DjangoDocumentation" href="https://www.djangoproject.com/">Django 1.7.11</a>
+    </li>
+    <li>
+      <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="PythonDocumentation" href="http://www.python.org/">Python 2.7.3</a>
+    </li>
+    <li>
+      <a original-title="" class="support-ga" target="_blank" data-support-gaq-page="DeployedVersion" href="#">53f44cd8792e / 53f44cd8792e @ app-106</a>
+    </li>
+  </ul>
+</div>
+<ul class="atlassian-links">
+  <li>
+    <a original-title="Track everything – bugs, tasks, deadlines, code – and pull reports to stay informed." id="atlassian-jira-link" target="_blank" href="https://www.atlassian.com/software/jira/bitbucket-integration?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=bitbucket_footer">JIRA Software</a>
+  </li>
+  <li>
+    <a original-title="Content Creation, Collaboration &amp; Knowledge Sharing for Teams." id="atlassian-confluence-link" target="_blank" href="http://www.atlassian.com/software/confluence/overview/team-collaboration-software?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=bitbucket_footer">Confluence</a>
+  </li>
+  <li>
+    <a original-title="Continuous integration and deployment, release management." id="atlassian-bamboo-link" target="_blank" href="http://www.atlassian.com/software/bamboo?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=bitbucket_footer">Bamboo</a>
+  </li>
+  <li>
+    <a original-title="A free Git and Mercurial desktop client for Mac or Windows." id="atlassian-sourcetree-link" target="_blank" href="http://www.sourcetreeapp.com/?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=bitbucket_footer">SourceTree</a>
+  </li>
+  <li>
+    <a original-title="Group chat and IM built for teams." id="atlassian-hipchat-link" target="_blank" href="http://www.hipchat.com/?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=bitbucket_footer">HipChat</a>
+  </li>
+</ul>
+<div id="footer-logo">
+  <a original-title="Bitbucket is developed by Atlassian in Austin, San Francisco, and Sydney." target="_blank" href="http://www.atlassian.com/?utm_source=bitbucket&amp;utm_medium=logo&amp;utm_campaign=bitbucket_footer">Atlassian</a>
+</div>
+
+    </section>
+  </footer>
+</div>
+
+
+  
+    
+
+
+  
+
+
+
+
+
+
+  
+  
+
+<div data-module="components/mentions/index">
+  
+  
+  
+</div>
+<div data-module="components/typeahead/emoji/index">
+  
+</div>
+
+<div data-module="components/repo-typeahead/index">
+  
+</div>
+
+
+
+
+
+  
+  
+
+
+  <aui-inline-dialog resolved="" class="aui-layer" id="help-menu-dialog" data-aui-alignment="bottom right" data-aui-alignment-static="true" data-module="header/help-menu" responds-to="toggle" aria-hidden="true"><div class="aui-inline-dialog-contents">
+
+  <div id="help-menu-section">
+    <h1 class="help-menu-heading">Help</h1>
+
+    <form id="help-menu-search-form" class="aui" target="_blank" method="get" action="https://support.atlassian.com/customer/search">
+      <span id="help-menu-search-icon" class="aui-icon aui-icon-large aui-iconfont-search"></span>
+      <input id="help-menu-search-form-input" name="q" class="text" placeholder="Ask a question" type="text">
+    </form>
+
+    <ul id="help-menu-links">
+      <li>
+        <a class="support-ga" data-support-gaq-page="DocumentationHome" href="https://confluence.atlassian.com/x/bgozDQ" target="_blank">
+          Online help
+        </a>
+      </li>
+      <li>
+        <a class="support-ga" data-support-gaq-page="GitTutorials" href="https://www.atlassian.com/git?utm_source=bitbucket&amp;utm_medium=link&amp;utm_campaign=help_dropdown&amp;utm_content=learn_git" target="_blank">
+          Learn Git
+        </a>
+      </li>
+      <li>
+        <a id="keyboard-shortcuts-link" href="#">Keyboard shortcuts</a>
+      </li>
+      <li>
+        <a href="https://bitbucket.org/whats-new/" id="features-link">
+          Latest features
+        </a>
+      </li>
+      <li>
+        <a class="support-ga" data-support-gaq-page="DocumentationTutorials" href="https://confluence.atlassian.com/x/Q4sFLQ" target="_blank">
+          Bitbucket tutorials
+        </a>
+      </li>
+      <li>
+        <a class="support-ga" data-support-gaq-page="SiteStatus" href="http://status.bitbucket.org/" target="_blank">
+          Site status
+        </a>
+      </li>
+      <li>
+        <a class="support-ga" data-support-gaq-page="Home" href="https://bitbucket.org/support">
+          Support
+        </a>
+      </li>
+    </ul>
+  </div>
+</div></aui-inline-dialog>
+  
+
+
+
+
+
+
+
+<div aria-hidden="true" resolved="" style="z-index: 5000;" id="bb-typeahead-suggestions-17" class="bb-typeahead-suggestions aui-dropdown2 aui-style-default aui-layer aui-dropdown2-tailed bb-mention-input-results"><ul></ul></div><div href="#" aria-expanded="false" aria-controls="bb-typeahead-suggestions-17" resolved="" aria-haspopup="true" class="caret-marker aui-dropdown2-trigger aui-dropdown2-trigger-arrowless"></div><div aria-hidden="true" resolved="" style="z-index: 5000;" id="bb-typeahead-suggestions-20" class="bb-typeahead-suggestions aui-dropdown2 aui-style-default aui-layer"><ul></ul></div><div href="#" aria-expanded="false" aria-controls="bb-typeahead-suggestions-20" resolved="" aria-haspopup="true" class="caret-marker aui-dropdown2-trigger aui-dropdown2-trigger-arrowless"></div><div aria-hidden="true" resolved="" style="z-index: 5000;" id="bb-typeahead-suggestions-23" class="bb-typeahead-suggestions aui-dropdown2 aui-style-default aui-layer"><ul></ul></div><div href="#" aria-expanded="false" aria-controls="bb-typeahead-suggestions-23" resolved="" aria-haspopup="true" class="caret-marker aui-dropdown2-trigger aui-dropdown2-trigger-arrowless"></div><div aria-hidden="true" resolved="" style="z-index: 5000;" id="bb-typeahead-suggestions-26" class="bb-typeahead-suggestions aui-dropdown2 aui-style-default aui-layer aui-dropdown2-tailed bb-mention-input-results"><ul></ul></div><div href="#" aria-expanded="false" aria-controls="bb-typeahead-suggestions-26" resolved="" aria-haspopup="true" class="caret-marker aui-dropdown2-trigger aui-dropdown2-trigger-arrowless"></div><div aria-hidden="true" resolved="" style="z-index: 5000;" id="bb-typeahead-suggestions-31" class="bb-typeahead-suggestions aui-dropdown2 aui-style-default aui-layer"><ul></ul></div><div href="#" aria-expanded="false" aria-controls="bb-typeahead-suggestions-31" resolved="" aria-haspopup="true" class="caret-marker aui-dropdown2-trigger aui-dropdown2-trigger-arrowless"></div></body>
+</html>

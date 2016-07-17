@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://easwy.com/blog/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://easwy.com/blog/wp-content/themes/twentyfifteen/js/html5.js"></script>
+	<![endif]-->
+	
+<title>Linux使用笔记: 在标题和状态栏中显示Screen的窗口名称 – 易水博客</title>
+<link rel="alternate" type="application/rss+xml" title="易水博客 » Feed" href="http://easwy.com/blog/feed/">
+<link rel="alternate" type="application/rss+xml" title="易水博客 » 评论Feed" href="http://easwy.com/blog/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="易水博客 » Linux使用笔记: 在标题和状态栏中显示Screen的窗口名称评论Feed" href="http://easwy.com/blog/archives/display-window-list-on-title-bar-and-status-bar-of-screen/feed/">
+		
+		
+
+
+
+
+
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentyfifteen-ie-css'  href='http://easwy.com/blog/wp-content/themes/twentyfifteen/css/ie.css?ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='twentyfifteen-ie7-css'  href='http://easwy.com/blog/wp-content/themes/twentyfifteen/css/ie7.css?ver=20141010' type='text/css' media='all' />
+<![endif]-->
+
+
+<link rel="https://api.w.org/" href="http://easwy.com/blog/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://easwy.com/blog/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://easwy.com/blog/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Linux使用笔记: 使用Samba访问windows的共享目录" href="http://easwy.com/blog/archives/mount-a-windows-shared-folder-on-linux-with-samba/">
+<link rel="next" title="vi/vim使用进阶: vimgdb调试时的常见问题及解决" href="http://easwy.com/blog/archives/advanced-vim-skills-vim-gdb-vimgdb-faq/">
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="canonical" href="http://easwy.com/blog/archives/display-window-list-on-title-bar-and-status-bar-of-screen/">
+<link rel="shortlink" href="http://easwy.com/blog/?p=984">
+<link rel="alternate" type="application/json+oembed" href="http://easwy.com/blog/wp-json/oembed/1.0/embed?url=http%3A%2F%2Feaswy.com%2Fblog%2Farchives%2Fdisplay-window-list-on-title-bar-and-status-bar-of-screen%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://easwy.com/blog/wp-json/oembed/1.0/embed?url=http%3A%2F%2Feaswy.com%2Fblog%2Farchives%2Fdisplay-window-list-on-title-bar-and-status-bar-of-screen%2F&amp;format=xml">
+
+<!-- Bad Behavior 2.2.18 run time: 47.919 ms -->
+
+			
+			
+		<link rel="icon" href="易2-150x150.png" sizes="32x32">
+<link rel="icon" href="易2.png" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="http://easwy.com/blog/uploads/2015/09/%E6%98%932.png">
+<meta name="msapplication-TileImage" content="http://easwy.com/blog/uploads/2015/09/易2.png">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body class="single single-post postid-984 single-format-standard">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">跳至内容</a>
+
+	<div style="top: 0px;" id="sidebar" class="sidebar">
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+										<p class="site-title"><a href="http://easwy.com/blog/" rel="home">易水博客</a></p>
+											<p class="site-description">关注Linux, Scala, Java, 开源软件和嵌入式系统</p>
+									<button class="secondary-toggle">菜单和挂件</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+					<nav id="site-navigation" class="main-navigation" role="navigation">
+				<div class="menu-%e9%a1%b5%e9%9d%a2-container"><ul id="menu-%e9%a1%b5%e9%9d%a2" class="nav-menu"><li id="menu-item-1268" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1268"><a href="http://easwy.com/blog/practical-vim-errata/">《Vim实用技巧》第一版勘误表</a></li>
+<li id="menu-item-1269" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1269"><a href="http://easwy.com/blog/about/">关于</a></li>
+</ul></div>			</nav><!-- .main-navigation -->
+		
+		
+					<div id="widget-area" class="widget-area" role="complementary">
+				<aside id="linkcat-95" class="widget widget_links"><h2 class="widget-title">VPN</h2>
+	<ul class="xoxo blogroll">
+<li><a href="https://portal.shadowsocks.com/aff.php?aff=2771" target="_blank">科学上网</a></li>
+
+	</ul>
+</aside>
+<aside id="categories-3" class="widget widget_categories"><h2 class="widget-title">分类目录</h2>		<ul>
+	<li class="cat-item cat-item-86"><a href="http://easwy.com/blog/archives/category/catalog-android/" title="此分类讨论与Android系统相关的话题，包括ROM定制、Android应用开发、Android手机使用技巧等。">Android</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="http://easwy.com/blog/archives/category/web-development/" title="本分类讨论web各种web开发技术，如PHP、JSP、JSF等。内容以基于Java的开发技术为主。">Web开发</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://easwy.com/blog/archives/category/daughter/" title="我的宝贝，我的天使，我的小情人......无数个词，都无法形容我对她的爱！
+她就是我的女儿，这一个分类，主要记录她成长的点点滴滴。">吾家有女</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://easwy.com/blog/archives/category/embedded/" title="讨论嵌入式系统，主要是嵌入式Linux和Android方面的话题">嵌入系统</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://easwy.com/blog/archives/category/website/" title="我的建站笔记，wordpress的配置，以及网站编程相关，如PHP，JSP，CSS...">建站手记</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://easwy.com/blog/archives/category/development/" title="讨论开发编程的话题，会包括各种编程语言、UML、设计模式、开发经验......">开发编程</a>
+</li>
+	<li class="cat-item cat-item-48"><a href="http://easwy.com/blog/archives/category/open-source/" title="本分类主要讨论开源软件，包括Linux操作系统，及开源工具。">开源软件</a>
+</li>
+	<li class="cat-item cat-item-44"><a href="http://easwy.com/blog/archives/category/text/" title="讨论文本处理，会涉及sed, awk, vim等工具，也包括docbook等">文本处理</a>
+</li>
+	<li class="cat-item cat-item-37"><a href="http://easwy.com/blog/archives/category/misc/" title="百宝箱，能容其它分类所不能容">百宝箱</a>
+</li>
+	<li class="cat-item cat-item-74"><a href="http://easwy.com/blog/archives/category/bookmarks/" title="本分类包含Easwy的网络书签">网络书签</a>
+</li>
+	<li class="cat-item cat-item-82"><a href="http://easwy.com/blog/archives/category/tweets/" title="本分类收藏Easwy发表在twitter上的内容。">网络微博</a>
+</li>
+		</ul>
+</aside>		<aside id="recent-posts-4" class="widget widget_recent_entries">		<h2 class="widget-title">近期文章</h2>		<ul>
+					<li>
+				<a href="http://easwy.com/blog/archives/memorize_yuangeng_forever/">沉痛悼念袁庚！</a>
+						</li>
+					<li>
+				<a href="http://easwy.com/blog/archives/tmux-no-sessions/">tmux attach提示“no sessions”的解决办法</a>
+						</li>
+					<li>
+				<a href="http://easwy.com/blog/archives/upgrade-ubuntu-14-04-12-04/">升级Ubuntu 12.04 LTS到14.04 LTS</a>
+						</li>
+					<li>
+				<a href="http://easwy.com/blog/archives/practical-vim-chinese-version/">Practical Vim中文版 －《Vim实用技巧》已出版</a>
+						</li>
+					<li>
+				<a href="http://easwy.com/blog/archives/install-ubuntu-12-04-on-lvm-partition/">在LVM分区上安装Ubuntu 12.04</a>
+						</li>
+				</ul>
+		</aside>		<aside id="recent-comments-3" class="widget widget_recent_comments"><h2 class="widget-title">近期评论</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href="http://www.aliog.com/116450.html" rel="external nofollow" class="url">GDB的使用以及使用gdb来调试caffe代码_阿里欧歌</a></span>发表在《<a href="http://easwy.com/blog/archives/advanced-vim-skills-vim-gdb-vimgdb/comment-page-2/#comment-100273">vi/vim使用进阶: 在VIM中使用GDB调试 – 使用vimgdb</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href="http://easwy.com/blog/" rel="external nofollow" class="url">Easwy</a></span>发表在《<a href="http://easwy.com/blog/archives/advanced-vim-skills-netrw-bufexplorer-winmanager-plugin/comment-page-2/#comment-100270">vi/vim使用进阶: 文件浏览和缓冲区浏览</a>》</li><li class="recentcomments"><span class="comment-author-link">mobz</span>发表在《<a href="http://easwy.com/blog/archives/advanced-vim-skills-netrw-bufexplorer-winmanager-plugin/comment-page-2/#comment-100264">vi/vim使用进阶: 文件浏览和缓冲区浏览</a>》</li><li class="recentcomments"><span class="comment-author-link">潘强</span>发表在《<a href="http://easwy.com/blog/archives/memorize_yuangeng_forever/comment-page-1/#comment-100251">沉痛悼念袁庚！</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href="http://easwy.com/blog/" rel="external nofollow" class="url">Easwy</a></span>发表在《<a href="http://easwy.com/blog/archives/advanced-vim-skills-netrw-bufexplorer-winmanager-plugin/comment-page-2/#comment-100234">vi/vim使用进阶: 文件浏览和缓冲区浏览</a>》</li></ul></aside><aside id="tag_cloud-4" class="widget widget_tag_cloud"><h2 class="widget-title">标签</h2><div class="tagcloud"><a href="http://easwy.com/blog/archives/tag/android/" class="tag-link-10 tag-link-position-1" title="8个话题" style="font-size: 14.5pt;">android</a>
+<a href="http://easwy.com/blog/archives/tag/apache/" class="tag-link-69 tag-link-position-2" title="1个话题" style="font-size: 8pt;">apache</a>
+<a href="http://easwy.com/blog/archives/tag/awk/" class="tag-link-13 tag-link-position-3" title="1个话题" style="font-size: 8pt;">awk</a>
+<a href="http://easwy.com/blog/archives/tag/cscope/" class="tag-link-16 tag-link-position-4" title="3个话题" style="font-size: 11pt;">cscope</a>
+<a href="http://easwy.com/blog/archives/tag/ctags/" class="tag-link-17 tag-link-position-5" title="5个话题" style="font-size: 12.8pt;">ctags</a>
+<a href="http://easwy.com/blog/archives/tag/cygwin/" class="tag-link-60 tag-link-position-6" title="2个话题" style="font-size: 9.8pt;">cygwin</a>
+<a href="http://easwy.com/blog/archives/tag/debian/" class="tag-link-50 tag-link-position-7" title="12个话题" style="font-size: 16.1pt;">debian</a>
+<a href="http://easwy.com/blog/archives/tag/delicious/" class="tag-link-75 tag-link-position-8" title="9个话题" style="font-size: 15pt;">delicious</a>
+<a href="http://easwy.com/blog/archives/tag/docbook/" class="tag-link-11 tag-link-position-9" title="6个话题" style="font-size: 13.5pt;">docbook</a>
+<a href="http://easwy.com/blog/archives/tag/easwy/" class="tag-link-61 tag-link-position-10" title="17个话题" style="font-size: 17.6pt;">easwy.com</a>
+<a href="http://easwy.com/blog/archives/tag/git/" class="tag-link-72 tag-link-position-11" title="1个话题" style="font-size: 8pt;">git</a>
+<a href="http://easwy.com/blog/archives/tag/google/" class="tag-link-77 tag-link-position-12" title="1个话题" style="font-size: 8pt;">google</a>
+<a href="http://easwy.com/blog/archives/tag/java/" class="tag-link-78 tag-link-position-13" title="1个话题" style="font-size: 8pt;">java</a>
+<a href="http://easwy.com/blog/archives/tag/kvm/" class="tag-link-90 tag-link-position-14" title="1个话题" style="font-size: 8pt;">kvm</a>
+<a href="http://easwy.com/blog/archives/tag/linux/" class="tag-link-51 tag-link-position-15" title="48个话题" style="font-size: 21.9pt;">linux</a>
+<a href="http://easwy.com/blog/archives/tag/lvm/" class="tag-link-88 tag-link-position-16" title="2个话题" style="font-size: 9.8pt;">lvm</a>
+<a href="http://easwy.com/blog/archives/tag/m9/" class="tag-link-87 tag-link-position-17" title="1个话题" style="font-size: 8pt;">m9</a>
+<a href="http://easwy.com/blog/archives/tag/maven/" class="tag-link-79 tag-link-position-18" title="1个话题" style="font-size: 8pt;">maven</a>
+<a href="http://easwy.com/blog/archives/tag/mysql/" class="tag-link-65 tag-link-position-19" title="1个话题" style="font-size: 8pt;">mysql</a>
+<a href="http://easwy.com/blog/archives/tag/sbt/" class="tag-link-91 tag-link-position-20" title="1个话题" style="font-size: 8pt;">sbt</a>
+<a href="http://easwy.com/blog/archives/tag/scala/" class="tag-link-84 tag-link-position-21" title="4个话题" style="font-size: 12pt;">scala</a>
+<a href="http://easwy.com/blog/archives/tag/seo/" class="tag-link-64 tag-link-position-22" title="3个话题" style="font-size: 11pt;">SEO</a>
+<a href="http://easwy.com/blog/archives/tag/subversion/" class="tag-link-46 tag-link-position-23" title="2个话题" style="font-size: 9.8pt;">subversion</a>
+<a href="http://easwy.com/blog/archives/tag/svn/" class="tag-link-93 tag-link-position-24" title="1个话题" style="font-size: 8pt;">svn</a>
+<a href="http://easwy.com/blog/archives/tag/thinkpad/" class="tag-link-62 tag-link-position-25" title="6个话题" style="font-size: 13.5pt;">thinkpad</a>
+<a href="http://easwy.com/blog/archives/tag/tmux/" class="tag-link-94 tag-link-position-26" title="1个话题" style="font-size: 8pt;">tmux</a>
+<a href="http://easwy.com/blog/archives/tag/tomcat/" class="tag-link-68 tag-link-position-27" title="1个话题" style="font-size: 8pt;">tomcat</a>
+<a href="http://easwy.com/blog/archives/tag/twitter/" class="tag-link-83 tag-link-position-28" title="31个话题" style="font-size: 20.1pt;">twitter</a>
+<a href="http://easwy.com/blog/archives/tag/ubuntu/" class="tag-link-85 tag-link-position-29" title="4个话题" style="font-size: 12pt;">ubuntu</a>
+<a href="http://easwy.com/blog/archives/tag/vim/" class="tag-link-96 tag-link-position-30" title="49个话题" style="font-size: 22pt;">Vim</a>
+<a href="http://easwy.com/blog/archives/tag/windows/" class="tag-link-63 tag-link-position-31" title="2个话题" style="font-size: 9.8pt;">windows</a>
+<a href="http://easwy.com/blog/archives/tag/wordpress/" class="tag-link-52 tag-link-position-32" title="17个话题" style="font-size: 17.6pt;">wordpress</a>
+<a href="http://easwy.com/blog/archives/tag/xen/" class="tag-link-73 tag-link-position-33" title="1个话题" style="font-size: 8pt;">xen</a>
+<a href="http://easwy.com/blog/archives/tag/embedded-linux/" class="tag-link-59 tag-link-position-34" title="1个话题" style="font-size: 8pt;">嵌入式Linux</a>
+<a href="http://easwy.com/blog/archives/tag/kindergarten/" class="tag-link-70 tag-link-position-35" title="2个话题" style="font-size: 9.8pt;">幼儿园</a>
+<a href="http://easwy.com/blog/archives/tag/baby/" class="tag-link-41 tag-link-position-36" title="3个话题" style="font-size: 11pt;">育儿</a>
+<a href="http://easwy.com/blog/archives/tag/debug/" class="tag-link-57 tag-link-position-37" title="2个话题" style="font-size: 9.8pt;">调试</a></div>
+</aside><aside id="archives-4" class="widget widget_archive"><h2 class="widget-title">文章归档</h2>		<ul>
+			<li><a href="http://easwy.com/blog/archives/2016/02/">2016年二月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2015/06/">2015年六月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2014/08/">2014年八月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2014/07/">2014年七月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2014/02/">2014年二月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2014/01/">2014年一月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2012/03/">2012年三月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2012/02/">2012年二月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2012/01/">2012年一月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2011/01/">2011年一月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/12/">2010年十二月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/11/">2010年十一月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/10/">2010年十月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/09/">2010年九月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/08/">2010年八月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/07/">2010年七月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/05/">2010年五月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/04/">2010年四月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/03/">2010年三月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/02/">2010年二月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2010/01/">2010年一月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/12/">2009年十二月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/11/">2009年十一月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/10/">2009年十月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/09/">2009年九月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/08/">2009年八月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/06/">2009年六月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/05/">2009年五月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/04/">2009年四月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/03/">2009年三月</a></li>
+	<li><a href="http://easwy.com/blog/archives/2009/02/">2009年二月</a></li>
+		</ul>
+		</aside><aside id="linkcat-12" class="widget widget_links"><h2 class="widget-title">Vim</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.vimer.cn/" rel="contact met" title="一个vim爱好者的博客" target="_blank">Vimer的程序世界</a></li>
+
+	</ul>
+</aside>
+			</div><!-- .widget-area -->
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+<article id="post-984" class="post-984 post type-post status-publish format-standard hentry category-open-source tag-linux">
+	
+	<header class="entry-header">
+		<h1 class="entry-title">Linux使用笔记: 在标题和状态栏中显示Screen的窗口名称</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>
+    在<a class="link" href="http://easwy.com/blog/archives/disable-vbell-of-screen/" target="_top">Windows上使用putty+screen</a>时，screen会把当前窗口的名称显示在putty的标题栏上，这样当前处于哪个窗口就一目了然了。
+  </p>
+<p>
+    但在Easwy的Linux系统中，使用urxvt+screen时，发现当前窗口的名称不会显示在标题栏里。在网上搜索了很久才找到答案。
+  </p>
+<p>
+    要想允许Screen改变rxvt/rxvt-unicode(即urxvt)的标题栏，需要在<span class="emphasis"><em>.screenrc</em></span>中加入一句<span class="command"><strong>termcapinfo</strong></span>信息：
+  </p>
+<pre class="programlisting">termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007' </pre>
+<p>
+    如果你用的是xterm，也需要在<span class="emphasis"><em>.screenrc</em></span>中加入一句类似的话，具体内容见参考文档一。
+  </p>
+<p>
+    可是，在标题栏里只显示当前的窗口名字，不能把把窗口的列表显示出来，在使用时还不是很方便。幸好我们可以设置Screen的状态栏，使之显示我们想要的内容。
+  </p>
+<p>
+    在<a class="link" href="http://easwy.com/blog/" target="_top">Easwy</a>的<span class="emphasis"><em>.screenrc</em></span>中加入了下面的内容：
+  </p>
+<pre class="programlisting">caption always "%{= kw}%-w%{= kG}%{+b}[%n %t]%{-b}%{= kw}%+w %=%d %M %0c %{g}%H%{-}" </pre>
+<p>
+    上面这段话会在Screen窗口的最下面一行显示出所有窗口的列表，以及主机名等信息。它的效果图如下：
+  </p>
+<div class="informalfigure">
+<div class="mediaobject" title="Screen在标题栏和状态栏中显示窗口名称" align="center"><img src="screen-300x198.jpg" align="middle"></div>
+<div class="caption" align="center"><a class="link" href="http://easwy.com/blog/uploads/2009/12/screen.jpg" target="_blank">点击查看大图</a></div>
+</div>
+<p>
+    现在的Screen用起来就方便多了。
+  </p>
+<p>
+    更多内容，请阅读<a class="link" href="http://easwy.com/blog/" target="_top">Easwy的博客</a>上的其它文章。
+  </p>
+<p><span class="bold"><strong>[ 参考文档 ]</strong></span></p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem"><a class="link" href="http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x395.html" target="_blank">Xterm Title Bars and Screen</a></li>
+<li class="listitem"><a class="link" href="http://bbs.archlinux.org/viewtopic.php?id=67955" target="_blank">screen refuses to change urxvt’s title bar</a></li>
+</ul>
+</div>
+<div class="posturl">
+<p><span class="bold"><strong>原创文章，请阅读页脚的<a href="#license">许可方式</a>，转载请注明：</strong></span>转载自<a class="link" href="http://easwy.com/blog/" target="_top">易水博客</a> [ <a class="link" href="http://easwy.com/blog/" target="_top">http://easwy.com/blog/</a> ]</p>
+<p><span class="bold"><strong>本文链接地址:</strong></span> <a class="link" href="#" target="_top">http://easwy.com/blog/archives/display-window-list-on-title-bar-and-status-bar-of-screen/</a></p>
+</div>
+<p style="margin-top: 0px; margin-bottom: 15px; color: rgb(136, 136, 136); font-size: 80%; font-style: italic;">文章的脚注信息由WordPress的<a href="http://easwy.com/blog/wordpress/wp-posturl/" style="color: rgb(136, 136, 255); text-decoration: underline;">wp-posturl插件</a>自动生成</p>
+<div class="yarpp-related">
+<div class="fixed"></div><div id="related_posts"><h3 class="related_post_title">相关文章</h3><ul class="related_post">
+<li><a href="http://easwy.com/blog/archives/use-rxvt-in-cygwin/" rel="bookmark" title="使用rxvt做为cygwin终端">使用rxvt做为cygwin终端 </a></li>
+<li><a href="http://easwy.com/blog/archives/subversion-client-too-old-error/" rel="bookmark" title="Linux使用笔记: 解决Subversion提交时提示svn客户端版本太旧的问题">Linux使用笔记: 解决Subversion提交时提示svn客户端版本太旧的问题 </a></li>
+<li><a href="http://easwy.com/blog/archives/disable-vbell-of-screen/" rel="bookmark" title="Linux使用笔记: 关闭Linux下screen的闪屏功能">Linux使用笔记: 关闭Linux下screen的闪屏功能 </a></li>
+<li><a href="http://easwy.com/blog/archives/undelete-directories-files-on-ext3-filesystem-via-ext3grep/" rel="bookmark" title="Linux使用笔记: 实用ext3grep恢复目录及文件指南(ext3文件系统)">Linux使用笔记: 实用ext3grep恢复目录及文件指南(ext3文件系统) </a></li>
+<li><a href="http://easwy.com/blog/archives/change-default-configuration-of-putty/" rel="bookmark" title="Linux使用笔记: 修改putty的缺省值设置">Linux使用笔记: 修改putty的缺省值设置 </a></li>
+<li><a href="http://easwy.com/blog/archives/change-rpm-package-installation-directories/" rel="bookmark" title="Linux使用笔记: 更改RPM包的安装目录">Linux使用笔记: 更改RPM包的安装目录 </a></li>
+<li><a href="http://easwy.com/blog/archives/mount-a-windows-shared-folder-on-linux-with-samba/" rel="bookmark" title="Linux使用笔记: 使用Samba访问windows的共享目录">Linux使用笔记: 使用Samba访问windows的共享目录 </a></li>
+<li><a href="http://easwy.com/blog/archives/solve-fragment-packets-loss-of-ping/" rel="bookmark" title="Linux使用笔记: 解决Xen虚拟机中VLAN接口不能ping大包的问题">Linux使用笔记: 解决Xen虚拟机中VLAN接口不能ping大包的问题 </a></li>
+</ul></div><div class="fixed"></div>
+</div>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">发布于 </span><a href="#" rel="bookmark"><time class="entry-date published updated" datetime="2009-12-08T13:38:57+00:00">2009年12月8日</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">作者 </span><a class="url fn n" href="http://easwy.com/blog/archives/author/easwy/">Easwy</a></span></span><span class="cat-links"><span class="screen-reader-text">分类 </span><a href="http://easwy.com/blog/archives/category/open-source/" rel="category tag">开源软件</a></span><span class="tags-links"><span class="screen-reader-text">标签 </span><a href="http://easwy.com/blog/archives/tag/linux/" rel="tag">linux</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-## -->
+
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			《Linux使用笔记: 在标题和状态栏中显示Screen的窗口名称》有3个想法		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1511" class="comment even thread-even depth-1">
+			<article id="div-comment-1511" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn">可可火山</b><span class="says">说道：</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="#comment-1511">
+							<time datetime="2009-12-09T12:41:06+00:00">
+								2009年12月9日 12:41 下午							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>ubuntu team对screen功能做了些包装叫byobu。<br>
+<a href="https://launchpad.net/byobu" rel="nofollow">https://launchpad.net/byobu</a></p>
+<p>平时使用起来很方便，可惜我CentOS编译有些问题，直接用了byobu-export版本，也够用:<br>
+1.可定制的状态显示，<br>
+2.已经打开的window列表，这样有时一个screen session开多个window就够用了。</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://easwy.com/blog/archives/display-window-list-on-title-bar-and-status-bar-of-screen/?replytocom=1511#respond" aria-label="回复给可可火山">回复</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-1667" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1667" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://blog.suchasplus.com/" rel="external nofollow" class="url">suchasplus</a></b><span class="says">说道：</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="#comment-1667">
+							<time datetime="2010-01-05T18:56:21+00:00">
+								2010年1月5日 6:56 下午							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>term linux<br>
+caption always “%{+b yk}%H %{wk}|%c %{bk}%d.%m.%Y %{wk}| %{rk}%72=Load: %l%{wk}”<br>
+hardstatus alwayslastline “%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?”<br>
+multiuser on</p>
+<p>俺的</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://easwy.com/blog/archives/display-window-list-on-title-bar-and-status-bar-of-screen/?replytocom=1667#respond" aria-label="回复给suchasplus">回复</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-100196" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback： <a href="https://crazyof.me/blog/archives/2662.html" rel="external nofollow" class="url">我的.screenrc配置 | ASPIRE</a> 			</div>
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display: none;">取消回复</a></small></h3>				<form action="http://easwy.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+					<p class="comment-notes"><span id="email-notes">电子邮件地址不会被公开。</span> 必填项已用<span class="required">*</span>标注</p><p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" value="" size="30" maxlength="245" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required" type="email"></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" value="" size="30" maxlength="200" type="url"></p>
+<p class="form-submit"><input name="submit" id="submit" class="submit" value="发表评论" type="submit"> <input name="comment_post_ID" value="984" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="5e9f76839c" type="hidden"></p><p style="display: none;"></p>				<input id="ak_js" name="ak_js" value="1468793937763" type="hidden"><input value="1468655300 61.141.184.73" name="bb2_screener_" type="hidden"></form>
+					</div><!-- #respond -->
+		
+</div><!-- .comments-area -->
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">文章导航</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="http://easwy.com/blog/archives/mount-a-windows-shared-folder-on-linux-with-samba/" rel="prev"><span class="meta-nav" aria-hidden="true">上一</span> <span class="screen-reader-text">上篇文章：</span> <span class="post-title">Linux使用笔记: 使用Samba访问windows的共享目录</span></a></div><div class="nav-next"><a href="http://easwy.com/blog/archives/advanced-vim-skills-vim-gdb-vimgdb-faq/" rel="next"><span class="meta-nav" aria-hidden="true">下一</span> <span class="screen-reader-text">下篇文章：</span> <span class="post-title">vi/vim使用进阶: vimgdb调试时的常见问题及解决</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+						<a href="https://cn.wordpress.org/">自豪地采用WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body><div class="" style="display: none; width: 24px; left: 733px; top: 1062px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 198px; width: 1px; left: 467px; top: 896px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 300px; height: 1px; left: 467px; top: 896px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 198px; width: 1px; left: 767px; top: 896px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 300px; height: 1px; left: 467px; top: 1094px;" class="diigotb-border diigotb-bottom"></div>
+</html>
