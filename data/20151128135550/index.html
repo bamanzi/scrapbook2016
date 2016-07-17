@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" class="wf-inconsolata-n5-active wf-myriadpro-n4-active wf-minionprocaption-n4-active wf-minionprocaption-i4-active wf-minionprocaption-n7-active wf-garamondpremierpro-n4-active wf-active">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/png">
+  <link rel="alternate" type="application/atom+xml" href="http://jblevins.org/index.atom">
+  
+  
+  <title>Deft for Emacs</title>
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="personal">
+
+  <aside>
+    <h1><a href="http://jblevins.org/"><span>Jason</span> <span>Blevins</span></a></h1>
+    <nav>
+      <ul>
+        <li><a href="http://jblevins.org/cv" title="Curriculum Vitæ of Jason R. Blevins">CV</a></li>
+        <li><a href="http://jblevins.org/research/" title="Working papers, publications, and scientific software">Research</a></li>
+        <li><a href="http://jblevins.org/courses/" title="Current and previous courses" class="secondary work">Teaching</a></li>
+        <li><a href="http://jblevins.org/notes/" title="Notes on research, tools, and technology">Notes</a></li>
+        <li><a href="http://jblevins.org/projects/" title="Software projects">Tools</a></li>
+        <!-- <li><a href="/mirror/" title="Mirrored content" class="secondary personal">Mirror</a></li> -->
+        <li><a href="http://jblevins.org/log/" title="Log main page">Log</a>
+      </li></ul>
+      <ul class="secondary">
+        <li><a href="http://jblevins.org/" title="Homepage" class="personal secondary">About</a></li>
+        <li><a href="http://jblevins.org/index.atom" title="Atom feed" class="personal secondary">Atom Feed</a></li>
+        <li><a href="https://twitter.com/jrblevin" title="@jrblevin" class="personal secondary">Twitter</a></li>
+        <li><a href="http://jblevins.org/git/" title="CGit Repositories" class="personal secondary">Code</a></li>
+        <li><a href="https://github.com/jrblevin" title="GitHub" class="personal secondary">GitHub</a></li>
+      </ul>
+    </nav>
+    <div id="ads-container">
+      
+    </div>
+
+
+  </aside>
+
+  <div id="content">
+  <article>
+
+    <header>
+      <h1><a href="http://jblevins.org/projects/deft/" title="Permanent link to 'Deft for Emacs'">Deft for Emacs</a></h1>
+    </header>
+
+<p>Deft is an Emacs mode for quickly browsing, filtering, and editing
+directories of plain text notes, inspired by Notational Velocity.
+It was designed for increased productivity when writing and taking
+notes by making it fast and simple to find the right file at the
+right time and by automating many of the usual tasks such as
+creating new files and saving files.</p>
+
+<p>Deft is open source software and may be freely distributed and
+modified under the <abbr class="abbr" title="Berkeley System Distribution">BSD</abbr> license. Version 0.6 is the latest stable
+version, released on June 26, 2015. You may download it
+directly here:</p>
+
+<ul>
+<li><a href="http://jblevins.org/projects/deft/deft.el">deft.el</a></li>
+</ul>
+
+<p>To follow or contribute to Deft development, you can either
+<a href="http://jblevins.org/git/deft.git">browse</a> or clone the Git
+repository:</p>
+
+<pre><code>git clone git://jblevins.org/git/deft.git
+</code></pre>
+
+<figure>
+<img src="deft-v0.6.gif" alt="Deft 0.6 Screencast">
+<figcaption>Deft 0.6 Screencast</figcaption>
+</figure>
+
+<p>The Deft buffer is simply a file browser which lists the titles of
+all text files in the Deft directory followed by short summaries
+and last modified times. The title is taken to be the first line
+of the file and the summary is extracted from the text that
+follows. Files are, by default, sorted in terms of the last
+modified date, from newest to oldest.</p>
+
+<p>All Deft files or notes are simple plain text files where the first
+line contains a title. As an example, the following directory
+structure generated the screenshot above.</p>
+
+<pre><code>% ls ~/.deft
+about.txt    browser.txt     directory.txt   operations.txt
+ack.txt      completion.txt  extensions.org
+binding.txt  creation.txt    filtering.txt
+
+% cat ~/.deft/about.txt
+# About
+
+An Emacs mode for slicing and dicing plain text files.
+</code></pre>
+
+<p>Deft’s primary operation is searching and filtering. The list of
+files can be limited or filtered using a search string, which will
+match both the title and the body text. To initiate a filter,
+simply start typing. Filtering happens on the fly. As you type,
+the file browser is updated to include only files that match the
+current string.</p>
+
+<p>To open the first matching file, simply press <kbd>RET</kbd>. If no files
+match your search string, pressing <kbd>RET</kbd> will create a new file
+using the string as the title. This is a very fast way to start
+writing new notes. The filename will be generated automatically.
+If you prefer to provide a specific filename, use <kbd>C-RET</kbd> instead.</p>
+
+<p>To open files other than the first match, navigate up and down
+using <kbd>C-p</kbd> and <kbd>C-n</kbd> and press <kbd>RET</kbd> on the file you want to open.
+When opening a file, Deft searches forward and leaves the point
+at the end of the first match of the filter string.</p>
+
+<p>You can also press <kbd>C-o</kbd> to open a file in another window, without
+switching to the other window. Issue the same command with a prefix
+argument, <kbd>C-u C-o</kbd>, to open the file in another window and switch
+to that window.</p>
+
+<p>To edit the filter string, press <kbd>DEL</kbd> (backspace) to remove the
+last character or <kbd>M-DEL</kbd> to remove the last “word”. To yank
+(paste) the most recently killed (cut or copied) text into the
+filter string, press <kbd>C-y</kbd>. Press <kbd>C-c C-c</kbd> to clear the filter
+string and display all files and <kbd>C-c C-g</kbd> to refresh the file
+browser using the current filter string.</p>
+
+<p>For more advanced editing operations, you can also edit the filter
+string in the minibuffer by pressing <kbd>C-c C-l</kbd>. While in the
+minibuffer, the history of previous edits can be cycled through by
+pressing <kbd>M-p</kbd> and <kbd>M-n</kbd>. This form of static, one-time filtering
+(as opposed to incremental, on-the-fly filtering) may be preferable
+in some situations, such as over slow connections or on systems
+where interactive filtering performance is poor.</p>
+
+<p>By default, Deft filters files in incremental string search mode,
+where “search string” will match all files containing both “search”
+and “string” in any order. Alternatively, Deft supports direct
+regexp filtering, where the filter string is interpreted as a
+formal regular expression. For example, <code>^\(foo\|bar\)</code> matches
+foo or bar at the beginning of a line. Pressing <kbd>C-c C-t</kbd> will
+toggle between incremental and regexp search modes. Regexp
+search mode is indicated by an “R” in the mode line.</p>
+
+<p>Common file operations can also be carried out from within Deft.
+Files can be renamed using <kbd>C-c C-r</kbd> or deleted using <kbd>C-c C-d</kbd>.
+New files can also be created using <kbd>C-c C-n</kbd> for quick creation or
+<kbd>C-c C-m</kbd> for a filename prompt. You can leave Deft at any time
+with <kbd>C-c C-q</kbd>.</p>
+
+<p>Unused files can be archived by pressing <kbd>C-c C-a</kbd>. Files will be
+moved to <code>deft-archive-directory</code>, which is a directory named
+<code>archive</code> within your <code>deft-directory</code> by default.</p>
+
+<p>Files opened with deft are automatically saved after Emacs has been
+idle for a customizable number of seconds. This value is a floating
+point number given by <code>deft-auto-save-interval</code> (default: 1.0).</p>
+
+<h2>Getting Started</h2>
+
+<p>To start using it, place it somewhere in your Emacs load-path and
+add the line</p>
+
+<!-- Generator: GNU source-highlight 3.1.4
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><code class="lisp"><span class="cbracket">(</span><span class="normal">require </span><span class="type">'deft</span><span class="cbracket">)</span>
+</code></pre>
+
+
+<p>in your <code>.emacs</code> file. Then run <kbd>M-x deft</kbd> to start. It is useful
+to create a global keybinding for the <code>deft</code> function (e.g., a
+function key) to start it quickly (see below for details).</p>
+
+<p>When you first run Deft, it will complain that it cannot find the
+<code>~/.deft</code> directory. You can either create a symbolic link to
+another directory where you keep your notes or run <kbd>M-x deft-setup</kbd>
+to create the <code>~/.deft</code> directory automatically.</p>
+
+<p>One useful way to use Deft is to keep a directory of notes in a
+Dropbox folder. This can be used with other applications and
+mobile devices, for example, <a href="http://brettterpstra.com/projects/nvalt/">nvALT</a>, <a href="http://notational.net/">Notational Velocity</a>, or
+<a href="http://simplenote.com/">Simplenote</a> on <abbr class="abbr" title="Operating System">OS</abbr> X or <a href="https://geo.itunes.apple.com/us/app/editorial/id673907758?mt=8&amp;uo=6&amp;at=11l5Vs&amp;ct=deft">Editorial</a>, <a href="https://geo.itunes.apple.com/us/app/byword/id482063361?mt=8&amp;uo=6&amp;at=11l5Vs&amp;ct=deft">Byword</a>, or <a href="https://geo.itunes.apple.com/us/app/1writer-note-taking-writing/id680469088?mt=8&amp;uo=6&amp;at=11l5Vs&amp;ct=deft">1Writer</a>
+on iOS.</p>
+
+<h2>Basic Customization</h2>
+
+<p>You can customize items in the <code>deft</code> group to change the default
+functionality.</p>
+
+<p>By default, Deft looks for notes by searching for files with the
+extensions <code>.txt</code>, <code>.text</code>, <code>.md</code>, <code>.markdown</code>, or <code>.org</code> in the
+<code>~/.deft</code> directory. You can customize both the file extension and
+the Deft directory by running <kbd>M-x customize-group</kbd> and typing
+<code>deft</code>. Alternatively, you can configure them in your <code>.emacs</code>
+file:</p>
+
+<!-- Generator: GNU source-highlight 3.1.4
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><code class="lisp"><span class="cbracket">(</span><span class="normal">setq deft-extensions '</span><span class="cbracket">(</span><span class="string">"txt"</span><span class="normal"> </span><span class="string">"tex"</span><span class="normal"> </span><span class="string">"org"</span><span class="cbracket">)</span>
+<span class="cbracket">(</span><span class="normal">setq deft-directory </span><span class="string">"~/Dropbox/notes"</span><span class="cbracket">))</span>
+</code></pre>
+
+
+<p>The first element of <code>deft-extensions</code> (or in Lisp parlance, the
+car) is the default extension used to create new files.</p>
+
+<p>By default, Deft only searches for files in <code>deft-directory</code> but
+not in any subdirectories. Set <code>deft-recursive</code> to a non-nil value
+to enable recursive searching for files in subdirectories:</p>
+
+<!-- Generator: GNU source-highlight 3.1.4
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><code class="lisp"><span class="cbracket">(</span><span class="normal">setq deft-recursive t</span><span class="cbracket">)</span>
+</code></pre>
+
+
+<p>You can easily set up a global keyboard binding for Deft. For
+example, to bind it to F8, add the following code to your <code>.emacs</code>
+file:</p>
+
+<!-- Generator: GNU source-highlight 3.1.4
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><code class="lisp"><span class="cbracket">(</span><span class="normal">global-set-key [f8] </span><span class="type">'deft</span><span class="cbracket">)</span>
+</code></pre>
+
+
+<h2>Reading Files</h2>
+
+<p>The displayed title of each file is taken to be the first line of
+the file, with certain characters removed from the beginning. Hash
+characters, as used in Markdown headers, and asterisks, as in Org
+Mode headers, are removed. Additionally, Org mode <code>#+TITLE:</code> tags,
+MultiMarkdown <code>Title:</code> tags, LaTeX comment markers (<kbd>%</kbd>), and
+Emacs mode-line declarations (e.g., <code>-*-mode-*-</code>) are stripped from
+displayed titles. This can be customized by changing
+<code>deft-strip-title-regexp</code>.</p>
+
+<p>More generally, the title post-processing function itself can be
+customized by setting <code>deft-parse-title-function</code>, which accepts
+the first line of the file as an argument and returns the parsed
+title to display in the file browser. The default function is
+<code>deft-strip-title</code>, which removes all occurrences of
+<code>deft-strip-title-regexp</code> as described above.</p>
+
+<p>For compatibility with other applications which use the filename as
+the title of a note (rather than the first line of the file), set the
+<code>deft-use-filename-as-title</code> flag to a non-<code>nil</code> value. Deft will then
+use note filenames to generate the displayed titles in the Deft
+file browser. To enable this, add the following to your <code>.emacs</code> file:</p>
+
+<!-- Generator: GNU source-highlight 3.1.4
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><code class="lisp"><span class="cbracket">(</span><span class="normal">setq deft-use-filename-as-title t</span><span class="cbracket">)</span>
+</code></pre>
+
+
+<h2>Creating Files</h2>
+
+<p>Filenames for newly created files are generated by Deft automatically.
+The process for doing so is determined by the variables
+<code>deft-use-filename-as-title</code> and <code>deft-use-filter-string-for-filename</code>
+as well as the rules in the <code>deft-file-naming-rules</code> alist.
+The possible cases are as follows:</p>
+
+<ol>
+<li><p><strong>Default</strong> (<code>deft-use-filename-as-title</code> and
+<code>deft-use-filter-string-for-filename</code> are both <code>nil</code>):</p>
+
+<p>The filename will be automatically generated with prefix <code>deft-</code>
+and a numerical suffix as in <code>deft-0.ext</code>, <code>deft-1.ext</code>, …
+The filter string will be inserted as the first line of the file
+(which is also used as the display title).</p></li>
+<li><p><strong>Filenames as titles</strong> (<code>deft-use-filename-as-title</code> is non-<code>nil</code>):</p>
+
+<p>When <code>deft-use-filename-as-title</code> is non-<code>nil</code>, the filter string
+will be used as the filename for new files (with the appropriate
+file extension appended to the end).</p></li>
+<li><p><strong>Readable filenames</strong> (<code>deft-use-filename-as-title</code> is
+<code>nil</code> but <code>deft-use-filter-string-for-filename</code> is non-<code>nil</code>):</p>
+
+<p>In this case you can choose to display the title as parsed from
+the first line of the file while also generating readable
+filenames for new files based on the filter string. The
+variable <code>deft-use-filter-string-for-filename</code> controls this
+behavior and decouples the title display
+(<code>deft-use-filename-as-title</code>) from the actual filename. New
+filenames will be generated from the filter string and
+processed according to the rules defined in the
+<code>deft-file-naming-rules</code> alist. By default, slashes are removed
+and replaced by hyphens, but many other options are possible
+(camel case, replacing spaces by hyphens, and so on). See the
+documentation for <code>deft-file-naming-rules</code> for additional
+details.</p></li>
+</ol>
+
+<p>Titles inserted into files from the filter string can also be
+customized for two common modes, <code>markdown-mode</code> and <code>org-mode</code>, by
+setting the following variables:</p>
+
+<ul>
+<li><p><code>deft-markdown-mode-title-level</code> - When set to a positive
+ integer, determines how many hash marks will be added to titles
+ in new Markdown files. In other words, setting
+ <code>deft-markdown-mode-title-level</code> to <kbd>2</kbd> will result in new files
+ being created with level–2 headings of the form <code>## Title</code>.</p></li>
+<li><p><code>deft-org-mode-title-prefix</code> - When non-nil, automatically
+ generated titles in new <code>org-mode</code> files will be prefixed with
+ <code>#+TITLE:</code>.</p></li>
+</ul>
+
+<h2>Other Customizations</h2>
+
+<p>Deft, by default, lists files from newest to oldest. You can set
+<code>deft-current-sort-method</code> to ’title to sort by file titles, case
+ignored. Or, you can toggle sorting method using
+<code>deft-toggle-sort-method</code>.</p>
+
+<p>Incremental string search is the default method of filtering on
+startup, but you can set <code>deft-incremental-search</code> to nil to make
+regexp search the default.</p>
+
+<p>Deft also provides a function for opening files without using the
+Deft buffer directly. Calling <code>deft-find-file</code> will prompt for a
+file to open, just like <code>find-file</code>, but starting from
+<code>deft-directory</code>. If the file selected is in <code>deft-directory</code>, it
+is opened with the usual deft features (automatic saving, automatic
+updating of the Deft buffer, etc.). Otherwise, the file will be
+opened by <code>find-file</code> as usual. Therefore, you can set up a global
+keybinding for this function to open Deft files anywhere. For
+example, to use <kbd>C-x C-g</kbd>, a neighbor of <kbd>C-x C-f</kbd>, use the
+following:</p>
+
+<!-- Generator: GNU source-highlight 3.1.4
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><code class="lisp"><span class="cbracket">(</span><span class="normal">global-set-key </span><span class="cbracket">(</span><span class="normal">kbd </span><span class="string">"C-x C-g"</span><span class="cbracket">)</span><span class="normal"> </span><span class="type">'deft-find-file</span><span class="cbracket">)</span>
+</code></pre>
+
+
+<p>The faces used for highlighting various parts of the screen can
+also be customized. By default, these faces inherit their
+properties from the standard font-lock faces defined by your current
+color theme.</p>
+
+<h2>Acknowledgments</h2>
+
+<p>Thanks to Konstantinos Efstathiou for writing simplenote.el, from
+which I borrowed liberally, and to Zachary Schneirov for writing
+Notational Velocity, whose functionality and spirit I wanted to
+bring to Emacs.</p>
+
+<h2>History</h2>
+
+<p>Version 0.6 (2015–06–26):</p>
+
+<ul>
+<li>Recursive search in subdirectories (optional). Set
+ <code>deft-recursive</code> to a non-nil value to enable.</li>
+<li>Support for multiple extensions via the <code>deft-extensions</code> list.
+ As such, <code>deft-extension</code> is now deprecated.</li>
+<li>New variable <code>deft-create-file-from-filter-string</code> can enable
+ generation of new filenames based on the filter string. This decouples
+ the title display (<code>deft-use-filename-as-title</code>) from the actual filename
+ generation.</li>
+<li>New variable <code>deft-file-naming-rules</code> allows customizing generation
+ of filenames with regard to letter case and handling of spaces.</li>
+<li>New variables <code>deft-markdown-mode-title-level</code> and
+ <code>deft-org-mode-title-prefix</code> for automatic insertion of title markup.</li>
+<li>Archiving of files in <code>deft-archive-directory</code>.</li>
+<li>Ability to sort by either title or modification time via
+ <code>deft-current-sort-method</code>.</li>
+<li>Update default <code>deft-strip-title-regexp</code> to remove the following:
+
+<ul>
+<li>org-mode <code>#+TITLE:</code> tags</li>
+<li>MultiMarkdown <code>Title:</code> tags</li>
+<li>LaTeX comment markers (i.e., <code>%</code>)</li>
+<li>Emacs mode-line declarations (e.g., <code>-*-mode-*-</code>)</li>
+</ul></li>
+<li>Remove leading and trailing whitespace from titles.</li>
+<li>Disable visual line mode to prevent lines from wrapping.</li>
+<li>Enable line truncation to avoid displaying truncation characters.</li>
+<li>Show the old filename as the default prompt when renaming a file.</li>
+<li>Call <code>hack-local-variables</code> to read file-local variables when
+ opening files.</li>
+<li>Fixed several byte-compilation warnings.</li>
+<li>Bug fix: more robust handling of relative and absolute filenames.</li>
+<li>Bug fix: use width instead of length of strings for calculations.</li>
+<li>Bug fix: fix <code>string-width</code> error with empty file.</li>
+</ul>
+
+<p>Version 0.5.1 (2013–01–28):</p>
+
+<ul>
+<li>Bug fix: creating files with <kbd>C-c C-n</kbd> when both the filter string and
+ <code>deft-use-filename-as-title</code> are non-nil resulted in an invalid path.</li>
+<li>Bug fix: killed buffers would persist in <code>deft-auto-save-buffers</code>.</li>
+</ul>
+
+<p>Version 0.5 (2013–01–25):</p>
+
+<ul>
+<li>Implement incremental string search (default) and regexp search.
+ These search modes can be toggled by pressing <kbd>C-c C-t</kbd>.</li>
+<li>Default search method can be changed by setting <code>deft-incremental-search</code>.</li>
+<li>Support custom <code>deft-parse-title-function</code> for post-processing titles.</li>
+<li>The default <code>deft-parse-title-function</code> simply strips occurrences of
+ <code>deft-strip-title-regexp</code>, which removes Markdown and Org headings.</li>
+<li>Open files in another window with <kbd>C-o</kbd>. Prefix it with <kbd>C-u</kbd> to
+ switch to the other window.</li>
+<li>For symbolic links, use modification time of taget for sorting.</li>
+<li>When opening files, move point to the end of the first match of
+ the filter string.</li>
+<li>Improved filter editing: delete (<code>DEL</code>), delete word (<kbd>M-DEL</kbd>),
+ and yank (<kbd>C-y</kbd>).</li>
+<li>Advanced filter editing in minibuffer (<kbd>C-c C-l</kbd>).</li>
+</ul>
+
+<p>Version 0.4 (2011–12–11):</p>
+
+<ul>
+<li>Improved filtering performance.</li>
+<li>Optionally take title from filename instead of first line of the
+ contents (see <code>deft-use-filename-as-title</code>).</li>
+<li>Dynamically resize width to fit the entire window.</li>
+<li>Customizable time format (see <code>deft-time-format</code>).</li>
+<li>Handle <code>deft-directory</code> properly with or without a trailing slash.</li>
+</ul>
+
+<p>Version 0.3 (2011–09–11):</p>
+
+<ul>
+<li>Internationalization: support filtering with multibyte characters.</li>
+</ul>
+
+<p>Version 0.2 (2011–08–22):</p>
+
+<ul>
+<li>Match filenames when filtering.</li>
+<li>Automatically save opened files (optional).</li>
+<li>Address some byte-compilation warnings.</li>
+</ul>
+
+<p>Deft was originally written by <a href="http://jblevins.org/">Jason Blevins</a>.
+The initial version, 0.1, was released on August 6, 2011.</p>
+
+<p>Although Deft is free, it is the result of many years of
+work. If you use it regularly and it has made your life or work
+easier or more enjoyable, then you can say thanks by
+<a href="http://jblevins.org/projects/donate">supporting Deft</a>!</p>
+
+
+    
+
+  </article>
+
+</div> <!-- #content -->
+
+<footer>
+  <p class="meta">
+    Copyright © 2004–2015
+    <span id="author"><a rel="author" href="http://jblevins.org/">Jason Blevins</a></span>
+     &nbsp;•&nbsp; <span id="date">Modified June 26, 2015 15:57 EDT</span>
+  </p>
+</footer>
+
+
+
+
+
+
+
+</body>
+</html>
