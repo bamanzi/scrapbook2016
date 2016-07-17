@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html id="scrapbook-index">
+
+<head>
+<meta charset="UTF-8">
+<title>scrapbook-2016 - ScrapBook</title>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+<link rel="stylesheet" type="text/css" href="custom.css" media="all">
+<script>
+function init() {
+    if (arguments.callee.done) return;
+    arguments.callee.done = true;
+    toggleAll(false);
+    loadHash();
+    registerRenewHash();
+}
+function loadHash() {
+    var hash = top.location.hash;
+    if (!hash) return;
+    hash = hash.substring(1);
+    if (self != top) top.frames[1].location = hash;
+    hash = hash.replace(/^(\.\.\/data\/\d{14})\/.*/, "$1/index.html");
+    var elems = document.getElementsByTagName("A");
+    for ( var i = 1; i < elems.length; i++ ) {
+        var elem = elems[i];
+        if (elem.getAttribute("href") == hash) {
+            if (self != top) top.document.title = elem.childNodes[1].nodeValue;
+            var ancs = elem.parentNode;
+            while (ancs) { if (ancs.nodeName == "UL") toggleElem(ancs, true); ancs = ancs.parentNode; }
+            elem.focus();
+            break;
+        }
+    }
+}
+function registerRenewHash() {
+    var elems = document.getElementById("folder-root").getElementsByTagName("A");
+    for ( var i = 1; i < elems.length; i++ ) {
+        if (elems[i].className != "folder") {
+            elems[i].onclick = renewHash;
+        }
+    }
+}
+function renewHash() {
+    if (self == top) return;
+    var hash = "#" + this.getAttribute("href");
+    var title = this.childNodes[1].nodeValue;
+    if (history && history.pushState) top.history.pushState("", title, hash);
+    else top.location.hash = hash;
+    top.document.title = title;
+}
+function toggle(id, willOpen) {
+    toggleElem(document.getElementById(id), willOpen);
+}
+function toggleElem(elem, willOpen) {
+    var iconElem = elem.previousSibling.previousSibling.firstChild;
+    if (typeof willOpen === "undefined") willOpen = (elem.style.display == "none");
+    if (willOpen) {
+        elem.style.display = "block";
+        iconElem.src = "folder_open.png";
+    }
+    else {
+        elem.style.display = "none";
+        iconElem.src = "folder.png";
+    }
+}
+function toggleAll(willOpen) {
+    var ulElems = document.getElementsByTagName("UL");
+    if (typeof willOpen === "undefined") {
+        willOpen = false;
+        for ( var i = 1; i < ulElems.length; i++ ) {
+            if (ulElems[i].style.display == "none") { willOpen = true; break; }
+        }
+    }
+    for ( var i = 1; i < ulElems.length; i++ ) {
+        toggleElem(ulElems[i], willOpen);
+    }
+}
+</script>
+<script src="custom.js"></script>
+</head>
+
+<body>
+<div id="header"><a href="javascript:toggleAll();"><img src="toggle.png" width="16" height="16" alt="">ScrapBook</a> <a href="../search.html"><img src="search.png" width="18" height="12" alt=""></a></div>
+<ul id="folder-root">
+<li class="depth1"><a class="folder" href="javascript:toggle('folder-20160323133339');" title="blog-done"><img src="folder.png" width="16" height="16" alt="">blog-done</a>
+<ul id="folder-20160323133339">
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160323133722');" title="fzf-peco-percol"><img src="folder.png" width="16" height="16" alt="">fzf-peco-percol</a>
+<ul id="folder-20160323133722">
+<li class="depth3"><a href="../data/20160122145420/index.html" target="main" class="" title="fuzzy matchers overview? : commandline"><img src="../data/20160122145420/favicon.ico" width="16" height="16" alt="">fuzzy matchers overview? : commandline</a> <a href="https://www.reddit.com/r/commandline/comments/36h2cj/fuzzy_matchers_overview/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160119202756/index.html" target="main" class="" title="GitHub - junegunn/fzf: A command-line fuzzy finder written in Go"><img src="../data/20160119202756/favicon.ico" width="16" height="16" alt="">GitHub - junegunn/fzf: A command-line fuzzy finder written in Go</a> <a href="https://github.com/junegunn/fzf" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160324143611/index.html" target="main" class="" title="peco/peco: Simplistic interactive filtering tool"><img src="../data/20160324143611/favicon.ico" width="16" height="16" alt="">peco/peco: Simplistic interactive filtering tool</a> <a href="https://github.com/peco/peco" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160324143738/index.html" target="main" class="" title="mooz/percol: adds flavor of interactive filtering to the traditional pipe concept of UNIX shell"><img src="../data/20160324143738/favicon.ico" width="16" height="16" alt="">mooz/percol: adds flavor of interactive filtering to the traditional pipe concept of UNIX shell</a> <a href="https://github.com/mooz/percol" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718055905');" title="colorful-shell"><img src="folder.png" width="16" height="16" alt="">colorful-shell</a>
+<ul id="folder-20160718055905">
+<li class="depth3"><a href="../data/20160405133221/index.html" target="main" class="" title="paoloantinori/hhighlighter: A command line tool to highlight terms"><img src="../data/20160405133221/favicon.ico" width="16" height="16" alt="">paoloantinori/hhighlighter: A command line tool to highlight terms</a> <a href="https://github.com/paoloantinori/hhighlighter" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160715160718/index.html" target="main" class="" title="exa - A modern replacement for ls"><img src="treeitem.png" width="16" height="16" alt="">exa - A modern replacement for ls</a> <a href="https://the.exa.website/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="https://github.com/sorin-ionescu/prezto" target="_blank" class="bookmark" title="sorin-ionescu/prezto: The configuration framework for Zsh"><img src="https://assets-cdn.github.com/favicon.ico#-moz-resolution=16,16" width="16" height="16" alt="">sorin-ionescu/prezto: The configuration framework for Zsh</a></li>
+<li class="depth3"><a href="../data/20160405133247/index.html" target="main" class="" title="Scopart/colorex: A python script to display log files with colors."><img src="../data/20160405133247/favicon.ico" width="16" height="16" alt="">Scopart/colorex: A python script to display log files with colors.</a> <a href="https://github.com/Scopart/colorex" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160329133157/index.html" target="main" class="" title="Unix / Linux: Display Color Man Pages"><img src="../data/20160329133157/favicon.ico" width="16" height="16" alt="">Unix / Linux: Display Color Man Pages</a> <a href="http://www.cyberciti.biz/faq/unix-linux-color-man-pages-configuration/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160408130115/index.html" target="main" class="" title="https://www.pureweber.com/article/git-pretty-output/"><img src="chrome://global/skin/icons/warning-16.png" width="16" height="16" alt="">https://www.pureweber.com/article/git-pretty-output/</a> <a href="https://www.pureweber.com/article/git-pretty-output/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160601132718/index.html" target="main" class="" title="jbnicolai/ansi-256-colors: 256 ansi color codes for sparkling rainbows in the terminal"><img src="../data/20160601132718/favicon.ico" width="16" height="16" alt="">jbnicolai/ansi-256-colors: 256 ansi color codes for sparkling rainbows in the terminal</a> <a href="https://github.com/jbnicolai/ansi-256-colors" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160421145503/index.html" target="main" class="" title="More than just colors: My bash settings | blogginess"><img src="../data/20160421145503/dl_favicon.ico" width="16" height="16" alt="">More than just colors: My bash settings | blogginess</a> <a href="http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160329132518/index.html" target="main" class="" title="Zsh themes for prompts screenshots | blog post"><img src="../data/20160329132518/favicon.png" width="16" height="16" alt="">Zsh themes for prompts screenshots | blog post</a> <a href="http://bneijt.nl/blog/post/zsh-themes-for-prompts-screenshots/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160329133248/index.html" target="main" class="" title="Glorious VGA Color"><img src="treeitem.png" width="16" height="16" alt="">Glorious VGA Color</a> <a href="http://fishshell.com/" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718060032');" title="iceweasel 2 firefox"><img src="folder.png" width="16" height="16" alt="">iceweasel 2 firefox</a>
+<ul id="folder-20160718060032">
+<li class="depth3"><a href="../data/20160613131950/index.html" target="main" class="" title="Debian 在使用了 Iceweasel 十年之后，终于切换回 Firefox-新闻 ◆ 快讯|Linux.中国-开源社区"><img src="../data/20160613131950/favicon.ico" width="16" height="16" alt="">Debian 在使用了 Iceweasel 十年之后，终于切换回 Firefox-新闻 ◆ 快讯|Linux.中国-开源社区</a> <a href="https://linux.cn/article-7101-1.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160613131512/index.html" target="main" class="" title="#815006 - Renaming Iceweasel to Firefox - Debian Bug report logs"><img src="../data/20160613131512/favicon.ico" width="16" height="16" alt="">#815006 - Renaming Iceweasel to Firefox - Debian Bug report logs</a> <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=815006" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160613131552/index.html" target="main" class="" title="Iceweasel Branding :: Add-ons for Firefox"><img src="../data/20160613131552/favicon.ico" width="16" height="16" alt="">Iceweasel Branding :: Add-ons for Firefox</a> <a href="https://addons.mozilla.org/en-us/firefox/addon/iceweasel-branding/?src=cb-dl-recentlyadded" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718060115');" title="ssh-auto-login"><img src="folder.png" width="16" height="16" alt="">ssh-auto-login</a>
+<ul id="folder-20160718060115">
+<li class="depth3"><a href="../data/20160323133315/index.html" target="main" class="" title="如何在 CentOS / RHEL 上设置 SSH 免密码登录-系统运维|Linux.中国-开源社区"><img src="../data/20160323133315/favicon.ico" width="16" height="16" alt="">如何在 CentOS / RHEL 上设置 SSH 免密码登录-系统运维|Linux.中国-开源社区</a> <a href="http://linux.cn/article-6901-1.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160323133336/index.html" target="main" class="" title="OpenSSH Config File Examples"><img src="../data/20160323133336/favicon.ico" width="16" height="16" alt="">OpenSSH Config File Examples</a> <a href="http://www.cyberciti.biz/faq/create-ssh-config-file-on-linux-unix/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160423135003/index.html" target="main" class="" title="Can't get SSH public key authentication to work - Server Fault"><img src="../data/20160423135003/favicon.ico" width="16" height="16" alt="">Can't get SSH public key authentication to work - Server Fault</a> <a href="http://serverfault.com/questions/55343/cant-get-ssh-public-key-authentication-to-work/362011#362011" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160323133330/index.html" target="main" class="" title="SSH keys - ArchWiki"><img src="../data/20160323133330/favicon.ico" width="16" height="16" alt="">SSH keys - ArchWiki</a> <a href="https://wiki.archlinux.org/index.php/SSH_keys" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160323133325/index.html" target="main" class="" title="Key-Based SSH Logins With PuTTY - Page 3"><img src="../data/20160323133325/favicon.ico" width="16" height="16" alt="">Key-Based SSH Logins With PuTTY - Page 3</a> <a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p3" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160323133321/index.html" target="main" class="" title="Install / Append SSH Key In A Remote Linux / UNIX Servers Authorized_key"><img src="../data/20160323133321/favicon.ico" width="16" height="16" alt="">Install / Append SSH Key In A Remote Linux / UNIX Servers Authorized_key</a> <a href="http://www.cyberciti.biz/faq/install-ssh-identity-key-remote-host/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160423132619/index.html" target="main" class="" title="SSH 安全性和配置入门"><img src="../data/20160423132619/favicon.ico" width="16" height="16" alt="">SSH 安全性和配置入门</a> <a href="http://www.ibm.com/developerworks/cn/aix/library/au-sshsecurity/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160423160156/index.html" target="main" class="" title="Key-Based SSH Logins With PuTTY - Page 4 - Page 4"><img src="../data/20160423160156/favicon.ico" width="16" height="16" alt="">Key-Based SSH Logins With PuTTY - Page 4 - Page 4</a> <a href="https://www.howtoforge.com/ssh_key_based_logins_putty_p4" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718060533');" title="putty-transfer-files"><img src="folder.png" width="16" height="16" alt="">putty-transfer-files</a>
+<ul id="folder-20160718060533">
+<li class="depth3"><a href="../data/20160323134306/index.html" target="main" class="" title="让KiTTY/Putty支持ZModem - 为程序员服务"><img src="../data/20160323134306/favicon.ico" width="16" height="16" alt="">让KiTTY/Putty支持ZModem - 为程序员服务</a> <a href="http://ju.outofmemory.cn/entry/143929" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160707201538/index.html" target="main" class="" title="KiTTY : pscp and WinSCP integration — www.9bis.net"><img src="../data/20160707201538/favicon.ico" width="16" height="16" alt="">KiTTY : pscp and WinSCP integration — www.9bis.net</a> <a href="https://www.readability.com/articles/ey7jxe4w" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="http://www.9bis.net/kitty/index.php?page=pscp%20and%20WinSCP%20integration" target="_blank" class="bookmark" title="pscp and WinSCP integration - KiTTY"><img src="treeitem.png" width="16" height="16" alt="">pscp and WinSCP integration - KiTTY</a></li>
+<li class="depth3"><a href="../data/20160706164244/index.html" target="main" class="" title="Fine tuning of SFTP browser transfer settings - MobaXterm"><img src="../data/20160706164244/favicon_001.ico" width="16" height="16" alt="">Fine tuning of SFTP browser transfer settings - MobaXterm</a> <a href="http://blog.mobatek.net/post/mobaxterm-configuration-settings/#fine-tuning-of-sftp-browser-transfer-settings:427b2a0192baed992c34d2ed58c31dfd" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="http://winscp.net/eng/docs/guides" target="_blank" class="bookmark" title="Guides to Using WinSCP :: WinSCP"><img src="http://winscp.net/favicon.ico#-moz-resolution=16,16" width="16" height="16" alt="">Guides to Using WinSCP :: WinSCP</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718061334');" title="gnu screen"><img src="folder.png" width="16" height="16" alt="">gnu screen</a>
+<ul id="folder-20160718061334">
+<li class="depth3"><a href="../data/20160705200612/index.html" target="main" class="" title="GNU Screen (简体中文) - ArchWiki"><img src="../data/20160705200612/favicon.ico" width="16" height="16" alt="">GNU Screen (简体中文) - ArchWiki</a> <a href="https://wiki.archlinux.org/index.php/GNU_Screen_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160707203622/index.html" target="main" class="" title="Using the scrollwheel in GNU screen - Stack Overflow"><img src="../data/20160707203622/favicon.ico" width="16" height="16" alt="">Using the scrollwheel in GNU screen - Stack Overflow</a> <a href="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705200509/index.html" target="main" class="" title="GNU Screen - ArchWiki"><img src="../data/20160705200509/favicon.ico" width="16" height="16" alt="">GNU Screen - ArchWiki</a> <a href="https://wiki.archlinux.org/index.php/GNU_Screen" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705200935/index.html" target="main" class="" title="linux 技巧：使用 screen 管理你的远程会话"><img src="../data/20160705200935/favicon.ico" width="16" height="16" alt="">linux 技巧：使用 screen 管理你的远程会话</a> <a href="https://www.ibm.com/developerworks/cn/linux/l-cn-screen/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705201133/index.html" target="main" class="" title="Top 10 Awesome Linux Screen Tricks – UrFix's Blog"><img src="treeitem.png" width="16" height="16" alt="">Top 10 Awesome Linux Screen Tricks – UrFix's Blog</a> <a href="https://blog.urfix.com/top-10-awesome-linux-screen-tricks/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705201746/index.html" target="main" class="" title="dayid's tmux &amp; screen cheat-sheet"><img src="treeitem.png" width="16" height="16" alt="">dayid's tmux &amp; screen cheat-sheet</a> <a href="http://www.dayid.org/comp/tm.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705201601/index.html" target="main" class="" title="GNU screen [quick_reference]"><img src="../data/20160705201601/favicon.ico" width="16" height="16" alt="">GNU screen [quick_reference]</a> <a href="http://aperiodic.net/screen/quick_reference" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705200811/index.html" target="main" class="" title="Differences between tmux vs screen - Wesley Tanaka"><img src="../data/20160705200811/favicon.ico" width="16" height="16" alt="">Differences between tmux vs screen - Wesley Tanaka</a> <a href="http://wtanaka.com/node/8136" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705200730/index.html" target="main" class="" title="Why You Should Try tmux Instead of screen"><img src="treeitem.png" width="16" height="16" alt="">Why You Should Try tmux Instead of screen</a> <a href="http://dominik.honnef.co/posts/2010/10/why_you_should_try_tmux_instead_of_screen/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705200514/index.html" target="main" class="" title="Switching from tmux to GNU Screen"><img src="treeitem.png" width="16" height="16" alt="">Switching from tmux to GNU Screen</a> <a href="https://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160705200902/index.html" target="main" class="" title="对话 UNIX: 使用 Screen 创建并管理多个 shell"><img src="../data/20160705200902/favicon.ico" width="16" height="16" alt="">对话 UNIX: 使用 Screen 创建并管理多个 shell</a> <a href="http://www.ibm.com/developerworks/cn/aix/library/au-gnu_screen/" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="depth1"><a class="folder" href="javascript:toggle('folder-20160323133537');" title="raspi"><img src="folder.png" width="16" height="16" alt="">raspi</a>
+<ul id="folder-20160323133537">
+<li class="depth2"><a href="../data/20151128135521/index.html" target="main" class="" title="config.txt - Raspberry Pi Documentation"><img src="../data/20151128135521/favicon.png" width="16" height="16" alt="">config.txt - Raspberry Pi Documentation</a> <a href="https://www.raspberrypi.org/documentation/configuration/config-txt.md" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth2"><a href="../data/20151227144930/index.html" target="main" class="" title="RetroPie-Setup: An initialization script for RetroArch on the Raspberry Pi – petRockBlog"><img src="../data/20151227144930/favicon.png" width="16" height="16" alt="">RetroPie-Setup: An initialization script for RetroArch on the Raspberry Pi – petRockBlog</a> <a href="http://blog.petrockblock.com/2012/07/22/retropie-setup-an-initialization-script-for-retroarch-on-the-raspberry-pi/" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth1"><a class="folder" href="javascript:toggle('folder-20160323133750');" title="emacs"><img src="folder.png" width="16" height="16" alt="">emacs</a>
+<ul id="folder-20160323133750">
+<li class="depth2"><a href="../data/20151128135550/index.html" target="main" class="" title="Deft for Emacs"><img src="../data/20151128135550/favicon.ico" width="16" height="16" alt="">Deft for Emacs</a> <a href="http://jblevins.org/projects/deft/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth2"><a href="../data/20151204135901/index.html" target="main" class="" title="Emacs: Python Debugging, Send Code to an Arbitrary Buffer | 肉山博客 (Wenshan's Blog)"><img src="treeitem.png" width="16" height="16" alt="">Emacs: Python Debugging, Send Code to an Arbitrary Buffer | 肉山博客 (Wenshan's Blog)</a> <a href="http://wenshanren.org/?p=351" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth1"><fieldset class="separator" title=""><legend>&nbsp;&nbsp;</legend></fieldset></li>
+<li class="depth1"><a class="folder" href="javascript:toggle('folder-20160718055904');" title="2blog"><img src="folder.png" width="16" height="16" alt="">2blog</a>
+<ul id="folder-20160718055904">
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718061625');" title="lxde-tips"><img src="folder.png" width="16" height="16" alt="">lxde-tips</a>
+<ul id="folder-20160718061625">
+<li class="depth3"><a href="../data/20160323134124/index.html" target="main" class="" title="LXDE - ArchWiki"><img src="../data/20160323134124/favicon.ico" width="16" height="16" alt="">LXDE - ArchWiki</a> <a href="https://wiki.archlinux.org/index.php/LXDE" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160323134100/index.html" target="main" class="" title="How to customise your Linux desktop: LXDE | ZDNet"><img src="../data/20160323134100/logo-192x192.png" width="16" height="16" alt="">How to customise your Linux desktop: LXDE | ZDNet</a> <a href="http://www.zdnet.com/article/how-to-customise-your-linux-desktop-lxde/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160323134143/index.html" target="main" class="" title="Autostart - LXDE.org"><img src="../data/20160323134143/favicon.ico" width="16" height="16" alt="">Autostart - LXDE.org</a> <a href="http://wiki.lxde.org/en/Autostart" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20151204142803/index.html" target="main" class="" title="LXDE/Openbox, Create Keyboard Shortcuts ⌨"><img src="treeitem.png" width="16" height="16" alt="">LXDE/Openbox, Create Keyboard Shortcuts ⌨</a> <a href="http://xahlee.info/linux/linux_lxde_add_key_shortcuts.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718061707');" title="xterm-title"><img src="folder.png" width="16" height="16" alt="">xterm-title</a>
+<ul id="folder-20160718061707">
+<li class="depth3"><a href="../data/20160715163509/index.html" target="main" class="" title="automatically change the gnome-terminal &quot;title&quot; for the window - Server Fault"><img src="../data/20160715163509/favicon.ico" width="16" height="16" alt="">automatically change the gnome-terminal &quot;title&quot; for the window - Server Fault</a> <a href="http://serverfault.com/questions/69312/automatically-change-the-gnome-terminal-title-for-the-window" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160715163453/index.html" target="main" class="" title="command line - Pane Title in Tmux - Stack Overflow"><img src="../data/20160715163453/favicon.ico" width="16" height="16" alt="">command line - Pane Title in Tmux - Stack Overflow</a> <a href="http://stackoverflow.com/questions/9747952/pane-title-in-tmux" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160715163346/index.html" target="main" class="" title="Set tmux pane title to short hostname on ssh connections — Bitbucket"><img src="../data/20160715163346/favicon.ico" width="16" height="16" alt="">Set tmux pane title to short hostname on ssh connections — Bitbucket</a> <a href="https://bitbucket.org/snippets/bamanzi/z6XpM" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718061918/index.html" target="main" class="" title="Linux使用笔记: 在标题和状态栏中显示Screen的窗口名称 – 易水博客"><img src="../data/20160718061918/易2.png" width="16" height="16" alt="">Linux使用笔记: 在标题和状态栏中显示Screen的窗口名称 – 易水博客</a> <a href="http://easwy.com/blog/archives/display-window-list-on-title-bar-and-status-bar-of-screen/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718061941/index.html" target="main" class="" title="How can I automatically update the title in an xterm running screen? - Super User"><img src="../data/20160718061941/favicon.ico" width="16" height="16" alt="">How can I automatically update the title in an xterm running screen? - Super User</a> <a href="http://superuser.com/questions/130407/how-can-i-automatically-update-the-title-in-an-xterm-running-screen/154177#154177" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718062029/index.html" target="main" class="" title="Set tmux pane title on SSH connections – blog.no-panic.at"><img src="../data/20160718062029/flo3.jpg" width="16" height="16" alt="">Set tmux pane title on SSH connections – blog.no-panic.at</a> <a href="http://blog.no-panic.at/2015/04/21/set-tmux-pane-title-on-ssh-connections/" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718062210');" title="colorful-shell-2-for-sa"><img src="folder.png" width="16" height="16" alt="">colorful-shell-2-for-sa</a>
+<ul id="folder-20160718062210">
+<li class="depth3"><a href="../data/20160715160249/index.html" target="main" class="" title="log files - Colorize Monitoring of Logs - Server Fault"><img src="../data/20160715160249/favicon.ico" width="16" height="16" alt="">log files - Colorize Monitoring of Logs - Server Fault</a> <a href="http://serverfault.com/questions/53894/colorize-monitoring-of-logs" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160715160357/index.html" target="main" class="" title="grc: More colorizing for terminal output | Inconsolation"><img src="../data/20160715160357/favicon.ico" width="16" height="16" alt="">grc: More colorizing for terminal output | Inconsolation</a> <a href="https://inconsolation.wordpress.com/2014/08/23/grc-more-colorizing-for-terminal-output/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160715160435/index.html" target="main" class="" title="garabik/grc: generic colouriser"><img src="../data/20160715160435/favicon.ico" width="16" height="16" alt="">garabik/grc: generic colouriser</a> <a href="https://github.com/garabik/grc" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160715160351/index.html" target="main" class="" title="colorwrapper: Quite obviously, the author had me in mind | Inconsolation"><img src="../data/20160715160351/favicon.ico" width="16" height="16" alt="">colorwrapper: Quite obviously, the author had me in mind | Inconsolation</a> <a href="https://inconsolation.wordpress.com/2014/07/18/colorwrapper-quite-obviously-the-author-had-me-in-mind/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160421145441/index.html" target="main" class="" title="Color your shell | Tales of software craftsmanship"><img src="../data/20160421145441/favicon.ico" width="16" height="16" alt="">Color your shell | Tales of software craftsmanship</a> <a href="http://teom.org/blog/kde/color-your-shell/" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718062308');" title="yum-tips"><img src="folder.png" width="16" height="16" alt="">yum-tips</a>
+<ul id="folder-20160718062308">
+<li class="depth3"><a href="../data/20160111193134/index.html" target="main" class="" title="How To Download a RPM Package Using yum Command Without Installing On Linux"><img src="../data/20160111193134/favicon.ico" width="16" height="16" alt="">How To Download a RPM Package Using yum Command Without Installing On Linux</a> <a href="http://www.cyberciti.biz/faq/yum-downloadonly-plugin/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160111193138/index.html" target="main" class="" title="15 Linux Yum Command Examples – Install, Uninstall, Update Packages"><img src="../data/20160111193138/favicon.ico.gzip" width="16" height="16" alt="">15 Linux Yum Command Examples – Install, Uninstall, Update Packages</a> <a href="http://www.thegeekstuff.com/2011/08/yum-command-examples/" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718062309');" title="emacs-eshell"><img src="folder.png" width="16" height="16" alt="">emacs-eshell</a>
+<ul id="folder-20160718062309">
+<li class="depth3"><a href="../data/20160718063723/index.html" target="main" class="" title="Mastering Eshell - Mastering Emacs"><img src="../data/20160718063723/favicon.ico" width="16" height="16" alt="">Mastering Eshell - Mastering Emacs</a> <a href="https://www.masteringemacs.org/article/complete-guide-mastering-eshell" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20140301203414/index.html" target="main" class="" title="A Complete Guide to Mastering Eshell | Mastering Emacs"><img src="../data/20140301203414/favicon_001.ico" width="16" height="16" alt="">A Complete Guide to Mastering Eshell | Mastering Emacs</a> <a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718063610/index.html" target="main" class="" title="Eshell: The Emacs Shell: Top"><img src="../data/20160718063610/gnu-head-mini.png" width="16" height="16" alt="">Eshell: The Emacs Shell: Top</a> <a href="https://www.gnu.org/software/emacs/manual/html_node/eshell/index.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><fieldset class="separator" title=""><legend>&nbsp;&nbsp;</legend></fieldset></li>
+<li class="depth3"><a href="../data/20160718063316/index.html" target="main" class="" title="dot-files/emacs-eshell.org at master · howardabrams/dot-files"><img src="../data/20160718063316/favicon.ico" width="16" height="16" alt="">dot-files/emacs-eshell.org at master · howardabrams/dot-files</a> <a href="https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org#shell-there" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718063500/index.html" target="main" class="" title="Eschewing Zshell for Emacs Shell"><img src="../data/20160718063500/dragon-head.png" width="16" height="16" alt="">Eschewing Zshell for Emacs Shell</a> <a href="http://www.howardism.org/Technical/Emacs/eshell-fun.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a class="folder" href="javascript:toggle('folder-20160718063507');" title="eshell-completion"><img src="folder.png" width="16" height="16" alt="">eshell-completion</a>
+<ul id="folder-20160718063507">
+<li class="depth4"><a href="../data/20140301203356/index.html" target="main" class="" title="EmacsWiki: Eshell Completion"><img src="../data/20140301203356/favicon.ico" width="16" height="16" alt="">EmacsWiki: Eshell Completion</a> <a href="http://www.emacswiki.org/emacs/EshellCompletion" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth3"><a href="../data/20160718063326/index.html" target="main" class="" title="邪恶的 eshell · LinuxTOY"><img src="../data/20160718063326/favicon.ico" width="16" height="16" alt="">邪恶的 eshell · LinuxTOY</a> <a href="https://linuxtoy.org/archives/emacs-eshell.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20140301203543/index.html" target="main" class="" title="EmacsWiki: Eshell W Thirty Two"><img src="../data/20140301203543/favicon.ico" width="16" height="16" alt="">EmacsWiki: Eshell W Thirty Two</a> <a href="http://www.emacswiki.org/emacs/EshellWThirtyTwo" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718063648/index.html" target="main" class="" title="hiddenlotus/eshell-prompt-extras: Display extra information and color for your eshell prompt."><img src="../data/20160718063648/favicon.ico" width="16" height="16" alt="">hiddenlotus/eshell-prompt-extras: Display extra information and color for your eshell prompt.</a> <a href="https://github.com/hiddenlotus/eshell-prompt-extras" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718063756/index.html" target="main" class="" title="EmacsWiki: Eshell Bmk"><img src="../data/20160718063756/favicon.ico" width="16" height="16" alt="">EmacsWiki: Eshell Bmk</a> <a href="https://www.emacswiki.org/emacs/EshellBmk" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718063804/index.html" target="main" class="" title="Display images in eshell with `iimage-mode` - Emacs Stack Exchange"><img src="../data/20160718063804/favicon.ico" width="16" height="16" alt="">Display images in eshell with `iimage-mode` - Emacs Stack Exchange</a> <a href="http://emacs.stackexchange.com/questions/3432/display-images-in-eshell-with-iimage-mode" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+<li class="depth2"><a class="folder" href="javascript:toggle('folder-20160718062737');" title="windowmaker"><img src="folder.png" width="16" height="16" alt="">windowmaker</a>
+<ul id="folder-20160718062737">
+<li class="depth3"><a href="../data/20160718062824/index.html" target="main" class="" title="Window Maker - ArchWiki"><img src="../data/20160718062824/favicon.ico" width="16" height="16" alt="">Window Maker - ArchWiki</a> <a href="https://wiki.archlinux.org/index.php/Window_Maker" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718062840/index.html" target="main" class="" title="windowmaker icons - linuxquestions.org"><img src="../data/20160718062840/favicon.ico" width="16" height="16" alt="">windowmaker icons - linuxquestions.org</a> <a href="http://www.linuxquestions.org/questions/debian-26/windowmaker-icons-206322-print/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718063037/index.html" target="main" class="" title="Techradar — technetyes.blogspot.com"><img src="../data/20160718063037/http___technetyes.blogspot.com_2011_07_techradar_03.html" width="16" height="16" alt="">Techradar — technetyes.blogspot.com</a> <a href="https://www.readability.com/articles/gcwaqrim" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth3"><a href="../data/20160718064022/index.html" target="main" class="" title="gnome-look.org - OneStepBack"><img src="../data/20160718064022/gnome.ico" width="16" height="16" alt="">gnome-look.org - OneStepBack</a> <a href="https://www.gnome-look.org/content/show.php/OneStepBack?content=170904" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="depth1"><a class="folder" href="javascript:toggle('folder-20160718062316');" title="misc"><img src="folder.png" width="16" height="16" alt="">misc</a>
+<ul id="folder-20160718062316">
+<li class="depth2"><a href="../data/20160108131423/index.html" target="main" class="" title="[Tip] How to Disable All WIN+ Keyboard Shortcuts (Hotkeys) in Windows? - AskVG"><img src="../data/20160108131423/favicon.ico" width="16" height="16" alt="">[Tip] How to Disable All WIN+ Keyboard Shortcuts (Hotkeys) in Windows? - AskVG</a> <a href="http://www.askvg.com/tip-how-to-disable-all-win-keyboard-shortcuts-hotkeys-in-windows/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth2"><a href="../data/20160108131401/index.html" target="main" class="" title="How to disable specific global hotkeys in Windows - gHacks Tech News"><img src="../data/20160108131401/favicon.ico" width="16" height="16" alt="">How to disable specific global hotkeys in Windows - gHacks Tech News</a> <a href="http://www.ghacks.net/2015/03/22/how-to-disable-specific-global-hotkeys-in-windows/" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth2"><a href="../data/20160111195628/index.html" target="main" class="" title="Config Files - Zim - a desktop wiki"><img src="../data/20160111195628/resource://scrapbook/data/20160111195628/favicon.ico" width="16" height="16" alt="">Config Files - Zim - a desktop wiki</a> <a href="http://zim-wiki.org/manual/Help/Config_Files.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+<li class="depth2"><a href="../data/20151214192301/index.html" target="main" class="" title="Use vimdiff to resolve git/subversion/mercurial merge conflicts effectively | Chen's blog"><img src="treeitem.png" width="16" height="16" alt="">Use vimdiff to resolve git/subversion/mercurial merge conflicts effectively | Chen's blog</a> <a href="http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.html" target="_blank" class="bookmark" title="Source">➤</a></li>
+</ul>
+</li>
+</ul>
+<script>init();</script>
+</body>
+
+</html>

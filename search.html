@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html id="scrapbook-search">
+<head>
+<meta charset="UTF-8">
+<title>Search - ScrapBook</title>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" type="text/css" href="tree/index.css" media="all">
+<link rel="stylesheet" type="text/css" href="tree/custom.css" media="all">
+<script>
+var scrapbooks = [
+    { name: "", path: "." }
+];
+
+var searchEngine = {
+
+    config: {
+        "default_search": "",    // the constant string to add before the input keyword
+        "default_field": "tcc",  // the field to search for bare key terms
+        "list_bullet": "◉",      // the symbol for the list bullet
+        "allow_http": 0          // whether to load rdf cache from the http? -1: deny, 0: ask; 1: allow
+    },
+
+    init: function () {
+        var that = this;
+
+        // load rdf files
+        var loading_done = 0, loading_errors = 0;
+        for (var scrapbooks_index = 0, scrapbooks_len = scrapbooks.length; scrapbooks_index < scrapbooks_len; scrapbooks_index++) {
+            (function(){
+                var scrapbook = scrapbooks[scrapbooks_index];
+                var type = "cache.rdf";
+                var path = scrapbook.path + "/" + type;
+                that.loadXMLDoc(path, function(xml){
+                    // some mobile browsers (e.g. Dolphin) do not support xmlDoc.getElementsByTagName
+                    var items = xml.documentElement.childNodes, data = [];
+                    for (var i = 0, len = items.length; i < len; i++) {
+                        var item = items[i];
+                        if (item.nodeName != "RDF:Description") continue;
+                        var id_path = item.getAttribute("RDF:about").match(/^urn:scrapbook:item(\d{14})#(.*?)$/);
+                        data.push({
+                            "id": id_path[1],
+                            "path": id_path[2],
+                            "content": item.getAttribute("NS1:content")
+                        });
+                    }
+                    scrapbook.cache = data;
+                    loading_done++;
+                    checkLoad();
+                }, function(){
+                    that.addMsg("Unable to load database: " + path);
+                    loading_errors++;
+                    loading_done++;
+                    checkLoad();
+                });
+            })();
+            (function(){
+                var scrapbook = scrapbooks[scrapbooks_index];
+                var type = "scrapbook.rdf";
+                var path = scrapbook.path + "/" + type;
+                that.loadXMLDoc(path, function(xml){
+                    // some mobile browsers (e.g. Dolphin) do not support xmlDoc.getElementsByTagName
+                    var items = xml.documentElement.childNodes, data = [];
+                    for (var i = 0, len = items.length; i < len; i++) {
+                        var item = items[i];
+                        if (item.nodeName != "RDF:Description") continue;
+                        var id = item.getAttribute("NS1:id");
+                        data[id] = {
+                            "id": id,
+                            "type": item.getAttribute("NS1:type"),
+                            "title": item.getAttribute("NS1:title"),
+                            "source": item.getAttribute("NS1:source"),
+                            "comment": item.getAttribute("NS1:comment"),
+                            "create": item.getAttribute("NS1:create"),
+                            "modify": item.getAttribute("NS1:modify")
+                        };
+                    }
+                    scrapbook.data = data;
+                    loading_done++;
+                    checkLoad();
+                }, function(){
+                    that.addMsg("Unable to load database: " + path);
+                    loading_errors++;
+                    loading_done++;
+                    checkLoad();
+                });
+            })();
+        }
+
+        function checkLoad() {
+            // if all fail, show message for possibly no AJAX support
+            if (loading_errors == scrapbooks_len * 2) {
+                that.addMsg("Error: Unable to load any database. Maybe your browser doesn't support AJAX connection?");
+                return;
+            }
+            // if all success?
+            for (var i = 0, I = scrapbooks.length; i < I; i++) {
+                var scrapbook = scrapbooks[i];
+                if (!(scrapbook.data && scrapbook.cache)) return;
+            }
+            // enable the search button
+            document.getElementById("search").removeAttribute("disabled");
+        }
+    },
+
+    loadXMLDoc: function(url, callback, error_handler) {
+        try {
+            var that = this;
+            checkHttp(url);
+            var xmlhttp;
+            if (window.XMLHttpRequest) {  // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {  // code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState != 4) return;
+                if (xmlhttp.status == 200 || (xmlhttp.status == 0 && xmlhttp.responseXML)) {
+                    callback.call(that, xmlhttp.responseXML);
+                }
+                else {
+                    error_handler.call(that);
+                }
+            }
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+            return xmlhttp;
+        }
+        catch (ex) {
+            error_handler.call(that);
+            return null;
+        }
+
+        function checkHttp(url) {
+            if (that.config.allow_http == 1) return;
+            if (location.protocol.match(/https?/) || url.match(/^https?/)) {
+                if (that.config.allow_http == -1) {
+                    throw "HTTP traffic is not allowed";
+                }
+                else if (confirm("Loading search database from the web could produce large network flow. Continue?")) {
+                    that.config.allow_http = 1;
+                }
+                else {
+                    that.config.allow_http = -1;
+                    throw "HTTP traffic is not allowed";
+                }
+            }
+        }
+    },
+
+    search: function() {
+        this.clearResult();
+        try {
+            // parse key
+            var keyStr = document.getElementById("keyword").value;
+            if (this.config["default_search"]) keyStr = this.config["default_search"] + " " + keyStr;
+            var key = this.parseQuery(keyStr);
+            if (key.error.length) {
+                for (var i = 0, len = key.error.length; i < len; i++) {
+                    this.addMsg(key.error[i]);
+                }
+                return;
+            }
+            // get result
+            for (var scrapbooks_index = 0, scrapbooks_len = scrapbooks.length; scrapbooks_index < scrapbooks_len; scrapbooks_index++) {
+                var scrapbook = scrapbooks[scrapbooks_index];
+                var result = [];
+                for (var i = 0, len = scrapbook.cache.length; i < len; i++) {
+                    var item = scrapbook.cache[i];
+                    var data = {
+                        "cache": item,
+                        "item": scrapbook.data[item.id]
+                    };
+                    if (this.matchResult(data, key)) {
+                        result.push(data);
+                    }
+                }
+                // sort result
+                for (var i = 0, len = key.sort.length; i < len; i++) {
+                    var sortKey = key.sort[i];
+                    result.sort(function(a, b){
+                        a = a[sortKey[0]][sortKey[1]];
+                        b = b[sortKey[0]][sortKey[1]];
+                        if (a > b) return sortKey[2];
+                        if (a < b) return -sortKey[2];
+                        return 0;
+                    });
+                }
+                // display result
+                var scrapbook_name = scrapbook.name ? "(" + scrapbook.name + ") " : "";
+                this.addMsg(scrapbook_name + "Found " + result.length + " results:");
+                for (var i = 0, len = result.length; i < len; i++) {
+                    this.addResult(result[i], scrapbook);
+                }
+            }
+        }
+        catch (ex) {
+            alert("Script error: \n" + ex.name + ": " + ex.message);
+            throw ex;
+        }
+    },
+
+    parseQuery: function(keyStr) {
+        var that = this;
+        var key = {
+            "error": [],
+            "rule": [],
+            "sort": [],
+            "mc": false,
+            "re": false,
+            "default": this.config["default_field"]
+        };
+        keyStr.replace(/(\-?[A-Za-z]+:|\-)(?:"((?:\\"|[^"])*)"|([^ "\u3000]*))|(?:"((?:""|[^"])*)"|([^ "\u3000]+))/g, function(match, cmd, qterm, term, qterm2, term2){
+            if (cmd) {
+                var term = qterm ? qterm.replace(/""/g, '"') : term;
+            }
+            else {
+                var term = qterm2 ? qterm2.replace(/""/g, '"') : term2;
+            }
+            // commands that don't require a term
+            // the term will then be reguarded as a "tcc include"
+            switch (cmd) {
+                case "mc:":
+                    key.mc = true;
+                    break;
+                case "-mc:":
+                    key.mc = false;
+                    break;
+                case "re:":
+                    key.re = true;
+                    break;
+                case "-re:":
+                    key.re = false;
+                    break;
+                case "type:":
+                    addRule("type", "include", term);
+                    term = false;
+                    break;
+                case "-type:":
+                    addRule("type", "exclude", term);
+                    term = false;
+                    break;
+                case "sort:":
+                    addSort(term, 1);
+                    term = false;
+                    break;
+                case "-sort:":
+                    addSort(term, -1);
+                    term = false;
+                    break;
+            }
+            // commands that require a term
+            if (term) {
+                switch (cmd) {
+                    case "id:":
+                        addRule("id", "include", parseStr(term));
+                        break;
+                    case "-id:":
+                        addRule("id", "exclude", parseStr(term));
+                        break;
+                    case "file:":
+                        addRule("file", "include", parseStr(term));
+                        break;
+                    case "-file:":
+                        addRule("file", "exclude", parseStr(term));
+                        break;
+                    case "source:":
+                        addRule("source", "include", parseStr(term));
+                        break;
+                    case "-source:":
+                        addRule("source", "exclude", parseStr(term));
+                        break;
+                    case "tcc:":
+                        addRule("tcc", "include", parseStr(term));
+                        break;
+                    case "-tcc:":
+                        addRule("tcc", "exclude", parseStr(term));
+                        break;
+                    case "title:":
+                        addRule("title", "include", parseStr(term));
+                        break;
+                    case "-title:":
+                        addRule("title", "exclude", parseStr(term));
+                        break;
+                    case "comment:":
+                        addRule("comment", "include", parseStr(term));
+                        break;
+                    case "-comment:":
+                        addRule("comment", "exclude", parseStr(term));
+                        break;
+                    case "content:":
+                        addRule("content", "include", parseStr(term));
+                        break;
+                    case "-content:":
+                        addRule("content", "exclude", parseStr(term));
+                        break;
+                    case "create:":
+                        addRule("create", "include", parseDate(term));
+                        break;
+                    case "-create:":
+                        addRule("create", "exclude", parseDate(term));
+                        break;
+                    case "modify:":
+                        addRule("modify", "include", parseDate(term));
+                        break;
+                    case "-modify:":
+                        addRule("modify", "exclude", parseDate(term));
+                        break;
+                    case "-":
+                        addRule(key["default"], "exclude", parseStr(term));
+                        break;
+                    default:
+                        addRule(key["default"], "include", parseStr(term));
+                        break;
+                }
+            }
+            return "";
+
+            function addRule(name, type, value) {
+                if (key.rule[name] === undefined) key.rule[name] = { "include": [], "exclude": [] };
+                key.rule[name][type].push(value);
+            }
+
+            function addSort(field, order) {
+                if (["path", "content"].indexOf(field) >= 0) {
+                    key.sort.push(["cache", field, order]);
+                    return;
+                }
+                key.sort.push(["item", field, order]);
+            }
+
+            function addError(msg) {
+                key.error.push(msg);
+            }
+
+            function parseStr(term) {
+                var options = key.mc ? "m" : "im";
+                if (key.re) {
+                    try {
+                        var regex = new RegExp(term, options);
+                    } catch(ex) {
+                        addError("Invalid RegExp: " + term);
+                        return null;
+                    }
+                }
+                else {
+                    var regex = new RegExp(that.escapeRegExp(term), options);
+                }
+                return regex;
+            }
+
+            function parseDate(term) {
+                var match = term.match(/^(\d{0,14})-?(\d{0,14})$/);
+                if (!match) {
+                    addError("Invalid date format: " + term);
+                    return null;
+                }
+                var since = match[1] ? pad(match[1], 14) : pad(match[1], 14);
+                var until = match[2] ? pad(match[2], 14) : pad(match[2], 14, "9");
+                return [parseInt(since, 10), parseInt(until, 10)];
+            }
+
+            function pad(n, width, z) {
+                z = z || "0";
+                n = n + "";
+                return n.length >= width ? n : n + new Array(width - n.length + 1).join(z);
+            }
+        });
+        return key;
+    },
+
+    matchResult: function(data, key) {
+        if (!data.item) {
+            return false;
+        }
+        for (var i in key.rule) {
+            if (!this["_match_"+i](key.rule[i], data)) return false;
+        }
+        return true;
+    },
+
+    _match_tcc: function(keyitem, data) {
+        return this.matchText(keyitem, [data.item.title, data.item.comment, data.cache.content].join("\n"));
+    },
+
+    _match_content: function(keyitem, data) {
+        return this.matchText(keyitem, data.cache.content);
+    },
+
+    _match_id: function(keyitem, data) {
+        return this.matchText(keyitem, data.item.id);
+    },
+
+    _match_file: function(keyitem, data) {
+        return this.matchText(keyitem, data.cache.path);
+    },
+
+    _match_title: function(keyitem, data) {
+        return this.matchText(keyitem, data.item.title);
+    },
+
+    _match_comment: function(keyitem, data) {
+        return this.matchText(keyitem, data.item.comment);
+    },
+
+    _match_source: function(keyitem, data) {
+        return this.matchText(keyitem, data.item.source);
+    },
+
+    _match_type: function(keyitem, data) {
+        var type = data.item.type;
+        for (var i=0, len=keyitem.exclude.length; i<len; i++) {
+            if (type == keyitem.exclude[i]) {
+                return false;
+            }
+        }
+        // uses "or" clause
+        if (!keyitem.include.length) return true;
+        for (var i=0, len=keyitem.include.length; i<len; i++) {
+            if (type == keyitem.include[i]) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    _match_create: function(keyitem, data) {
+        return this.matchDate(keyitem, data.item.create);
+    },
+
+    _match_modify: function(keyitem, data) {
+        return this.matchDate(keyitem, data.item.modify);
+    },
+
+    matchText: function(keyitem, text) {
+        for (var i=0, len=keyitem.exclude.length; i<len; i++) {
+            if (keyitem.exclude[i].test(text)) {
+                return false;
+            }
+        }
+        for (var i=0, len=keyitem.include.length; i<len; i++) {
+            if (!keyitem.include[i].test(text)) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    matchDate: function(keyitem, date) {
+        if (!date) return false;
+        var date = parseInt(date, 10);
+        for (var i=0, len=keyitem.exclude.length; i<len; i++) {
+            if (keyitem.exclude[i][0] <= date && date <= keyitem.exclude[i][1]) {
+                return false;
+            }
+        }
+        for (var i=0, len=keyitem.include.length; i<len; i++) {
+            if (!(keyitem.include[i][0] <= date && date <= keyitem.include[i][1])) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    addResult: function(data, scrapbook) {
+        var cache = data.cache;
+        var item = data.item;
+        var wrapper = document.getElementById("result");
+        var result = document.createElement("LI");
+        var subpath = "data/" + item.id + "/" + cache.path.replace(/[^\/]+/g, function(m){return encodeURIComponent(m);});
+        var bullet = this.config["list_bullet"] + " ";
+        var text = item.type == "bookmark" ?
+            bullet + item.title:
+            item.title + ((cache.path != "index.html") ? (" (" + cache.path + ")") : "");
+        if (item.type != "bookmark") {
+            var href = scrapbook.path + "/" + "tree/frame.html#../" + subpath;
+            var link = document.createElement("A");
+            link.setAttribute("href", href);
+            link.setAttribute("target", "_blank");
+            link.setAttribute("class", "bookmark");
+            link.setAttribute("title", "View In Frame");
+            link.appendChild(document.createTextNode(bullet));
+            result.appendChild(link);
+        }
+        var href = (item.type == "bookmark") ? item.source : scrapbook.path + "/" + subpath;
+        var target = (item.type == "bookmark") ? "_blank" : "main";
+        var link = document.createElement("A");
+        link.setAttribute("href", href);
+        link.setAttribute("target", target);
+        link.setAttribute("class", item.type);
+        link.setAttribute("title", item.title);
+        link.appendChild(document.createTextNode(text));
+        result.appendChild(link);
+        wrapper.appendChild(result);
+    },
+
+    clearResult: function() {
+        var result = document.getElementById("result"), child;
+        while ((child = result.firstChild)) result.removeChild(child);
+    },
+
+    addMsg: function(msg) {
+        var wrapper = document.getElementById("result");
+        var result = document.createElement("LI");
+        result.appendChild(document.createTextNode(msg));
+        wrapper.appendChild(result);
+    },
+
+    escapeRegExp: function(str) {
+        return str.replace(/([\*\+\?\.\^\/\$\\\|\[\]\{\}\(\)])/g, "\\$1");
+    },
+
+    helperFill: function() {
+        var helper = document.getElementById("helper");
+        var keyword = document.getElementById("keyword");
+        keyword.value = keyword.value + (keyword.value == "" ? "" : " ") + helper.value;
+        helper.selectedIndex = 0;
+        keyword.focus();
+        keyword.setSelectionRange(keyword.value.length, keyword.value.length);
+    }
+};
+</script>
+</head>
+<body onload="searchEngine.init();">
+<form action="javascript:searchEngine.search();">
+    <input id="keyword" type="text">
+    <select id="helper" onchange="searchEngine.helperFill();" style="width: 2em;">
+        <option value="" selected="selected"></option>
+        <option value="id:">id:</option>
+        <option value="title:">title:</option>
+        <option value="comment:">comment:</option>
+        <option value="content:">content:</option>
+        <option value="tcc:">tcc:</option>
+        <option value="source:">source:</option>
+        <option value="type:">type:</option>
+        <option value="create:">create:</option>
+        <option value="modify:">modify:</option>
+        <option value="re:">re:</option>
+        <option value="mc:">mc:</option>
+        <option value="file:">file:</option>
+        <option value="sort:">sort:</option>
+        <option value="-sort:modify">Last Modified</option>
+        <option value="-sort:create">Last Created</option>
+        <option value="sort:title">Title Ascending</option>
+        <option value="-sort:title">Title Descending</option>
+        <option value="sort:id">ID Sort</option>
+    </select>
+    <input id="search" type="submit" value="go" disabled="disabled" autocomplete="off">
+</form>
+<div><ul id="result"></ul></div>
+</body>
+</html>
