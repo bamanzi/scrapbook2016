@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="vMTIonDRzJwGHGCQdTAk_u0KZbpX3ZewAjjD7EeaKMA">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="">
+    <!-- feed -->
+    <link rel="alternate" type="application/rss+xml" title="Mastering Emacs RSS Feed" href="https://www.masteringemacs.org/feed">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>PComplete: Context-Sensitive Completion in Emacs - Mastering Emacs </title>
+
+    <!-- Bootstrap -->
+    
+    
+    
+    
+
+    
+    
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#me-navbar-collapse">
+              <span class="sr-only">Toggle menu</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="me-navbar-collapse">
+            <ul class="nav navbar-nav" id="navbar-links">
+              <a class="navbar-brand col-hide-cs hidden-xs hidden-sm" href="https://www.masteringemacs.org/"><h1>Mastering Emacs</h1></a>
+              <li><a href="https://www.masteringemacs.org/about">About</a></li>
+    <li><a href="https://www.masteringemacs.org/all-articles">Article Index</a></li>
+    <li><a href="https://www.masteringemacs.org/reading-guide">Reading Guide</a></li>
+    <li><a href="https://www.masteringemacs.org/my-emacs-packages">My Emacs Packages</a></li>
+    
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    
+
+    
+    
+  <div class="container">
+  <div class="container-fluid">
+    <div class="row vertical-center-row">
+      <div id="book-announcement">
+    <div class="col-xs-12 col-sm-5">
+      <h1><a href="https://www.masteringemacs.org/book"><img src="bookcover35.png" class="img-small extra-margin" id="partial-responsive" alt="The Mastering Emacs ebook cover art"></a></h1>
+    </div>
+    <div class="col-xs-12 col-sm-5">
+      <div class="button-spacer">
+        <h2>Out now</h2>
+        
+  
+  <a href="https://www.masteringemacs.org/order" id="">
+    <div class="button-fill blue">
+      <div class="button-text">$31.99 Buy&nbsp;Now</div>
+    </div>
+  </a>
+
+
+        <hr>
+        
+  <a href="https://www.masteringemacs.org/book" id="learn-more-button">
+    <div class="button-fill red">
+      <div class="button-text">Learn More</div>
+    </div>
+  </a>
+
+      </div>
+    </div>
+  </div>
+
+      <div class="col-xs-11 col-xs-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-lg-10 col-lg-offset-1">
+        <article>
+    
+    
+    
+      
+    
+    
+      <h1 class="text-center">PComplete: Context-Sensitive Completion in Emacs</h1>
+    
+    
+      
+        <div class="byline">By <em>Mickey Petersen</em></div>
+      
+      <img src="fleuron2.gif" class="img-responsive center-block">
+      
+<p class=" text-justify drop-cap">In my <em>What’s New In Emacs 24</em> series (<a href="https://www.masteringemacs.org/articles/2011/12/06/what-is-new-in-emacs-24-part-1/" class=" article-link">part one</a>, <a href="https://www.masteringemacs.org/articles/2011/12/12/what-is-new-in-emacs-24-part-2/" class=" article-link">part two</a>) I briefly mentioned that <code>pcomplete</code>, the programmable completion library featured prominently in <a href="https://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/" class=" article-link">Eshell</a>, now supports <code>M-x shell</code> out of the box. That’s great news for shell mode fans as the completion mechanism adds a lot of nifty functionality to a mode that lacks the native completion provided by underlying the shell itself.</p><p class=" text-justify">The most amazing thing about the completion mechanism is that it has been in Emacs for <em>ages</em> but never made much of a public appearance and has gone virtually unnoticed due to its limited use in Emacs. In fact, I think it’s only used in EShell, ERC, Org Mode and now, finally, Shell Mode.</p><h2 id="programmable-context-sensitive-completion">Programmable, Context-Sensitive Completion</h2><p class=" text-justify">To use pcomplete you won’t have to do anything, because as of Emacs 24 it is now supported automatically when you launch a new shell session. Emacs ships with a handful of pcomplete functions that enhance the otherwise drab filename completion with context-sensitive completion similar to what you can do with bash/zsh completion. Of particular note is the <code>scp</code>, <code>ssh</code>, <code>mount</code>, <code>umount</code> and <code>make</code> support.</p><p class=" text-justify">The following table lists the commands supported by shell mode (or indeed any mode that supports pcomplete, including Eshell.)</p><dl><dt>bzip2</dt><dd><p class=" text-justify">Completes arguments and lists only bzipped files.</p></dd><dt>cd</dt><dd><p class=" text-justify">Completes directories.</p></dd><dt>chgrp</dt><dd><p class=" text-justify">Completes list of known groups on the system.</p></dd><dt>chown</dt><dd><p class=" text-justify">Completes user and group perms, but only if you use <code>user.group</code>.</p></dd><dt>cvs</dt><dd><p class=" text-justify">Completes commands and parameter options and cvs entries and modules.</p></dd><dt>gdb</dt><dd><p class=" text-justify">Completes only directories or files with eXecute permission.</p></dd><dt>gzip</dt><dd><p class=" text-justify">Completes arguments and lists only gzipped files.</p></dd><dt>kill</dt><dd><p class=" text-justify">Lists signals if completed with just a <code>-</code>, otherwise it completes all system PIDs.</p></dd><dt>make</dt><dd><p class=" text-justify">Completes arguments and valid makefiles in the directory; if a valid makefile is completed with <code>make -f FILE</code> a list of rule names from the file itself are completed.</p></dd><dt>mount</dt><dd><p class=" text-justify">Completes arguments and valid filesystem types if completed with <code>mount -t TYPE</code>.</p></dd><dt>pushd</dt><dd><p class=" text-justify">Identical to <code>cd</code>.</p></dd><dt>rm</dt><dd><p class=" text-justify">Completes arguments and filenames and directories.</p></dd><dt>rmdir</dt><dd><p class=" text-justify">Completes directories.</p></dd><dt>rpm</dt><dd><p class=" text-justify">Very sophisticated completion mechanism for most of rpm, the Redhat Package Manager. Context-sensitive completion for almost all commands, including package lookup.</p></dd><dt>scp</dt><dd><p class=" text-justify">Completes arguments, SSH known hosts and remote file lookup (using TRAMP) if the format is <code>scp host:/</code>.</p></dd><dt>ssh</dt><dd><p class=" text-justify">Completes arguments and SSH known hosts.</p></dd><dt>tar</dt><dd><p class=" text-justify">Completes arguments, including context-sensitive completion for POSIX arguments, and file name completion.</p></dd><dt>time</dt><dd><p class=" text-justify">Completes directories and files with eXecutable permission.</p></dd><dt>umount</dt><dd><p class=" text-justify">Completes arguments, mounted directories and filesystem types (like <code>mount</code>)</p></dd><dt>which</dt><dd><p class=" text-justify">Supposed to provide simple filename completion of all known binaries (wouldn’t be useful otherwise!) but appears to not work right.</p></dd><dt>xargs</dt><dd><p class=" text-justify">Completes directories and files with eXecutable permission.</p></dd></dl><h2 id="custom-completion">Custom Completion</h2><p class=" text-justify">It goes without saying that a completion library called <em>programmable completion</em> is, well, programmable.</p><p class=" text-justify">Adding simple parameter completion is an easy job but anything more than that and it gets hairy as, not surprisingly, this library is virtually undocumented (though an optimist would say the source is all the documentation you need…)</p><p class=" text-justify">I’ll demonstrate how to add rudimentary support for <code>git</code>.</p><p class=" text-justify">The first thing we need to do is establish the order in which parameters must be given; for git, it’s somewhat consistent: <code>git [options] &lt;command&gt; [&lt;args&gt;]</code></p><p class=" text-justify">For now I’ll stick to the commands as that’s what people use the most anyway. The commands, in list form, are:</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defconst pcmpl-git-commands
+  '(<span class="st">"add"</span> <span class="st">"bisect"</span> <span class="st">"branch"</span> <span class="st">"checkout"</span> <span class="st">"clone"</span>
+    <span class="st">"commit"</span> <span class="st">"diff"</span> <span class="st">"fetch"</span> <span class="st">"grep"</span>
+    <span class="st">"init"</span> <span class="st">"log"</span> <span class="st">"merge"</span> <span class="st">"mv"</span> <span class="st">"pull"</span> <span class="st">"push"</span> <span class="st">"rebase"</span>
+    <span class="st">"reset"</span> <span class="st">"rm"</span> <span class="st">"show"</span> <span class="st">"status"</span> <span class="st">"tag"</span> )
+  <span class="st">"List of `git' commands"</span>)</code></pre><p class=" text-justify">The syntax for pcomplete is rather clever: it will use dynamic dispatch to resolve the elisp function provided it is named a certain way. All commands are named <code>pcomplete/COMMAND</code> or <code>pcomplete/MAJOR-MODE/COMMAND</code>. Provided you follow that naming scheme your command will automagically work.</p><p class=" text-justify">Next, we need to present a list of valid commands – in this case the ones in <code>pcmpl-git-commands</code>, but it could be any form – to the command <code>pcomplete-here</code>.</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">defun</span><span class="fu"> pcomplete/git </span>()
+  <span class="st">"Completion for `git'"</span>
+  (pcomplete-here* pcmpl-git-commands))</code></pre><p class=" text-justify">Now when you try to tab-complete the first argument to <code>git</code> it will list our commands. Sweet.</p><p class=" text-justify">Let’s extend it further by adding support for the <code>add</code> and <code>rm</code> commands. I want the aforementioned commands to provide the standard filename/filepath completion if, and only if, the command is <code>add</code> or <code>rm</code>.</p><p class=" text-justify">This is surprisingly easy to do using <code>pcomplete-match</code>, a function that asserts a certain regexp matches a particular function argument index. Note that the call to <code>pcomplete-here</code> is in a while loop; this is so you can complete as many files as you like, one after another. One advantage of <code>pcomplete-here</code> is that it won’t display files you have already completed earlier in the argument trail – that’s very useful for a command like <code>add</code>.</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">defun</span><span class="fu"> pcomplete/git </span>()
+  <span class="st">"Completion for `git'"</span>
+  <span class="co">;; Completion for the command argument.</span>
+  (pcomplete-here* pcmpl-git-commands)
+
+  <span class="co">;; complete files/dirs forever if the command is `add' or `rm'.</span>
+  (<span class="kw">if</span> (pcomplete-match (regexp-opt '(<span class="st">"add"</span> <span class="st">"rm"</span>)) <span class="dv">1</span>)
+      (while (pcomplete-here (pcomplete-entries)))))</code></pre><p class=" text-justify">Ok, that was easy. Now let’s make it a bit more dynamic by extending our code to support the git <code>checkout</code> command so it will complete the list of branches available to us locally.</p><p class=" text-justify">To do this we need a helper function that takes the output of a call to <code>shell-command</code> and maps it to an internal elisp list. This is easily done with some quick hackery.</p><p class=" text-justify">The variable <code>pcmpl-git-ref-list-cmd</code> holds the shell command we want Emacs to run for us. It gets every ref there is and we then filter by sub-type (heads, tags, etc.) later. The function <code>pcmpl-git-get-refs</code> takes one argument, <code>type</code>, which is the ref type to filter by.</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(<span class="kw">defvar</span><span class="fu"> pcmpl-git-ref-list-cmd </span><span class="st">"git for-each-ref refs/ --format='%(refname)'"</span>
+  <span class="st">"The `git' command to run to get a list of refs"</span>)
+
+(<span class="kw">defun</span><span class="fu"> pcmpl-git-get-refs </span>(<span class="kw">type</span>)
+  <span class="st">"Return a list of `git' refs filtered by TYPE"</span>
+  (with-temp-buffer
+    (insert (shell-command-to-string pcmpl-git-ref-list-cmd))
+    (goto-char (point-min))
+    (<span class="kw">let</span> ((ref-list))
+      (while (re-search-forward (concat <span class="st">"^refs/"</span> <span class="kw">type</span> <span class="st">"/</span>\\<span class="st">(.+</span>\\<span class="st">)$"</span>) <span class="kw">nil</span> <span class="kw">t</span>)
+        (add-to-list 'ref-list (match-string <span class="dv">1</span>)))
+      ref-list)))</code></pre><p class=" text-justify">And finally, we put it all together. To keep the code clean I’ve switched to using a cond form for readability.</p><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp">(defconst pcmpl-git-commands
+  '(<span class="st">"add"</span> <span class="st">"bisect"</span> <span class="st">"branch"</span> <span class="st">"checkout"</span> <span class="st">"clone"</span>
+    <span class="st">"commit"</span> <span class="st">"diff"</span> <span class="st">"fetch"</span> <span class="st">"grep"</span>
+    <span class="st">"init"</span> <span class="st">"log"</span> <span class="st">"merge"</span> <span class="st">"mv"</span> <span class="st">"pull"</span> <span class="st">"push"</span> <span class="st">"rebase"</span>
+    <span class="st">"reset"</span> <span class="st">"rm"</span> <span class="st">"show"</span> <span class="st">"status"</span> <span class="st">"tag"</span> )
+  <span class="st">"List of `git' commands"</span>)
+
+(<span class="kw">defvar</span><span class="fu"> pcmpl-git-ref-list-cmd </span><span class="st">"git for-each-ref refs/ --format='%(refname)'"</span>
+  <span class="st">"The `git' command to run to get a list of refs"</span>)
+
+(<span class="kw">defun</span><span class="fu"> pcmpl-git-get-refs </span>(<span class="kw">type</span>)
+  <span class="st">"Return a list of `git' refs filtered by TYPE"</span>
+  (with-temp-buffer
+    (insert (shell-command-to-string pcmpl-git-ref-list-cmd))
+    (goto-char (point-min))
+    (<span class="kw">let</span> ((ref-list))
+      (while (re-search-forward (concat <span class="st">"^refs/"</span> <span class="kw">type</span> <span class="st">"/</span>\\<span class="st">(.+</span>\\<span class="st">)$"</span>) <span class="kw">nil</span> <span class="kw">t</span>)
+        (add-to-list 'ref-list (match-string <span class="dv">1</span>)))
+      ref-list)))
+
+(<span class="kw">defun</span><span class="fu"> pcomplete/git </span>()
+  <span class="st">"Completion for `git'"</span>
+  <span class="co">;; Completion for the command argument.</span>
+  (pcomplete-here* pcmpl-git-commands)  
+  <span class="co">;; complete files/dirs forever if the command is `add' or `rm'</span>
+  (<span class="kw">cond</span>
+   ((pcomplete-match (regexp-opt '(<span class="st">"add"</span> <span class="st">"rm"</span>)) <span class="dv">1</span>)
+    (while (pcomplete-here (pcomplete-entries))))
+   <span class="co">;; provide branch completion for the command `checkout'.</span>
+   ((pcomplete-match <span class="st">"checkout"</span> <span class="dv">1</span>)
+    (pcomplete-here* (pcmpl-git-get-refs <span class="st">"heads"</span>)))))</code></pre><p class=" text-justify">And that’s that. A simple completion mechanism for git. Put this in your .emacs or init file and you’re done.</p><p class=" text-justify">/code</p>
+
+    
+  </article>
+      </div>
+    </div>
+    <img src="fleuron1.gif" class="img-responsive center-block">
+    <div id="footer" class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2 col-xs-12" id="further-reading">
+
+          
+            <h2>Further Reading</h2>
+            <p>Have you read my
+              <a href="https://www.masteringemacs.org/reading-guide" id="further-reading-link">Reading Guide</a> yet?
+              It's a curated guide to most of my articles and I guarantee you'll learn something whether you're a beginner or an expert. <a href="https://www.masteringemacs.org/book">Or why not buy my new book?</a></p>
+          
+        </div>
+        <div class="col-md-4 col-xs-12 inverted" id="subscribe-group">
+          <div class="inverted-title text-center">
+            Subscribe to the Mastering Emacs newsletter
+          </div>
+          <p class="small text-center">I write infrequently, so go on — sign up and receive an e-mail when I write new articles</p>
+          <form action="https://masteringemacs.us9.list-manage.com/subscribe/post?u=09fae16ebcde0fee42a8bd99f&amp;id=777fab9be9" method="post" name="mastering-emacs-subscribe-form" id="subscribe-form" target="_blank" novalidate="" role="form">
+            <div class="form-group">
+	      <label class="sr-only" for="me-EMAIL">Email Address </label>
+	      <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" value="" id="me-EMAIL" name="EMAIL" class="form-control" placeholder="Your E-mail address" type="email">
+            </div>
+            <div class="form-group">
+	      <label class="sr-only" for="me-FNAME">First Name </label>
+	      <input value="" id="me-FNAME" name="FNAME" class="form-control" placeholder="Your First name" type="text">
+            </div>
+            <div style="position: absolute; left: -5000px;">
+              <input name="b_09fae16ebcde0fee42a8bd99f_777fab9be9" tabindex="-1" value="" type="text">
+            </div>
+            <input value="Subscribe" name="subscribe" id="me-subscribe" class="btn btn-default" type="submit">
+            <div class="pull-right">
+              <a class="twitter-follow-button center-block" href="https://twitter.com/mickeynp" data-show-count="false" data-size="large" data-lang="en">Follow @mickeynp</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-xs-12 col-md-offset-2">
+        <img src="fleuron1.gif" class="img-responsive center-block">
+        
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>How to extend pcomplete to work for a programming mode to get completion while writing code?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Andrei</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5768">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>That's a rather complicated question for which there is no simple answer. PComplete wouldn't be the right tool for that job. Look at semantic-mode and CEDET.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5769">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Yes, sorry, I meant to ask if it would be feasible to do. auto-complete can help implement completion in a simpler way than full-blown Semantic/CEDET support, which is quite more complicated to implement.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Andrei</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5936">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thank you very much for this example. However, it looks like the Emacs community is going to reproduce the effort spent by the Bash community. For example, bash completion handles git very well. Would it be possible to replace pcompletion by bash completion?</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://damiencassou.seasidehosting.st/" rel="nofollow">Damien</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="5783">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>There may be some overlap between the two sets but things like using TRAMP to resolve remote files is not possible (that I'm aware of anyway) with Bash of Zsh.</p>
+<p>You might be able to call out to a bash script and ask the individual shell scripted completion routines for a list of candidate matches.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5802">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Actually, bash can complete remote filenames with scp. My understanding is that's it's completion mechanism is pretty general purpose and extensible.</p>
+<p>That said, I've always found bash scp completion to be kind of slow and flakey.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://catphive.net/" rel="nofollow">Brendan Miller</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="5806">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Great general purpose tip, thanks.</p>
+<p>As for bash completion that git has, perhaps we can glue it in, but pcomplete seems like it's a more general solution that I could expand to add all my custom SQL commands accumulated over the years. Some of these commands depend on current schemas that can be obtained from the backend by pcomplete.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Dave F</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="5812">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thank you for this post. Is there something that can be done so that if you start with sudo, the default completion starts. Right now sudo completes for names of files in the folder.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>Jorge</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="6040">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Your post seems to suggest that eshell-style completion works with M-x shell out-of-the-box now, but I don't see it in Emacs 24.0.93.  For instance, if I have a few directories starting with "a", in eshell I type cd a and hitting  repeatedly cycles me through the options.  In M-x shell, it pops up the completion buffer, as before.</p>
+<p>This is the main reason that I still turn to an external terminal for my bash needs -- bash completion is pretty great, and I'd love to see a semblance of it in Emacs.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://dnquark.com/" rel="nofollow">Leo Alekseyev</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="6952">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Umm, hitting TAB repeatedly (note to self: don't use HTML-like delimiters in comments :)  )</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://dnquark.com/" rel="nofollow">Leo Alekseyev</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="6953">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Great article!  Thanks for providing users with such a nice introduction to pcomplete's functionality.</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>John Wiegley</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="10363">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+      
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>Thanks for writing the module, John!</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em>mickey</em> ·
+              <a href="#reply" class="reply-link" data-comment-parent-id="10390">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+      
+    </div>
+    
+    <aside class="pull–quote">
+      <blockquote>
+	<p class="comment-quote"></p><p>In the body of pcmpl-git-get-refs, you are using add-to-list with a local list variable for accumulation. This practice has two problems. One problem is that when the parameter name that add-to-list internally uses to hold the list variable symbol and the local list variable name that the user of add-to-list uses for accumulation is same, surprise happens:</p>
+<p>(let ((list-var (list 1 2 3))) (add-to-list (quote list-var) 0) list-var) ; =&gt; (1 2 3)</p>
+<p>Another problem is that when someone copy and paste your definition of pcmpl-git-get-refs into an el file which happens to be lexically scoped, he/she will find that every call of pcmpl-git-get-refs causes error: "Symbol's value as variable is void: ref-list"</p>
+<p>Quoting a local variable name is what's causing these gotchas. I am going to write an article about this, but let me just shortly mention here two ways to avoid quoting the accumulating list variable.</p>
+<p>One way is to define and use a macro version, add-to-list-q, of add-to-list:</p>
+<p>(add-to-list-q ref-list (match-string 1))</p>
+<p>The second way is to define and use a function, added-to-list, that returns the resulting list:</p>
+<p>(setq ref-list (added-to-list ref-list (match-string 1)))</p><p></p>
+      </blockquote>
+      <div class="form-holder">
+        <div class="text-right">
+          <p class="comment-quote">
+            
+              — <em><a href="http://yoo2080.wordpress.com/" rel="nofollow">Jisang Yoo</a></em> · <a href="#reply" class="reply-link" data-comment-parent-id="13892">reply</a>
+            
+          </p>
+        </div>
+      </div>
+    </aside>
+    <div class="nested-comment">
+    </div>
+    
+
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-xs-12 col-md-offset-2" id="post-comment">
+          <img src="fleuron1.gif" class="img-responsive center-block">
+          <form class="form-horizontal" role="form" id="comment-form" data-article-id="536">
+            <div class="row">
+              <div id="form-error" class="col-sm-8 col-md-offset-2">
+              </div>
+            </div>
+            <input id="parent_id" name="parent_id" value="" type="hidden">
+            <div class="form-group">
+              <label for="author" class="col-sm-4 control-label">Name</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="comment-author" name="author" placeholder="" required="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-sm-4 control-label">Email</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="comment-email" name="email" placeholder="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="url" class="col-sm-4 control-label">Website</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="comment-website" name="url" placeholder="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="captcha" class="col-sm-4 control-label"><code>C-x C-f</code> is what command?</label>
+              <div class="col-sm-8">
+                <input autocomplete="off" class="form-control" id="comment-captcha" name="captcha" placeholder="" value="" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="content" class="col-sm-4 control-label">Comment Content</label>
+              <div class="col-sm-8">
+                <textarea autocomplete="off" class="form-control" id="comment-content" name="content" placeholder=""></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-8 col-sm-offset-4">
+                <button type="button" class="btn btn-success" id="comment-submit-button">Comment</button>
+                <button type="button" class="btn btn-default" id="comment-cancel-button">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+    
+      <div class="container-fluid nav-footer">
+        <div class="row-fluid">
+          <div class="col-xs-12 center-column">
+            <p>Copyright 2010-2015 Mickey Petersen. <a href="https://www.masteringemacs.org/terms" id="terms">Terms &amp; Privacy Policy</a></p>
+          </div>
+        </div>
+      </div>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    
+      
+    
+    
+    
+    
+    
+  
+</body><div style="display: none; width: 24px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none;" class="diigotb-border diigotb-left"></div><div style="display: none;" class="diigotb-border diigotb-top"></div><div style="display: none;" class="diigotb-border diigotb-right"></div><div style="display: none;" class="diigotb-border diigotb-bottom"></div>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>EmacsWiki: Pcomplete Examples</title><link rel="alternate" type="application/wiki" title="Edit this page" href="https://www.emacswiki.org/emacs?action=edit;id=PcompleteExamples"><meta name="robots" content="INDEX,FOLLOW"><link rel="alternate" type="application/rss+xml" title="EmacsWiki" href="https://www.emacswiki.org/emacs?action=rss"><link rel="alternate" type="application/rss+xml" title="EmacsWiki: PcompleteExamples" href="https://www.emacswiki.org/emacs?action=rss;rcidonly=PcompleteExamples">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content" href="https://www.emacswiki.org/full.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content and diff" href="https://www.emacswiki.org/full-diff.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki including minor differences" href="https://www.emacswiki.org/minor-edits.rss">
+<link rel="alternate" type="application/rss+xml" title="Changes for PcompleteExamples only" href="https://www.emacswiki.org/emacs?action=rss;rcidonly=PcompleteExamples"><meta name="viewport" content="width=device-width">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head><body class="default"><div class="header"><a class="logo" href="https://www.emacswiki.org/emacs/SiteMap"><img alt="[Home]" src="logo218x38.png" class="logo"></a><div class="menu"><span class="gotobar bar"><a href="https://www.emacswiki.org/emacs/SiteMap" class="local">SiteMap</a> <a class="local" href="https://www.emacswiki.org/emacs/Search">Search</a> <a class="local" href="https://www.emacswiki.org/emacs/ElispArea">ElispArea</a> <a class="local" href="https://www.emacswiki.org/emacs/HowTo">HowTo</a> <a class="local" href="https://www.emacswiki.org/emacs/Glossary">Glossary</a> <a class="local" href="https://www.emacswiki.org/emacs/RecentChanges">RecentChanges</a> <a class="local" href="https://www.emacswiki.org/emacs/News">News</a> <a href="https://www.emacswiki.org/emacs/Problems" class="local">Problems</a> <a href="https://www.emacswiki.org/emacs/Suggestions" class="local">Suggestions</a> </span><form method="get" action="https://www.emacswiki.org/emacs" enctype="multipart/form-data" class="search" accept-charset="utf-8"><p><label for="search">Search:</label> <input name="search" size="20" accesskey="f" id="search" type="text"> <label for="searchlang">Language:</label> <input name="lang" size="10" id="searchlang" type="text"> <input name="dosearch" value="Go!" type="submit"></p></form></div><h1><a rel="nofollow" title="Click to search for references to this page" href="https://www.emacswiki.org/emacs?search=%22PcompleteExamples%22"><span style="padding-right: 0.5ex;">Pcomplete</span><span style="padding-right: 0.5ex;">Examples</span></a></h1></div><div class="wrapper"><div class="content browse"><p>See also: <a class="local" href="https://www.emacswiki.org/emacs/ProgrammableCompletion">ProgrammableCompletion</a>.</p><dl class="quote"><dt></dt><dd>(I could not find any simple examples for pcomplete, and so am starting this page. Please improve my example below, and add more. – <a class="local" href="https://www.emacswiki.org/emacs/DeepakGoel">DeepakGoel</a>)</dd></dl><p>The various sections on this page shall contain various examples:</p><hr><p><b>Q:</b> I want the very basic minimal completion, where I supply a list of completions, and pcomplete completes them based on the word at point.</p><p><b>A:</b></p><p>Let your major mode be called foo-mode.</p><p>Now, advise your users to <code>(add-hook 'foo-mode-hook 'pcomplete-foo-setup)</code></p><pre>    (<span class="keyword">defvar</span> <span class="variable">foo-all-completions</span> &lt;list of completions as strings&gt;)
+    (<span class="keyword">defvar</span> <span class="variable">foo-all-completions</span> '(<span class="string">"foo"</span> <span class="string">"bar"</span> <span class="string">"baz"</span>))</pre><p>In the above example, when your users type fo and press M-x pcomplete somewhere, when in foo major mode, you want the pcompletions offered to be one of foo, bar and baz.</p><pre>    (<span class="keyword">defun</span> <span class="function">pcomplete-foo-setup</span> ()
+      (interactive)
+      (set (make-local-variable 'pcomplete-parse-arguments-function)
+           'pcomplete-parse-foo-arguments)
+      (set (make-local-variable 'pcomplete-default-completion-function)
+           'pcomplete-foo-default-completion))</pre><p>For example:</p><pre>   (<span class="keyword">defun</span> <span class="function">pcomplete-foo-default-completion</span> ()
+     (pcomplete-here foo-all-completions))</pre><p>So far, pretty clear, right? Now the only thing remaining is to define the pcomplete-parse-arguments-function. This function should return the word-at-point as a SECOND argument and should return the point where the word starts, so that pcomplete thinks of the word as an argument, not a command. The syntax of the return value is</p><pre> ((<span class="string">"command"</span> <span class="string">"arg1"</span> <span class="string">"arg2"</span> ...) point0 point1 point2 ...)</pre><p>where the points correspond to the args.</p><p>So, you can define:</p><pre> (<span class="keyword">defun</span> <span class="function">pcomplete-parse-foo-arguments</span> ()
+   (<span class="keyword elisp">save-excursion</span>
+     (<span class="keyword elisp">let</span>* ((thispt (point))
+            (pt (search-backward-regexp <span class="string">"[ \t\n]"</span> nil t))
+            (ptt (<span class="keyword elisp">if</span> pt (+ pt 1) thispt)))
+      (list (list <span class="string">"dummy"</span>
+                  (buffer-substring-no-properties ptt thispt))
+            (point-min) ptt))))</pre><p>As you can see, the first argument is a “dummy”</p><p>Also note that the above example can also work independent of foo-major-mode. All you have to do to set it up is pcomplete-foo-setup. From then on M-x pcomplete works as expected.</p><hr><p><b>Q:</b> Is there a package for Emacs to complete an interactive call to load-library() just like XEmacs does?</p><p><b>A:</b> There’s a find-lib.el  </p><hr><p>For a very simple example of supporting pcomplete from within <a class="local" href="https://www.emacswiki.org/emacs/EshellCompletion">Eshell</a>, see <a href="https://www.emacswiki.org/emacs/pcmpl-ssh.el" class="inter Lisp"><span class="site">Lisp</span><span class="separator">:</span><span class="interpage">pcmpl-ssh.el</span></a> (<a href="https://www.emacswiki.org/emacs/PcompleteSSH" class="local">PcompleteSSH</a>)</p><hr><p>For more complicated examples, browse the sources of erc-pcomplete.el and of eshell.</p><hr><p><a href="https://www.emacswiki.org/emacs/CategoryCompletion" class="local">CategoryCompletion</a></p></div><div class="wrapper close"></div></div><div class="footer"><hr><span class="translation bar"><br>  <a href="https://www.emacswiki.org/emacs?action=translate;id=PcompleteExamples;missing=de_es_fr_it_ja_ko_pt_ru_se_uk_zh" class="translation new" rel="nofollow">Add Translation</a></span><div class="edit bar"><a accesskey="c" class="comment local edit" href="https://www.emacswiki.org/emacs/Comments_on_PcompleteExamples">Talk</a> <a rel="nofollow" accesskey="e" title="Click to edit this page" class="edit" href="https://www.emacswiki.org/emacs?action=edit;id=PcompleteExamples">Edit this page</a> <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=history;id=PcompleteExamples" class="history">View other revisions</a> <a class="admin" href="https://www.emacswiki.org/emacs?action=admin;id=PcompleteExamples" rel="nofollow">Administration</a></div><div class="time">Last edited 2013-08-24 12:00 UTC by <a class="author" href="https://www.emacswiki.org/emacs/AlexSchroeder" title="178-83-163-103.dynamic.hispeed.ch">AlexSchroeder</a> <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=browse;diff=2;id=PcompleteExamples" class="diff">(diff)</a></div><div style="float: right; margin-left: 1ex;">
+<!-- Creative Commons License -->
+<a class="licence" href="https://creativecommons.org/licenses/GPL/2.0/"><img alt="CC-GNU GPL" style="border: medium none;" src="cc-GPL-a.png"></a>
+<!-- /Creative Commons License -->
+</div>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <license rdf:resource="https://creativecommons.org/licenses/GPL/2.0/" />
+  <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
+</Work>
+
+<License rdf:about="https://creativecommons.org/licenses/GPL/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
+</License>
+</rdf:RDF>
+-->
+
+<p class="legal">
+This work is licensed to you under version 2 of the
+<a href="https://www.gnu.org/">GNU</a> <a href="https://www.emacswiki.org/GPL">General Public License</a>.
+Alternatively, you may choose to receive this work under any other
+license that grants the right to use, copy, modify, and/or distribute
+the work, as long as that license imposes the restriction that
+derivative works have to grant the same rights and impose the same
+restriction. For example, you may choose to receive this work under
+the
+<a href="https://www.gnu.org/">GNU</a>
+<a href="https://www.emacswiki.org/FDL">Free Documentation License</a>, the
+<a href="https://creativecommons.org/">CreativeCommons</a>
+<a href="https://creativecommons.org/licenses/sa/1.0/">ShareAlike</a>
+License, the XEmacs manual license, or
+<a href="https://www.emacswiki.org/OLD">similar licenses</a>.
+</p>
+<p class="legal" style="padding-top: 0.5em;">Please note our <a href="https://www.emacswiki.org/emacs/Privacy">Privacy Statement</a>.</p>
+</div>
+
+
+</body>
+</html>

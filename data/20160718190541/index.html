@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# og: http://ogp.me/ns# article: http://ogp.me/ns/article# og: http://ogp.me/ns# book: http://ogp.me/ns/book# og: http://ogp.me/ns# profile: http://ogp.me/ns/profile# og: http://ogp.me/ns# video: http://ogp.me/ns/video# og: http://ogp.me/ns# product: http://ogp.me/ns/product# og: http://ogp.me/ns# content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ rdfs: http://www.w3.org/2000/01/rdf-schema# og: http://ogp.me/ns# sioc: http://rdfs.org/sioc/ns# og: http://ogp.me/ns# sioct: http://rdfs.org/sioc/types# og: http://ogp.me/ns# skos: http://www.w3.org/2004/02/skos/core# og: http://ogp.me/ns# xsd: http://www.w3.org/2001/XMLSchema# og: http://ogp.me/ns#" dir="ltr" class="js">
+<head>
+  <meta charset="UTF-8">
+
+<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+<meta name="description" content="When you install a new Linux server distribution, you can often install all of the daemons you'll need to run on that machine at install time. Distribution vendors present a &quot;ready to go&quot; distribution by supplying initialization scripts for all of the services you might run. But what happens if you're building from source, and no init script is supplied? What if you're writing the source and haven't ever built an init script? Here are a few ways to cope when you're faced with this challenge.">
+<meta name="generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="https://www.linux.com/learn/managing-linux-daemons-init-scripts">
+<link rel="shortlink" href="https://www.linux.com/learn/managing-linux-daemons-init-scripts">
+<meta property="og:site_name" content="Linux.com | The source for Linux information">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.linux.com/learn/managing-linux-daemons-init-scripts">
+<meta property="og:title" content="Managing Linux daemons with init scripts">
+<meta property="og:description" content="When you install a new Linux server distribution, you can often install all of the daemons you'll need to run on that machine at install time. Distribution vendors present a &quot;ready to go&quot; distribution by supplying initialization scripts for all of the services you might run. But what happens if you're building from source, and no init script is supplied? What if you're writing the source and haven't ever built an init script? Here are a few ways to cope when you're faced with this challenge.">
+<meta property="og:updated_time" content="2011-05-06T16:16:41+00:00">
+<meta name="twitter:site" content="@linuxfoundation">
+<meta name="twitter:url" content="https://www.linux.com/learn/managing-linux-daemons-init-scripts">
+<meta name="twitter:title" content="Managing Linux daemons with init scripts">
+<meta name="twitter:description" content="When you install a new Linux server distribution, you can often install all of the daemons you'll need to run on that machine at install time. Distribution vendors present a &quot;ready to go&quot; distribution by supplying initialization scripts for all of the services you might run. But what happens if you're building from source, and no init script is supplied? What if you're writing the source and haven't ever built an init script? Here are a few ways to cope when you're faced with this challenge.">
+<meta property="article:published_time" content="2005-08-10T16:00:00+00:00">
+<meta property="article:modified_time" content="2011-05-06T16:16:41+00:00">
+<meta itemprop="name" content="Managing Linux daemons with init scripts">
+<meta itemprop="description" content="When you install a new Linux server distribution, you can often install all of the daemons you'll need to run on that machine at install time. Distribution vendors present a &quot;ready to go&quot; distribution by supplying initialization scripts for all of the services you might run. But what happens if you're building from source, and no init script is supplied? What if you're writing the source and haven't ever built an init script? Here are a few ways to cope when you're faced with this challenge.">
+  <title>Managing Linux daemons with init scripts | Linux.com | The source for Linux information</title>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width">
+    <!--[if IEMobile]><meta http-equiv="cleartype" content="on"><![endif]-->
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-81319 node-type-tutorial section-learn page-panels">
+<!-- Google Tag Manager -->
+
+
+<!-- End Google Tag Manager -->
+      <p id="skip-link">
+      <a href="#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+      
+<div id="page">
+
+    <div class="region region-header-top">
+    <div class="container">
+      
+<div id="block-dfp-leaderboard1" class="block block-dfp first last odd lf_header_leaderboard_ad">
+
+    
+	<div class="block__content">
+	  <div id="dfp-ad-leaderboard1-wrapper" class="dfp-tag-wrapper">
+<div id="dfp-ad-leaderboard1" class="dfp-tag-wrapper">
+  <div class="slug">Advertisement</div>  
+</div>
+</div>	</div>
+
+</div>
+    </div>
+  </div>
+
+  <header class="header" id="header" role="banner">
+
+    <!-- Toggles -->
+    <div class="header__toggles">
+      <a id="nav__toggle" href="#"><span></span></a>
+      <a id="search__toggle" href="#"><span></span></a>
+    </div>
+
+    <div class="header__inner">
+      <div class="container header__container">
+
+                  <div class="header__site-info" id="name-and-slogan">
+
+                          <a href="https://www.linux.com/" title="Home" rel="home" class="header__logo" id="logo"><img src="logo.png" alt="Home" class="header__logo-image"></a>
+            
+            
+                          <div class="header__site-slogan" id="site-slogan">News for the Open Source Professional</div>
+                      </div>
+        
+        
+          <div class="header__region region region-header">
+    
+<div id="block-linux-user-login-logout-links" class="block block-linux-user first odd ">
+
+    
+	<div class="block__content">
+	  <a href="https://www.linux.com/cas?destination=node/81319" rel="noindex, nofollow">Login / Create Account</a>	</div>
+
+</div>
+
+<div id="block-menu-menu-join-us" class="block block-menu even join-us" role="navigation">
+
+    
+	<div class="block__content">
+	  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.facebook.com/TheLinuxFoundation" class="menu__link addthis-facebook" target="_blank">Facebook</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://twitter.com/linuxfoundation" class="menu__link addthis-twitter" target="_blank">Twitter</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://plus.google.com/105083814157272466314" class="menu__link addthis-googleplus" target="_blank">Google Plus</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://www.linkedin.com/groups?gid=48682" class="menu__link addthis-linkedin" target="_blank">LinkedIn</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.linux.com/feeds" class="menu__link addthis-rss">Feeds</a></li>
+</ul>	</div>
+
+</div>
+
+<div id="block-boxes-brought-lf" class="block block-boxes block-boxes-simple last odd lf-brought">
+
+    
+	<div class="block__content">
+	  <div id="boxes-box-brought_lf" class="boxes-box"><div class="boxes-box-content">
+      <p><span>Brought to you by</span> <a target="_blank" href="http://www.linuxfoundation.org/"><img alt="Linux Foundation" src="logo-header.png"></a></p></div></div>	</div>
+
+</div>
+  </div>
+
+      </div>
+
+        
+<nav class="main-menu" role="navigation">
+  <div class="container">
+
+    
+    
+    <ul class="menu"><li class="menu__item is-expanded first expanded"><a href="https://www.linux.com/news" class="menu__link">News</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.linux.com/news/category/enterprise" class="menu__link">Enterprise</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/news/category/desktop" class="menu__link">Desktop</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/news/category/embeddedmobile" class="menu__link">Mobile &amp; Embedded</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/news/category/open-source-practices" class="menu__link">Open Source</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/news/category/linux-kernel" class="menu__link">Linux Kernel</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/devops" class="menu__link">DevOps</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/networking" class="menu__link">Networking</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.linux.com/cloud" class="menu__link">Cloud Computing</a></li>
+</ul></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/tutorials" class="menu__link">Tutorials</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/blogs/linux-foundation" class="menu__link expanded">Open Source Pro</a></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link nolink">Learn</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.linux.com/what-is-linux" class="menu__link">What is Linux?</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/learn/training" class="menu__link">Training</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/certification" class="menu__link">Certification</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/events" class="menu__link">Events</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.linux.com/blog/upcoming-free-webinars-linux-foundation" class="menu__link">Webinars</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://www.linux.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.linux.com/community/participate" class="menu__link">Participate</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/answers" class="menu__link">Q&amp;A</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/forum" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.linux.com/community/blogs" class="menu__link">Blogs</a></li>
+</ul></li>
+<li class="menu__item is-expanded last expanded"><span class="menu__link nolink">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.linux.com/resources/newsletter" class="menu__link">Newsletter</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/distributions" class="menu__link">Distributions</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/resources/publications" class="menu__link">Publications</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/resources/infographics" class="menu__link">Infographics</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/photos" class="menu__link">Photos</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.linux.com/videos" class="menu__link">Videos</a></li>
+</ul></li>
+</ul>
+  </div>
+</nav><!-- /#navigation -->
+
+<div id="block-views-ed07b1def74a71b1f939ef53b3d18ead" class="block block-views last even search-block">
+
+  <div class="container">
+        
+    <a id="search__toggle_desktop" href="#"><span></span></a>
+
+    <div class="block__content">
+      <form action="https://www.linux.com/search" method="get" id="views-exposed-form-linux-search-node-panel-pane-1" accept-charset="UTF-8"><div><div class="views-exposed-form">
+  <div class="views-exposed-widgets clearfix">
+          <div id="edit-keyword-wrapper" class="views-exposed-widget views-widget-filter-search_api_views_fulltext">
+                        <div class="views-widget">
+          <div class="form-item form-type-textfield form-item-keyword">
+ <input id="edit-keyword" name="keyword" value="" size="30" maxlength="128" class="form-text required error" type="text">
+</div>
+        </div>
+              </div>
+                    <div class="views-exposed-widget views-submit-button">
+      <input id="edit-submit-linux-search-node" name="" value="Search" class="form-submit" type="submit">    </div>
+      </div>
+</div>
+</div></form>    </div>
+  </div>
+
+</div>
+
+    </div>
+  </header>
+
+  
+  <div id="main">
+    <div class="container">
+      <div id="content" class="column" role="main">
+                        <a id="main-content"></a>
+                                                                
+
+
+<div class="lcom-stacked__header"><div class="panel-pane pane-views-panes pane-real-author-name-linked-panel-pane-1 node-author">
+  
+      
+  
+  <div id="view-id-real_author_name_linked-panel_pane_1" class="view view-real-author-name-linked view-id-real_author_name_linked view-display-id-panel_pane_1 view-dom-id-cfad2123d4cffdad19f3386cad26d7b8">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+      
+  <div class="views-field views-field-field-linux-name">        <div class="field-content"><a href="https://www.linux.com/users/linuxcom-editorial-staff">Linux.com Editorial Staff </a></div>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+  
+  </div>
+<div class="panel-pane pane-node-created node-date">
+  
+      
+  
+  August 10, 2005
+  
+  </div>
+</div><div class="lcom-stacked__main"><div class="panel-pane pane-node-title">
+  
+      
+  
+  <h1>Managing Linux daemons with init scripts</h1>
+
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-node-body">
+  
+      
+  
+  <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><div class="article-content">
+<p>
+	When you install a new Linux server distribution, you can often install all of the daemons you'll need to run on that machine at install time. Distribution vendors present a "ready to go" distribution by supplying initialization scripts for all of the services you might run. But what happens if you're building from source, and no init script is supplied? What if you're <em>writing</em> the source and haven't ever built an init script? Here are a few ways to cope when you're faced with this challenge.</p>
+<p>
+	You can handle initialization in several different ways. One option is to place the commands used to start up a daemon into /etc/rc.d/rc.local file. This method is very simple: Cut and paste the instructions the README gives to start the daemon, and that's your initialization. Unfortunately, this method goes against what most systems are set up to do by default, which is to use init scripts.</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	Using the rc.local method also forces you to forgo some flexibility afforded by init scripts, or to hack your own functionality into a wrapper startup script that is called in rc.local. I've seen this done, but it's largely a duplication of effort.</p>
+<p>
+	Another method is to start your daemon directly from the /etc/inittab file. More than a few administrators use this technique, but I don't recommend it for an environment of several servers (or more) maintained by several administrators, for a couple of reasons.</p>
+<p>
+	Reason one is consistency. If possible, you should manage every daemon on every server using the same procedure. The only thing that should change in the commands run is the name of the daemon.</p>
+<p>
+	The second reason, which relates to consistency, is manageability in the event of your demise. If you're the only administrator, then this is a moot point. However, unless you require every administrator to know the intricacies of every daemon running in the environment, running things out of inittab is not a great idea. Manageability, as a goal of a systems management group, is not something that a single admin can handle. Manageability spans the entire group responsible for the welfare of the systems and services they maintain. Of course, good admins also document procedures.</p>
+<p>
+	Init scripts are your friend because they represent an efficient use of the resources given to an administrator with which to manage the startup and shutdown of daemons. Distribution vendors have largely standardized on initialization scripts around which to build their daemon management tools, and they've put a great deal of work into make managing daemons as simple as possible. Even if you have an init-scriptless daemon, putting together an init script to be managed by the normal system tools and procedures is easy.</p>
+<p>
+	Let's go over the process of creating an init script. You'll see how easy this procedure is, and discover functionality that makes you rethink how you manage daemons.</p>
+<p><strong>Creating your own init script</strong></p>
+<p>
+	I'm going to review this process based on a real-life experience. I'm using the newly released <a target="_blank" href="http://directory.fedora.redhat.com/wiki/Main_Page">Fedora Directory Server</a> on production Red Hat Advanced Server machines. I've downloaded and installed the binary RPM packages and tested that it works. The next step is to make sure it's manageable in a way that is consistent with everything else on the system. What to do?</p>
+<p>
+	I created my own init script. The first thing I did was look for something I could use as a template. If you know that your daemon has similar demands to another daemon, you can use the init script from that daemon as a template. In this case, I simply copied the init script template that comes with my Linux distribution, which is in /usr/share/doc/initscript package/sysvinitfiles. Here's what I took from that file:</p>
+<pre>#!/bin/bash
+#
+#       /etc/rc.d/init.d/
+#
+#
+#
+#
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+
+
+start() {
+        echo -n "Starting : "
+
+        touch /var/lock/subsys/
+        return
+}
+
+stop() {
+        echo -n "Shutting down : "
+
+        rm -f /var/lock/subsys/
+        return
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    reload)
+
+tart)
+
+        [ -f /var/lock/subsys/ ] &amp;&amp; restart || :
+    probe)
+
+        ;;
+    *)
+        echo "Usage:  {start|stop|status|reload|restart[|probe]"
+        exit 1
+        ;;
+esac
+exit $?
+</pre><p>
+	As you can see, all of the structure for an init script is already in place, and the functions and other bits of code you'll need are stubbed out, just waiting for you to fill in the blanks.</p>
+<p>
+	The most important line sits at the top of the file, as unassuming as can be. It's the one that sources the file /etc/init.d/functions. This file is filled with simple but useful bash shell functions that are ready for use in your init script. If you've never noticed this file, read it! Even if you don't use the stuff, it will give you insight into how your system does things, and it can explain why some boot time or shutdown time errors occur.</p>
+<p>
+	Here's my finished init script, which is currently in use on my almost-production servers:</p>
+<pre>#!/bin/bash
+#
+#       /etc/rc.d/init.d/ns-slapd
+# ns-slapd      This shell script takes care of starting and stopping
+#               ns-slapd (the Fedora Directory Server)
+#
+# Author: Brian Jones 
+ This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+ 
+#
+# chkconfig: 2345 13 87
+# description: ns-slapd is the Fedora Directory Service daemon. \
+# FDS can serve as a repository for (and, subsequently, a source of) \
+# data for most of the resources listed in /etc/nsswitch.conf, such as \
+# passwd or group entries.
+
+# Source function library.
+. /etc/init.d/functions
+
+SLAPD_HOST=`hostname -a`
+SLAPD_DIR=/opt/fedora-ds/bin/slapd/server
+PIDFILE=$SLAPD_DIR/logs/pid
+STARTPIDFILE=$SLAPD_DIR/logs/startpid
+
+if [ -f /etc/sysconfig/ns-slapd ]; then
+        . /etc/sysconfig/ns-slapd
+fi
+
+
+start() {
+        echo -n "Starting Fedora Directory Server: "
+        if [ -f $STARTPIDFILE ]; then
+                PID=`cat $STARTPIDFILE`
+                echo ns-slapd already running: $PID
+                exit 2;
+        elif [ -f $PIDFILE ]; then
+                PID=`cat $PIDFILE`
+                echo ns-slapd already running: $PID
+                exit 2;
+        else
+                cd $SLAPD_DIR
+                daemon  ./ns-slapd $OPTIONS
+                RETVAL=$?
+                echo
+                [ $RETVAL -eq 0 ] &amp;&amp; touch /var/lock/subsys/ns-slapd
+                return $RETVAL
+        fi
+
+}
+
+stop() {
+        echo -n "Shutting down Fedora Directory Server: "
+        echo
+        killproc ns-slapd
+        echo
+        rm -f /var/lock/subsys/ns-slapd
+        return 0
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status ns-slapd
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage:  {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $?
+
+</pre><p>
+	The three functions I use in my script are <code>killproc</code>, <code>status</code>, and <code>daemon</code>. You have to be careful that you know both what the functions do, and what your application's default behavior is. For example, the function that attempts to grab the PID of the running process, <code>pidofproc</code>, assumes that the process writes a pid file somewhere under /var/run. For all other daemons on my system, this works, and I've requested that the Directory Server folks do this as well. (Right now there are pid files, but they're managed within the directory hierarchy where the daemon lives, under /opt/fedora-ds.)</p>
+<p>
+	Also, notice that this script will work with the <code>chkconfig</code> command, as denoted by the line reading <code>chkconfig: 2345 13 87</code>. After that, just run <code>chkconfig add <i>scriptname</i></code>. This script also works with the <code>service</code> command on systems that have it (including Fedora and, I think, SUSE), which is a useful tool in the sysadmin's arsenal. It serves as a shortcut -- instead of typing <code>cd /etc/init.d; ./mydaemon status</code>, or <code>/etc/init.d/mydaemon status</code>, you can type <code>service mydaemon status</code> from whatever your working directory happens to be.</p>
+<p>
+	One last note about this simple example concerns the line that reads <code>. /etc/sysconfig/ns-slapd</code>. If the file exists, it will be used to pass arguments to the daemon when I start it. I've used this file to take the default arguments the server normally starts with and put them in their own file; this keep admins from having to edit init scripts, and lets them easily add items to the file later, just as we add options to other daemons on the system. My file contains a single line, which reads <code>OPTIONS="-D /opt/fedora-ds/slapd-ldap -i /opt/fedora-ds/slapd-ldap/logs/pid -w /opt/fedora-ds/slapd-ldap/logs/startpid"</code>. This option line gets tagged right onto the end of the command that starts the daemon.</p>
+<p>
+	This whole process seems like it should have been lengthy, but it took only about 30 minutes, and that includes some troubleshooting related to Fedora Directory Server's unusually self-contained install structure. With a simple daemon that more or less follows the rules, it shouldn't take you more than 10 minutes to integrate it into the mechanisms used to manage services on your Linux server.</p>
+</div></div></div></div>
+  
+  </div>
+<div class="panel-pane pane-node-links">
+  
+      
+  
+  <ul class="links inline"><li class="addtoany first"><span><span class="a2a_kit a2a_target addtoany_list" id="da2a_1">
+      
+      <a target="_blank" class="a2a_dd addtoany_share_save" href="https://www.addtoany.com/share#url=https%3A%2F%2Fwww.linux.com%2Flearn%2Fmanaging-linux-daemons-init-scripts&amp;title=Managing%20Linux%20daemons%20with%20init%20scripts"></a>
+      <a class="a2a_button_email"></a>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_google_plus"></a>
+    </span>
+    </span></li>
+<li class="print_html"><a href="https://www.linux.com/print/81319" title="Display a printer-friendly version of this page." class="print-page" rel="nofollow">Print This</a></li>
+<li class="flag-imagex_node_like last"><span><span class="flag-wrapper flag-imagex-node-like flag-imagex-node-like-81319">
+      <a href="https://www.linux.com/flag/flag/imagex_node_like/81319?destination=node/81319&amp;token=5fb19f9c327e77a41fa1ecaa8d5b0462&amp;has_js=1" title="" class="flag flag-action flag-link-toggle flag-anonymous-processed flag-processed" rel="nofollow">Like</a><span class="flag-throbber">&nbsp;</span>
+          (<span class="flag-counter">0 likes</span>)
+  </span>
+</span></li>
+</ul>
+  
+  </div>
+</div><div class="lcom-stacked__footer"><div class="panel-pane pane-panels-mini pane-comment-minipanel">
+  
+      
+  
+  <div class="panel-display parrot-panels minipanels minipanel-one-column clearfix" id="mini-panel-comment_minipanel">
+  <div class="minipanel-one-wrapper fullwidth">
+    <div class="region region-minipanel-one-main">
+      <div class="region-inner clearfix">
+              </div>
+    </div>
+  </div>
+</div>
+
+  
+  </div>
+</div>      </div>
+
+      
+              <aside class="sidebars">
+                      <section class="region region-sidebar-second column sidebar">
+    
+<div id="block-dfp-box1" class="block block-dfp first odd ">
+
+    
+	<div class="block__content">
+	  <div id="dfp-ad-box1-wrapper" class="dfp-tag-wrapper">
+<div id="dfp-ad-box1" class="dfp-tag-wrapper">
+  <div class="slug">Advertisement</div>  
+</div>
+</div>	</div>
+
+</div>
+
+<section id="block-views-training-block-1" class="block block-views even lf-training-block">
+
+    	<header>
+	    <h2 class="block__title block-title">Training</h2>
+		</header>
+	  
+	<div class="block__content">
+	  <div id="view-id-training-block_1" class="view view-training view-id-training view-display-id-block_1 view-dom-id-f32a9dd996e0ab5481f569b44e2ca92a">
+            <div class="view-header">
+      <div class="see_all_button"><a href="https://www.linux.com/learn/training">See all</a></div>    </div>
+  
+  
+  
+      <div class="view-content">
+          <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.linux.com/training/lfd401-developing-applications-linux-enea">LFD401 Developing Applications For Linux - ENEA</a></span>  </div>  
+          <div class="field-content meta"><span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2016-08-29T00:00:00+00:00">August 29, 2016</span></div>    
+  <div class="links">        <div class="learn-more"><a target="_blank" href="https://training.linuxfoundation.org/linux-courses/development-training/developing-applications-for-linux">Learn more</a></div>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.linux.com/training/lfd420-linux-kernel-internals-and-development-enea">LFD420 Linux Kernel Internals and Development - ENEA</a></span>  </div>  
+          <div class="field-content meta"><span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2016-09-05T00:00:00+00:00">September 5, 2016</span></div>    
+  <div class="links">        <div class="learn-more"><a target="_blank" href="https://training.linuxfoundation.org/linux-courses/development-training/linux-kernel-internals-and-development">Learn more</a></div>  </div></li>
+          <li class="views-row views-row-3 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.linux.com/training/lfs462-linux-kvm-virtualization-enea">LFS462 Linux KVM Virtualization ENEA</a></span>  </div>  
+          <div class="field-content meta"><span class="date-display-single" property="dc:date" datatype="xsd:dateTime" content="2016-09-19T00:00:00+00:00">September 19, 2016</span></div>    
+  <div class="links">        <div class="learn-more"><a target="_blank" href="https://training.linuxfoundation.org/linux-courses/system-administration-training/open-source-virtualization">Learn more</a></div>  </div></li>
+      </ul>    </div>
+  
+  
+  
+  
+  
+  
+</div>	</div>
+
+</section>
+
+<section id="block-linux-blocks-pardot-newsletter-signup-form" class="block block-linux-blocks last odd ">
+
+    	<header>
+	    <h2 class="block__title block-title">Newsletter</h2>
+		</header>
+	  
+	<div class="block__content">
+	  <iframe src="index_1.html" type="text/html" allowtransparency="true" style="border: 0px none;" width="100%" frameborder="0" height="420px"></iframe>	</div>
+
+</section>
+  </section>
+        </aside>
+      
+    </div>
+  </div>
+
+  
+    <footer id="footer" class="region region-footer">
+  	<div class="container">
+    	
+<div id="block-menu-block-1" class="block block-menu-block first odd lf-footer-primary-menu footer-menu" role="navigation">
+
+    
+	<div class="block__content">
+	  <div class="menu-block-wrapper menu-block-1 menu-name-main-menu parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="menu__item is-expanded first expanded menu-mlid-1275"><a href="https://www.linux.com/news" class="menu__link">News</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-1281"><a href="https://www.linux.com/news/category/enterprise" class="menu__link">Enterprise</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1282"><a href="https://www.linux.com/news/category/desktop" class="menu__link">Desktop</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1283"><a href="https://www.linux.com/news/category/embeddedmobile" class="menu__link">Mobile &amp; Embedded</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1284"><a href="https://www.linux.com/news/category/open-source-practices" class="menu__link">Open Source</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1285"><a href="https://www.linux.com/news/category/linux-kernel" class="menu__link">Linux Kernel</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-5595"><a href="https://www.linux.com/devops" class="menu__link">DevOps</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-5596"><a href="https://www.linux.com/networking" class="menu__link">Networking</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-5597"><a href="https://www.linux.com/cloud" class="menu__link">Cloud Computing</a></li>
+</ul></li>
+<li class="menu__item is-leaf leaf menu-mlid-1276"><a href="https://www.linux.com/tutorials" class="menu__link">Tutorials</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1277"><a href="https://www.linux.com/blogs/linux-foundation" class="menu__link expanded">Open Source Pro</a></li>
+<li class="menu__item is-expanded expanded menu-mlid-1278"><span class="menu__link nolink">Learn</span><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-1292"><a href="https://www.linux.com/what-is-linux" class="menu__link">What is Linux?</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1293"><a href="https://www.linux.com/learn/training" class="menu__link">Training</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1294"><a href="https://www.linux.com/certification" class="menu__link">Certification</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1295"><a href="https://www.linux.com/events" class="menu__link">Events</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-1296"><a href="https://www.linux.com/blog/upcoming-free-webinars-linux-foundation" class="menu__link">Webinars</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded menu-mlid-1279"><a href="https://www.linux.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-1297"><a href="https://www.linux.com/community/participate" class="menu__link">Participate</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1298"><a href="https://www.linux.com/answers" class="menu__link">Q&amp;A</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1299"><a href="https://www.linux.com/forum" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-1300"><a href="https://www.linux.com/community/blogs" class="menu__link">Blogs</a></li>
+</ul></li>
+<li class="menu__item is-expanded last expanded menu-mlid-1280"><span class="menu__link nolink">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-1301"><a href="https://www.linux.com/resources/newsletter" class="menu__link">Newsletter</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1303"><a href="https://www.linux.com/distributions" class="menu__link">Distributions</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-3808"><a href="https://www.linux.com/resources/publications" class="menu__link">Publications</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-3809"><a href="https://www.linux.com/resources/infographics" class="menu__link">Infographics</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1286"><a href="https://www.linux.com/photos" class="menu__link">Photos</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-1287"><a href="https://www.linux.com/videos" class="menu__link">Videos</a></li>
+</ul></li>
+</ul></div>
+	</div>
+
+</div>
+
+<div id="block-menu-menu-footer" class="block block-menu even lf-footer-about-menu footer-menu" role="navigation">
+
+    
+	<div class="block__content">
+	  <ul class="menu"><li class="menu__item is-expanded first last expanded"><a href="https://www.linux.com/about" class="menu__link">About Linux.com</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.linux.com/advertise/contact" class="menu__link">Advertise</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/terms-of-use" class="menu__link">Terms of Use</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/privacy-policy" class="menu__link">Privacy Policy</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.linux.com/editorial-policy" class="menu__link">Editorial Policy</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.linux.com/contact" class="menu__link">Contact</a></li>
+</ul></li>
+</ul>	</div>
+
+</div>
+
+<div id="block-boxes-about-lf" class="block block-boxes block-boxes-simple odd lf-about">
+
+    
+	<div class="block__content">
+	  <div id="boxes-box-about_lf" class="boxes-box"><div class="boxes-box-content">
+        <p><a target="_blank" href="http://www.linuxfoundation.org/"><img alt="Linux Foundation" src="logo-footer.png"></a></p>
+        <p>The Linux Foundation is a non-profit consortium enabling collaboration and innovation through an open source development model.</p>
+        <p><a target="_blank" href="http://www.linuxfoundation.org/" class="more">Learn More</a></p></div></div>	</div>
+
+</div>
+
+<div id="block-linux-blocks-linux-fastly" class="block block-linux-blocks even ">
+
+    
+	<div class="block__content">
+	  <a target="_blank" href="http://www.fastly.com/"><img typeof="foaf:Image" src="fastly-logo.png" alt="Fastly" title="Fastly"></a>	</div>
+
+</div>
+
+<div id="block-boxes-copyright-infos" class="block block-boxes block-boxes-simple last odd lf-copyright">
+
+    
+	<div class="block__content">
+	  <div id="boxes-box-copyright_infos" class="boxes-box"><div class="boxes-box-content"><p>© 2016 The Linux Foundation</p></div></div>	</div>
+
+</div>
+  	</div>
+  </footer>
+
+</div>
+
+
+  
+
+
+</body>
+</html>

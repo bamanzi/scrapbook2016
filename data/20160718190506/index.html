@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="en-us">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body>
+
+<h1>Writing System V init scripts for Red Hat Linux</h1>
+<p>&nbsp;&nbsp;&nbsp; All System V init scripts are named /etc/rc.d/init.d/&lt;servicename&gt;
+where &lt;servicename&gt; is the name of the service. There must be no
+".init" suffix.
+</p><h2>Sample Script:</h2>
+<pre>#!/bin/bash
+#
+# /etc/rc.d/init.d/&lt;servicename&gt;
+#
+# &lt;description of the *service*&gt;
+# &lt;any general comments about this init script&gt;
+#
+# &lt;tags -- see below for tag definitions. *Every line* from the top
+# of the file to the end of the tags section must begin with a #
+# character. After the tags section, there should be a blank line.
+# This keeps normal comments in the rest of the file from being
+# mistaken for tags, should they happen to fit the pattern.&gt;
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+&lt;define any local shell functions used by the code that follows&gt;
+
+case "$1" in
+	start)
+		echo -n "Starting &lt;servicename&gt; services: "
+		&lt;start daemons, perhaps with the daemon function&gt;
+		touch /var/lock/subsys/&lt;servicename&gt;
+	;;
+	stop)
+		echo -n "Shutting down &lt;servicename&gt; services: "
+		&lt;stop daemons, perhaps with the killproc function&gt;
+		rm -f /var/lock/subsys/&lt;servicename&gt;
+	;;
+	status)
+		&lt;report the status of the daemons in free-form format,
+		perhaps with the status function&gt;
+	;;
+	restart)
+		&lt;restart the daemons, normally with $0 stop; $0 start&gt;
+	;;
+	reload)
+		&lt;cause the service configuration to be reread, either with
+		kill -HUP or by restarting the daemons, possibly with
+		$0 stop; $0 start&gt;
+	;;
+	probe)
+		&lt;optional. If it exists, then it should determine whether
+		or not the service needs to be restarted or reloaded (or
+		whatever) in order to activate any changes in the configuration
+		scripts. It should print out a list of commands to give to
+		$0; see the description under the probe tag below.&gt;
+	;;
+	*)
+		echo "Usage: &lt;servicename&gt; {start|stop|status|reload|restart[|probe]"
+		exit 1
+	;;
+esac</pre>
+<p>&nbsp;&nbsp;&nbsp; Notes: the restart and reload functions may be (and
+commonly are) combined into one test, vis:
+</p><ul>
+  <li>restart | reload)</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp; You are not prohibited from adding other commands; list
+all commands which you intend to be used interactively to the usage message.
+</p><h2>Functions in /etc/rc.d/init.d/functions</h2>
+<h4>daemon [+/-nicelevel] program [arguments] [&amp;]</h4>
+<p>&nbsp;&nbsp;&nbsp; Starts a daemon, if it is not already running. Does other
+useful things like keeping the daemon from dumping core if it terminates
+unexpectedly.</p>
+<h4>killproc program [signal]</h4>
+<p>&nbsp;&nbsp;&nbsp; Sends a signal to the program; by default it sends a
+SIGTERM, and if the process doesn't die, it sends a SIGKILL a few seconds later.</p>
+<p>&nbsp;&nbsp;&nbsp; It also tries to remove the pidfile, if it finds one.</p>
+<h4>pidofproc program</h4>
+<p>&nbsp;&nbsp;&nbsp; Tries to find the pid of a program; checking likely
+pidfiles, using the pidof program, or even using ps. Used mainly from within
+other functions in this file, but also available to scripts.</p>
+<h4>status program</h4>
+<p>&nbsp;&nbsp;&nbsp; Prints status information. Assumes that the program name
+is the same as the servicename.</p>
+<h2>Tags.</h2>
+<h4># chkconfig: &lt;startlevellist&gt; &lt;startpriority&gt; &lt;endpriority&gt;</h4>
+<p>&nbsp;&nbsp;&nbsp; Required. &lt;startlevellist&gt; is a list of levels in
+which the service should be started by default. &lt;startpriority&gt; and &lt;endpriority&gt;
+are priority numbers. For example: # chkconfig: 2345 20 80 Read 'man chkconfig'
+for more information.</p>
+<p>&nbsp;&nbsp;&nbsp; Unless there is a VERY GOOD, EXPLICIT reason to the
+contrary, the &lt;endpriority&gt; should be equal to 100 - &lt;startpriority&gt;</p>
+<h4># description: &lt;multi-line description of service&gt;</h4>
+<p>&nbsp;&nbsp;&nbsp; Required. Several lines of description, continued with '\'
+characters. The initial comment and following whitespace on the following lines
+is ignored.</p>
+<h4># description[ln]: &lt;multi-line description of service in the language \ #
+ln, whatever that is&gt;</h4>
+<p>&nbsp;&nbsp;&nbsp; Optional. Should be the description translated into the
+specified language.</p>
+<h4># processname:</h4>
+<p>&nbsp;&nbsp;&nbsp; Optional, multiple entries allowed. For each process name
+started by the script, there should be a processname entry. For example, the
+samba service starts two daemons:<br>
+# processname: smdb<br>
+# processname: nmdb</p>
+<h4># config:</h4>
+<p>&nbsp;&nbsp;&nbsp; Optional, multiple entries allowed. For each static config
+file used by the daemon, use a single entry. For example:<br>
+# config: /etc/httpd/conf/httpd.conf<br>
+# config: /etc/httpd/conf/srm.conf</p>
+<p>&nbsp;&nbsp;&nbsp; Optionally, if the server will automatically reload the
+config file if it is changed, you can append the word "autoreload" to
+the line:<br>
+# config: /etc/foobar.conf autoreload</p>
+<h4># pidfile:</h4>
+<p>&nbsp;&nbsp;&nbsp; Optional, multiple entries allowed. Use just like the
+config entry, except that it points at pidfiles. It is assumed that the pidfiles
+are only updated at process creation time, and not later. The first line of this
+file should be the ASCII representation of the PID; a terminating newline is
+optional. Any lines other than the first line are not examined.</p>
+<h4># probe: true</h4>
+<p>&nbsp;&nbsp;&nbsp; Optional, used IN PLACE of processname, config, and
+pidfile. If it exists, then a proper reload-if-necessary cycle may be acheived
+by running these commands:</p>
+<pre>command=$(/etc/rd.d/init.d/SCRIPT probe)
+[ -n "$command" ] &amp;&amp; /etc/rc.d/init.d/SCRIPT $command</pre>
+where SCRIPT is the name of the service's sysv init script.
+<p>&nbsp;&nbsp;&nbsp; Scripts that need to do complex processing could, as an
+example, return "run /var/tmp/&lt;servicename.probe.$$" and implement
+a "run" command which would execute the named script and then remove
+it.</p>
+&nbsp;&nbsp;&nbsp; Note that the probe command should simply "exit 0"
+if nothing needs to be done to bring the service into sync with its
+configuration files.<hr>Copyright (c) 1998 Red Hat Software, Inc.
+
+
+
+
+</body>
+</html>

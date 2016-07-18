@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Eshell completion for git, bzr, and hg | Tassilo's Blog</title>
+<link rel="pingback" href="https://tsdh.wordpress.com/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="Tassilo's Blog » Feed" href="https://tsdh.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tassilo's Blog » Comments Feed" href="https://tsdh.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tassilo's Blog » Eshell completion for git, bzr, and&nbsp;hg Comments Feed" href="https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/feed/">
+	
+	
+
+
+
+
+
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s1.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563h&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://tsdh.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Gunzipping files with&nbsp;Clojure" href="https://tsdh.wordpress.com/2012/02/17/gunzipping-files-with-clojure/">
+<link rel="next" title="Adjusting company-mode to not change buffer contents&nbsp;accidentally" href="https://tsdh.wordpress.com/2013/08/27/adjusting-company-mode-to-not-change-buffer-contents-accidentally/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/">
+<link rel="shortlink" href="http://wp.me/p2peg-2r">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Ftsdh.wordpress.com%2F2013%2F05%2F31%2Feshell-completion-for-git-bzr-and-hg%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Ftsdh.wordpress.com%2F2013%2F05%2F31%2Feshell-completion-for-git-bzr-and-hg%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eshell completion for git, bzr, and hg">
+<meta property="og:url" content="https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/">
+<meta property="og:description" content="After reading this post on the MasteringEmacs blog I gave eshell a try and I like it. On this other post he shows how to implement completion with pcomplete that is automatically used by eshell. Wi…">
+<meta property="article:published_time" content="2013-05-31T15:56:26+00:00">
+<meta property="article:modified_time" content="2013-05-31T18:23:24+00:00">
+<meta property="og:site_name" content="Tassilo's Blog">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@tsdh80">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@tsdh80">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://tsdh.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://tsdh.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://tsdh.wordpress.com/osd.xml" title="Tassilo's Blog">
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com">
+		
+		<meta name="application-name" content="Tassilo's Blog"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="The blog of Tassilo Horn"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://tsdh.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Eshell completion for git, bzr, and&nbsp;hg | Tassilo's Blog on WordPress.com">
+<meta name="description" content="After reading this post on the MasteringEmacs blog I gave eshell a try and I like it. On this other post he shows how to implement completion with pcomplete that is automatically used by eshell. Without further ado, here are completions for git, bzr, and hg. The git completion is basically his completion with some…">
+		
+		
+				<!-- IPONWEB header script -->
+		
+		<link rel="amphtml" href="https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/amp/">
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body class="single single-post postid-151 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light">
+<div id="wrapper">
+
+<div id="page">
+		<div class="menu-header"><ul><li><a href="https://tsdh.wordpress.com/">Home</a></li></ul></div>
+
+	<div id="header" role="banner">
+		<h1><a href="https://tsdh.wordpress.com/">Tassilo's Blog</a></h1>
+
+		<div class="description">The blog of Tassilo Horn</div>
+
+		<div class="rss">
+			<a href="https://tsdh.wordpress.com/feed/" title="RSS">Stay updated via RSS</a>		</div>
+	</div>
+
+	<hr>
+
+<div id="container">
+	<div id="sidebar" role="complementary">
+		
+		<!-- begin widgetized sidebar 1 -->
+		<ul>
+			<li id="wp_tag_cloud-2" class="widget wp_widget_tag_cloud"><h2 class="widgettitle">Tags</h2><div style="overflow: hidden;"><a href="https://tsdh.wordpress.com/tag/add-new-tag/" class="tag-link-5928630 tag-link-position-1" title="1 topic" style="font-size: 8pt;">Add new tag</a>
+<a href="https://tsdh.wordpress.com/tag/avy/" class="tag-link-5949547 tag-link-position-2" title="1 topic" style="font-size: 8pt;">avy</a>
+<a href="https://tsdh.wordpress.com/tag/awesome/" class="tag-link-2908 tag-link-position-3" title="1 topic" style="font-size: 8pt;">awesome</a>
+<a href="https://tsdh.wordpress.com/tag/benchmark/" class="tag-link-31419 tag-link-position-4" title="1 topic" style="font-size: 8pt;">benchmark</a>
+<a href="https://tsdh.wordpress.com/tag/calendar/" class="tag-link-7155 tag-link-position-5" title="1 topic" style="font-size: 8pt;">calendar</a>
+<a href="https://tsdh.wordpress.com/tag/clojure-2/" class="tag-link-35617714 tag-link-position-6" title="5 topics" style="font-size: 16.2963pt;">clojure</a>
+<a href="https://tsdh.wordpress.com/tag/company-mode/" class="tag-link-192307387 tag-link-position-7" title="1 topic" style="font-size: 8pt;">company-mode</a>
+<a href="https://tsdh.wordpress.com/tag/completion/" class="tag-link-119039 tag-link-position-8" title="2 topics" style="font-size: 11.1111pt;">completion</a>
+<a href="https://tsdh.wordpress.com/tag/conkeror/" class="tag-link-12672194 tag-link-position-9" title="1 topic" style="font-size: 8pt;">conkeror</a>
+<a href="https://tsdh.wordpress.com/tag/core-logic/" class="tag-link-31681872 tag-link-position-10" title="1 topic" style="font-size: 8pt;">core.logic</a>
+<a href="https://tsdh.wordpress.com/tag/dvi/" class="tag-link-239362 tag-link-position-11" title="1 topic" style="font-size: 8pt;">dvi</a>
+<a href="https://tsdh.wordpress.com/tag/emacs/" class="tag-link-11362 tag-link-position-12" title="12 topics" style="font-size: 22pt;">Emacs</a>
+<a href="https://tsdh.wordpress.com/tag/eshell/" class="tag-link-18158256 tag-link-position-13" title="1 topic" style="font-size: 8pt;">eshell</a>
+<a href="https://tsdh.wordpress.com/tag/funnyqt/" class="tag-link-206664516 tag-link-position-14" title="1 topic" style="font-size: 8pt;">FunnyQT</a>
+<a href="https://tsdh.wordpress.com/tag/graph-transformation/" class="tag-link-15768407 tag-link-position-15" title="1 topic" style="font-size: 8pt;">graph transformation</a>
+<a href="https://tsdh.wordpress.com/tag/gzip/" class="tag-link-308646 tag-link-position-16" title="1 topic" style="font-size: 8pt;">gzip</a>
+<a href="https://tsdh.wordpress.com/tag/henshin/" class="tag-link-1119086 tag-link-position-17" title="1 topic" style="font-size: 8pt;">Henshin</a>
+<a href="https://tsdh.wordpress.com/tag/macros/" class="tag-link-82701 tag-link-position-18" title="2 topics" style="font-size: 11.1111pt;">macros</a>
+<a href="https://tsdh.wordpress.com/tag/mde/" class="tag-link-376579 tag-link-position-19" title="1 topic" style="font-size: 8pt;">MDE</a>
+<a href="https://tsdh.wordpress.com/tag/org/" class="tag-link-136077 tag-link-position-20" title="1 topic" style="font-size: 8pt;">org</a>
+<a href="https://tsdh.wordpress.com/tag/org-mode/" class="tag-link-2835776 tag-link-position-21" title="3 topics" style="font-size: 13.1852pt;">org-mode</a>
+<a href="https://tsdh.wordpress.com/tag/org-remember/" class="tag-link-13471467 tag-link-position-22" title="1 topic" style="font-size: 8pt;">org-remember</a>
+<a href="https://tsdh.wordpress.com/tag/pdf/" class="tag-link-47759 tag-link-position-23" title="1 topic" style="font-size: 8pt;">pdf</a>
+<a href="https://tsdh.wordpress.com/tag/postscript/" class="tag-link-75142 tag-link-position-24" title="1 topic" style="font-size: 8pt;">postscript</a>
+<a href="https://tsdh.wordpress.com/tag/prompt/" class="tag-link-253250 tag-link-position-25" title="1 topic" style="font-size: 8pt;">prompt</a>
+<a href="https://tsdh.wordpress.com/tag/ps/" class="tag-link-141669 tag-link-position-26" title="1 topic" style="font-size: 8pt;">ps</a>
+<a href="https://tsdh.wordpress.com/tag/remember/" class="tag-link-6291 tag-link-position-27" title="1 topic" style="font-size: 8pt;">remember</a>
+<a href="https://tsdh.wordpress.com/tag/shell/" class="tag-link-43912 tag-link-position-28" title="1 topic" style="font-size: 8pt;">shell</a>
+<a href="https://tsdh.wordpress.com/tag/tramp/" class="tag-link-600256 tag-link-position-29" title="1 topic" style="font-size: 8pt;">TRAMP</a>
+<a href="https://tsdh.wordpress.com/tag/zsh/" class="tag-link-82955 tag-link-position-30" title="1 topic" style="font-size: 8pt;">ZSH</a></div></li><li id="archives-2" class="widget widget_archive"><h2 class="widgettitle">Archives</h2>		<ul>
+			<li><a href="https://tsdh.wordpress.com/2015/09/">September 2015</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2015/03/">March 2015</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2014/01/">January 2014</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2013/08/">August 2013</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2013/05/">May 2013</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2012/02/">February 2012</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2012/01/">January 2012</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2011/12/">December 2011</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2011/10/">October 2011</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2011/09/">September 2011</a>&nbsp;(2)</li>
+	<li><a href="https://tsdh.wordpress.com/2009/03/">March 2009</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2008/11/">November 2008</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2008/08/">August 2008</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2008/07/">July 2008</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/12/">December 2007</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/08/">August 2007</a>&nbsp;(2)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/07/">July 2007</a>&nbsp;(2)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/06/">June 2007</a>&nbsp;(2)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/05/">May 2007</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/04/">April 2007</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/03/">March 2007</a>&nbsp;(6)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/02/">February 2007</a>&nbsp;(1)</li>
+	<li><a href="https://tsdh.wordpress.com/2007/01/">January 2007</a>&nbsp;(3)</li>
+	<li><a href="https://tsdh.wordpress.com/2006/12/">December 2006</a>&nbsp;(2)</li>
+	<li><a href="https://tsdh.wordpress.com/2006/11/">November 2006</a>&nbsp;(4)</li>
+		</ul>
+		</li><li id="top-posts-2" class="widget widget_top-posts"><h2 class="widgettitle">Top Posts</h2><ul>				<li>
+										<a href="https://tsdh.wordpress.com/2009/03/04/integrating-emacs-org-mode-with-the-awesome-window-manager/" class="bump-view" data-bump-view="tp">
+						Integrating Emacs' org-mode with the Awesome window manager					</a>
+									</li>
+							<li>
+										<a href="https://tsdh.wordpress.com/2008/08/20/re-open-read-only-files-as-root-automagically/" class="bump-view" data-bump-view="tp">
+						Re-open read-only files as root automagically					</a>
+									</li>
+							<li>
+										<a href="https://tsdh.wordpress.com/2007/04/12/sticky-keys-save-my-hands-from-rsi/" class="bump-view" data-bump-view="tp">
+						Sticky keys save my hands from RSI					</a>
+									</li>
+							<li>
+										<a href="https://tsdh.wordpress.com/2015/03/03/swapping-emacs-windows-using-dragndrop/" class="bump-view" data-bump-view="tp">
+						Swapping Emacs windows using drag'n'drop					</a>
+									</li>
+							<li>
+										<a href="https://tsdh.wordpress.com/2006/11/26/conveniently-save-and-restore-frame-configuration/" class="bump-view" data-bump-view="tp">
+						Conveniently save and restore frame configurations					</a>
+									</li>
+			</ul></li><li id="top-clicks-2" class="widget widget_top-clicks"><h2 class="widgettitle">Top Clicks</h2><ul><li>None</li></ul></li><li id="linkcat-1356" class="widget widget_links"><h2 class="widgettitle">Blogroll</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.tsdh.org/">My Homepage</a></li>
+
+	</ul>
+</li>
+<li id="calendar-2" class="widget widget_calendar"><div id="calendar_wrap" class="calendar_wrap"><table id="wp-calendar">
+	<caption>May 2013</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="Monday">M</th>
+		<th scope="col" title="Tuesday">T</th>
+		<th scope="col" title="Wednesday">W</th>
+		<th scope="col" title="Thursday">T</th>
+		<th scope="col" title="Friday">F</th>
+		<th scope="col" title="Saturday">S</th>
+		<th scope="col" title="Sunday">S</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="https://tsdh.wordpress.com/2012/02/">« Feb</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next"><a href="https://tsdh.wordpress.com/2013/08/">Aug »</a></td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="2" class="pad">&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+	</tr>
+	<tr>
+		<td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td>
+	</tr>
+	<tr>
+		<td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td>
+	</tr>
+	<tr>
+		<td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td>
+	</tr>
+	<tr>
+		<td>27</td><td>28</td><td>29</td><td>30</td><td><a href="https://tsdh.wordpress.com/2013/05/31/" aria-label="Posts published on May 31, 2013">31</a></td>
+		<td class="pad" colspan="2">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></li><li id="rss-1" class="widget widget_rss"><h2 class="widgettitle"><a class="rsswidget" href="http://planet.emacsen.org/atom.xml" title="Syndicate this content"><img style="background: none repeat scroll 0% 0% orange; color: white; border: medium none;" src="rss.png" alt="RSS" height="14" width="14"></a> <a class="rsswidget" href="#" title="">Planet Emacsen</a></h2><ul><li>Irreal: Intelligent Note Taking <cite>jcs</cite></li><li>Pragmatic Emacs: Move to the beginning of a line the smart way <cite>Ben Maughan</cite></li><li>Irreal: Writing Humanity Papers with Org Mode <cite>jcs</cite></li><li>Chen Bin (redguardtoo): Enhance emacs-git-gutter with ivy-mode <cite>Chen Bin</cite></li><li>Chen Bin (redguardtoo): Turn off linum-mode when file is too big <cite>Chen Bin</cite></li><li>sachachua: 2016-07-10 Emacs News <cite>Sacha Chua</cite></li><li>Pragmatic Emacs: View man pages in emacs with woman <cite>Ben Maughan</cite></li><li>Endless Parentheses: A quick guide to directory-local (or project-specific) variables <cite>Artur Malabarba</cite></li><li>sachachua: 2016-07-04 Emacs News <cite>Sacha Chua</cite></li><li>Marcin Borkowski: Compiling a single Beamer frame in AUCTeX <cite>Marcin Borkowski</cite></li></ul></li><li id="delicious-2" class="widget widget_delicious"><h2 class="widgettitle">				<a href="http://del.icio.us/tsdh">Bookmarks at del.icio.us</a>
+				</h2>			<div id="delicious-box" style="margin: 0px; padding: 0px; border: medium none;"> </div>
+			
+			
+			</li><li id="blog-stats-2" class="widget widget_blog-stats"><h2 class="widgettitle">Blog Stats</h2>		<ul>
+			<li>79,237 hits</li>
+		</ul>
+		</li><li id="meta-2" class="widget widget_meta"><h2 class="widgettitle">Meta</h2>			<ul>
+			<li><a href="https://wordpress.com/start?ref=wplogin">Register</a></li>			<li><a href="https://tsdh.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a href="https://tsdh.wordpress.com/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://tsdh.wordpress.com/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.com</a></li>			</ul>
+			</li>		</ul>
+		<!-- end widgetized sidebar 1 -->
+
+	</div>
+
+
+	<div id="content" role="main">
+		<div class="column">
+
+		
+			<div class="post-151 post type-post status-publish format-standard hentry category-emacs category-emacs-lisp tag-emacs tag-eshell" id="post-151">
+				<div class="posttitle">
+					<h2 class="pagetitle">Eshell completion for git, bzr, and&nbsp;hg</h2>
+					<small>
+						Posted: May 31, 2013 in <a href="https://tsdh.wordpress.com/category/applications/emacs/" rel="category tag">Emacs</a>, <a href="https://tsdh.wordpress.com/category/lisp/emacs-lisp/" rel="category tag">Emacs Lisp</a>						<br>
+						Tags: <a href="https://tsdh.wordpress.com/tag/emacs/" rel="tag">Emacs</a>, <a href="https://tsdh.wordpress.com/tag/eshell/" rel="tag">eshell</a>					</small>
+				</div>
+									<div class="postcomments"><a href="#comments">7</a></div>
+								<div class="entry">
+					<p>After reading <a href="http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/" target="_blank">this post</a> on the <a href="http://www.masteringemacs.org/" target="_blank">MasteringEmacs blog</a> I gave eshell a try and I like it.  On <a href="http://www.masteringemacs.org/articles/2012/01/16/pcomplete-context-sensitive-completion-emacs/" target="_blank">this other post</a> he shows how to implement completion with pcomplete that is automatically used by eshell.</p>
+<p>Without further ado, here are completions for git, bzr, and hg.  The git completion is basically his completion with some improvements.  For example, it completes all git commands by parsing the output of <code>git help --all</code>.</p>
+<pre><code>;;**** Git Completion
+
+(defun pcmpl-git-commands ()
+  "Return the most common git commands by parsing the git output."
+  (with-temp-buffer
+    (call-process-shell-command "git" nil (current-buffer) nil "help" "--all")
+    (goto-char 0)
+    (search-forward "available git commands in")
+    (let (commands)
+      (while (re-search-forward
+	      "^[[:blank:]]+\\([[:word:]-.]+\\)[[:blank:]]*\\([[:word:]-.]+\\)?"
+	      nil t)
+	(push (match-string 1) commands)
+	(when (match-string 2)
+	  (push (match-string 2) commands)))
+      (sort commands #'string&lt;))))
+
+(defconst pcmpl-git-commands (pcmpl-git-commands)
+  "List of `git' commands.")
+
+(defvar pcmpl-git-ref-list-cmd "git for-each-ref refs/ --format='%(refname)'"
+  "The `git' command to run to get a list of refs.")
+
+(defun pcmpl-git-get-refs (type)
+  "Return a list of `git' refs filtered by TYPE."
+  (with-temp-buffer
+    (insert (shell-command-to-string pcmpl-git-ref-list-cmd))
+    (goto-char (point-min))
+    (let (refs)
+      (while (re-search-forward (concat "^refs/" type "/\\(.+\\)$") nil t)
+	(push (match-string 1) refs))
+      (nreverse refs))))
+
+(defun pcmpl-git-remotes ()
+  "Return a list of remote repositories."
+  (split-string (shell-command-to-string "git remote")))
+
+(defun pcomplete/git ()
+  "Completion for `git'."
+  ;; Completion for the command argument.
+  (pcomplete-here* pcmpl-git-commands)
+  (cond
+   ((pcomplete-match "help" 1)
+    (pcomplete-here* pcmpl-git-commands))
+   ((pcomplete-match (regexp-opt '("pull" "push")) 1)
+    (pcomplete-here (pcmpl-git-remotes)))
+   ;; provide branch completion for the command `checkout'.
+   ((pcomplete-match "checkout" 1)
+    (pcomplete-here* (append (pcmpl-git-get-refs "heads")
+			     (pcmpl-git-get-refs "tags"))))
+   (t
+    (while (pcomplete-here (pcomplete-entries))))))
+
+;;**** Bzr Completion
+
+(defun pcmpl-bzr-commands ()
+  "Return the most common bzr commands by parsing the bzr output."
+  (with-temp-buffer
+    (call-process-shell-command "bzr" nil (current-buffer) nil "help" "commands")
+    (goto-char 0)
+    (let (commands)
+      (while (re-search-forward "^\\([[:word:]-]+\\)[[:blank:]]+" nil t)
+	(push (match-string 1) commands))
+      (sort commands #'string&lt;))))
+
+(defconst pcmpl-bzr-commands (pcmpl-bzr-commands)
+  "List of `bzr' commands.")
+
+(defun pcomplete/bzr ()
+  "Completion for `bzr'."
+  ;; Completion for the command argument.
+  (pcomplete-here* pcmpl-bzr-commands)
+  (cond
+   ((pcomplete-match "help" 1)
+    (pcomplete-here* pcmpl-bzr-commands))
+   (t
+    (while (pcomplete-here (pcomplete-entries))))))
+
+;;**** Mercurial (hg) Completion
+
+(defun pcmpl-hg-commands ()
+  "Return the most common hg commands by parsing the hg output."
+  (with-temp-buffer
+    (call-process-shell-command "hg" nil (current-buffer) nil "-v" "help")
+    (goto-char 0)
+    (search-forward "list of commands:")
+    (let (commands
+	  (bound (save-excursion
+		   (re-search-forward "^[[:alpha:]]")
+		   (forward-line 0)
+		   (point))))
+      (while (re-search-forward
+	      "^[[:blank:]]\\([[:word:]]+\\(?:, [[:word:]]+\\)*\\)" bound t)
+	(let ((match (match-string 1)))
+	  (if (not (string-match "," match))
+	      (push (match-string 1) commands)
+	    (dolist (c (split-string match ", ?"))
+	      (push c commands)))))
+      (sort commands #'string&lt;))))
+
+(defconst pcmpl-hg-commands (pcmpl-hg-commands)
+  "List of `hg' commands.")
+
+(defun pcomplete/hg ()
+  "Completion for `hg'."
+  ;; Completion for the command argument.
+  (pcomplete-here* pcmpl-hg-commands)
+  (cond
+   ((pcomplete-match "help" 1)
+    (pcomplete-here* pcmpl-hg-commands))
+   (t
+    (while (pcomplete-here (pcomplete-entries))))))</code></pre>
+		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<a class="wpa-about" href="https://wordpress.com/about-these-ads/" rel="nofollow"></a>
+				<div class="u">
+					<div id="automattic-id-1644" data-section="26942" style="width: 300px; height: 250px;"><iframe src="index_1.html" id="fif_slot_automattic-id-_automattic-id-1644" name="fif_slot_automattic-id-_automattic-id-1644" scrolling="no" style="border: medium none; width: 300px; height: 250px;" frameborder="0" height="250" width="300"></iframe></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded" id="like-post-wrapper-573640-151-578b9370b0c60" data-src="//widgets.wp.com/likes/#blog_id=573640&amp;post_id=151&amp;origin=tsdh.wordpress.com&amp;obj_id=573640-151-578b9370b0c60" data-name="like-post-frame-573640-151-578b9370b0c60"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>														</div>
+
+		<!-- You can start editing here. -->
+	<div id="comments">Comments</div>
+	<ol class="commentlist snap_preview">
+			<li class="comment even thread-even depth-1 parent highlander-comment" id="comment-2737">
+				<div id="div-comment-2737" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="c6b9ce074a4b8b7963ac3f4072d57b17.dat" class="avatar avatar-40" height="40" width="40">			<cite class="fn">Damon Haley</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="#comment-2737">
+			June 4, 2013 at 17:34</a>		</div>
+
+		<p>Tassilo, this post was extremely helpful.</p>
+<p>Because of your examples, I was able to add pcomplete functionality to drupal-mode at:</p>
+<p><a href="https://github.com/arnested/drupal-mode/commit/ae4dd40f05514b1a8a4206339704db69fd6097f2" rel="nofollow">https://github.com/arnested/drupal-mode/commit/ae4dd40f05514b1a8a4206339704db69fd6097f2</a></p>
+<p>However, commands that start with @, won’t expand as drush aliases but instead as tramp locations.  But it works fine in shell (shell-mode).  Would you know how to override this (@ symbol expansion) behavior in eshell?</p>
+
+		<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/?replytocom=2737#respond" aria-label="Reply to Damon Haley">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-tsdh bypostauthor odd alt depth-2 parent highlander-comment" id="comment-2738">
+				<div id="div-comment-2738" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="69bc538c4644581689883e654f15bce0.dat" class="avatar avatar-40" height="40" width="40">			<cite class="fn"><a href="https://tsdh.wordpress.com/" rel="external nofollow" class="url">Tassilo Horn</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="#comment-2738">
+			June 4, 2013 at 18:47</a>		</div>
+
+		<p>Hi Damon. I’m using eshell only for four days, so I’m not too experienced with it’s code. But a quick look showed that the @-hostname completion is done because eshell-complete-host-reference is in the buffer-local value of pcomplete-try-first-hook. So you could probably remove it from there temporarily when completing your drush aliases. Something like this might do the trick:</p>
+<pre><code>(let ((pcomplete-try-first-hook (remove 'eshell-complete-host-reference
+					pcomplete-try-first-hook)))
+  ;; your completion here
+  )</code></pre>
+
+		<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/?replytocom=2738#respond" aria-label="Reply to Tassilo Horn">Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment even depth-3 parent highlander-comment" id="comment-2744">
+				<div id="div-comment-2744" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="99512802b4cdde7e2b43608bc47a60e3_normal.jpeg" class="avatar avatar-40" height="40" width="40">			<cite class="fn"><a href="http://twitter.com/vinylisland" rel="external nofollow" class="url">Damon Haley (@vinylisland)</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="#comment-2744">
+			June 25, 2013 at 18:04</a>		</div>
+
+		<p>Hi Tassillo, your suggestion worked great for completing aliases beginning with ‘@’ in eshell.</p>
+<p>I had another issue I wanted to run by you.</p>
+<p>For my pcomplete drush function, I need to set the default-directory to a specific directory to get the desired output from my call-process function.</p>
+<p>Do you know of a way to do something like this (attempted code below):</p>
+<p></p></div></li></ul></li></ul></li></ol></div></div></div></div></div></div></body>
+</html>

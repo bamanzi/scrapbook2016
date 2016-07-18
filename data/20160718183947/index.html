@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+  <meta http-equiv="content-type" value="text/html;charset=utf8">
+  <meta name="generator" value="Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)">
+  <title>foreman(1) - manage Procfile-based applications</title>
+  
+  
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id="manpage">
+  <div class="mp" id="man">
+
+  <div class="man-navigation" style="display: none;">
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#RUNNING">RUNNING</a>
+    <a href="#EXPORTING">EXPORTING</a>
+    <a href="#GLOBAL-OPTIONS">GLOBAL OPTIONS</a>
+    <a href="#EXPORT-FORMATS">EXPORT FORMATS</a>
+    <a href="#INITTAB-EXPORT">INITTAB EXPORT</a>
+    <a href="#SYSTEMD-EXPORT">SYSTEMD EXPORT</a>
+    <a href="#UPSTART-EXPORT">UPSTART EXPORT</a>
+    <a href="#PROCFILE">PROCFILE</a>
+    <a href="#ENVIRONMENT">ENVIRONMENT</a>
+    <a href="#DEFAULT-OPTIONS">DEFAULT OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#COPYRIGHT">COPYRIGHT</a>
+  </div>
+
+  <ol class="man-decor man-head man head">
+    <li class="tl">foreman(1)</li>
+    <li class="tc">Foreman Manual</li>
+    <li class="tr">foreman(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>foreman</code> - <span class="man-whatis">manage Procfile-based applications</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>foreman start [process]</code><br>
+<code>foreman run &lt;command&gt;</code><br>
+<code>foreman export &lt;format&gt; [location]</code></p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Foreman is a manager for Procfile-based applications. Its aim is to
+abstract away the details of the Procfile format, and allow you to either run
+your application directly or export it to some other process management
+format.</p>
+
+<h2 id="RUNNING">RUNNING</h2>
+
+<p><code>foreman start</code> is used to run your application directly from the command line.</p>
+
+<p>If no additional parameters are passed, foreman will run one instance of each
+type of process defined in your Procfile.</p>
+
+<p>If a parameter is passed, foreman will run one instance of the specified
+application type.</p>
+
+<p>The following options control how the application is run:</p>
+
+<dl>
+<dt><code>-m</code>, <code>--formation</code></dt><dd><p>Specify the number of each process type to run. The value passed in
+should be in the format <code>process=num,process=num</code></p></dd>
+<dt><code>-e</code>, <code>--env</code></dt><dd><p>Specify one or more .env files to load</p></dd>
+<dt><code>-f</code>, <code>--procfile</code></dt><dd><p>Specify an alternate Procfile to load, implies <code>-d</code> at the Procfile root.</p></dd>
+<dt><code>-p</code>, <code>--port</code></dt><dd><p>Specify which port to use as the base for this application. Should be
+a multiple of 1000.</p></dd>
+<dt><code>-t</code>, <code>--timeout</code></dt><dd><p>Specify the amount of time (in seconds) processes have to shutdown
+gracefully before receiving a SIGKILL, defaults to 5.</p></dd>
+</dl>
+
+
+<p><code>foreman run</code> is used to run one-off commands using the same environment
+as your defined processes.</p>
+
+<h2 id="EXPORTING">EXPORTING</h2>
+
+<p><code>foreman export</code> is used to export your application to another process
+management format.</p>
+
+<p>An location to export can be passed as an argument. This argument may be
+either required or optional depending on the export format.</p>
+
+<p>The following options control how the application is run:</p>
+
+<dl>
+<dt><code>-a</code>, <code>--app</code></dt><dd><p>Use this name rather than the application's root directory name as the
+name of the application when exporting.</p></dd>
+<dt><code>-m</code>, <code>--formation</code></dt><dd><p>Specify the number of each process type to run. The value passed in
+should be in the format <code>process=num,process=num</code></p></dd>
+<dt><code>-l</code>, <code>--log</code></dt><dd><p>Specify the directory to place process logs in.</p></dd>
+<dt><code>-p</code>, <code>--port</code></dt><dd><p>Specify which port to use as the base for this application. Should be
+a multiple of 1000.</p></dd>
+<dt><code>-t</code>, <code>--template</code></dt><dd><p>Specify an alternate template to use for creating export files.
+See <a href="https://github.com/ddollar/foreman/tree/master/data/export" data-bare-link="true">https://github.com/ddollar/foreman/tree/master/data/export</a> for examples.</p></dd>
+<dt><code>-u</code>, <code>--user</code></dt><dd><p>Specify the user the application should be run as. Defaults to the
+app name</p></dd>
+</dl>
+
+
+<h2 id="GLOBAL-OPTIONS">GLOBAL OPTIONS</h2>
+
+<p>These options control all modes of foreman's operation.</p>
+
+<dl>
+<dt><code>-d</code>, <code>--root</code></dt><dd><p>Specify an alternate application root. This defaults to the directory
+containing the Procfile.</p></dd>
+<dt><code>-e</code>, <code>--env</code></dt><dd><p>Specify an alternate environment file. You can specify more than one
+file by using: <code>--env file1,file2</code>.</p></dd>
+<dt><code>-f</code>, <code>--procfile</code></dt><dd><p>Specify an alternate location for the application's Procfile. This file's
+containing directory will be assumed to be the root directory of the
+application.</p></dd>
+</dl>
+
+
+<h2 id="EXPORT-FORMATS">EXPORT FORMATS</h2>
+
+<p>foreman currently supports the following output formats:</p>
+
+<ul>
+<li><p>bluepill</p></li>
+<li><p>inittab</p></li>
+<li><p>launchd</p></li>
+<li><p>runit</p></li>
+<li><p>supervisord</p></li>
+<li><p>systemd</p></li>
+<li><p>upstart</p></li>
+</ul>
+
+
+<h2 id="INITTAB-EXPORT">INITTAB EXPORT</h2>
+
+<p>Will export a chunk of inittab-compatible configuration:</p>
+
+<pre><code># ----- foreman example processes -----
+EX01:4:respawn:/bin/su - example -c 'PORT=5000 bundle exec thin start &gt;&gt; /var/log/web-1.log 2&gt;&amp;1'
+EX02:4:respawn:/bin/su - example -c 'PORT=5100 bundle exec rake jobs:work &gt;&gt; /var/log/job-1.log 2&gt;&amp;1'
+# ----- end foreman example processes -----
+</code></pre>
+
+<h2 id="SYSTEMD-EXPORT">SYSTEMD EXPORT</h2>
+
+<p>Will create a series of systemd scripts in the location you specify. Scripts
+will be structured to make the following commands valid:</p>
+
+<p>  <code>systemctl start appname.target</code></p>
+
+<p>  <code>systemctl stop appname-processname.target</code></p>
+
+<p>  <code>systemctl restart appname-processname-3.service</code></p>
+
+<h2 id="UPSTART-EXPORT">UPSTART EXPORT</h2>
+
+<p>Will create a series of upstart scripts in the location you specify. Scripts
+will be structured to make the following commands valid:</p>
+
+<p>  <code>start appname</code></p>
+
+<p>  <code>stop appname-processname</code></p>
+
+<p>  <code>restart appname-processname-3</code></p>
+
+<h2 id="PROCFILE">PROCFILE</h2>
+
+<p>A Procfile should contain both a name for the process and the command used
+to run it.</p>
+
+<pre><code>web: bundle exec thin start
+job: bundle exec rake jobs:work
+</code></pre>
+
+<p>A process name may contain letters, numbers and the underscore character.
+You can validate your Procfile format using the <code>check</code> command:</p>
+
+<pre><code>$ foreman check
+</code></pre>
+
+<p>The special environment variables <code>$PORT</code> and <code>$PS</code> are available within the
+Procfile. <code>$PORT</code> is the port selected for that process. <code>$PS</code> is the name of
+the process for the line.</p>
+
+<p>The <code>$PORT</code> value starts as the base port as specified by <code>-p</code>, then increments
+by 100 for each new process line. Multiple instances of the same process are
+assigned <code>$PORT</code> values that increment by 1.</p>
+
+<h2 id="ENVIRONMENT">ENVIRONMENT</h2>
+
+<p>If a <code>.env</code> file exists in the current directory, the default environment will
+be read from it. This file should contain key/value pairs, separated by <code>=</code>, with
+one key/value pair per line.</p>
+
+<pre><code>FOO=bar
+BAZ=qux
+</code></pre>
+
+<h2 id="DEFAULT-OPTIONS">DEFAULT OPTIONS</h2>
+
+<p>If a <code>.foreman</code> file exists in the current directory, default options will
+be read from it. This file should be in YAML format with the long option
+name as keys. Example:</p>
+
+<pre><code>formation: alpha=0,bravo=1
+port: 15000
+</code></pre>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p>Start one instance of each process type, interleave the output on stdout:</p>
+
+<pre><code>$ foreman start
+</code></pre>
+
+<p>Export the application in upstart format:</p>
+
+<pre><code>$ foreman export upstart /etc/init
+</code></pre>
+
+<p>Run one process type from the application defined in a specific Procfile:</p>
+
+<pre><code>$ foreman start alpha -f ~/myapp/Procfile
+</code></pre>
+
+<p>Start all processes except the one named worker:</p>
+
+<pre><code>$ foreman start -m all=1,worker=0
+</code></pre>
+
+<h2 id="COPYRIGHT">COPYRIGHT</h2>
+
+<p>Foreman is Copyright (C) 2010 David Dollar <a href="http://daviddollar.org/" data-bare-link="true">http://daviddollar.org</a></p>
+
+
+  <ol class="man-decor man-foot man foot">
+    <li class="tl">Foreman 0.82.0</li>
+    <li class="tc">April 2016</li>
+    <li class="tr">foreman(1)</li>
+  </ol>
+
+  </div>
+
+
+</body>
+</html>

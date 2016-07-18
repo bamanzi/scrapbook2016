@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" dir="ltr" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" class="client-js">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="generator" content="MediaWiki 1.22.2">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://zh.opensuse.org/opensearch_desc.php" title="openSUSE (zh)">
+<link rel="EditURI" type="application/rsd+xml" href="https://zh.opensuse.org/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="openSUSE的Atom feed" href="https://zh.opensuse.org/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom">
+<link rel="canonical" href="https://zh.opensuse.org/openSUSE:Packaging_init_scripts">        <title>启动脚本 - openSUSE</title>
+        
+
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+        
+        <!--[if lt IE 7]>
+        <meta http-equiv="imagetoolbar" content="no" />
+        <![endif]-->
+                
+        
+        
+        
+        
+
+        
+        
+
+        <link rel="icon" type="image/png" href="favicon.png">
+
+        <!-- Head Scripts -->
+                
+
+		<link rel="alternate" type="application/rdf+xml" title="openSUSE:Packaging init scripts" href="https://zh.opensuse.org/index.php?title=Special:%E5%AF%BC%E5%87%BARDF/openSUSE:Packaging_init_scripts&amp;xmlmime=rdf">
+                                                                        
+    <!-- Piwik -->
+    
+    <!-- End Piwik Code -->
+
+
+    
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr ns-4 ns-subject page-openSUSE_Packaging_init_scripts skin-bentofluid"><div id="content" class="container_16 content-wrapper"><div id="some-content" class="box box-shadow grid_13 clearfix"><div class="alpha omega"><div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="zh-CN"><!--DOCUMENT_FRAGMENT--><h3><span class="mw-headline" id="start_daemon.288.29_.E5.92.8C_startproc.288.29_.E5.B7.A5.E5.85.B7">start_daemon(8) 和 startproc(8) 工具</span></h3>
+<ul>
+<li> <code>start_daemon</code> 启动一个守护程序，如果该程序当前没有运行的话。
+</li>
+<li> <code>startproc</code> 将一个进程作为守护程序启动，如果该进程当前没有运行的话。
+</li>
+</ul>
+<pre>start_daemon [-fLve] [[-n 数字]+/-&lt;增减优先级&gt;] [-u 用户] [-g 组] [-l 日志文件|-q|-d] [-p 进程文件]
+          [-i 要忽略的文件][-c 以根用户执行] 到可执行文件的完整路径 [可执行文件的参数]
+
+
+startproc [-fLves] [[-n 数字]+/-&lt;增减优先级&gt;] [-(t|T) &lt;秒数&gt;] [-u 用户] [-g 组] [-l 日志文件|-q|-d] [-p 进程文件]
+          [-i 要忽略的文件] [-c 以根用户执行] 到可执行文件的完整路径 [可执行文件的参数]
+</pre>
+<h3><span class="mw-headline" id="killproc.288.29_.E5.B7.A5.E5.85.B7">killproc(8) 工具</span></h3>
+<p>向程序发送一个信号; 默认发送 SIGTERM 结束信号， 如果进程没死的话，会在数秒后发送一个 SIGKILL 杀死信号。它也会试着移除能找到的进程文件。
+</p>
+<pre>killproc [-vqLN] [-g|-G] [-p 进程文件] [-i 要忽略的文件] [-c 以根用户运行] [-t &lt;秒数&gt;] [-&lt;SIG&gt;] 到可执行文件的完整路径
+
+killproc -n [-vq] [-g|-G] [-t &lt;秒数&gt;] [-&lt;SIG&gt;] 内核 thread 会话的名字
+
+killproc    [-vq] [-g|-G] [-t &lt;秒数&gt;] [-&lt;SIG&gt;] 可执行文件的 basename 基础名称
+</pre>
+<h3><span class="mw-headline" id="checkproc.288.29_.E5.92.8C_pidofproc.288.29_.E5.B7.A5.E5.85.B7">checkproc(8) 和 pidofproc(8) 工具</span></h3>
+<p>试着找到一个程序的状态和进程编号; 检查进程文件。pidofproc 主要是 checkproc 的调试版本。
+</p>
+<pre>checkproc [-vLkNz] [-p 进程文件] [-i 要忽略的文件] [-c 以根用户运行] 可执行文件的完整路径
+
+checkproc -n [-vk] 内核 thread 会话的名称
+
+checkproc    [-vk] 可执行文件的 basename 基础名称
+
+pidofproc [-LkNz] [-p 进程文件] [-i 要忽略的文件] [-c 以根用户运行] 可执行文件的完整路径
+
+pidofproc -n [-k] 内核 thread 会话的名称
+
+pidofproc    [-k] 可执行文件的 basename 基础名称</pre><!--/DOCUMENT_FRAGMENT--></div></div></div></div></body>
+</html>

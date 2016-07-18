@@ -1,0 +1,863 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" dir="ltr" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" class="client-js">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="generator" content="MediaWiki 1.22.2">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://zh.opensuse.org/opensearch_desc.php" title="openSUSE (zh)">
+<link rel="EditURI" type="application/rsd+xml" href="https://zh.opensuse.org/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="openSUSE的Atom feed" href="https://zh.opensuse.org/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom">
+<link rel="canonical" href="https://zh.opensuse.org/openSUSE:Packaging_init_scripts">        <title>启动脚本 - openSUSE</title>
+        
+
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+        
+        <!--[if lt IE 7]>
+        <meta http-equiv="imagetoolbar" content="no" />
+        <![endif]-->
+                
+        
+        
+        
+        
+
+        
+        
+
+        <link rel="icon" type="image/png" href="favicon.png">
+
+        <!-- Head Scripts -->
+                
+
+		<link rel="alternate" type="application/rdf+xml" title="openSUSE:Packaging init scripts" href="https://zh.opensuse.org/index.php?title=Special:%E5%AF%BC%E5%87%BARDF/openSUSE:Packaging_init_scripts&amp;xmlmime=rdf">
+                                                                        
+    <!-- Piwik -->
+    
+    <!-- End Piwik Code -->
+
+
+    
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+    <body class="mediawiki ltr ns-4 ns-subject page-openSUSE_Packaging_init_scripts skin-bentofluid">
+
+        <!-- Start: Header -->
+                  <!-- Start: Header -->
+  <div id="header">
+    <div id="header-content" class="container_12">
+      <a id="header-logo" href="http://www.opensuse.org/"><img src="header-logo.png" alt="Header Logo" width="46" height="26"></a>
+      <ul id="global-navigation">
+        <li id="item-downloads"><a href="https://zh.opensuse.org/openSUSE:Browse#Downloads">Downloads</a></li>
+        <li id="item-support"><a href="https://zh.opensuse.org/openSUSE:Browse#Support">Support</a></li>
+        <li id="item-community"><a href="https://zh.opensuse.org/openSUSE:Browse#Community">Community</a></li>
+        <li id="item-development"><a href="https://zh.opensuse.org/openSUSE:Browse#Development">Development</a></li>
+      </ul><ul class="global-navigation-menu" id="menu-downloads"><li><a href="http://software.opensuse.org/"><span class="global-navigation-icon release-stable"></span><span>Latest stable release</span><span class="desc">Get the latest stable release of openSUSE</span></a></li><li><a href="http://software.opensuse.org/developer/"><span class="global-navigation-icon release-devel"></span><span>Latest development release</span><span class="desc">Get the latest development release of openSUSE</span></a></li><li><a href="http://software.opensuse.org/search"><span class="global-navigation-icon packages"></span><span>Search for packages</span><span class="desc">Get additional software from openSUSE Build Service</span></a></li><li><a href="http://en.opensuse.org/Derivatives"><span class="global-navigation-icon derivatives"></span><span>Derivatives</span><span class="desc">Get one of the specialized distributions built on openSUSE</span></a></li></ul><ul class="global-navigation-menu" id="menu-support"><li><a href="http://en.opensuse.org/Portal:Support"><span class="global-navigation-icon help"></span><span>Help</span><span class="desc">Go to the Support Portal</span></a></li><li><a href="http://doc.opensuse.org/"><span class="global-navigation-icon development-documentation"></span><span>Documentation</span><span class="desc">Read guides and manuals</span></a></li><li><a href="http://en.opensuse.org/"><span class="global-navigation-icon wiki"></span><span>Wiki</span><span class="desc">Read and write articles in our Wiki</span></a></li><li><a href="http://tube.opensuse.org/"><span class="global-navigation-icon video"></span><span>Video</span><span class="desc">Watch various tutorials, screencasts and recordings from talks and presentations</span></a></li><li><a href="http://forums.opensuse.org/"><span class="global-navigation-icon forums"></span><span>Forums</span><span class="desc">Participate in our forums</span></a></li><li><a href="http://en.opensuse.org/openSUSE:Mailing_lists"><span class="global-navigation-icon lists"></span><span>Mailing lists</span><span class="desc">Subscribe to mailinglists and look into their archives</span></a></li><li><a href="http://en.opensuse.org/openSUSE:IRC_list"><span class="global-navigation-icon irc"></span><span>IRC channels</span><span class="desc">Communicate online using Internet Relay Chat</span></a></li></ul><ul class="global-navigation-menu" id="menu-community"><li><a href="http://connect.opensuse.org/"><span class="global-navigation-icon users"></span><span>Connect</span><span class="desc">Connect with your openSUSE friends</span></a></li><li><a href="http://planet.opensuse.org/"><span class="global-navigation-icon planet"></span><span>Planet</span><span class="desc">See blogposts aggregated into one stream</span></a></li><li><a href="http://news.opensuse.org/"><span class="global-navigation-icon news"></span><span>News</span><span class="desc">Latest announcements from the team</span></a></li><li><a href="http://lizards.opensuse.org/"><span class="global-navigation-icon lizards"></span><span>Lizards</span><span class="desc">Users blog platform</span></a></li><li><a href="http://shop.opensuse.org/"><span class="global-navigation-icon shop"></span><span>Shop</span><span class="desc">openSUSE gear here!</span></a></li></ul><ul class="global-navigation-menu" id="menu-development"><li><a href="http://en.opensuse.org/Portal:Development"><span class="global-navigation-icon developer"></span><span>Developer documentation</span><span class="desc">Centralized developer's documentation</span></a></li><li><a href="http://features.opensuse.org/"><span class="global-navigation-icon features"></span><span>Features</span><span class="desc">Vote and work on upcoming openSUSE features</span></a></li><li><a href="http://build.opensuse.org/"><span class="global-navigation-icon buildservice"></span><span>Build Service</span><span class="desc">Create, build and enhance packages</span></a></li><li><a href="http://bugs.opensuse.org/"><span class="global-navigation-icon bugs"></span><span>Bugs</span><span class="desc">Report bugs using Bugzilla</span></a></li><li><a href="http://susestudio.com/"><span class="global-navigation-icon studio"></span><span>SUSE Studio</span><span class="desc">Create your own images using Studio</span></a></li></ul>
+      <form class="lable-overley" id="global-search-form" action="https://zh.opensuse.org/Special:Search" method="post" accept-charset="utf-8">
+        <label for="search">Search</label>
+        <input name="search" value="" id="search" type="text">
+        <input name="go" class="hidden" value="Search" array="" type="submit">
+      </form>
+    </div>
+  </div>
+  <!-- End: Header -->
+        <!-- End: Header -->
+
+        <div id="subheader" class="container_16">
+            <div id="breadcrump" class="grid_12 alpha">
+                <a href="https://zh.opensuse.org/" title="Home"><img src="home_grey.png" alt="Home" width="16" height="16"> Wiki</a> &gt; <a href="#" title="">启动脚本</a>
+            </div>
+
+
+                    <div id="login-wrapper" class="grid_4 omega">
+					
+                	<a href="https://secure-www.novell.com/selfreg/jsp/createOpenSuseAccount.jsp?login=Sign+up">Sign up</a> | <a id="login-trigger" href="https://login.microfocus.com/nidp/app/login?id=28&amp;sid=0&amp;option=credential&amp;sid=0">Login</a>
+		                <!-- <a href="">Sign up</a> | <a id="login-trigger" href="#login">Login</a> -->
+
+                
+            </div>
+            
+        </div>
+
+        <!-- Start: Main Content Area -->
+        <div id="content" class="container_16 content-wrapper">
+
+            <div class="column grid_3 alpha">
+
+               <!-- Begin custom navigation -->
+                              <div id="some_other_content" class="box box-shadow alpha clear-both navigation">
+               <h2 class="box-header">
+                  用户服务               </h2>
+                 <ul class="navigation">
+                                    <li><a href="https://zh.opensuse.org/%E6%90%9C%E7%B4%A2">全站搜索</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:Project">项目</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:Distribution">发行版</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:Support_database">教学文章</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:Documentation">官方文档</a></li>
+                                    <li><a href="https://zh.opensuse.org/openSUSE:%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC">用户交流</a></li>
+                                   </ul>          
+               </div>
+                              <div id="some_other_content" class="box box-shadow alpha clear-both navigation">
+               <h2 class="box-header">
+                  社区专案               </h2>
+                 <ul class="navigation">
+                                    <li><a href="https://zh.opensuse.org/%E6%96%B0%E6%89%8B%E6%9D%91">新手村</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:%E7%BF%BB%E8%AF%91">翻译</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:Packaging">打包</a></li>
+                                    <li><a href="https://zh.opensuse.org/Portal:Wiki">维基</a></li>
+                                   </ul>          
+               </div>
+                              <div id="some_other_content" class="box box-shadow alpha clear-both navigation">
+               <h2 class="box-header">
+                  编辑               </h2>
+                 <ul class="navigation">
+                                    <li><a href="https://zh.opensuse.org/Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9">最近更改</a></li>
+                                    <li><a href="https://zh.opensuse.org/Category:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB">页面分类</a></li>
+                                    <li><a href="https://zh.opensuse.org/Help:%E7%AE%80%E7%B9%81%E5%A4%84%E7%90%86">简繁处理</a></li>
+                                    <li><a href="https://zh.opensuse.org/Help:%E5%BD%93%E5%89%8D%E4%BB%BB%E5%8A%A1">当前任务</a></li>
+                                   </ul>          
+               </div>
+               
+
+                <div id="some_other_content" class="box box-shadow alpha clear-both navigation">
+                    <h2 class="box-header">工具箱</h2>
+                    <ul class="navigation">
+                                <li id="t-whatlinkshere"><a href="https://zh.opensuse.org/Special:%E9%93%BE%E5%85%A5%E9%A1%B5%E9%9D%A2/openSUSE:Packaging_init_scripts" array="">链入页面</a></li>
+                                    <li id="t-recentchangeslinked"><a href="https://zh.opensuse.org/Special:%E9%93%BE%E5%87%BA%E6%9B%B4%E6%94%B9/openSUSE:Packaging_init_scripts" array="">相关更改</a></li>
+                
+                                                                                                <li id="t-specialpages"><a href="https://zh.opensuse.org/Special:%E7%89%B9%E6%AE%8A%E9%A1%B5%E9%9D%A2">特殊页面</a></li>
+                                    </ul>
+                </div>
+
+                <div id="some_other_content" class="box box-shadow alpha clear-both navigation">
+                    <h2 class="box-header">Sponsors</h2>
+                                        <a class="sponsor-image" href="https://zh.opensuse.org/Sponsors"><img src="sponsor_amd.png" alt="Sponsor" style="max-width: 145px;"></a>
+                </div>
+
+
+                        <div id="language_box" class="box box-shadow alpha clear-both navigation">
+                    <h2 class="box-header">其他语言</h2>
+                    <ul class="navigation">
+                                    <li><a href="http://en.opensuse.org/openSUSE:Packaging_init_scripts">English</a></li>
+                                                    </ul>
+                </div>
+            
+
+            </div>
+
+
+                        
+
+            <div id="some-content" class="box box-shadow grid_13 clearfix">
+                <!-- box header -->
+                <div class="box-header header-tabs">
+                    <ul>
+                                <li><a href="https://zh.opensuse.org/openSUSE:Packaging_init_scripts" class="selected" array="">项目页面</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE_talk:Packaging_init_scripts&amp;action=edit&amp;redlink=1" class="new" array="">讨论</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;action=edit" array="">查看源代码</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;action=history" array="">历史</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-hans" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-hant" array="">disable</a></li><li><a href="#" class="selected" array="">大陆简体</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-hk" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-mo" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-my" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-sg" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-tw" array="">台灣正體</a></li>                    </ul>
+                </div>
+                <div id="contentSub"></div>
+                <!-- End: box header -->
+
+
+                <a name="top" id="top"></a>
+
+                <div class="alpha omega">
+                    <h1>启动脚本</h1>
+
+                    <h3 id="siteSub">tagline: 来自openSUSE</h3>
+                    <!-- <div id="contentSub"></div> -->
+                                    
+                    <!-- Begin Content Area -->
+                            <div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="zh-CN"><p>
+</p>
+<div class="box" style="margin: 0px 0px 1em 1em; width: 97%;"><div class="box-header" style="color: rgb(51, 51, 51); text-indent: 0.5em; font-size: 120%;"><b><a href="https://zh.opensuse.org/Portal:Packaging" title="Portal:Packaging">打包</a></b></div><div style="text-align: left; color: rgb(51, 51, 51); margin: 0px; padding: 0px 0.5em;"><a href="https://zh.opensuse.org/openSUSE:Packaging_guidelines" title="openSUSE:Packaging guidelines">通用打包指南</a> - <a href="https://zh.opensuse.org/openSUSE:Packaging_naming_guidelines" title="openSUSE:Packaging naming guidelines">命名指南</a> - <a href="https://zh.opensuse.org/openSUSE:Specfile_guidelines" title="openSUSE:Specfile guidelines">Spec 文件指南</a> - <a href="https://zh.opensuse.org/openSUSE:Packaging_Patches_guidelines" title="openSUSE:Packaging Patches guidelines">补丁指南</a> - <a href="https://zh.opensuse.org/openSUSE:Package_security_guidelines" title="openSUSE:Package security guidelines">安全性指南</a> - <a href="https://zh.opensuse.org/openSUSE:Package_group_guidelines" title="openSUSE:Package group guidelines">RPM Group 组指南</a><br><a href="https://zh.opensuse.org/openSUSE:Build_Service_Tutorial" title="openSUSE:Build Service Tutorial">编译服务教学</a> - <a href="https://zh.opensuse.org/openSUSE:Build_Service_Tips_and_Tricks" title="openSUSE:Build Service Tips and Tricks">技巧和花样</a> - <a href="https://zh.opensuse.org/openSUSE:Build_Service_cross_distribution_howto" title="openSUSE:Build Service cross distribution howto">如何跨发行打包</a> - <a href="https://zh.opensuse.org/openSUSE:Build_Service_Debian_builds" title="openSUSE:Build Service Debian builds">蝶变 Deb 打包指南</a> - <a href="https://zh.opensuse.org/openSUSE:Packaging_checks" title="openSUSE:Packaging checks">打包检查</a><br><a href="https://zh.opensuse.org/openSUSE:Packaging_desktop_menu_categories" title="openSUSE:Packaging desktop menu categories">Desktop 桌面导航文件菜单分类</a> -  <a href="https://zh.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros" title="openSUSE:Packaging Conventions RPM Macros">打包常用的 RPM 宏</a> - <a href="https://zh.opensuse.org/openSUSE:Packaging_scriptlet_snippets" title="openSUSE:Packaging scriptlet snippets">小脚本片段</a> - <strong class="selflink">启动脚本</strong> - <a href="https://zh.opensuse.org/openSUSE:Packaging_Service_for_Source_Processing" title="openSUSE:Packaging Service for Source Processing">源代码处理服务</a><br><a href="https://zh.opensuse.org/openSUSE:%E6%89%93%E5%8C%85%E5%B8%AE%E5%8A%A9" title="openSUSE:打包帮助">OBS 打包互助问答</a> - <a href="https://zh.opensuse.org/openSUSE:Build_Service_application_blacklist" title="openSUSE:Build Service application blacklist">打包黑名单</a></div></div>
+<p><br>
+</p>
+<div style="background: none repeat scroll 0% 0% rgb(254, 254, 254); color: black; padding: 0px 1em 0px 1.1em; margin: 0.5em 0px;"><div style="border-left: 0.5em solid rgb(51, 153, 204); padding: 0.2em 0.5em 0.2em 1em;">本指南教您如何制作 SysV 风格的启动脚本。这种启动脚本既可以被 openSUSE 软件包使用，也可以成为它的一部分。这种启动脚本是 <a rel="nofollow" class="external text" href="http://refspecs.freestandards.org/LSB_3.2.0/LSB-Core-generic/LSB-Core-generic/sysinit.html">LSB 兼容的</a>。（LSB：全称为 Linux 标准基础核心规范，目前版本是 3.2）</div></div>
+<p><br>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>目录</h2><span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">隐藏</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E5.91.BD.E5.90.8D"><span class="tocnumber">1</span> <span class="toctext">命名</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E7.BB.93.E6.9E.84"><span class="tocnumber">2</span> <span class="toctext">结构</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#LSB_.E5.A4.B4.E9.83.A8"><span class="tocnumber">3</span> <span class="toctext">LSB 头部</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.23_Provides:_.E8.A1.8C"><span class="tocnumber">3.1</span> <span class="toctext"># Provides: 行</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.23_Required-Start:_.E8.A1.8C"><span class="tocnumber">3.2</span> <span class="toctext"># Required-Start: 行</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.23_Required-Stop:_.E8.A1.8C"><span class="tocnumber">3.3</span> <span class="toctext"># Required-Stop: 行</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.23_Should-Start:_.E8.A1.8C"><span class="tocnumber">3.4</span> <span class="toctext"># Should-Start: 行</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.23_Should-Stop:_.E8.A1.8C"><span class="tocnumber">3.5</span> <span class="toctext"># Should-Stop: 行</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.23_X-Start-Before:_.E8.A1.8C"><span class="tocnumber">3.6</span> <span class="toctext"># X-Start-Before: 行</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.23_X-Stop-After:_line"><span class="tocnumber">3.7</span> <span class="toctext"># X-Stop-After: line</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#.23_Default-Start:_line"><span class="tocnumber">3.8</span> <span class="toctext"># Default-Start: line</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#.23_Default-Stop:_.E8.A1.8C"><span class="tocnumber">3.9</span> <span class="toctext"># Default-Stop: 行</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#.23_Short-Description:_.E8.A1.8C"><span class="tocnumber">3.10</span> <span class="toctext"># Short-Description: 行</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#.23_Description:_.E8.A1.8C"><span class="tocnumber">3.11</span> <span class="toctext"># Description: 行</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#.E8.AE.BE.E5.A4.87"><span class="tocnumber">4</span> <span class="toctext">设备</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#.E8.A1.8C.E4.B8.BA"><span class="tocnumber">5</span> <span class="toctext">行为</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#Exit_.E9.80.80.E5.87.BA.E7.8A.B6.E6.80.81.E4.BB.A3.E7.A0.81"><span class="tocnumber">6</span> <span class="toctext">Exit 退出状态代码</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Status_.E5.87.BD.E6.95.B0"><span class="tocnumber">7</span> <span class="toctext">Status 函数</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#.E5.AE.89.E8.A3.85"><span class="tocnumber">8</span> <span class="toctext">安装</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#LSB_Provides_.E5.AE.9E.E9.99.85.E6.98.AF.E6.80.8E.E6.A0.B7.E5.9C.A8_openSUSE_.E5.B7.A5.E4.BD.9C.E7.9A.84"><span class="tocnumber">9</span> <span class="toctext">LSB Provides 实际是怎样在 openSUSE 工作的</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#.E5.88.9D.E5.A7.8B.E5.8C.96.E7.8E.AF.E5.A2.83.E5.8F.98.E9.87.8F"><span class="tocnumber">10</span> <span class="toctext">初始化环境变量</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#Initscripts_must_be_on_their_best_behavior"><span class="tocnumber">11</span> <span class="toctext">Initscripts must be on their best behavior</span></a></li>
+<li class="toclevel-1 tocsection-23"><a href="#.E7.94.A8.E4.BA.8E_SystemV_.E5.90.AF.E5.8A.A8.E8.84.9A.E6.9C.AC.E4.B8.AD.E7.9A.84.E7.B3.BB.E7.BB.9F.E5.B7.A5.E5.85.B7"><span class="tocnumber">12</span> <span class="toctext">用于 SystemV 启动脚本中的系统工具</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24"><a href="#start_daemon.288.29_.E5.92.8C_startproc.288.29_.E5.B7.A5.E5.85.B7"><span class="tocnumber">12.1</span> <span class="toctext">start_daemon(8) 和 startproc(8) 工具</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#killproc.288.29_.E5.B7.A5.E5.85.B7"><span class="tocnumber">12.2</span> <span class="toctext">killproc(8) 工具</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#checkproc.288.29_.E5.92.8C_pidofproc.288.29_.E5.B7.A5.E5.85.B7"><span class="tocnumber">12.3</span> <span class="toctext">checkproc(8) 和 pidofproc(8) 工具</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#LSB_.E5.91.BD.E4.BB.A4.E8.A1.8C.E5.87.BD.E6.95.B0"><span class="tocnumber">12.4</span> <span class="toctext">LSB 命令行函数</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id=".E5.91.BD.E5.90.8D">命名</span></h3>
+<p>启动脚本的命名必须与 LSB 兼容，它必须被列示在 <a rel="nofollow" class="external free" href="http://www.lanana.org/lsbreg/init/init.txt%E3%80%82http://www.lanana.org/lsbreg/instructions.html">http://www.lanana.org/lsbreg/init/init.txt。http://www.lanana.org/lsbreg/instructions.html</a> 描述了如何注册新名称。
+</p><p>SuSE 除非是基础核心包，用户软件没必要去注册这种名称，一般命名就是包名，守护程序是包名 + 字母d。
+</p>
+<h3><span class="mw-headline" id=".E7.BB.93.E6.9E.84">结构</span></h3>
+<p><code class="filename">/etc/init.d/skeleton</code> 文件是一个空白的启动脚本，体现了启动脚本的结构。该文件也可以作为启动脚本的模板。
+</p><p>强烈推荐打开这份文件再继续阅读下面内容，否则就会像听天书一样。
+</p>
+<h3><span class="mw-headline" id="LSB_.E5.A4.B4.E9.83.A8">LSB 头部</span></h3>
+<p>启动脚本本身也是终端脚本，因为文件的开头和其他终端脚本的常规开头一样：
+</p>
+<pre>#!/bin/sh
+</pre>
+<p>或者
+</p>
+<pre>#!/bin/bash
+</pre>
+<p>接着通常会是注释。注释应该说明作者、版权或授权方式的信息。启动脚本还必须包含一部分特殊的注释头部来提供关于启动脚本本身的元数据信息。
+</p><p>LSB 头部是由注释作为上下文区别开的边界，该头部的上界是：
+</p>
+<pre>### BEGIN INIT INFO
+</pre>
+<p>下界是：
+</p>
+<pre>### END INIT INFO
+</pre>
+<p>所有的 LSB 头部必须有这样的上下边界。
+</p><p>下面例子出自 <code class="filename">/etc/init.d/esound</code>:
+</p>
+<pre> # 1995-2002, 2008 SUSE Linux Products GmbH, Nuernberg, Germany.
+ # All rights reserved.
+ #
+ # Author: Stanislav Brabec, feedback to http://www.suse.de/feedback
+ #
+ ### BEGIN INIT INFO
+ # Provides:          esound
+ # Required-Start:    alsasound $remote_fs
+ # Should-Start:      $network $portmap
+ # Required-Stop:     alsasound $remote_fs
+ # Should-Stop:       $network $portmap
+ # Default-Start:     5
+ # Default-Stop:
+ # Short-Description: Sound daemon with network support
+ # Description:       Starts esound server to allow remote access to sound
+ #       card. To use esound locally, you do not need to start this
+ #       server on boot. You should edit server settings before
+ #       starting it via sysconfig editor: Network/Sound/Esound
+ ### END INIT INFO
+</pre>
+<p>LSB 头部由以下几个部分组成：
+</p>
+<h4><span class="mw-headline" id=".23_Provides:_.E8.A1.8C"># Provides: 行</span></h4>
+<p>LSB 头部的 <code># Provides:</code> 行列出了所有本脚本服务能提供的引导设施。其他的服务可以在它们的 <code># Required-Start:</code> 和 <code># Required-Stop:</code> 行中引入我们提供的这些引导设施。
+引导设施通常是守护程序的名字。如果多个软件包提供了相同的引导设施（例如 <code class="systemitem">sendmail</code> vs. <code class="systemitem">postfix</code>, <code class="systemitem">dhcpcd</code> vs. <code class="systemitem">dhclient</code>)，两者的启动脚本应该提供相同的引导设施名。
+</p>
+<pre># Provides: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>当启动脚本带着一个 start 开始参数运行时，即 /etc/init.d/NetworkManager start 这样，Provides 关键词指定的引导设施（们）就被视为可用的，因此其他要求这些引导设施的启动脚本就可以随后启动。当启动脚本带着一个 stop 停止参数运行时，即 /etc/init.d/NetworkManager stop 这样，Provides 关键词指定的引导设施就被视为不再可用。
+</p>
+<h4><span class="mw-headline" id=".23_Required-Start:_.E8.A1.8C"># Required-Start: 行</span></h4>
+<p>LSB 头部的 <code># Required-Start:</code> 行列出了任何启动此脚本服务必须的引导设施。
+</p>
+<pre># Required-Start: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>本行是必须的，即使你的启动脚本不需要任何其他启动脚本提供的引导设施，你也必须有这行，哪怕它是空的！
+</p>
+<h4><span class="mw-headline" id=".23_Required-Stop:_.E8.A1.8C"># Required-Stop: 行</span></h4>
+<p>LSB 头部的 <code># Required-Stop:</code> 行列出了所有在停止本脚本服务之前必须<b>不能</b>被<b>先行</b>停止的引导设施。
+</p>
+<pre># Required-Stop: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>本行是可选的，如果一个启动脚本不需要任何在它停止前不能被停止的引导设施，那么就不需要该行。
+</p>
+<h4><span class="mw-headline" id=".23_Should-Start:_.E8.A1.8C"># Should-Start: 行</span></h4>
+<p>LSB 头部的 <code># Should-Start:</code> 行列出了任何一旦可用就应该在启动本脚本服务前被启动的引导设施。目的是允许额外的即使不可用也不会造成本脚本服务失败的依赖。
+</p>
+<pre># Should-Start: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>本行为可选，如果一个启动脚本不需要启动任何可选依赖，那么可以没有本行。
+</p>
+<h4><span class="mw-headline" id=".23_Should-Stop:_.E8.A1.8C"># Should-Stop: 行</span></h4>
+<p>LSB 头部的 <code># Should-Stop:</code> 行列出了所有一旦可用就不能在停止本脚本服务前停止的引导设施。目的是允许额外的即使不可用也不会造成本脚本服务失败的依赖。
+</p>
+<pre># Should-Stop: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>本行为可选，如果一个启动脚本不需要任何在它停止前不能停止的额外依赖，本行可以没有。
+</p><p>LSB 允许为本头部定义发行版专有的插件。这样的插件应该以 <code class="literal">X-出品商标签-</code> 开头，比如 X-SuSE-。以下是 openSUSE 发行版专有的插件：
+</p>
+<h4><span class="mw-headline" id=".23_X-Start-Before:_.E8.A1.8C"># X-Start-Before: 行</span></h4>
+<p>LSB 头部的 <code># X-Start-Before:</code> 行的意思是说本行中所提到的脚本应该在本脚本启动前被启动。
+</p>
+<pre># X-Start-Before: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>本行是可选的，目前是 openSUSE 发行版专有的。
+</p>
+<h4><span class="mw-headline" id=".23_X-Stop-After:_line"># X-Stop-After: line</span></h4>
+<p>LSB 头部的 <code># X-Stop-After:</code> 行的意思是说这里列出的脚本应该在本脚本服务停止后也被停止。
+</p>
+<pre># X-Stop-After: boot_facility_1 [boot_facility_2...]
+</pre>
+<p>本行是可选的，目前也是 openSUSE 发行版专有的。
+</p>
+<div style="background: none repeat scroll 0% 0% rgb(254, 254, 254); color: rgb(102, 102, 102); padding: 0px 1em 0px 1.1em; margin: 0.5em 0px;"><div style="border-left: 0.5em solid rgb(51, 153, 204); padding: 0.2em 0.5em 0.2em 1em;"><code># X-Start-Before:</code> 和 <code># X-Stop-After:</code> 都允许脚本作者在新启动脚本中直接使用依赖而不去改动其他的比如系统启动脚本的内容。</div></div>
+<p><br>
+</p>
+<h4><span class="mw-headline" id=".23_Default-Start:_line"># Default-Start: line</span></h4>
+<p>LSB 头部的 <code># Default-Start:</code> 行列出了一些运行级别，在这些运行级别下面，本脚本服务应该默认启用。运行级别间以空格分隔。
+</p>
+<pre># Default-Start: run_level_1 [run_level_2...]
+</pre>
+<p>每个在任何运行级别需要默认启动的 SystemV 风格的启动脚本都必须在 LSB 头部中有本行。<b>只有</b> 系统真正需要的脚本服务才可以定义运行级别。如果脚本服务不在任何运行级别下默认启用，那么就不需要提供本行。
+例如，如果一个服务在只在运行级别 3,4,和 5 级时默认启动，启动脚本的 LSB 头部就应该指定：
+</p>
+<pre># Default-Start: 3 4 5
+</pre>
+<h4><span class="mw-headline" id=".23_Default-Stop:_.E8.A1.8C"># Default-Stop: 行</span></h4>
+<p>LSB 头部的 <code># Default-Stop:</code> 列出了脚本服务没有默认启动的运行级别。运行级别间以空格分隔，且必须包含所有 <code># Default-Start:</code> 行没有使用过的运行级别。
+</p>
+<pre># Default-Stop: run_level_1 [run_level_2...]
+</pre>
+<p>每个需要在任何运行级别下默认启动的 SystemV 风格启动脚本必须在 LSB 头部包含本行 (如果有 <code># Default-Start:</code> 行就必须有 <code># Default-Stop:</code> 行，它们总是成对出现。)
+</p><p>例如，一个脚本服务只在运行级别 3,4, 和 5 默认启用，那么 LSB 头部的 <code># Default-Stop:</code> 行就必须指定运行级别 0, 1, 2, 和 6:
+</p>
+<pre># Default-Stop: 0 1 2 6
+</pre>
+<div style="background: none repeat scroll 0% 0% rgb(254, 254, 254); color: rgb(102, 102, 102); padding: 0px 1em 0px 1.1em; margin: 0.5em 0px;"><div style="border-left: 0.5em solid rgb(51, 153, 204); padding: 0.2em 0.5em 0.2em 1em;">请注意，openSUSE 会忽略掉 <code># Default-Stop:</code> 行，因为 openSUSE 的启动脚本设置使用了在 init.d(7) 的 man 帮助手册里说明的差分链接方案。但该行依然不能省略。</div></div>
+<p><br>
+</p>
+<h4><span class="mw-headline" id=".23_Short-Description:_.E8.A1.8C"># Short-Description: 行</span></h4>
+<p>LSB 头部的 <code># Short-Description:</code> 行提供了关于启动脚本行为的简要介绍。本行只有一行且不能超过 80 个字符。
+</p>
+<pre># Short-Description: 这是一个邮件服务器服务。（当然要用英文写）
+</pre>
+<p>所有的 openSUSE 下 SysV 风格的启动脚本都必须在 LSB 头部包含 <code># Short-Description:</code> 行。它有点类似于 RPM spec 文件的 <code>Summary:</code> 标签。这是用于在 YaST 运行级别编辑器中显示的。
+</p>
+<h4><span class="mw-headline" id=".23_Description:_.E8.A1.8C"># Description: 行</span></h4>
+<p>LSB 头部的 <code># Description:</code> 行提供了启动脚本行为更加完整的描述。它可以是多行，后续的行必须以 '#' 加一个 tab （也就是至少两个空格不能多于四个空格）开头。一旦某行首不满足该条件就以为着多行描述的终止。这也是用来在 YaST 运行级别编辑器里显示的。
+</p><p>Example:
+</p>
+<pre># Description: Bluetooth services for service discovery, authentication,
+#              Human Interface Devices, etc.
+</pre>
+<p>所有 openSUSE 下的 SysV 风格的启动脚本必须在 LSB 头部包含 <code># Description:</code> 行。它可以被视为 RPM spec 文件中的 <code>%description</code> 章节。
+</p>
+<h3><span class="mw-headline" id=".E8.AE.BE.E5.A4.87">设备</span></h3>
+<p>根据 LSB 的要求， openSUSE 系的发行版启动脚本已经提供了一些默认的设备名。它们在 <code class="filename">/etc/insserv.conf</code> 里。目前，有如下系统设备名可供使用：
+</p>
+<ul>
+<li> <code class="systemitem">$local_fs</code> — 所有的本地文件系统的挂载点。大多数脚本服务都需要这个。All local file systems are mounted. 
+</li>
+<li> <code class="systemitem">$remote_fs</code> — All remote file systems are mounted.所有的远程文件系统的挂载点。因为 <code class="filename">/usr</code> 目录可以是远程目录，许多脚本服务也应该需要这个。
+</li>
+<li> <code class="systemitem">$syslog</code> — 系统日志设备可用。
+</li>
+<li> <code class="systemitem">$network</code> — 底层网络设备（比如有线网卡）可用。
+</li>
+<li> <code class="systemitem">$named</code> — 主机名解析可用。
+</li>
+<li> <code class="systemitem">$netdaemons</code> — 所有的网络守护程序都在运行中。这在 LSB 1.2 中被删除了。但目前我们还提供它以便于向后兼容。
+</li>
+<li> <code class="systemitem">$time</code> — 系统时间正确。
+</li>
+<li> <code class="systemitem">$portmap</code> — SunRPC portmapping 服务可用。
+</li>
+<li> <code class="systemitem">$null</code> — Enforce an empty dependency in case of <code>Required-Stop</code> and <code>Should-Stop</code> otherwise <code>insserv</code> assumes the same dependencies as for Start case.
+</li>
+</ul>
+<p><br>
+Beside the LSB compliant System Facilities as defined in <code>/etc/insserv.conf</code> on openSUSE
+the following System Facilities are known:
+</p>
+<ul>
+<li> <code class="systemitem">$all</code>This facility indicates that a service should be inserted at the end of all services.  Clearly all services using this facility will be grouped into one starting order.&lt;/dd&gt;
+</li>
+<li> <code class="systemitem">$null</code>Used to enforce an empty dependency in case of <code># Should-Stop:</code> and <code># Required-Stop:</code> otherwise insserv(8) assumes the same dependencies as specified at <code># Should-Start:</code>
+</li>
+</ul>
+<p>respectivly at <code># Required-Start:</code>.
+</p><p>Other (non-system) facilities may be defined in the <code># Provides:</code> line in the LSB Header.
+</p>
+<h3><span class="mw-headline" id=".E8.A1.8C.E4.B8.BA">行为</span></h3>
+<p><code class="filename">/etc/init.d/skeleton</code> 包含了详细的示范代码和注释。下面的例子取自 <code class="filename">/etc/init.d/cron</code>:
+</p>
+<pre>case "$1" in
+    start)
+        echo -n "Starting CRON daemon"
+        startproc $CRON_BIN
+        rc_status -v
+       &nbsp;;;
+    stop)
+        echo -n "Shutting down CRON daemon"
+        killproc -TERM $CRON_BIN
+        rc_status -v
+       &nbsp;;;
+    try-restart)
+        $0 status &gt;/dev/null &amp;&amp;  $0 restart
+        rc_status
+       &nbsp;;;
+    restart)
+        $0 stop
+        $0 start
+        rc_status
+       &nbsp;;;
+    force-reload)
+        echo -n "Reload service Cron"
+        checkproc $CRON_BIN
+        rc_status -v
+       &nbsp;;;
+    reload)
+        rc_status -v
+       &nbsp;;;
+    status)
+        echo -n "Checking for Cron: "
+        checkproc $CRON_BIN
+        rc_status -v
+       &nbsp;;;
+    probe)
+       &nbsp;;;
+    *)
+        echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload|reload|probe}"
+        exit 1
+       &nbsp;;;
+esac
+</pre>
+<p>根据 LSB 的定义，所有的启动脚本都必须知道如何去处理如下行为：
+</p>
+<ul>
+<li> <code class="option">start</code> — 启动脚本服务。
+</li>
+<li> <code class="option">stop</code> — 停止脚本服务。
+</li>
+<li> <code class="option">restart</code> — 如果脚本服务已在运行，重启它。如果没在运行，启动它。
+</li>
+<li> <code class="option">reload</code> — 不重启脚本服务直接重新加载它的配置。
+</li>
+<li> <code class="option">force-reload</code> — 如果脚本服务支持的话，就重新加载配置，不然就重启。
+</li>
+<li> <code class="option">status</code> — 输出脚本服务目前的状态。
+</li>
+<li> <code class="option">usage</code> - 默认如果该启动脚本没有附加任何行为选项，它应该列出所有可用的行为以供用户选择。
+</li>
+</ul>
+<p>所有启动脚本都必须支持 <code class="option">start</code>, <code class="option">stop</code>, <code class="option">restart</code>, <code class="option">force-reload</code>, 和 status 行为。<code class="option">reload</code> 行为是可选支持的。
+</p><p>openSUSE 定义了如下额外行为：
+</p>
+<ul>
+<li> <code class="option">try-restart</code> — 只重启启用着的脚本服务。这个行为现在已被 LSB 1.9+ 收录。红帽也有一个类似的行为叫做 <code class="option">condrestart</code>。
+</li>
+<li> <code class="option">probe</code> — 探测是否有必要重加载配置文件。如果有必要，根据脚本服务提供的功能来重新加载或重启。如果没必要的话，什么也不做。这个行为目前是可选的。
+</li>
+</ul>
+<p>SystemV 风格的启动脚本应该支持 <b>try-restart</b> 和 <b>condrestart</b> 行为。这两个行为的目的是相同的，因此在行为上不能有所不同。实际操作上，强烈建议打包者将 <b>try-restart</b> 和 <b>condrestart</b> 在行为声明中作为同等选项：
+</p>
+<pre>try-restart|condrestart)
+    $0 status
+    if test $? = 0; then
+        $0 restart
+    else
+        rc_reset
+    fi
+    rc_status
+   &nbsp;;;
+</pre>
+<p>你也可以添加其他行为，但你必须在 <b>usage</b> 行为中交互输出它以让用户知道并能够使用。
+</p>
+<h3><span class="mw-headline" id="Exit_.E9.80.80.E5.87.BA.E7.8A.B6.E6.80.81.E4.BB.A3.E7.A0.81">Exit 退出状态代码</span></h3>
+<p>参考 <a rel="nofollow" class="external text" href="http://refspecs.freestandards.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html">LSB 定义</a>。它为启动脚本定义了如下的退出状态代码（status 行为没有定义退出状态代码，详情见下）。
+</p>
+<table border="1">
+<tbody><tr>
+<th>Exit 退出状态代码
+</th>
+<th>描述
+</th></tr>
+<tr>
+<td>0
+</td>
+<td>成功
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>一般或未定义错误
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>无效或多余的参数
+</td></tr>
+<tr>
+<td>3
+</td>
+<td>没有这个行为 (例如 "reload")
+</td></tr>
+<tr>
+<td>4
+</td>
+<td>用户权限不足
+</td></tr>
+<tr>
+<td>5
+</td>
+<td>程序未安装
+</td></tr>
+<tr>
+<td>6
+</td>
+<td>程序未配置
+</td></tr>
+<tr>
+<td>7
+</td>
+<td>程序未运行
+</td></tr>
+<tr>
+<td>8-99
+</td>
+<td>保留，以供 LSB 未来使用
+</td></tr>
+<tr>
+<td>100-149
+</td>
+<td>保留，以供发行版使用
+</td></tr>
+<tr>
+<td>150-199
+</td>
+<td>保留，以供应用程序使用
+</td></tr>
+<tr>
+<td>200-254
+</td>
+<td>保留
+</td></tr></tbody></table>
+<p>对于所有其他的启动脚本行为，启动脚本必须在行为成功时返回退出状态 0。除了直接成功，下列情况也应该被认为是成功的：
+</p>
+<ul>
+<li> 使用 <b>force-reload</b> 参数重启服务（不是重加载配置文件）。
+</li>
+<li> 服务已在运行时 <b>start</b> 
+</li>
+<li> 服务不在运行时或已经终止时 <b>stop</b>
+</li>
+<li> 服务不在运行时或已经终止时 <b>restart</b>
+</li>
+<li> 服务不在运行时或已经终止时 <b>condrestart</b> 或 <b>try-restart</b>。
+</li>
+</ul>
+<h3><span class="mw-headline" id="Status_.E5.87.BD.E6.95.B0">Status 函数</span></h3>
+<p>LSB 为 status 行为定义了如下退出代码：
+</p>
+<table border="1">
+<tbody><tr>
+<th>现有 Status 代码
+</th>
+<th>描述
+</th></tr>
+<tr>
+<td>0
+</td>
+<td>程序运行中或脚本服务没问题。
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>程序僵死，/var/run pid 进程文件仍存在。
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>程序僵死，/var/lock lock 文件仍存在。
+</td></tr>
+<tr>
+<td>3
+</td>
+<td>程序没有运行。
+</td></tr>
+<tr>
+<td>4
+</td>
+<td>程序或脚本服务的状态未知。
+</td></tr>
+<tr>
+<td>5-99
+</td>
+<td>保留，以供 LSB 未来使用
+</td></tr>
+<tr>
+<td>100-149
+</td>
+<td>保留给发行版使用
+</td></tr>
+<tr>
+<td>150-199
+</td>
+<td>保留给应用程序使用
+</td></tr>
+<tr>
+<td>200-254
+</td>
+<td>保留
+</td></tr></tbody></table>
+<p>定义在 <code class="filename">/etc/rc.status</code> 里的函数可以帮助记录，显示，和返回启动脚本中真实的 rc status 状态信息。它们可以这样引入到启动脚本中：
+</p>
+<pre>. /etc/rc.status
+</pre>
+<p>有如下函数可用：
+</p><p><span><b>rc_active</b></span>
+</p><p>该函数通过检测链接来检查脚本服务是否启动。如果脚本服务在某运行级别下启动就返回 <code class="literal">“0”</code>，否则返回 <code class="literal">“1”</code>。 
+</p><p><span><b>rc_exit</b></span>
+</p><p>该函数结束启动脚本，返回合适的退出状态代码。
+</p><p><span><b>rc_failed</b></span> [<i><code>num</code></i>]
+</p><p>该函数将本地和全部的 rc status 设定为由 <i><code>num</code></i> 参数定义的值。默认使用 <code class="literal">“1”</code>。
+</p><p><span><b>rc_check</b></span>
+</p><p>该函数检测最后一条命令的退出状态值 (<code class="envar">$?</code>)，如果退出状态的值不是 <code class="literal">“0”</code> 就把本地 rc_status 的状态设置为现在的值。然后本地 rc 状态的值不是 <code class="literal">“0”</code> 又会导致全局的 rc 状态被设定为本地的值。这个函数是在内部被其他 rc 状态函数使用的。
+</p><p><span><b>rc_reset</b></span>
+</p><p>该函数把本地和全局的 rc 状态都重置为 <code class="literal">“0”</code>。
+</p><p><span><b>rc_status</b></span> [<code class="option">-r</code>] [<code class="option">-s</code>] [<code class="option">-u</code>] [<code class="option">-v</code>[<i><code>num</code></i>]]
+</p><p>该函数检查，设定和显示 rc 状态。默认它是静默的：它只调用 <span><b>rc_check</b></span>。因此，它必须带参数调用以显示想要的状态。下面是参数的定义：
+</p>
+<ul>
+<li> <code class="option">-r</code> 调用 <span><b>rc_reset</b></span>。这个选项必须和 <code class="option">-v</code> 参数一起调用。命令 <span><b>rc_status -v -r</b></span> 检查，设定和显示目前的 rc 状态。之后呼叫 <span><b>rc_reset</b></span> 来重置。
+</li>
+<li> <code class="option">-s</code> 显示 <code class="literal">“跳过”</code> 然后设定状态为 <code class="literal">“3”</code>。它意味着是一个还没写出来的功能。
+</li>
+<li> <code class="option">-u</code> 显示 <code class="literal">“无用”</code> 然后设定状态为 <code class="literal">“3”</code>。它意味着是一个还没写出来的功能。
+</li>
+<li> <code class="option">-v</code>[<i><code>num</code></i>] 显示真实状态并且重置本地状态为 <code class="literal">“0”</code>。默认地，状态显示在目前的行上。<i><code>num</code></i> 参数定义了它应该显示在目前鼠标位置之上的第 <i><code>num</code></i> 行。
+</li>
+</ul>
+<h3><span class="mw-headline" id=".E5.AE.89.E8.A3.85">安装</span></h3>
+<p>启动脚本通常被视为软件包源代码，作为一个额外的&nbsp;%source 文件。它在 <code class="systemitem">%install</code> 章节安装。通常启动脚本不应该被标记为 <code>%config</code> 文件。
+</p><p>虽然启动脚本的位置在 <code>/etc</code>，但是它们是需要被执行而不是被配置的脚本。任何配置都应该通过 <code>/etc/sysconfig/&lt;service&gt;</code> 服务来做，而不是启动脚本自身。一个有力的豁免是已有的通过启动脚本进行配置的软件包。在这种情况下，遵照 <a href="https://zh.opensuse.org/openSUSE:Specfile_guidelines#Configuration_files" title="openSUSE:Specfile guidelines">配置文件</a> 章节的规定，启动脚本应该被标记为 <code>%config</code>，以便于升级时能够保留用户配置。当然，用户最好迁移这些配置到一个新的 <code>/etc/sysconfig/&lt;service&gt;</code> 配置文件。
+</p><p>启动脚本必须有 0755 或者 0700 权限。
+</p><p>也应该有一个名为 <code class="filename">rcname</code> 的系统链接指向 <code class="filename">/etc/init.d/name</code>。根据服务安装的路径前缀，系统链接既可以放在 <code class="filename">/sbin</code> 也可以放在 <code class="filename">/usr/sbin</code>。这可以方便启动脚本的手动启动、停止和重启。
+</p><p>最后，启动脚本可以在软件包安装后启用，但必须在软件包卸载后禁用。升级之后也应该重启服务，但卸载前必须停用。宏 <a href="https://zh.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros#.25fillup_and_insserv" title="openSUSE:Packaging Conventions RPM Macros"> %fillup_and_insserv</a>，<a href="https://zh.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros#.25insserv_force_if_yast" title="openSUSE:Packaging Conventions RPM Macros"> %insserv_force_if_yast</a>，<a href="https://zh.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros#.25restart_on_update" title="openSUSE:Packaging Conventions RPM Macros"> %restart_on_update</a>，<a href="https://zh.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros#.25insserv_cleanup" title="openSUSE:Packaging Conventions RPM Macros"> %insserv_cleanup</a>，和 <a href="https://zh.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros#.25stop_on_removal" title="openSUSE:Packaging Conventions RPM Macros"> %stop_on_removal</a> 是用来执行这些操作的。
+</p><p>注意 SuSE Linux 提供了 <span><b>insserv</b></span> 工具来启用或禁用启动脚本。参考 <code class="filename">insserv(8)</code> 的用户手册以获取更详细的信息。该工具也被 <span><b>%fillup_and_insserv</b></span>，<span><b>%insserv_force_if_yast</b></span>，和 <span><b>%insserv_cleanup</b></span> 宏使用。
+</p><p>在 SuSE Linux 上启动脚本默认是禁用的，除非是那些提供最小化系统功能所需的启动脚本。因此 <span><b>%fillup_and_insserv</b></span> 和 <span><b>%insserv_force_if_yast</b></span> 宏只供提供基础服务的软件包使用。
+</p><p>Spec 范式文件实例：
+</p>
+<pre>...
+
+Requires(pre):&nbsp;%insserv_prereq&nbsp;%fillup_prereq
+
+...
+
+%install
+
+...
+
+install -D -m 755 service.init&nbsp;%{buildroot}%{_initrddir}/service
+
+...
+
+mkdir -p&nbsp;%{buildroot}%{_sbindir}
+ln -sf&nbsp;%{_initrddir}/service&nbsp;%{buildroot}%{_sbindir}/rcservice
+
+...
+
+%post
+%fillup_and_insserv service
+
+%preun
+%stop_on_removal service
+
+%postun
+%restart_on_update service
+%insserv_cleanup
+
+...
+
+%files
+%defattr(-,root,root)
+...
+%{_initrddir}/service
+%{_sbindir}/rcservice
+
+...
+</pre>
+<p>如果启动脚本必须被启用、重启或停止，它们的名字必须作为相关宏的参数列出。唯一有区别的是 <span><b>%insserv_cleanup</b></span> 宏。它不需要任何参数，因为无论如何它都会删除全部的跨硬盘分区系统链接。
+</p><p>软件包必须把 SysV 风格的启动脚本放到 <code>/etc/init.d</code>。该目录有一个替代的 RPM 宏，<code>%_initrddir</code>。
+</p>
+<h3><span class="mw-headline" id="LSB_Provides_.E5.AE.9E.E9.99.85.E6.98.AF.E6.80.8E.E6.A0.B7.E5.9C.A8_openSUSE_.E5.B7.A5.E4.BD.9C.E7.9A.84">LSB Provides 实际是怎样在 openSUSE 工作的</span></h3>
+<p>基于 LSB 的系统使用 /usr/lib/lsb/install_initd 来启动脚本，/usr/lib/lsb/remove_initd 来禁用脚本。当需要进行这些操作时，先读取 LSB 依赖关系，然后调整脚本们的 start 和 stop 属性以满足依赖关系。
+</p><p>这意思就是说 LSB 头部写明的依赖关系是被遵守的（尽管是一个静态的机制）。
+可以使用 insserv(8) 工具来覆盖 LSB 头部的依赖关系，更多解释请阅读 insserv(8) 的用户手册。
+</p>
+<h2><span class="mw-headline" id=".E5.88.9D.E5.A7.8B.E5.8C.96.E7.8E.AF.E5.A2.83.E5.8F.98.E9.87.8F">初始化环境变量</span></h2>
+<p>由于启动脚本可能需要被系统管理员手动运行以支持非标准的环境变量值如 PATH、USER、LOGNAME 等等，启动脚本不应该依赖这些环境变量。需要它们时，它们应该被设定为众所周知的/默认的值。
+</p>
+<h2><span class="mw-headline" id="Initscripts_must_be_on_their_best_behavior">Initscripts must be on their best behavior</span></h2>
+<p>SystemV-style initscripts must behave sensibly if they are started when the service is already running, or stopped when the service is not running. They must not kill unrelated (but perhaps, similarly-named) user processes as a result of their normal actions. The best way to achieve this is to use the init-script functions provided by <code>/etc/rc.status</code>:
+</p>
+<pre># Source function library.
+. /etc/rc.status
+rc_reset
+</pre>
+<p>and the systems tools <code>/sbin/start_daemon</code> or <code>/sbin/startproc</code>
+for start a process, <code>/sbin/killproc</code> to stop a process, and <code>/sbin/checkproc</code>
+to check for a running process. For an furhter explanation the manual pages of start_daemon(8) or
+startproc(8), killproc(8), and checkproc(8) should be consulted.
+</p><p>The <code>startproc</code> command starts processes identified by path name of the executable. The exist status is LSB
+see <a href="#7.6._Exit_Status_Codes"> “Exit Status Codes”</a> for more details.  It can be replaced by the LSB command
+<code>start_daemon</code> which does not fork before starting the executable.  That requires
+that the new process its self forks and disconnect from the terminal (see manual pages <code>startproc(8)</code>, <code>daemon(3)</code>, <code>fork(2)</code>, and <code>setsid(2)</code>).
+The <code>killproc</code> LSB command sends  signals to processes identified by full path name of the executable.
+(see manual page <code>killproc(8)</code>).  The <code>pidofproc</code> LSB command uses
+the base name of an the to seek for a process and the <code>checkproc</code> command uses the full path
+of an executable to do the same (see manual page <code>pidofproc(8)</code>).
+</p><p>Then there are usually checks of whether the service is correctly installed and the related sysconfig files are read. The LSB compliant error values must be returned in case of problems. See <a href="#Exit_Status_Codes"> “Exit Status Codes”</a> for more details.
+</p><p>This example is taken from <code class="filename">/etc/init.d/ypbind</code>:
+</p>
+<pre>YPBIND_BIN=/usr/sbin/ypbind
+ test -x $YPBIND_BIN || { echo "$YPBIND_BIN not installed";
+         if [ "$1" = "stop" ]; then exit 0; else exit 5; fi; }
+ 
+ YPBIND_CONFIG=/etc/sysconfig/ypbind
+ test -r $YPBIND_CONFIG || { echo "$YPBIND_CONFIG not existing";
+         if [ "$1" = "stop" ]; then exit 0; else exit 6; fi; }
+ 
+ # Read config
+ . $YPBIND_CONFIG
+</pre>
+<p><br>
+If a service reloads its configuration automatically (as in the case of cron, for example), the reload action of the initscript must behave as if the configuration was reloaded successfully. The restart, condrestart, try-restart, reload and force-reload actions may be atomic; that is if a service is known not to be operational after a restart or reload, the script may return an error without any further action.
+</p><p><br>
+</p>
+<h2><span class="mw-headline" id=".E7.94.A8.E4.BA.8E_SystemV_.E5.90.AF.E5.8A.A8.E8.84.9A.E6.9C.AC.E4.B8.AD.E7.9A.84.E7.B3.BB.E7.BB.9F.E5.B7.A5.E5.85.B7">用于 SystemV 启动脚本中的系统工具</span></h2>
+<h3><span class="mw-headline" id="start_daemon.288.29_.E5.92.8C_startproc.288.29_.E5.B7.A5.E5.85.B7">start_daemon(8) 和 startproc(8) 工具</span></h3>
+<ul>
+<li> <code>start_daemon</code> 启动一个守护程序，如果该程序当前没有运行的话。
+</li>
+<li> <code>startproc</code> 将一个进程作为守护程序启动，如果该进程当前没有运行的话。
+</li>
+</ul>
+<pre>start_daemon [-fLve] [[-n 数字]+/-&lt;增减优先级&gt;] [-u 用户] [-g 组] [-l 日志文件|-q|-d] [-p 进程文件]
+          [-i 要忽略的文件][-c 以根用户执行] 到可执行文件的完整路径 [可执行文件的参数]
+
+
+startproc [-fLves] [[-n 数字]+/-&lt;增减优先级&gt;] [-(t|T) &lt;秒数&gt;] [-u 用户] [-g 组] [-l 日志文件|-q|-d] [-p 进程文件]
+          [-i 要忽略的文件] [-c 以根用户执行] 到可执行文件的完整路径 [可执行文件的参数]
+</pre>
+<h3><span class="mw-headline" id="killproc.288.29_.E5.B7.A5.E5.85.B7">killproc(8) 工具</span></h3>
+<p>向程序发送一个信号; 默认发送 SIGTERM 结束信号， 如果进程没死的话，会在数秒后发送一个 SIGKILL 杀死信号。它也会试着移除能找到的进程文件。
+</p>
+<pre>killproc [-vqLN] [-g|-G] [-p 进程文件] [-i 要忽略的文件] [-c 以根用户运行] [-t &lt;秒数&gt;] [-&lt;SIG&gt;] 到可执行文件的完整路径
+
+killproc -n [-vq] [-g|-G] [-t &lt;秒数&gt;] [-&lt;SIG&gt;] 内核 thread 会话的名字
+
+killproc    [-vq] [-g|-G] [-t &lt;秒数&gt;] [-&lt;SIG&gt;] 可执行文件的 basename 基础名称
+</pre>
+<h3><span class="mw-headline" id="checkproc.288.29_.E5.92.8C_pidofproc.288.29_.E5.B7.A5.E5.85.B7">checkproc(8) 和 pidofproc(8) 工具</span></h3>
+<p>试着找到一个程序的状态和进程编号; 检查进程文件。pidofproc 主要是 checkproc 的调试版本。
+</p>
+<pre>checkproc [-vLkNz] [-p 进程文件] [-i 要忽略的文件] [-c 以根用户运行] 可执行文件的完整路径
+
+checkproc -n [-vk] 内核 thread 会话的名称
+
+checkproc    [-vk] 可执行文件的 basename 基础名称
+
+pidofproc [-LkNz] [-p 进程文件] [-i 要忽略的文件] [-c 以根用户运行] 可执行文件的完整路径
+
+pidofproc -n [-k] 内核 thread 会话的名称
+
+pidofproc    [-k] 可执行文件的 basename 基础名称
+</pre>
+<h3><span class="mw-headline" id="LSB_.E5.91.BD.E4.BB.A4.E8.A1.8C.E5.87.BD.E6.95.B0">LSB 命令行函数</span></h3>
+<p>如上系统工具也可以由 <code>/lib/lsb/init-functions</code> 内的命令行函数提供：
+</p>
+<pre># 加载 LSB 命令行函数
+. /lib/lsb/init-functions
+</pre>
+<p>加上 LSB 3.1 或更高版本指定要的提要：
+</p>
+<pre>start_daemon [-f] [-n +/-&lt;优先级&gt;] 到可执行文件的完整路径 [可执行文件的参数]
+killproc [-p 进程文件] 到可执行文件的完整路径 [-&lt;SIG&gt;]
+pidofproc [-p 进程文件] 到可执行文件的完整路径
+</pre>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.252 seconds
+Real time usage: 0.264 seconds
+Preprocessor visited node count: 578/1000000
+Preprocessor generated node count: 1212/1000000
+Post‐expand include size: 4044/2097152 bytes
+Template argument size: 1892/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key opensuse_zh:pcache:idhash:1372-0!*!0!!zh-cn!*!zh-cn!* and timestamp 20160718064536
+ -->
+</div><div class="printfooter">
+取自“<a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;oldid=5943">https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;oldid=5943</a>”</div>
+
+        <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://zh.opensuse.org/Special:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB" title="Special:页面分类">1个分类</a>：<ul><li><a href="https://zh.opensuse.org/Category:%E6%89%93%E5%8C%85" title="Category:打包">打包</a></li></ul></div></div>                            <!-- End Content Area -->
+
+                </div>
+                <br>
+
+                <div class="box-footer header-tabs">
+                    <ul>
+                                <li><a href="https://zh.opensuse.org/openSUSE:Packaging_init_scripts" class="selected" array="">项目页面</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE_talk:Packaging_init_scripts&amp;action=edit&amp;redlink=1" class="new" array="">讨论</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;action=edit" array="">查看源代码</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;action=history" array="">历史</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-hans" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-hant" array="">disable</a></li><li><a href="#" class="selected" array="">大陆简体</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-hk" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-mo" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-my" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-sg" array="">disable</a></li><li><a href="https://zh.opensuse.org/index.php?title=openSUSE:Packaging_init_scripts&amp;variant=zh-tw" array="">台灣正體</a></li>                    </ul>
+                </div>
+
+            </div></div>
+
+        <!-- Note: this clears floating, set in previous elements -->
+        <div class="clear"></div>
+
+
+        <!-- Start: Footer -->
+                <!-- Start: included footer part -->
+<div id="footer" class="container_12">
+    <div id="footer-legal" class="border-top grid_12">
+        <p>本页面已经被访问过20,574次。</p><p>
+            © 2011 Novell, Inc. and others.  All content  is made available under the terms
+            of the GNU Free Documentation License version 1.2 ("GFDL") unless expressly
+            otherwise indicated. | <a href="https://zh.opensuse.org/Terms_of_site">Terms of site</a>
+        </p>
+    </div>
+</div><div id="login-form">
+		                        	<form action="https://login.microfocus.com/nidp/idff/sso?sid=0" method="post" enctype="application/x-www-form-urlencoded" name="login_form">
+                    		    <input name="target" value="http://zh.opensuse.org/index.php?title=Special:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=openSUSE%3APackaging+init+scripts&amp;returntoquery=variant%3Dzh-cn" type="hidden">
+                        <input name="context" value="default" type="hidden">
+                        <input name="proxypath" value="reverse" type="hidden">
+                        <input name="message" value="Please log In" type="hidden">
+                        <p><label class="inlined" for="username">Username</label><input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAALZJREFUOBFjYKAANDQ0rGWiQD9IqzgL0BQ3IKMXiB8AcSKQ/waIrYDsKUD8Fir2pKmpSf/fv3+zgPxfzMzMSbW1tbeBbAaQC+b+//9fB4h9gOwikCAQTAPyDYHYBciuBQkANfcB+WZAbPP37992kBgIUOoFBiZGRsYkIL4ExJvZ2NhAXmFgYmLKBPLPAfFuFhaWJpAYEBQC+SeA+BDQC5UQIQpJYFgdodQLLyh0w6j20RCgUggAAEREPpKMfaEsAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" class="inline-text" name="Ecom_User_ID" value="" id="username" type="text"></p>
+                        <p><label class="inlined" for="password">Password</label><input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAALZJREFUOBFjYKAANDQ0rGWiQD9IqzgL0BQ3IKMXiB8AcSKQ/waIrYDsKUD8Fir2pKmpSf/fv3+zgPxfzMzMSbW1tbeBbAaQC+b+//9fB4h9gOwikCAQTAPyDYHYBciuBQkANfcB+WZAbPP37992kBgIUOoFBiZGRsYkIL4ExJvZ2NhAXmFgYmLKBPLPAfFuFhaWJpAYEBQC+SeA+BDQC5UQIQpJYFgdodQLLyh0w6j20RCgUggAAEREPpKMfaEsAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" class="inline-text" name="Ecom_Password" value="" id="password" type="password"></p>
+                        <p><input value="Login" type="submit"></p>
+                        <p class="slim-footer"><a id="close-login" href="#cancel">Cancel</a></p>
+                    </form><span class="position-br" style="display: block; width: 1px; height: 1px; position: absolute; bottom: 0px; right: 0px;"></span>
+                </div>
+
+<!-- End: included footer part -->
+        <!-- End: Footer -->
+
+        
+
+
+        <!-- Served in 0.288 secs. -->
+    
+
+        </body>
+</html>

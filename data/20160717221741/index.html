@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>EmacsWiki: Programmable Completion</title><link rel="alternate" type="application/wiki" title="Edit this page" href="https://www.emacswiki.org/emacs?action=edit;id=ProgrammableCompletion"><meta name="robots" content="INDEX,FOLLOW"><link rel="alternate" type="application/rss+xml" title="EmacsWiki" href="https://www.emacswiki.org/emacs?action=rss"><link rel="alternate" type="application/rss+xml" title="EmacsWiki: ProgrammableCompletion" href="https://www.emacswiki.org/emacs?action=rss;rcidonly=ProgrammableCompletion">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content" href="https://www.emacswiki.org/full.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content and diff" href="https://www.emacswiki.org/full-diff.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki including minor differences" href="https://www.emacswiki.org/minor-edits.rss">
+<link rel="alternate" type="application/rss+xml" title="Changes for ProgrammableCompletion only" href="https://www.emacswiki.org/emacs?action=rss;rcidonly=ProgrammableCompletion"><meta content="width=device-width" name="viewport">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head><body class="default"><div class="header"><a class="logo" href="https://www.emacswiki.org/emacs/SiteMap"><img src="logo218x38.png" alt="[Home]" class="logo"></a><div class="menu"><span class="gotobar bar"><a class="local" href="https://www.emacswiki.org/emacs/SiteMap">SiteMap</a> <a href="https://www.emacswiki.org/emacs/Search" class="local">Search</a> <a href="https://www.emacswiki.org/emacs/ElispArea" class="local">ElispArea</a> <a class="local" href="https://www.emacswiki.org/emacs/HowTo">HowTo</a> <a class="local" href="https://www.emacswiki.org/emacs/Glossary">Glossary</a> <a class="local" href="https://www.emacswiki.org/emacs/RecentChanges">RecentChanges</a> <a href="https://www.emacswiki.org/emacs/News" class="local">News</a> <a class="local" href="https://www.emacswiki.org/emacs/Problems">Problems</a> <a class="local" href="https://www.emacswiki.org/emacs/Suggestions">Suggestions</a> </span><form method="get" action="https://www.emacswiki.org/emacs" enctype="multipart/form-data" accept-charset="utf-8" class="search"><p><label for="search">Search:</label> <input name="search" size="20" id="search" accesskey="f" type="text"> <label for="searchlang">Language:</label> <input name="lang" size="10" id="searchlang" type="text"> <input name="dosearch" value="Go!" type="submit"></p></form></div><h1><a href="https://www.emacswiki.org/emacs?search=%22ProgrammableCompletion%22" rel="nofollow" title="Click to search for references to this page"><span style="padding-right: 0.5ex;">Programmable</span><span style="padding-right: 0.5ex;">Completion</span></a></h1></div><div class="wrapper"><div class="content browse"><p>This page is about standard Emacs library `<code>pcomplete.el</code>’ and its related libraries. See <a class="local" href="https://www.emacswiki.org/emacs/PcompleteExamples">PcompleteExamples</a> for examples of using `<code>pcomplete.el</code>’.</p><dl class="quote"><dt></dt><dd><strong>Note:</strong> The “programm<strong><em>able</em></strong> completion” of library `<code>pcomplete.el</code>’ has nothing to do with the “programm<strong><em>ed</em></strong> completion” described in the <a class="local" href="https://www.emacswiki.org/emacs/EmacsLisp">EmacsLisp</a> manual (<a class="manual" href="http://www.emacswiki.org/cgi-bin/info-ref?find=dynamic-completion-table).">dynamic-completion-table).</a> The latter is about using a function to perform completion rather than supplying an explicit list of completion candidates.</dd></dl><h2>Adding programmable completion using pcomplete</h2><ul><li><b>Write a setup function and add it to your mode’s hook</b></li></ul><p>Example: </p><pre>(<span class="keyword">defun</span> <span class="function">pcomplete-erc-setup</span> () 
+<span class="string">"Setup erc-mode to use pcomplete."</span> 
+(set (make-local-variable 'pcomplete-parse-arguments-function) 
+   'pcomplete-parse-erc-arguments) 
+(set (make-local-variable 'pcomplete-command-completion-function)  
+   'pcomplete/erc-mode/complete-command)
+(set (make-local-variable 'pcomplete-command-name-function) 
+    'pcomplete-erc-command-name)
+(set (make-local-variable 'pcomplete-default-completion-function)
+    (<span class="keyword elisp">lambda</span> () (pcomplete-here (pcomplete-erc-nicks))))
+(set (make-local-variable 'pcomplete-suffix-list) '(?  ?:)) 
+)                 
+(add-hook 'erc-mode-hook 'pcomplete-erc-setup)                                                                                                                                                         
+</pre><ul><li><b>Write the functions that you need</b><ul><li><i>pcomplete-parse-arguments-function</i></li></ul></li></ul><p>pcomplete-parse-arguments-function has no parameters. It returns a list of arguments for the current command.</p><ul><ul><li><i>pcomplete-command-name-function</i></li></ul></ul><p>Returns the canonical name of the command. This is used to find the appropriate programmable completion function. For example, if the function returns “MSG” and the major mode is “erc-mode”, pcomplete will check pcomplete/erc-mode/MSG and pcomplete/MSG for completions.</p><ul><ul><li><i>pcomplete-default-completion-function</i></li></ul></ul><p>pcomplete-default-completion-function gets called when you don’t have a function for the command currently being completed. Body should be of the form (pcomplete-here (… list of completions …))</p><ul><ul><li><i>pcomplete-command-completion-function</i></li></ul></ul><p>Body should be of the form (pcomplete-here (… list of completions …))</p><hr><p><a class="local" href="https://www.emacswiki.org/emacs/CategoryCode">CategoryCode</a> <a class="local" href="https://www.emacswiki.org/emacs/CategoryCompletion">CategoryCompletion</a></p></div><div class="wrapper close"></div></div><div class="footer"><hr><span class="translation bar"><br>  <a rel="nofollow" href="https://www.emacswiki.org/emacs?action=translate;id=ProgrammableCompletion;missing=de_es_fr_it_ja_ko_pt_ru_se_uk_zh" class="translation new">Add Translation</a></span><div class="edit bar"><a class="comment local" href="https://www.emacswiki.org/emacs/Comments_on_ProgrammableCompletion" accesskey="c">Talk</a> <a title="Click to edit this page" accesskey="e" rel="nofollow" href="https://www.emacswiki.org/emacs?action=edit;id=ProgrammableCompletion" class="edit">Edit this page</a> <a href="https://www.emacswiki.org/emacs?action=history;id=ProgrammableCompletion" class="history" rel="nofollow">View other revisions</a> <a class="admin" href="https://www.emacswiki.org/emacs?action=admin;id=ProgrammableCompletion" rel="nofollow">Administration</a></div><div class="time">Last edited 2013-11-01 22:56 UTC by 178-83-148-119.dynamic.hispeed.ch <a href="https://www.emacswiki.org/emacs?action=browse;diff=2;id=ProgrammableCompletion" class="diff" rel="nofollow">(diff)</a></div><div style="float: right; margin-left: 1ex;">
+<!-- Creative Commons License -->
+<a class="licence" href="https://creativecommons.org/licenses/GPL/2.0/"><img alt="CC-GNU GPL" style="border: medium none;" src="cc-GPL-a.png"></a>
+<!-- /Creative Commons License -->
+</div>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <license rdf:resource="https://creativecommons.org/licenses/GPL/2.0/" />
+  <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
+</Work>
+
+<License rdf:about="https://creativecommons.org/licenses/GPL/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
+</License>
+</rdf:RDF>
+-->
+
+<p class="legal">
+This work is licensed to you under version 2 of the
+<a href="https://www.gnu.org/">GNU</a> <a href="https://www.emacswiki.org/GPL">General Public License</a>.
+Alternatively, you may choose to receive this work under any other
+license that grants the right to use, copy, modify, and/or distribute
+the work, as long as that license imposes the restriction that
+derivative works have to grant the same rights and impose the same
+restriction. For example, you may choose to receive this work under
+the
+<a href="https://www.gnu.org/">GNU</a>
+<a href="https://www.emacswiki.org/FDL">Free Documentation License</a>, the
+<a href="https://creativecommons.org/">CreativeCommons</a>
+<a href="https://creativecommons.org/licenses/sa/1.0/">ShareAlike</a>
+License, the XEmacs manual license, or
+<a href="https://www.emacswiki.org/OLD">similar licenses</a>.
+</p>
+<p class="legal" style="padding-top: 0.5em;">Please note our <a href="https://www.emacswiki.org/emacs/Privacy">Privacy Statement</a>.</p>
+</div>
+
+
+</body>
+</html>
