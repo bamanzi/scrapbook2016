@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-us" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Don't let `cd` slow you down · Stanley Shyiko
+    
+  </title>
+
+  <!-- CSS -->
+  
+  
+  
+  
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://shyiko.com/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://shyiko.com/atom.xml">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+  <body class="theme-base-0c">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input class="sidebar-checkbox" id="sidebar-checkbox" type="checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A software engineer, geek and open source enthusiast. You can reach me on <a href="https://twitter.com/shyiko">twitter</a>, <a href="https://github.com/shyiko">github</a>, <a href="https://bitbucket.org/shyiko">bitbucket</a>, <a href="http://instagram.com/shyiko">instagram</a>, <a href="https://linkedin.com/in/shyiko">linkedin</a> or by <a href="mailto:stanley.shyiko@gmail.com">email</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://shyiko.com/">Home</a>
+    <a class="sidebar-nav-item" href="http://shyiko.com/atom.xml" target="_blank">Feed</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      © 2015. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="http://shyiko.com/" title="Home">Stanley Shyiko</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Don't let `cd` slow you down</h1>
+  <span class="post-date">10 Oct 2014</span>
+  <p>I spend quite a bit of time moving around in the terminal. Naturally, tools like <a href="https://github.com/clvv/fasd" target="_blank">fasd</a><a>, </a><a href="https://github.com/vigneshwaranr/bd" target="_blank">bd</a>, <a href="https://github.com/junegunn/fzf" target="_blank">fzf</a>, <a href="https://github.com/shyiko/dotfiles">etc</a> are at the top of my 'day-to-day usage list'. Unfortunately, <a hred="http://ohmyz.sh/" target="_blank">zsh</a> is nowhere among them. As much as I would love to use it, the majority of Linux distributions still don't have it preinstalled. For me it's a deal breaker. I honestly don't want to get <a href="https://github.com/Russell91/sshrc">homesick</a> every time I <code>ssh</code> into some remote machine I have no control over. The obvious shell of choice, given the circumstances, is Bash. Up until recently, there was one thing driving me nuts, though. Namely, absent zsh-style <code>cd</code>. But, with <a href="https://github.com/shyiko/commacd" target="_blank">commacd</a> in the game, it's no longer a problem.</p>
+
+<p>So, what is <code>commacd</code> exactly? Well, it's basically just a bunch of aliases (<code>,</code>, <code>,,</code>, and (surprise, surprise!) <code>,,,</code>), designed to make navigation faster. The best way to explain each one of them is probably to go through some examples.</p>
+
+<p>Let's start with <code>,</code>. Think of it as a <code>cd</code> that matches directories by prefixes:</p>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">~<span class="nv">$ </span>, <span class="nv">des</span>
+  <span class="o">=</span>&gt; <span class="nb">cd </span>Desktop
+
+<span class="c"># move through multiple directories</span>
+~<span class="nv">$ </span>, /u/l/ce
+  <span class="o">=</span>&gt; <span class="nb">cd</span> /usr/local/Cellar
+
+<span class="c"># allow me to choose directory in case of ambiguous pattern (= multiple choices)</span>
+~<span class="nv">$ </span>, <span class="nv">d</span>
+  <span class="o">=</span>&gt; <span class="m">1</span> Desktop
+     <span class="m">2</span> Downloads
+     : &lt;<span class="nb">type </span>index of the directory to <span class="nb">cd </span>into&gt;
+
+<span class="c"># given two directories jdk7 and jdk8 on the Desktop, cd into jdk8 without hitting interactive mode (the one shown above)</span>
+~/github<span class="nv">$ </span>, ~/d/j*8
+  <span class="o">=</span>&gt; <span class="nb">cd</span> ~/Desktop/jdk8
+
+<span class="c"># cd into directory having 'esk' somewhere in its name</span>
+~/github<span class="nv">$ </span>, ~/*esk
+  <span class="o">=</span>&gt; <span class="nb">cd</span> ~/Desktop</code></pre></div>
+
+<p>If you often find yourself using <code>cd ..</code>, <code>cd ../..</code>, ... (in one from or another), you might be interested in <code>,,</code>. It has a number of different strategies that can make navigation backward a whole lot easier:</p>
+
+<ul>
+<li>(no arguments) look for the project (checkout) directory (the one with .git/.hg/.svn in it) and then <code>cd</code> into it;</li>
+<li>(one argument) <code>cd</code> into the closest parent having its name begin with whatever the value you passed in;</li>
+<li>(two arguments) replace all occurrences of the first value with the second one (in the current path).</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># go all the way up to the project root (in this case, the one that has .git in it)</span>
+~/github/lorem/src/public<span class="nv">$ </span>,,
+  <span class="o">=</span>&gt; <span class="nb">cd</span> ~/github/lorem
+
+<span class="c"># cd into to the first parent directory named g*</span>
+~/github/vimium/src/public<span class="nv">$ </span>,, <span class="nv">g</span>
+  <span class="o">=</span>&gt; <span class="nb">cd</span> ~/github
+
+<span class="c"># substitute jekyll with ghost</span>
+~/github/jekyll/test<span class="nv">$ </span>,, jekyll <span class="nv">ghost</span>
+  <span class="o">=</span>&gt; <span class="nb">cd</span> ~/github/ghost/test</code></pre></div>
+
+<p>The last one is <code>,,,</code> (my favorite). Think of it as <code>,</code> but from the first (nearest) parent directory having non-empty expansion. It allows quickly jump between multiple directories sharing the same ancestor (not necessarily an immediate one).</p>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># jump to some other project (in this case, located in ~/github)</span>
+~/github/rook/src/public<span class="nv">$ </span>,,, m*binlog
+  <span class="o">=</span>&gt; <span class="nb">cd</span> ~/github/mysql-binlog-connector-java</code></pre></div>
+
+<p>Note that all three commands automatically emit <code>pwd</code> before the completion (just like <code>cd -</code>), which makes it possible to combine them with other tools (without actually changing the working directory):</p>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>tail -f <span class="sb">`</span>, /v/l/t/l<span class="sb">`</span>/catalina.out
+  <span class="o">=</span>&gt; tail -f /var/lib/tomcat7/logs/catalina.out
+
+/opt/nginx<span class="nv">$ </span><span class="sb">`</span>,,, ap/b<span class="sb">`</span>/cassandra-cli
+  <span class="o">=</span>&gt; /opt/apache-cassandra-1.2.1/bin/cassandra-cli</code></pre></div>
+
+<p>You can also hit <code>&lt;Tab&gt;</code> whenever you want to check where are you about to jump to. Like this:</p>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>, /v/l&lt;Tab&gt;
+  <span class="o">=</span>&gt; <span class="o">(</span>shows <span class="m">3</span> possible completions<span class="o">)</span> /var/lib/ /var/lock/ /var/log/
+
+<span class="nv">$ </span>, /u/l/ce&lt;Tab&gt;
+  <span class="o">=</span>&gt; , /usr/local/Cellar/</code></pre></div>
+
+<p>To shrink path back use <code>&lt;Control&gt;-</code>.</p>
+
+<p>And now, the final part - installation. <code>commacd</code> is written in pure Bash (no dependencies on Python/Ruby/Perl, no nothing). Getting it into your shell is as easy as:</p>
+
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">curl https://raw.githubusercontent.com/shyiko/commacd/master/commacd.bash -o ~/.commacd.bash <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"source ~/.commacd.bash"</span> &gt;&gt; ~/.bashrc</code></pre></div>
+
+<p>After that, open a new terminal session and <code>,</code> ahead!</p>
+
+<hr>
+
+<p>Want to help out? Report issues, suggest improvements/features or, even better, send in a pull request (see <a href="https://github.com/shyiko/commacd">GitHub page</a>). Every bit is helpful.</p>
+
+</div>
+
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+    
+  
+
+</body>
+</html>

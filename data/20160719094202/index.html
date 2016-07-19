@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset="UTF-8">
+
+    
+    
+    
+    
+    
+    
+
+    <link as="script" href="https://assets-cdn.github.com/assets/frameworks-35477f5e4824848c27a44f62e3cd3b009cc9fbedf6074ddd8765ee70d09499c6.js" rel="preload">
+    
+    <link as="script" href="https://assets-cdn.github.com/assets/github-121e6c09bb508b99e99c9fb1d41a3b377c131efae6cf3423f6ca2b3492ed4b3b.js" rel="preload">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    <title>b4b4r07/enhancd: A next-generation cd command with an interactive filter</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" href="https://github.com/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://github.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://github.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://github.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://github.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://github.com/apple-touch-icon-180x180.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="https://avatars0.githubusercontent.com/u/4442708?v=3&amp;s=400" name="twitter:image:src"><meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="b4b4r07/enhancd" name="twitter:title"><meta content="enhancd - :rocket: A next-generation cd command with an interactive filter" name="twitter:description">
+      <meta content="https://avatars0.githubusercontent.com/u/4442708?v=3&amp;s=400" property="og:image"><meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="b4b4r07/enhancd" property="og:title"><meta content="https://github.com/b4b4r07/enhancd" property="og:url"><meta content="enhancd - :rocket: A next-generation cd command with an interactive filter" property="og:description">
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="web-socket" href="wss://live.github.com/_sockets/Nzc1ODY3OmIzOTYwMTY0ZjZiZjc1NGU3NmM5MTI1MmZmNjg3YWFmOmNhYmUxOGI3ZGU0NTRhZDgxNGExYWM1ZjVkYWU5ZjA5MTJmZGE1NTkzZTBhNWE5NzdjNDE3Mjg5YjA4Y2Q1NjQ=--361b7c9b68a32ef5661ad61aa567d89a1c0282dc">
+    <meta name="pjax-timeout" content="1000">
+    <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient="">
+
+    <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host"><meta content="github" name="octolytics-app-id"><meta content="758828C7:22A8:38C660F:578D84D0" name="octolytics-dimension-request_id"><meta content="775867" name="octolytics-actor-id"><meta content="bamanzi" name="octolytics-actor-login"><meta content="e1253ee97109340dbe6750e67f37cd50634b775c85ce81905686b977ca0464a6" name="octolytics-actor-hash">
+<meta content="/<user-name>/<repo-name>" data-pjax-transient="true" name="analytics-location">
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+
+        <meta name="hostname" content="github.com">
+    <meta name="user-login" content="bamanzi">
+
+        <meta name="expected-hostname" content="github.com">
+      <meta name="js-proxy-site-detection-payload" content="NDAyYzMyZDk2NDBlYzc2MjczNzM0NTE2ZTg5MjJjYWFkYWI4NWJkMDdlMWZlOTg1YjFhMWQ2ZTM3YzUxMmE4MHx7InJlbW90ZV9hZGRyZXNzIjoiMTE3LjEzNi40MC4xOTkiLCJyZXF1ZXN0X2lkIjoiNzU4ODI4Qzc6MjJBODozOEM2NjBGOjU3OEQ4NEQwIiwidGltZXN0YW1wIjoxNDY4ODkyMzY5fQ==">
+
+
+      <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#4078c0">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <meta name="html-safe-nonce" content="9bc6031c5c1839e039b5149459eaa3d47140a792">
+    <meta content="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" name="form-nonce">
+
+    <meta http-equiv="x-pjax-version" content="d73aa676277137c09e476203079717d4">
+    
+
+      
+  <meta name="description" content="enhancd - :rocket: A next-generation cd command with an interactive filter">
+  <meta name="go-import" content="github.com/b4b4r07/enhancd git https://github.com/b4b4r07/enhancd.git">
+
+  <meta content="4442708" name="octolytics-dimension-user_id"><meta content="b4b4r07" name="octolytics-dimension-user_login"><meta content="26896068" name="octolytics-dimension-repository_id"><meta content="b4b4r07/enhancd" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="26896068" name="octolytics-dimension-repository_network_root_id"><meta content="b4b4r07/enhancd" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/b4b4r07/enhancd/commits/master.atom" rel="alternate" title="Recent Commits to enhancd:master" type="application/atom+xml">
+
+
+      <link rel="canonical" href="https://github.com/b4b4r07/enhancd" data-pjax-transient="">
+  
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+  <body class="logged-in   env-production linux vis-public">
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"></div>
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+
+    
+    
+    
+
+
+
+        <div class="header header-logged-in true" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="28" version="1.1" viewBox="0 0 16 16" width="28"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+
+
+        <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/b4b4r07/enhancd/search" class="js-site-search-form" data-scoped-search-url="/b4b4r07/enhancd/search" data-unscoped-search-url="/search" method="get"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+      <div class="header-search-scope">This repository</div>
+      <input class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable" data-hotkey="s" name="q" placeholder="Search" aria-label="Search this repository" data-unscoped-placeholder="Search GitHub" data-scoped-placeholder="Search" tabindex="1" autocapitalize="off" type="text">
+    </label>
+</form></div>
+
+
+      <ul class="header-nav left" role="navigation">
+        <li class="header-nav-item">
+          <a href="https://github.com/pulls" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+            Pull requests
+</a>        </li>
+        <li class="header-nav-item">
+          <a href="https://github.com/issues" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+            Issues
+</a>        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav right" id="user-links">
+  <li class="header-nav-item">
+    
+    <a href="https://github.com/notifications" aria-label="You have unread notifications" class="header-nav-link notification-indicator tooltipped tooltipped-s js-socket-channel js-notification-indicator" data-channel="tenant:1:notification-changed:775867" data-ga-click="Header, go to notifications, icon:unread" data-hotkey="g n">
+        <span class="mail-status unread"></span>
+        <svg aria-hidden="true" class="octicon octicon-bell" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 12v1H0v-1l.73-.58c.77-.77.81-2.55 1.19-4.42C2.69 3.23 6 2 6 2c0-.55.45-1 1-1s1 .45 1 1c0 0 3.39 1.23 4.16 5 .38 1.88.42 3.66 1.19 4.42l.66.58H14zm-7 4c1.11 0 2-.89 2-2H5c0 1.11.89 2 2 2z"></path></svg>
+</a>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link tooltipped tooltipped-s js-menu-target" href="https://github.com/new" aria-label="Create new…" data-ga-click="Header, create new, icon:add">
+      <svg aria-hidden="true" class="octicon octicon-plus left" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path></svg>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="https://github.com/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+  <a class="dropdown-item" href="https://github.com/new/import" data-ga-click="Header, import a repository">
+    Import repository
+  </a>
+
+
+  <a class="dropdown-item" href="https://github.com/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-header">
+    <span title="b4b4r07/enhancd">This repository</span>
+  </div>
+    <a class="dropdown-item" href="https://github.com/b4b4r07/enhancd/issues/new" data-ga-click="Header, create new issue">
+      New issue
+    </a>
+
+      </ul>
+    </div>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name tooltipped tooltipped-sw js-menu-target" href="https://github.com/bamanzi" aria-label="View profile and more" data-ga-click="Header, show menu, icon:avatar">
+      <img alt="@bamanzi" class="avatar" src="775867.dat" height="20" width="20">
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <div class="dropdown-menu dropdown-menu-sw">
+        <div class="dropdown-header header-nav-current-user css-truncate">
+          Signed in as <strong class="css-truncate-target">bamanzi</strong>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/bamanzi" data-ga-click="Header, go to profile, text:your profile">
+          Your profile
+        </a>
+        <a class="dropdown-item" href="https://github.com/stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a>
+        <a class="dropdown-item" href="https://github.com/explore" data-ga-click="Header, go to explore, text:explore">
+          Explore
+        </a>
+          <a class="dropdown-item" href="https://github.com/integrations" data-ga-click="Header, go to integrations, text:integrations">
+            Integrations
+          </a>
+        <a class="dropdown-item" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">
+          Help
+        </a>
+
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+          Settings
+        </a>
+
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="U6wR7PkYY8xWd9OgxBgOwywgb5Xp/9NLbIeFkp4rM3k+YguqIFLKn16kzF5CnPJpP4WvgMCwkAuShP46BvXPNg==" type="hidden"></div>
+          <button class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+</form>      </div>
+    </div>
+  </li>
+</ul>
+
+
+    
+  </div>
+</div>
+
+
+      
+
+
+    <div id="start-of-content" class="accessibility-aid"></div>
+
+      <div id="js-flash-container">
+</div>
+
+
+    <div role="main">
+        <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container="">
+      
+<div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+  <div class="container repohead-details-container">
+
+    
+
+<ul class="pagehead-actions">
+
+  <li>
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Q/TCOZE/f9r+As8avXk6HEUvvoWpTsdlO0goKAaa/t1E08uDZhUQ3EklGEcjxKAf9bkwEwNzrP7oyJV6H83WhA==" type="hidden"></div>      <input class="form-control" id="repository_id" name="repository_id" value="26896068" type="hidden">
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="https://github.com/b4b4r07/enhancd/subscription" class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" tabindex="0" aria-haspopup="true" data-ga-click="Repository, click Watch settings, action:files#disambiguate">
+            <span class="js-select-button">
+              <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+              Watch
+            </span>
+          </a>
+          <a class="social-count js-social-count" href="https://github.com/b4b4r07/enhancd/watchers">
+            15
+          </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content" aria-hidden="true">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" value="included" type="radio">
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" value="subscribed" type="radio">
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                      Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" value="ignore" type="radio">
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8 2.81v10.38c0 .67-.81 1-1.28.53L3 10H1c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2l3.72-3.72C7.19 1.81 8 2.14 8 2.81zm7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06L11.44 8 9.47 9.97l1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06L13.56 8l1.97-1.97z"></path></svg>
+                      Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/b4b4r07/enhancd/unstar" class="starred" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="5n1Oz0UFs/pB4YOfvB5JVxsYjiJwtoNnX3bs6r+pMSzVkAPt0IePznYh6dk3OyMDZnROXsPDRCQn7QAFJ1TLzw==" type="hidden"></div>
+      <button class="btn btn-sm btn-with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar b4b4r07/enhancd" data-ga-click="Repository, click unstar button, action:files#disambiguate; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/b4b4r07/enhancd/stargazers">
+          399
+        </a>
+</form>
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/b4b4r07/enhancd/star" class="unstarred" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="f0aUp3irxuCbjd4uxdda4hRRGoM21fimJuZbXLgOXQIsXm4aIPlSMiovzpwjTn+hTR7DW/zw39I538g+h6B8tQ==" type="hidden"></div>
+      <button class="btn btn-sm btn-with-count js-toggler-target" aria-label="Star this repository" title="Star b4b4r07/enhancd" data-ga-click="Repository, click star button, action:files#disambiguate; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/b4b4r07/enhancd/stargazers">
+          399
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/b4b4r07/enhancd/fork" class="btn-with-count" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Gb1T5Q/zxF8M0Y+8VOiZUYXG3qxn27t5yjm+4q3iZcxaGJPiQDn0nQaPsra3Ip4S9LFyrYycPVn7vTtveS7QVA==" type="hidden"></div>
+            <button type="submit" class="btn btn-sm btn-with-count" data-ga-click="Repository, show fork modal, action:files#disambiguate; text:Fork" title="Fork your own copy of b4b4r07/enhancd to your account" aria-label="Fork your own copy of b4b4r07/enhancd to your account">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+              Fork
+            </button>
+</form>
+    <a href="https://github.com/b4b4r07/enhancd/network" class="social-count">
+      24
+    </a>
+  </li>
+</ul>
+
+    <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
+  <span class="author" itemprop="author"><a href="https://github.com/b4b4r07" class="url fn" rel="author">b4b4r07</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="#" data-pjax="#js-repo-pjax-container">enhancd</a></strong>
+
+</h1>
+
+  </div>
+  <div class="container">
+    
+<nav class="reponav js-repo-nav js-sidenav-container-pjax" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation" data-pjax="#js-repo-pjax-container">
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="#" aria-selected="true" class="js-selected-navigation-item selected reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /b4b4r07/enhancd" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="https://github.com/b4b4r07/enhancd/issues" class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /b4b4r07/enhancd/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>
+        <span itemprop="name">Issues</span>
+        <span class="counter">5</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/b4b4r07/enhancd/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /b4b4r07/enhancd/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="counter">3</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="https://github.com/b4b4r07/enhancd/wiki" class="js-selected-navigation-item reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /b4b4r07/enhancd/wiki">
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path></svg>
+      Wiki
+</a>
+
+  <a href="https://github.com/b4b4r07/enhancd/pulse" class="js-selected-navigation-item reponav-item" data-selected-links="pulse /b4b4r07/enhancd/pulse">
+    <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"></path></svg>
+    Pulse
+</a>
+  <a href="https://github.com/b4b4r07/enhancd/graphs" class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors /b4b4r07/enhancd/graphs">
+    <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"></path></svg>
+    Graphs
+</a>
+
+</nav>
+
+  </div>
+</div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+<div class="repository-meta js-details-container">
+  <span class="repository-meta-content">
+        <span itemprop="about"> 
+<g-emoji alias="rocket" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f680.png"><img src="1f680.png" alt=":rocket:" title=":rocket:" class="emoji" height="20" width="20"></g-emoji> A next-generation cd command with an interactive filter</span>
+  </span>
+
+</div>
+
+
+<div class="overall-summary overall-summary-bottomless">
+  <div class="stats-switcher-viewport js-stats-switcher-viewport">
+    <div class="stats-switcher-wrapper">
+    <ul class="numbers-summary">
+      <li class="commits">
+        <a data-pjax="" href="https://github.com/b4b4r07/enhancd/commits/master">
+            <svg aria-hidden="true" class="octicon octicon-history" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M8 13H6V6h5v2H8v5zM7 1C4.81 1 2.87 2.02 1.59 3.59L0 2v4h4L2.5 4.5C3.55 3.17 5.17 2.3 7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-.34.03-.67.09-1H.08C.03 7.33 0 7.66 0 8c0 3.86 3.14 7 7 7s7-3.14 7-7-3.14-7-7-7z"></path></svg>
+            <span class="num text-emphasized">
+              209
+            </span>
+            commits
+        </a>
+      </li>
+      <li>
+        <a data-pjax="" href="https://github.com/b4b4r07/enhancd/branches">
+          <svg aria-hidden="true" class="octicon octicon-git-branch" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M10 5c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v.3c-.02.52-.23.98-.63 1.38-.4.4-.86.61-1.38.63-.83.02-1.48.16-2 .45V4.72a1.993 1.993 0 0 0-1-3.72C.88 1 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2 1.11 0 2-.89 2-2 0-.53-.2-1-.53-1.36.09-.06.48-.41.59-.47.25-.11.56-.17.94-.17 1.05-.05 1.95-.45 2.75-1.25S8.95 7.77 9 6.73h-.02C9.59 6.37 10 5.73 10 5zM2 1.8c.66 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2C1.35 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2zm0 12.41c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm6-8c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+          <span class="num text-emphasized">
+            3
+          </span>
+          branches
+        </a>
+      </li>
+
+      <li>
+        <a data-pjax="" href="https://github.com/b4b4r07/enhancd/releases">
+          <svg aria-hidden="true" class="octicon octicon-tag" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M7.73 1.73C7.26 1.26 6.62 1 5.96 1H3.5C2.13 1 1 2.13 1 3.5v2.47c0 .66.27 1.3.73 1.77l6.06 6.06c.39.39 1.02.39 1.41 0l4.59-4.59a.996.996 0 0 0 0-1.41L7.73 1.73zM2.38 7.09c-.31-.3-.47-.7-.47-1.13V3.5c0-.88.72-1.59 1.59-1.59h2.47c.42 0 .83.16 1.13.47l6.14 6.13-4.73 4.73-6.13-6.15zM3.01 3h2v2H3V3h.01z"></path></svg>
+          <span class="num text-emphasized">
+            2
+          </span>
+          releases
+        </a>
+      </li>
+
+      <li>
+          <a href="https://github.com/b4b4r07/enhancd/graphs/contributors">
+  <svg aria-hidden="true" class="octicon octicon-organization" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4"></path></svg>
+    <span class="num text-emphasized">
+      7
+    </span>
+    contributors
+</a>
+
+      </li>
+    </ul>
+
+      <div class="repository-lang-stats">
+        <ol class="repository-lang-stats-numbers">
+          <li>
+              <a href="https://github.com/b4b4r07/enhancd/search?l=bash" data-ga-click="Repository, language stats search click, location:repo overview">
+                <span class="color-block language-color" style="background-color: rgb(137, 224, 81);"></span>
+                <span class="lang">Shell</span>
+                <span class="percent">92.5%</span>
+              </a>
+          </li>
+          <li>
+              <a href="https://github.com/b4b4r07/enhancd/search?l=awk" data-ga-click="Repository, language stats search click, location:repo overview">
+                <span class="color-block language-color" style="background-color: rgb(204, 204, 204);"></span>
+                <span class="lang">Awk</span>
+                <span class="percent">6.0%</span>
+              </a>
+          </li>
+          <li>
+              <a href="https://github.com/b4b4r07/enhancd/search?l=makefile" data-ga-click="Repository, language stats search click, location:repo overview">
+                <span class="color-block language-color" style="background-color: rgb(66, 120, 25);"></span>
+                <span class="lang">Makefile</span>
+                <span class="percent">1.5%</span>
+              </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="repository-lang-stats-graph js-toggle-lang-stats" title="Click for language details" data-ga-click="Repository, language bar stats toggle, location:repo overview">
+    <span class="language-color" aria-label="Shell 92.5%" style="width: 92.5%; background-color: rgb(137, 224, 81);" itemprop="keywords">Shell</span>
+    <span class="language-color" aria-label="Awk 6.0%" style="width: 6%; background-color: rgb(204, 204, 204);" itemprop="keywords">Awk</span>
+    <span class="language-color" aria-label="Makefile 1.5%" style="width: 1.5%; background-color: rgb(66, 120, 25);" itemprop="keywords">Makefile</span>
+  </div>
+
+  
+
+<div class="file-navigation in-mid-page">
+
+    <div class="select-menu get-repo-select-menu js-menu-container right select-menu-modal-right">
+  <button class="btn btn-sm btn-primary select-menu-button js-menu-target" title="Clone or download this repository" type="button" aria-label="Clone or download this repository" tabindex="0" aria-haspopup="true">
+    <span>Clone or download</span>
+  </button>
+
+  <div class="select-menu-modal-holder dropdown-menu-content js-menu-content" aria-hidden="true">
+    <div class="get-repo-modal dropdown-menu dropdown-menu-sw pb-0 js-toggler-container ">
+      <div class="clone-options https-clone-options">
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/users/set_protocol?protocol_selector=ssh&amp;protocol_type=clone" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="QucgFC9kQ5MlJmSSS3DHGsHK3KQLlpV9YQ2zoLUnrMn+wKBgQzqiKMWUDd2OjmvJHhRuS305nIU0fmQ5k+TwAw==" type="hidden"></div><button class="btn-link btn-change-protocol js-toggler-target right" type="submit">Use SSH</button></form>
+
+        <h4 class="mb-1">
+          Clone with HTTPS
+          <a class="muted-link" href="https://help.github.com/articles/which-remote-url-should-i-use" target="_blank">
+            <svg aria-hidden="true" class="octicon octicon-question" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M6 10h2v2H6v-2zm4-3.5C10 8.64 8 9 8 9H6c0-.55.45-1 1-1h.5c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5V7H4c0-1.5 1.5-3 3-3s3 1 3 2.5zM7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7z"></path></svg>
+          </a>
+        </h4>
+        <p class="mb-2 get-repo-decription-text">
+          Use Git or checkout with SVN using the web URL.
+        </p>
+
+        <div class="input-group js-zeroclipboard-container has-zeroclipboard-disabled">
+  <input class="form-control input-monospace input-sm js-zeroclipboard-target js-url-field" value="https://github.com/b4b4r07/enhancd.git" aria-label="Clone this repository at https://github.com/b4b4r07/enhancd.git" readonly="" type="text">
+  <div class="input-group-button">
+    
+  </div>
+</div>
+
+      </div>
+
+      <div class="clone-options ssh-clone-options">
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/users/set_protocol?protocol_selector=https&amp;protocol_type=clone" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" data-remote="true" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Yj6t5B0yrwH8DKNCEP/ZU8YQedmALYxWM6/f+QfiQB0gMVmetO9SIb6MdLwf+8ezZiTy+8u7bTD3Y3W/1DN1NA==" type="hidden"></div><button class="btn-link btn-change-protocol js-toggler-target right" type="submit">Use HTTPS</button></form>
+
+        <h4 class="mb-1">
+          Clone with SSH
+          <a class="muted-link" href="https://help.github.com/articles/which-remote-url-should-i-use" target="_blank">
+            <svg aria-hidden="true" class="octicon octicon-question" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M6 10h2v2H6v-2zm4-3.5C10 8.64 8 9 8 9H6c0-.55.45-1 1-1h.5c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5V7H4c0-1.5 1.5-3 3-3s3 1 3 2.5zM7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7z"></path></svg>
+          </a>
+        </h4>
+        <p class="mb-2 get-repo-decription-text">
+          Use an SSH key and passphrase from account.
+        </p>
+
+        <div class="input-group js-zeroclipboard-container has-zeroclipboard-disabled">
+  <input class="form-control input-monospace input-sm js-zeroclipboard-target js-url-field" value="git@github.com:b4b4r07/enhancd.git" aria-label="Clone this repository at git@github.com:b4b4r07/enhancd.git" readonly="" type="text">
+  <div class="input-group-button">
+    
+  </div>
+</div>
+
+      </div>
+
+      <div class="mt-2">
+        
+<a href="https://github.com/b4b4r07/enhancd/archive/master.zip" class="btn btn-outline get-repo-btn
+" rel="nofollow" data-ga-click="Repository, download zip, location:repo overview">
+  Download ZIP
+</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="btn-group right">
+      
+  <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="https://github.com/b4b4r07/enhancd/new/master" class="btn-group-form" data-form-nonce="84da46a5ca5dc665232f8b3d18ab77c9d7b5d735" method="post"><div style="margin: 0px; padding: 0px; display: inline;"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="aH0b89yMQdoPT+psjpNt5xG3mfFlDi9H67VhJ/L9WMnwYKngg/OATCliVjHnrg7QOrrlJ4k5/Tqw9Pf5T3uCiA==" type="hidden"></div>
+    <button class="btn btn-sm" type="submit" data-disable-with="Creating file…">
+      Create new file
+    </button>
+</form>
+
+      <a href="https://github.com/b4b4r07/enhancd/upload/master" class="btn btn-sm">
+        Upload files
+      </a>
+
+    <a href="https://github.com/b4b4r07/enhancd/find/master" class="btn btn-sm empty-icon right" data-pjax="" data-hotkey="t" data-ga-click="Repository, find file, location:repo overview">
+      Find file
+    </a>
+  </div>
+
+  
+<div class="select-menu branch-select-menu js-menu-container js-select-menu left">
+  <button class="btn btn-sm select-menu-button js-menu-target css-truncate" data-hotkey="w" title="master" type="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <i>Branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </button>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax="" aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+        <span class="select-menu-title">Switch branches/tags</span>
+      </div>
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input aria-label="Filter branches/tags" id="context-commitish-filter-field" class="form-control js-filterable-field js-navigation-enable" placeholder="Filter branches/tags" type="text">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="branches" data-filter-placeholder="Filter branches/tags" class="js-select-menu-tab" role="tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="tags" data-filter-placeholder="Find a tag…" class="js-select-menu-tab" role="tab">Tags</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches" role="menu">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <a class="select-menu-item js-navigation-item js-navigation-open selected" href="https://github.com/b4b4r07/enhancd/tree/master" data-name="master" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target js-select-menu-filter-text" title="master">
+                master
+              </span>
+            </a>
+            <a class="select-menu-item js-navigation-item js-navigation-open " href="https://github.com/b4b4r07/enhancd/tree/v1" data-name="v1" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target js-select-menu-filter-text" title="v1">
+                v1
+              </span>
+            </a>
+            <a class="select-menu-item js-navigation-item js-navigation-open " href="https://github.com/b4b4r07/enhancd/tree/v2dev" data-name="v2dev" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target js-select-menu-filter-text" title="v2dev">
+                v2dev
+              </span>
+            </a>
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <a class="select-menu-item js-navigation-item js-navigation-open " href="https://github.com/b4b4r07/enhancd/tree/2.2.0" data-name="2.2.0" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target" title="2.2.0">
+                2.2.0
+              </span>
+            </a>
+            <a class="select-menu-item js-navigation-item js-navigation-open " href="https://github.com/b4b4r07/enhancd/tree/2.1.6" data-name="2.1.6" data-skip-pjax="true" rel="nofollow">
+              <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+              <span class="select-menu-item-text css-truncate-target" title="2.1.6">
+                2.1.6
+              </span>
+            </a>
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+      <a href="https://github.com/b4b4r07/enhancd/pull/new/master" class="btn btn-sm new-pull-request-btn" data-pjax="" data-ga-click="Repository, new pull request, location:repo overview">
+        New pull request
+      </a>
+
+  <div class="breadcrumb">
+    
+  </div>
+</div>
+
+
+
+
+
+  <div class="commit-tease js-details-container">
+    <span class="right">
+      Latest commit
+      <a class="commit-tease-sha" href="https://github.com/b4b4r07/enhancd/commit/0b8290205afc556eaf264db6b9f7404a133ee264" data-pjax="">
+        0b82902
+      </a>
+      <span itemprop="dateModified"><relative-time title="Sun 29 May 2016 11:46:35 AM HKT" datetime="2016-05-29T03:46:35Z">on May 29</relative-time></span>
+    </span>
+
+
+    <span class="commit-author-section">
+      <img alt="@b4b4r07" class="avatar" src="4442708.dat" height="20" width="20">
+      <a href="https://github.com/b4b4r07" class="user-mention" rel="author">b4b4r07</a>
+    </span>
+
+        <a href="https://github.com/b4b4r07/enhancd/commit/0b8290205afc556eaf264db6b9f7404a133ee264" class="message" data-pjax="true" title="Add git filter (custom sources)">Add git filter (custom sources)</a>
+    
+
+  </div>
+
+
+<div class="file-wrap">
+
+  <a href="https://github.com/b4b4r07/enhancd/tree/0b8290205afc556eaf264db6b9f7404a133ee264" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+
+  <table class="files js-navigation-container js-active-navigation-container" data-pjax="">
+
+
+    <tbody>
+      <tr class="warning include-fragment-error">
+        <td class="icon"><svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg></td>
+        <td class="content" colspan="3">Failed to load latest commit information.</td>
+      </tr>
+
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/tree/master/.bin" class="js-navigation-open" id="2bc9aa7e635ddf294591a0045d1dbc93-4e47b224d1813ec015ce711612076529550e0173" title=".bin">.bin</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/4183ad6748f111d34c342f51659f9d6314c3fe77" class="message" data-pjax="true" title="Merge remote branch 'origin/v2dev' into v2dev">Merge remote branch 'origin/v2dev' into v2dev</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Fri 20 May 2016 11:09:07 PM HKT" datetime="2016-05-20T15:09:07Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/tree/master/custom" class="js-navigation-open" id="8b9035807842a4e4dbe009f3f1478127-ef8c754c964daf41c1e0b91cc4aa6dcf93629a2a" title="custom">custom</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/0b8290205afc556eaf264db6b9f7404a133ee264" class="message" data-pjax="true" title="Add git filter (custom sources)">Add git filter (custom sources)</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Sun 29 May 2016 11:46:35 AM HKT" datetime="2016-05-29T03:46:35Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item navigation-focus">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/tree/master/doc" class="js-navigation-open" id="9a09b4dfda82e3e665e31092d1c3ec8d-93f2d0d5e934de8e7e1213810519cb40a94adfe5" title="doc">doc</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/86ae88d3b7841611c64a513517753346ff08fded" class="message" data-pjax="true" title="Abolish ENHANCD_LOG
+
+related to #28">Abolish ENHANCD_LOG</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Tue 24 May 2016 08:16:53 PM HKT" datetime="2016-05-24T12:16:53Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/tree/master/fish" class="js-navigation-open" id="83e4a96aed96436c621b9809e258b309-6ac714712f57dd03177f483016fd5e23db64ebcb" title="fish">fish</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/233e562dc65bf8fa2204c168d6a8cd3c79fe27c3" class="message" data-pjax="true" title="Update enhancd script for fish (#11)">Update enhancd script for fish (</a><a href="https://github.com/b4b4r07/enhancd/issues/11" class="issue-link js-issue-link" data-url="https://github.com/b4b4r07/enhancd/issues/11" data-id="106715493" data-error-text="Failed to load issue title" data-permission-text="Issue title is private">#11</a><a href="https://github.com/b4b4r07/enhancd/commit/233e562dc65bf8fa2204c168d6a8cd3c79fe27c3" class="message" data-pjax="true" title="Update enhancd script for fish (#11)">)</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Fri 09 Oct 2015 05:34:06 PM HKT" datetime="2015-10-09T09:34:06Z">9 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/tree/master/src" class="js-navigation-open" id="25d902c24283ab8cfbac54dfa101ad31-b47d4a5705799596d7a0b4e805a060c1d68afe8d" title="src">src</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/0b8290205afc556eaf264db6b9f7404a133ee264" class="message" data-pjax="true" title="Add git filter (custom sources)">Add git filter (custom sources)</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Sun 29 May 2016 11:46:35 AM HKT" datetime="2016-05-29T03:46:35Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-directory" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/tree/master/test" class="js-navigation-open" id="098f6bcd4621d373cade4e832627b4f6-1b3d089a45ad0b7a5bdc89e384914f64a4a87352" title="test">test</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/fa86ad15d7e808dfb415874175c4c37023e524c5" class="message" data-pjax="true" title="Fix test">Fix test</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Sat 21 May 2016 11:08:07 PM HKT" datetime="2016-05-21T15:08:07Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/.gitignore" class="js-navigation-open" id="a084b794bc0759e7a6b77810e01874f2-48315d5797ce82bcce9fccd668602e9fa4bba56f" title=".gitignore">.gitignore</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/7f820cb80efd21c7a3fdd7244696564111b0791e" class="message" data-pjax="true" title="Change version">Change version</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Fri 20 May 2016 11:29:37 PM HKT" datetime="2016-05-20T15:29:37Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/.travis.yml" class="js-navigation-open" id="354f30a63fb0907d4ad57269548329e3-3069384d9dfda5b1da263d1f1a4b3ed572f1e899" title=".travis.yml">.travis.yml</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/ccd2b9a8797be48e661ea3f0010ae76185c83dcb" class="message" data-pjax="true" title="Update travis
+
+- support zsh">Update travis</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Sat 21 May 2016 03:46:01 PM HKT" datetime="2016-05-21T07:46:01Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/Makefile" class="js-navigation-open" id="b67911656ef5d18c4ae36cb6741b7965-c9ac364069a9130f6aa38990d9852211860f8e0e" title="Makefile">Makefile</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/c84d41bd4fbe60d4c40dbd97b993a05231e3d8df" class="message" data-pjax="true" title="Tests on bash and zsh">Tests on bash and zsh</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Sat 21 May 2016 03:17:29 PM HKT" datetime="2016-05-21T07:17:29Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/README.md" class="js-navigation-open" id="04c6e90faac2675aa89e2176d2eec7d8-da78fa05a2a390f010cc6a568c1ca62a26482638" title="README.md">README.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/7d5bd425f4e9101c69f3650696533207b5d5b3af" class="message" data-pjax="true" title="Update docs">Update docs</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Mon 23 May 2016 10:03:08 PM HKT" datetime="2016-05-23T14:03:08Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/custom.json" class="js-navigation-open" id="e07e3c5f34bbaad8c8f5e4538e112b99-b4a49df189cf4548ed4e124134bd893859389e37" title="custom.json">custom.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/0b8290205afc556eaf264db6b9f7404a133ee264" class="message" data-pjax="true" title="Add git filter (custom sources)">Add git filter (custom sources)</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Sun 29 May 2016 11:46:35 AM HKT" datetime="2016-05-29T03:46:35Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-symlink-file" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M8.5 1H1c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V4.5L8.5 1zM11 14H1V2h7l3 3v9zM6 4.5l4 3-4 3v-2c-.98-.02-1.84.22-2.55.7-.71.48-1.19 1.25-1.45 2.3.02-1.64.39-2.88 1.13-3.73.73-.84 1.69-1.27 2.88-1.27v-2H6z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/enhancd.sh" class="js-navigation-open" id="8dab936e46f49b77804cd497acb26aa8-9cd814606eb180cf112ee991204cd86f111192a1" title="enhancd.sh">enhancd.sh</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/f1f2ae7d0a36cefaed0d77917bf6fd68056a1622" class="message" data-pjax="true" title="Create enhancd.sh linked to init.sh">Create enhancd.sh linked to init.sh</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Mon 23 May 2016 05:28:49 PM HKT" datetime="2016-05-23T09:28:49Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+        <tr class="js-navigation-item">
+          <td class="icon">
+            <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+            <img alt="" class="spinner" src="octocat-spinner-32.gif" height="16" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/b4b4r07/enhancd/blob/master/init.sh" class="js-navigation-open" id="c15c3b6492080efd90b52266848ca621-073eb23c3e4a55b4155ec3eb354f88b640365f5f" title="init.sh">init.sh</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+                  <a href="https://github.com/b4b4r07/enhancd/commit/86ae88d3b7841611c64a513517753346ff08fded" class="message" data-pjax="true" title="Abolish ENHANCD_LOG
+
+related to #28">Abolish ENHANCD_LOG</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time-ago title="Tue 24 May 2016 08:16:53 PM HKT" datetime="2016-05-24T12:16:53Z">2 months ago</time-ago></span>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+  <div id="readme" class="readme boxed-group clearfix announce instapaper_body md">
+    <h3>
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path></svg>
+      README.md
+    </h3>
+
+      <article class="markdown-body entry-content" itemprop="text"><p><a href="https://travis-ci.org/b4b4r07/enhancd"><img src="68747470733a2f2f696d672e736869656c64732e696f2f7472617669732f623462347230372f656e68616e63642f6d61737465722e7376673f7374796c653....dat" alt="" data-canonical-src="https://img.shields.io/travis/b4b4r07/enhancd/master.svg?style=flat-square" style="max-width: 100%;"></a> <a href="https://github.com/b4b4r07/enhancd/releases"><img src="68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c61746573742d76322e322e302d6536346435362e7376673f7374796c653d666c6....dat" alt="" data-canonical-src="https://img.shields.io/badge/latest-v2.2.0-e64d56.svg?style=flat-square" style="max-width: 100%;"></a></p>
+
+<p><a href="https://github.com/b4b4r07/enhancd/blob/master/top"></a></p>
+
+<p align="center">
+<a href="https://raw.githubusercontent.com/b4b4r07/screenshots/master/enhancd/logo.gif" target="_blank"><img src="logo.gif" style="max-width: 100%;"></a>
+</p>
+
+<p align="center">
+<b><a href="#memo-description">Description</a></b>
+|
+<b><a href="#trollface-features">Features</a></b>
+|
+<b><a href="#heartbeat-requirements">Requirements</a></b>
+|
+<b><a href="#mag-usage">Usage</a></b>
+<br>
+<b><a href="#package-installation">Installation</a></b>
+|
+<b><a href="#wrench-configuration">Configuration</a></b>
+|
+<b><a href="#books-references">References</a></b>
+|
+<b><a href="#ticket-license">License</a></b>
+</p>
+
+<p><br></p>
+
+<p><g-emoji alias="rocket" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f680.png"><img src="1f680.png" alt=":rocket:" title=":rocket:" class="emoji" height="20" width="20"></g-emoji> enhancd <sup>v2</sup> is ...</p>
+
+<p>A next-generation <code>cd</code> command with an interactive filter <g-emoji alias="sparkles" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2728.png"><img src="2728.png" alt=":sparkles:" title=":sparkles:" class="emoji" height="20" width="20"></g-emoji></p>
+
+<h2><a id="user-content-memo-description" class="anchor" href="#memo-description" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="memo" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4dd.png"><img src="1f4dd.png" alt=":memo:" title=":memo:" class="emoji" height="20" width="20"></g-emoji> Description</h2>
+
+<p><code>cd</code> command is one of the frequently used commands.</p>
+
+<p>Nevertheless, it is not so easy to handle unfortunately. A directory path given as an argument to <code>cd</code> command must be a valid path that exists and is able to resolve. In other words, you cannot pass a partial path such as "dir" (you are in <code>/home/lisa</code>, dir is <code>/home/lisa/work/dir</code>) to <code>cd</code> command.</p>
+
+<p>The new cd command called "enhancd" enhanced the flexibility and usability for a user. enhancd will memorize all directories visited by a user and use it for the pathname resolution. If the log of enhancd have more than one directory path with the same name, enhancd will pass the candidate directories list to the filter within the ENHANCD_FILTER environment variable in order to narrow it down to one directory.</p>
+
+<p>Thanks to this mechanism, the user can intuitively and easily change the directory you want to go.</p>
+
+<p><strong><em>DEMO:</em></strong></p>
+
+<p><a href="https://raw.githubusercontent.com/b4b4r07/screenshots/master/enhancd/demo.gif" target="_blank"><img src="demo.gif" alt="" style="max-width: 100%;"></a></p>
+
+<h2><a id="user-content-trollface-features" class="anchor" href="#trollface-features" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><img class="emoji" title=":trollface:" alt=":trollface:" src="trollface.png" height="20" width="20" align="absmiddle"> Features</h2>
+
+<ul>
+<li>Go to the visited directory in the past</li>
+<li>Easy to filter, using your favorite filter</li>
+<li>Work on Bash, Zsh and Fish <g-emoji alias="fish" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f41f.png"><img src="1f41f.png" alt=":fish:" title=":fish:" class="emoji" height="20" width="20"></g-emoji></li>
+<li>Go back to a specific parent directory like <a href="https://github.com/Tarrasch/zsh-bd">zsh-bd</a></li>
+<li>Fuzzy search in a similar name directory</li>
+<li>Support standard input (<code>echo $HOME | cd</code> is acceptable)</li>
+</ul>
+
+<h3><a id="user-content-fuzzy-search" class="anchor" href="#fuzzy-search" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fuzzy search</h3>
+
+<p>You can fuzzy-search a directory name you want to run <code>cd</code>. For example, a word "text" is expand to "test" and "txt".</p>
+
+<p><a href="https://raw.githubusercontent.com/b4b4r07/screenshots/master/enhancd/fuzzy.gif" target="_blank"><img src="fuzzy.gif" alt="" style="max-width: 100%;"></a></p>
+
+<h2><a id="user-content-heartbeat-requirements" class="anchor" href="#heartbeat-requirements" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="heartbeat" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f493.png"><img src="1f493.png" alt=":heartbeat:" title=":heartbeat:" class="emoji" height="20" width="20"></g-emoji> Requirements</h2>
+
+<ul>
+<li><p>An interactive filter</p>
+
+<ul>
+<li><a href="https://github.com/mooz/percol">percol</a></li>
+<li><a href="https://github.com/peco/peco">peco</a></li>
+<li><a href="https://github.com/junegunn/fzf">fzf</a></li>
+<li><a href="https://github.com/mattn/gof">gof</a></li>
+<li><a href="https://github.com/jhawthorn/fzy">fzy</a></li>
+<li>...</li>
+</ul>
+
+<p>Choose any one from among these.</p></li>
+<li><p>AWK (<code>nawk</code> or <code>gawk</code>)</p></li>
+</ul>
+
+<h2><a id="user-content-mag-usage" class="anchor" href="#mag-usage" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="mag" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f50d.png"><img src="1f50d.png" alt=":mag:" title=":mag:" class="emoji" height="20" width="20"></g-emoji> Usage</h2>
+
+<p>Under Zsh or Bourne shells such as sh and bash, you just source <code>init.sh</code> into your shell:</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">source</span> ./init.sh</span></pre></div>
+
+<p>Because enhancd functions must be executed in the context of the current shell, you should run something like above command.</p>
+
+<p>The basic usage of the <code>cd</code> command that has been implemented by <code>enhancd</code> is the same as the normal builtin <code>cd</code> command.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">cd</span> [-<span class="pl-k">|</span>..] <span class="pl-k">&lt;</span>directroy<span class="pl-k">&gt;</span></span></pre></div>
+
+<p>If no arguments are given, enhancd <code>cd</code> command will display a list of the directory you've visited once, encourage you to filter the directory that you want to move.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">cd</span></span>
+<span class="pl-mo">  ...</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/enhancd/zsh</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/gotcha</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/blog/public</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/blog</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/link_test</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07</span>
+<span class="pl-mo">  /home/lisa/Dropbox/etc/dotfiles</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/enhancd</span>
+&gt; <span class="pl-s1">/home/lisa</span>
+<span class="pl-mo">  247/247</span>
+&gt; <span class="pl-s1">_</span></pre></div>
+
+<p>The ENHANCD_FILTER variable is specified as a list of one or more visual filter command such as <a href="#requirements">this</a> separated by colon (<code>:</code>) characters.</p>
+
+<p>It is likely the only environment variable you'll need to set when starting enhancd.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1">ENHANCD_FILTER=peco<span class="pl-k">;</span> <span class="pl-k">export</span> ENHANCD_FILTER</span></pre></div>
+
+<p>Since the <code>$ENHANCD_FILTER</code> variable can be a list, enhancd will use <code>$ENHANCD_FILTER</code> to mean the first element unless otherwise specified.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1">ENHANCD_FILTER=fzf:peco:gof</span>
+$ <span class="pl-s1"><span class="pl-k">export</span> ENHANCD_FILTER</span></pre></div>
+
+<h3><a id="user-content-options" class="anchor" href="#options" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Options</h3>
+
+<p><g-emoji alias="new" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f195.png"><img src="1f195.png" alt=":new:" title=":new:" class="emoji" height="20" width="20"></g-emoji> v2.2.0~</p>
+
+<p>You can make the option that you thought for your enhancd from 2.2.0 or above.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">cd</span> --help</span>
+<span class="pl-mo">usage: cd [OPTIONS] [dir]</span>
+
+<span class="pl-mo">OPTIONS:</span>
+<span class="pl-mo">  -h, --help       Show help message</span>
+<span class="pl-mo">  -V, --version    Show version information</span>
+<span class="pl-mo">  -c, --current    Filter current directories that have been to</span>
+<span class="pl-mo">  -g, --ghq        Filter ghq list and cd to it</span>
+</pre></div>
+
+<p>Those options are defined at <a href="https://github.com/b4b4r07/enhancd/blob/master/custom.json">/custom.json</a>. As it is written in this json, the user have to make a directory list file or script that generate the list like <a href="https://github.com/b4b4r07/enhancd/blob/master/custom/sources/ghq.sh">this script</a>.　Of cource, you can disable those options if you do not like it.</p>
+
+<ul>
+<li><p>Hyphen (<code>-</code>)</p>
+
+<p>When enhancd takes a hyphen (<code>-</code>) string as an argument, it searchs from the last 10 directory items in the log. With it, you can search easily the directory you used last.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">cd</span> -</span>
+<span class="pl-mo">  /home/lisa/Dropbox/etc/dotfiles</span>
+<span class="pl-mo">  /home/lisa/Dropbox</span>
+<span class="pl-mo">  /home/lisa/src/github.com</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/cli</span>
+<span class="pl-mo">  /home</span>
+<span class="pl-mo">  /home/lisa/src</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/enhancd</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07/gotcha</span>
+<span class="pl-mo">  /home/lisa/src/github.com/b4b4r07</span>
+&gt; <span class="pl-s1">/home/lisa/src/github.com/b4b4r07/portfolio</span>
+<span class="pl-mo">  10/10</span>
+&gt; <span class="pl-s1">_ </span></pre></div>
+
+<p>Then, since the current directory will be delete from the candidate, you just press Enter key to return to the previous directory after type <code>cd -</code> (<code>$PWD</code> is <code>/home/lisa</code>, <code>$OLDPWD</code> is <code>/home/lisa/src/github.com/b4b4r07/portfolio</code>).</p>
+
+<p><a href="https://raw.githubusercontent.com/b4b4r07/screenshots/master/enhancd/cd_hyphen.gif" target="_blank"><img src="cd_hyphen.gif" alt="" style="max-width: 100%;"></a></p></li>
+<li><p>Double-dot (<code>..</code>)</p>
+
+<p>From the beginning, <code>..</code> means the directory's parent directory, that is, the directory that contains it. When enhancd takes a double-dot (<code>..</code>) string as an argument, it behaves like a <a href="https://github.com/Tarrasch/zsh-bd">zsh-bd</a> plugin. In short, you can jump back to a specific directory, without doing <code>cd ../../..</code>.</p>
+
+<p>For example, when you are in <code>/home/lisa/src/github.com/b4b4r07/enhancd</code>, type <code>cd ..</code> in your terminal:</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">cd</span> ..</span>
+<span class="pl-mo">  /</span>
+<span class="pl-mo">  home</span>
+<span class="pl-mo">  lisa</span>
+<span class="pl-mo">  src</span>
+<span class="pl-mo">  github.com</span>
+&gt; <span class="pl-s1">b4b4r07</span>
+<span class="pl-mo">  6/6</span>
+&gt; <span class="pl-s1">_</span></pre></div>
+
+<p>When moving to the parent directory, the current directory is removed from the candidate.</p>
+
+<p><a href="https://raw.githubusercontent.com/b4b4r07/screenshots/master/enhancd/bd.gif" target="_blank"><img src="bd.gif" alt="" style="max-width: 100%;"></a></p></li>
+</ul>
+
+<h2><a id="user-content-package-installation" class="anchor" href="#package-installation" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="package" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4e6.png"><img src="1f4e6.png" alt=":package:" title=":package:" class="emoji" height="20" width="20"></g-emoji> Installation</h2>
+
+<p>Give me a trial!</p>
+
+<ul>
+<li><p>Install with <a href="https://github.com/b4b4r07/zplug">zplug</a>:</p>
+
+<p>enhancd can be installed by adding following to your <code>.zshrc</code> file in the same function you're doing your other <code>zplug load</code> calls in.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1">zplug <span class="pl-s"><span class="pl-pds">"</span>b4b4r07/enhancd<span class="pl-pds">"</span></span>, use:init.sh</span></pre></div></li>
+<li><p>Install with <code>git clone</code>:</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1">git clone https://github.com/b4b4r07/enhancd</span>
+$ <span class="pl-s1"><span class="pl-c1">source</span> /path/to/enhancd/init.sh</span></pre></div></li>
+</ul>
+
+<h2><a id="user-content-wrench-configurations" class="anchor" href="#wrench-configurations" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="wrench" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f527.png"><img src="1f527.png" alt=":wrench:" title=":wrench:" class="emoji" height="20" width="20"></g-emoji> Configurations</h2>
+
+<h3><a id="user-content-enhancd_dir" class="anchor" href="#enhancd_dir" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ENHANCD_DIR</code></h3>
+
+<p>The ENHANCD_DIR variable is a base directory path. It defaults to <code>~/.enhancd</code>.</p>
+
+<h3><a id="user-content-enhancd_filter" class="anchor" href="#enhancd_filter" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ENHANCD_FILTER</code></h3>
+
+<ol>
+<li><p>What is ENHANCD_FILTER?</p>
+
+<p>The ENHANCD_FILTER is an environment variable. It looks exactly like the PATH variable containing with many different filters such as <a href="https://github.com/peco/peco">peco</a> concatenated using '<code>:</code>'.</p></li>
+<li><p>How to set the ENHANCD_FILTER variable?</p>
+
+<p>Setting the ENHANCD_FILTER variable is exactly like setting the PATH variable. For example:</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-k">export</span> ENHANCD_FILTER=<span class="pl-s"><span class="pl-pds">"</span>/usr/local/bin/peco:fzf:non-existing-filter<span class="pl-pds">"</span></span></span></pre></div>
+
+<p>This above command will hold good till the session is closed. In order to make this change permanent, we need to put this command in the appropriate profile file. The ENHANCD_FILTER command in this example is set with 3 components: <code>/usr/local/bin/peco</code> followed by <code>fzf</code> and the <code>not-existing-filter</code>.</p>
+
+<p>enhancd narrows the ENHANCD_FILTER variable down to one. However, the command does not exist can not be the candidate.</p>
+
+<p>Let us try to test this ENHANCD_FILTER variable.</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">cd</span></span></pre></div>
+
+<p>If cd command does not return error, the settings of ENHANCD_FILTER is success.</p></li>
+<li><p>How to find the value of the ENHANCD_FILTER variable?</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$ENHANCD_FILTER</span></span>
+<span class="pl-mo">/usr/local/bin/peco:fzf:non-existing-filter</span></pre></div></li>
+</ol>
+
+<h3><a id="user-content-enhancd_command" class="anchor" href="#enhancd_command" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ENHANCD_COMMAND</code></h3>
+
+<p>The ENHANCD_COMMAND environment variable is to change the command name of enhancd <code>cd</code>. It defaults to <code>cd</code>.</p>
+
+<p>When the command name is changed, you should set new command name to ENHANCD_COMMAND, export it and restart your shell (reload <code>init.sh</code>).</p>
+
+<div class="highlight highlight-text-shell-session"><pre>$ <span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$ENHANCD_COMMAND</span></span>
+<span class="pl-mo">cd</span>
+$ <span class="pl-s1"><span class="pl-k">export</span> ENHANCD_COMMAND=ecd</span>
+$ <span class="pl-s1"><span class="pl-c1">source</span> /path/to/init.sh</span></pre></div>
+
+<p>The ENHANCD_COMMAND may only hold one command name. Thus, in the previous example, it is true that enhancd <code>cd</code> command name is <code>ecd</code>, but it is not <code>cd</code> (<code>cd</code> is turned into original <code>builtin cd</code>).</p>
+
+<p>Besides putting a setting such as this one in your <code>~/.bash_profile</code> or <code>.zshenv</code> would be a good idea:</p>
+
+<div class="highlight highlight-source-shell"><pre>ENHANCD_COMMAND=ecd<span class="pl-k">;</span> <span class="pl-k">export</span> ENHANCD_COMMAND</pre></div>
+
+<h3><a id="user-content-enhancd_disable_dot" class="anchor" href="#enhancd_disable_dot" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ENHANCD_DISABLE_DOT</code></h3>
+
+<p>If you don't want to use the interactive filter, when specifing a double dot (<code>..</code>), you should set not zero value to <code>$ENHANCD_DISABLE_DOT</code>. Dedaluts to 0.</p>
+
+<h3><a id="user-content-enhancd_disable_hyphen" class="anchor" href="#enhancd_disable_hyphen" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>ENHANCD_DISABLE_HYPHEN</code></h3>
+
+<p>This option is similar to <code>ENHANCD_DISABLE_DOT</code>. Defaults to 0.</p>
+
+<h2><a id="user-content-books-references" class="anchor" href="#books-references" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="books" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4da.png"><img src="1f4da.png" alt=":books:" title=":books:" class="emoji" height="20" width="20"></g-emoji> References</h2>
+
+<p>The "visual filter" (interactive filter) is what is called "Interactive Grep Tool" according to <a href="https://github.com/mooz/percol">percol</a> that is a pioneer in interactive selection to the traditional pipe concept on UNIX.</p>
+
+<ul>
+<li><strong>percol</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/mooz/percol">percol adds flavor of interactive selection to the traditional pipe concept on UNIX</a></li>
+<li><strong>peco</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/peco/peco">Simplistic interactive filtering tool</a></li>
+<li><strong>hf</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/hugows/hf">hf is a command line utility to quickly find files and execute a command</a></li>
+<li><strong>fzf</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/junegunn/fzf">fzf is a blazing fast command-line fuzzy finder written in Go</a></li>
+<li><strong>gof</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/mattn/gof">gof - Go Fuzzy</a></li>
+<li><strong>selecta</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/garybernhardt/selecta/">Selecta is a fuzzy text selector for files and anything else you need to select</a></li>
+<li><strong>pick</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://robots.thoughtbot.com/announcing-pick">Pick is "just like Selecta, but faster"</a></li>
+<li><strong>icepick</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/felipesere/icepick">icepick is a reimplementation of Selecta in Rust</a></li>
+<li><strong>sentaku</strong> <g-emoji alias="point_right" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f449.png"><img src="1f449.png" alt=":point_right:" title=":point_right:" class="emoji" height="20" width="20"></g-emoji> <a href="https://github.com/rcmdnk/sentaku">Utility to make sentaku (selection, 選択(sentaku)) window with shell command</a></li>
+</ul>
+
+<h2><a id="user-content-ticket-license" class="anchor" href="#ticket-license" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><g-emoji alias="ticket" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f3ab.png"><img src="1f3ab.png" alt=":ticket:" title=":ticket:" class="emoji" height="20" width="20"></g-emoji> License</h2>
+
+<p><g-emoji alias="copyright" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/00a9.png"><img src="00a9.png" alt=":copyright:" title=":copyright:" class="emoji" height="20" width="20"></g-emoji> <a href="http://b4b4r07.mit-license.org/">MIT</a></p>
+</article>
+  </div>
+
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+
+    </div>
+  </div>
+
+    </div>
+
+        <div class="container site-footer-container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>© 2016 <span title="0.12301s from github-fe156-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com/" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+    
+
+    <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+      <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+        <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+      </button>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+      <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="#">Reload</a> to refresh your session.</span>
+      <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="#">Reload</a> to refresh your session.</span>
+    </div>
+    <div class="facebox" id="facebox" style="display: none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+    </button>
+  </div>
+</div>
+
+  
+
+
+<div style="left: 224px; top: 66px; cursor: default;" class="diigoHighlight id_58adacf92d4029ff69e4e3d2daf69750 type_2"><span>1</span></div></body>
+</html>
