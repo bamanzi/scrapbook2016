@@ -1,0 +1,309 @@
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<title>Installing Linux on the Asus Vivostick; a review of my early adopter weekend ordeal</title>
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body topmargin="60" leftmargin="60" rightmargin="60" bottommargin="90" link="#6666ff" marginheight="20" marginwidth="20" vlink="#6666ff" bgcolor="#000000">
+<center>
+<table width="50%" bgcolor="#000000" border="0" cellpadding="0">
+<tbody><tr><td cellpadding="0" width="100%"><p>
+<font color="#03FDE4">
+</font></p><p align="right"><font color="#03FDE4">
+Posted:  June 13, 2016<br>
+updated: June 16, 2016<br>
+</font></p><font color="#03FDE4">
+<h1>Installing Linux on the Asus Vivostick; a review of my early adopter weekend ordeal</h1>
+<p>
+</p><h3>Arrival of the Asus Vivostick TS10</h3>
+I got my Vivostick on Saturday, June 11, 2016 (thanks to Newegg for the
+	fast shipping and thanks to FedEx for the 2nd day delivery after I 
+	cheaped out and chose the super eggsaver 4-7 business days shipping!)
+
+<p>
+I won't bother with pictures; it seems that the Internet is full of 
+	Vivostick images but so far has very little actual useful information.
+
+</p><p>
+I didn't realize that I had bought the Vivostick right after it started 
+	shipping -- but that does explain my inability to find any useful 
+	reviews or technical information on the web.
+
+</p><p>
+When I started this exercise on Saturday I was completely naive about the 
+	issues with installing Linux on a Windows 10, Secure Boot device.  
+	I'm now a little wiser and mostly over the frustration -- but
+	please forgive me if I still sound a bit bitter.
+
+</p><p>
+</p><h3>Running Windows 10 on the Vivostick</h3>
+First, I connected the TS10 to my hdmi monitor and booted it.  Initially, I 
+	thought that the power button was flakey, but I later realized that 
+	it just needed a firm press-and-hold for a second and then it would 
+	reliably start.
+	I also didn't notice the power light on the power button because 
+	the short hdmi cable forced me to connect the device with the button 
+	facing away from me.  But, anyway, the light comes on when you 
+	(successfully) press the button.
+
+<p>
+It booted up Windows 10 and, being no Windows expert (in fact, I'm a complete
+	newbie to both Windows 10 and Windows 8) I just followed the 
+	instructions to configure the system.  Wifi worked and the fan 
+	only ran during the initial boot. I played around with Edge for a 
+	bit but did nothing interesting.  Mostly, I just admired the little
+	computer which was completely silent when the fan was turned off
+	and emitted only a gentle hiss when the fan was on during bootup.
+
+</p><p>
+</p><h2>Using the Vivostick on my TV</h2>
+Next, I attached the stick to my 50" television and played the first Youtube 
+	video that came to mind; The Rolling Stones, Sympathy for the Devil.  
+	It played perfectly without so much as a single hiccup.
+
+<p>
+</p><h3>World of Warcraft on the Vivostick</h3>
+Then, I decided to jump to a real test; I plugged in a USB drive with a 
+	vanilla copy of World of Warcraft -- which I had played back in 2006
+	on a PowerPC version of the Mac Mini.  I remembered just how 
+	terrible the first Mac Mini ran WoW, so that seemed like a fair
+	comparison.  After all, this device, while much newer, can't be more 
+	than about 5% of the size of the diminutive Mini!
+
+<p>
+I found a private server to connect to -- since that's the only way you can
+	run WoW version 1 these days.  Needless to say, it was
+	a painful experience!  I ran it at 1920x1080 and tweaked video
+	settings until things "sorta" worked.  It ranged from 5 to 10 
+	frames per second but control using the mouse was so whacked that
+	I'm pretty sure it wasn't the integrated graphics adapter bogging down 
+	the framerate.  A confirming clue that WoW was in fact CPU-bound is
+	that I significantly lowered the resolution in the game and observed 
+	*no* increase in framerate.
+</p><p>
+WoW is fairly demanding on the CPU -- and 
+	makes almost all of those demands on a single core.  Probably due
+	to the low throughput of the Atom cores, along with that fact
+	that WoW mostly uses only one of them, the Vivostick performed 
+	about as poorly as the ancient Mac Mini in the WoW test. 
+	But that's ok; nobody said the Vivostick was for MMO gaming! 
+	The thing I found pretty 
+	amazing is that it worked at all and was recognizable as WoW!
+	Also, it was cool to see World of Warcraft live on a big screen TV.
+	(Later benchmarking confirmed that the individual cores were only
+	about 20% as fast as the Ivy Bridge Xeon cores powering my desktop
+	PC when running large memory benchmarks -- more on that further
+	down the page.)
+
+</p><p>
+</p><h2>The obstacles to installing Linux on the Asus TS10</h2>
+While that was all great fun, the real point of this device for me is to 
+	have a small, quiet, low power AMD64 test host for the MMO game  
+	I'm building.  And that game server runs only on Linux.
+	Time to start experimenting with Linux installation on the
+	tiny computer!
+
+<p>
+</p><h3>Getting the Vivostick to boot Linux</h3>
+Now, I just happen to have a couple of USB 3.0 thumb drives sitting around
+	with full, bootable copies of Linux Mint 17.3.  Leaving out the
+	boring details that you really don't want to hear, they simply would 
+	not boot!  I looked into the UEFI setup hoping for a simple solution
+	like fixing the boot order but quickly resorted to Google searches 
+	to try to narrow down the not-so-simple problem.  With Google's help, 
+	I gradually 
+	became aware that a Windows 10, UEFI secure boot device was not going 
+	to be the easiest thing to boot or install Linux on; at least not for 
+	someone with little Windows experience and completely oblivious of the 
+	apparent central point of UEFI; 'secure' booting to keep the bad
+	malware from inserting itself into the Windows boot process.
+
+<p>
+And, it turns out that Linux in general is also considered malware to such
+	a device -- UNLESS you choose the right distribution.  There are
+	several distributions; Ubuntu, Mint, Red Hat, SuSE, among them, that 
+	have correct UEFI booting enabled due to their properly registered 
+	keys.  Thankfully, my efforts were greatly lessened by the fact that
+	I just happened to have a new enough Linux Mint handy.  However,
+	my personally installed USB drives weren't set up correctly for an
+	EFI boot.  
+	
+</p><p>
+More googling revealed several facts; 
+</p><ul>
+	<li>There must be an EFI partition on the bootable device
+	</li><li>That EFI partition must reside in the GPT partitioning scheme
+	</li><li>...Which implied that my USB drive partitioning scheme wasn't 
+	allowed
+</li></ul>
+
+<p>
+Somewhere around this point, I built a bootable install USB stick by using 
+	the Linux dd utility to do a bit-by-bit copy of the ISO
+	onto a usb drive, thereby overwriting the MBR and partition table --
+	making the bits of the USB drive exactly match the install DVD
+	that you might use on a different piece of hardware.
+	Inspection of that USB drive showed that it did, indeed, have an 
+	EFI partition.  It was already built into the Linux Mint 17.3 iso.
+
+</p><p>
+Before successfully booting Linux, I also had to change the UEFI setup to:
+</p><ul>
+	<li>disable 'fast boot', 
+	</li><li>enable 'alternative OSes', and 
+	</li><li>change the boot order to put the USB drive ahead of Windows.
+</li></ul>
+
+	I also tapped F8 as the stick booted to access the boot options
+	to ensure that the correct device was selected. I still don't know 
+	why this was necessary. 
+<p>
+	One possible anomaly arose here; when I used the mouse to select the
+	USB Linux drive, Windows would boot anyway.  Only when I used
+	the keyboard instead of the mouse to select the Linux device and 
+	then hit the enter key would it boot Linux!
+
+</p><p>
+After all of that (and about 10 attempts at booting from the iso
+	usb drive) it worked!  I was finally running Linux Mint on the 
+	Vivostick, but was far too rattled at that point to blindly push 
+	forward and install directly to the internal SSD.  That decision 
+	simplified my weekend considerably, as I was to learn later.
+
+</p><p>
+</p><h3>Minor snags with Linux and the Vivostick hardware</h3>
+Only two problems arose while running Linux from the installation media;
+	the Wifi device was not recognized and, far less important, the tiny 
+	cooling fan never stopped running.  Clearly, Windows had a driver 
+	to control the fan that was missing from Mint 17.3.  Much worse, the 
+	Wifi interface also had no matching driver.  And, as this 
+	device has no ethernet jack, I had to get Wifi working.
+
+<p>
+I downloaded the latest Mint 18 beta installation media (Mate/AMD64
+	flavor just like the 17.3 version) in the hope that a new Wifi
+	driver just might be present.  Sadly, 
+	that version had no driver for the Wifi adapter either.  
+	So, with no reason to install an unfamiliar beta version of 
+	Linux Mint 18, I was back to using Mint 17.3.  I also was
+	unable to find technical info on the identity of the Wifi chip itself, 
+	severely limiting my chances of finding a working driver.  
+	(I finally decided to just buy a Linux-tested USB wifi dongle.  
+	Another $8 to Newegg and working wifi is on its way to me now.)
+
+</p><p>
+</p><h3>Taking precautions: Backing up the Vivostick's internal SSD</h3>
+Before I actually did the install, I built a 64GB USB bootable stick with
+	an extra 56GB partition formatted as NTFS -- since it was the first
+	filesystem utility I tried that didn't refuse to format a partition on 
+	my incorrectly partitioned hybrid USB stick.  (Someone familiar
+	with GPT partitioning or with more patience that I had at that point 
+	could certainly make a valid efi-bootable Linux stick with a proper 
+	partition table and use any filesystem they chose -- but I was in no 
+	mood to attempt that.)  The 56GB partition was necessary to have a 
+	place to put a backup of the internal SSD. And since I couldn't locate
+	my USB hub and couldn't be bothered to find a blue-tooth keyboard -- 
+	the partition had to be on the boot device itself. (My keyboard/mouse
+	used one USB port and the Linux boot drive used the other one.)
+	Anyway, it did work.  I was able to boot Linux and back up the internal
+	32GB drive (known to Linux as /dev/mmcblk0) onto the USB drive, again
+	using the dd utility. That way, when I borked the installation, I could 
+	put it back the way it was when it was running Windows 10.
+
+<p>
+</p><h3>Choosing the Linux Mint 'Something Else' Install method to reuse the 
+	Vivostick Windows partitions</h3>
+Anyway, back to the Linux installation onto the internal SSD.
+	Specifically, what I found was that the easy way to format the drive 
+	for an EFI boot was to reuse the existing GPT partitions.  I used the 
+	efi partition for boot, the big partition for Linux's root filesystem,
+	and the Microsoft recovery partition for swap.  I only allowed the
+	installation script to format the swap and root partitions, being 
+	still a little insecure about messing with the efi boot partition.
+	This method let me install Linux without having to figure out how to
+	configure a valid GPT-partitioned bootable Linux drive.
+	
+<p>
+</p><h3>Linux on the Vivostick!</h3>
+I clicked 'Install' and it all worked smoothly from there.  The little 
+	Asus machine now boots Linux Mint 17.3 from its 
+	internal SSD.  The Wifi still doesn't work, of course, so I can't yet
+	do any proper tests with my game server.  When the USB Wifi dongle
+	arrives late this week, I'll do some benchmarks of the Vivostick
+	running as an MMO server and update this page.
+<p>
+</p><h3>More performance impressions of the Vivostick</h3>
+I did run my old prime number program which finds and spits out the first 
+	1,000,000 prime numbers.  It ran in about 25 seconds on the Vivostick.
+	For comparision, my Xeon 1220 v2 does it in 7.0 seconds -- or about 
+	3.5 times faster.  
+<p>
+When running 4 copies of the prime number program in parallel, the Vivostick 
+	took trivially longer -- about 27 seconds, total.  The Xeon, with its
+	much larger and more elaborate  caching system, runs 4 copies in 
+	essentially the same amount of time that it runs one copy -- 7.0 seconds.
+</p><p>
+I ran my large memory benchmark as well. That program was originally
+	designed to efficiently mimic a relational database in its usage of
+	the CPU and memory bandwidth while proportionately stressing all of 
+	the levels of cache.  In that test, the Vivostick ran the 256MB version
+	in 35 seconds vs 6.6 seconds for the Xeon.  In this more realistic 
+	benchmark the Xeon core was just over five times as fast.  
+</p><p>
+When running that same benchmark on each of the 4 cores simultaneously, the 
+	Vivostick slowed from 35 seconds to 82 seconds, 2.34 times as long. 
+	Clearly, memory bandwidth and/or cache contention are not the strong 
+	suits of the little Atom quad-core!  The Xeon, by comparison, went from
+	6.6 seconds to 10 seconds when each of the 4 cores were loaded with a
+	copy of the benchmark, or 1.51 times as long.  Again, dedicated
+	L2 caches for each core plus the 8MB L3 cache pay off for the
+	Xeon -- which was generally designed for just this kind of load.
+</p><p>
+	Considering that the Ivy Bridge Xeon chip alone cost 1.5 times as much 
+	as the entire Vivostick, and that it, along with its socket and 
+	heatsink, are many times larger than the tiny Asus, I'd say that 
+	that's not at all a bad showing for the Vivostick!
+</p><p>
+	</p><h2>Update June 16, 2016:</h2>
+	<h3>Wireless is working!</h3>
+	The USB WIFI dongle arrived and works perfectly. It is so tiny
+	that it almost disappears into the USB socket.   Its full name
+	is TP-LINK Nano USB Adapter, Model No. TL-WN725N, and it can be 
+	purchased at Newegg.com for about $8 with free shipping as of the
+	date of my purchase, June 13th.
+<p>
+	</p><h3>Audio is still not working</h3>
+	The audio problem has proved to be a bit stickier.  I still haven't
+	found a working driver that is Vivostick compatible.  There is a
+	project to support audio, WIFI, and Bluetooth in the Atom-powered
+	Intel Compute Sticks.  Some of those are based on Cherry Trail Atoms
+	so it may just be a matter of time until someone puts together a 
+	package that works on the Vivostick.  I'll continue following this.
+<p>
+	</p><h3>Windows 10 recovery worked</h3>
+	My Linux dd-based Windows 10 backup was reloaded onto the Vivostick
+	and worked perfectly.  The biggest problem is that I forgot to set
+	some of the BIOS settings back to their Windows defaults, so 
+	Windows thought something was broken.  A quick reboot to change
+	the UEFI configuration back to defaults fixed it all and Windows
+	is fully functional again.
+<p>
+	I'll be reinstalling Linux in the next few days and will update
+	this page again then.
+	
+</p><p>
+	</p><h2>Upcoming additions to this page:</h2>
+<ul>
+	<li>compile time results contrasted with the Xeon and an old Raspberry Pi
+	</li><li>MMO gameserver benchmarks
+	</li><li>Observations of using the Vivostick as a test MMO server
+	</li><li>Observations of using the Vivostick as a Linux desktop
+	</li><li>The experience of adding the USB Wifi dongle 
+	</li><li>Details of the eight dollar Wifi adapter itself, assuming success
+</li></ul>
+
+</font></td></tr></tbody></table>
+</center></body>
+</html>

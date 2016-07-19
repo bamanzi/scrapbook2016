@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width = device-width, initial-scale = 1, user-scalable = no">
+		<title>Fabric: the Hassle-free Build Tool</title>
+		<link type="text/css" rel="stylesheet" href="chrome://isreaditlater/content/text.css">
+	</head>
+	
+	<body o="{&quot;L&quot;:0,&quot;S&quot;:1,&quot;F&quot;:1,&quot;M&quot;:1,&quot;A&quot;:1}" class=" L0 S1 F1 M1 A1" id="less">
+	
+		<div id="RIL_container"><!--!TOPOFCTN-->
+		
+	<div id="text_header">
+		
+			
+	<div id="RIL_header">
+		
+		<div id="RIL_top">
+			<!--RILTOP-->
+			<cite><span><br><br>Original: </span><a href="http://stackful-dev.com/fabric-the-hassle-free-build-tool.html" target="_blank">stackful-dev.com/fabric-the-hassle-free-build-tool.html</a></cite>
+			<a class="i" id="RIL_settings"></a>
+		</div>
+			
+		<div id="RIL_settings_wrapper"></div>
+		
+		<br>
+		
+		<h1>Fabric: the Hassle-free Build Tool</h1>
+		<span id="header_cite">by <a class="RIL_author" href="http://stackful-dev.com/author/hristo-deshev.html">Hristo Deshev</a>, <a href="http://stackful-dev.com/">stackful-dev.com</a><span class="RIL_date"><br class="RIL_date_sep">October 2nd 2012</span></span>
+	</div>
+	
+	<div id="text_body">	
+		<div lang="en">
+<p nodeindex="34">When it comes to software development, a pet peeve of mine is build automation. Or rather the widespread lack of one. There are far too many projects that have unpredictable and shaky deployments that rely on manual intervention by a "skilled" professional. That gave us the famous "But it works on my machine" line. Yes, that's why I quoted the "skilled" word above - skilled professionals don't do manual builds and software deploys.</p>
+<p nodeindex="35">Trying to find the best build system, I have used a lot of build tools over the years. Starting with the original <em nodeindex="193">make</em>, then going through Java-land and its <em nodeindex="194">ant</em> and <em nodeindex="195">maven</em>, stopping by their ugly .NET cousins: <em nodeindex="196">NAnt</em> and <em nodeindex="197">MSBuild</em> to later move on to Ruby's <em nodeindex="198">Rake</em> and <em nodeindex="199">Capistrano</em>. All of them get the job done, but they all have have specific weaknesses that leave a bad taste in my mouth. And then when I started doing more Python work I discovered <a href="http://fabfile.org/" nodeindex="200">Fabric</a>. With its no-nonsense approach to defining tasks in plain Python and staying out of the way, it quickly became my favorite tool in the Python stack.</p>
+<h1 nodeindex="36">Aside: Minimalism and Build Systems</h1>
+<p nodeindex="37">I have been captivated by shiny features in all sorts of software and that includes build systems too. I have gone after tool support: structured (XML) content, IDE's with code completion support, live debuggers, etc. I have bought into all the bells and whistles such as project templates, server integration, database support and whatnot. At the end I have come to realize that a build system needs to be readable and maintainable. And to do that it has to be as minimal as possible. There literally have to be so few moving parts that everything is obvious and that leaves us with as few possible weak spots as possible. To me the minimal build system needs to contain a fully-featured programming language and decent support for moving files around. That leaves out the XML-based build systems. All you can do is generate unreadable messes that nobody wants to look at. It also leaves out systems with their own tiny languages - we need a serious language that can do everything.</p>
+<p nodeindex="38">What would be more minimal than running scripts in a language everyone on the project already knows? I have ran with that idea in a recent project and came up with a build system that consisted entirely of <em nodeindex="201">bash</em> scripts and commands issued over <em nodeindex="202">SSH</em>. While that did the job, it left me dissatisfied. Why? Simple - <em nodeindex="203">bash</em> is a horrible programming language. It is also the language everybody doesn't really know. (Quick, write me an if statement that checks if a string variable is not empty" -- I reach for Google every time I have to do that.) Bash's file manipulation abilities aren't quite good either. Yes, you can use the <em nodeindex="204">cp</em>/<em nodeindex="205">scp</em>/<em nodeindex="206">rsync</em> binaries to move files around, but you are stuck with atrocities like <em nodeindex="207">sed</em> and <em nodeindex="208">awk</em> when you need to edit a file and replace a configuration setting. That is why you need a real language with a rich standard library.</p>
+<h1 nodeindex="39">Enter Fabric</h1>
+<p nodeindex="40">Having <em nodeindex="209">almost</em> discovered the perfect build tool with my <em nodeindex="210">bash</em> set up, I was delighted when I learned about Fabric. People a lot smarter than me have taken the Python language and married it to a SSH library to come up with a build tool that could execute commands on multiple machines. What's not to like about that?!</p>
+<p nodeindex="41">So, how does Fabric solve all my problems? Well, first it exchanges <em nodeindex="211">bash</em> for Python. You get a language that is a lot more readable. Python is one of the most readable programming languages out there, and it is perfect for build automation. Even if you don't know it, most of the time you can read the source code and infer what it actually does. It is also easy to learn and new team members quickly get up to speed with it. Second, Fabric offers better SSH support. Better than the actual <strong nodeindex="212">SSH</strong>? Yes, it really is better as it provides a lot of shortcuts to common usage patterns. For example imagine copying a root-owned file somewhere to the <code nodeindex="213">/etc/</code> folder on a server. SSH requires two commands and copying to a temporary location. Fabric does it all in one command.</p>
+<h1 nodeindex="42">Fabric Quickstart</h1>
+<p nodeindex="43">Repeat after me, Fabric scripts are just Python scripts. You define a bunch of functions that you can then execute on the command line. That is it. You want to build a complex build system? Be my guest -- you have the full modularization power of the Python language and its "batteries included" standard library to back you up.</p>
+<h2 nodeindex="44">Installing Fabric</h2>
+<p nodeindex="45">You need a Python interpreter, which you most probably already have, if you are working on a Linux system. You will then need <a href="http://www.pip-installer.org/" nodeindex="214">Pip</a> -- the Python package manager. Debian, Ubuntu and RHEL/CentOS Linux distributions have a <em nodeindex="215">python-pip</em> package that you can just install and be done with it. If you are using a different Linux system, you'll need to install Pip manually.</p>
+<p nodeindex="46">After installing Pip, you get to install Fabric by running:</p>
+<div class="codehilite" nodeindex="47">
+<pre nodeindex="48"><span class="n" nodeindex="216">pip</span> <span class="n" nodeindex="217">install</span> <span class="n" nodeindex="218">fabric</span>
+</pre></div>
+<p nodeindex="49">And that is all. You now have a working Fabric setup and a <code nodeindex="219">fab</code> executable program in your path that will run your build scripts.</p>
+<h2 nodeindex="50">Tasks</h2>
+<p nodeindex="51">Fabric tasks are plain Python functions that you define in the <code nodeindex="220">fabfile</code> module. That is usually the <code nodeindex="221">fabfile.py</code> file, but remember this is pure Python, so you can modularize your build by moving it to the <code nodeindex="222">fabfile</code> package in a subfolder and splitting out functionality to different modules.</p>
+<p nodeindex="52">Now imagine we are building a simple project, called "Project X." It consists of a single executable script file named "projectX". To package a release, we need to copy it to a <code nodeindex="223">target</code> folder and then we can test it, by running the script from within the release folder. Here's our simple fab file:</p>
+<p nodeindex="60">All our script does here is to execute external commands using the <code nodeindex="266">local</code> function exported by the <code nodeindex="267">fabric.api</code> module. Note that Fabric is mostly a remote execution tool, and that is why its <code nodeindex="268">run</code> API actually executes commands on remote machines. The <code nodeindex="269">env</code> dictionary needs some explanation too -- it is provided by Fabric and is used to keep various settings that change how Fabric works. I use it to store my build settings like <code nodeindex="270">TARGET_DIR</code> above too. Now that you are familiar with the Fabric minimum, let's run our tasks:</p>
+<div class="codehilite" nodeindex="61">
+<pre nodeindex="62"><span class="o" nodeindex="271">~/</span><span class="n" nodeindex="272">w</span><span class="o" nodeindex="273">/</span><span class="n" nodeindex="274">python</span><span class="o" nodeindex="275">/</span><span class="n" nodeindex="276">fabric</span> <span class="n" nodeindex="277">fab</span> <span class="n" nodeindex="278">release</span>
+<span class="n" nodeindex="279">Releasing</span> <span class="n" nodeindex="280">Project</span> <span class="n" nodeindex="281">X</span>
+<span class="p" nodeindex="282">[</span><span class="n" nodeindex="283">localhost</span><span class="p" nodeindex="284">]</span> <span class="n" nodeindex="285">local</span><span class="p" nodeindex="286">:</span> <span class="n" nodeindex="287">mkdir</span> <span class="o" nodeindex="288">-</span><span class="n" nodeindex="289">p</span> <span class="n" nodeindex="290">target</span>
+<span class="p" nodeindex="291">[</span><span class="n" nodeindex="292">localhost</span><span class="p" nodeindex="293">]</span> <span class="n" nodeindex="294">local</span><span class="p" nodeindex="295">:</span> <span class="n" nodeindex="296">cp</span> <span class="n" nodeindex="297">projectX</span> <span class="n" nodeindex="298">target</span>
+
+<span class="n" nodeindex="299">Done</span><span class="p" nodeindex="300">.</span>
+<span class="o" nodeindex="301">~/</span><span class="n" nodeindex="302">w</span><span class="o" nodeindex="303">/</span><span class="n" nodeindex="304">python</span><span class="o" nodeindex="305">/</span><span class="n" nodeindex="306">fabric</span> <span class="n" nodeindex="307">fab</span> <span class="n" nodeindex="308">test</span>
+<span class="p" nodeindex="309">[</span><span class="n" nodeindex="310">localhost</span><span class="p" nodeindex="311">]</span> <span class="n" nodeindex="312">local</span><span class="p" nodeindex="313">:</span> <span class="n" nodeindex="314">target</span><span class="o" nodeindex="315">/</span><span class="n" nodeindex="316">projectX</span>
+<span class="n" nodeindex="317">Project</span> <span class="n" nodeindex="318">X</span>
+
+<span class="n" nodeindex="319">Done</span><span class="p" nodeindex="320">.</span>
+</pre></div>
+<p nodeindex="63">There, that's it. You have your first build.</p>
+<h2 nodeindex="64">Remote Execution</h2>
+<p nodeindex="65">To execute commands on remote machines, you need to specify them first. It is best if you define a set of roles like "web server" or "db server" for your hosts and then add hosts to each role. That way, you will be building deployment infrastructure that is independent of specific hosts and adding a new machine would amount to adding a host to your role configuration. In our example, we will define a "web" role that will contain all our web servers - we will call them "h1" and "h2". Here is how that looks like:</p>
+<p nodeindex="73">Fabric can refer to hosts by their hostnames and you can specify credentials for each of them: either username/password pairs or SSH keys. I don't like that -- I feel this type of configuration doesn't belong to your deploy script at all. That is why I configure all host access in my <code nodeindex="340">~/.ssh/config</code> file and store all SSH keys inside <code nodeindex="341">~/.ssh</code>. To make Fabric pick your SSH config up, you have to enable the <code nodeindex="342">use_ssh_config</code> option. Here is a sample host configuration taken from my <code nodeindex="343">~/.ssh/config</code> file:</p>
+<div class="codehilite" nodeindex="74">
+<pre nodeindex="75"><span class="n" nodeindex="344">Host</span>            <span class="n" nodeindex="345">h1</span>
+<span class="n" nodeindex="346">Hostname</span>        <span class="n" nodeindex="347">h1</span><span class="p" nodeindex="348">.</span><span class="n" nodeindex="349">example</span><span class="p" nodeindex="350">.</span><span class="n" nodeindex="351">com</span>
+<span class="n" nodeindex="352">User</span>            <span class="n" nodeindex="353">ubuntu</span>
+<span class="n" nodeindex="354">IdentityFile</span>    <span class="o" nodeindex="355">~/</span><span class="p" nodeindex="356">.</span><span class="n" nodeindex="357">ssh</span><span class="o" nodeindex="358">/</span><span class="n" nodeindex="359">hdeshev</span><span class="p" nodeindex="360">.</span><span class="n" nodeindex="361">pem</span>
+</pre></div>
+<p nodeindex="76">We are now ready to execute a remote command. Let's start with something simple like collecting information about the remote host using the <code nodeindex="362">uname -a</code> command. Here is our task:</p>
+<p nodeindex="84">There are two points of interest here. First we decorate our task function with the <code nodeindex="375">@roles</code> decorator and specify that it will run on "web" hosts unless specified otherwise. Then we use the <code nodeindex="376">run</code> API function to run the remote command. Here is the output:</p>
+<div class="codehilite" nodeindex="85">
+<pre nodeindex="86"><span class="o" nodeindex="377">~/</span><span class="n" nodeindex="378">w</span><span class="o" nodeindex="379">/</span><span class="n" nodeindex="380">python</span><span class="o" nodeindex="381">/</span><span class="n" nodeindex="382">fabric</span> <span class="n" nodeindex="383">fab</span> <span class="n" nodeindex="384">host_info</span>     
+<span class="p" nodeindex="385">[</span><span class="n" nodeindex="386">h1</span><span class="p" nodeindex="387">]</span> <span class="n" nodeindex="388">Executing</span> <span class="n" nodeindex="389">task</span> <span class="s" nodeindex="390">'host_info'</span>
+<span class="p" nodeindex="391">[</span><span class="n" nodeindex="392">h1</span><span class="p" nodeindex="393">]</span> <span class="n" nodeindex="394">run</span><span class="p" nodeindex="395">:</span> <span class="n" nodeindex="396">uname</span> <span class="o" nodeindex="397">-</span><span class="n" nodeindex="398">a</span>
+<span class="p" nodeindex="399">[</span><span class="n" nodeindex="400">h1</span><span class="p" nodeindex="401">]</span> <span class="n" nodeindex="402">out</span><span class="p" nodeindex="403">:</span> <span class="n" nodeindex="404">Linux</span> <span class="n" nodeindex="405">h1</span><span class="p" nodeindex="406">.</span><span class="n" nodeindex="407">stackful</span><span class="p" nodeindex="408">.</span><span class="n" nodeindex="409">io</span> 3<span class="p" nodeindex="410">.</span>2<span class="p" nodeindex="411">.</span>0<span class="o" nodeindex="412">-</span>24<span class="o" nodeindex="413">-</span><span class="n" nodeindex="414">generic</span> #39<span class="o" nodeindex="415">-</span><span class="n" nodeindex="416">Ubuntu</span> <span class="n" nodeindex="417">SMP</span> <span class="n" nodeindex="418">Mon</span> <span class="n" nodeindex="419">May</span> 21 16<span class="p" nodeindex="420">:</span>52<span class="p" nodeindex="421">:</span>17 <span class="n" nodeindex="422">UTC</span> 2012 <span class="n" nodeindex="423">x86_64</span> <span class="n" nodeindex="424">x86_64</span> <span class="n" nodeindex="425">x86_64</span> <span class="n" nodeindex="426">GNU</span><span class="o" nodeindex="427">/</span><span class="n" nodeindex="428">Linux</span>
+
+<span class="n" nodeindex="429">Done</span><span class="p" nodeindex="430">.</span>
+<span class="n" nodeindex="431">Disconnecting</span> <span class="n" nodeindex="432">from</span> <span class="n" nodeindex="433">ubuntu</span><span class="p" nodeindex="434">@</span><span class="n" nodeindex="435">X</span><span class="p" nodeindex="436">.</span><span class="n" nodeindex="437">Y</span><span class="p" nodeindex="438">.</span><span class="n" nodeindex="439">Z</span><span class="p" nodeindex="440">.</span><span class="n" nodeindex="441">ZZ</span><span class="p" nodeindex="442">:</span>22<span class="p" nodeindex="443">...</span> <span class="n" nodeindex="444">done</span><span class="p" nodeindex="445">.</span>
+</pre></div>
+<p nodeindex="87">Now, let's try a real world task. Let's say we are deploying a Django web app and we want to restart our Gunicorn server after a successful deploy. Suppose we have it configured in <a href="http://stackful.io/blog/what-every-developer-needs-to-know-about-ubuntu-upstart/" nodeindex="446">Upstart</a> and need to run the <code nodeindex="447">restart django-gunicorn</code> command as root. Here is the task code:</p>
+<p nodeindex="95">Again we decorate our task function to make it run on "web" hosts only. Then we use the <code nodeindex="460">sudo</code> API function to run a command as root. Here is the output:</p>
+<div class="codehilite" nodeindex="96">
+<pre nodeindex="97"><span class="o" nodeindex="461">~/</span><span class="n" nodeindex="462">w</span><span class="o" nodeindex="463">/</span><span class="n" nodeindex="464">python</span><span class="o" nodeindex="465">/</span><span class="n" nodeindex="466">fabric</span> <span class="n" nodeindex="467">fab</span> <span class="n" nodeindex="468">restart_webapp</span>    
+<span class="p" nodeindex="469">[</span><span class="n" nodeindex="470">h1</span><span class="p" nodeindex="471">]</span> <span class="n" nodeindex="472">Executing</span> <span class="n" nodeindex="473">task</span> <span class="s" nodeindex="474">'restart_webapp'</span>
+<span class="p" nodeindex="475">[</span><span class="n" nodeindex="476">h1</span><span class="p" nodeindex="477">]</span> <span class="n" nodeindex="478">sudo</span><span class="p" nodeindex="479">:</span> <span class="n" nodeindex="480">restart</span> <span class="n" nodeindex="481">django</span><span class="o" nodeindex="482">-</span><span class="n" nodeindex="483">gunicorn</span>
+<span class="p" nodeindex="484">[</span><span class="n" nodeindex="485">h1</span><span class="p" nodeindex="486">]</span> <span class="n" nodeindex="487">out</span><span class="p" nodeindex="488">:</span> <span class="n" nodeindex="489">django</span><span class="o" nodeindex="490">-</span><span class="n" nodeindex="491">gunicorn</span> <span class="n" nodeindex="492">start</span><span class="o" nodeindex="493">/</span><span class="n" nodeindex="494">running</span><span class="p" nodeindex="495">,</span> <span class="n" nodeindex="496">process</span> 11535
+
+<span class="n" nodeindex="497">Done</span><span class="p" nodeindex="498">.</span>
+<span class="n" nodeindex="499">Disconnecting</span> <span class="n" nodeindex="500">from</span> <span class="n" nodeindex="501">ubuntu</span><span class="p" nodeindex="502">@</span><span class="n" nodeindex="503">X</span><span class="p" nodeindex="504">.</span><span class="n" nodeindex="505">Y</span><span class="p" nodeindex="506">.</span><span class="n" nodeindex="507">Z</span><span class="p" nodeindex="508">.</span><span class="n" nodeindex="509">ZZ</span><span class="p" nodeindex="510">:</span>22<span class="p" nodeindex="511">...</span> <span class="n" nodeindex="512">done</span><span class="p" nodeindex="513">.</span>
+</pre></div>
+<h2 nodeindex="98">Terminal Use</h2>
+<p nodeindex="99">You can override host and role selection when running your Fabric script so that you execute a task on a single machine, or a group of machines defined as a host list. To do that you need to pass the <code nodeindex="514">-H</code> parameter:</p>
+<div class="codehilite" nodeindex="100">
+<pre nodeindex="101"><span class="n" nodeindex="515">fab</span> <span class="o" nodeindex="516">-</span><span class="n" nodeindex="517">H</span> <span class="n" nodeindex="518">h1</span><span class="p" nodeindex="519">,</span><span class="n" nodeindex="520">h2</span> <span class="n" nodeindex="521">host_info</span>
+</pre></div>
+<p nodeindex="102">... Or you can pass a role name with the <code nodeindex="522">-R</code> parameter:</p>
+<div class="codehilite" nodeindex="103">
+<pre nodeindex="104"><span class="n" nodeindex="523">fab</span> <span class="o" nodeindex="524">-</span><span class="n" nodeindex="525">R</span> <span class="n" nodeindex="526">web</span> <span class="n" nodeindex="527">host_info</span>
+</pre></div>
+<p nodeindex="105">Fabric is not intended for script use only. You can use it as an SSH replacement on your terminal and it really shines when you have to execute a command against several servers. To pass custom shell commands, use <code nodeindex="528">--</code> as a separator. To illustrate that, let's kill a bunch of processes on all our web machines (<em nodeindex="529">insert evil laughter here</em>):</p>
+<div class="codehilite" nodeindex="106">
+<pre nodeindex="107"><span class="n" nodeindex="530">fab</span> <span class="o" nodeindex="531">-</span><span class="n" nodeindex="532">R</span> <span class="n" nodeindex="533">web</span> <span class="o" nodeindex="534">--</span> <span class="n" nodeindex="535">killall</span> <span class="n" nodeindex="536">someprogram</span>
+</pre></div>
+<h1 nodeindex="108">What's Next?</h1>
+<p nodeindex="109">Now that you have mastered the basics, you need to get your project under control and script its build and deployment procedure with Fabric. There is no substitute to learning by doing and you need to get get your hands dirty as soon as possible. And remember to <a href="http://fabfile.org/" nodeindex="537">RTFM</a> first.</p>
+<h1 nodeindex="110">Summary</h1>
+<p nodeindex="111">Fabric is a simple, no-nonsense build tool that will quickly get you to a scripting superstar status. Powered by the Python language and the underlying SSH infrastructure, it will quickly let you turn your infrastructure code into something concise, readable, and immensely powerful.</p>
+</div>
+	<div class="clear"></div>
+	</div>
+	</div>
+		</div>
+	
+	
+	<!--!ENDOFPAGE-->
+	
+	
+	
+	</body>
+</html>

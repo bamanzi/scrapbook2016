@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width = device-width, initial-scale = 1, user-scalable = no">
+		<title>5 Ways to Keep Remote SSH Sessions and Processes Running After Disconnection</title>
+		<link type="text/css" rel="stylesheet" href="chrome://isreaditlater/content/text.css">
+	</head>
+	
+	<body o="{&quot;L&quot;:0,&quot;S&quot;:1,&quot;F&quot;:1,&quot;M&quot;:1,&quot;A&quot;:1}" class=" L0 S1 F1 M1 A1" id="less">
+	
+		<div id="RIL_container"><!--!TOPOFCTN-->
+		
+	<div id="text_header">
+		
+			
+	<div id="RIL_header">
+		
+		<div id="RIL_top">
+			<!--RILTOP-->
+			<cite><span><br><br>Original: </span><a href="http://www.tecmint.com/keep-remote-ssh-sessions-running-after-disconnection/" target="_blank">www.tecmint.com/keep-remote-ssh-sessions-running-after-disconnection/</a></cite>
+			<a class="i" id="RIL_settings"></a>
+		</div>
+			
+		<div id="RIL_settings_wrapper"></div>
+		
+		<br>
+		
+		<h1>5 Ways to Keep Remote SSH Sessions and Processes Running After Disconnection</h1>
+		<span id="header_cite">by <a class="RIL_author" href="http://www.tecmint.com/author/gunjitk94/">Gunjit Khera</a>, <a href="http://tecmint.com/">tecmint.com</a><span class="RIL_date"><br class="RIL_date_sep">February 17th 2016</span></span>
+	</div>
+	
+	<div id="text_body">	
+		<div lang="en">
+<p nodeindex="102"><strong nodeindex="539">SSH</strong> or <strong nodeindex="540">Secure Shell</strong> in simple terms is a way by which a person can remotely access another user on other system but only in command line i.e. non-GUI mode. In more technical terms, when we ssh on to other user on some other system and run commands on that machine, it actually creates a pseudo-terminal and attaches it to the login shell of the user logged in.</p>
+
+<p nodeindex="105">When we log out of the session or the session times out after being idle for quite some time, the <strong nodeindex="541">SIGHUP</strong> signal is send to the pseudo-terminal and all the jobs that have been run on that terminal, even the jobs that have their parent jobs being initiated on the pseudo-terminal are also sent the SIGHUP signal and are forced to terminate.</p>
+<p nodeindex="106"><b nodeindex="542">Don’t Miss:</b> <a href="http://www.tecmint.com/5-best-practices-to-secure-and-protect-ssh-server/" target="_blank" nodeindex="543">5 Useful Practices to Keep SSH Server Secure and Protected</a></p>
+<p nodeindex="107">Only the jobs that have been configured to ignore this signal are the ones that survive the session termination. On Linux systems, we can have many ways to make these jobs running on the remote server or any machine even after user logout and session termination.</p>
+<h3 nodeindex="108">Understand Processes on Linux</h3>
+<h4 nodeindex="544">Normal Process</h4>
+<p nodeindex="109">Normal processes are those which have life span of a session. They are started during the session as foreground processes and end up in certain time span or when the session gets logged out. These processes have their owner as any of the valid user of the system, including root.</p>
+<h4 nodeindex="545">Orphan Process</h4>
+<ins class="adsbygoogle" nodeindex="546"></ins><br nodeindex="547"><p nodeindex="110">Orphan processes are those which initially had a parent which created the process but after some time, the parent process unintentionally died or crashed, making init to be the parent of that process. Such processes have init as their immediate parent which waits on these processes until they die or end up.</p>
+<h4 nodeindex="548">Daemon Process</h4>
+<p nodeindex="111">These are some intentionally orphaned processes, such processes which are intentionally left running on the system are termed as daemon or intentionally orphaned processes. They are usually long-running processes which are once initiated and then detached from any controlling terminal so that they can run in background till they do not get completed, or end up throwing an error. Parent of such processes intentionally dies making child execute in background.</p>
+<h3 nodeindex="112">Techniques to Keep SSH Session Running After Disconnection</h3>
+<p nodeindex="113">There can be various ways to leave ssh sessions running after disconnection as described below:</p>
+<h4 nodeindex="549">1. Using screen Command to Keep SSH Sessions Running</h4>
+<p nodeindex="114"><strong nodeindex="550">screen</strong> is a text Window Manager for Linux which allows user to manage multiple terminal sessions at same time, switching between sessions, session logging for the running sessions on screen, and even resuming the session at any time we desire without worrying about the session being logged out or terminal being closed.</p>
+<p nodeindex="115">screen sessions can be started and then detached from the controlling terminal leaving them running in background and then be resumed at any time and even at any place. Just you need to start your session on the screen and when you want, detach it from pseudo-terminal (or the controlling terminal) and logout. When you feel, you can re-login and resume the session.</p>
+<h5 nodeindex="551">Starting a screen Session</h5>
+<p nodeindex="116">After typing <strong nodeindex="552">‘screen’</strong> command, you will be in a new screen session, within this session you can create new windows, traverse between windows, lock the screen, and do many more stuff which you can do on a normal terminal.</p>
+<pre nodeindex="117">$ screen
+</pre>
+
+<p nodeindex="120">Once screen session started, you can run any command and keep the session running by detaching the session.</p>
+
+<h5 nodeindex="553">Detaching a Screen</h5>
+<p nodeindex="123">Just when you want to log out of the remote session, but you want to keep the session you created on that machine alive, then just what you need to do is detach the screen from the terminal so that it has no controlling terminal left. After doing this, you can safely logout.</p>
+<p nodeindex="124">To detach a screen from the remote terminal, just press <code nodeindex="554">“Ctrl+a”</code> immediately followed by <code nodeindex="555">“d”</code> and you will be back to the terminal seeing the message that the Screen is detached. Now you can safely logout and your session will be left alive.</p>
+
+<h5 nodeindex="556">Resuming Detached Screen Session</h5>
+<p nodeindex="127">If you want to Resume a detached screen session which you left before logging out, just re-login to remote terminal again and type <code nodeindex="557">“screen -r”</code> in case if only one screen is opened, and if multiple screen sessions are opened run <code nodeindex="558">“screen -r &lt;pid.tty.host&gt;”</code>.</p>
+<pre nodeindex="128">$ screen -r
+$ screen -r &lt;pid.tty.host&gt;
+</pre>
+
+<p nodeindex="131">To Learn more about screen command and how to use it just follow the link: <a href="http://www.tecmint.com/screen-command-examples-to-manage-linux-terminals/" target="_blank" nodeindex="559">Use screen Command to Manage Linux Terminal Sessions</a></p>
+<h4 nodeindex="560">2. Using Tmux (Terminal Multiplexer) to Keep SSH Sessions Running</h4>
+<p nodeindex="132"><strong nodeindex="561">Tmux</strong> is another software which is created to be a replacement for <strong nodeindex="562">screen</strong>. It has most of the capabilities of <strong nodeindex="563">screen</strong>, with few additional capabilities which make it more powerful than screen.</p>
+<p nodeindex="133">It allows, apart from all options offered by screen, splitting panes horizontally or vertically between multiple windows, resizing window panes, session activity monitoring, scripting using command line mode etc. Due to these features of tmux, it has been enjoying wide adoption by nearly all Unix distributions and even it has been included in the base system of OpenBSD.</p>
+<h5 nodeindex="564">Start a Tmux Session</h5>
+<p nodeindex="134">After doing ssh on the remote host and typing <strong nodeindex="565">tmux</strong>, you will enter into a new session with a new window opening in front of you, wherein you can do anything you do on a normal terminal.</p>
+<pre nodeindex="135">$ tmux
+</pre>
+
+<p nodeindex="138">After performing your operations on the terminal, you can detach that session from the controlling terminal so that it goes into background and you can safely logout.</p>
+
+<h5 nodeindex="566">Detach Tmux Session from Terminal</h5>
+<p nodeindex="141">Either you can run <code nodeindex="567">“tmux detach”</code> on running tmux session or you can use the shortcut <code nodeindex="568">(Ctrl+b then d)</code>. After this your current session will be detached and you will come back to your terminal from where you can log out safely.</p>
+<pre nodeindex="142">$ tmux detach
+</pre>
+
+<h5 nodeindex="569">Resuming the Closed Tmux Session</h5>
+<p nodeindex="145">To re-open the session which you detached and left as is when you logged out of the system, just re-login to the remote machine and type <strong nodeindex="570">“tmux attach”</strong> to reattach to the closed session and it will be still be there and running.</p>
+<pre nodeindex="146">$ tmux attach
+</pre>
+
+<p nodeindex="149">To Learn more about tmux and how to use it just follow the link: <a href="http://www.tecmint.com/tmux-to-access-multiple-linux-terminals-inside-a-single-console/" target="_blank" nodeindex="571">Use Tmux Terminal Multiplexer to Manage Multiple Linux Terminals</a>.</p>
+<h4 nodeindex="572">3. Using nohup command to Keep Running SSH Sessions</h4>
+<p nodeindex="150">If you are not that familiar with <strong nodeindex="573">screen</strong> or <strong nodeindex="574">tmux</strong>, you can use <strong nodeindex="575">nohup</strong> and send your long running command to background so that you can continue while the command will keep on executing in background. After that you can safely log out.</p>
+<p nodeindex="151">With nohup command we tell the process to ignore the <strong nodeindex="576">SIGHUP</strong> signal which is sent by ssh session on termination, thus making the command persist even after session logout. On session logout the command is detched from controlling terminal and keeps on running in background as daemon process.</p>
+<h5 nodeindex="577">Executing command using nohup in background</h5>
+<p nodeindex="152">Here, is a simple scenario wherein, we have run <a href="http://www.tecmint.com/35-practical-examples-of-linux-find-command/" target="_blank" nodeindex="578">find command to search for files</a> in background on ssh session using nohup, after which the task was sent to background with prompt returning immediately giving <strong nodeindex="579">PID</strong> and job <strong nodeindex="580">ID</strong> of the process <code nodeindex="581">([JOBID] PID)</code>.</p>
+<pre nodeindex="153"># nohup find / -type f $gt; files_in_system.out 2&gt;1 &amp;
+</pre>
+
+<h5 nodeindex="582">Resuming the session to view if job is still running</h5>
+<p nodeindex="156">When you re-login again, you can check the status of command, bring it back to foreground using <code nodeindex="583">'fg %JOBID'</code> to monitor its progress and so on. Below, the output shows that the job was completed as it doesn’t show on re-login, and has given the output which is displayed.</p>
+<pre nodeindex="157"># fg %JOBID
+</pre>
+
+<h4 nodeindex="584">4. Using disown Command to Keep SSH Sessions Running</h4>
+<p nodeindex="160">Another elegant way of letting your command or a single task run in background and remain alive even after session logout or disconnection is by using <strong nodeindex="585">disown</strong>.</p>
+<p nodeindex="161"><strong nodeindex="586">Disown</strong>, removes the job from the process job list of the system, so the process is shielded from being killed during session disconnection as it won’t receive <strong nodeindex="587">SIGHUP</strong> by the shell when you logout.</p>
+<p nodeindex="162">Disadvantage of this method is that, it should be used only for the jobs that do not need any input from the <strong nodeindex="588">stdin</strong> and neither need to write to <strong nodeindex="589">stdout</strong>, unless you specifically redirect jobs input and output, because when job will try to interact with <strong nodeindex="590">stdin</strong> or <strong nodeindex="591">stdout</strong>, it will halt.</p>
+<h5 nodeindex="592">Executing command using disown in background</h5>
+<p nodeindex="163">Below, we sent <strong nodeindex="593">ping</strong> command to background so that ut keeps on running and gets removed from job list. As seen, the job was first suspended, after which it was still in the job list as <strong nodeindex="594">Process ID: 15368</strong>.</p>
+<pre nodeindex="164">$ ping tecmint.com &gt; pingout &amp;
+$ jobs -l
+$ diswon -h %1
+$ ps -ef | grep ping
+</pre>
+
+<p nodeindex="167">After that disown signal was passed to the job, and it was removed from job list, though was still running in background. The job would still be running when you would re-login to the remote server as seen below.</p>
+<pre nodeindex="168">$ ps -ef | grep ping
+</pre>
+
+<h4 nodeindex="595">5. Using setsid Command to Put SSH Sessions Running</h4>
+<p nodeindex="171">Another utility to achieve the required behavior is <strong nodeindex="596">setsid</strong>. <strong nodeindex="597">Nohup</strong> has a disadvantage in the sense that the process group of the process remains the same so the process running with nohup is vulnerable to any signal sent to the whole process group (like <code nodeindex="598">Ctrl + C</code>).</p>
+<p nodeindex="172"><strong nodeindex="599">setsid</strong> on other hand allocates a new process group to the process being executed and hence, the process created is totally in a newly allocated process group and can execute safely without fear of being killed even after session logout.</p>
+<h5 nodeindex="600">Execute any command using setsid</h5>
+<p nodeindex="173">Here, it shows that the process <code nodeindex="601">‘sleep 10m’</code> has been detached from the controlling terminal, since the time it has been created.</p>
+<pre nodeindex="174">$ setsid sleep 10m
+$ ps -ef | grep sleep
+</pre>
+
+<p nodeindex="177">Now, when you would re-login the session, you will still find this process running.</p>
+</div>
+	<div class="clear"></div>
+	</div>
+	</div>
+		</div>
+	
+	
+	<!--!ENDOFPAGE-->
+	
+	
+	
+	</body>
+</html>
