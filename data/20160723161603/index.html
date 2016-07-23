@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>cw: 给你的 Linux 命令输出一点颜色 · LinuxTOY</title>
+        
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://linuxtoy.org/theme/css/grids-responsive-old-ie-min.css">
+        <link rel="stylesheet" href="https://linuxtoy.org/theme/css/side-menu-old-ie.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        
+        
+        <!--<![endif]-->
+        
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link rel="alternate" type="application/atom+xml" href="https://linuxtoy.org/feeds/all.atom.xml" title="LinuxTOY Atom Feed">
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        
+        <meta name="keywords" content="Linux, 自由软件, 新闻, 教程，提示">
+        <meta name="description" content="cw(color wrapper) 是一个有意思的小程序，它会自动给你的 Linux 命令输出添加颜色。例如，下图为笔者在安装 cw 后执行 df 的结果。 cw 可从其项目主页下载，你也可以通过所用发行版的包管理器来搜索安装。">
+        <meta name="subject" content="Linux 新闻、应用及提示">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@linuxtoy">
+        <meta name="twitter:creator" content="@linuxtoy">
+        <meta name="twitter:url" content="https://linuxtoy.org/archives/cw-color-wrapper.html">
+        <meta name="twitter:title" content="cw: 给你的 Linux 命令输出一点颜色">
+        <meta name="twitter:description" content="cw(color wrapper) 是一个有意思的小程序，它会自动给你的 Linux 命令输出添加颜色。例如，下图为笔者在安装 cw 后执行 df 的结果。 cw 可从其项目主页下载，你也可以通过所用发行版的包管理器来搜索安装。">
+        <meta name="twitter:image" content="https://linuxtoy.org/logo.png">
+        <meta property="og:url" content="https://linuxtoy.org/archives/cw-color-wrapper.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="cw: 给你的 Linux 命令输出一点颜色">
+        <meta property="og:image" content="https://linuxtoy.org/logo.png">
+        <meta property="og:description" content="cw(color wrapper) 是一个有意思的小程序，它会自动给你的 Linux 命令输出添加颜色。例如，下图为笔者在安装 cw 后执行 df 的结果。 cw 可从其项目主页下载，你也可以通过所用发行版的包管理器来搜索安装。">
+        <meta property="og:site_name" content="LinuxTOY">
+        <meta property="article:author" content="toy">
+        <link rel="canonical" href="https://linuxtoy.org/archives/cw-color-wrapper.html">
+    
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+    <body>
+        <div id="layout" class="pure-g">
+            <div class="sidebar pure-u-1">
+                <div class="header">
+                    <a id="menuLink" class="menu-link" href="#menu"><span></span></a>
+                    <div id="menu" class="pure-menu">
+                        <a class="pure-menu-heading" href="https://linuxtoy.org/" title="LinuxTOY">LinuxTOY</a>
+                        <ul class="pure-menu-list">
+
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/all-archives.html" title="Archives">Archives</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/books.html" title="Books">Books</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/talks.html" title="Talks">Talks</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/download.html" title="Download">Download</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/faq.html" title="FAQs">FAQs</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/contact.html" title="Contact">Contact</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/donate.html" title="Donate">Donate</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/license.html" title="License">License</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/links.html" title="Links">Links</a>
+                            </li>
+
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/comments.html" title="Comments">Comments</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/random.html" title="Random">Random</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/feeds/all.atom.xml" title="RSS">RSS</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+<div class="content pure-u-1 pure-u-md-3-5">
+    <div class="posts">
+        <section class="post">
+            <header class="post-header">
+                <h2 class="post-title">
+                    <a href="#" rel="bookmark" title="Permalink to cw: 给你的 Linux 命令输出一点颜色">cw: 给你的 Linux 命令输出一点颜色</a>
+                </h2>
+                <p class="post-meta">
+                    2010-03-26
+                    · By
+                    <a href="https://linuxtoy.org/author/toy.html">toy</a>
+                    · Posted in <a href="https://linuxtoy.org/category/apps.html">Apps</a>
+                    · <a href="#disqus_thread">14 Comments</a>
+                </p>
+            </header>
+            <div class="post-description">
+            <p><a href="http://cwrapper.sourceforge.net/">cw(color wrapper)</a><br>
+是一个有意思的小程序，它会自动给你的 Linux<br>
+命令输出添加颜色。例如，下图为笔者在安装 cw 后执行 df 的结果。</p>
+<p><img alt="cw" src="cw.png"></p>
+<p>cw  </p>
+<p>可从其<a href="http://cwrapper.sourceforge.net/">项目主页下载</a>，你也可以通过所用发行版的包管理器来搜索安装。</p>
+            <p class="post-meta">
+                # 
+                Tagged as 
+                <a href="https://linuxtoy.org/tag/cw.html">cw</a>                · 
+                Edit on <a href="https://github.com/LinuxTOY/linuxtoy.org/blob/master/content/cw-color-wrapper.md">GitHub</a>
+            </p>            <!-- <p class="post-meta">&num; <a href="http://resume.linuxtoy.org" title="若有兴趣，欢迎来电 :)">寻 GNU/Linux 相关工作，欢迎联系 :)</a></p> -->
+            </div>
+        </section>
+        <h4>Read More:</h4>
+        <div class="nav-left">
+        
+        <ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px;" data-ad-client="ca-pub-9432205671574187" data-ad-slot="6128171428"></ins>
+        
+        </div>
+    </div>
+    <div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="index_1.html" style="width: 1px ! important; min-width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 1972px ! important;" title="Disqus" tabindex="0" allowtransparency="true" name="dsq-app2" id="dsq-app2" scrolling="no" width="100%" frameborder="0"></iframe></div>
+    
+    <div class="footer">
+        <p class="nav-left">
+            <a href="https://linuxtoy.org/archives/vitualbox-316.html">
+                « VirtualBox 3.1.6 发布
+            </a>
+        </p>
+        <p class="nav-right">
+            <a href="https://linuxtoy.org/archives/sabayon-52.html">
+                Sabayon 5.2 发布 »
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="content pure-u-1 pure-u-md-1-5">
+    <div class="posts">
+    
+    <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-9432205671574187" data-ad-slot="6262929029"></ins>
+    
+        <h1 class="content-subhead">Popular Posts</h1>
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-perfect-linux-desktop-arch-linux-2007-08-2-1.html">Archlinux 安装指南</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/unix-linux-command-cheat-sheet.html">Unix/Linux 命令速查表</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/efficient-editing-with-vim.html">高效率编辑器 Vim</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/wget-tips.html">Wget 使用技巧</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/playing-around-with-mplayer.html">玩转 MPlayer</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/awesome.html">平铺式窗口管理器 Awesome</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/3_free_antivirus_under_linux.html">Linux 下的桌面级杀毒软件</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/openbox-getting-started-guide.html">窗口管理器 Openbox 入门指南</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/minimalist-install-of-ubuntu.html">最小化安装 Ubuntu</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/5-desktop-environment-for-linux.html">你可能不知道的 Linux 桌面</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-7-deadly-linux-commands.html">7 个致命的 Linux 命令</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/lightweight-desktop-compare.html">轻量级桌面环境比较</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/zsh.html">终极 Shell——Zsh</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/6-of-the-best-free-linux-cad-software.html">高品质的免费 Linux CAD 程序</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/game_emulator_for_linux.html">Linux 下的几个游戏模拟器</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/history-command-usage-examples.html">History（历史）命令用法 15 例</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-best-tips-and-tricks-for-bash.html">bash 使用技巧</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/10-oreilly-books.html">10 本 O'Reilly 出版的免费好书</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        </div>
+
+        
+        
+        
+        
+
+
+    
+<div id="st-injected-content" data-st-install-key="zWjtxRdA6ciZ7LBm4R4K" class="st-injected-content-generated st-install-zWjtxRdA6ciZ7LBm4R4K">
+<div class="st-ui-embed st-search-chrome-overlay-output st-search-escape-hide-outputs st-search-zoom-on-mobile" style="display: none;">
+    <div class="st-ui-overlay st-search-hide-outputs"></div>
+  <!-- Swiftype input and results overlay -->
+  <div class="st-ui-container st-ui-container-overlay  st-ui-injected-overlay-container ">
+    <!-- HEADER -->
+    <div class="st-ui-container-header_bar st-position-container">
+        <section class="st-ui-header">
+          <form>
+            <input autocapitalize="off" autocorrect="off" autocomplete="off" class="st-default-search-input st-search-set-focus" value="" placeholder="Search this site" id="st-overlay-search-input" type="text">
+          </form>
+          <span class="st-ui-search-icon"></span>
+
+            <a class="st-ui-close-button st-search-hide-outputs">Close</a>
+
+            <a class="st-ui-stamp" href="https://swiftype.com/" target="_blank">search by swiftype</a>
+        </section>
+    </div>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="st-ui-container-left_sidebar st-position-container">
+      <div class="st-ui-injected-search-controls">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="st-ui-container-right_sidebar st-position-container">
+      <div class="st-ui-injected-container-right_sidebar">
+        <div class="st-ui-injected-search-controls">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMARY CONTENT -->
+    <div class="st-ui-container-primary_content st-position-container">
+        <section style="display: none;" class="st-ui-slide-autocomplete st-autocomplete-keyboard-navigable st-autocomplete-transient-on-select-and-results" data-st-target-element="#st-overlay-search-input" data-st-active-query-class="active">
+          <span class="st-ui-type-heading-small">suggested results</span>
+          <div class="st-autocomplete-results"><div style="display: none;" class="st-query-present"></div></div>
+        </section>
+
+        <section class="st-ui-content st-search-results"><div class="st-query-not-present">
+          <span class="st-ui-fallback"></span>
+        </div><div style="display: none;" class="st-query-present"></div></section>
+
+      <section class="st-ui-no-results st-search-suggestions"><div class="st-query-not-present">
+      </div></section>
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <div class="st-ui-container-footer_bar st-position-container">
+      <section class="st-ui-footer">
+          <span class="st-ui-search-summary st-search-summary"></span>
+        <span class="st-ui-pagination st-search-pagination"></span>
+      </section>
+    </div>
+  </div>
+</div>
+<div class="st-default-autocomplete" data-st-target-element=".st-default-search-input" style="display: none; position: absolute; top: 49px; left: 0px; z-index: 999999;">
+  <div class="st-autocomplete-results st-ui-autocomplete"><div style="display: none;" class="st-query-present"></div></div>
+</div>
+<a class="st-search-show-outputs st-ui-search-tab">Search this site</a></div></body>
+</html>

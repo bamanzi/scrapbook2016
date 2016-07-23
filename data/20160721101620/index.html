@@ -1,0 +1,513 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>GNU screen tips &amp; hacks page</title>
+<meta name="author" content="Artur Skonecki">
+<meta name="Generator" content="Vim/7.2">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <link rel="home" title="Home" href="http://adb.cba.pl/">
+    
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body text="#000000" bgcolor="#ffffff"><!--]>--><!-- ~~~~~~~~~~~~~~~~~~~~~~~ ADACTION_CBA.PL sekcja ROS ~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- iBILLBOARD Ad Server one2many Position: go.idmnet.bbelements.com Adaction_cba.pl(1276) / ROS(1) / 750x100(1) / top_1 750x200(1)-->
+<!-- HowTo: Place this code into the html page where the ad should appear. -->
+<div id="bmone2n-1276.1.1.1" style="margin: 0px auto; text-align: center;"><div id="bmone2t-1276.1.1.1" style="display: block;"></div></div>
+<!-- iBILLBOARD Ad Server one2many code -->
+<!-- HowTo: All the ad codes must be above this code! -->
+<!-- HowTo: It is good idea to place this code just below the last ad code. -->
+
+
+
+
+
+<a title="go to the index page" href="http://adb.cba.pl/index.html" accesskey="0">&gt;&gt; Index</a>
+        <h1 style="color: rgb(153, 0, 0);">Yet another GNU Screen tips &amp; hacks page</h1>
+<h6>
+by Artur Skonecki
+</h6>
+
+<h6>Last modified:&nbsp;&nbsp; 09 February 2012
+</h6>
+(tested on current development sources)<br>
+<br>
+<h3>Contents:</h3>
+<ol class="spacing15">
+
+<li> <a href="#howto-alt-key-as-escape" accesskey="1"> how to: use "ALT + key" combination as an escape</a></li>
+<li> <a href="#howto-alt-key-as-modifer" accesskey="2"> how to: use the ALT key as a modifier with bind</a></li>
+<li> <a href="#howto-escape-status" accesskey="3"> how to: indicate pressed escape key in hardstatus</a></li>
+<li> <a href="#howto-display-panes" accesskey="4"> how to: tmux display-panes + swap-regions + rotate-regions in Screen</a></li>
+<li> <a href="#howto-screen-move-process" accesskey="5"> how to: move a process into a Screen session&gt;</a></li>
+<li> <a href="#howto-screen-session" accesskey="6"> how to: save Screen sessions</a></li>
+<li> <a href="#howto-screen-in-dir" accesskey="7"> how to: start a new window with the same working directory</a></li>
+<!--
+<li> <a href="#howto-alt-instead-escape"> how to: using alt instead of escape key</a></li>
+-->
+<li> <a href="#howto-creating-modes" accesskey="8"> how to: create a resize mode</a></li>
+</ol>
+<br>
+<br>
+
+<hr>
+<a name="howto-alt-key-as-escape"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: use "ALT + key" combination as an escape</h2>
+
+It is possible to work around <b>:escape</b> command limitations using <b>registers</b> and <b>:bindkey</b> command.
+
+Just put this in <b>.screenrc</b>:
+<pre class="example"><code>
+# Alt + space as an escape key in GNU Screen
+
+# reset escape key to the default
+escape ^Aa
+
+# auxiliary register
+register S ^A
+
+# Alt + space produces ^A and acts as an escape key
+bindkey "^[ " process S
+
+</code></pre>
+
+<br>
+<br>
+
+<hr>
+<a name="howto-alt-key-as-modifer"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: use the ALT key as a modifier with bind</h2>
+
+
+<pre class="example"><code>
+# ^[ escape goes first whenever one presses Alt + key
+# bind ^[ to activate a command class
+bind "^[" eval  "command -c class_escape" "echo \"command class: escape\""
+
+# press Alt-? to show class_escape bindings
+bind -c class_escape ? help -c class_escape 
+
+# press Alt-r to resource .screenrc
+bind -c class_escape r source "$HOME/.screenrc"
+
+</code></pre>
+<br>
+<br>
+
+
+<hr>
+<a name="howto-escape-status"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: indicate pressed escape key in hardstatus</h2>
+
+I got often baffled in Screen because I didn't know whether the escape key was pressed. This was especially frustrating when dealing with nested sessions. Fortunately, <a title="Ben Love's patches page" href="http://www.kylimar.com/patches">Ben Love</a> came up with a patch which adds a new hardstatus escape for escape key ( bug <a title="GNU Screen bug #27713" href="https://savannah.gnu.org/bugs/?27713">&gt;&gt; #27713</a>  ).
+Download <a title="download escape for the escape key patch" href="https://savannah.gnu.org/bugs/download.php?file_id=19528">&gt;&gt; the patch</a> and apply it to the recent Screen sources. The patch adds a new hardstatus escape <b>%E</b>.<br>
+Example:
+<pre class="example"><code>
+# invert colors when escape key active
+# %{+s} is activate when %E is true
+
+hardstatus string %?%E%{+s}%?%w
+
+hardstatus alwayslastline
+</code></pre>
+<br>
+<br>
+
+
+<hr>
+<a name="howto-display-panes"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: tmux display-panes + swap-regions + rotate-regions in Screen</h2>
+
+
+<table style="border-width: thin; background-color: rgb(255, 255, 102); border-color: rgb(153, 0, 0); border-collapse: collapse; border-style: dashed;" border="1">
+<tbody><tr>
+<td>
+<b>Update:</b><br>An improved version of this tool is now included in <a title="screen-session downloads page" href="http://github.com/skoneka/screen-session/downloads">&gt;&gt; screen-session</a> (a collection of utilities for GNU Screen).<br>
+<b>$</b> screen-session regions
+</td>
+</tr>
+</tbody></table>
+<br>
+Recently I got envious of tmux display-panes functionality, so I have decided to bring it to GNU Screen.
+
+<table style="background-color: white;" border="1" cellpadding="2" cellspacing="0">
+    <tbody><tr>
+        <td>
+<a href="http://adb.cba.pl/img/tmux-display-panes.png"><img src="tmux-display-panes.jpg" class="bbcode" alt="tmux display-panes screenshot" style="vertical-align: middle; border: 0pt none;"></a>
+</td>
+        <td>
+        <div class="centeralign">
+        &nbsp;&nbsp;<b>&lt;</b> tmux display-panes&nbsp;&nbsp;&nbsp;<br>
+        </div>
+        <br><br><br>
+        <div class="centeralign">
+        &nbsp;&nbsp;&nbsp;screen-display-regions <b>&gt;</b>&nbsp;&nbsp;
+        </div>
+</td>
+        <td>
+<a href="http://adb.cba.pl/img/screen-display-regions.png"><img src="screen-display-regions.jpg" class="bbcode" alt="screen-display-regions script screenshot" style="vertical-align: middle; border: 0pt none;"></a>
+</td>
+</tr>
+</tbody></table>
+
+screen-display-regions consist of 3 files:
+<ol>
+<li><p class="filename"><a href="http://adb.cba.pl/raw/screen-display-regions">&gt;&gt; file screen-display-regions</a></p> - wrapper around screen-display-regions.py, it is necessary to wrap some GNU Screen scripts</li>
+<li><p class="filename"><a href="http://adb.cba.pl/raw/screen-display-regions.py">&gt;&gt; file screen-display-regions.py</a></p> - the main program</li>
+<li><p class="filename"><a href="http://adb.cba.pl/raw/screen-display-regions-helper">&gt;&gt; file screen-display-regions-helper</a></p> - starts in every region, prints region numbers using "toilet --gay" and "toilet --metal" (I couldn't find anything better)</li>
+</ol>
+
+Put them all in path and make executable. Install "TOIlet". Active layouts before running this script with "<b>:layout new</b>" and turn off zombie mode with "<b>:zombie</b>"<br><br>
+One more thing -  you need to be running screen 4.1.0. Because it is unreleased yet, you have to get it with git.<br>
+Download Screen sources, compile and install:
+<pre class="example_shell"><kbd>
+    $ git clone git://git.savannah.gnu.org/screen.git screen
+    $ cd screen/src; ./autogen.sh ; autoheader ; ./configure &amp;&amp; make
+    $ sudo make install
+</kbd></pre>
+Done!<br>
+You can also create a binding:
+<pre class="example"><code>
+bind n eval "screen sh -c 'sleep 0.01; screen-display-regions'" "other"
+</code></pre>
+Usage:
+<table style="border-collapse: collapse;" border="1">
+    <tbody><tr>
+        <td align="right">goto frame:</td><td>&nbsp;&nbsp;&nbsp;[number]</td>
+    </tr>
+    <tr>
+       <td align="right">goto frame:</td>    <td>&nbsp;<b>'</b> [number] [ENTER]</td>
+    </tr>
+    <tr>
+       <td align="right">swap frames:</td>    <td>&nbsp;<b>s</b> [number]</td>
+    </tr>
+    <tr>
+       <td align="right">swap frames and goto:</td>    <td>&nbsp;<b>s'</b> [number]</td>
+    </tr>
+    <tr>
+       <td align="right">rotate left:</td>    <td>&nbsp;<b>l</b></td>
+    </tr>
+    <tr>
+       <td align="right">rotate right:</td>    <td>&nbsp;<b>r</b></td>
+    </tr>
+</tbody></table>
+
+<br>
+<br>
+
+
+<hr>
+<a name="howto-screen-move-process"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: move a process into a Screen session</h2>
+
+<ol>
+    <li>
+    <a title="injcode download" href="http://www.habets.pp.se/synscan/files/injcode-0.11.tar.gz">&gt;&gt; Download injcode</a> and install it in the $PATH ( <a title="blog entry about injcode" href="http://blog.habets.pp.se/2009/03/Moving-a-process-to-another-terminal">&gt;&gt; more</a> about injcode ).
+    </li>
+    <li>
+    Put this script in your path:
+    
+
+<table style="border-width: thick; background-color: rgb(219, 240, 247); border-color: rgb(116, 186, 172); border-collapse: collapse; border-style: solid;" width="100%" border="1">
+<tbody><tr>
+<td style="border-style: solid;">
+<p class="filename"><a href="http://adb.cba.pl/raw/screen-move-process">&gt;&gt; file screen-move-process
+</a>  - move a process between ttys</p>
+
+</td>
+</tr>
+<tr>
+<td style="background-color: rgb(116, 186, 172); border-style: hidden;">
+</td>
+</tr>
+<tr>
+<td> 
+<pre style="font-size:normal;"><code>
+
+</code></pre>
+</td>
+</tr>
+</tbody></table>
+
+    </li>
+    <li>
+    To move a process into Screen session:
+    <pre class="example_shell"><kbd>
+    $ screen-move-process PID
+    </kbd></pre>
+    In the process parent shell type:
+    <pre class="example_shell"><kbd>
+    $ disown
+    </kbd></pre>
+    
+    </li>
+</ol>
+<br>
+<br>
+
+<hr>
+<a name="howto-screen-session"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: save Screen sessions</h2>
+
+<a href="http://adb.cba.pl/img/screen-session.png"><img src="screen-session.jpg" class="bbcode" alt="a restored GNU Screen window" style="vertical-align: middle; border: 0pt none;"></a>
+<br><a title="screen-session website" href="http://skoneka.github.com/screen-session/"><b>screen-session</b></a> ( aka <b>scs</b> ) is a collection of utilities for <a title="GNU Screen website" href="http://savannah.gnu.org/projects/screen">GNU Screen</a>. It includes a session saver.
+<ol>
+    <li>
+    <a title="screen-session download" href="http://github.com/skoneka/screen-session/downloads">&gt;&gt; Download screen-session</a> and install it according to instructions in <a title="screen-session INSTALL file" href="http://skoneka.github.com/screen-session/installation.html">INSTALL</a>.
+    First install screen-session itself:
+    <pre class="example_shell"><kbd>
+    $ tar xf screen-session-VERSION.tar.gz
+    $ cd screen-session-VERSION
+    $ sudo make install
+    </kbd></pre>
+    </li>
+    <li>
+    Proceed with compilation and installation of the modified GNU Screen ( <b>build-essentials</b> and <b>libncurses-dev</b> should be installed on your system ).
+    <pre class="example_shell"><kbd>
+    $ cd screen-session-VERSION/screen-4.1.0
+    $ ./configure
+    $ make
+    $ sudo make install
+    </kbd></pre>
+    Check whether the <b>Screen</b> version string matches with <b>screen-session</b>:
+    <pre class="example_shell"><kbd>
+    $ screen --version
+    <i>Screen version 4.01.00scs_<b>0.6.4</b> (screen-session project) 27-August-11</i>
+
+    $ screen-session --version
+    <i>screen-session <b>0.6.4</b> - a collection of tools for GNU Screen.</i>
+    </kbd></pre>
+    </li>
+    <li>
+    Make sure to restart running instances of Screen before using screen-session. You might want to take a look at the full <a title="screen-session documentation" href="http://skoneka.github.com/screen-session/documentation.html">screen-session documentation</a>.
+    <br>
+    <br>
+    To save a GNU Screen session including all its windows, layouts and processes run:
+    <pre class="example_shell"><kbd>
+    $ screen-session save save_file
+    </kbd></pre>
+    list saved sessions:
+    <pre class="example_shell"><kbd>
+    $ screen-session ls
+    </kbd></pre>
+    and restore ( inside another Screen session ):
+    <pre class="example_shell"><kbd>
+    $ screen-session load save_file
+    </kbd></pre>
+    by default screen-session does not restore window numbers exactly. If you want the loaded session to reassemble closer the original, add <b>--exact</b> flag ( renumber all windows to make room for new ones ) or, to be even more precise, use <b>--exact-kill</b> flag ( which will kill all already existing windows ). 
+    <pre class="example_shell"><kbd>
+    $ screen-session load --exact save_file
+    </kbd></pre>
+    It would be very risky to let saved programs start immediately. Instead, every new window displays a prompt and waits for the confirmation.<br>
+    <img src="screen-session-primer_prompt.jpg" class="bbcode" alt="screen-session-primer prompt with 'zsh -> vim test'" style="vertical-align: middle; border: 0pt none;"><br>
+    It is possible to skip this prompt entirely using <b>"--force-start [win_nums]"</b> option. For example, to instruct screen-session to immediately start programs in windows <b>1, 2, 3, 12</b> run:
+    <pre class="example_shell"><kbd>
+    $ screen-session load --exact --force-start 1-3,12 save_file
+    </kbd></pre>
+    </li>
+</ol>
+<br>
+<br>
+
+
+<hr>
+<a name="howto-screen-in-dir"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: start a new window with the same working directory</h2>
+
+
+<table style="border-width: thin; background-color: rgb(255, 255, 102); border-color: rgb(153, 0, 0); border-collapse: collapse; border-style: dashed;" border="1">
+<tbody><tr>
+<td>
+<b>Update:</b><br>An improved version of this tool is now included in <a title="screen-session download" href="http://github.com/skoneka/screen-session/downloads">screen-session</a> (a collection of utilities for GNU Screen).<br>
+<b>$</b> screen-session new-window
+</td>
+</tr>
+</tbody></table>
+<br>
+The goal is to be able to start a new window with the same working directory as the current one.
+It is easy to do with a shell (described <a title="open a new window with the same directory article" href="http://dev-loki.blogspot.com/2010/05/gnu-screen-open-new-window-with-same.html">&gt;&gt; here</a>)
+but otherwise, it requires more effort (recompilation of Screen necessary).<br>
+
+<ol>
+    <li>Create <b>$HOME/bin/screen-in-dir</b> and make it an executable:
+
+
+<table style="border-width: thick; background-color: rgb(219, 240, 247); border-color: rgb(116, 186, 172); border-collapse: collapse; border-style: solid;" width="100%" border="1">
+<tbody><tr>
+<td style="border-style: solid;">
+<p class="filename"><a href="http://adb.cba.pl/raw/screen-in-dir">&gt;&gt; file screen-in-dir
+</a> - starts Screen window in the same directory (this simple script is not perfect but still does its job)</p>
+
+</td>
+</tr>
+<tr>
+<td style="background-color: rgb(116, 186, 172); border-style: hidden;">
+</td>
+</tr>
+<tr>
+<td> 
+<pre style="font-size:normal;"><code>
+
+</code></pre>
+</td>
+</tr>
+</tbody></table>
+
+</li>
+    <li>Append to your .screenrc:
+    <pre class="example"><code>
+        #start another screen window with the same working directory<br>
+        bind C exec "$HOME/bin/screen-in-dir"
+</code></pre>
+    </li>
+    <li>Apply patch and recompile screen: <br>
+    <ul>
+        <li>Get current Screen sources:
+
+    <pre class="example_shell"><kbd>
+$ git clone git://git.savannah.gnu.org/screen.git screen
+$ cd screen
+</kbd></pre>
+</li>
+<li>
+Apply <a title="file command-tty.diff" href="#command-tty.diff">&gt;&gt; this simple patch</a>, compile and install:
+
+<pre class="example_shell"><kbd>
+$ git-apply command-tty.diff
+$ cd src; ./autogen.sh &amp;&amp; autoheader &amp;&amp; ./configure &amp;&amp; make
+$ sudo make install
+</kbd></pre>
+</li>
+</ul>
+ <a name="command-tty.diff"></a>
+
+
+<table style="border-width: thick; background-color: rgb(219, 240, 247); border-color: rgb(116, 186, 172); border-collapse: collapse; border-style: solid;" width="100%" border="1">
+<tbody><tr>
+<td style="border-style: solid;">
+<p class="filename"><a href="http://adb.cba.pl/raw/command-tty.diff">&gt;&gt; file command-tty.diff
+</a> - adds tty command which prints the filename of the current terminal ( <a title="GNU Screen bug #30563" href="https://savannah.gnu.org/bugs/?30563">bug 30563</a> )</p>
+
+</td>
+</tr>
+<tr>
+<td style="background-color: rgb(116, 186, 172); border-style: hidden;">
+</td>
+</tr>
+<tr>
+<td> 
+<pre style="font-size:normal;"><code>
+
+</code></pre>
+</td>
+</tr>
+</tbody></table>
+
+    </li>
+<li>
+    Start Screen. Press "Ctrl-a C" to create a new window with the same working directory.
+</li>
+
+</ol>
+<br>
+<br>
+<!--
+
+<hr>
+<a name="howto-alt-instead-escape"></a>
+<h2 style="color: #990000;"># GNU Screen how to: using alt instead of escape key</h2>
+
+If you are a VI fan than this tip is probably for you. <br>
+If you are like me, than you probably find yourself setting up VI key bindings in shells and applications. <br>
+But default VI key bindings do not make use of modifier keys. So, why not to make use of Alt key in your beloved Screen?<br>
+There is one issue. In terminal, the character Alt key generates (&quot;^[&quot;) is exactly the same what Esc generates. So pressing Alt+u is exactly the same what Escape+u pressed consecutively. It is a big issue when most of your applications use VI-like key bindings with Esc as escape key.<br>
+<br>
+The easy solution to this problem is to set <b>:maptimeout 0</b>
+<br>
+Create file <b>.screenrc_bindkey</b> (Example usage):<br>
+<pre class=example><code>
+# quickly move between windows
+
+bindkey ^[a prev # Alt+a previous window
+bindkey ^[f next # Alt+f next window
+
+# quick split
+
+bindkey ^[s eval "split" "focus" "windowlist -m" # Alt+s split horizontally 
+bindkey ^[d eval "split -v" "focus" "windowlist -m" # Alt+d split vertically
+
+# resize regions with vi keys
+
+bindkey ^[h resize -h -5 # Alt+h
+bindkey ^[j resize -v -5 # Alt+j
+bindkey ^[k resize -v +5 # Alt+k
+bindkey ^[l resize -h +5 # Alt+l
+</code></pre>
+<br>
+Append this to your main <b>.screenrc</b>:<br>
+<pre class=example><code>
+source &quot;$HOME/.screenrc_bindkey&quot;
+
+# Set the inter-character timer for input sequence detection
+
+maptimeout 0
+
+# Alternatively, if setting :maptimeout to 0 does not seem to make
+# any difference ( for example when accessing through ssh )
+# use other keys combination instead of Escape
+# produce Escape with Alt+space:
+
+bindkey "^[ " stuff ^[
+</code></pre>
+<br>
+<br>
+-->
+
+<hr>
+<a name="howto-creating-modes"></a>
+<h2 style="color: rgb(153, 0, 0);"># GNU Screen how to: create a resize mode</h2>
+
+Resizing regions in Screen is rather troublesome. Fortunately, it is very easy to create a "resize mode".<br>
+<br>
+Just append this to <b>.screenrc</b>:<br>
+<pre class="example"><code>
+# EscapeKey+r puts Screen into resize mode. Resize regions using hjkl keys, toggle focus with Tab and arrow keys.
+
+bind r eval "command -c classresize" # enter resize mode
+
+# use hjkl keys to resize regions
+bind -c classresize h eval "resize -h -5" "command -c classresize"
+bind -c classresize j eval "resize -v -5" "command -c classresize"
+bind -c classresize k eval "resize -v +5" "command -c classresize"
+bind -c classresize l eval "resize -h +5" "command -c classresize"
+
+# quickly switch between regions using tab and arrows
+bind -c classresize \t    eval "focus"       "command -c classresize" # Tab Key
+bind -c classresize -k kl eval "focus left"  "command -c classresize" # Arrow Left
+bind -c classresize -k kr eval "focus right" "command -c classresize" # Arrow Right
+bind -c classresize -k ku eval "focus up"    "command -c classresize" # Arrow Up
+bind -c classresize -k kd eval "focus down"  "command -c classresize" # Arrow Down
+
+</code></pre>
+<br>
+<br>
+
+<!--
+<h2># GNU Screen howto: better title with zsh</h2><br>
+<h2># GNU Screen howto: extensive hardstatus</h2><br>
+-->
+<a title="go to the index page" href="http://adb.cba.pl/index.html">&gt;&gt; Index</a>
+
+<!--]-->
+<div style="text-align: center; font-size: 11px;" class="cbalink"><a href="https://www.cba.pl/" title="darmowy hosting">Darmowy Hosting</a> CBA.PL<br><br></div>
+
+
+
+
+
+
+
+<iframe src="index_1.html" style="width: 0px; height: 0px; position: absolute; left: -300px; top: 0px;"></iframe><iframe src="index_2.html" style="width: 0px; height: 0px; position: absolute; left: -300px; top: 0px;"></iframe><iframe src="index_3.html" id="bbnaut-co-sec" style="width: 0px; height: 0px; position: absolute; left: -200px; top: -500px;"></iframe></body>
+</html>

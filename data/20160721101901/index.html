@@ -1,0 +1,656 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Advanced uses of GNU screen</title>
+
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://yakking.branchable.com/ikiwiki.cgi?do=edit&amp;page=posts%2Fscreen-advanced">
+
+
+<link rel="vcs-git" href="ssh://b-yakking@yakking.branchable.com/" title="wiki git repository">
+<link rel="vcs-git" href="git://yakking.branchable.com/" title="wiki git repository">
+<meta name="date" content="Wed, 20 Aug 2014 11:00:06 +0000">
+<meta name="author" content="Richard Maw">
+
+
+<link rel="prev" href="https://yakking.branchable.com/posts/dotfiles-in-revision-control/" title="Keeping your configuration safe">
+
+<link rel="up" href="https://yakking.branchable.com/posts/" title="posts">
+
+<link rel="next" href="https://yakking.branchable.com/posts/shell-history/" title="Looking at the shell history">
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+
+
+
+<div class="page">
+
+<div class="pageheader">
+<div class="header">
+<span>
+<span class="parentlinks">
+
+<a href="https://yakking.branchable.com/">yakking</a>/ 
+
+<a href="https://yakking.branchable.com/posts/">posts</a>/ 
+
+</span>
+<span class="title">
+Advanced uses of GNU screen
+
+</span>
+by <span class="author">Richard Maw</span>
+</span>
+
+
+<form method="get" action="https://yakking.branchable.com/ikiwiki.cgi" id="searchform">
+<div>
+<input id="searchbox" name="P" value="" size="16" placeholder="search" type="text">
+</div>
+</form>
+
+
+
+</div>
+
+
+<div class="actions">
+<ul>
+
+<li><a href="https://yakking.branchable.com/ikiwiki.cgi?do=edit&amp;page=posts%2Fscreen-advanced" rel="nofollow">Edit</a></li>
+
+
+<li><a href="https://yakking.branchable.com/recentchanges/">RecentChanges</a></li>
+
+
+<li><a href="http://source.yakking.branchable.com/?p=source.git;a=history;f=posts/screen-advanced.mdwn;hb=HEAD">History</a></li>
+
+
+
+<li><a href="https://yakking.branchable.com/ikiwiki.cgi?do=prefs">Preferences</a></li>
+
+
+
+<li><a href="https://yakking.branchable.com/ikiwiki.cgi?do=branchable">Branchable</a></li>
+
+
+
+<li><a href="https://yakking.branchable.com/ikiwiki.cgi?do=comment&amp;page=posts%2Fscreen-advanced">Comment</a></li>
+
+</ul>
+</div>
+
+
+
+
+
+
+<div class="trails">
+<div class="trail">
+
+<span class="trailprev">
+<span class="trailarrow">←</span>
+<a href="https://yakking.branchable.com/posts/dotfiles-in-revision-control/">Keeping your configuration safe</a>
+<span class="trailsep">|</span>
+</span>
+
+<span class="trailup">
+<a href="https://yakking.branchable.com/posts/">posts</a>
+</span>
+
+<span class="trailnext">
+<span class="trailsep">|</span>
+<a href="https://yakking.branchable.com/posts/shell-history/">Looking at the shell history</a>
+<span class="trailarrow">→</span>
+</span>
+
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+<div class="sidebar">
+
+
+<div><div class="calendar"><table class="month-calendar">
+    <tbody><tr>
+    <th class="month-calendar-arrow"><a href="https://yakking.branchable.com/archives/2016/06/" title="June">←</a></th>
+    <th class="month-calendar-head" colspan="5"><a href="https://yakking.branchable.com/archives/2016/07/" title="July">Jul 2016</a></th>
+    <th class="month-calendar-arrow"><a href="https://yakking.branchable.com/archives/2016/08/" title="August">→</a></th>
+    </tr>
+    <tr>
+        <th class="month-calendar-day-head Sunday" title="Sunday">S</th>
+        <th class="month-calendar-day-head Monday" title="Monday">M</th>
+        <th class="month-calendar-day-head Tuesday" title="Tuesday">T</th>
+        <th class="month-calendar-day-head Wednesday" title="Wednesday">W</th>
+        <th class="month-calendar-day-head Thursday" title="Thursday">T</th>
+        <th class="month-calendar-day-head Friday" title="Friday">F</th>
+        <th class="month-calendar-day-head Saturday" title="Saturday">S</th>
+    </tr>
+    <tr>
+        <td class="month-calendar-day-noday Sunday">&nbsp;</td>
+        <td class="month-calendar-day-noday Monday">&nbsp;</td>
+        <td class="month-calendar-day-noday Tuesday">&nbsp;</td>
+        <td class="month-calendar-day-noday Wednesday">&nbsp;</td>
+        <td class="month-calendar-day-noday Thursday">&nbsp;</td>
+        <td class="month-calendar-day-nolink Friday">1</td>
+        <td class="month-calendar-day-nolink Saturday">2</td>
+    </tr>
+    <tr>
+        <td class="month-calendar-day-nolink Sunday">3</td>
+        <td class="month-calendar-day-nolink Monday">4</td>
+        <td class="month-calendar-day-nolink Tuesday">5</td>
+        <td class="month-calendar-day-link Wednesday"><div class="popup">6<div class="balloon"><ul>
+            <li><a href="https://yakking.branchable.com/posts/keep-notes/" title="Keep notes">Keep notes</a></li>
+        </ul></div></div></td>
+        <td class="month-calendar-day-nolink Thursday">7</td>
+        <td class="month-calendar-day-nolink Friday">8</td>
+        <td class="month-calendar-day-nolink Saturday">9</td>
+    </tr>
+    <tr>
+        <td class="month-calendar-day-nolink Sunday">10</td>
+        <td class="month-calendar-day-nolink Monday">11</td>
+        <td class="month-calendar-day-nolink Tuesday">12</td>
+        <td class="month-calendar-day-link Wednesday"><div class="popup">13<div class="balloon"><ul>
+            <li><a href="https://yakking.branchable.com/posts/moving-files-1-copying/" title="How difficult is it to move a file?">How difficult is it to move a file?</a></li>
+        </ul></div></div></td>
+        <td class="month-calendar-day-nolink Thursday">14</td>
+        <td class="month-calendar-day-nolink Friday">15</td>
+        <td class="month-calendar-day-nolink Saturday">16</td>
+    </tr>
+    <tr>
+        <td class="month-calendar-day-nolink Sunday">17</td>
+        <td class="month-calendar-day-nolink Monday">18</td>
+        <td class="month-calendar-day-nolink Tuesday">19</td>
+        <td class="month-calendar-day-this-day Wednesday"><div class="popup">20<div class="balloon"><ul>
+            <li><a href="https://yakking.branchable.com/posts/hacking-alone-hacking-together/" title="Hacking alone, hacking together">Hacking alone, hacking together</a></li>
+        </ul></div></div></td>
+        <td class="month-calendar-day-future Thursday">21</td>
+        <td class="month-calendar-day-nolink Friday">22</td>
+        <td class="month-calendar-day-nolink Saturday">23</td>
+    </tr>
+    <tr>
+        <td class="month-calendar-day-nolink Sunday">24</td>
+        <td class="month-calendar-day-nolink Monday">25</td>
+        <td class="month-calendar-day-nolink Tuesday">26</td>
+        <td class="month-calendar-day-nolink Wednesday">27</td>
+        <td class="month-calendar-day-nolink Thursday">28</td>
+        <td class="month-calendar-day-nolink Friday">29</td>
+        <td class="month-calendar-day-nolink Saturday">30</td>
+    </tr>
+    <tr>
+        <td class="month-calendar-day-nolink Sunday">31</td>
+        <td class="month-calendar-day-noday Monday">&nbsp;</td>
+        <td class="month-calendar-day-noday Tuesday">&nbsp;</td>
+        <td class="month-calendar-day-noday Wednesday">&nbsp;</td>
+        <td class="month-calendar-day-noday Thursday">&nbsp;</td>
+        <td class="month-calendar-day-noday Friday">&nbsp;</td>
+        <td class="month-calendar-day-noday Saturday">&nbsp;</td>
+    </tr>
+</tbody></table>
+</div></div>
+
+
+<p><a href="https://yakking.branchable.com/blog/">Blog</a></p>
+
+<p><a href="https://yakking.branchable.com/bio/">Contributors</a></p>
+
+<p><a href="https://yakking.branchable.com/comments/">Recent Comments</a></p>
+
+<p><a href="https://yakking.branchable.com/archives/">Archives</a></p>
+
+<p><a href="https://yakking.branchable.com/suggestion-box/">Suggestion box</a></p>
+
+<p><a href="https://yakking.branchable.com/tags/">Tags</a>:</p>
+
+<ul class="list">
+<li><span class="smallPC"><a href="https://yakking.branchable.com/tags/C/">C</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/address/">address</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/advice/">advice</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/ansible/">ansible</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/argp/">argp</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/at/">at</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/atom/">atom</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/automata/">automata</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/awk/">awk</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/backups/">backups</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/bash/">bash</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/bug/">bug</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/bug-handling/">bug-handling</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/careful-now/">careful-now</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/chardev/">chardev</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/chef/">chef</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/clickbait/">clickbait</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/code-of-conduct/">code-of-conduct</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/coding/">coding</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/command-line/">command-line</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/communication/">communication</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/compiler/">compiler</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/conference/">conference</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/container/">container</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/containers/">containers</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/contract/">contract</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/contributing/">contributing</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/covenant/">covenant</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/crontab/">crontab</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/cryptography/">cryptography</a></span>
+</li><li><span class="smallPC"><a href="https://yakking.branchable.com/tags/daemon/">daemon</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/dbus/">dbus</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/debugging/">debugging</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/decorum/">decorum</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/deployment/">deployment</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/device/">device</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/dhclient/">dhclient</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/dhcp/">dhcp</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/diff/">diff</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/distribution/">distribution</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/diversity/">diversity</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/dns/">dns</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/dnsmasq/">dnsmasq</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/document/">document</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/documentation/">documentation</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/dotfiles/">dotfiles</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/down-with-that-sort-of-thing/">down-with-that-sort-of-thing</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/email/">email</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/encryption/">encryption</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/esoteric/">esoteric</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/estimating/">estimating</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/euphemism/">euphemism</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/events/">events</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/expectation/">expectation</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/feed/">feed</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/fifo/">fifo</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/file/">file</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/file-path/">file-path</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/file-transfer/">file-transfer</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/filesystem/">filesystem</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/filesystems/">filesystems</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/find/">find</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/flock/">flock</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/gdb/">gdb</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/generators/">generators</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/getopt/">getopt</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/gift/">gift</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/git/">git</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/glob/">glob</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/gollum/">gollum</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/gpg/">gpg</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/haskell/">haskell</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/history/">history</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/ikiwiki/">ikiwiki</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/interface/">interface</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/ipc/">ipc</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/irc/">irc</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/iterables/">iterables</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/iterators/">iterators</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/journal/">journal</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/king/">king</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/kvm/">kvm</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/language/">language</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/languages/">languages</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/latex/">latex</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/learning/">learning</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/licence/">licence</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/linux/">linux</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/locking/">locking</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/login/">login</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/loopback/">loopback</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/ls/">ls</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/lua/">lua</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/lvm/">lvm</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/markdown/">markdown</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/md/">md</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/mediawiki/">mediawiki</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/message/">message</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/messages/">messages</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/metaphor/">metaphor</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/monarchy/">monarchy</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/moreutils/">moreutils</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/move/">move</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/namespace/">namespace</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/naming/">naming</a></span>
+</li><li><span class="smallPC"><a href="https://yakking.branchable.com/tags/network/">network</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/networkd/">networkd</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/networking/">networking</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/no-donkeys-here/">no-donkeys-here</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/notify/">notify</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/nspawn/">nspawn</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/obnam/">obnam</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/open-source/">open-source</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/openpgp/">openpgp</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/optimisation/">optimisation</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/orchestration/">orchestration</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/organisation/">organisation</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/pandoc/">pandoc</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/parable/">parable</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/parallel/">parallel</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/patch/">patch</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/perl/">perl</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/personal/">personal</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/pgp/">pgp</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/philosophy/">philosophy</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/politeness/">politeness</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/port/">port</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/practice/">practice</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/profiler/">profiler</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/profiling/">profiling</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/programming/">programming</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/project/">project</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/propellor/">propellor</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/puppet/">puppet</a></span>
+</li><li><span class="smallPC"><a href="https://yakking.branchable.com/tags/python/">python</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/queue/">queue</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/queues/">queues</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/raid/">raid</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/random/">random</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/rant/">rant</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/rcfiles/">rcfiles</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/regexp/">regexp</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/release/">release</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/rename/">rename</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/reporting/">reporting</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/resolved/">resolved</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/route/">route</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/router/">router</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/rss/">rss</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/salt/">salt</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/sandbox/">sandbox</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/scp/">scp</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/screen/">screen</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/sed/">sed</a></span>
+</li><li><span class="smallPC"><a href="https://yakking.branchable.com/tags/service/">service</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/session/">session</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/sftp/">sftp</a></span>
+</li><li><span class="biggestPC"><a href="https://yakking.branchable.com/tags/shell/">shell</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/skill/">skill</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/skills/">skills</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/socket/">socket</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/software-freedom/">software-freedom</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/ssh/">ssh</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/sshfs/">sshfs</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/starting/">starting</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/storage/">storage</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/stream/">stream</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/style/">style</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/syscall/">syscall</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/syslog/">syslog</a></span>
+</li><li><span class="normalPC"><a href="https://yakking.branchable.com/tags/systemd/">systemd</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/tag/">tag</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/tar/">tar</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/tempfiles/">tempfiles</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/terminology/">terminology</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/tools/">tools</a></span>
+</li><li><span class="smallPC"><a href="https://yakking.branchable.com/tags/truism/">truism</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/udev/">udev</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/unicode/">unicode</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/unix/">unix</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/urandom/">urandom</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/users/">users</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/vcs/">vcs</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/virtual-machine/">virtual-machine</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/virtualisation/">virtualisation</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/wiki/">wiki</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/writing/">writing</a></span>
+</li><li><span class="smallestPC"><a href="https://yakking.branchable.com/tags/xargs/">xargs</a></span>
+</li></ul>
+
+
+<hr>
+
+<p><a href="http://blogtrottr.com/?subscribe=http://yakking.branchable.com/blog/index.atom" title="Get the Yakking blog delivered to you by email"><img src="blogtrottr-button-91x17px.gif" alt="Blogtrottr"></a></p>
+
+<hr>
+
+<p><small><small></small></small></p><small><small>
+
+<p>Non-article content is copyrighted to the regular contributors.  Articles are
+copyright to their authors. Comments on articles are copyright the comment's
+author.</p>
+
+<p>By contributing a comment to the site you implicitly grant the same licence to
+your comment as is shared by the rest of the site.</p>
+
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width: 0px;" src="88x31.png"></a><br><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Yakking Blog</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://yakking.branchable.com/" property="cc:attributionName" rel="cc:attributionURL">Yakking Team</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.</p>
+
+</small></small><p><small><small></small></small></p>
+
+</div>
+
+
+
+<div id="pagebody">
+
+<div id="content">
+<p><a href="http://www.gnu.org/software/screen/">screen</a> is sometimes denounced for its bloat, usually by <a href="http://tmux.sourceforge.net/">tmux</a>
+proponents, but these features come in useful, and screen's wide
+availability makes it useful to learn these features.</p>
+
+<h1>Copying and pasting text</h1>
+
+<p><code>^A[</code> opens selection mode. This lets you scroll through your output and
+select sections by pressing enter then moving your cursor to the end of
+your selection and pressing enter again.</p>
+
+<p>You can paste the selection by pressing <code>^A]</code>, which will input the
+previously selected text, so you can save useful snippets of a command
+by copying with <code>^A[</code>, opening a text editor, and pressing <code>^A]</code> to
+paste it.</p>
+
+<h1>Customising your caption line</h1>
+
+<p>If you opened multiple screens in the same session, you will see a bar
+at the bottom listing which screens are open. This is called the
+caption bar.</p>
+
+<p>If you want to always see it, you need to run the <code>caption always</code>
+command.</p>
+
+<p>You can either add it to your <code>~/.screenrc</code> file, for it to always
+happen when you open a terminal, or invoke it directly on the screen
+command line by pressing <code>^A:</code> to open the command line, then enter
+<code>caption always</code> and press enter to run the command.</p>
+
+<p>Like your shell's prompt, the caption bar can be customised. This is
+done by entering <code>caption string $SPEC</code>.</p>
+
+<p>There are many options possible, and referring to the <a href="http://linux.die.net/man/1/screen">screen(1)</a>
+manpage is more useful than memorising them. The following example lists
+the number and title of all screens in the caption, and highlights the
+current screen in red:</p>
+
+<pre><code>caption string "%?%F%{.R.}%?%3n %t%? [%h]%?"
+</code></pre>
+
+<h1>Screen config for complicated setups</h1>
+
+<p>Instead of specifying a command to run when you start your screen session,
+you can pass a path to a configuration file to run instead.</p>
+
+<p>For example, you could put this in a config file for an <code>irssi</code> session:</p>
+
+<pre><code>$ cat &gt;irssi-screen-config &lt;&lt;EOF
+screen -t irssi irssi
+EOF
+</code></pre>
+
+<p>With this config you can then put the following command in an appropriate
+place to start services, and have your computer start an irssi session
+in a screen session on start-up.</p>
+
+<pre><code>$ screen -D -m irssi-screen-config
+</code></pre>
+
+<p>You can also use the hash-bang line of a file to turn your config file
+into a screen script.</p>
+
+<pre><code>$ cat &gt;irssi-screen-config &lt;&lt;EOF
+#!/usr/bin/screen -Dm
+screen -t irssi irssi
+EOF
+</code></pre>
+
+<!-- TODO: will screen -Dm be sufficient in hashbang line? -->
+
+
+<h1>Serial console client</h1>
+
+<p>It is common for high-end switches and development boards to have a
+serial port as a back-up control interface, so when everything else is
+failing there's still a way to diagnose, and potentially fix a problem.</p>
+
+<p>When appropriate cables have been connected, your machine will typically
+have added a <code>/dev/ttyUSB0</code> device node to represent the connection.</p>
+
+<p>Reading and writing to this device will send and recieve data along
+the serial port line. However, in typical embedded linux appliances the
+other side of the serial connection is a <a href="http://man8.org/linux/man-pages/man8/agetty.8.html">getty</a>, or login console.</p>
+
+<p>To communicate with this, you need a client application.</p>
+
+<p>Given this article is about screen, it should come as no surprise for
+me to announce that screen can act as such a client.</p>
+
+<p>Rather than doing <code>screen $COMMAND</code>, to run a command in a local tty,
+you run <code>screen /dev/ttyUSB0 115200</code>.</p>
+
+<p>See the "Window Types" section of <a href="http://linux.die.net/man/1/screen">screen(1)</a> for details about what
+the 115200 option is, and when you would need to change it.</p>
+
+<p>This is arguably a sign of bloat, that a program about terminal
+multiplexing includes a serial console client, however it's convenient,
+as screen is widely available on Linux distros.</p>
+
+<h1>Filter commands</h1>
+
+<p>Use <code>^A:</code> to open the screen command line. Enter <code>exec COMMAND</code> to run
+that command.</p>
+
+<p>A sequence of <code>!</code>, <code>.</code> or <code>:</code> symbols before the command can be used to
+specify whether the input comes from your keyboard (the screen's input)
+or the output of the command running in your screen.</p>
+
+<p>Exactly which symbols to use is a bit of a mystery, but <code>!!</code> replaces
+your shell with another program talking to the terminal. For anything
+else, see the <a href="http://linux.die.net/man/1/screen">screen(1)</a> manpage.</p>
+
+<h2>Sending files with xmodem</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/XMODEM">xmodem</a> is a protocol for file transfer over a serial connection.</p>
+
+<p>It's old and fragile, but it's simple, so development boards sometimes
+have it as a fall-back for when everything else fails.</p>
+
+<p><a href="http://linux.die.net/man/1/sz">sx(1)</a> is a tool to communicate over <a href="http://en.wikipedia.org/wiki/XMODEM">xmodem</a>. It can also do the
+<a href="http://en.wikipedia.org/wiki/YMODEM">ymodem</a> protocol by invoking it as <code>sx --ymodem</code>.</p>
+
+<p>After opening the command line with <code>^A:</code>, enter <code>exec !! sx $FILE</code>
+to send that file over xmodem.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/XMODEM">xmodem</a> isn't completely reliable, so it may be necessary to re-run
+the command.</p>
+
+</div>
+
+
+
+
+
+<div id="comments">
+
+
+
+
+<div class="addcomment">
+<a href="https://yakking.branchable.com/ikiwiki.cgi?do=comment&amp;page=posts%2Fscreen-advanced">Add a comment</a>
+</div>
+
+</div>
+
+
+
+</div>
+
+<div id="footer" class="pagefooter">
+
+<div id="pageinfo">
+
+
+<div class="trails">
+<div class="trail">
+
+<span class="trailprev">
+<span class="trailarrow">←</span>
+<a href="https://yakking.branchable.com/posts/dotfiles-in-revision-control/">Keeping your configuration safe</a>
+<span class="trailsep">|</span>
+</span>
+
+<span class="trailup">
+<a href="https://yakking.branchable.com/posts/">posts</a>
+</span>
+
+<span class="trailnext">
+<span class="trailsep">|</span>
+<a href="https://yakking.branchable.com/posts/shell-history/">Looking at the shell history</a>
+<span class="trailarrow">→</span>
+</span>
+
+</div>
+</div>
+
+
+
+
+<div class="tags">
+Tags:
+
+<a href="https://yakking.branchable.com/tags/screen/" rel="tag">screen</a>
+
+<a href="https://yakking.branchable.com/tags/shell/" rel="tag">shell</a>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="pagedate">
+Last edited <span class="relativedate" title="Wed Aug 20 11:00:12 2014">1 year and 11 months ago</span>
+<!-- Created <span class="relativedate" title="Wed, 20 Aug 2014 11:00:06 +0000">Wed Aug 20 11:00:06 2014</span> -->
+</div>
+
+</div>
+
+
+<!-- from yakking -->
+</div>
+
+</div>
+
+
+
+</body>
+</html>
