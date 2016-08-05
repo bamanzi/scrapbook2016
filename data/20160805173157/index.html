@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+   <title>Openbox Dock</title>
+   <meta name="keywords" content="linux, ubuntu, sparky linux, openbox, lxde, docklet, docker">
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body><h2><a name="index"></a>
+<a style="background-color: rgb(248, 248, 248);"><font size="5">OPENBOX DOCK</font></a></h2>
+<p>
+</p><div style="float: left; width: 180px; height: 350px; margin: 5px; background-color: rgb(248, 248, 248); font-size: 14px; color: rgb(0, 0, 0); font-weight: normal; font-style: normal; text-decoration: none; padding: 4px; border: 2px solid rgb(0, 0, 0);">
+<a href="http://lxlinux.com/index.html" target="_blank">LXDE-OPENBOX Guide</a><br>
+<a href="http://lxlinux.com/introduction.html" target="_blank">Beginner's Guide</a><br>
+<a href="http://lxlinux.com/debianlxde.html" target="_blank">Debian LXDE</a><br>
+<a href="http://lxlinux.com/manjaro.html" target="_blank">Manjaro Linux</a><br>
+<a href="http://lxlinux.com/afteropenbox.html" target="_blank">After Installing Openbox</a><br>
+<a href="http://lxlinux.com/alternatives.html" target="_blank">Alternatives &amp; Galternative</a><br>
+<a href="http://lxlinux.com/arach.html" target="_blank">Arachnophilia HTML</a><br>
+<a href="http://lxlinux.com/araneae.html" target="_blank">Araneae HTML Editor</a><br>
+<a href="http://lxlinux.com/fsviewer.html" target="_blank">FastStone Image Editor</a><br>
+<a href="http://lxlinux.com/fbpanel.html" target="_blank">Fbpanel</a><br>
+<a href="http://lxlinux.com/imagemagick.html" target="_blank">ImageMagick Editor</a><br>
+<a href="http://www.kornelix.com/mystuff.html" target="_blank">MyStuff Menu</a><br>
+<a href="#" target="_blank">Openbox Dock</a><br>
+<a href="http://lxlinux.com/openbox.html" target="_blank">Openbox Menu</a><br>
+<a href="http://lxlinux.com/obmenu-generator.html" target="_blank">Openbox Dynamical Menu</a><br>
+<a href="http://lxlinux.com/menusummary.html" target="_blank">Dynamical Menu Summary</a><br>
+<a href="http://lxlinux.com/themes.html" target="_blank">Openbox Themes</a><br>
+<a href="http://lxlinux.com/photofiltre.html" target="_blank">PhotoFiltre Editor</a><br>
+<a href="http://lxlinux.com/pmrp.html" target="_blank">Poor Mans Radio Player</a><br>
+<a href="http://lxlinux.com/changer.html" target="_blank">Wallpaper Changer</a><br>
+<a href="http://lxlinux.com/wbar.html" target="_blank">Wbar Dock</a></div>
+<div style="float: right; height: 364px; margin: 5px; background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(0, 0, 0); font-weight: normal; font-style: normal; text-align: center; text-decoration: none; padding: 4px; border: 0px solid rgb(0, 0, 0);">
+<img src="wmdrawer4.png" title="" alt="wmdrawer" width="151" height="357">&nbsp;&nbsp;&nbsp;
+<img src="autostart-docklets.png" title="" alt="autostart" width="241" height="354">
+</div>The last item on the Obconf Menu (GUI for Openbox Window Manager) is Dock, which is a special container for  prebuilt applets, which include panel trays, menus for launching applications and a multitude of applets for showing system behavior.  It is similar to Docker, the docking application built for the minimalistic <i>Window Maker</i> window manager, whose history goes back to 1997.  After many years of rest, new versions of Window Maker have recently arisen  from the ashes.   Accompanying this rebirth has been a renewed interest in Docker applets.  Many of these applets, mini-application launchers, will go right into the Openbox Dock container, sufficiently so that their use can render the need for panels, Conkies and conventional menus unnecessary.  They are also quite colorful and as such can be offered up to quiet the critics who say Openbox is so aesthetically dull.  The purpose of this artical is to present some of the better wmdocker applets that work for a Debian-based Openbox.  As I find more I will add them.<p></p>
+<p>Among these applets <b>wmdrawer, wmmount</b> and <b>wm-logout</b> deserve special attention.  Wmdrawer offers the possibilities of a complete menu (albeit, static) with just a little initial preparation. See the first image on the right.  The little (64x64 - max side = 128 pixels) wmdrawer penguin icon can be positioned anywhere in the Dock.  The tool tip will bring up the menu, positioned below the icon in this picture.  Moving the tooltip to a menu icon will show the corresponding app's name, and clicking it will launch it.  A 128 pixel wide button easily accomodates 4 columns, which could represent <i>categories</i>, of apps.  What could be quicker?  I generally reserve at least a couple of these launchers to program to open the directories containing the files associated with my current project.  This usually requires changing no more than one word in the configuration file with each project change.</p>
+<p>After installing wmdrawer, you need to put a personal configuration file in your home directory: 
+<br><br>&nbsp;&nbsp;&nbsp;<a style="background-color: rgb(255, 255, 0);">cp /usr/share/doc/wmdrawer/wmdrawerrc.example ~/.wmdrawerrc</a><br><br>
+Configuration is very easy.  Open <i>.wmdrawerrc</i> in a text editor and configure.  The app list is at the bottom and requires 3 fields for each app:  tool tip, icon and launch command.  You will need to add <i>wmdrawer</i> to Autostart, as is the case for all these applets.  See the second image on the right, which displays the autostart section for the dock pictured at the bottom of this page, where more is said about the autostart format.  Wmmount and wm-logout are not docklets, but rather apps in their own right.  They do not ride in thhe Dock, but launchers for them can be easily put directly on your panel.  Wmmount (<i>.wmmount</i>) needs to be configured for the storage partitions you want displayed.</p>
+<p>An image of a complete dock with minimal replications (2 clocks) follows:</p><center><img src="dock.png" title="" alt="dock" width="1000" height="65"></center><br>
+Information about each docklet can be obtained from the table below.  Docklets of similar type have been grouped into one image to better compare.  Otherwise, the order is roughly alphabetical.<p></p>
+<table width="98%" bgcolor="#FFFFFF" border="1" cellpadding="4" cellspacing="2"><tbody><tr><th valign="middle" align="center">Docklet</th><th valign="middle" align="center">Function</th><th valign="middle" align="center">Image</th></tr>
+<tr><th valign="middle" align="center">wmacpi</th><td valign="middle" align="center"> shows if battery is plugged in, charging, minutes of battery life remaining, and battery status (high - green, low - yellow, or critical - red)</td><td rowspan="4" valign="middle" align="center"><img src="battery.png" title="" alt="" width="250" height="150"></td></tr>		
+<tr><th valign="middle" align="center">wmbattery</th><td valign="middle" align="center">shows battery status</td></tr>		
+<tr><th valign="middle" align="center">fdpowermon</th><td valign="middle" align="center">special tray battery indicator using colored (red, yellow, green) cups</td></tr>		
+<tr><th valign="middle" align="center">docker</th><td valign="middle" align="center">system tray that alines entries in a row</td></tr>	
+<tr><th valign="middle" align="center">wmsystemtray</th><td valign="middle" align="center">system tray that alines entries in groups of 4 in 64x64 pixel squares</td><td valign="middle" align="center"><img src="wmsystemtray.png" title="" alt="wmsystemtray" width="64" height="64"></td></tr>		
+<tr><th valign="middle" align="center">wmbutton</th><td valign="middle" align="center">displays nine buttons, each of which can be configured to run three applications (left, middle, right click) - tool tip on button shows app names for that button - unable to make middle click work, so only provides launchers for a total of 18 apps instead of 27</td><td valign="middle" align="center"><img src="wmbutton.png" title="" alt="wmbutton" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">wmbubble</th><td valign="middle" align="center">more profuse the bubbles, the higher the CPU usage; the higher the water, the more memory being used</td><td valign="middle" align="center"><img src="wmbubble.png" title="" alt="wmbubble" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">wmcalc</th><td valign="middle" align="center">performs all the functions of a simple four function calculator - includes a 10 digit alpha-numeric display, and twenty buttons for user input - clicking	on the display clears the calculator</td><td valign="middle" align="center"><img src="wmcalc.png" title="" alt="wmcalc" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">pclock</th><td valign="middle" align="center">analog clock that allows different XPMs as backgrounds as well as different configurations of hands and such to match</td><td valign="middle" align="center"><img src="pclock.png" title="" alt="pclock" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">wmcalclock</th><td valign="middle" align="center">antialiased text display</td><td rowspan="7" valign="middle" align="center"><img src="wm-time.png" title="" alt="wmtime" width="435" height="126"></td></tr>		
+<tr><th valign="middle" align="center">wmdate</th><td valign="middle" align="center">64x64 pixel calendar</td></tr>		
+<tr><th valign="middle" align="center">wmclock</th><td valign="middle" align="center">digital time and 64x64 pixel calendar</td></tr>		
+<tr><th valign="middle" align="center">wmclockmon</th><td valign="middle" align="center">alarm timer and different styles</td></tr>		
+<tr><th valign="middle" align="center">wmitime</th><td valign="middle" align="center">shows standard time, date and Internet time</td></tr>		
+<tr><th><align=center valign="middle">wmmoonclock</align=center></th><td valign="middle" align="center">a small pixmap of the current phase of the moon plus ststistics</td></tr>	
+<tr><th valign="middle" align="center">wmtime</th><td valign="middle" align="center">time and date in either analog or digital mode</td></tr>		
+<tr><th valign="middle" align="center">wmcube</th><td valign="middle" align="center">shows CPU usage inluding a rotating figure that speeds up with useage</td><td valign="middle" align="center"><img src="wmcube.png" title="" alt="wmcube" width="64" height="64"></td></tr>		
+<tr><th valign="middle" align="center">wmforcast</th><td valign="middle" align="center">displays the current temperature and an icon representing the current conditions - balloon tooltip displays forecast information - right click to configure</td><td rowspan="3" valign="middle" align="center"><img src="wm-weather.png" title="" alt="wmweather" width="420" height="261"></td></tr>		
+<tr><th valign="middle" align="center">wmfrog</th><td valign="middle" align="center">displays current weather</td></tr>	
+<tr><th valign="middle" align="center">wmweather</th><td valign="middle" align="center">displays current weather - start with <b>wmweather -s KMSO</b>, with KMSO replaced with the ICAO location indicator of your nearest weather station</td></tr>	
+<tr><th valign="middle" align="center">wmforkplop</th><td valign="middle" align="center">monitors the forking activity of the kernel and displays the current 2 most CPU consuming processes</td><td valign="middle" align="center"><img src="wmforkplop.png" title="" alt="wmforkplop" width="64" height="64"></td></tr>		
+<tr><th valign="middle" align="center">wmifinfo</th><td valign="middle" align="center">shows IP address, netmask, gateway and MAC address</td><td rowspan="2" valign="middle" align="center"><img src="wmifinfo.png" title="" alt="wifiinfo" width="128" height="94"></td></tr>		
+<tr><th valign="middle" align="center">wmnd</th><td valign="middle" align="center">graph of incoming/outgoing traffic, activity indicators</td></tr>	
+<tr><th valign="middle" align="center">wmcpu</th><td valign="middle" align="center">displays a 64x64 box with CPU, Mem, Swap, Uptime</td><td rowspan="5" valign="middle" align="center"><img src="wm-system.png" title="" alt="wmsystem5" width="299" height="114"></td></tr>	
+<tr><th valign="middle" align="center">wmcpuload</th><td valign="middle" align="center">displays the current CPU usage as percentage value and chart</td></tr>		
+<tr><th valign="middle" align="center">wmmemload</th><td valign="middle" align="center">displays the current memory and swap usage as a percentage value</td></tr>		
+<tr><th valign="middle" align="center">wmmon</th><td valign="middle" align="center">CPU load, memory and swap usage meters and a display for system uptime</td></tr>	
+<tr><th valign="middle" align="center">wmtemp</th><td valign="middle" align="center">continuously displays CPU and case temperatures</td></tr>
+<tr><th valign="middle" align="center">wmsmpmon</th><td valign="middle" align="center">has two graphs for each CPU and has three different looks which can be alternated by clicking the graph</td><td valign="middle" align="center"><img src="wmsmpmon.png" title="" alt="wmsmpmon" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">wmressel</th><td valign="middle" align="center">displays the current X11 resolution and lets you change it through a popup	menu</td><td valign="middle" align="center"><img src="wmressel.png" title="" alt="wmressel" width="114" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmxres</th><td valign="middle" align="center">displays the current resolution and supposedly let's you scroll to others</td><td valign="middle" align="center"><img src="wmxres.png" title="" alt="wmxres" width="64" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmmount</th><td valign="middle" align="center">display free space on file systems and by 			clicking on it you can mount and unmount file systems - very handy tool but is independent of the dock</td><td valign="middle" align="center"><img src="wmmount.png" title="" alt="wmmount" width="73" height="96"></td></tr>
+<tr><th valign="middle" align="center">wmwifi</th><td valign="middle" align="center">monitors wifi network interfaces</td><td valign="middle" align="center"><img src="wmwifi.png" title="" alt="wmwifi" width="64" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmwork</th><td valign="middle" align="center">work timer</td><td valign="middle" align="center"><img src="wmwork.png" title="" alt="wmwork" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">wm-logout</th><td valign="middle" align="center">panel applet, does not go on dock - does logout, suspend, hibernate, hybrid_suspend, reboot, power_off, force_power_off</td><td valign="middle" align="center"><img src="wm-logout.png" title="" alt="wmlogot" width="93" height="96"></td></tr>
+
+<tr><th colspan="3" valign="middle" align="center">Following are Untested Applets (by me) Arranged Alphabetically</th></tr>	
+<tr><th valign="middle" align="center">aclock.app</th><td valign="middle" align="center">analog clock with display of smooth seconds</td><td valign="middle" align="center"><img src="aclock.png" title="" alt="aclock" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">ascd</th><td valign="middle" align="center">small CD player and mixer, stays outside of dock</td><td valign="middle" align="center"><img src="ascd.png" title="" alt="ascd" width="46" height="64"></td></tr>
+<tr><th valign="middle" align="center">asclock</th><td valign="middle" align="center">displays the time of the day (digital, either 12 or 24 hour format), and the date; and provides three alternatives: one suitable for low color systems, one with "real" NeXTStep colors, and the third one is somewhat in between</td><td valign="middle" align="center"><img src="asclock.png" title="" alt="asclock" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">asmon</th><td valign="middle" align="center">CPU load average, mem, swap and X mem usage and a graph for current			CPU useage</td><td valign="middle" align="center"><img src="asmon.png" title="" alt="asmon" width="163" height="85"></td></tr>
+<tr><th valign="middle" align="center">wmbiff</th><td valign="middle" align="center">displays the number of read and unread messages in multiple mailboxes</td><td valign="middle" align="center"><img src="wmbiff.png" title="" alt="" width="64" height="65"></td></tr>
+<tr><th valign="middle" align="center">wmcdplay</th><td valign="middle" align="center">extremely customizable, provides great control</td><td valign="middle" align="center"><img src="wmcdplay.png" title="" alt="" width="64" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmibam</th><td valign="middle" align="center">monitors the apm status using the intellegent battery monitor (ibam)</td><td valign="middle" align="center"><img src="wmibam.png" title="" alt="wmibam" width="64" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmix</th><td valign="middle" align="center">allows toggling record source, muting individual channels, adjusting volume and balance</td><td valign="middle" align="center"><img src="wmix.png" title="" alt="wmix" width="64" height="64"></td></tr>	
+<tr><th valign="middle" align="center">wmmixer</th><td valign="middle" align="center">stereo volume control and a recording source 			toggle button</td><td valign="middle" align="center"><img src="wmmixer.png" title="" alt="wmmixer" width="167" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmrack</th><td valign="middle" align="center">combines a CD player and a mixer in one 48x48 window</td><td valign="middle" align="center"><img src="wmrack.png" title="" alt="wmrack" width="128" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmsun</th><td valign="middle" align="center">displays the current day's sun rise and set times</td><td valign="middle" align="center"><img src="wmsun.png" title="" alt="wmsun" width="64" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmtictactoe</th><td valign="middle" align="center">allows you to play TicTacToe against another human or the computer</td><td valign="middle" align="center"><img src="wmtictactoe.png" title="" alt="" width="64" height="64"></td></tr>
+<tr><th valign="middle" align="center">wmtv</th><td valign="middle" align="center">supports channel presets, PAL/SECAM/NTSC, fine tuning, scanning of TV stations, use of external TV applications, and more</td><td valign="middle" align="center"><img src="wmtv.png" title="" alt="wmtv" width="64" height="64"></td></tr>				
+<tr><th valign="middle" align="center">wmwave</th><td valign="middle" align="center">display statistical information about a current wireless or ethernet connection</td><td valign="middle" align="center"><img src="wmwave.png" title="wmwave" alt="" width="64" height="64"></td></tr>	
+
+<tr><th valign="middle" align="center"></th><td valign="middle" align="center"></td><td valign="middle" align="center"></td></tr>
+</tbody></table>	
+<p></p><p></p><center><img src="openbox-dock.png" title="" alt="openbox-dock" width="1200" height="100"></center><br>
+Each docklet launcher needs to be put in the Openbox Autostart (~/.config/openbox/autostart.sh) with its own time delay which will define its relative position along the Dock.  The autostart image on the upper right launches the dock immediately pictured above. I included my minimized Conky in this picture (right side in green) just to show how nicely everything can be fitted.
+
+
+
+
+</body>
+</html>
