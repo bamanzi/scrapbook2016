@@ -1,0 +1,1016 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+
+<meta name="author" content="raf">
+<meta name="modified" content="Thu Jul 15 10:17:20 EST 2010">
+<meta name="description" content="daemon - turns other processes into daemons">
+<meta name="keywords" content="daemon, daemonise, daemonize, server, service, libslack, linux, redhat, fedora, debian, ubuntu, bsd, openbsd, freebsd, netbsd, solaris, opensolaris, osx, macosx, unix">
+<title>
+daemon
+</title>
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body alink="#cc0000" bgcolor="#ffffff" link="#0000cc" text="#000000" vlink="#6666cc">
+<div align="center">
+<h1><a href="http://libslack.org/daemon/">daemon</a></h1>
+<font size="+1">
+turns other processes into daemons
+</font>
+</div>
+<br>
+<hr>
+<div align="center">
+<a href="#what_is_daemon">What is daemon?</a>
+| <a href="#features">Features</a>
+| <a href="#supported_platforms">Supported Platforms</a>
+| <a href="#documentation">Documentation</a>
+| <a href="#download">Download</a>
+| <a href="#mailing_lists">Mailing Lists</a>
+</div>
+<hr>
+<h2><a name="what_is_daemon">What is daemon?</a></h2>
+<p>
+<em>Daemon</em> turns other process into daemons. There are many tasks that
+need to be performed to correctly set up a daemon process. This can be tedious.
+<em>Daemon</em> performs these tasks for other processes. This is useful for
+writing daemons in languages other than C, C++ or Perl (e.g. /bin/sh, Java).
+</p>
+<p>
+If you want to write daemons in languages that can link against C functions
+(e.g. C, C++), see <a href="http://libslack.org/">libslack</a> which contains
+the core functionality of <em>daemon</em>.
+</p>
+<p>
+<em>Daemon</em> is freely available under the
+<a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a>.
+</p>
+<h2><a name="features">Features</a></h2>
+<ul>
+	<li>
+		<p>
+		Sets up the correct process context for a daemon.
+		</p>
+	</li>
+	<li>
+		<p>
+		Behaves sensibly when started by <em>initd(8)</em> or <em>inetd(8)</em>.
+		</p>
+	</li>
+	<li>
+		<p>
+		Revokes any suid or sgid privileges to reduce security risks
+		in case <em>daemon</em> is incorrectly installed with special
+		privileges.
+		</p>
+	</li>
+	<li>
+		<p>
+		Prevents the generation of core files to prevent leaking sensitive
+		information from daemons run as root (optional).
+		</p>
+	</li>
+	<li>
+		<p>
+		Names the daemon by creating and locking a PID file to guarantee that
+		only one daemon with the given name can execute at any given time
+		(optional).
+		</p>
+	</li>
+	<li>
+		<p>
+		Sets the user and group under which to run the daemon (optional,
+		root only).
+		</p>
+	</li>
+	<li>
+		<p>
+		Creates a chroot gaol (optional, root only).
+		</p>
+	</li>
+	<li>
+		<p>
+		Captures the daemon's stdout and stderr and directs them to syslog
+		(optional).
+		</p>
+	</li>
+	<li>
+		<p>
+		Respawns the daemon when it terminates (optional).
+		</p>
+	</li>
+	<li>
+		<p>
+		Configuration file to define default options for different daemons
+		(optional).
+		</p>
+	</li>
+</ul>
+<p>
+For more information read the <a href="#documentation">Documentation</a>.
+</p>
+<h2><a name="supported_platforms">Supported Platforms</a></h2>
+<p>
+Currently, <em>daemon</em> is only known to compile and work on:
+</p>
+<ul>
+    <li>Linux 2.6 (i386, x86_64, debian-5.0.4, ubuntu-10.04, fedora-13)</li>
+    <li>Solaris 10 10/09 (i386, amd64)</li>
+    <li>OpenSolaris 2009/06 (i386, amd64)</li>
+    <li>OpenBSD 4.7 (i386, amd64)</li>
+    <li>FreeBSD 8.0 (i386, amd64)</li>
+    <li>NetBSD 5.0.2 (i386, amd64)</li>
+    <li>MacOSX 10.{4,5,6} (i386, x86_64, ppc)</li>
+    <li>kFreeBSD 20090729 (i386)</li>
+</ul>
+<p>
+It is written in ISO C using POSIX almost exclusively except for some BSD
+functions that appear on most systems (e.g. sockets). So it shouldn't be
+difficult to get it working on other (recent) systems that support ISO C,
+POSIX and XPG4.
+</p>
+<h2><a name="documentation">Documentation</a></h2>
+<p>
+There is a README file and a manual entry:
+</p>
+<table>
+	<tbody><tr valign="top">
+		<td align="right"><a href="http://libslack.org/daemon/README"><code>README</code></a></td>
+		<td>-</td>
+		<td>Description, Install, Requirements, Copying, History</td>
+	</tr>
+	<tr valign="top">
+		<td align="right"><a href="http://libslack.org/daemon/manpages/daemon.1.html"><code>daemon(1)</code></a></td>
+		<td>-</td>
+		<td>
+			turns other processes into daemons
+			(<a href="http://libslack.org/daemon/sources/daemon.c">source</a>)
+		</td>
+	</tr>
+</tbody></table>
+<h2><a name="download">Download</a></h2>
+<table>
+	<tbody><tr valign="top">
+		<td rowspan="19" align="right">
+			Latest:
+		</td>
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4.tar.gz"><code>daemon-0.6.4.tar.gz</code> (final)</a>
+		</td>
+		<td align="left">
+			(<code>MD5 6cd0a28630a29ac279bc501f39baec66</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-original.tar.gz"><code>daemon-0.6.4-original.tar.gz</code> (mistake)</a>
+		</td>
+		<td align="left">
+			(<code>MD5 4f8e6b8767fe59ee8fe537c04e8a2ebd</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4.html.tar.gz"><code>daemon-0.6.4.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 4490d6ab18eb71e6745136e0543ee099</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-1.src.rpm"><code>daemon-0.6.4-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f709d8919f414bb0e2f253fac19b1e26</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-1.x86_64.rpm"><code>daemon-0.6.4-1.x86_64.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 6fcf615ee7f9b4dc4469db8bfcb400cf</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-1.i686.rpm"><code>daemon-0.6.4-1.i686.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 56c6dac5e5cca8faaf2bebca38cf7e00</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-openbsd-amd64.tgz"><code>daemon-0.6.4-openbsd-amd64.tgz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 e93429d19d97bbe22b25375d18cd66e2</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-openbsd-i386.tgz"><code>daemon-0.6.4-openbsd-i386.tgz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 10d3d1d1a82343fee91e761dbcc315ee</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-freebsd-amd64.tbz"><code>daemon-0.6.4-freebsd-amd64.tbz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 4da6aa2923023f9d6a2fc8f468ef6cbe</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-freebsd-i386.tbz"><code>daemon-0.6.4-freebsd-i386.tbz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7769b5ca0b6bcc857dae5dea7a08ff85</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-netbsd-amd64.tgz"><code>daemon-0.6.4-netbsd-amd64.tgz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7d8b8814d29a4ff2a8abe489be29f950</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-netbsd-i386.tgz"><code>daemon-0.6.4-netbsd-i386.tgz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 a8f46d57414fa96be9b9a3009e23d199</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-macosx-universal.tar.gz"><code>daemon-0.6.4-macosx-universal.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 79c571cfd7632d810270c510daba62a2</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-macosx-x86_64.tar.gz"><code>daemon-0.6.4-macosx-x86_64.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 5d9762f560086ad3e29b3647beccef2c</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-macosx-i386.tar.gz"><code>daemon-0.6.4-macosx-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 55b33dad7f0eeab1cace5114afa6e4d5</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-macosx-powerpc.tar.gz"><code>daemon-0.6.4-macosx-powerpc.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 58390ad1ee9bd5fabb3ec58a896ab2a2</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-macosx-10.4-powerpc.tar.gz"><code>daemon-0.6.4-macosx-10.4-powerpc.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 6fbd4d2a1fb63cb04a24aeffe9dd62d4</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-solaris-amd64.pkg.gz"><code>daemon-0.6.4-solaris-amd64.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7e9ff1028cd08e54b1764e35c0bcb965</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.4-solaris-i386.pkg.gz"><code>daemon-0.6.4-solaris-i386.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 98582c0799bf7ab1e5b6fc6d3f9c4420</code>)
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr valign="top">
+		<td rowspan="67" align="right">
+			Previous:
+		</td>
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3.tar.gz"><code>daemon-0.6.3.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 d2f3001b20bb035d55202f1945c0a0ee</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3.html.tar.gz"><code>daemon-0.6.3.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f47aefff09d3b54b166d772825c2815c</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3-1.src.rpm"><code>daemon-0.6.3-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 fc02af8dd1f39f2d667d8b8ee79196e5</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3-1.i386.rpm"><code>daemon-0.6.3-1.i386.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 69e20396799c9ed5539ab8292b4aa798</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3-obsd-i386.tar.gz"><code>daemon-0.6.3-obsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 6d3eff03c104c74bbbebec99a6e0c55f</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3-fbsd-i386.tar.gz"><code>daemon-0.6.3-fbsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 15ac1cd3c4d7b4a7eb838de250520af8</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3-osx-powerpc.tar.gz"><code>daemon-0.6.3-osx-powerpc.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 47ac5d783eac55d42c5fe5d2eafe3d9e</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.3.sun4u.pkg.gz"><code>daemon-0.6.3.sun4u.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 852638de5d25d5f92a671dd5ffb3f680</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.3-0_i386.deb"><code>daemon_0.6.3-0_i386.deb</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 da5d3e94833e26d3758dd7229eb0d11d</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.3.orig.tar.gz"><code>daemon_0.6.3.orig.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7ce27b16774362d654617c3d8bccbce5</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.3-0.diff.gz"><code>daemon_0.6.3-0.diff.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 54c79cfe926e039f60a93898a43fa020</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.3-0.dsc"><code>daemon_0.6.3-0.dsc</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 4cf83907cbb7e99ca07b44df60aef809</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.3-0_i386.changes"><code>daemon_0.6.3-0_i386.changes</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 99dd14b45bb6bd45b192d09387a1318d</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2.tar.gz"><code>daemon-0.6.2.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 322e474d52feb9773f50b906c441ec82</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2.html.tar.gz"><code>daemon-0.6.2.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 cc1687a5331d10da0c18ea515d5ac806</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2-1.src.rpm"><code>daemon-0.6.2-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 d40aca50e5bd75037fc78802b6b4a784</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2-1.i386.rpm"><code>daemon-0.6.2-1.i386.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 110bc2d6d69df907bc5afef58652023d</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2-obsd-i386.tar.gz"><code>daemon-0.6.2-obsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 dc8c17ef8078a75ad11a38a1ef31f9cd</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2-fbsd-i386.tar.gz"><code>daemon-0.6.2-fbsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 04966106a71e6932c5c510250c4689ed</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2-osx-powerpc.tar.gz"><code>daemon-0.6.2-osx-powerpc.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 270ac76e4c8855bcbf0571244e102b56</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2.sun4u.pkg.gz"><code>daemon-0.6.2.sun4u.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 0ad9cf542fde82df75d5f991e8d6cca0</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.2.i86pc.pkg.gz"><code>daemon-0.6.2.i86pc.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 669429b7b510943b6aaf1018e915bfcc</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.2-0_i386.deb"><code>daemon_0.6.2-0_i386.deb</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 d0234a94cdd1884356dacdf851fb19e0</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.2.orig.tar.gz"><code>daemon_0.6.2.orig.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 b515bda161c5685f83e3dde698d4ad07</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.2-0.diff.gz"><code>daemon_0.6.2-0.diff.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 1214e262f77db19d5ce5163a4c33304e</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.2-0.dsc"><code>daemon_0.6.2-0.dsc</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 67f39eb955220e8537badcafad256d2c</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.2-0_i386.changes"><code>daemon_0.6.2-0_i386.changes</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 507b493061d072b91a818a45c6842404</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1.tar.gz"><code>daemon-0.6.1.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 3872efc6490c433aa11766c1a8b66c35</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1.html.tar.gz"><code>daemon-0.6.1.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f7d23ad6c89304fe34bdf7951f946a56</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1-1.src.rpm"><code>daemon-0.6.1-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 69a5644872fadb261ad9cee0bf816675</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1-1.i386.rpm"><code>daemon-0.6.1-1.i386.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 b0cd5f7117b67bce57bcf1943d404d0d</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1-obsd-i386.tar.gz"><code>daemon-0.6.1-obsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 23103ee1a5e474f06a2f967da29b6ab7</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1-fbsd-i386.tar.gz"><code>daemon-0.6.1-fbsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 29d329d05cbd8bdfcd6dc8ae52de38ff</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.1.sun4u.pkg.gz"><code>daemon-0.6.1.sun4u.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 13f040d6b7a191ae820da8b2577145e3</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.1-0_i386.deb"><code>daemon_0.6.1-0_i386.deb</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 3d9e9a4d9e77d418dff62e8a44356d21</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.1.orig.tar.gz"><code>daemon_0.6.1.orig.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7cf1f61d4808b533cd68b19bac641347</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.1-0.diff.gz"><code>daemon_0.6.1-0.diff.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 e7d645663ad02e2a069641f08ffabc4d</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.1-0.dsc"><code>daemon_0.6.1-0.dsc</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f5630fcba81eaf6856de455b80edb614</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.1-0_i386.changes"><code>daemon_0.6.1-0_i386.changes</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 b868ebcbb18d700716541f88879b50f1</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.tar.gz"><code>daemon-0.6.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 4e53183c2ed050516aa544ae3aa12600</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.html.tar.gz"><code>daemon-0.6.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 5e3d18840dac65cc0ed78ec5314ae6cf</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6-1.src.rpm"><code>daemon-0.6-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 894c1ff8448de06c3e53c6bcfee0f4b0</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6-1.i386.rpm"><code>daemon-0.6-1.i386.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 ec477cdb745dad3f01ec9557d8a25711</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6-obsd-i386.tar.gz"><code>daemon-0.6-obsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f4803939a95b51df5028f1bef20677dd</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6-fbsd-i386.tar.gz"><code>daemon-0.6-fbsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 0d762ecbc70178514f0d71a16c89f079</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.6.sun4u.pkg.gz"><code>daemon-0.6.sun4u.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7affdae1fc4b27a11a00a4de792426c5</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6-1_i386.deb"><code>daemon_0.6-1_i386.deb</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 ee975e2fd0dfe91308c2058e3eb9de98</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6.orig.tar.gz"><code>daemon_0.6.orig.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 9a5022348ad1b045b982eb9f3a4e5650</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6-1.diff.gz"><code>daemon_0.6-1.diff.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f0a48e2436fb547e3d1736a4a9ba9253</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6-1.dsc"><code>daemon_0.6-1.dsc</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 511cffc27a023b5d56ae0799047f3eaa</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.6-1_i386.changes"><code>daemon_0.6-1_i386.changes</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 db627e394122e58460a9104ab9220666</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.5.tar.gz"><code>daemon-0.5.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 c7373d710be297c4263f9ab429f74e43</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.5.html.tar.gz"><code>daemon-0.5.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7a55d42f3d4f1e3bfb3215557221dfb5</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.5_i386.deb"><code>daemon_0.5_i386.deb</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 cbf9e7eabaaede7fce064ac6b68c6fb6</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.5-1.i386.rpm"><code>daemon-0.5-1.i386.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 7a19d1445a354f862e21ce04309069ea</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.5-1.src.rpm"><code>daemon-0.5-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 a839aedfa03c54bbd75d2f53cce612bb</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.5-obsd-i386.tar.gz"><code>daemon-0.5-obsd-i386.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 712b2b78dcc6a2d4158586111f554407</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.5.sun4u.pkg.gz"><code>daemon-0.5.sun4u.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 f48a1259e567d34a646862551bcf2c39</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.4.tar.gz"><code>daemon-0.4.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 8895f48c0248e5da8b71443a9366871a</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.4.html.tar.gz"><code>daemon-0.4.html.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 e9a5ec1a1096826399824841b857eb64</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon_0.4_i386.deb"><code>daemon_0.4_i386.deb</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 5134fa40ecfc412189e9a33963ca9dc7</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.4-1.i386.rpm"><code>daemon-0.4-1.i386.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 d99f3c190adaa167a6e98b91cfb89425</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.4-1.src.rpm"><code>daemon-0.4-1.src.rpm</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 fc1fb4236479fb3c243f5f8d0a371a82</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.4.sun4u.pkg.gz"><code>daemon-0.4.sun4u.pkg.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 aa0917ffb07cbabe1b7d1509a94d0fab</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.3.tar.gz"><code>daemon-0.3.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 74b334cf7610955a327cb976b0b14037</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.2.tar.gz"><code>daemon-0.2.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 30f632a578a8f56f829b24ebbb3b91cc</code>)
+		</td>
+	</tr>
+	<tr valign="top">
+		<td align="left">
+			<a href="http://libslack.org/daemon/download/daemon-0.1.tar.gz"><code>daemon-0.1.tar.gz</code></a>
+		</td>
+		<td align="left">
+			(<code>MD5 6f5628fb590fd11e2a9fe2210835131d</code>)
+		</td>
+	</tr>
+</tbody></table>
+<h2><a name="mailing_lists">Mailing Lists</a></h2>
+<p>
+If you'd like to be kept up to date with <em>daemon</em> releases or have
+questions or suggestions, you can join one or more of the following mailing
+lists (<tt>@libslack.org</tt>).
+</p>
+<table>
+	<tbody><tr>
+		<td rowspan="3" width="60">&nbsp;</td>
+		<td>
+			<tt>daemon-announce</tt>
+		</td>
+		<td>
+			(Announcements)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<tt>daemon-users</tt>
+		</td>
+		<td>
+			(User forum)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<tt>daemon-dev</tt>
+		</td>
+		<td>
+			(Development forum)
+		</td>
+	</tr>
+</tbody></table>
+<p>
+To subscribe to any of these mailing lists, send a mail message to
+<tt><em>listname</em>-request@libslack.org</tt> with <tt>subscribe</tt>
+as the message body.
+</p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="60">&nbsp;</td>
+<td>
+<table border="1" cellpadding="5" cellspacing="0">
+	<tbody><tr>
+		<td>
+			<tt>
+			$ echo subscribe | mail daemon-announce-request@libslack.org
+			<br>
+			$ echo subscribe | mail daemon-users-request@libslack.org
+			<br>
+			$ echo subscribe | mail daemon-dev-request@libslack.org
+			</tt>
+		</td>
+	</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+<p>
+Or you can send a mail message to <tt>majordomo@libslack.org</tt> with
+<tt>subscribe&nbsp;<em>listname</em></tt> in the message body.
+This way, you can include multiple subscribe commands to subscribe
+to multiple lists at the same time.
+</p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="60">&nbsp;</td>
+<td>
+<table border="1" cellpadding="5" cellspacing="0">
+	<tbody><tr>
+		<td>
+			<tt>
+			$ mail majordomo@libslack.org
+			<br>
+			subscribe daemon-announce
+			<br>
+			subscribe daemon-users
+			<br>
+			subscribe daemon-dev
+			<br>
+			.
+			</tt>
+		</td>
+	</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+<p>
+A digest version of each mailing list is also available. Subscribe to
+digests as above but append <tt>-digest</tt> to the listname.
+</p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="60">&nbsp;</td>
+<td>
+<table border="1" cellpadding="5" cellspacing="0">
+	<tbody><tr>
+		<td>
+			<tt>
+			$ echo subscribe | mail daemon-announce-digest-request@libslack.org
+			<br>
+			$ echo subscribe | mail daemon-users-digest-request@libslack.org
+			<br>
+			$ echo subscribe | mail daemon-dev-digest-request@libslack.org
+			</tt>
+		</td>
+	</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+<p>
+Or
+</p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="60">&nbsp;</td>
+<td>
+<table border="1" cellpadding="5" cellspacing="0">
+	<tbody><tr>
+		<td>
+			<tt>
+			$ mail majordomo@libslack.org
+			<br>
+			subscribe daemon-announce-digest
+			<br>
+			subscribe daemon-users-digest
+			<br>
+			subscribe daemon-dev-digest
+			<br>
+			.
+			</tt>
+		</td>
+	</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+<p>
+Note that these are all extremely low volume mailing lists so there's not
+much use for the digest lists.
+</p>
+<hr>
+<div align="center">
+<a href="#what_is_daemon">What is daemon?</a>
+| <a href="#features">Features</a>
+| <a href="#supported_platforms">Supported Platforms</a>
+| <a href="#documentation">Documentation</a>
+| <a href="#download">Download</a>
+| <a href="#mailing_lists">Mailing Lists</a>
+</div>
+<hr>
+Last modified by raf at
+Thu Jul 15 10:17:20 EST 2010
+<div align="right">
+<a href="http://validator.w3.org/check?url=http://libslack.org/daemon/">v</a>
+</div>
+
+
+</body>
+</html>
