@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/Article" itemscope="">
+<head>
+<meta charset="UTF-8">
+<link href="https://plus.google.com/100292833634918081724" rel="publisher">
+<title>How to Install Ubuntu Linux on Your Chromebook with Crouton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="fb:page_id" content="65878196434">
+<meta name="verify-v1" content="WiU7236KQY8e6jcxePbZscPXDuMvJ3b9ydseGd4G5AE=">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta name="REVISIT-AFTER" content="1 DAYS">
+<link rel="alternate" type="application/rss+xml" title="How-To Geek RSS Feed" href="http://feeds.howtogeek.com/HowToGeek">
+<meta property="og:title" itemprop="name" name="title" content="How to Install Ubuntu Linux on Your Chromebook with Crouton">
+<meta property="og:type" content="article">
+<meta property="og:description" name="og:description" itemprop="og:description" content="Chromebooks aren’t “just a browser” — they’re Linux laptops. You can easily install a full Linux desktop alongside Chrome OS and instantly switch between the two with a hotkey — no rebooting necessary.">
+<meta property="og:image" content="http://www.howtogeek.com/thumbcache/280/160/a1b5e5964f15d2795419233ad2d7e894/wp-content/uploads/2013/04/linux-installed-on-chromebook.jpg">
+<link rel="image_src" href="http://www.howtogeek.com/thumbcache/280/160/a1b5e5964f15d2795419233ad2d7e894/wp-content/uploads/2013/04/linux-installed-on-chromebook.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@howtogeek">
+<meta name="twitter:title" content="How to Install Ubuntu Linux on Your Chromebook with Crouton">
+<meta name="twitter:description" content="Chromebooks aren’t “just a browser” — they’re Linux laptops. You can easily install a full Linux desktop alongside Chrome OS and instantly switch between the two with a hotkey — no rebooting necessary.">
+<meta name="twitter:image:src" content="http://www.howtogeek.com/thumbcache/648/248/8ad2fd0a1358413590c38ddf291e9234/wp-content/uploads/2013/04/linux-installed-on-chromebook.jpg">
+
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+	
+<link rel="https://api.w.org/" href="http://www.howtogeek.com/wp-json/">
+<link rel="shortlink" href="http://www.howtogeek.com/?p=162120">
+<link rel="alternate" type="application/json+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F162120%2Fhow-to-install-ubuntu-linux-on-your-chromebook-with-crouton%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F162120%2Fhow-to-install-ubuntu-linux-on-your-chromebook-with-crouton%2F&amp;format=xml">
+<link rel="canonical" href="http://www.howtogeek.com/162120/how-to-install-ubuntu-linux-on-your-chromebook-with-crouton/">
+<meta property="og:url" content="http://www.howtogeek.com/162120/how-to-install-ubuntu-linux-on-your-chromebook-with-crouton/">
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="v3">
+<div style="text-align: center; min-height: 90px; z-index: 999999; margin-right: auto; margin-left: auto; position: relative;" class="adslot adslot970">
+<div id="htgyl11">
+<div id="purch_Y_L_1_1"></div>
+</div>
+</div>
+<div id="doc4" class="yui-t7">
+<div id="hd">
+<div id="htgHeader" style="border-top: 4px solid rgb(23, 34, 50);">
+<div class="logo" style="">
+<h1 id="printH1">How-To Geek</h1><a href="http://www.howtogeek.com/" class="home"><img src="data:image/gif;base64,R0lGODlhAQABAIAAADoSLQAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="How-To Geek"></a>
+<div style="float: right; width: 450px;">
+<ul class="bigmenu">
+<li class="menubaritem">Articles <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu">
+<div class="subMenuArticles">
+<div class="smawrap">
+<a href="http://www.howtogeek.com/264594/your-computer-doesnt-care-if-you-lose-everything-back-it-up-right-now/" align="left" class="title" rel="bookmark"><span><img src="xstandard-header-1.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.mBwjK-uxLC.jpg"></span></a>
+<a href="http://www.howtogeek.com/264594/your-computer-doesnt-care-if-you-lose-everything-back-it-up-right-now/" class="title" rel="bookmark">Your Computer Doesn’t Care If You Lose Everything: Back It Up Right Now</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/100289/how-to-create-a-bootable-offline-version-of-windows-defender/" align="left" class="title" rel="bookmark"><span><img src="ximg_57a1083dc977d.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.-1EjdYSLpe.png"></span></a>
+<a href="http://www.howtogeek.com/100289/how-to-create-a-bootable-offline-version-of-windows-defender/" class="title" rel="bookmark">How to Find and Remove Malware With Windows Defender Offline</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/howto/5529/how-to-keep-your-new-windows-7-computer-updated-and-secure/" align="left" class="title" rel="bookmark"><span><img src="xwu_top-650x300.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.-TSpDNhp87.png"></span></a>
+<a href="http://www.howtogeek.com/howto/5529/how-to-keep-your-new-windows-7-computer-updated-and-secure/" class="title" rel="bookmark">How to Keep Your Windows PC and Apps Up to Date</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/262758/is-downloading-retro-video-game-roms-ever-legal/" align="left" class="title" rel="bookmark"><span><img src="xgaming-controllers-nes-sega.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.vbU8LuBHn8.jpg"></span></a>
+<a href="http://www.howtogeek.com/262758/is-downloading-retro-video-game-roms-ever-legal/" class="title" rel="bookmark">Is Downloading Retro Video Game ROMs Ever Legal?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</li>
+<li class="menubaritem">Subscribe <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu" style="padding-bottom: 10px;">
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>FOLLOW US</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-twitter" href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0" target="_blank">TWITTER</a></h2></li>
+<li><h2><a class="icon-google-plus" href="http://plus.google.com/+howtogeek">GOOGLE+</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-facebook" href="http://facebook.com/thehowtogeek" rel="nofollow">FACEBOOK</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<div id="subemsub" class="submenudetail sm400 noclick" style="padding-bottom: 20px;">
+<div id="emquest"><div class="fs1" aria-hidden="true" data-icon=""></div></div>
+<span>GET UPDATES BY EMAIL</span>
+<form action="http://www.howtogeek.com/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="topmenu" type="hidden">
+<input id="fromaddress" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<p style="font-family: 'Open Sans'; text-transform: none;">Enter your email below to get exclusive access to our best articles and tips before everybody else.</p>
+<p><input id="from" name="email" value="Enter Your Email Here" style="width: 200px; color: rgb(187, 187, 187); margin-left: 59px; font-family: 'Open Sans'; text-transform: none;" type="text"><input id="sub1" name="sub1" value="Get Your Newsletter Now" style="background: none repeat scroll 0% 0% rgb(85, 168, 223); margin-left: 59px; width: 212px; margin-top: 6px; font-family: 'Open Sans'; text-transform: none;" type="submit"></p>
+<div style="clear: both;"></div>
+</form>
+</div>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>RSS</h4>
+<ul style="width: 130px;">
+<li><h2><a class="icon-feed" href="http://feeds.howtogeek.com/howtogeek">ALL ARTICLES</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/features/feed/" rel="nofollow">FEATURES ONLY</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 150px;">
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/trivia/feed/" rel="nofollow">TRIVIA</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+<li class="menubaritem">Search <span class="icon-magnifying-glass" style="padding-left: 10px; font-size: 16px;"></span>
+<div class="subMenu" style="padding: 20px; text-align: center;">
+<form action="http://www.howtogeek.com/search/" method="get" id="sea">
+<input name="q" id="s" value="" style="width: 900px; height: 40px; line-height: 40px; border: 1px solid rgb(204, 204, 204);" type="text">
+<input id="searchsubmit" value="Go" style="height: 42px; border: 1px solid rgb(204, 204, 204); font-family: 'Open Sans'; font-size: 16px; padding: 10px; background: none repeat scroll 0% 0% rgba(196, 230, 237, 0.99); border-radius: 0px 5px 5px 0px;" type="submit">
+</form>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="bd">
+<div class="yui-g" id="headerpanel"></div>
+<div class="yui-ge">
+<div class="yui-u first">
+<div class="content" id="htgArticle">
+<h1 id="printHeader" style="display: none;">How-To Geek</h1>
+<!-- abovepost -->
+<div class="thepost" id="post-162120">
+
+<h2 style="margin-top: 10px;"><a style="font-family: 'Open Sans',sans-serif;" href="#" rel="bookmark" title="How to Install Ubuntu Linux on Your Chromebook with Crouton">How to Install Ubuntu Linux on Your Chromebook with Crouton</a></h2>
+<div class="thecontent">
+<!-- google_ad_section_start -->
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="linux-installed-on-chromebook" alt="linux-installed-on-chromebook" src="650x300xlinux-installed-on-chromebook.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.GPRFnoUdDp.jpg" width="650" border="0" height="300"></p>
+<p>Chromebooks aren’t “just a browser” — they’re Linux laptops. You can easily install a full Linux desktop alongside <a href="http://www.howtogeek.com/161662/living-with-a-chromebook-can-you-live-with-just-a-chrome-browser/">Chrome OS</a> and instantly switch between the two with a hotkey — no rebooting necessary.</p>
+<p>We performed this process with the $249 Samsung Chromebook, also known as the Samsung Series 3 Chromebook. If you have another Chromebook, read on anyway — it’s the same process.</p>
+<h3>Crouton vs. ChrUbuntu</h3>
+<p>Installing Ubuntu Linux on your Chromebook isn’t as simple as installing the standard Ubuntu system — at least not at the moment. You’ll need to choose a project developed specially for your Chromebook. There are two popular options:</p>
+<ul>
+<li><strong>ChrUbuntu</strong>: <a href="http://chromeos-cr48.blogspot.fr/">ChrUbuntu</a> is a Ubuntu system built for Chromebooks. It works like a traditional dual-boot system. You can restart your Chromebook and choose between Chrome OS and Ubuntu at boot time. ChrUbuntu can be installed on your Chromebook’s internal storage or on a USB device or SD card.</li>
+<li><strong>Crouton</strong>: <a href="https://github.com/dnschneid/crouton">Crouton</a> actually uses a “chroot” environment to run both Chrome OS and Ubuntu at the same time. Ubuntu runs alongside Chrome OS, so you can switch between Chrome OS and your standard Linux desktop environment with a keyboard shortcut. This gives you the ability to take advantage of both environments without any rebooting needed. Crouton allows you to use Chrome OS while having a standard Linux environment with all its command-line tools and desktop applications a few keystrokes away.</li>
+</ul>
+<p>We’ll be using Crouton for this. It takes advantage the Linux system underlying Chrome OS to run both environments at once and is a much slicker experience than traditional dual-booting. Crouton uses Chrome OS’s standard drivers for your Chromebook’s hardware, so you shouldn’t run into issues with your touchpad or other hardware. Crouton was actually created by Google employee Dave Schneider.</p>
+<p>When you use Crouton, you’re actually just running one operating system — Linux. However, you’re running two environments on top of the OS — Chrome OS and a traditional Linux desktop.</p>
+<div id="div-thetop1" style="margin-top: 5px; margin-bottom: 15px;">
+
+<!-- htg-desktop-top -->
+<ins class="adsbygoogle" style="display: inline-block; width: 650px; height: 141px;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="1477883008"></ins>
+
+</div>
+<h3>Enabling Developer Mode</h3>
+<p>Before you do any sort of hacking, you’ll need to enable “Developer Mode” on your Chromebook. Chromebooks are normally locked down for security, only booting properly signed operating systems, checking them for tampering, and preventing users and applications from modifying the underlying OS. Developer Mode allows you to disable all these security features, giving you a laptop you can tweak and play with to your heart’s content.</p>
+<p>After enabling Developer Mode, you’ll be able to access a Linux terminal from within Chrome OS and do whatever you like.</p>
+<p>To enable developer mode on the Samsung Chromebook or Chromebook Pixel, hold down the ESC and Refresh keys and tap the Power button. You’ll enter recovery mode. Older Chromebooks have physical developer switches that you’ll need to toggle instead.</p>
+<p>At the recovery screen, press Ctrl+D, agree to the prompt, and you’ll boot into developer mode.</p>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="chrome-os-is-missing-or-damaged" alt="chrome-os-is-missing-or-damaged" src="650x385xchrome-os-is-missing-or-damaged.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.YHCZkj9yUD.jpg" width="650" border="0" height="385"></p>
+<p>When you transition to developer mode, your Chromebook’s local data will be erased (just like when you <a href="http://www.howtogeek.com/120482/how-to-root-the-nexus-7-galaxy-nexus-or-nexus-s/">unlock a Nexus Android device</a>). This process took about 15 minutes on our system.</p>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="preparing-for-chromebook-developer-mode" alt="preparing-for-chromebook-developer-mode" src="650x299xpreparing-for-chromebook-developer-mode.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.xXqcjyhcO1.jpg" width="650" border="0" height="299"></p>
+<p>Whenever you boot your Chromebook, you’ll see a warning screen. You’ll need to press Ctrl+D or wait 30 seconds to continue booting.</p>
+<p>This warning screen exists to alert you that a Chromebook is in developer mode and the normal security precautions don’t apply. For example, if you were using someone else’s Chromebook, you could normally log in with your Google account without fear. If it was in developer mode, it’s possible that software running in the background could be recording your keystrokes and monitoring your usage. That’s why Google makes it easy to tell if a Chromebook is in Developer Mode and doesn’t allow you to permanently disable this warning screen.</p>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="os-verification-is-off" alt="os-verification-is-off" src="650x380xos-verification-is-off.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.U2d98N4HFz.jpg" width="650" border="0" height="380"></p>
+<h3>Installing Crouton</h3>
+<p>First, you’ll need to download Crouton. Click the following link to download the latest release of Crouton to your Chromebook: <a title="http://goo.gl/fd3zc" href="http://goo.gl/fd3zc">http://goo.gl/fd3zc</a></p>
+<p>Once you have Crouton downloaded, press Ctrl+Alt+T in Chrome OS to open the crosh terminal.</p>
+<p>Type <strong>shell</strong> into the terminal and press Enter to enter Linux shell mode. This command only works if Developer Mode is enabled.</p>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="chrome-crosh-shell[4]" alt="chrome-crosh-shell[4]" src="650x171xchrome-crosh-shell4.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.fXwkSzliPb.png" width="650" border="0" height="171"></p>
+<p>To install Crouton the easy way, all you need to do is run the command below. This installs Crouton with the Xfce desktop and an encrypted chroot for security.</p>
+<blockquote><p>sudo sh ~/Downloads/crouton -e -t xfce</p></blockquote>
+<p>The actual installation process will take some time as the appropriate software is downloaded and installed — it took about half an hour on our system — but the process is largely automatic.</p>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="install-crouton-on-chromebook" alt="install-crouton-on-chromebook" src="650x502xinstall-crouton-on-chromebook.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.c9hseQ3sbN.png" width="650" border="0" height="502"></p>
+<p>If you’d rather install Ubuntu’s Unity desktop instead, use <strong>-t unity</strong> instead of <strong>-t xfce </strong>in the command above. You can run the following command to see a list of installation types, including installations without a graphical desktop:</p>
+<blockquote><p>sh -e ~/Downloads/crouton</p></blockquote>
+<p>After going through the installation process, you can run either of the following commands to enter your Crouton session (assuming you installed Crouton with Xfce):</p>
+<blockquote><p>sudo enter-chroot startxfce4</p>
+<p>sudo startxfce4</p></blockquote>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="launch-linux-chroot-with-crouton" alt="launch-linux-chroot-with-crouton" src="650x245xlaunch-linux-chroot-with-crouton.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.-jXTFd8pMT.png" width="650" border="0" height="245"></p>
+<h3>Switching Between Environments</h3>
+<p>To go switch back and forth between Chrome OS and your Linux desktop environment, use the following keyboard shortcuts:</p>
+<ul>
+<li><strong>ARM (like the Samsung Series 3 Chromebook)</strong>: Ctrl+Alt+Shift+Back and Ctrl+Alt+Shift+Forward</li>
+<li><strong>Intel x86/AMD64 (like the Chromebook Pixel and $200 Acer Chromebook)</strong>: Ctrl+Alt+Back and Ctrl+Alt+Forward plus Ctrl+Alt+Refresh</li>
+</ul>
+<p>If you want to exit the chroot, just log out of the Xfce desktop (or the Unity desktop, if you’re using that). You’ll then need to run the startxfce4 command above to enter the chroot again.</p>
+<h3>What You Can Do With Linux</h3>
+<p>You now have a traditional Linux desktop running alongside Chrome OS. All that traditional Linux software is just an <a href="http://www.howtogeek.com/63997/how-to-install-programs-in-ubuntu-in-the-command-line/">apt-get</a> away in Ubuntu’s software repositories. Graphical utilities like local image editors, text editors, office suites, development tools, all the Linux terminal utilities you would want — they’re all easy to isntall.</p>
+<p>You can even easily share files between Chrome OS and your Linux system. Just use the Downloads directory in your home folder. All files in the Downloads directory appear in the Files app on Chrome OS.</p>
+<p><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px none;" title="xfce-desktop-on-chromebook" alt="xfce-desktop-on-chromebook" src="650x366xxfce-desktop-on-chromebook.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.SrA4TefvFk.png" width="650" border="0" height="366"></p>
+<p>On an ARM Chromebook like the Samsung Chromebook, you’re a bit limited in what you can do. Some programs don’t run on ARM, so you can’t run Minecraft and other closed-source applications that haven’t been compiled for ARM Linux. You have access to a variety of open source tools and desktop applications that can be recompiled for ARM, but most closed-source applications won’t work on ARM.</p>
+<p>On an Intel Chromebook, you have much more freedom. You could install Steam for Linux, Minecraft, Dropbox, and all the typical applications that work on the Linux desktop, using them alongside Chrome OS. This means that you could install Steam for Linux on a Chromebook Pixel and gain access to a whole other ecosystem of games — if you were crazy enough to buy a Chromebook Pixel, of course.</p>
+<p>One last tip if you’re using Xfce — you’ll probably want to disable the screensaver from the Screensaver tool in Xfce’s settings menu. It appears to cause graphical glitches in Chrome OS while running in the background.</p>
+<h3>Removing Crouton and Restoring Your Chromebook</h3>
+<p>If you decide you’re done with Linux, you can easily get rid of the scary boot screen and get your internal storage space back.</p>
+<p>Just reboot your Chromebook normally to get back to the scary warning screen at boot-up. Follow the prompts on your screen (tap the Space bar and then press Enter) to disable Developer Mode. When you disable Developer Mode, your Chromebook will clean everything up, restoring you to a clean, safe locked-down Chrome OS system and overwriting all the changes you’ve made to your Chromebook’s software.</p>
+<hr>
+<p>If you’re looking for more in-depth information on installing and setting up Crouton, be sure to check out <a href="https://github.com/dnschneid/crouton">Crouton’s readme</a>.</p>
+<!-- google_ad_section_end -->
+</div>
+<div style="clear: both; height: 0px;"></div>
+<!-- discourse comments begin -->
+
+<div style="max-width: 650px; width: 100%; padding-top: 10px;"><span style="font-family: bebas_neueregular; font-size: 19px; position: relative; top: -9px; padding-right: 10px; float: left; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(134, 134, 134);"><a id="discusslink" href="#">JOIN THE DISCUSSION (26 REPLIES)</a></span><div style="border-top: 4px solid rgb(204, 204, 204);"></div></div>
+<div id="discusscomments" style="display: none;">
+<div style="clear: both;"></div>
+<ul class="commentlist"><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 3, 2013</a></div>
+<div class="commentauthor"><div class="ca2">theMike</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Xubuntu would be perfect for one of these inexpensive netbooks. </p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 3, 2013</a></div>
+<div class="commentauthor"><div class="ca2">campbell2644</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Ubuntu,Xubuntu,Mint etc would give you better options and your privacy back. Good article.Thanks</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 3, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Lowell Heddings</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>It's worth noting that you can't just easily install any Linux on a Chromebook - at least, an ARM version. The Samsung Chromebook is a wonderful little device, inexpensive, light, and with solid battery life. But because it uses the ARM chip instead of Intel, you need a version of Linux that has been compiled for it. </p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 3, 2013</a></div>
+<div class="commentauthor"><div class="ca2">theMike</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I'm not familiar with using a chromebook, but is it possible to install a virtualbox type software or is it only a cloud based media?</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 3, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Lowell Heddings</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Well, I suppose you could theoretically do it, but the problem is that with an ARM-based Chromebook, virtualization is going to be impractical and slow, even if you could manage to compile a virtualization platform to run on it.</p>
+<p>Basically, it's not possible on an ARM-based Chromebook. For an Intel-based one, you could install Virtualbox. </p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 4, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Dave</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>The one show stopper for me going to a Chromebook is only being able to print using Google Cloud Print as I don't want to have to invest in a compatible printer. (I actually don't need to print - but another family member does.)</p>
+<p>So, my question is this: When running Crouton on a Chromebook, would one be able to print to a regular USB connected printer?</p>
+<p>As well, could one run stuff like libreoffice and gimp to effectively replace MS Office and Photoshop?</p>
+<p>Thanks in advance for your response.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 4, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Ted Lilley</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Anyone trying to do something more resource intensive such as this would also do well to enable swap on ChromeOS. Otherwise you tabs are discarded as memory gets used and those tabs have to be reloaded when you revisit them. ChromeOS was designed to run small memory-footprint tabs, not entire operating systems with apps under them. Enabling swap won't let give you any more memory, but it will make the system feel like it isn't choking under the load and SSD swapping is faster than HDD at least.</p>
+<p>I also prefer to run in command-line mode with crouton (sudo enter-chroot) whenever possible.</p>
+<p>Command to enable swap from command line, after hitting Ctrl-Alt-T:</p>
+<p></p>swap enable 2000
+<p>Note: I believe swap is now enabled by default in more recent ChromeOS versions, so you can disregard this post now.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 6, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Adam Mitchell</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I followed these instructions, but after I reboot and try to get in to the linux installation I get a page asking for a localhost login and it's not accepting the pw I set on installation. I am a total noob at this. Any assistance would be wonderful.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">May 15, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Hugh Collins</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I had the same problem. When you set the password, it created a password file which failed to be written properly on shutdown. You need to clear the password file (and all user filestore) by resetting the chromebook out of developer mode. The next time you switch to developer mode the password file will be gone, and you can skip setting up the password when you follow the crouton setup.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">June 3, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Mutty Dev</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Based on the instructions you need to Refresh (F3) after hitting forward (F2) to access the Ubuntu environment from the localhost screen assuming that you're using a Chrome device w/Intel. </p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">June 9, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Josh White</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Hi, first off I am new to linux. I just installed crouton today on my Samsung ARM Chromebook, and when ever i try to download anything using [sudo app-get install .......] i get the line [sudo app-get: command not found.] I have been looking around but I can't seem to find anything addressing this issue. any thoughts. </p>
+<p>thankJosh</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">June 9, 2013</a></div>
+<div class="commentauthor"><div class="ca2">John_P_Smith</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I installed Crouton on an Acer Chromebook. It sees the transceiver for my wireless mouse just fine and the mouse, though touchy, works fine. Unfortunately it does not see my MP3 player when I'm in Ubuntu which was my main motivation; I wanted to run Rhymthbox to be able to manipulate the MP3 player. The Ubuntu OS does not see my MP3 player at all. Any ideas? Thanks! JOhn</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">June 13, 2013</a></div>
+<div class="commentauthor"><div class="ca2">maxomai</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Typo. Use sudo apt-get install packagename - note that's ap**t**-get</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">June 14, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Brad Humbird</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>This is amazing! And thanks for the clear instructions. After sudo apt-get install firefox, I now have a miniature version of my home office desktop machine running on a $250 Samsung chromebook. And I really like xfce compared to unity. I have found one bug, though. Scroll-wheel up works the same as scroll-wheel down. Very annoying, but not a show-stopper.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">June 20, 2013</a></div>
+<div class="commentauthor"><div class="ca2">chris_saldrix</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I have installed this fine, and have everything up and running, great tutorial! My question comes because I am using this as a torrenting device along with some other uses, I am just having trouble with the port forward. I have tried the automatic port forwarding, which says successful and then the port is still closed. I turned that off and tried manually and still have the same issue. I am a long time torrenter so I know how to port forward, and haven't ever ran into issues doing it.</p>
+<p>My question is that with both methods failing, and the same ports working on other computers when trying them it leads me to believe that it has a default firewall. (Something like iptables or something) I just can't find it. So does anyone know if this install of crouton on xfce isntalls a default firewall, or if not how I can open the ports on the device? </p>
+<p>Thanks in advance!</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">July 13, 2013</a></div>
+<div class="commentauthor"><div class="ca2">sue</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Well this is a first for me with chromebook and trying to install crouton. I followed the directions and still do not have success. It tells me the crouton file cannot be read. I have the full log if needed but I believe that to be the core of the issue. Any help with not being able to run files is very appreciated.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">August 5, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Kate Raisz</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Hello: I have installed crouton on a Samsung 5 but when I use the key combo of ctrl-alt-arrow I get to a terminal window not to Ubuntu. Any suggestions? Thank you, Kate</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">August 28, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Brian Wilson</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I'm a newbie too and just trying to figure all this out. But after you reboot and see the localhost login prompt, you can type chronos and press the enter key. Then type sudo startxfce4 and press the enter key. That will bring up Ubuntu with the xfce interface. </p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">August 28, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Brian Wilson</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Thanks for the article on how to install Ubuntu on the Chromebook. I just followed the steps and installed Ubuntu 12.04 with xfce on my Acer C7 Chromebook. But now I've noticed that this version of xfce has a lot of applications missing that I've seen in some reviews of xfce. For example, the Ubuntu Software Center is missing. So how do I add or access the Software Center? Also, I saw some other tips that said that I could click on the Dash Home and then start the Update Manager to upgrade Ubuntu. But there is no Dash Home and I haven't found an Update Manager. Being a total newbie to Linux, how would I upgrade to a more recent version of Ubuntu like 12.10 or 13.04? Please be specific and don't assume that I know more than a newbie. THANKS!! </p>
+<p>By the way, these are some commands I've tried from the prompt and the error messages I received:sudo do-release-upgradeCommand not foundupdate-manager -dCommand not foundsudo sh -e ~Downloads/crouton -t xfce -uCan't open Downloads/croutonsudo apt-get install software-centerCommand not foundsoftware-centerCommand not foundI also used the Chrome browser to go to apps.ubuntu.com and clicked the Software Center download button to download Filezilla and got the message: Error: Failed to open URI "apt://filezilla" The specified location is not supported</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">October 1, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Kent Söderlund</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Is it possible with this instruction to install any Ubuntu release on an Intel device like the C7?</p>
+<p>TIA / Kent</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">October 11, 2013</a></div>
+<div class="commentauthor"><div class="ca2">David Ker</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I'd like to share my experience in installing crouton on a samsung 303c12. This article is accurate in all its details in my experience. But I feel that it should really empasize that this does not result in a system that is easy to use for the average computer user. Especially regarding the choice of xfce, it needs to be emphasized that this is a very rudimentary system with ancient looking drop down menus and a heavy reliance on code and the terminal to make anything work.</p>
+<p>Even in the case of installing Unity, you still need to install Software Center to get started installing software. Once that is up however, Thunderbird, Firefox and LibreOffice all installed for me easily.</p>
+<p>I had trouble installing Ubuntu Restricted Extras. The ttf-mscorefonts-installation generates errors the next time you start up Ubuntu. I eventually figured out how to uninstall that. If you're happy using Chrome OS for your media (mp3, video, flash) then Ubuntu seems to be just fine. </p>
+<p>UPDATE: After reinstalling Unity and installing USC, Thunderbird, Firefox and LibreOffice, it refuses to load Unity on restart. Instead I get a message: Could not update ICE authority file. </p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">October 11, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Michael Tunnell</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Avoid Ubuntu. Unity is a piece of crap BUT Ubuntu derivatives are a good way of getting all the benefits of Ubuntu without the crap of Unity.</p>
+<p>Linux Mint, Xubuntu, Linux Mint KDE, Lubuntu, PeppermintOS, ZorinOS...all of these are good options.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">October 26, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Tem Lins</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I'm considering buying the new Acer Chromebook C720. I would like to be able to use Magicjack with it when traveling but Magicjack will not work with Chrome and it is very difficult to get it to work with Linux. After installing Crouton, would it be possible to load VMWare Player or a similar program and create a virtual Windows XP OS? I have XP disks left over from an old desktop, so I will have a legal version to load.</p>
+<p>If I do manage to get XP to run on the Acer, is there anything else that would prevent me from using Magicjack?</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 8, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Michael Horton</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Thanks for the great instructions! It worked flawlessly on my HP Chromebook 14. I figured, what the hey.I added VLC right away as well as the packages to help it run well. Works like a charm. I used the Synaptic Package Manger, which made it pretty easy. (The terminal works good, too, and isn't too intimidating for a newb, since plenty of instructions are online.) I'm looking forward to the added options having Crouton brings. Again, thanks!</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">December 13, 2013</a></div>
+<div class="commentauthor"><div class="ca2">Robert Dean</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>No need to buy a special google cloud printer. Follow these instructions. (you will need a windows/mac/linux machine configured for your classic printer for initial setup)<a rel="nofollow" href="https://support.google.com/cloudprint/answer/1686197?hl=en" class="onebox" target="_blank">https://support.google.com/cloudprint/answer/1686197?hl=en</a></p><p></p></div>
+</li></ul>
+<div id="discourselink">
+<h3 id="reply-title"><a href="http://discuss.howtogeek.com/t/how-to-install-ubuntu-linux-on-your-chromebook-with-crouton/2415">Got Feedback? Click Here to Join the Discussion</a></h3>
+</div>
+</div>
+<div style="clear: both; height: 0px;"></div>
+<div id="socialmediabuttons" style="margin-bottom: 0px;">
+<div id="fb-root"></div>
+
+<div style="padding-right: 20px; float: left;">
+<div class="fb-like" data-href="http://www.howtogeek.com/162120/how-to-install-ubuntu-linux-on-your-chromebook-with-crouton/" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+</div>
+<div style="padding-right: 20px; float: left;">
+<div class="g-plusone" data-size="tall"></div>
+</div>
+
+<div style="padding-right: 20px; float: left;">
+<div class="pocket-btn"><iframe id="pocket-button-0" allowtransparency="true" src="index_1.html" scrolling="NO" width="60" frameborder="0" height="63"></iframe></div>
+
+</div>
+<div style="padding-right: 20px; float: left;">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.howtogeek.com/162120/how-to-install-ubuntu-linux-on-your-chromebook-with-crouton/" data-via="howtogeek" data-lang="en" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a>
+
+</div>
+<div style="clear: both;"></div>
+</div>
+<div id="postiddiv" post="162120"></div>
+<div style="clear: both;"></div>
+<div class="articleExtras" style="background: none repeat scroll 0% 0% rgb(254, 254, 254); border-top: medium none;">
+<div style="width: 450px; float: left;" id="authorinfobox">
+<p style="font-weight: normal; color: rgb(51, 51, 51);"><a href="http://www.howtogeek.com/author/chrishoffman/"><b>Chris Hoffman</b></a> is a technology writer and all-around computer geek. He's as at home using the Linux terminal as he is digging into the Windows registry.
+Connect with him on <a href="https://plus.google.com/107865379603964146316?rel=author">Google+</a>.</p>
+</div>
+<div style="width: 130px; float: right;">
+<ul class="normul" style="margin-bottom: 6px;">
+<li>Published 05/3/13</li>
+<!--<li><span id="pv3"></span></li>-->
+</ul>
+<div style="margin-left: -14px;"><a href="https://twitter.com/chrisbhoffman" class="twitter-follow-button" data-show-count="false"></a></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div class="below-post-features" style="">
+<div id="outbrain-below-article" style="max-height: 550px;">
+<div class="OUTBRAIN" data-src="http://www.howtogeek.com/162120/how-to-install-ubuntu-linux-on-your-chromebook-with-crouton/" data-widget-id="AR_1" data-ob-template="How-ToGeek"></div>
+
+</div>
+</div>
+<div style="clear: both; height: 20px;"></div>
+<div style="width: 100%; max-width: 650px; margin-bottom: 0px;">
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<img src="image.php" alt="" id="htgstats" style="display: none;"></div>
+</div>
+<div class="yui-u">
+<div class="sidebar">
+<div style="margin-top: 24px; clear: both;"></div>
+<div class="sidebar-glossary">
+<h4 class="sidebarh4">DID YOU KNOW?</h4><div class="glossaryhomebox" style="padding: 10px;"><p>Gauge orphans are out-of-service rail lines that have been rendered obsolete as a result of the rail gauge change (upgrade) on the main feeder lines.</p>
+</div>
+</div>
+<div id="side78"><div id="htgyr11">
+<div id="purch_Y_R_1_1"></div>
+</div>
+</div>	<div class="sidebar-glossary lazyloaddiv">
+
+<h4 class="sidebarh4">BEST OF HOW-TO GEEK</h4>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/199857/how-to-use-skype-on-your-chromebook/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAcEBQYCA//EADkQAAIBAwMBAwcKBwEAAAAAAAECAwQFEQAGIRIxQVEHE1VhcZHRFBUWFyJykrHB0iUyNEJ0lJXx/8QAGgEAAgMBAQAAAAAAAAAAAAAABQcDBAYAAv/EAC4RAAIBAwIEAwcFAAAAAAAAAAECAwAEEQUhBxIxkRNB4QYiMlJxgtFRYWKBwf/aAAwDAQACEQMRAD8AWN2sC0ljgqjS1AqxIpLdAUZxyBwek5xxkHuwM6c8d9vUsqRzX24JGzAMxqHbpHjjPONK62XCsnSetvBluPmgBDU5GCVALx/Z4Vue05PZpkWeNKi4U1HKSsdRPGjusZdlBYAkAck89nfox7CuZlnMyjbH+1keJjeHJarAx35vPH6VeXGqqaWk89T7trJpCoIjEpyTkcZDnHaTz4aqo9wX2MYjvVxT7tS4/XTAHk+2/kZu139f8Gm/brv6vNuemrv/AMWb9utZHqFiowwz9vpWIl0rVXOVOPv9aXv0j3B6duf+0/x0fSPcGc/Plyz/AJT/AB0wD5ONtk5+fLyPZZpv26p94bLs1nsM1fRXO51M0bKOia2ywpgsBksygDt1PHfWEjBFXc/x9KrTaXqsUZkZ9hv8Q/NY3cF4uddtG8Ulxu1XPSeYjcxz1LGPIniIJByO31aUDUcUgV4o7cwI5EsbIynvBHPv0wN7yNFsHcDqxQ/JYxkd2aiEfrpX2KsmWgDGmEodupWKgnpOMc+zS29uEaO/HIcDA2FNTh/O0ml+/ueY9f6rc7GtsdksFXGlC0lq4ed5FJ+0Qy9SnBIyCoPh6uNbGlnlpaqKqp5DHNC4kjYf2sDkH36wdHfa61yzKWM8bIYGWeNJZCDlSenJRBgKDjvTI01Ny7R3Dt1z852+RYsZ8/GC8X4gOD6jolw/lRTOsjbtjr59aFcT7Wc+BJGhwvN08ulS18oG8FOVvkoPqjT4a6+sPefp6f8AAnw1ldcSOVYKEJyCc84Hu0xTaWg3KL2FKxdQ1AnAkbua1v1h7z9PT/gT4ahXjd+47xQtQ3O6SVNOxDFGRe0Hg8DVFTHzoyzCL74Pw16PGqrkSxt6hnP5a5be1Ugqgz9K8ve3zKVaRiPqapd8wtUbBv8ACucvTRDjt/qYdYSCjgigjSojkkPSOgxq2On/ANzpl3aJZtsXlXTqQU0bMOBkCoi4yeBngZ9elndNyCjqzAYLgXCgusCMQjY5U9JIz7PHSh4gM76iFT5RTr4chV0rL/MazdQl6v0VStOKGkhElOjwx1KZYynCHOSW7s4/l5yBqIlZuHbu42jqppq1YSVqIBUu8bp2HtPH5592jRqtdQJb+6nn61u7KQ3mWl3IP4NXtxporqyVtlppjSzEYVJT1AnuxntHhqfT22WmjamucDgEFets547j3jB7xzo0ayc97Or+GHOB+5qe4srdZcBB0z0rzqKqvp3WKERz0wjI82+WZmA4YNnnntB8fYNR77uCC30lO1tbzlxlZWeKaElkAznIPcSPd2jRo0T0+WSY4Zj3obe28KLsg7Vv7RvXadbaRTtSGz3eqQvJN0I8DOcZIZQpUcdhyMgcHvraWxAQh7dLbKuncl1l+Ww5JPj1DJPiTjJzxo0apXsYTcE96saZGrMUI2r/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/199857/how-to-use-skype-on-your-chromebook/" class="title" rel="bookmark">How to Use Skype on Your Chromebook</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<img src="34320547.dat" width="1" border="0" height="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/168841/how-to-send-and-receive-faxes-online-without-a-fax-machine-or-phone-line/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAABQYABwMECAL/xAAxEAABAwMCBAQFAwUAAAAAAAABAgMEAAUREiEGBxMxQWGBkRQiI1FxMpKhQrGy0fD/xAAZAQACAwEAAAAAAAAAAAAAAAAEBQIDBgH/xAAkEQACAgICAQMFAAAAAAAAAAABAgADBBESIRMFFCIxM0Fhcf/aAAwDAQACEQMRAD8A6OvXKbg245XHiP21w/1RHSB+1WUj0AqtePeT4sltfu4u0OVGaxkPsltwZOAEkZyd/KrGt3FyykBSgfzShzT4kVfH4tnbV9Bg9Z7B2UsjYeg/y8qjkUeIbYS0KRKqVaYEOIHlOyWipQSnQoqKieyQDmssKTLeTEEC7MywE62GXchWN1Y0+h28jXq/NuXSc3aIaY8lKMLdaXoKBpUkr1hQycJPZG4JGcChEnomNKlSbfJghTY+FSMx221dJQWAFkatKEhIIODqOMbmgdbk4xSbvcFXQzrnbDhR+YsJBGwwO3p3rBb7ja5dyWqS+iMNJILn2z+nz2o1wWxAtsZlc/rTYzyS+W2k9HQpeDgIztgeGe/jW5xOxwy9bUvxoxkydeFsOslOlO+4UAR9vv3oOy/jYK9Hv8j6SXDY3Kg5oG2v2zTlH1nUaS2NISoKCvXGP5FD+afNSdZOLXLVafh1tR2kJcUsZ+puSB+BgfkGgHOK6MquybfBbEZmPlASF6tJ/UtWfYelIDrj7rzj7zDkl51RcdWdzqO+D54x7059sGC8oF5NE6naabgGYxe6moJGdj38qCl9bcaRNWnqvFKnMZxqOMgVXFi5ocOTV/CzHV2+R2U3JQUEGm+4xbXxVYFxF3JKG1KC0qbAcSvHhgf774qzOyjkkbGhCA0FSXI7aJc2XDWmQ64VtLWhbSVNgtqXhlxR3Us6cbaseGRktaor5uUaBFmh6JFIeHWC0AgOKU5ob06FgqUADn5R28DQWXab/FeckQ5c5yLFjpbhJaUhwNlKQAVtncnvuAc/2YeWUaQ+GF3SIGpi1KCz827QVkAIUToBJ/SMDxxQDsFUkmdGz0Bsx0juWgMtiW3JYcUT1HtHUbUM+AGT9hsKUeLr03ZY86Uy11WG0qLDg+TUTsnKFbjenPipES322SY7hC+mNCE/LlSsgHSNjvnOQdgaoPm7xDIdZZtZUkafqK0+JOyc/gZPtVODjiyzkCSJCzKJUoV0w6lU3lx2ZcXpD2pwajqPckDc+qlfxRqzWtkQErlNuKdcJWrQe2fD/vDFakCOHHUpUSE91H7JG5PtRpu4x22W+p8hUnUEgZwMkAewxWjRAx2Yudio1HC8xrLfm8PMxJycbEgKI9e4ofbbHPtCNHDt5lQGs5EZwB9j9qtx6GpUrE+R6+gY8ChuzDDfEnGNuZUZthZuaUg4dt72FH8tr39iasbkZNlX6K9xBcrVJtxQsxkMPpIUSMFSsHcDsPepUrt1zPSQYZ6fUvmBgnibjaIzzMv8aQ4y7FgtNtpZ1AHIRqUR55WoVzFzQvr134hdWVacLK1BJ7E9h6DAqVK0eAirSCP1E+b99v6YM4XmyzcAwqU8W1JOUFZwaZ332ELAecCVY2HlUqUzpPxgNg+U/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/168841/how-to-send-and-receive-faxes-online-without-a-fax-machine-or-phone-line/" class="title" rel="bookmark">How to Send and Receive Faxes Online Without a Fax Machine or Phone Line</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/97723/htg-explains-do-you-really-need-to-defrag-your-pc/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgICAwAAAAAAAAAAAAAAAAQFCAIDAQYH/8QAPBAAAgEDAQQHBQERAAAAAAAAAQIDAAQRBQYSITETIkFRYZHRFFJTkqFxBxYyNEJDVGJkcoGisbKzwtL/xAAXAQEBAQEAAAAAAAAAAAAAAAAABgEC/8QAKhEAAQQAAwYGAwAAAAAAAAAAAQACAxEEBmESEyExQZEFFiJxcuGBodH/2gAMAwEAAhEDEQA/AJmSwuowzGzB3RnC3ETHyDVGTydGCWtZBjn1l9asQ2kWc46J9lLeRDndDtcLgY4A9QjPZz7KXfZnQGi62xlmWx1gUuCP8fd5VUR+PvINgkqOflaMOFOoe68A0qM30Jc2028DyXd5edbtQ0uRE34rW4H27vrXvdtoOlWqqINjbNTkqwQXAC+PGPiK3DTrF+EmysG7g9TcuCc9nHo8eH1qRMOPdLvnYiTa+RrtyrRXbcRgI49yzCxbGrAT353rdqr9xIUdlNvJkHB4j1pSSTP5h/NfWrXx7D6DNA0qbI6R1zkCSaRSefMFMg1iPuebPtxbZDQgd7l08h4d/wCDz8PrVfDmaVg2Xi668L/P0oaXKzHvLmEAEnhxoaDqqnvaXTMB7KylhvKGdRkd/E03BstrlxGJYrKJlP7XED/dVp5NgNFl3JJtk9EkkRQgzcy9Udw6vLlWZ2I0pAFj2U0cjH6ZIMfyV35plrlR7/xazK0YPqP7+lOvtHp44lNRUcsnTLnw/U8ayTX7J5RGqahvd50y4A8ymKStNLkkiWVIbEwsAVeG9mwV8CPDzoOkXLTbzLZhS2W3bucE8Tn8rFSark/BrdpNKkaLfBnIA39OnUcSBxJUAc+2pPD+8vkfWkbE6gjoly1l0Krg9GzFvDn4Yp7fT3186IjD+8vkfWojVdft9OkkSXLNGyqVUEtxx2fxqX3099fOuN6M82WiLrf356ZvFW6dSOebWX/muU2x01gfxgYOONrKP9a7HvR+8tG9H3rRFD2mqe0MFFlfR5JAMscijgM9tMzTSiJyscm8FJHFj9M8aKKIo3T9QvZLhROZXV8jd9gniwf3mYgD7edSnSv8J/naiiiI6V/hP87VhcPctERBmOThhm3mHPuyP60UURarJ9RUP7a0UucbvQo6Y785ds9ndTHSv8J/naiiiL//2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/97723/htg-explains-do-you-really-need-to-defrag-your-pc/" class="title" rel="bookmark">HTG Explains: Do You Really Need to Defrag Your PC?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<img src="34320549.dat" width="1" border="0" height="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/220986/how-to-use-all-of-windows-10%e2%80%99s-backup-and-recovery-tools/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/220986/how-to-use-all-of-windows-10%e2%80%99s-backup-and-recovery-tools/" class="title" rel="bookmark">How to Use All of Windows 10’s Backup and Recovery Tools</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/261169/how-to-browse-and-play-terabytes-of-retro-games-from-your-couch-with-kodi/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/261169/how-to-browse-and-play-terabytes-of-retro-games-from-your-couch-with-kodi/" class="title" rel="bookmark">How to Browse and Play Terabytes of Retro Games From Your Couch With Kodi</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAUGBwIECAED/8QAMhAAAQMDAgQEBAUFAAAAAAAAAQIDBAAFEQYhEjFBUQcTMoEUUmGRCEJicaEiIzSx8P/EABcBAQEBAQAAAAAAAAAAAAAAAAMEAgX/xAAhEQACAgIBBAMAAAAAAAAAAAABAgADESExBBITQRQiUf/aAAwDAQACEQMRAD8Aq/WWrYusbSLfcR8MtKgpLzaOIA/tmoa5oW4OMh6BLjyW1bp4gWyfYipfaYCYzKRJdElYPFkoAAO/L7nnTlpwHauCtnj0nE6LIG2ZUM3TF/i5LlsfUB1bHGP4pQ6260oocbW2odFDBq5LxqRqCFtQ2Fz5KQcttgkDAyRsCSQOYA264p7pmzaj1NbkSJ2i5EWMtOUrlFvy1D6FZFUre4GWEEoo9znvJ60Z5Yq8rr4f2d1uS/IgsQWmHA0p0FQK3OjbaUetf6enWoFA01ZL5Lls2yVJiFkAsh0BwuJzgqOCOHpyJ59aZb1IzMhO4ZEhYJ71kFkU61Rp1dhU2lydHeU56UJyF47kcse9JMUqkMMiZIxzLakT48RgvSHUoQNsk8z2A6n6V5pmLddbXJcGBKj2m3tf5El90JXw9cDOSf0j3I5VFrxapc534iLP4HPldGQB2T2+2T3pXMvOurPHVEbucqDFcwlXwYDSFDoD5YHflUNNSsNHcW5m44nWGkLV4YaMhoEZk3GekYXKUyFq9lOcKUDrhOBS3Wvihp2DHecuF6blrCSY9sgKG5ztxuc/tjAzgneuPbhPflsoU/KmvyB6y64VD+TWrEeDLyFgqOfWCP8AVUfDJ2xk7FSACJb2s/Ep9cViTb3lCY4xwFaEhtEJC/UxHT+U8+Jz1K+g56dm1NYbLpP4iG0ozXNltuepa++flH/b1XkdozHw9KX5bQOB9B2FXRbfw96lu+l49+tcy3z3/L8xy0rUWn0pPpAzsT14SR7nattSmApiCwjiU5LuEm6XB2bKdLjrm5PQDsPpWOKZ3y1tWiW5AcjvR57S+F5lYILWOhB3znf9sd6X8BNKAPUxv3JRZ9QW+XhHm+S6fyOHH2PI0/bcStJSQFJI3B5Giiud1Fa1t9ZXWxYbiK92aHISpEdtDbh3OE7Coc/anYzx+J/pSk8+h/aiin6axs9uYdqDGZkErlLQkYS0ByB5DtU/s+vdbWxLYZ1RPajsp9RwpaRjGyiCrsMZ6423NFFVt+SYT6I1AvxHfRC1XIQm9n+1b7usBJX8rMjAAUk5wHMZSTvkcobcIUqBOfgzGFsSWHFNutrGChQOCD70UUZ0cTY2J//Z"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/" class="title" rel="bookmark">What’s the Best Way to Back Up My Computer?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/236057/how-to-play-multiplayer-party-games-on-your-chromecast/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAAAAQFBgcIAQP/xAAtEAACAQMCBQMDBAMAAAAAAAABAgMABBEFBgcSITFBE1GBCBRhIjI0oXGRwf/EABsBAAEFAQEAAAAAAAAAAAAAAAQAAQIDBwUG/8QAIhEAAgEEAQQDAAAAAAAAAAAAAQIAAwQRIRIFBjFRIkFh/9oADAMBAAIRAxEAPwDUqp0ocdK9hjFJryTlUKpwW8/igru7p2lFq1Q6WVKpY4Ey/ruj6rt76grufSdPuriBpjMfRhZl5JUyQcDoMkj4q4NpaxHHI9tNzwljlUkHKw/BBqZnscCmXcmnW2p2TwTjkkAPpyr+6M+4P/K8LT7+FSuA9LCe87hjWWBo7jqtyrrkEGs+b/4lbih4iXNjpF76dtDeJaRxempViGCuT0z35vgUssuNG3Np3N3pG59TLXVrI0TJbxtKcqceBgdvJqrNkazpe6d4fcx3kZnT1LkxyfpZ3PTAB7n9RPT2rRaTK6cx4MCIIOJq7buptf2CPKAJQMNj3pyJ61DNk3YEChjgkYNTBXBGaiDFH9pcdzSeWRXfvmuzxPImEODTa9nqKSc8a8xHswrm9XsTfWj0B9ydJ+DhorcgDtiqY+p3eWo7f2na6RoMjR6vrlx9pA6HDRp05yp8Hqq58c2fFW3PJqAjPNpsxOO6uuP7NU5xV27e63vrZ2pX0EcVjY3sqPh+YqXj5lZumAOaMDz1IrPOi9tXC9Spi4p/AHfr8hta4XgeJ3Mtjh9rUVxLFq3LaOuCQHVyc9epBwKjmsWN1oOqJ6dwwkRuaOVDysrA/wCwQa2DxQ4fXFtCddtLmwmtJkDSpJOEKFRjPUgYx+feskb81WK+v1S3UmOEsoJ8nyf6rYWVVGpzkYmaq4Hbkm3Psm01SX+VGxt7nAwDIuOvyCD81bVpcv6C5NVN9Ke2bnT+E8FzeRNG+pXL3casOoQhVU/ITP8AgirngsCIwMUGfOo8k8TCvdT0oopjFOthlwRnNR3cG3VvoZFjK4fuj9j8+DRRUOIzmKUZxl4a8RdwJDa6dfqdPjH8diQGbP7iVzzHt3AxUV4e/TbO+vQX+6iHt4yGe3BPLIR79AcfiiiiTVZhgmMAB4mo7Kwt7WCOGNFVI1CoqjAUAYAApRhR0wKKKrkp/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/236057/how-to-play-multiplayer-party-games-on-your-chromecast/" class="title" rel="bookmark">How to Play Multiplayer Party Games on Your Chromecast</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/228180/10-quick-ways-to-speed-up-a-slow-mac/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgICAwAAAAAAAAAAAAAABgcABQQIAQID/8QANRAAAQMDAwIEAgcJAAAAAAAAAQIDBAAFEQYSITFRBxNBgSJhCBQVQnGRwhYyM0NScoKSwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDUhpBbUFoWpKk8gpOCKL7BqOVGgqXIfEgoUMJc6kds9c/jmgqMt6VIRHYbUt1ZwlI6k1exLO7GfSbnuDY+JbbR3HHcnoBQEWspF6ftcGeiMr7Iefcdik85WUoStRHrjaAO2D3qytTStYae+y2GHnrs2R5KEpJUsdsYpi+C7jV8t7NsuMKI5DjvGTE38qKdxSWiPkUlf+Yp4RrPY7HemptnMeEuQjDkdCEoQs7ScZCeSdpOM9zig1AuOlL7ohTMfUDAjuzGlFlAUFHryDjpwK5skJNyurbLufITlx8j+gcn3PQfMiu3jHrGdqTXU+TMXHX9QJjseRnyyErIKhnv8R9xV3oCE5+zq7g62ELmKyng/wANJ4/M5PsKDB1jHg311xdygsNq/luxWktqaHoAAMFI7H2xS7maUuTb6kxEtS2fuupcCc/iCQQaatzj4B4oZksDzjxQBFullN1jP7iVB1PI7ZprT2o9ytiHkp8lLqUl9CeNxCc4/wC/lSesyFmaHkgFDOFqyODzgD3JApnt3GGWHLYHB57LOXl5BSjzMAgdzjr2xQXkKfG09p77WaK2ZEdIdSUJ5LmSCkj1SckH8KZ3gp4njUdymvyLVKShWxtxKcuKaWEA+n3DggZxzwcg0pNDaf1Jq1Rtlitj0134TJWlW1ng4OVKwlJ46E5Pp3ONJ1DqPwk1rLSi0ttS5ClOPtSEqwHEqUNySCMjB6jg9eaAl+kdo/Ty/E+1QtMpTEnXhG+fBQ2Ehgbsh3A/d3DcccH4c+tEz8FiFEahMICW2UBCQPQAYAoI8JnHrne734gX1wOTp7ygzuJOMnKiMk8DhI7BOKMJlxbWSdwoKO6sg5wKoDaZ0lSnI0KS8gHBU20pQz24FFTD0F26RUT3vKiKfQH1gZKUFQ3HjsM0/wDVvjlpzTM6PadGN22TbG4qDubZUlKVc/COnRIT70GgFrWzGtxkLeSlwO+YlHUrKeE+wJJpl6Dt2nLXPTdr3YNQz0KbSpbIThsq6kko3KUPy+dSpQPSx/SA8PoEJFugQkWtDSdiWE5aSk/6DFeOstaaA8QNNzbVebhFfhmMp5O+Q358Z1IyFMqzkn5Ec9OQcVKlApNEMwpNoS0iWpDTWEoSgjIHz+dXirTD25E+Xn+1JFSpQYci0RPvXOSkepLAP6qqJVqaDx8u6OKT6EsY/VUqUH//2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/228180/10-quick-ways-to-speed-up-a-slow-mac/" class="title" rel="bookmark">10 Quick Ways to Speed Up a Slow Mac</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/231970/how-to-get-a-refund-for-an-android-app-you-purchased-from-google-play/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAwEBAQEAAAAAAAAAAAAABQYHAAQCA//EADAQAAEDAwMDAgUCBwAAAAAAAAECAwQABREGEiExQWETUQcUIjJxQvEVIzNDUoHw/8QAGgEAAgMBAQAAAAAAAAAAAAAAAgMBBAUABv/EACIRAAEFAQACAQUAAAAAAAAAAAEAAgMEETEFEiETIkFRgf/aAAwDAQACEQMRAD8Ae25AekJZLS0lasA1Q9PBL0I2heFMho4HmvjI0uwzML6EAZ/tjk/vRBLiobjavUO1Q2kKJxn8dv39qOTdCWCM1KFzYctrz0Msq9I8428Y96DxZa7e+lpxRMUn6Ff4ePxTvcbqiUp9lxtbC42xwBKxkhWOuR2PBoYnTbTyQEICm1q+1UrG1OeSBs7f8aETAfBUdXpWoo9uiBEl0Dfw0c/eewFApshyS+AThOdyh5rxebWiHbtkosumO6lxrBJKFYJBGR4NDvmQtGVrCUgZJ9qYxo32CkuJGI6zLQEhtJ6cUftjTK4ocVg7iSKnrMv1l4ZJDfdR6q8Cm6IzcDGbLY+nbSbEmfAToWaqBqCTCsdteut4uLcOGwkqdeV7ewHc+BkmkrS2trRr9mZ/A0lu2Mr9MvyE4cfVjP0p/SOnJ5PTAoxr6xOaotqIrkuZDMRfrNPIbC8qwQRtz9XHgfmpJpuyTNIPXa3QJKbxHU42886pH85DicggpGcp64Pg0FmVzB9qOrFHI7HJo1S9LS+flm21vhLbUg+sQlQQ6lYHTkkbhnzQxetnrc+wZNgjPvtI4U1PBXt57EdevUCh9znMTSmQpMcuA5KMlWP9UY0tZXp0oPKktw4xGcIbSFE+wHUD8ms+KaV7s6tOejXZHpOJhtVqb1XajcZSnEIefWptKVgkJwlOCRxkbT0pA+L79o0eqNEbSuRIcTvKHHSEpHbIHU1Z9O2+DZ7Y1BiLUW20hIKzyfNRD4v6ThXzUjk+6G6RnnTgEOJS3gdMEjB4AFeioWataQPttJaPwFgTVLFlhjruAP7KTEa0v7KWpUWxOBlQy258m4tCh2OTkGrhoyVfLlp2NMltCC4tP9JSCD+SOMfipvpmNOtjjTMXU02VCjJCEtSkoc2AdAFABWPGadolylrZy0X3Eg4KgknmqXlvMQ3AGQwhoB6O/wBWr43w76Z95JC4kcPFQrtcpKUgQJHq7spCRgjpySevHjuaCbZTQddU1BcIVjY0QhaykADBJ46L4PcjnvWrUgPJKo5gXXA0tpuaozG7cwH1ncve2AsHzRNNgjMjDLYQPArVqsNAzcUF7j0r5u2Ur/WoDwa452mWZzXpSQXEjso1q1EAu9iuBj4daeR99rjuc5wpAIzTBEtEaJHSxHjNtNpGAlKcAVq1D6NHAj+q93Sv/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/231970/how-to-get-a-refund-for-an-android-app-you-purchased-from-google-play/" class="title" rel="bookmark">How to Get a Refund For an Android App You Purchased From Google Play</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div style="clear: both;"></div>	<div style="width: 300px; min-height: 20px; margin-top: 30px;">
+<div style="text-align: center; margin-left: auto; margin-right: auto;">
+<div id="htgys01">
+<div id="purch_Y_S_0_1"></div>
+</div>
+<div style="padding-top: 10px;"></div>
+</div>
+<div id="sidebar-float-widget">
+<div class="sidebar-float-widget-internal">
+<div class="adSystem_ads">
+<div class="html"><div style="margin-bottom: 0px;"></div>
+<div class="g-page" data-width="320" data-href="//plus.google.com/100292833634918081724" data-layout="landscape" data-rel="publisher"></div>
+<div style="margin-top: 8px;">
+<a href="https://twitter.com/howtogeek" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @howtogeek</a>
+
+</div>
+<div id="fb-root"></div>
+
+<div style="margin-bottom: 10px;"></div>
+<div class="fb-like" data-href="https://www.facebook.com/thehowtogeek" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div style="margin-bottom: 15px;"></div></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both; margin-bottom: 20px;"></div>
+<div style="clear: both;"></div>
+<div id="htgyr01">
+<div id="purch_Y_R_0_1"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="yui-g" id="sb2">
+<div id="sb3">
+<div id="ns_ad8">
+<div id="sb4">
+<div style="padding: 20px;">
+<h3 style="text-align: left; font-size: 30px; color: rgb(35, 70, 113); font-family: bebas_neueregular; text-transform: uppercase; font-weight: normal;">Other How-To Geek Articles You Might Like</h3>
+
+<!-- htg-below-article-content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="8688851009" data-ad-format="autorelaxed"></ins>
+
+</div>
+<div id="htgyl01">
+<div id="purch_Y_L_0_1"></div>
+</div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+<div class="yui-g" style=""></div>
+</div>
+<div class="footer" id="ft">
+<div style="width: 18%;" class="ftdiv">
+<div class="ftsection" style="">ABOUT</div>
+<ul class="bottomul">
+<li><a href="http://www.howtogeek.com/about/" rel="nofollow">About Us</a></li>
+<li><a href="http://www.howtogeek.com/contact/" rel="nofollow">Contact Us</a></li>
+<li><a href="https://discuss.howtogeek.com/">Discussion Forum</a></li>
+<li><a href="http://purch.com/" rel="nofollow">Advertising</a></li>
+<li><a href="http://www.howtogeek.com/privacy-policy/" rel="nofollow">Privacy Policy</a></li>
+</ul>
+</div>
+<div style="width: 45%;" class="ftdiv">
+<div class="ftsection" style="color: rgb(255, 152, 84);">GET ARTICLES BY EMAIL</div>
+<p id="ftemp">Enter your email address to get our daily newsletter.</p>
+<p>
+</p><form action="http://www.howtogeek.com/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="footer" type="hidden">
+<input id="fromaddress2" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<input name="email" id="ftemtxt" style="color: rgb(187, 187, 187);" value="Enter Your Email Here" type="text">
+<input id="ftemsub" value="Get Articles by Email" style="background: none repeat scroll 0% 0% rgb(85, 168, 223);" type="submit">
+</form>
+<p></p>
+<div style="clear: both;"></div>
+</div>
+<div style="width: 280px; float: left;">
+<div class="ftsection">FOLLOW US</div>
+<ul class="ftsub" style="float: left;">
+<li class="icon-twitter"><a href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0">Twitter</a></li>
+<li class="icon-facebook"><a href="http://facebook.com/thehowtogeek" rel="nofollow">Facebook</a></li>
+</ul>
+<ul class="ftsub" style="float: left; margin-left: 20px;">
+<li class="icon-google-plus"><a href="http://plus.google.com/+howtogeek">Google+</a></li>
+<li class="icon-feed"><a href="http://feeds.howtogeek.com/howtogeek">RSS Feed</a></li>
+</ul>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="font-style: italic; font-size: 11px; text-align: center;">Disclaimer: Most of the pages on the internet include affiliate links, including some on this site.</div>
+<br>
+<div class="copyright" style="font-size: 11px;">Copyright © 2006-2016 How-To Geek, LLC&nbsp; All Rights Reserved</div>
+</div>
+</div><img src="84132.dat" width="1" height="1">
+
+<div style="display: none;" class="overlay-bg">
+<div id="subscribeoverlay">
+<a href="#" id="ovclose"></a>
+<h2 id="emfh2"></h2>
+<div id="emftag"></div>
+<ul id="emailoverlaylist">
+<li>Get exclusive articles before everybody else.</li>
+<li>Get downloadable ebooks for free!</li>
+<li>Get geeky trivia, fun facts, and much more.</li>
+</ul>
+<form id="emailoverlayform" method="GET" action="http://www.howtogeek.com/em/subscribe">
+<p>
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="overlay1" type="hidden">
+</p><p id="emoflbl" style="position: absolute; left: 20px; top: 240px; font-weight: bold; font-size: 120%; color: rgb(0, 0, 0);">Enter Your Email Here to Get Access for Free:</p>
+<input style="color: rgb(187, 187, 187);" id="overlayfrom" name="email" value="Enter Your Email Here" type="text">
+<input id="emailoverlayformbutton" value="Get Free Content Now" style="" type="submit">
+<p></p>
+</form>
+<div id="overlayformsuccess">Go check your email!</div>
+<img id="overlayimage" style="position: absolute; left: -9000px; top: -9000px;" src="xemailoverlay4.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.bdAMUqnBuz.jpg">
+</div>
+</div>
+
+<div id="out-of-page"></div>
+<div id="1x1"></div>
+<!-- Begin comScore Tag -->
+
+
+<!-- End comScore Tag -->
+
+<!-- Quantcast Tag -->
+
+
+<!-- End Quantcast tag -->
+
+
+
+
+</body><div style="display: none; width: 24px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none;" class="diigotb-border diigotb-left"></div><div style="display: none;" class="diigotb-border diigotb-top"></div><div style="display: none;" class="diigotb-border diigotb-right"></div><div style="display: none;" class="diigotb-border diigotb-bottom"></div>
+</html>
