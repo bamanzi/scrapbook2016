@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>折腾：树莓派2 安装 OpenELEC · LinuxTOY</title>
+        
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://linuxtoy.org/theme/css/grids-responsive-old-ie-min.css">
+        <link rel="stylesheet" href="https://linuxtoy.org/theme/css/side-menu-old-ie.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        
+        
+        <!--<![endif]-->
+        
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link rel="alternate" type="application/atom+xml" href="https://linuxtoy.org/feeds/all.atom.xml" title="LinuxTOY Atom Feed">
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        
+        <meta name="keywords" content="Linux, 自由软件, 新闻, 教程，提示">
+        <meta name="description" content="在下的树莓派2终于到货了，小巧的身材及超低的功耗，配合 OpenELEC 成为家庭高清播放机及简易 NAS 的不错选择。本文将简述折腾经历。 安装 OpenELEC 基于 Kodi 且适用于树莓派的 Linux 发行版有很多，选择 OpenELEC 主要是由于我的预期实现的用途比较简单，且其对新近上市的树莓派2 支持比较快。您也可以选择其他 Linux 发行版后自行安装 Kodi。 OpenELEC 从 5.0.1 开始支持树莓派2 ...">
+        <meta name="subject" content="Linux 新闻、应用及提示">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@linuxtoy">
+        <meta name="twitter:creator" content="@linuxtoy">
+        <meta name="twitter:url" content="https://linuxtoy.org/archives/how-to-install-openelec-on-raspberrypi2.html">
+        <meta name="twitter:title" content="折腾：树莓派2 安装 OpenELEC">
+        <meta name="twitter:description" content="在下的树莓派2终于到货了，小巧的身材及超低的功耗，配合 OpenELEC 成为家庭高清播放机及简易 NAS 的不错选择。本文将简述折腾经历。 安装 OpenELEC 基于 Kodi 且适用于树莓派的 Linux 发行版有很多，选择 OpenELEC 主要是由于我的预期实现的用途比较简单，且其对新近上市的树莓派2 支持比较快。您也可以选择其他 Linux 发行版后自行安装 Kodi。 OpenELEC 从 5.0.1 开始支持树莓派2 ...">
+        <meta name="twitter:image" content="https://linuxtoy.org/logo.png">
+        <meta property="og:url" content="https://linuxtoy.org/archives/how-to-install-openelec-on-raspberrypi2.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="折腾：树莓派2 安装 OpenELEC">
+        <meta property="og:image" content="https://linuxtoy.org/logo.png">
+        <meta property="og:description" content="在下的树莓派2终于到货了，小巧的身材及超低的功耗，配合 OpenELEC 成为家庭高清播放机及简易 NAS 的不错选择。本文将简述折腾经历。 安装 OpenELEC 基于 Kodi 且适用于树莓派的 Linux 发行版有很多，选择 OpenELEC 主要是由于我的预期实现的用途比较简单，且其对新近上市的树莓派2 支持比较快。您也可以选择其他 Linux 发行版后自行安装 Kodi。 OpenELEC 从 5.0.1 开始支持树莓派2 ...">
+        <meta property="og:site_name" content="LinuxTOY">
+        <meta property="article:author" content="lovenemesis">
+        <link rel="canonical" href="https://linuxtoy.org/archives/how-to-install-openelec-on-raspberrypi2.html">
+    
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+    <body>
+        <div id="layout" class="pure-g">
+            <div class="sidebar pure-u-1">
+                <div class="header">
+                    <a id="menuLink" class="menu-link" href="#menu"><span></span></a>
+                    <div id="menu" class="pure-menu">
+                        <a class="pure-menu-heading" href="https://linuxtoy.org/" title="LinuxTOY">LinuxTOY</a>
+                        <ul class="pure-menu-list">
+
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/all-archives.html" title="Archives">Archives</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/books.html" title="Books">Books</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/talks.html" title="Talks">Talks</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/download.html" title="Download">Download</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/faq.html" title="FAQs">FAQs</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/contact.html" title="Contact">Contact</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/donate.html" title="Donate">Donate</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/license.html" title="License">License</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/links.html" title="Links">Links</a>
+                            </li>
+
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/comments.html" title="Comments">Comments</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/random.html" title="Random">Random</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/feeds/all.atom.xml" title="RSS">RSS</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+<div class="content pure-u-1 pure-u-md-3-5">
+    <div class="posts">
+        <section class="post">
+            <header class="post-header">
+                <h2 class="post-title">
+                    <a href="#" rel="bookmark" title="Permalink to 折腾：树莓派2 安装 OpenELEC">折腾：树莓派2 安装 OpenELEC</a>
+                </h2>
+                <p class="post-meta">
+                    2015-03-24
+                    · By
+                    <a href="https://linuxtoy.org/author/lovenemesis.html">黑日白月</a>
+                    · Posted in <a href="https://linuxtoy.org/category/gadget.html">Gadget</a>
+                    · <a href="#disqus_thread">0 Comments</a>
+                </p>
+            </header>
+            <div class="post-description">
+            <p>在下的树莓派2终于到货了，小巧的身材及超低的功耗，配合 OpenELEC
+成为家庭高清播放机及简易 NAS 的不错选择。本文将简述折腾经历。</p>
+<h3>安装 OpenELEC</h3>
+<p>基于 Kodi 且适用于树莓派的 Linux 发行版有很多，选择
+<a href="https://linuxtoy.org/archives/openelec-4-0.html">OpenELEC</a>
+主要是由于我的预期实现的用途比较简单，且其对新近上市的树莓派2
+支持比较快。您也可以选择其他 Linux 发行版后自行安装 Kodi。</p>
+<p>OpenELEC 从 5.0.1 开始支持树莓派2，其最新版本是
+5.0.6，可以从其<a href="http://openelec.tv/get-openelec">官网下载</a>。对于大多数用户来说，下载
+img 镜像文件即可。</p>
+<p>安装过程非常简单，将一张至少 4G 的 microSD 卡通过读卡器连接到电脑，使用
+<code>dd</code> 将镜像写入即可。这也符合 OpenELEC 宣传的“简单易用”的特性。<br>
+实际操作过程中，若是懒得敲命令行或者担心输错 <code>sdX</code>，也可以使用
+<code>gnome-disk-utility</code> 在图形环境下完成。</p>
+<p>之后将 microSD
+卡插回到树莓派2，开机即可。首次启动时它会自动扩展分区以占据整个 SD 卡。</p>
+<h3>Kodi 中文界面</h3>
+<p>OpenELEC 搭载最新的 Kodi 14.X 开发版，默认皮肤，英文界面。若是通过 HDMI
+连接了电视的话，可以直接使用电视遥控器进行操作，无需鼠标键盘。</p>
+<p>若是想要中文界面，需要<strong>首先调整系统字体为“基于 Arial
+”</strong>，之后切换地区和语言为中文后才会显示正常。</p>
+<p>Kodi
+仓库里有些皮肤可能会修改字体，安装时最好留心下，要不换肤后全变成方块就傻眼了。</p>
+<p>有了中文后，您可以先把玩下 Kodi，大致了解下通过遥控器的基本操作。</p>
+<h3>显示输出</h3>
+<p>恐怕是得益于 VideoCore 4 的身世，树莓派2是为数不多直接支持 HDMI CEC 的
+Linux 设备，不过取决于您的电视厂商和对 CEC 的支持程度，可能其默认选择的
+HDMI 输出方式并不理想，这时候就需要调整一下了。</p>
+<p>树莓派2没有传统意义上的 BIOS，所以底层些诸如 HDMI
+输出类型的配置是通过一个 <code>config.txt</code>
+文件实现的。这个操作当然可以找一台机子<a href="http://wiki.openelec.tv/index.php/Config.txt">远程 SSH
+过去在终端进行</a>，不过这里介绍一个图形化仅需的遥控器即可完成的小插件，简化这个过程。</p>
+<p><a href="https://ls80.github.io/script.openelec.rpi.config/">OpenELEC RPi
+Config</a>
+是一款针对树莓派下 OpenELEC 配置的第三方 Kodi 扩展，在 Kodi
+插件库配置了<a href="http://goo.gl/MpUAWy">相应仓库</a>后可以很方便的在 Kodi
+下修改<code>config.txt</code>文件。</p>
+<p>对于 HDMI 显示输出来讲，可能需要调整的是 “Video"
+选项卡下的内容。以在下的 Sony BRAVIA HX750
+为例，其将树莓派2识别成录像机，其默认的 Color Space
+存在明显可见色差，将其调整为 “YCbCr Full”
+后就变得清晰很多。所以若是您的树莓派2
+在链接大屏幕电视后效果不佳，不妨使用这个小工具调校下。</p>
+<p>另外这个小插件还支持超频、输入<a href="http://www.raspberrypi.com/license-keys/">解码器许可证</a>等功能，可以自行挖掘。</p>
+<p>此外若是您的电视支持 24 帧回放的话，也可以在视频中设定，即可全局
+24p，亦可配置仅在回放视频是切换至 24p。</p>
+<h3>音频输出</h3>
+<p>树莓派2
+是没有光纤输出接口的，所以若是想要将音频导出到独立功放，就需要在电视上配置直通了，各家都不相同，在此不赘述了（其实是没独立功放……）。</p>
+<p>说到直通，Kodi 也是支持将 AC3/DTS 等音频通过 HDMI
+直通到目标设备进行解码，大幅度节省 CPU
+资源。具体哪些音频编码可以这么做取决于电视的支持。以在下的 Sony BRAVIA
+HX750 为例，其支持 AC3 的解码，于是可以在 Kodi
+的“音频”配置中将该项启用。注意此项配置仅在“高级”模式下可见，若是找不到记得在左下角切换。</p>
+<h3>频道及内容</h3>
+<p>这货毕竟不是被光腚局痛恨的盒子，对于朝内在线流媒体的支持仅能算勉强可用。<br>
+若是有意的话，可以<a href="https://github.com/taxigps/xbmc-addons-chinese">启用 XBMC
+中文插件仓库</a>，其中有各类资源的插件，可用性及效果各不相同，按需索取吧。</p>
+<p>中文字幕方面，Kodi 官方仓库里的 OpenSubtitles.org
+插件可以满足绝大多数需求。在 Kodi
+字幕选项中将首选语言设置为中文（或者于界面语言相同），然后再播放影片时暂停，在下方的控制条选择字幕下载即可。</p>
+<p>Kodi
+提供了基于内容的过滤器，可以根据文件名从网络获取媒体相关信息，支持多种来源。看着其为影片库匹配的大幅背景海报，很是过瘾。</p>
+<h3>简易 NAS</h3>
+<p>基于最简化原则构建 OpenELEC
+依然提供了不少文件分享方面的方案，可以当作简易 NAS
+使用还是没问题的。在设置中的“共享”中启用即可，具备 Samba 及 UPNP
+方式，支持包括 Ext4 在内的多种文件系统。</p>
+<p>除了设置之外，有必要在外部 USB 设备的选择上多说几句。树莓派2
+的一大改良是在使用 2A 的电源输入的情况下，支持最大 1.2A 的 USB
+电源输出。不过就算是这样，也无法支持多个 USB 移动硬盘同时工作。</p>
+<p>所以对于简易 NAS 的用途来说一个更加合理的方案是选择带有独立供电的 USB
+集线器，将移动硬盘连接到集线器上先。不过若是您打算也将树莓派2从集线器那里取电，最好留心下您所选择的
+USB
+集线器。有些集线器在这种连接方式下会有回流，有一定风险烧坏树莓派。这方面的信息，可以从<a href="http://elinux.org/RPi_Powered_USB_Hubs">前人的经历</a>了解到。  </p>
+<p>看过之后什么感觉？大多数验证过的要不国内买不到，要不太贵。所以为了保险期间，还是将
+USB 集线器和树莓派2 分开供电吧。</p>
+<p>既然是打算连接多个 USB 移动硬盘做 NAS 用，USB
+集线器的性能还是比较重要的。基于此种考虑我购买了一款 <a href="http://www.amazon.cn/gp/product/B00CBEKK7G">使用 VI812
+方案的USB3.0
+集线器</a>（尽管树莓派2仅支持
+USB2.0），配合树莓派2使用良好，多个移动硬盘之间同时传输速度飞快。</p>
+<h3>横向比较</h3>
+<p>在树莓派2 之前在下一直使用一台<a href="http://www.himedia-tech.cn/product_show.php?id=33">基于 RTD1186
+方案的高清播放机</a>，使用
+OpenELEC 的树莓派2和专门的高清播放机之间比较如何呢？</p>
+<p>先说<strong>优点</strong>吧：</p>
+<ul>
+<li>支持 HDMI CEC，可以直接用电视遥控器操作  </li>
+<li>对于开源音视频格式诸如 Vorbis、 Thoera 及 WebM/VP8 支持良好  </li>
+<li>对于 3D 影片支持 SSA 特效字幕  </li>
+<li>支持 Ext4 文件格式的存储设备  </li>
+<li>无风扇，低功耗  </li>
+<li>可通过 SSH 进行远程管理</li>
+</ul>
+<p>再说<strong>缺点</strong>吧：</p>
+<ul>
+<li>连接 USB 移动硬盘需要配备高输出 USB 电源，或者单独购买 USB 集线器  </li>
+<li>没有原生 USB 3.0 支持  </li>
+<li>不支持光纤输出  </li>
+<li>MPEG2 及 VC1 解码器需要额外购买（1英镑）</li>
+</ul>
+<p>至于和流行的各种安卓盒子比较，个人觉得不是一类产品：盒子面向的更多是网络在线影视剧的观众，和动辄10G+
+的高清影视爱好者不一样。更多的不好说，没用过。</p>
+<p><a href="http://thepihut.com/products/raspberry-pi-2-model-b?utm_source=OpenELEC&amp;utm_medium=image&amp;utm_campaign=OpenELEC">树莓派2购买链接，支持
+OpenELEC</a></p>
+            <p class="post-meta">
+                # 
+                Tagged as 
+                <a href="https://linuxtoy.org/tag/openelec.html">openelec</a>,                 <a href="https://linuxtoy.org/tag/raspberrypi2.html">raspberrypi2</a>                · 
+                Edit on <a href="https://github.com/LinuxTOY/linuxtoy.org/blob/master/content/how-to-install-openelec-on-raspberrypi2.md">GitHub</a>
+            </p>            <!-- <p class="post-meta">&num; <a href="http://resume.linuxtoy.org" title="若有兴趣，欢迎来电 :)">寻 GNU/Linux 相关工作，欢迎联系 :)</a></p> -->
+            </div>
+        </section>
+        <h4>Read More:</h4>
+        <div class="nav-left">
+        
+        <ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px;" data-ad-client="ca-pub-9432205671574187" data-ad-slot="6128171428"></ins>
+        
+        </div>
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                    <a href="https://linuxtoy.org/archives/raspberrypi2-gets-experimental-vc4-opensource-driver-support.html">Raspberry Pi 2 获得试验性 VC4 开源驱动支持</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="disqus_thread"></div>
+    
+    <div class="footer">
+        <p class="nav-left">
+            <a href="https://linuxtoy.org/archives/reminder-tips-to-protect-wireless-security.html">
+                « 提醒：保护无线网络安全的几个措施
+            </a>
+        </p>
+        <p class="nav-right">
+            <a href="https://linuxtoy.org/archives/gnome-3-16.html">
+                GNOME 3.16 »
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="content pure-u-1 pure-u-md-1-5">
+    <div class="posts">
+    
+    <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-9432205671574187" data-ad-slot="6262929029"></ins>
+    
+        <h1 class="content-subhead">Popular Posts</h1>
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-perfect-linux-desktop-arch-linux-2007-08-2-1.html">Archlinux 安装指南</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/unix-linux-command-cheat-sheet.html">Unix/Linux 命令速查表</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/efficient-editing-with-vim.html">高效率编辑器 Vim</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/wget-tips.html">Wget 使用技巧</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/playing-around-with-mplayer.html">玩转 MPlayer</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/awesome.html">平铺式窗口管理器 Awesome</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/3_free_antivirus_under_linux.html">Linux 下的桌面级杀毒软件</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/openbox-getting-started-guide.html">窗口管理器 Openbox 入门指南</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/minimalist-install-of-ubuntu.html">最小化安装 Ubuntu</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/5-desktop-environment-for-linux.html">你可能不知道的 Linux 桌面</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-7-deadly-linux-commands.html">7 个致命的 Linux 命令</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/lightweight-desktop-compare.html">轻量级桌面环境比较</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/zsh.html">终极 Shell——Zsh</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/6-of-the-best-free-linux-cad-software.html">高品质的免费 Linux CAD 程序</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/game_emulator_for_linux.html">Linux 下的几个游戏模拟器</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/history-command-usage-examples.html">History（历史）命令用法 15 例</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-best-tips-and-tricks-for-bash.html">bash 使用技巧</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/10-oreilly-books.html">10 本 O'Reilly 出版的免费好书</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        </div>
+
+        
+        
+        
+        
+
+
+    
+</body>
+</html>

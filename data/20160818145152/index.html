@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务-技术 ◆ 学习|Linux.中国-开源社区</title>
+ 
+<meta name="keywords" content="LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务">
+<meta name="description" content="在这篇文章中，我们会介绍如何管理 Linux 系统自启动进程和服务 ">
+<meta name="copyright" content="2005-2015 Linux.cn">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="referrer" content="always">
+<base href="">
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Linux.中国 - 开源社区 RSS" href="https://linux.cn/rss.xml">
+<link rel="shortcut icon" href="favicon.ico" sizes="32x32">
+<link rel="canonical" href="https://linux.cn/article-7365-2.html">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body id="nv_portal" class="pg_view">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="https://linux.cn/rss.xml" target="_blank">RSS</a><a href="https://linux.cn/tag/">TAG</a><a href="http://e.cn.miaozhen.com/r/k=2022193&amp;p=70nlR&amp;dx=0&amp;rt=2&amp;ns=__IP__&amp;ni=__IESID__&amp;v=__LOC__&amp;o=http://www-03.ibm.com/systems/cn/power/hardware/linux-lc.shtml?S_TACT=C4480D5W&amp;iio=psys&amp;cmp=c4480&amp;ct=c4480d5w&amp;cr=linux%E6%97%B6%E4%BB%A3&amp;cm=b&amp;csot=-&amp;ccy=-&amp;cpb=-&amp;cd=-&amp;cpg=psys&amp;cn=2q1" target="_blank" style="color: blue;">IBM Power Systems LC 服务器</a></div>
+<div class="y">
+<a href="https://linux.cn/aboutus.html">关于我们/aboutus</a><a href="https://linux.cn/business.html">广告合作/AD</a></div>
+</div>
+</div>
+
+
+<div id="hd">
+<div class="wp">
+<div class="hdc cl"><h2 style="padding: 5px 20px 5px 0px;"><a href="https://linux.cn/" title="Linux.中国 - 开源社区"><img src="linuxcn_logo_230x80_ani2.gif" alt="Linux.中国 - 开源社区" border="0"></a></h2><div class="y">
+<form method="post" autocomplete="off" id="lsform" action="https://linux.cn/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes">
+<div style="width: auto;" class="fastlg cl">
+<span id="return_ls" style="display: none;"></span>
+<div class="y pns">
+<table cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td><label for="ls_username">帐号</label></td>
+<td><input name="username" id="ls_username" class="px vm xg1" value="用户名/Email" tabindex="901" type="text"></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" type="checkbox">自动登录</label></td>
+<td>&nbsp;<a>找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password">密码</label></td>
+<td><input name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" type="password"></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904"><em>登录</em></button></td>
+<td>&nbsp;<a href="https://linux.cn/member.php?mod=knight" class="xi2 xw1">骑士注册</a></td>
+</tr>
+</tbody></table>
+<input name="quickforward" value="yes" type="hidden">
+<input name="handlekey" value="ls" type="hidden">
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px;">
+<p><a href="https://linux.cn/connect.php?mod=login&amp;op=init&amp;referer=portal.php%3Fmod%3Dview%26aid%3D7365%26page%3D2%26ref%3D&amp;statfrom=login_simple"><img src="qq_login.gif" class="vm" alt="QQ登录"></a></p>
+<p><a href="https://linux.cn/xwb.php?m=xwbAuth.login"><img src="sina_login.gif" class="vm" style="padding: 2px 0px;" alt="微博登录"></a></p>
+</div>
+
+
+</div>
+</form>
+
+
+</div>
+<h2 style="padding: 5px 20px; float: right;">
+<div class="linuxcnad">
+    <div><a href="https://linux.cn/go/vsv" target="_blank"><img src="001150mvbjqojhgb8w1zqb.png" width="100%" border="0" height="80"></a></div></div>
+</h2>
+</div>
+<div class="p_pop h_pop" id="mn_userapp_menu" style="display: none;"></div><div style="height: 33px;" id="topmenu_wrapper">
+<div style="width: 1200px;" class="affix" id="topmenu">
+<div id="nv">
+<ul><li id="mn_N6666"><a href="https://linux.cn/" hidefocus="true" style="font-weight: bold;">首页</a></li><li id="mn_P3"><a href="https://linux.cn/tech/" hidefocus="true" style="color: rgb(255, 250, 229);">技术 ◆ 学习</a></li><li id="mn_P1"><a href="https://linux.cn/news/" hidefocus="true" style="color: rgb(255, 250, 229);">新闻 ◆ 快讯</a></li><li id="mn_P4"><a href="https://linux.cn/talk/" hidefocus="true" style="color: rgb(255, 250, 229);">观点 ◆ 热议</a></li><li id="mn_P8"><a href="https://linux.cn/share/" hidefocus="true" style="color: rgb(255, 250, 229);">软件 ◆ 分享</a></li><li id="mn_N9be8"><a href="https://linux.cn/forum/" hidefocus="true" target="_blank" style="color: cyan;">论坛</a></li><li id="mn_Ne749"><a href="https://linux.cn/forum.php?mod=post&amp;action=newthread&amp;fid=119" hidefocus="true" target="_blank" style="color: red;">投稿</a></li></ul>
+</div>
+<div id="mu" class="cl">
+<ul class="cl " id="snav_mn_P3" style="display: none;">
+<li><a href="https://linux.cn/tech/desktop/" hidefocus="true">桌面应用</a></li><li><a href="https://linux.cn/tech/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/tech/program/" hidefocus="true">软件开发</a></li></ul>
+<ul class="cl " id="snav_mn_P8" style="display: none;">
+<li><a href="https://linux.cn/share/distro/" hidefocus="true">Linux 发行版</a></li></ul>
+<ul class="cl " id="snav_mn_N9be8" style="display: none;">
+<li><a href="https://linux.cn/thread/" hidefocus="true" style="color: blue;">全部话题</a></li><li><a hidefocus="true" style="color: red;">发新帖</a></li><li><a hidefocus="true">|</a></li><li><a href="https://linux.cn/forum/news/" hidefocus="true">新闻杂谈</a></li><li><a href="https://linux.cn/forum/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/forum/program/" hidefocus="true">编程开发</a></li></ul>
+<ul class="cl " id="snav_mn_N39f5" style="display: none;">
+<li><a href="https://linux.cn/space.php" hidefocus="true">首页</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=home" hidefocus="true">动态</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=doing" hidefocus="true">记录</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=blog" hidefocus="true">博客</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=album" hidefocus="true">相册</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=favorite" hidefocus="true">收藏</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=friend" hidefocus="true">好友</a></li><li><a href="https://linux.cn/home.php?mod=spacecp&amp;ac=invite" hidefocus="true">邀请</a></li></ul>
+<ul class="cl " id="snav_mn_userapp" style="display: none;">
+</ul>
+</div></div>
+</div>
+<div id="scbar" class="cl">
+<form id="scbar_form" method="post" autocomplete="off" action="https://linux.cn/search.php?searchsubmit=yes" target="_blank">
+<input name="mod" id="scbar_mod" value="search" type="hidden">
+<input name="formhash" value="33e11f09" type="hidden">
+<input name="srchtype" value="title" type="hidden">
+<input name="srhfid" value="0" type="hidden">
+<input name="srhlocality" value="portal::view" type="hidden">
+<table id="scbar_table" style="float: right;" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input placeholder="请注册后再搜索" class=" xg1" name="srchtxt" id="scbar_txt" value="请注册后再搜索" autocomplete="off" speech="" type="text"></td>
+<td class="scbar_type_td"><a id="scbar_type" class="xg1" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+</div>
+</td>
+</tr>
+</tbody></table>
+</form>
+<span class="z titletext" style="padding: 0px 10px 0px 20px;">❏ <a href="http://locez.com/" target="_blank">Locez</a> 新手指南：</span>
+<ul class="cl mutag z">
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-4130-1.html">下载 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-5893-1.html">安装 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6042-1.html">安装软件 »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6160-1.html">基础命令 »</a></li>
+
+</ul>
+</div>
+<br class="clear">
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a rel="search">全站</a></li></ul>
+
+
+
+</div>
+</div>
+<div id="wp" class="wp">
+
+
+
+<div class="linuxcnad">
+    </div>
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="https://linux.cn/" class="nvhm" title="首页">Linux.中国 - 开源社区</a> <em>›</em><a href="https://linux.cn/tech/">技术 ◆ 学习</a> <em>›</em>
+查看内容
+</div>
+</div>
+
+<div class="linuxcnad"></div>
+
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+<div id="ct" class="ct2 wp cl">
+<div class="mn">
+<div class="linuxcnad">
+    </div>
+<div class="vw">
+<div class="h hm">
+<h1 class="ph" id="article_title">LFCS 系列第七讲：通过 SysVinit、Systemd 和 Upstart 管理系统自启动进程和服务 </h1>
+</div>
+<div class="h">
+<p class="copyright">
+    	 
+    		    			    			<span class="z textcut">编译自：<a href="http://www.tecmint.com/linux-boot-process-and-manage-services/" target="_blank">http://www.tecmint.com/linux-boot-process-and-manage-services/</a></span>
+    			    		    		<span class="y">作者： Gabriel Cánepa</span>    		<br class="clear">
+    	    	<span class="z">原创：<a href="http://lctt.github.io/" target="_blank">LCTT</a> <a href="https://linux.cn/article-7365-1.html" target="_blank">https://linux.cn/article-7365-1.html</a></span>
+            			<span class="y">译者： ictlyh</span>    		<br class="clear">
+    	    	<span class="z">本文地址：<a href="#">https://linux.cn/article-7365-2.html</a></span>
+    	<span class="y"><a href="https://linux.cn/article-7365-2.html?pr" class="print" title="打印"></a></span>
+    	<br class="clear">
+    	</p>
+<p class="xg1">
+2016-5-20 10:01&nbsp;&nbsp;&nbsp;
+评论: <a href="https://linux.cn/portal.php?mod=comment&amp;id=7365&amp;idtype=aid" title="查看全部评论"><em id="_commentnum">1</em></a>&nbsp;收藏: <em id="_favtimes">3</em>&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+</div>
+
+<!--[diy=diysummarytop]--><div id="diysummarytop" class="area"></div><!--[/diy]-->
+
+
+<!--[diy=diysummarybottom]--><div id="diysummarybottom" class="area"></div><!--[/diy]-->
+
+<div class="d">
+
+<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
+
+<div id="article_content">
+<div class="linuxcnad"></div>
+
+<a target="_blank" rel="external nofollow" id="3_12907" class="target-fix ext"></a><h3 id="toc_7">那关于 systemd 呢？</h3>
+<p>systemd 是另外一个被多种主流 Linux 发行版采用的服务和系统管理器。它的目标是允许系统启动时多个任务尽可能并行（而 sysvinit 并非如此，sysvinit 一般比较慢，因为它每次只启动一个进程，而且会检查彼此之间是否有依赖，在启动其它服务之前还要等待守护进程启动），充当运行中系统动态资源管理的角色。</p>
+<p>因此，服务只在需要的时候启动，而不是系统启动时毫无缘由地启动（为了防止消耗系统资源）。</p>
+<p>要查看你系统中运行的原生 systemd 服务和 Sysv 服务，可以用以下的命令。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span></code></li></ol></pre>
+<p class="article_img"><img style="width: 734px; cursor: pointer;" title="查看运行中的进程" src="220738ljodjop7t3d39924.png" alt="查看运行中的进程"></p>
+<p class="article_img_desc"><em>查看运行中的进程</em></p>
+<p>LOAD 一列显示了单元（UNIT 列，显示服务或者由 systemd 维护的其它进程）是否正确加载，ACTIVE 和 SUB 列则显示了该单元当前的状态。</p>
+<p><strong>显示服务当前状态的信息</strong></p>
+<p>当 ACTIVE 列显示某个单元状态并非活跃时，我们可以使用以下命令查看具体原因。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> status </span><span class="pun">[</span><span class="pln">unit</span><span class="pun">]</span></code></li></ol></pre>
+<p>例如，上图中 media-samba.mount 处于失败状态。我们可以运行：</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> status media</span><span class="pun">-</span><span class="pln">samba</span><span class="pun">.</span><span class="kwd">mount</span></code></li></ol></pre>
+<p class="article_img"><img style="width: 734px; cursor: pointer;" title="查看服务状态" src="220741u2qzr2dgp1y012pp.png" alt="查看服务状态"></p>
+<p class="article_img_desc"><em>查看服务状态</em></p>
+<p>我们可以看到 media-samba.mount 失败的原因是 host dev1 上的挂载进程无法找到 //192.168.0.10/gacanepa 上的共享网络。</p>
+<a target="_blank" rel="external nofollow" id="3_14860" class="target-fix ext"></a><h3 id="toc_8">启动或停止服务</h3>
+<p>一旦 //192.168.0.10/gacanepa 上的共享网络可用，我们可以再来尝试启动、停止以及重启 media-samba.mount 单元。执行每次操作之后，我们都执行 systemctl stats media-samba.mout 来查看它的状态。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> start media</span><span class="pun">-</span><span class="pln">samba</span><span class="pun">.</span><span class="kwd">mount</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> status media</span><span class="pun">-</span><span class="pln">samba</span><span class="pun">.</span><span class="kwd">mount</span></code></li><li class="L2"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> stop media</span><span class="pun">-</span><span class="pln">samba</span><span class="pun">.</span><span class="kwd">mount</span></code></li><li class="L3"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> restart media</span><span class="pun">-</span><span class="pln">samba</span><span class="pun">.</span><span class="kwd">mount</span></code></li><li class="L4"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> status media</span><span class="pun">-</span><span class="pln">samba</span><span class="pun">.</span><span class="kwd">mount</span></code></li></ol></pre>
+<p class="article_img"><img style="width: 734px; cursor: pointer;" title="启动停止服务" src="220752nolmn6lblbz2l96o.jpg" alt="启动停止服务"></p>
+<p class="article_img_desc"><em>启动停止服务</em></p>
+<p><strong>启用或停用某服务随系统启动</strong></p>
+<p>使用 systemd 你可以在系统启动时启用或停用某服务</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> enable </span><span class="pun">[</span><span class="pln">service</span><span class="pun">]</span><span class="pln">        </span><span class="com">#</span><span class="pln"> </span><span class="pun">启用服务</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> disable </span><span class="pun">[</span><span class="pln">service</span><span class="pun">]</span><span class="pln">       </span><span class="com">#</span><span class="pln"> </span><span class="pun">阻止服务随系统启动</span></code></li></ol></pre>
+<p>启用或停用某服务随系统启动包括在 /etc/systemd/system/multi-user.target.wants 目录添加或者删除符号链接。</p>
+<p class="article_img"><img style="width: 734px; cursor: pointer;" title="启用或停用服务" src="220803gv0y99jy0w8j05lw.jpg" alt="启用或停用服务"></p>
+<p class="article_img_desc"><em>启用或停用服务</em></p>
+<p>你也可以用下面的命令查看某个服务的当前状态（启用或者停用）。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> </span><span class="kwd">is</span><span class="pun">-</span><span class="pln">enabled </span><span class="pun">[</span><span class="pln">service</span><span class="pun">]</span></code></li></ol></pre>
+<p>例如，</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> </span><span class="kwd">is</span><span class="pun">-</span><span class="pln">enabled postfix</span><span class="pun">.</span><span class="pln">service</span></code></li></ol></pre>
+<p>另外，你可以用下面的命令重启或者关闭系统。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> </span><span class="kwd">reboot</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> </span><span class="kwd">systemctl</span><span class="pln"> </span><span class="kwd">shutdown</span></code></li></ol></pre>
+<a target="_blank" rel="external nofollow" id="3_16637" class="target-fix ext"></a><h3 id="toc_9">Upstart</h3>
+<p>基于事件的 Upstart 是 /sbin/init 守护进程的替代品，它仅为在需要那些服务的时候启动服务而生，（或者当它们在运行时管理它们），以及处理发生的实践，因此 Upstart 优于基于依赖的 sysvinit 系统。</p>
+<p>一开始它是为 Ubuntu 发行版开发的，但在红帽企业版 Linux 6.0 中得到使用。尽管希望它能在所有 Linux 发行版中替代 sysvinit，但它已经被 systemd 超越。2014 年 2 月 14 日，Mark Shuttleworth（Canonical Ltd. 创建者）发布声明之后的 Ubuntu 发行版采用 systemd 作为默认初始化守护进程。</p>
+<p>由于 Sysv 启动脚本已经流行很长时间了，很多软件包中都包括了 Sysv 启动脚本。为了兼容这些软件， Upstart 提供了兼容模式：它可以运行保存在常用位置（/etc/rc.d/rc?.d, /etc/init.d/rc?.d, /etc/rc?.d或其它类似的位置）的Sysv 启动脚本。因此，如果我们安装了一个还没有 Upstart 配置脚本的软件，仍然可以用原来的方式启动它。</p>
+<p>另外，如果我们还安装了类似 <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/chkconfig-command-examples/">chkconfig</a> 的工具，你还可以和在基于 sysvinit 的系统中一样用它们管理基于 Sysv 的服务。</p>
+<p>Upstart 脚本除了支持 Sysv 启动脚本，还支持基于多种方式启动或者停用服务；例如， Upstart 可以在一个特定硬件设备连接上的时候启动一个服务。</p>
+<p>使用 Upstart以及它原生脚本的系统替换了 /etc/inittab 文件和 /etc/init 目录下和运行等级相关的以 .conf 作为后缀的 Sysv 启动脚本目录。</p>
+<p>这些 *.conf 脚本（也称为任务定义）通常包括以下几部分：</p>
+<ul>
+<li>进程描述</li>
+<li>进程的运行等级或者应该触发它们的事件</li>
+<li>应该停止进程的运行等级或者触发停止进程的事件</li>
+<li>选项</li>
+<li>启动进程的命令</li>
+</ul>
+<p>例如，</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="typ">My</span><span class="pln"> </span><span class="kwd">test</span><span class="pln"> service </span><span class="pun">-</span><span class="pln"> </span><span class="typ">Upstart</span><span class="pln"> </span><span class="kwd">script</span><span class="pln"> demo description </span><span class="str">"Here goes the description of 'My test service'"</span><span class="pln"> author </span><span class="str">"Dave Null &lt;dave.null@example.com&gt;"</span></code></li><li class="L1"><code><span class="com">#</span><span class="pln"> </span><span class="typ">Stanzas</span></code></li><li class="L2"><code></code></li><li class="L3"><code><span class="com">#</span></code></li><li class="L4"><code><span class="com">#</span><span class="pln"> </span><span class="typ">Stanzas</span><span class="pln"> </span><span class="kwd">define</span><span class="pln"> </span><span class="kwd">when</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> how a process </span><span class="kwd">is</span><span class="pln"> started </span><span class="kwd">and</span><span class="pln"> stopped</span></code></li><li class="L5"><code><span class="com">#</span><span class="pln"> </span><span class="typ">See</span><span class="pln"> a </span><span class="kwd">list</span><span class="pln"> of stanzas here</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//upstart.ubuntu.com/wiki/Stanzas#respawn</span></code></li><li class="L6"><code><span class="com">#</span><span class="pln"> </span><span class="typ">When</span><span class="pln"> to start the service</span></code></li><li class="L7"><code><span class="pln">start on </span><span class="kwd">runlevel</span><span class="pln"> </span><span class="pun">[</span><span class="lit">2345</span><span class="pun">]</span></code></li><li class="L8"><code><span class="com">#</span><span class="pln"> </span><span class="typ">When</span><span class="pln"> to stop the service</span></code></li><li class="L9"><code><span class="pln">stop on </span><span class="kwd">runlevel</span><span class="pln"> </span><span class="pun">[</span><span class="lit">016</span><span class="pun">]</span></code></li><li class="L0"><code><span class="com">#</span><span class="pln"> </span><span class="typ">Automatically</span><span class="pln"> restart process </span><span class="kwd">in</span><span class="pln"> </span><span class="kwd">case</span><span class="pln"> of crash</span></code></li><li class="L1"><code><span class="pln">respawn</span></code></li><li class="L2"><code><span class="com">#</span><span class="pln"> </span><span class="typ">Specify</span><span class="pln"> working directory</span></code></li><li class="L3"><code><span class="pln">chdir </span><span class="pun">/</span><span class="pln">home</span><span class="pun">/</span><span class="pln">dave</span><span class="pun">/</span><span class="pln">myfiles</span></code></li><li class="L4"><code><span class="com">#</span><span class="pln"> </span><span class="typ">Specify</span><span class="pln"> the process</span><span class="pun">/</span><span class="pln">command </span><span class="pun">(</span><span class="pln">add arguments </span><span class="kwd">if</span><span class="pln"> needed</span><span class="pun">)</span><span class="pln"> to run</span></code></li><li class="L5"><code><span class="kwd">exec</span><span class="pln"> </span><span class="kwd">bash</span><span class="pln"> backup</span><span class="pun">.</span><span class="pln">sh arg1 arg2</span></code></li></ol></pre>
+<p>要使更改生效，你要让 upstart 重新加载它的配置文件。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="com">#</span><span class="pln"> initctl reload</span><span class="pun">-</span><span class="pln">configuration</span></code></li></ol></pre>
+<p>然后用下面的命令启动你的任务。</p>
+<pre style="" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln">$ </span><span class="kwd">sudo</span><span class="pln"> start yourjobname</span></code></li></ol></pre>
+<p>其中 yourjobname 是之前 yourjobname.conf 脚本中添加的任务名称。</p>
+<p>关于 Upstart 更完整和详细的介绍可以参考该项目网站的 “<a target="_blank" rel="external nofollow" class="ext" href="http://upstart.ubuntu.com/cookbook/">Cookbook</a>” 栏目。</p>
+<a target="_blank" rel="external nofollow" id="3_19900" class="target-fix ext"></a><h3 id="toc_10">总结</h3>
+<p>了解 Linux 启动进程对于你进行错误处理、调整计算机系统以及根据需要运行服务非常有用。</p>
+<p>在这篇文章中，我们分析了你按下电源键启动机器的一刻到你看到完整的可操作用户界面这段时间发生了什么。我希望你能像我一样把它们放在一起阅读。欢迎在下面留下你的评论或者疑问。我们总是期待听到读者的回复。</p>
+<hr>
+<p>via: <a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/linux-boot-process-and-manage-services/">http://www.tecmint.com/linux-boot-process-and-manage-services/</a></p>
+<p>作者：<a target="_blank" rel="external nofollow" class="ext" href="http://www.tecmint.com/author/gacanepa/">Gabriel Cánepa</a> 译者：<a target="_blank" rel="external nofollow" class="ext" href="http://mutouxiaogui.cn/blog/">ictlyh</a> 校对：<a target="_blank" rel="external nofollow" class="ext" href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a target="_blank" rel="external nofollow" class="ext" href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创翻译，<a href="#">Linux中国</a> 荣誉推出</p>
+<div class="ptw pbw cl"><div class="pg"><a href="https://linux.cn/article-7365-1.html" class="prev">&nbsp;&nbsp;</a><a href="https://linux.cn/article-7365-1.html">1</a><strong>2</strong><label><input name="custompage" class="px" size="2" title="输入页码，按回车快速跳转" value="2" type="text"><span title="共 2 页"> / 2 页</span></label></div> <div class="y">查看其它分页：</div> </div></div>
+</div>
+<div class="b">
+<div class="hm">
+<a title="分享到新浪微博" class="tsina_large"></a>
+<a class="weixin_large"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7365&amp;handlekey=favoritearticlehk_7365" id="a_favorite" class="fav_large"></a>
+</div>
+<p class="copyright">
+    	 
+    		    			    			<span class="z textcut">编译自：<a href="http://www.tecmint.com/linux-boot-process-and-manage-services/" target="_blank">http://www.tecmint.com/linux-boot-process-and-manage-services/</a></span>
+    			    		    		<span class="y">作者： Gabriel Cánepa</span>    		<br class="clear">
+    	    	<span class="z">原创：<a href="http://lctt.github.io/" target="_blank">LCTT</a> <a href="https://linux.cn/article-7365-1.html" target="_blank">https://linux.cn/article-7365-1.html</a></span>
+            			<span class="y">译者： ictlyh</span>    		<br class="clear">
+    	    	<br>
+    	    		<span>本文由 LCTT 原创翻译，<a href="https://linux.cn/article-7365-1.html">Linux中国首发</a>。也想加入译者行列，为开源做一些自己的贡献么？欢迎加入 <a href="http://lctt.github.io/" target="_blank">LCTT</a>！<br>翻译工作和译文发表仅用于学习和交流目的，翻译工作遵照 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a>，如果我们的工作有侵犯到您的权益，请及时联系我们。</span>
+    		    		<br class="clear">
+    		<span style="color: red;">欢迎遵照 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a>转载，敬请在正文中标注并保留原文/译文链接和作者/译者等信息。</span>
+                		<br class="clear">
+    	    	<span>文章仅代表作者的知识和看法，如有不同观点，请楼下排队<a>吐槽</a> :D</span>
+    	<br class="clear">
+</p>
+
+
+<div class="linuxcnad"></div>
+<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+
+<div id="click_div"><table class="atd" cellpadding="0" cellspacing="0">
+<tbody><tr></tr>
+</tbody></table>
+
+
+</div>
+
+<!--[diy=diycontentclickbottom]--><div id="diycontentclickbottom" class="area"></div><!--[/diy]-->
+
+
+<div class="o cl ptm pbm">
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=share&amp;type=article&amp;id=7365&amp;handlekey=sharearticlehk_7365" id="a_share" title="站内分享" class="siteshare z"></a>
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7365&amp;handlekey=favoritearticlehk_7365" id="a_favorite" class="favorite z" title="收藏"></a>
+<a href="https://linux.cn/misc.php?mod=invite&amp;action=article&amp;id=7365" id="a_invite" class="invite z" title="邀请"></a>
+<a href="https://linux.cn/article-7365-2.html?pr" class="print z" title="打印"></a>
+				
+</div>
+<div class="pren pbm cl">
+<em>上一篇：<a href="https://linux.cn/article-7364-1.html">使用新的 apt 命令在 Ubuntu 16.04 LTS 下管理软件包</a></em><em>下一篇：<a href="https://linux.cn/article-7372-1.html">使用 arch-ppa 创建你自己的 Arch Linux 软件库</a></em></div>
+</div>
+</div>
+
+<!--[diy=diycontentrelatetop]--><div id="diycontentrelatetop" class="area"></div><!--[/diy]-->
+
+<!--[diy=diycontentrelate]--><div id="diycontentrelate" class="area"></div><!--[/diy]-->
+
+<div style="margin-right: 15px;">
+<div id="add_comment" class="bm">
+<div class="bm_h cl">
+<h3>发表评论</h3>
+</div>
+<div class="bm_c pbn">
+<form id="cform" name="cform" action="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment" method="post" autocomplete="off">
+<div class="tedt">
+<div class="area">
+<textarea name="message" rows="10" class="pt" id="message"></textarea>
+</div>
+</div>
+
+<div class="mtm z"><span id="seccode_cSpd68T4"><input name="seccodehash" value="cSpd68T4" type="hidden"><input name="seccodemodid" value="portal::view" type="hidden">验证码 <span id="seccodecSpd68T4"><input name="seccodeverify" id="seccodeverify_cSpd68T4" autocomplete="off" style="ime-mode: disabled; width: 100px;" class="txt px vm" type="text"> <a class="xi2">换一个</a><span id="checkseccodeverify_cSpd68T4"><img id="checksec_none_cSpd68T4" src="none.gif" class="vm" width="16" height="16"></span></span><div id="seccodecSpd68T4_menu" class="p_pop p_opt" style="display: none;"><span id="vseccode_cSpd68T4">输入下图中的字符<br><img src="misc.php" class="vm" alt="" width="100" height="40"></span></div></span>		
+
+
+</div>
+<input name="portal_referer" value="https://linux.cn/article-7365-1.html#comment" type="hidden">
+<input name="referer" value="https://linux.cn/article-7365-1.html#comment" type="hidden">
+<input name="id" value="0" type="hidden">
+<input name="idtype" value="" type="hidden">
+<input name="aid" value="7365" type="hidden">
+<input id="reppid" name="reppid" value="" type="hidden">
+<input name="formhash" value="33e11f09" type="hidden">
+<input name="replysubmit" value="true" type="hidden">
+<input name="commentsubmit" value="true" type="hidden">
+<p class="mtm z"><button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="pn"><strong>评论</strong></button></p>
+<br class="clear">
+</form>
+</div>
+</div>
+</div>
+<div id="comment" class="bm" style="margin-right: 15px;">
+<div class="bm_h cl">
+<h3 class="z"><a name="comment"></a>最新评论</h3>
+<h3 class="y"><a class="y" style="color: rgb(204, 0, 0);">我也要发表评论</a></h3>
+</div>
+<div id="comment_ul" class="bm_c"><a name="comment_anchor_41529"></a>
+<dl id="comment_41529_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<span>来自上海的 Internet Explorer 11.0|Windows 7 用户</span>
+<span class="xg1 xw0 vm">2016-7-29 17:58</span>
+</dt>
+<dd>
+Configuring a service to start automatically on a specific runlevel and prevent it from starting on all others<br>
+<br>
+配置一个服务在一个指定运行等级下自动运行，同时阻止它在其他运行等级下启动<br>
+<br>
+我觉得这样更容易明白</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7365&amp;pid=41529&amp;hash=33e11f09">赞 <span id="review_support_41529">1</span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(41529, '7365');">回复</a> --><a id="reply_41529" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=41529&amp;aid=7365&amp;idtype=">回复</a> </span>
+</dd>
+</dl><div class="ptm pbm cl">
+</div>
+</div>
+</div>
+
+<!--[diy=diycontentcomment]--><div id="diycontentcomment" class="area"></div><!--[/diy]-->
+</div>
+<div class="sd pph">
+
+
+<div class="drag">
+<!--[diy=diyrighttop]--><div id="diyrighttop" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="linuxcnad">
+    </div>
+<div class="linuxcnad">
+    </div>
+
+<!--热门评论-->
+<div id="hot_comment" class="bm">
+<div class="bm_h cl">
+<h2>热点评论</h2>
+</div>
+<div class="bm_c">
+<div class="xl cl"><dl class="ptm pbm bbda cl">
+<dt class="mbm">
+<span>来自上海的 Internet Explorer 11.0|Windows 7 用户</span>
+<span class="xg1 xw0 vm">2016-7-29 17:58</span>
+</dt>
+<dd>Configuring a service to start automatically on a specific runlevel and prevent it from starting on all others<br>
+<br>
+配置一个服务在一个指定运行等级下自动运行，同时阻止它在其他运行等级下启动<br>
+<br>
+我觉得这样更容易明白</dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/forum.php?mod=misc&amp;action=postreview&amp;do=support&amp;idtype=aid&amp;tid=7365&amp;pid=41529&amp;hash=33e11f09">赞 <span name="review_support_rep_41529">1</span></a> 
+</span>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div class="linuxcnad"></div>
+
+<div class="affix" id="right_affix" style="width: 350px;">
+<div class="linuxcnad">
+    </div>
+<div id="inner_nav" class="bm">
+<div class="bm_h cl">
+<h3>本文导航</h3>
+</div>
+<div class="bm_c inner_menu">
+<ul class="xl cl"><li><span class="folder"><a>-</a></span><a href="https://linux.cn/article-7365-1.html#3_1082">管理 Linux 自启动进程</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_1788">MBR 方式</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_3370">EFI/UEFI 方式</a></li></ul><li><span class="folder"><a>-</a></span><a href="https://linux.cn/article-7365-1.html#3_5141">自启动服务(SysVinit)</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_9285">使用 chkconfig 管理服务</a></li><li><span class="folder">-</span><a href="https://linux.cn/article-7365-1.html#4_11296">使用 sysv-rc-conf 管理服务</a></li></ul><li><span class="folder">-</span><a href="#3_12907">那关于 systemd 呢？</a></li><li><span class="folder">-</span><a href="#3_14860">启动或停止服务</a></li><li><span class="folder">-</span><a href="#3_16637">Upstart</a></li><li><span class="folder">-</span><a href="#3_19900">总结</a></li></ul></div>
+</div>
+
+<div class="bm block">
+<div class="bm_h cl">
+<h3>相关阅读</h3>
+</div>
+<div class="bm_c pbn" id="related_tag">
+<ul class="xl xl2 cl bbs pbm" id="tag"><li><a href="https://linux.cn/tag-Systemd.html">Systemd</a></li>
+<li><a href="https://linux.cn/tag-upstart.html">upstart</a></li>
+<li><a href="https://linux.cn/tag-sysvinit.html">sysvinit</a></li>
+<li><a href="https://linux.cn/tag-LFCS.html">LFCS</a></li>
+</ul>
+</div>
+<div class="bm_c xl xl1 cl" id="related_article">
+<ul><li><em>2016-4-18</em><a href="https://linux.cn/article-7229-1.html" target="_blank">LFCS 系列第六讲：组装分区为RAID设备——创建和管理系统备份</a> </li>
+<li><em>2016-6-2</em><a href="https://linux.cn/article-7418-1-rel.html" target="_blank">LFCS 系列第八讲：管理用户和用户组、文件权限和属性以及启用账户 sudo 访问权限</a> </li>
+<li><em>2014-2-10</em><a href="https://linux.cn/article-2555-1-rel.html" target="_blank">Debian技术委员会倾向采用Systemd</a> </li>
+<li><em>2014-9-11</em><a href="https://linux.cn/article-3794-1-rel.html" target="_blank">systemd 与 sysVinit 彩版对照表</a> </li>
+<li><em>2016-6-13</em><a href="https://linux.cn/article-7455-1-rel.html" target="_blank">LFCS 系列第九讲: 使用 Yum、RPM、Apt、Dpkg、Aptitude 进行 Linux 软件包管理</a> </li>
+<li><em>2016-7-7</em><a href="https://linux.cn/article-7549-1-rel.html" target="_blank">LFCS 系列第十讲：学习简单的 Shell 脚本编程和文件系统故障排除</a> </li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="drag">
+<!--[diy=diy2]--><div id="diy2" class="area"></div><!--[/diy]-->
+</div>
+
+
+</div>
+</div>
+
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+<input id="portalview" value="1" type="hidden">
+
+
+
+
+	</div>
+
+
+    <div id="footer">
+        <p>
+            <span>Linux.CN © 2003-2016 Linux中国</span>
+            <span class="line">|</span>
+            <span>Powered by <strong>DX</strong> | 图片存储于<a href="http://www.qiniu.com/" target="_blank">七牛云存储</a></span>
+        </p>
+        <p>
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备05083684号-1</a>            京公网安备110105001595
+        </p>
+        <p>
+        <a href="https://linux.cn/legal.html">服务条款</a> |
+        除特别申明外，本站原创内容版权遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a></p>
+        <p>
+        <a href="https://linux.cn/"><img src="linuxcn_logo_mini.png" align="absmiddle"></a>
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img src="cc.png" align="absmiddle"></a>
+        </p>
+<p>
+</p>
+</div>
+
+<div id="ft" class="cl"></div>
+
+<div style="left: 858px; visibility: visible;" id="scrolltop">
+<span>
+<a class="wxicon"></a>
+<a title="分享到新浪微博" class="tsina"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=7365&amp;handlekey=favoritearticlehk_7365" id="a_favorite" class="favorite"></a>
+</span>
+<span hidefocus="true"><a title="返回顶部" class="scrolltopa"><b>返回顶部</b></a></span>
+</div>
+
+<div id="qrcode">
+<p>分享到微信朋友圈</p>
+<div id="canvas"></div>
+<p><em>打开微信，点击底部的“发现”，<br>
+使用“扫一扫”将网页分享至朋友圈。</em></p></div>
+<div style="display: none;" id="pleaseRemoveOurSiteFromBlackList"></div>
+<div id="Ll92CisOsS" style="display: none; background-color: rgb(170, 0, 0); position: fixed; top: 0px; width: 100%; z-index: 9999; left: 0px; font-size: 16px; color: rgb(255, 255, 255); text-align: center; padding: 0px;">请将我们加入您的广告过滤器的白名单，请支持开源站点。谢谢您。</div>
+
+
+
+<div style="display: none; z-index: 25 ! important;" id="__lpform_ls_username_numspan"></div><div style="max-height: 16px; vertical-align: top; position: absolute; top: 45px; left: 1036px; z-index: 24;" id="__lpform_ls_username"><img style="opacity: 0.6; vertical-align: top;" id="__lpform_ls_username_icon" width="16" height="16"></div><div style="display: none; z-index: 25 ! important;" id="__lpform_ls_password_numspan"></div><div style="max-height: 16px; vertical-align: top; position: absolute; top: 73px; left: 1036px; z-index: 24;" id="__lpform_ls_password"><img style="opacity: 0.6; vertical-align: top;" id="__lpform_ls_password_icon" width="16" height="16"></div></body><div class="" style="display: none; width: 24px; left: 745px; top: 3296px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 311px; width: 1px; left: 45px; top: 3017px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 734px; height: 1px; left: 45px; top: 3017px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 311px; width: 1px; left: 779px; top: 3017px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 734px; height: 1px; left: 45px; top: 3328px;" class="diigotb-border diigotb-bottom"></div>
+</html>
