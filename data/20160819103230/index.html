@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style="">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration File — Supervisor 3.3.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+    <link rel="top" title="Supervisor 3.3.1 documentation" href="http://supervisord.org/index.html">
+        <link rel="next" title="Subprocesses" href="http://supervisord.org/subprocess.html">
+        <link rel="prev" title="Running Supervisor" href="http://supervisord.org/running.html"> 
+
+  
+  
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="wy-body-for-nav" role="document"><div class="wy-grid-for-nav"><section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><div class="wy-nav-content"><div class="rst-content"><div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article"><div itemprop="articleBody"><div class="section" id="configuration-file"><div class="section" id="program-x-section-settings"><div class="section" id="program-x-section-values"><!--DOCUMENT_FRAGMENT--><p><tt class="docutils literal"><span class="pre">startretries</span></tt></p>
+<blockquote>
+<div><p>The number of serial failure attempts that <strong class="program">supervisord</strong>
+will allow when attempting to start the program before giving up and
+putting the process into an <tt class="docutils literal"><span class="pre">FATAL</span></tt> state.  See
+<a class="reference internal" href="http://supervisord.org/subprocess.html#process-states"><em>Process States</em></a> for explanation of the <tt class="docutils literal"><span class="pre">FATAL</span></tt> state.</p>
+<p><em>Default</em>: 3</p>
+<p><em>Required</em>:  No.</p>
+<p><em>Introduced</em>: 3.0</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">autorestart</span></tt></p>
+<blockquote>
+<div><p>Specifies if <strong class="program">supervisord</strong> should automatically restart a
+process if it exits when it is in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state.  May be
+one of <tt class="docutils literal"><span class="pre">false</span></tt>, <tt class="docutils literal"><span class="pre">unexpected</span></tt>, or <tt class="docutils literal"><span class="pre">true</span></tt>.  If <tt class="docutils literal"><span class="pre">false</span></tt>, the
+process will not be autorestarted.  If <tt class="docutils literal"><span class="pre">unexpected</span></tt>, the process
+will be restarted when the program exits with an exit code that is
+not one of the exit codes associated with this process’ configuration
+(see <tt class="docutils literal"><span class="pre">exitcodes</span></tt>).  If <tt class="docutils literal"><span class="pre">true</span></tt>, the process will be unconditionally
+restarted when it exits, without regard to its exit code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><tt class="docutils literal"><span class="pre">autorestart</span></tt> controls whether <strong class="program">supervisord</strong> will
+autorestart a program if it exits after it has successfully started
+up (the process is in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state).</p>
+<p class="last"><strong class="program">supervisord</strong> has a different restart mechanism for when the
+process is starting up (the process is in the <tt class="docutils literal"><span class="pre">STARTING</span></tt> state).
+Retries during process startup are controlled by <tt class="docutils literal"><span class="pre">startsecs</span></tt>
+and <tt class="docutils literal"><span class="pre">startretries</span></tt>.</p>
+</div>
+<p><em>Default</em>: unexpected</p>
+<p><em>Required</em>:  No.</p>
+<p><em>Introduced</em>: 3.0</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">exitcodes</span></tt></p>
+<blockquote>
+<div><p>The list of “expected” exit codes for this program used with <tt class="docutils literal"><span class="pre">autorestart</span></tt>.
+If the <tt class="docutils literal"><span class="pre">autorestart</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">unexpected</span></tt>, and the process
+exits in any other way than as a result of a supervisor stop
+request, <strong class="program">supervisord</strong> will restart the process if it exits
+with an exit code that is not defined in this list.</p>
+<p><em>Default</em>: 0,2</p>
+<p><em>Required</em>:  No.</p>
+<p><em>Introduced</em>: 3.0</p></div></blockquote><!--/DOCUMENT_FRAGMENT--></div></div></div></div></div></div></div></section></div></body>
+</html>

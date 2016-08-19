@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Run Any Script as a Daemon Process in Ubuntu With Upstart - Oleg Puzanov</title>
+	<meta name="author" content="Oleg Puzanov">
+
+	
+	<meta name="description" content="Run Any Script as a Daemon Process in Ubuntu With Upstart Sometimes, you need to run your own bash/php/ruby/etc script on the server to do some …">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://olegpuzanov.com/atom.xml" rel="alternate" title="Oleg Puzanov" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://olegpuzanov.com/2014/04/08/run-any-script-as-a-daemon-process-in-ubuntu-with-upstart/">
+	<link href="favicon.png" rel="shortcut icon">
+	
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	
+	
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="clearfix">
+    <div class="profilepic">
+        
+        
+    <img src="b4fe1368dc77d43f8a5e9fa482a97466.dat" alt="Profile Picture" style="width: 160px;"></div>
+    <hgroup>
+  <h1><a href="http://olegpuzanov.com/">Oleg Puzanov</a></h1>
+</hgroup>
+
+    <p class="subtitle">Passionate web developer</p>
+</div>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="http://olegpuzanov.com/">Home page</a></li>
+  <li><a href="http://olegpuzanov.com/about/">About me</a></li>
+  <li><a href="http://olegpuzanov.com/projects/">Open-Source projects</a></li>
+  <li><a href="http://olegpuzanov.com/blog/archives">Blog archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		<a class="facebook" href="http://www.facebook.com/oleg.puzanov" title="Facebook">Facebook</a>
+		
+        
+        <a class="linkedin" href="http://www.linkedin.com/in/olegpuzanov">LinkedIn</a>
+        
+        
+        <a class="xing" href="https://www.xing.com/profile/Oleg_Puzanov">Xing</a>
+        
+		
+		<a class="github" href="https://github.com/olegpuzanov" title="GitHub">GitHub</a>
+		
+		
+		
+		<a class="rss" href="http://olegpuzanov.com/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Run Any Script as a Daemon Process in Ubuntu With Upstart</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Sometimes, you need to run your own bash/php/ruby/etc script on the server to do some stuff when instruction arrives. Good examples might be message queue, emails send out, pdf files generations.</p>
+
+<!--more -->
+
+
+<p>To achieve this, you have several options:</p>
+
+<p><strong> 1. Run your script with a command <code>nohup php script.sh &amp;</code>. </strong></p>
+
+<p><code>&amp;</code> will put your process in the background.</p>
+
+<p>pros: very easy to use</p>
+
+<p>cons: no way to control your daemon</p>
+
+<p><strong> 2. Run your script as a regular process within separate screen. </strong></p>
+
+<p>pros: easy to use, you’ll see status of your script</p>
+
+<p>cons: your script will be not respawned in case of issues</p>
+
+<p><strong> 3. Use process control system like <a href="http://supervisord.org/">Supervisor</a>, <a href="http://cr.yp.to/daemontools.html">daemontools</a>, <a href="http://en.wikipedia.org/wiki/Launchd">launchd</a>, <a href="http://smarden.org/runit/">runit</a>. </strong></p>
+
+<p>pros: powerful and flexible tools with different useful features</p>
+
+<p>cons: needs some time to configure</p>
+
+<p>But Ubuntu has its internal event-based tool <a href="http://upstart.ubuntu.com/">Upstart</a>, which comes packaged by default with OS. It handles starting of tasks and services during boot, stopping them during shutdown and supervising them while the system is running.</p>
+
+<p><strong> Setting up </strong></p>
+
+<p>Create a new configuration file for your script in <code>/etc/init/myscript.conf</code>.</p>
+
+<p>Here is an example:</p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="c"># Your script information</span>
+</span><span class="line">description <span class="s2">"Your script description"</span>
+</span><span class="line">author      <span class="s2">"Your name"</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># Describe events for your script</span>
+</span><span class="line">start on startup
+</span><span class="line">stop on shutdown
+</span><span class="line">
+</span><span class="line"><span class="c"># Respawn settings</span>
+</span><span class="line"><span class="c"># Without this stanza, a job that exits quietly transitions into the stop/waiting state, no matter how it exited. With this stanza, whenever the main script/exec exits, without the goal of the job having been changed to stop, the job will be started again.</span>
+</span><span class="line">respawn
+</span><span class="line"><span class="c"># respawn limit COUNT INTERVAL</span>
+</span><span class="line">respawn limit 10 5
+</span><span class="line">
+</span><span class="line"><span class="c"># Run your script!</span>
+</span><span class="line"><span class="c"># If your script returns string "EXIT", the daemon will stop itself.</span>
+</span><span class="line">script
+</span><span class="line">    <span class="o">[</span> <span class="k">$(</span><span class="nb">exec</span> /usr/bin/php -f /path/to/your/script.sh<span class="k">)</span> <span class="o">=</span> <span class="s1">'EXIT'</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">(</span> stop; <span class="nb">exit </span>1; <span class="o">)</span>
+</span><span class="line">end script
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p><strong> Control your daemon like a resular Ubuntu service </strong></p>
+
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="c"># start</span>
+</span><span class="line">sudo service myscript start
+</span><span class="line"><span class="c"># stop </span>
+</span><span class="line">sudo service myscript stop
+</span><span class="line"><span class="c"># check status</span>
+</span><span class="line">sudo service myscript status
+</span></code></pre></td></tr></tbody></table></div></figure>
+
+
+<p>That’s all folks.</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite">
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright © 2015 - Oleg Puzanov -
+  <span class="credit">Powered by <a href="http://octopress.org/">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+
+</body>
+</html>

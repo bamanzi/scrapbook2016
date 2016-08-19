@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>upstart把应用封装成系统服务 | 粉丝日志</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://blog.fens.me/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="粉丝日志 » Feed" href="http://blog.fens.me/feed/">
+<link rel="alternate" type="application/rss+xml" title="粉丝日志 » Comments Feed" href="http://blog.fens.me/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="粉丝日志 » upstart把应用封装成系统服务 Comments Feed" href="http://blog.fens.me/linux-upstart/feed/">
+		
+		
+
+<!--[if IE 7]>
+<link rel='stylesheet' id='silesia-ie7-css'  href='http://blog.fens.me/wp-content/themes/silesia/ie7.css' type='text/css' media='all' />
+<![endif]-->
+<!--[if IE 6]>
+<link rel='stylesheet' id='silesia-ie6-css'  href='http://blog.fens.me/wp-content/themes/silesia/ie6.css' type='text/css' media='all' />
+<![endif]-->
+
+
+
+
+<link rel="https://api.w.org/" href="http://blog.fens.me/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.fens.me/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.fens.me/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Nginx反向代理Nodejs – log4js日志IP显示错误" href="http://blog.fens.me/nodejs-nginx-log4js/">
+<link rel="next" title="upstart封装nodejs应用为系统服务" href="http://blog.fens.me/linux-upstart-nodejs/">
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="canonical" href="http://blog.fens.me/linux-upstart/">
+<link rel="shortlink" href="http://blog.fens.me/?p=609">
+<link rel="alternate" type="application/json+oembed" href="http://blog.fens.me/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.fens.me%2Flinux-upstart%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://blog.fens.me/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.fens.me%2Flinux-upstart%2F&amp;format=xml">
+<meta name="template" content="silesia 1.0.6">
+<meta name="generator" content="NattyWP Framework Version 2.1.5">
+<meta name="keywords" content="upstart,linux,ubuntu">
+<meta name="description" content="跨界的IT博客，核心IT技术包括：Hadoop, R, RHadoop, Nodejs, AngularJS, KVM, NoSQL, IT金融">
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+<!--[if IE 6]>
+    <script type="text/javascript" src="http://blog.fens.me/wp-content/themes/silesia/js/ie6/warning.js"></script>
+    <script type="text/javascript" charset="utf-8">/*<![CDATA[*/window.onload=function(){e("http://blog.fens.me/wp-content/themes/silesia/js/ie6/")}/*]]>*/</script>
+<![endif]-->		
+		
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body class="single single-post postid-609 single-format-standard custom-background">
+<div id="main-nav">
+  <div id="link-sidebar">
+    <ul>
+                      <li class="widget png_scale" id="widget_categories">
+          <h2 class="blocktitle"><span>Categories</span></h2>	
+          <ul>
+              	<li class="cat-item cat-item-9"><a href="http://blog.fens.me/category/datagurucn/">Dataguru作业</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://blog.fens.me/category/hadoop-action/">Hadoop实践</a>
+</li>
+	<li class="cat-item cat-item-65"><a href="http://blog.fens.me/category/it%e7%9b%b8%e5%85%b3%e7%9f%a5%e8%af%86/">IT相关知识</a>
+</li>
+	<li class="cat-item cat-item-55"><a href="http://blog.fens.me/category/javascript%e8%af%ad%e8%a8%80%e5%ae%9e%e8%b7%b5/">Javascript语言实践</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://blog.fens.me/category/java-lang/">JAVA语言实践</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://blog.fens.me/category/r-lang/">R语言实践</a>
+</li>
+	<li class="cat-item cat-item-217"><a href="http://blog.fens.me/category/seo%e4%bc%98%e5%8c%96/">SEO优化</a>
+</li>
+	<li class="cat-item cat-item-356"><a href="http://blog.fens.me/category/%e5%85%b6%e4%bb%96%e8%af%ad%e8%a8%80/">其他语言</a>
+</li>
+	<li class="cat-item cat-item-774"><a href="http://blog.fens.me/category/%e5%88%9b%e4%b8%9a/">创业</a>
+</li>
+	<li class="cat-item cat-item-233"><a href="http://blog.fens.me/category/%e5%8f%af%e8%a7%86%e5%8c%96%e6%8a%80%e6%9c%af/">可视化技术</a>
+</li>
+	<li class="cat-item cat-item-20"><a href="http://blog.fens.me/category/%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f/">操作系统</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://blog.fens.me/category/%e6%95%b0%e6%8d%ae%e5%ba%93/">数据库</a>
+</li>
+	<li class="cat-item cat-item-30"><a href="http://blog.fens.me/category/%e6%95%b0%e6%8d%ae%e6%8c%96%e6%8e%98/">数据挖掘</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://blog.fens.me/category/%e6%99%92%e7%b2%89%e4%b8%9d/">晒粉丝</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="http://blog.fens.me/category/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1/">架构设计</a>
+</li>
+	<li class="cat-item cat-item-113"><a href="http://blog.fens.me/category/%e6%b4%bb%e5%8a%a8%e8%81%9a%e4%bc%9a/">活动聚会</a>
+</li>
+	<li class="cat-item cat-item-598"><a href="http://blog.fens.me/category/%e6%b8%b8%e6%88%8f/">游戏</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://blog.fens.me/category/%e7%a8%8b%e5%ba%8f%e7%ae%97%e6%b3%95/">程序算法</a>
+</li>
+	<li class="cat-item cat-item-117"><a href="http://blog.fens.me/category/%e7%bd%91%e7%bb%9c%e6%8a%80%e6%9c%af/">网络技术</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="http://blog.fens.me/category/%e8%99%9a%e6%8b%9f%e5%8c%96%e5%ae%9e%e8%b7%b5/">虚拟化实践</a>
+</li>
+	<li class="cat-item cat-item-184"><a href="http://blog.fens.me/category/%e9%87%91%e8%9e%8d/">金融</a>
+</li>
+	<li class="cat-item cat-item-32"><a href="http://blog.fens.me/category/%e9%9d%a2%e8%af%95/">面试</a>
+</li>
+	<li class="cat-item cat-item-44"><a href="http://blog.fens.me/category/%e9%bb%91%e5%ae%a2%e6%94%bb%e9%98%b2/">黑客攻防</a>
+</li>
+          </ul>		
+        </li>
+                <li id="twitterWidget" class="widget png_scale">	
+          <div id="twitter">
+            <h2 class="blocktitle"><span>Twitter Updates</span></h2>		<ul id="twitter_update_list"><li></li></ul>
+            <!--<script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>-->
+            <!--<script type="text/javascript" src="http://twitter.com/statuses/user_timeline/nattywp.json?callback=twitterCallback2&amp;count=1"></script>-->
+            <div class="dasheddivider"></div>
+            <p align="right"><a href="http://www.twitter.com/nattywp/" class="rightlink png_crop">Follow us on Twitter</a></p>
+        </div>
+        </li>   
+           
+    </ul>
+  </div>
+  <a id="control" href="#">+</a>
+</div>
+
+<div id="main-wrapper">
+<div id="header">
+  <div class="wrapper">
+    <div class="triangle"></div>
+    <div class="logo-block">
+    <div class="logo">
+    <ul><li><a class="logo-title shadowed" href="http://blog.fens.me/" rel="home" title="粉丝日志">粉丝日志</a></li></ul> 
+    </div>
+  <div class="tagline">跨界的IT博客|Hadoop家族, R, RHadoop, Nodejs, AngularJS, NoSQL, IT金融</div></div>
+  
+    <div class="clear"></div>
+  </div>
+</div>
+
+<div id="cnt" class="wrapper">
+  <div class="top">
+    <ul id="crumbs"><li class="first"><a href="http://blog.fens.me/" id="home-img"></a></li><li><a href="http://blog.fens.me/category/%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f/">操作系统</a> » </li><li>upstart把应用封装成系统服务</li></ul><div style="float: right; margin-right: 10px; font-size: 14px;"><ul style="list-style-type: none;"><li style="list-style-type: none; float: left; line-height: 24px; margin: 0px 7px;"><a href="http://www.fens.me/" target="_blank">@晒粉丝</a></li><li style="list-style-type: none; float: left; line-height: 24px; margin: 0px 7px;"><a href="http://apps.weibo.com/chinaweatherapp" target="_blank">@每日中国天气</a></li></ul></div>    <div class="clear"></div>            
+  </div> <!-- END top -->
+
+
+<!-- END Header --><div class="narrowcolumn singlepage">
+              <div class="post-609 post type-post status-publish format-standard hentry category-20 tag-linux tag-ubuntu tag-upstart">
+         <div class="post-meta">
+          <a href="#" title="upstart把应用封装成系统服务" class="ms"></a>
+          <h5>Posted:</h5>
+          <span class="date">Jun 21, 2013</span>
+          <h5>Tags:</h5><div class="tags"><a href="http://blog.fens.me/tag/linux/" rel="tag">linux</a><a href="http://blog.fens.me/tag/ubuntu/" rel="tag">Ubuntu</a><a href="http://blog.fens.me/tag/upstart/" rel="tag">upstart</a></div>          <h5>Comments:</h5>
+          <span class="comment"><a data-disqus-identifier="609 http://blog.fens.me/?p=609" href="#disqus_thread"><span class="dsq-postid" data-dsqidentifier="609 http://blog.fens.me/?p=609">11 Comments</span></a></span>
+                   </div>
+         
+         <div class="p-cont">
+            <h2>upstart把应用封装成系统服务</h2>
+            <div class="entry">
+                            <p><strong>ubuntu实用工具系列文章</strong></p>
+<p><span style="font-size: 13px; line-height: 19px;">操作系统实用工具系列文章，将介绍基于Linux ubuntu的各种工具软件的配置和使用。有些工具大家早已耳熟能详，有些工具经常用到但确依然陌生。我将记录我在使用操作系统时，安装及配置工具上面的一些方法，把使用心得记录下来也便于自己的以后查找和回忆。</span></p>
+<p><strong>关于作者</strong></p>
+<p>张丹(Conan), 程序员Java,R,PHP,Javascript<br>
+weibo：@Conan_Z<br>
+blog: http://blog.fens.me<br>
+email: bsspirit@gmail.com</p>
+<p><strong>转载请注明出处：</strong><br>
+<a title="upstart把应用封装成系统服务" href="#">http://blog.fens.me/linux-upstart/</a></p>
+<p><a href="http://blog.fens.me/wp-content/uploads/2013/06/upstart-basic1.png"><img class="alignnone size-full wp-image-690" alt="upstart-basic" src="upstart-basic1.png" width="600" height="400"></a></p>
+<p><strong>前言</strong></p>
+<p>对于使用linux的同学，敲大段的命令都已经是家长便饭了。但有些时候用命令也不是那么方便，比如启动一个后台程序, <code>sh ./app &amp;</code> 执行启动命令很简单，如果想停止这个应用或者重启这个应用，就不是那么方便了。</p>
+<p>如果能把应用封装成系统服务，那么就可以使用的 启动，重起，停止，状态检查等的标准方法了。应用会像一个守护程序一样，被操作系统所管理。</p>
+<p>&nbsp;</p>
+<p><strong>文章目录</strong></p>
+<ol>
+<li><span style="font-size: 13px; line-height: 19px;">初识upstart</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">upstart任务文件的语法</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">upstart命令</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">upstart封装mytest</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">例子：upstart封装Nginx</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">例子：upstart封装MySQL</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">例子：upstart封装ssh</span></li>
+</ol>
+<h2></h2>
+<h2>1. 初识upstart</h2>
+<p>说来惭愧，用了很多年的linux，也没有想法去怎么能优化一下应用启动。最近部署Nodejs应用时才发现，原来ubuntu有这么优雅的应用管理方式。</p>
+<p>upstart可以用来代替/etc/init.d/的执行脚本，额外提供了一些特性，像速度，状态检查，简单定义任务等。</p>
+<p><strong>upstart两个核心点：事件(events)，任务(jobs)</strong></p>
+<p>事件状态图</p>
+<p><a href="http://blog.fens.me/wp-content/uploads/2013/06/upstart.png"><img class="alignnone size-full wp-image-645" alt="upstart" src="upstart.png" width="698" height="336"></a></p>
+<p>对状态的描述</p>
+<ul>
+<li><span style="font-size: 13px; line-height: 19px;">waiting : initial state.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">starting : job is about to start.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">pre-start : running pre-start section.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">spawned : about to run script or exec section.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">post-start : running post-start section.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">running : interim state set after post-start section processed denoting job is running (But it may&nbsp;</span><span style="font-size: 13px; line-height: 19px;">have no associated PID!)</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">pre-stop : running pre-stop section.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">stopping : interim state set after pre-stop section processed.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">killed : job is about to be stopped.</span></li>
+<li><span style="font-size: 13px; line-height: 19px;">post-stop : running post-stop section.</span></li>
+</ul>
+<p>每个任务需要有一个配置文件，存放在/etc/init/目录下面。</p>
+<pre><code>~ vi /etc/init/mytest.conf</code></pre>
+<p>完成任务配置文件后，可以直接用initctl, start, stop 命令对任务进行启动，停止，查看状态 等的操作。</p>
+<pre><code>start mytest.conf</code></pre>
+<p><strong>注：下面所有实例都以root权限进行操作</strong></p>
+<p>本文主要以实践为主。原理及更多细节介绍，请查看Upstart Cookbook:</p>
+<p><a href="http://upstart.ubuntu.com/cookbook/" target="_blank">http://upstart.ubuntu.com/cookbook/</a></p>
+<h2>2. upstart任务文件的语法</h2>
+<p>详细介绍：&nbsp;http://upstart.ubuntu.com/wiki/Stanzas<br>
+<em>注：Stanzas的文档很多内容已经过期，建议参考cookbook或者man的使用帮助。</em></p>
+<p><strong>任务文件支持的语法关键字</strong></p>
+<p>Process Definition:<br>
+<code>exec,&nbsp;script,&nbsp;pre-start,&nbsp;post-start,&nbsp;pre-stop,&nbsp;post-stop,</code></p>
+<p>Event Definition:<br>
+<code>start on,&nbsp;stop on, manual</code></p>
+<p>Job Environment:<br>
+<code>env, export</code></p>
+<p>Services, tasks and respawning:<br>
+<code>normal exit, respawn,&nbsp;respawn limit, task</code></p>
+<p>Instances:<br>
+<code>instance</code></p>
+<p>Documentation:<br>
+<code>description,&nbsp;author,&nbsp;version,&nbsp;emits, usage</code></p>
+<p>Process environment:<br>
+<code>console none,console log, console output, console owner, nice,&nbsp;limit,&nbsp;chroot,&nbsp;chdir, oom score, setgid, setuid, umask</code></p>
+<p>Process Control:<br>
+<code>expect fork, expect daemon, expect stop, kill signal, kill timeout</code></p>
+<p>过期关键字：<br>
+<code>service,&nbsp;daemon,&nbsp;pid</code></p>
+<p><strong>部分语法关键字介绍:</strong></p>
+<p><strong>exec : 执行命令，在script块中使用。</strong></p>
+<p>语法：<code>exec /usr/bin/zip -v</code></p>
+<p><strong>script: 脚本块，包括主运行脚本</strong></p>
+<p>语法：</p>
+<pre><code>
+script
+    exec /usr/bin/zip /root/upstart.zip /root/upstart.txt
+end script
+</code></pre>
+<p><strong>pre-start: 脚本块，在主运行脚本之前执行的脚本</strong></p>
+<p>语法：</p>
+<pre><code>
+pre-start script
+    exec rm /root/upstart.txt
+    exec echo pre-start &gt;&gt; /root/upstart.txt
+end script
+</code></pre>
+<p><strong>post-start: 脚本块，在主运行脚本之后，running状态之前</strong></p>
+<p>语法：</p>
+<pre><code>
+post-start script
+    exec echo post-start &gt;&gt; /root/upstart.txt
+end script
+</code></pre>
+<p><strong>pre-stop: 脚本块，在执行stop之前</strong></p>
+<p>语法：</p>
+<pre><code>
+pre-stop script
+    exec echo pre-stop &gt;&gt; /root/upstart.txt
+end script
+</code></pre>
+<p><strong>post-stop: 脚本块，在主运行脚本被杀死之后</strong></p>
+<p>语法：</p>
+<pre><code>
+post-stop script
+    exec echo post-stop &gt;&gt; /root/upstart.txt
+end script
+</code></pre>
+<p><strong>start on: 事件，启动任务</strong></p>
+<p>语法：</p>
+<pre><code>start on startup</code></pre>
+<p><strong>stop on: 事件，停止任务</strong></p>
+<p>语法：</p>
+<pre><code>stop on suhtdown</code></pre>
+<p><strong>description: 描述，信息提示</strong><br>
+语法：</p>
+<pre><code>description "This is a upstart testing."</code></pre>
+<p><strong>author: 描述，作者信息</strong><br>
+语法：</p>
+<pre><code>author "Conan_Z &lt;bsspirit@gmail.com&gt;"</code></pre>
+<p><strong>version: 描述，版本信息</strong><br>
+语法：</p>
+<pre><code>version "0.0.1 dev"</code></pre>
+<p><strong>respawn: 命令，设置服务异常停止后自动重启</strong><br>
+语法：</p>
+<pre><code>respawn</code></pre>
+<p><strong>respawn limit: 命令，设置服务异常停止后重启次数及间隔时间</strong><br>
+语法：</p>
+<pre><code>respawn limit 15 3</code></pre>
+<p><strong>service: 命令，0.6版本后不再使用，被respawn取代</strong></p>
+<p><strong>instance: 定义实例名字，可以通过命令给任务传参数</strong><br>
+语法：</p>
+<pre><code>
+instance $TTY
+exec /sbin/getty -8 38300 $TTY
+
+#通过命令传参数
+~ start mytest $TTY=tty1
+</code></pre>
+<p><strong>daemon: 作为守护进程的标志，0.5.0版本后被expect fork取代</strong></p>
+<p><strong>kill timeout: 命令，在到达指定时间后，停止应用</strong></p>
+<p>语法：</p>
+<pre><code>kill timeout 5</code></pre>
+<p><strong>kill timeout: 命令，正常退出，不会被respawn重启</strong></p>
+<p>语法：</p>
+<pre><code>normal exit 0 TERM</code></pre>
+<p><strong>console: 命令，控制后输出，支持4种操作logged|output|owner|none</strong></p>
+<p>语法：</p>
+<pre><code>console owner</code></pre>
+<p><strong>env: 变量，设置任务的环境变量</strong></p>
+<p>语法：</p>
+<pre><code>env PIDFILE=/var/run/myprocess.pid</code></pre>
+<p><strong>umask: 变量，设置任务的文件权限的掩码</strong></p>
+<p>语法：</p>
+<pre><code>umask 0755</code></pre>
+<p><strong>nice: 变量，设置任务的调度优先级</strong></p>
+<p>语法：</p>
+<pre><code>nice -5</code></pre>
+<p><strong>limit: 变量，设置任务的资源限制</strong></p>
+<p>语法：</p>
+<pre><code>limit nproc 10 10</code></pre>
+<p><strong>chroot: 变量，设置任务的根目录</strong></p>
+<p>语法：</p>
+<pre><code>chroot /var/lib/www/jail</code></pre>
+<p><strong>chdir: 变量，设置任务的工作目录</strong></p>
+<p>语法：</p>
+<pre><code>chdir /var/tmp</code></pre>
+<h2>3. upstart命令介绍</h2>
+<p><a href="http://blog.fens.me/wp-content/uploads/2013/06/upstart-cmd.png"><img alt="upstart-cmd" src="upstart-cmd.png" width="685" height="456"></a></p>
+<p>查看upstart版本</p>
+<pre><code>~ initctl version
+init (upstart 1.5)
+</code></pre>
+<p>查看mytest应用状态</p>
+<pre><code>#方法1
+~ initctl list|grep mytest
+#方法2
+~ status mytest
+</code></pre>
+<p>启动mytest应用</p>
+<pre><code>#方法1：
+~ initctl start mytest
+#方法2
+~ start mytest
+</code></pre>
+<p>停止mytest应用</p>
+<pre><code>#方法1：
+~ initctl stop mytest
+#方法2
+~ stop mytest
+</code></pre>
+<h2>4. upstart封装mytest</h2>
+<p>用upstart写一个简单的应用脚本。</p>
+<pre><code>~ vi /etc/init/mytest.conf
+
+description "mytest"
+author "bsspirit &lt;http://blog.fens.me&gt;"
+
+env var=bar
+export var
+
+start on startup
+stop on shutdown
+
+respawn
+respawn limit 2 5
+
+console output
+
+pre-start script
+        logger "pre-start: before: var=$var"
+        var=pre-start
+        export var
+        logger "pre-start: after: var=$var"
+end script
+
+post-start script
+        logger "post-start: before: var=$var"
+        var=post-start
+        export var
+        logger "post-start: after: var=$var"
+end script
+
+script
+        logger "script: before: var=$var"
+        var=main
+        export var
+        sleep 60000
+        logger "script: after: var=$var"
+end script
+
+post-stop script
+        logger "post-stop: before: var=$var"
+        var=post-stop
+        export var
+        logger "post-stop: after: var=$var"
+end script
+</code></pre>
+<p>&nbsp;</p>
+<p><strong>测试mytest程序：</strong></p>
+<p>启动mytest任务</p>
+<pre><code>
+~ start mytest
+mytest start/running, process 20682
+</code></pre>
+<p>查看日志跟踪运行状态</p>
+<pre><code>
+~ tail -f /var/log/syslog
+
+Jun 21 08:11:21 li478-194 logger: pre-start: before: var=bar
+Jun 21 08:11:21 li478-194 logger: pre-start: after: var=pre-start
+Jun 21 08:11:21 li478-194 logger: script: before: var=bar
+Jun 21 08:11:21 li478-194 logger: post-start: before: var=bar
+Jun 21 08:11:21 li478-194 logger: post-start: after: var=post-start
+</code></pre>
+<p>查看mytest任务状态</p>
+<pre><code>
+~ status mytest
+mytest start/running, process 20682
+</code></pre>
+<p>查看系统进程，因为在程序中用sleep停止，要通过sleep查询</p>
+<pre><code>
+~ ps -aux|grep sleep
+
+root     20686  0.0  0.0   4304   352 ?        S    08:11   0:00 sleep 60000
+</code></pre>
+<p>杀掉sleep进程，mytest自动重启</p>
+<pre><code>
+~ kill -9 20686
+~ ps -aux|grep sleep
+root     20703  0.0  0.0   4304   344 ?        S    08:14   0:00 sleep 60000
+
+~ /var/log/syslog
+Jun 21 08:15:59 li478-194 logger: post-stop: before: var=bar
+Jun 21 08:15:59 li478-194 logger: post-stop: after: var=post-stop
+Jun 21 08:15:59 li478-194 logger: pre-start: before: var=bar
+Jun 21 08:15:59 li478-194 logger: pre-start: after: var=pre-start
+Jun 21 08:15:59 li478-194 logger: script: before: var=bar
+Jun 21 08:15:59 li478-194 logger: post-start: before: var=bar
+Jun 21 08:15:59 li478-194 logger: post-start: after: var=post-start
+</code></pre>
+<p>停止mytest</p>
+<pre><code>
+~ stop mytest
+mytest stop/waiting
+
+~ /var/log/syslog
+Jun 21 08:16:49 li478-194 logger: post-stop: before: var=bar
+Jun 21 08:16:49 li478-194 logger: post-stop: after: var=post-stop
+
+~ ps -aux|grep sleep
+</code></pre>
+<p>通过命令传参数，启动mytest</p>
+<pre><code>
+~ start mytest var=conan
+mytest start/running, process 20735
+
+~ /var/log/syslog
+Jun 21 08:18:51 li478-194 logger: pre-start: before: var=conan
+Jun 21 08:18:51 li478-194 logger: pre-start: after: var=pre-start
+Jun 21 08:18:51 li478-194 logger: script: before: var=conan
+Jun 21 08:18:51 li478-194 logger: post-start: before: var=conan
+Jun 21 08:18:51 li478-194 logger: post-start: after: var=post-start
+</code></pre>
+<p>不同参数，再次启动mytest</p>
+<pre><code>
+~ start mytest var=bsspirit
+start: Job is already running: mytest
+</code></pre>
+<p>启动已经启动，禁止应用多次启动。<br>
+实验成功，我们可以很方便地利用upstart，来封装我们自己的应用成为系统服务。</p>
+<p>下面将介绍同个软件使用upstart的例子。</p>
+<h2>5. upstart封装Nginx</h2>
+<p>Nginx官方配置：http://wiki.nginx.org/Upstart</p>
+<p>增加配置文件</p>
+<pre><code>
+~ vi /etc/init/nginx
+
+# nginx
+
+description "nginx http daemon"
+author "George Shammas &lt;georgyo@gmail.com&gt;"
+
+start on (filesystem and net-device-up IFACE=lo)
+stop on runlevel [!2345]
+
+env DAEMON=/usr/sbin/nginx
+env PID=/var/run/nginx.pid
+
+expect fork
+respawn
+respawn limit 10 5
+#oom never
+
+pre-start script
+        $DAEMON -t
+        if [ $? -ne 0 ]
+                then exit $?
+        fi
+end script
+
+exec $DAEMON
+</code></pre>
+<p>查看nginx的系统状态</p>
+<pre><code>
+~ initctl list | grep nginx
+</code></pre>
+<p>启动nginx</p>
+<pre><code>
+~ initctl start nginx</code></pre>
+<h2>6. upstart封装MySQL</h2>
+<p>查看upstart配置文件，把MySQL变为系统服务.</p>
+<pre><code>
+~ vi /etc/init/mysql.conf
+
+description     "MySQL Server"
+author          "Mario Limonciello &lt;superm1@ubuntu.com&gt;"
+
+start on runlevel [2345]
+stop on starting rc RUNLEVEL=[016]
+
+respawn
+respawn limit 2 5
+
+env HOME=/etc/mysql
+umask 007
+
+# The default of 5 seconds is too low for mysql which needs to flush buffers
+kill timeout 300
+
+pre-start script
+    #Sanity checks
+    [ -r $HOME/my.cnf ]
+    [ -d /var/run/mysqld ] || install -m 755 -o mysql -g root -d /var/run/mysqld
+    /lib/init/apparmor-profile-load usr.sbin.mysqld
+    LC_ALL=C BLOCKSIZE= df --portability /var/lib/mysql/. | tail -n 1 | awk '{ exit ($4&lt;4096) }'
+end script
+
+exec /usr/sbin/mysqld
+
+post-start script
+   for i in `seq 1 30` ; do
+        /usr/bin/mysqladmin --defaults-file="${HOME}"/debian.cnf ping &amp;&amp; {
+            exec "${HOME}"/debian-start
+            # should not reach this line
+            exit 2
+        }
+        statusnow=`status`
+        if echo $statusnow | grep -q 'stop/' ; then
+            exit 0
+        elif echo $statusnow | grep -q 'respawn/' ; then
+            exit 1
+        fi
+        sleep 1
+    done
+    exit 1
+end script
+</code></pre>
+<h2>7. upstart封装ssh</h2>
+<pre><code>
+~ vi /etc/init/ssh.conf
+
+# ssh - OpenBSD Secure Shell server
+#
+# The OpenSSH server provides secure shell access to the system.
+
+description     "OpenSSH server"
+
+start on filesystem or runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 10 5
+umask 022
+
+# 'sshd -D' leaks stderr and confuses things in conjunction with 'console log'
+console none
+
+pre-start script
+    test -x /usr/sbin/sshd || { stop; exit 0; }
+    test -e /etc/ssh/sshd_not_to_be_run &amp;&amp; { stop; exit 0; }
+    test -c /dev/null || { stop; exit 0; }
+
+    mkdir -p -m0755 /var/run/sshd
+end script
+
+# if you used to set SSHD_OPTS in /etc/default/ssh, you can change the
+# 'exec' line here instead
+exec /usr/sbin/sshd -D
+</code></pre>
+<p>我在这里介绍的内容还很初级，只要会写任务脚步就可以了。<br>
+后面文章我会介绍upstart封装<a title="upstart封装nodejs应用为系统服务" href="http://blog.fens.me/linux-upstart-nodejs/" target="_blank">nodejs</a>，<a title="upstart封装mongodb应用为系统服务" href="http://blog.fens.me/linux-upstart-mongodb/" target="_blank">mongodb</a>，<a title="upstart封装php应用为系统服务" href="http://blog.fens.me/linux-upstart-mongodb/" target="_blank">php</a>，java等的应用的任务脚本。</p>
+<p>&nbsp;</p>
+<p><strong>转载请注明出处：</strong><br>
+<a title="upstart把应用封装成系统服务" href="#">http://blog.fens.me/linux-upstart/</a></p>
+<p><img src="pay50.png" alt="打赏作者" class="alignnone size-full wp-image-8388" width="600" height="400"></p>
+              <div class="clear"></div>
+                            <p class="inner-meta">This entry was posted in <a href="http://blog.fens.me/category/%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f/" rel="category tag">操作系统</a></p>              
+            </div>
+            <!-- 广告 -->
+            <div style="margin: 10px 0px; color: rgb(67, 67, 67);" id="ads"><h2 style="border-bottom: 2px solid rgb(247, 247, 248); padding-bottom: 10px; margin-bottom: 10px;">赞助商广告(<a href="http://blog.fens.me/ad/" target="_blank">购买</a>)</h2><a href="http://online.zhufengpeixun.cn/customize/node/index.html" target="_blank" ref="nofollow"><img title="珠峰培训" src="01.jpg"></a></div>        
+            <div class="post comments" id="comments">              
+                
+<div id="disqus_thread">
+            <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="post pingback">
+        <p>Pingback: <a href="http://blog.fens.me/linux-upstart-nodejs/" rel="external nofollow" class="url">upstart封装nodejs应用为系统服务 | 粉丝日志</a>()</p>
+    </li>
+    <!-- #comment-## -->
+    <li class="post pingback">
+        <p>Pingback: <a href="http://blog.fens.me/linux-upstart-mongodb/" rel="external nofollow" class="url">upstart封装mongodb应用为系统服务 | 粉丝日志</a>()</p>
+    </li>
+    <!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-1364">
+        <div id="dsq-comment-header-1364" class="dsq-comment-header">
+            <cite id="dsq-cite-1364">
+                <span id="dsq-author-user-1364">Boooo</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1364" class="dsq-comment-body">
+            <div id="dsq-comment-message-1364" class="dsq-comment-message"><p>为何会提示start:未知任务: mytest</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-1365">
+        <div id="dsq-comment-header-1365" class="dsq-comment-header">
+            <cite id="dsq-cite-1365">
+                <a id="dsq-author-user-1365" href="http://blog.fens.me/" target="_blank" rel="nofollow">Conan Zhang</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1365" class="dsq-comment-body">
+            <div id="dsq-comment-message-1365" class="dsq-comment-message"><p>mytest是自已建的，放在这里/etc/init/mytest.conf</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-2248">
+        <div id="dsq-comment-header-2248" class="dsq-comment-header">
+            <cite id="dsq-cite-2248">
+                <span id="dsq-author-user-2248">Elvis Macak</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2248" class="dsq-comment-body">
+            <div id="dsq-comment-message-2248" class="dsq-comment-message"><p>写得不错</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-2468">
+        <div id="dsq-comment-header-2468" class="dsq-comment-header">
+            <cite id="dsq-cite-2468">
+                <span id="dsq-author-user-2468">will</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2468" class="dsq-comment-body">
+            <div id="dsq-comment-message-2468" class="dsq-comment-message"><p>如何使用upstart管理开机启动的服务？修改etc/init下的conf文件吗？</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2470">
+        <div id="dsq-comment-header-2470" class="dsq-comment-header">
+            <cite id="dsq-cite-2470">
+                <a id="dsq-author-user-2470" href="http://blog.fens.me/" target="_blank" rel="nofollow">Conan Zhang</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2470" class="dsq-comment-body">
+            <div id="dsq-comment-message-2470" class="dsq-comment-message"><p>把要启动的服务对应一个upstart的文件就行了，通过start on设置开机启动。<br>
+start on filesystem or runlevel [2345]</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3278">
+        <div id="dsq-comment-header-3278" class="dsq-comment-header">
+            <cite id="dsq-cite-3278">
+                <a id="dsq-author-user-3278" href="http://www.jayxu.com/" target="_blank" rel="nofollow">Jay Xu</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3278" class="dsq-comment-body">
+            <div id="dsq-comment-message-3278" class="dsq-comment-message"><p>今天从百度搜索ubuntu下的service找到这里，我说怎么这么有质量的博客呢，原来是你的……</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-3282">
+        <div id="dsq-comment-header-3282" class="dsq-comment-header">
+            <cite id="dsq-cite-3282">
+                <a id="dsq-author-user-3282" href="http://blog.fens.me/" target="_blank" rel="nofollow">Conan Zhang</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3282" class="dsq-comment-body">
+            <div id="dsq-comment-message-3282" class="dsq-comment-message"><p>过奖，哈哈。<br>
+看来这么多年，还是一直做技术呢，又碰上了。</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-3859">
+        <div id="dsq-comment-header-3859" class="dsq-comment-header">
+            <cite id="dsq-cite-3859">
+                <span id="dsq-author-user-3859">ppcelery</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3859" class="dsq-comment-body">
+            <div id="dsq-comment-message-3859" class="dsq-comment-message"><p>赞！</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-3885">
+        <div id="dsq-comment-header-3885" class="dsq-comment-header">
+            <cite id="dsq-cite-3885">
+                <a id="dsq-author-user-3885" href="http://blog.fens.me/" target="_blank" rel="nofollow">Conan Zhang</a>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3885" class="dsq-comment-body">
+            <div id="dsq-comment-message-3885" class="dsq-comment-message"><p><img src="1f642.png" alt="🙂" class="emoji" draggable="false"></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+
+
+            </div>
+          </div>
+       </div>
+    
+</div> <!-- END Narrowcolumn -->
+
+<div id="sidebar" class="profile">
+ <ul>
+<li id="widget_nav_menu" class="widget png_scale"><h2 class="blocktitle"><span>站内导航</span></h2><div class="menu-menu-1-container"><ul id="menu-menu-1" class="menu"><li id="menu-item-2328" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2328"><a href="http://blog.fens.me/series-r/">R的极客理想系列文章</a></li>
+<li id="menu-item-2329" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2329"><a href="http://blog.fens.me/series-nodejs/">从零开始nodejs系列文章</a></li>
+<li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2338"><a href="http://blog.fens.me/series-it-finance/">用IT技术玩金融系列文章</a></li>
+<li id="menu-item-6505" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6505"><a href="http://blog.fens.me/series-meeting/">跨界知识聚会系列文章</a></li>
+<li id="menu-item-2339" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2339"><a href="http://blog.fens.me/series-hadoop-family/">Hadoop家族系列文章</a></li>
+<li id="menu-item-2337" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2337"><a href="http://blog.fens.me/series-angular/">AngularJS体验式编程系列文章</a></li>
+<li id="menu-item-2331" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2331"><a href="http://blog.fens.me/series-rhadoop/">RHadoop实践系列文章</a></li>
+<li id="menu-item-2330" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2330"><a href="http://blog.fens.me/series-java/">无所不能的Java系列文章</a></li>
+<li id="menu-item-2336" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2336"><a href="http://blog.fens.me/series-ubuntu/">ubuntu实用工具系列文章</a></li>
+<li id="menu-item-2332" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2332"><a href="http://blog.fens.me/series-r-nosql/">R利剑NoSQL系列文章</a></li>
+<li id="menu-item-2334" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2334"><a href="http://blog.fens.me/series-mongodb/">MongoDB部署实验系列文章</a></li>
+<li id="menu-item-2335" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2335"><a href="http://blog.fens.me/series-hadoop-cloud/">让Hadoop跑在云端系列文章</a></li>
+<li id="menu-item-2333" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2333"><a href="http://blog.fens.me/series-vps/">自己搭建VPS系列文章</a></li>
+<li id="menu-item-5469" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5469"><a href="http://blog.fens.me/series-architect/">架构师的信仰系列文章</a></li>
+<li id="menu-item-4163" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4163"><a href="http://blog.fens.me/series-algorithm/">算法为王系列文章</a></li>
+<li id="menu-item-8189" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8189"><a href="http://blog.fens.me/series-seo/">我的博客我的SEO系列文章</a></li>
+<li id="menu-item-2340" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2340"><a href="http://blog.fens.me/series-visualisation/">创造可视化系列文章</a></li>
+<li id="menu-item-7694" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7694"><a href="http://blog.fens.me/series-startup/">创业者的囧境系列文章</a></li>
+<li id="menu-item-8842" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8842"><a href="http://blog.fens.me/tasks/">写作计划列表</a></li>
+<li id="menu-item-2342" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2342"><a href="http://blog.fens.me/about/">关于站长</a></li>
+<li id="menu-item-8175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8175"><a href="http://blog.fens.me/ad/">投放广告</a></li>
+</ul></div></li><li id="widget_recent_comments" class="widget png_scale"><h2 class="blocktitle"><span>最新评论</span></h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/" rel="external nofollow" class="url">Conan Zhang</a></span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5323">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/" rel="external nofollow" class="url">Conan Zhang</a></span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5322">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link">Francis Tsai</span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5320">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link">黃冠儒</span> on <a href="http://blog.fens.me/nodejs-async/#comment-5319">Nodejs异步流程控制Async</a></li><li class="recentcomments"><span class="comment-author-link">taipeialpha</span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5318">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/" rel="external nofollow" class="url">Conan Zhang</a></span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5316">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/" rel="external nofollow" class="url">Conan Zhang</a></span> on <a href="http://blog.fens.me/ubuntu-vpn-pptp/#comment-5315">在Ubuntu上安装PPTP VPN服务</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/" rel="external nofollow" class="url">Conan Zhang</a></span> on <a href="http://blog.fens.me/ubuntu-vpn-pptp/#comment-5314">在Ubuntu上安装PPTP VPN服务</a></li><li class="recentcomments"><span class="comment-author-link">taipeialpha</span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5312">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link">xiao jinhua</span> on <a href="http://blog.fens.me/ubuntu-vpn-pptp/#comment-5311">在Ubuntu上安装PPTP VPN服务</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/nosql-r-cassandra/" rel="external nofollow" class="url">R利剑NoSQL系列文章 之 Cassandra | 粉丝日志</a></span> on <a href="http://blog.fens.me/rhadoop-hbase-rhase/#comment-5309">RHadoop实践系列之四 rhbase安装与使用</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/nosql-r-redis/" rel="external nofollow" class="url">R利剑NoSQL系列文章 之 Redis | 粉丝日志</a></span> on <a href="http://blog.fens.me/rhadoop-hbase-rhase/#comment-5308">RHadoop实践系列之四 rhbase安装与使用</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/nosql-r-hive/" rel="external nofollow" class="url">R利剑NoSQL系列文章 之 Hive | 粉丝日志</a></span> on <a href="http://blog.fens.me/rhadoop-hbase-rhase/#comment-5307">RHadoop实践系列之四 rhbase安装与使用</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/r-quant-packages/" rel="external nofollow" class="url">R语言量化投资常用包总结 | 粉丝日志</a></span> on <a href="http://blog.fens.me/finance-pairs-trading/#comment-5306">R语言构建配对交易量化模型</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://blog.fens.me/r-quant-packages/" rel="external nofollow" class="url">R语言量化投资常用包总结 | 粉丝日志</a></span> on <a href="http://blog.fens.me/r-zoo/#comment-5305">R语言时间序列基础库zoo</a></li></ul></li>		<li id="widget_recent_entries" class="widget png_scale">		<h2 class="blocktitle"><span>最新文章</span></h2>		<ul>
+					<li>
+				<a href="http://blog.fens.me/r-quant-packages/">R语言量化投资常用包总结</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-cpp-rcpp/">R语言跨界调用C++</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-multi-linear-regression/">R语言解读多元线性回归模型</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-linear-regression/">R语言解读一元线性回归模型</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-word-jiebar/">R语言中文分词包jiebaR</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/meeting-hellobi-20160701/">2016天善智能交流会第22场: R语言为量化而生</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-finance/">R语言为量化而生</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-data-table/">超高性能数据处理包data.table</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-apply/">掌握R语言中的apply函数族</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-magrittr/">R语言高效的管道操作magrittr</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-stringr/">R语言字符串处理包stringr</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/finance-pairs-trading/">R语言构建配对交易量化模型</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/meeting-onbook-20151028/">尚书视频群活动:投资分析师笔试题</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/nodejs-alexa/">构建自己的Aleax查询服务</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-martix-openblas/">OpenBlas让R的矩阵计算加速</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/meeting-lopdev-20150922/">2015lopdev生态联盟开发者大会:股市中的R语言量化算法模型</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/meeting-cdas-20150912/">2015CDAS中国数据分析师行业峰会:R语言量化投资数据分析应用</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/finance-chase-sell/">R语言构建追涨杀跌量化交易模型</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/r-book2/">图书出版《R的极客理想-高级开发篇》</a>
+						</li>
+					<li>
+				<a href="http://blog.fens.me/meeting-wot-20150725/">2015WOT移动互联网开发者大会:股市中的R语言量化算法模型</a>
+						</li>
+				</ul>
+		</li>		 
+</ul></div>
+<div class="clear"></div>
+
+<div id="footer">
+<div class="lt">Copyright © 2016 All rights reserved.</div>
+<div class="rt">Designed by <img src="natty-logo.png" valign="3px" class="png" alt="NattyWP" width="82" align="middle" height="17"></div>		
+<div class="clear"></div>			
+</div>
+    
+</div>  
+<div class="clear"></div>
+</div><!-- END main wrapper -->
+
+        
+        <!-- Powered by WPtouch: 4.2.3 -->
+
+
+ 
+
+
+
+
+
+</body>
+</html>
