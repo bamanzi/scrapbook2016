@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en-US" class="js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk">
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE">
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f">
+<meta property="article:publisher" content="https://facebook.com/tecmint">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.tecmint.com/xmlrpc.php">
+<title>25 Useful IPtable Firewall Rules Every Linux Administrator Should Know</title>
+
+<!-- All in One SEO Pack 2.3.9.1 by Michael Torbert of Semper Fi Web Design[621,752] -->
+<link rel="author" href="https://plus.google.com/u/0/107665449243972690526">
+<meta name="description" itemprop="description" content="In this article, we will show you some 25 useful iptable firewall rules that will help you to manage and control you Linux firewall through iptables easily.">
+<meta name="keywords" itemprop="keywords" content="iptables firewall rules example,manage iptables firewall,linux iptables examples,iptables">
+<link rel="canonical" href="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/">
+
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Feed" href="http://feeds.feedburner.com/tecmint">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » Comments Feed" href="http://www.tecmint.com/comments/feed/">
+
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides » 25 Useful IPtable Firewall Rules Every Linux Administrator Should Know Comments Feed" href="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/feed/">
+<!-- <link rel='stylesheet' id='dgd-scrollbox-plugin-core-css'  href='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/css/style.css?ver=2.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='fancybox-style-css'  href='http://www.tecmint.com/wp-content/plugins/light/css/jquery.fancybox.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/style.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='responsive-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/responsive.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='custom-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/custom.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/fonts/font-awesome.min.css?ver=4.5.3' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='qbp-css'  href='http://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/style/qbp.css?ver=1.4.5' type='text/css' media='all' /> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script> -->
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/js/script.js?ver=2.3'></script> -->
+
+
+<!-- <script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/js/qbp.js?ver=1.4.5'></script> -->
+<link rel="https://api.w.org/" href="http://www.tecmint.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.tecmint.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.tecmint.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Ubuntu 16.04 LTS (Xenial Xerus) Installation Guide" href="http://www.tecmint.com/ubuntu-16-04-installation-guide/">
+<link rel="next" title="LFCS: How to Manage and Create LVM Using vgcreate, lvcreate and lvextend Commands – Part 11" href="http://www.tecmint.com/manage-and-create-lvm-parition-using-vgcreate-lvcreate-and-lvextend/">
+<meta name="generator" content="WordPress 4.5.3">
+<link rel="shortlink" href="http://www.tecmint.com/?p=19047">
+<link rel="alternate" type="application/json+oembed" href="http://www.tecmint.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.tecmint.com%2Flinux-iptables-firewall-rules-examples-commands%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.tecmint.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.tecmint.com%2Flinux-iptables-firewall-rules-examples-commands%2F&amp;format=xml">
+<!-- Facebook Like Thumbnail (v0.3.4) -->
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2016/03/iptables-Firewall-Rules-for-Linux.png">
+<!-- using featured thumbnail -->
+<!-- Facebook Like Thumbnail (By Ashfame - https://github.com/ashfame/facebook-like-thumbnail) -->
+<link rel="shortcut icon" href="favicon.ico">
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts">
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-19047 single-format-standard col-2cl full-width topbar-enabled gecko s1-collapse s2-collapse">
+<div id="wrapper">
+<header id="header">
+<nav class="nav-container group" id="nav-topbar">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="http://www.tecmint.com/">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" href="http://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a title="Free Linux eBooks" target="_blank" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free eBooks</a></li>
+<li id="menu-item-10439" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10439"><a title="LinuxSay – A Discussion Forum for Linux Enthusiasts" target="_blank" href="http://linuxsay.com/">Discussion</a></li>
+<li id="menu-item-17151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17151"><a title="Discover and save on the best gear, gadgets, and software" target="_blank" href="http://deals.tecmint.com/">Deals</a></li>
+<li id="menu-item-18575" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18575"><a title="Support Us" href="http://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" href="http://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" href="http://www.tecmint.com/linux-online-training-courses/">Linux Online Courses</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" href="http://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Best Web Hosting Companies" target="_blank" href="http://www.tecmint.com/best-web-hosting-for-linux/">Linux Hosting</a></li>
+<li id="menu-item-15139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15139"><a target="_blank" href="http://www.tecmint.com/free-wordpress-installation-setup/">Free WordPress Setup</a></li>
+</ul></div>
+<div class="container">
+<div class="container-inner">		
+<div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand">
+<div class="search-expand-inner">
+<form action="http://www.tecmint.com/search/" id="cse-search-box">
+<div>
+<input name="cx" value="partner-pub-2601749019656699:2173448976" type="hidden">
+<input name="cof" value="FORID:10" type="hidden">
+<input name="ie" value="UTF-8" type="hidden">
+<input class="search" name="q" size="20" type="text">
+<input name="sa" value="Search" type="submit">
+</div>
+</form>
+							</div>
+</div>
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</nav><!--/#nav-topbar-->
+<div class="container group">
+<div class="container-inner">
+<div class="group pad">
+<p class="site-title"><a href="http://www.tecmint.com/" rel="home"><img src="logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+<div id="header-ads">
+<div id="text-17" class="widget widget_text">			<div class="textwidget"><!-- Top Banner Ads 728x90 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="8210224606"></ins>
+
+</div>
+</div>					</div><!--/#header-ads-->
+</div>
+<nav class="nav-container group" id="nav-header">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-20410" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20410"><a target="_blank" href="http://news.tecmint.com/">News</a></li>
+<li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="http://www.tecmint.com/best-linux-distributions/">Linux Distro’s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="http://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-20869" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-20869"><a href="http://www.tecmint.com/#">Programming</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="http://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-20870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20870"><a href="http://www.tecmint.com/category/python/">Learn Python</a></li>
+<li id="menu-item-20871" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20871"><a href="http://www.tecmint.com/category/awk-command/">Learn Awk</a></li>
+</ul>
+</li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10773"><a href="http://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="http://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-19684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19684"><a href="http://www.tecmint.com/category/top-tools/">Best Linux Tools</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" href="http://www.tecmint.com/#">Certifications</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="http://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" href="http://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="http://www.tecmint.com/#">Guides</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-18564" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18564"><a href="http://www.tecmint.com/install-docker-and-learn-containers-in-centos-rhel-7-6/">Docker Seires</a></li>
+<li id="menu-item-17150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17150"><a href="http://www.tecmint.com/setup-postfix-mail-server-and-dovecot-with-mariadb-in-centos/">Postfix Mail</a></li>
+<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="http://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="http://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="http://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="http://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="http://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="http://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="http://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="http://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+<li id="menu-item-16084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16084"><a href="http://www.tecmint.com/install-and-configure-ansible-automation-tool-in-linux/">Ansible Series</a></li>
+<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16395"><a href="http://www.tecmint.com/install-and-configure-django-web-framework-in-centos-debian-ubuntu/">Django Series</a></li>
+<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="http://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul style="display: none;" class="sub-menu">
+<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="http://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="http://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="http://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="http://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="http://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="http://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="http://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+</ul></div>
+</nav><!--/#nav-header-->
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</header><!--/#header-->
+<div class="container" id="page">
+<div class="container-inner">			
+<div class="main">
+<div class="main-inner group">
+<section class="content">
+<div class="page-title pad group">
+<ul class="meta-single group">
+<li class="category"><a href="http://www.tecmint.com/category/firewalls/" rel="category tag">Firewalls</a></li>
+<li class="comments"><a href="#comments"><i class="fa fa-comments-o"></i>4</a></li>
+</ul>
+</div><!--/.page-title-->	
+<div class="pad group">
+<article class="post-19047 post type-post status-publish format-standard has-post-thumbnail hentry category-firewalls tag-iptables">	
+<div class="post-inner group">
+<h1 class="post-title">25 Useful IPtable Firewall Rules Every Linux Administrator Should Know</h1>
+<p class="post-byline">by <a href="http://www.tecmint.com/author/marintodorov89/" title="Posts by Marin Todorov" rel="author">Marin Todorov</a> | Published: March 1, 2016 | <!-- if the post updated datetime is not equal to the post datetime, show the updated datetime -->
+<!-- else show the post date -->
+March 1, 2016    </p>
+<div class="clear"></div>
+<!-- Above Post Ads 468x15 -->
+<div class="add-box">
+<ins class="adsbygoogle" style="display: inline-block; width: 468px; height: 15px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="1986283779"></ins>
+
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<i style="color: rgb(40, 85, 122); font-size: 20px;" class="fa fa-book"></i>
+<b>Download Your Free eBooks NOW</b> - <a target="_blank" style="text-decoration: underline;" href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Free Linux eBooks for Administrators</a> | <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks</a>
+</div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center>
+<!-- Post Inner Mobile Ads -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9946480174"></ins>
+
+</center>
+</div>
+<div class="clear"></div>
+<div class="entry share">	
+<div class="entry-inner">
+<p><a href="http://www.tecmint.com/manage-and-limit-downloadupload-bandwidth-with-trickle-in-linux/" target="_blank">Managing network traffic</a> is one of the toughest jobs a system administrators has to deal with. He must <a href="http://www.tecmint.com/configure-iptables-firewall/" target="_blank">configure the firewall</a> in such a way that it will meet the system and users requirements for both incoming and outgoing connections, without leaving the system vulnerable to attacks.</p>
+<div id="attachment_19230" style="width: 730px;" class="wp-caption aligncenter"><a href="http://www.tecmint.com/wp-content/uploads/2016/03/iptables-Firewall-Rules-for-Linux.png" rel="attachment wp-att-19230"><img data-lazy-loaded="true" style="display: inline;" src="iptables-Firewall-Rules-for-Linux.png" class="size-full wp-image-19230" alt="25 IPtables Firewall Rules for Linux" width="720" height="345"></a><p class="wp-caption-text">25 IPtables Firewall Rules for Linux</p></div>
+<p>This is where <code>iptables</code> come in handy. <strong>Iptables</strong> is a Linux command line firewall that allows system administrators to manage incoming and outgoing traffic via a set of configurable table rules.</p>
+<p><strong>Iptables</strong> uses a set of tables which have chains that contain set of built-in or user defined rules.&nbsp;Thanks to them a system administrator can properly filter the network traffic of his system.</p>
+<p>Per iptables manual, there are currently 3 types of tables:</p>
+<ol>
+<ol>
+<li><code>FILTER</code>&nbsp;– this is the default table, which contains the built in chains for:
+<ol>
+<li><strong>INPUT</strong> &nbsp;– packages destined for local sockets</li>
+<li><strong>FORWARD</strong> – packets routed through the system</li>
+<li><strong>OUTPUT</strong> – packets generated locally</li>
+</ol>
+</li>
+<li><code>NAT</code> – a table that is consulted when a packet tries to create a new connection. It has the following built-in:
+<ol>
+<li><strong>PREROUTING</strong> – used for altering a packet as soon as it’s received</li>
+<li><strong>OUTPUT</strong> – used for altering locally generated packets</li>
+<li><strong>POSTROUTING</strong> – used for altering packets as they are about to go out</li>
+</ol>
+</li>
+<li><code>MANGLE</code> – this table is used for packet altering. Until kernel version <strong>2.4</strong> this table had only two chains, but they are now 5:
+<ol>
+<li><strong>PREROUTING</strong> – for altering incoming connections</li>
+<li><strong>OUTPUT</strong> – for altering locally generated &nbsp;packets</li>
+<li><strong>INPUT</strong> – for incoming packets</li>
+<li><strong>POSTROUTING</strong> – for altering packets as they are about to go out</li>
+<li><strong>FORWARD</strong> – for packets routed through the box</li>
+</ol>
+</li>
+</ol>
+</ol>
+<center style="padding-bottom: 20px; padding-top: 10px;"><ins class="adsbygoogle" style="display: inline-block; width: 200px; height: 90px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9878518176"></ins></center><p>In this article, you will see some useful commands that will help you manage your Linux box firewall through iptables. For the purpose of this article, I will start with simpler commands&nbsp;and go to more complex to the end.</p>
+<h3>1. Start/Stop/Restart Iptables Firewall</h3>
+<p>First, you should know how to manage iptables&nbsp;service in different&nbsp;Linux distributions. This is fairly easy:</p>
+<h4>On SystemD based Linux Distributions</h4>
+<pre>------------ <strong style="color: yellow;">On Cent/RHEL 7 and Fedora 22+</strong> ------------
+# systemctl start iptables
+# systemctl stop iptables
+# systemctl restart iptables
+</pre>
+<h4>On SysVinit based Linux Distributions</h4>
+<pre>------------ <strong style="color: yellow;">On Cent/RHEL 6/5 and Fedora</strong> ------------
+# /etc/init.d/iptables start 
+# /etc/init.d/iptables stop
+# /etc/init.d/iptables restart
+</pre>
+<h3>2. Check all IPtables Firewall Rules</h3>
+<p>If you want to check your existing rules, use the following command:</p>
+<pre># iptables -L -n -v
+</pre>
+<p>This should return output similar to the one below:</p>
+<pre>Chain INPUT (policy ACCEPT 1129K packets, 415M bytes)
+pkts bytes target prot opt in out source destination 
+0 0 ACCEPT tcp -- lxcbr0 * 0.0.0.0/0 0.0.0.0/0 tcp dpt:53
+0 0 ACCEPT udp -- lxcbr0 * 0.0.0.0/0 0.0.0.0/0 udp dpt:53
+0 0 ACCEPT tcp -- lxcbr0 * 0.0.0.0/0 0.0.0.0/0 tcp dpt:67
+0 0 ACCEPT udp -- lxcbr0 * 0.0.0.0/0 0.0.0.0/0 udp dpt:67</pre>
+<pre>Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+pkts bytes target prot opt in out source destination 
+0 0 ACCEPT all -- * lxcbr0 0.0.0.0/0 0.0.0.0/0 
+0 0 ACCEPT all -- lxcbr0 * 0.0.0.0/0 0.0.0.0/0</pre>
+<pre>Chain OUTPUT (policy ACCEPT 354K packets, 185M bytes)
+pkts bytes target prot opt in out source destination</pre>
+<p>If you prefer to check the rules for a specific table, you can use the <code>-t</code> option followed by the table which you want to check. For example, to check the rules in the <code>NAT</code> table, you can use:</p>
+<pre># iptables -t nat -L -v -n
+</pre>
+<h3>3. Block Specific IP Address in IPtables Firewall</h3>
+<p>If you find an unusual or abusive activity from an IP address you can block that IP address with the following rule:</p>
+<pre># iptables -A INPUT -s xxx.xxx.xxx.xxx -j DROP
+</pre>
+<p>Where you need to change <code>"xxx.xxx.xxx.xxx"</code> with the actual IP address. Be very careful when running this command as you can accidentally block your own IP address. The <code>-A</code> option appends the rule in the end of the selected chain.</p>
+<p>In case you only want to block <strong>TCP</strong> traffic from that IP address, you can use the <code>-p</code> option that specifies the protocol. That way the command will look like this:</p>
+<pre># iptables -A INPUT -p tcp -s xxx.xxx.xxx.xxx -j DROP
+</pre>
+<h3>4. Unblock IP Address in IPtables Firewall</h3>
+<p>If you have decided that you no longer want to block requests from specific IP address, you can delete the blocking rule with the following command:</p>
+<pre># iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
+</pre>
+<p>The <code>-D</code> option deletes one or more rules from the selected chain. If you prefer to use the longer option you can use <code>--delete</code>.</p>
+<h3>5. Block Specific Port on IPtables Firewall</h3>
+<p>Sometimes you may want to block incoming or outgoing connections on a specific port. It’s a good security measure and you should really think on that matter when setting up your firewall.</p>
+<p>To block outgoing connections on a specific port use:</p>
+<pre># iptables -A OUTPUT -p tcp --dport xxx -j DROP
+</pre>
+<p>To allow incoming connections use:</p>
+<pre># iptables -A INPUT -p tcp --dport xxx -j ACCEPT
+</pre>
+<p>In both examples change <code>"xxx"</code> with the actual port you wish to allow. If you want to block <strong>UDP</strong> traffic instead of <strong>TCP</strong>, simply change <code>"tcp"</code> with <code>"udp"</code> in the above iptables rule.</p>
+<h3>6. Allow Multiple Ports on IPtables using Multiport</h3>
+<p>You can allow multiple ports at once, by using <strong>multiport</strong>, below you can find such rule for both incoming and outgoing connections:</p>
+<pre># iptables -A INPUT  -p tcp -m multiport --dports 22,80,443 -j ACCEPT
+# iptables -A OUTPUT -p tcp -m multiport --sports 22,80,443 -j ACCEPT
+</pre>
+<h3>7. Allow Specific Network Range on Particular Port on IPtables</h3>
+<p>You may want to limit certain connections on specific port to a given network. Let’s say you want to allow outgoing connections on port <code>22</code> to network <code>192.168.100.0/24</code>.</p>
+<p>You can do it with this command:</p>
+<pre># iptables -A OUTPUT -p tcp -d 192.168.100.0/24 --dport 22 -j ACCEPT
+</pre>
+<h3>8. Block Facebook on IPtables Firewall</h3>
+<p>Some employers like to block access to <strong>Facebook</strong> to their employees. Below is an example how to block traffic to Facebook.</p>
+<p><strong style="color: red;">Note</strong>: If you are a system administrator and need to apply these rules, keep in mind that your colleagues may stop talking to you :)</p>
+<p>First find the IP addresses used by Facebook:</p>
+<pre># host facebook.com 
+facebook.com has address 66.220.156.68
+</pre>
+<pre># whois 66.220.156.68 | grep CIDR
+CIDR: 66.220.144.0/20
+</pre>
+<p>You can then block that Facebook network with:</p>
+<pre># iptables -A OUTPUT -p tcp -d 66.220.144.0/20 -j DROP
+</pre>
+<p>Keep in mind that the IP address range used by Facebook may vary in your country.</p>
+<h3>9. Setup Port Forwarding in IPtables</h3>
+<p>Sometimes you may want to forward one service’s traffic to another port.&nbsp;You can achieve this with the following command:</p>
+<pre># iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j REDIRECT --to-port 2525
+</pre>
+<p>The above command forwards all incoming traffic on network interface <code>eth0</code>, from port <code>25</code> to port <code>2525</code>. You may change the ports with the ones you need.</p>
+<h3>10. Block Network Flood on Apache Port with IPtables</h3>
+<p>Sometimes IP addresses may requests too many connections towards web ports on your website. This can cause number of issues and to prevent such problems, you can use the following rule:</p>
+<pre># iptables -A INPUT -p tcp --dport 80 -m limit --limit 100/minute --limit-burst 200 -j ACCEPT
+</pre>
+<p>The above command limits the incoming connections from per minute to <code>100</code> and sets a limit burst to <code>200</code>. You can edit the limit and limit-burst to your own specific requirements.</p>
+<h3>11. Block Incoming Ping Requests on IPtables</h3>
+<p>Some system administrators like to block incoming ping requests due to security concerns. While the threat is not that big, it’s good to know how to block such request:</p>
+<pre># iptables -A INPUT -p icmp -i eth0 -j DROP
+</pre>
+<h3>12. Allow loopback Access</h3>
+<p>Loopback access (access from <code>127.0.0.1</code>) is important and you should always leave it active:</p>
+<pre># iptables -A INPUT -i lo -j ACCEPT
+# iptables -A OUTPUT -o lo -j ACCEPT
+</pre>
+<h3>13. Keep a Log of Dropped Network Packets on IPtables</h3>
+<p>If you want to log the dropped packets on network interface <code>eth0</code>, you can use the following command:</p>
+<pre># iptables -A INPUT -i eth0&nbsp;-j LOG --log-prefix "IPtables dropped packets:"
+</pre>
+<p>You can change the value after <code>"--log-prefix"</code> with something by your choice. The messages are logged in <code>/var/log/messages</code> and you can search for them with:</p>
+<pre># grep "IPtables dropped packets:" /var/log/messages
+</pre>
+<h3>14. Block&nbsp;Access to Specific MAC Address on IPtables</h3>
+<p>You can block access to your system from specific MAC address by using:</p>
+<pre># iptables -A INPUT -m mac --mac-source 00:00:00:00:00:00 -j DROP
+</pre>
+<p>Of course, you will need to change <code>"00:00:00:00:00:00"</code> with the actual MAC address that you want to block.</p>
+<h3>15. Limit the Number of Concurrent Connections per IP Address</h3>
+<p>If you don’t want to have too many concurrent connection established from single IP address on given port you can use the command below:</p>
+<pre># iptables -A INPUT -p tcp --syn --dport&nbsp;22&nbsp;-m connlimit --connlimit-above 3 -j REJECT
+</pre>
+<p>The above command allows no more than <code>3</code> connections per client. Of course, you can change the port number to match different service. Also the <code>--connlimit-above</code> should be changed to match your requirement.</p>
+<h3>16. Search within IPtables Rule</h3>
+<p>Once you have defined your iptables rules, you will want to search from time to time and&nbsp;may need to alter them. An easy way to search within your rules is to use:</p>
+<pre># iptables -L $table -v -n | grep $string
+</pre>
+<p>In the above example, you will need to change <code>$table</code> with the actual table within which you wish to search and <code>$string</code> with the actual string for which you are looking for.</p>
+<p>Here is an example:</p>
+<pre># iptables -L INPUT&nbsp;-v -n | grep 192.168.0.100
+</pre>
+<h3>17. Define New IPTables Chain</h3>
+<p>With iptables, you can define your own chain and store custom rules in it. To define a chain, use:</p>
+<pre># iptables -N custom-filter
+</pre>
+<p>Now you can check if your new filter is there:</p>
+<pre># iptables -L
+</pre>
+<h5>Sample Output</h5>
+<pre>Chain INPUT (policy ACCEPT)
+target prot opt source destination
+</pre>
+<pre>Chain FORWARD (policy ACCEPT)
+target prot opt source destination</pre>
+<pre>Chain OUTPUT (policy ACCEPT)
+target prot opt source destination</pre>
+<pre>Chain <strong>custom-filter</strong> (0 references)
+target prot opt source destination</pre>
+<h3>18.&nbsp;Flush IPtables Firewall Chains or Rules</h3>
+<p>If you want to flush your firewall chains, you can use:</p>
+<pre># iptables -F
+</pre>
+<p>You can flush chains from specific table with:</p>
+<pre># iptables -t nat -F
+</pre>
+<p>You can change <code>"nat"</code> with the actual table which chains you wish to flush.</p>
+<h3>19. Save IPtables Rules to a File</h3>
+<p>If you want to save your firewall rules, you can use the <code>iptables-save</code> command. You can use the following to save and store your rules in a file:</p>
+<pre># iptables-save &gt; ~/iptables.rules
+</pre>
+<p>It’s up to you where will you store the file and how you will name it.</p>
+<h3>20. Restore IPtables Rules from a File</h3>
+<p>If you want to restore a list of iptables rules, you can use <code>iptables-restore</code>. The command looks like this:</p>
+<pre># iptables-restore &lt; ~/iptables.rules
+</pre>
+<p>Of course the path to your rules file might be different.</p>
+<h3>21. Setup IPtables Rules for PCI Compliance</h3>
+<p>Some system administrators might be required to configure their servers to be PCI compiliant. There are many requirements by different PCI compliance vendors, but there are few common ones.</p>
+<p>In many of the cases, you will need to have more than one IP address. You will need to apply the rules below for the site’s IP address. Be extra careful when using the rules below and use them only if you are sure what you are doing:</p>
+<pre># iptables -I INPUT -d SITE -p tcp -m multiport --dports 21,25,110,143,465,587,993,995 -j DROP
+</pre>
+<p>If you use cPanel or similar control panel, you may need to block it’s’ ports as well. Here is an example:</p>
+<pre># iptables -I in_sg -d DEDI_IP -p tcp -m multiport --dports  2082,2083,2095,2096,2525,2086,2087 -j DROP
+</pre>
+<p><strong style="color: red;">Note</strong>: To make sure you meet your PCI vendor’s requirements, check their report carefully and apply the required rules. In some cases you may need to block UDP traffic on certain ports as well.</p>
+<h3>22. Allow Established and Related Connections</h3>
+<p>As the network traffic is separate on incoming and outgoing, you will want to allow established and related incoming traffic. For incoming connections do it with:</p>
+<pre># iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+</pre>
+<p>For outgoing use:</p>
+<pre># iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+</pre>
+<h3>23. Drop Invalid Packets in IPtables</h3>
+<p>It’s possible to have some network packets marked as invalid. Some people may prefer to log those packages, but others prefer to drop them. To drop invalid the packets, you can use:</p>
+<pre># iptables -A INPUT -m conntrack --ctstate INVALID -j DROP 
+</pre>
+<h3>24. Block Connection on Network Interface</h3>
+<p>Some systems may have more than one network interface. You can limit the access to that network interface or block connections from certain IP address.</p>
+<p>For example:</p>
+<pre># iptables -A INPUT -i eth0 -s xxx.xxx.xxx.xxx -j DROP
+</pre>
+<p>Change <strong>“xxx.xxx.xxx.xxx”</strong> with the actual IP address (or network) that you wish to block.</p>
+<h3>25. Disable Outgoing Mails through IPTables</h3>
+<p>If your system should not be sending any emails, you can block outgoing ports on SMTP ports. For example you can use this:</p>
+<pre># iptables -A OUTPUT -p tcp --dports 25,465,587 -j REJECT
+</pre>
+<h3>Conclusion</h3>
+<p><strong>Iptables</strong> is a powerful firewall that you can easily benefit from. It is vital for every system administrator to learn at least the <a href="http://www.tecmint.com/basic-guide-on-iptables-linux-firewall-tips-commands/" target="_blank">basics of iptables</a>. If you want to find more detailed information about iptables and its options it is highly recommend to read it’s manual:</p>
+<pre># man iptables
+</pre>
+<p>If you think we should add more commands to this list, please share them with us, by submitting them in the comment section below.</p>
+</div>
+<div class="sharrre-container">
+<span>Share</span>
+<div class="sharrre" id="twitter" data-url="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/" data-text="25 Useful IPtable Firewall Rules Every Linux Administrator Should Know" data-title="Tweet"><a class="box" href="#"><div class="count" href="#">+</div><div class="share"><i class="fa fa-twitter"></i></div></a></div>
+<div class="sharrre" id="facebook" data-url="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/" data-text="25 Useful IPtable Firewall Rules Every Linux Administrator Should Know" data-title="Like"></div>
+<div class="sharrre" id="googleplus" data-url="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/" data-text="25 Useful IPtable Firewall Rules Every Linux Administrator Should Know" data-title="+1"><a class="box" href="#"><div class="count" href="#">251</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a></div>
+<div class="sharrre" id="linkedin" data-url="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/" data-text="25 Useful IPtable Firewall Rules Every Linux Administrator Should Know" data-title="Share It"></div>
+<div style="text-align: center; font-weight: 600; padding-top: 5px;"><a href="#comments"><i class="fa fa-comments-o"></i></a><a href="#comments" class="comments-link">4 <span style="font-size: 10px; color: rgb(39, 118, 198); margin-top: -8px;">comments</span></a></div>
+</div><!--/.sharrre-container-->
+						<div class="clear"></div>				
+</div><!--/.entry-->
+</div><!--/.post-inner-->
+</article><!--/.post-->				
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center style="padding-top: 30px;">
+<!-- Post-Bottom-Inner-300x250 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7807254572"></ins>
+
+</center>
+</div>
+<div class="clear"></div>
+<div class="after-post-box">
+<h2>If You Appreciate What We Do Here On TecMint, You Should Consider:</h2>
+<ol>
+<li>Stay Connected to: <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1TP6lcM" title="Follow TecMint on Twitter">Twitter</a></strong> | <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1rDYrdj" title="Like Us on Facebook">Facebook</a></strong> | <strong><a target="_blank" rel="nofollow" href="http://bit.ly/24J6lna" title="Join Us On Google+">Google Plus</a></strong></li>
+<li>Subscribe to our email updates: <strong><a target="_blank" rel="nofollow" href="http://bit.ly/1T2Gxb4" title="Subscribe to TecMint Email Updates">Sign Up Now</a></strong></li>
+<li>Use our <strong><a target="_blank" rel="nofollow" title="Linode Linux Hosting" href="http://bit.ly/1ZzMwrv">Linode referral link</a></strong> if you plan to buy VPS <i>(it starts at only $10/month)</i>.
+</li>
+<li>Support us via <strong>PayPal donate</strong> - <strong><a target="_blank" href="http://www.tecmint.com/donate-to-tecmint/">Make a Donation</a></strong></li>
+<li>Support us by <strong><a href="http://www.tecmint.com/linux-books-in-pdf-format/" target="_blank">purchasing our premium books</a></strong> in PDF format.</li>
+<li>Support us by taking our <strong><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/search?utf8=%E2%9C%93&amp;query=linux">online Linux courses</a></strong></li>
+</ol>
+<p style="text-align: center;"><strong style="color: rgb(254, 51, 0); font-size: 20px;">We are thankful for your never ending support.</strong></p>
+</div>
+<div class="clear"></div>
+<p class="post-tags"><span>Tags:</span> <a href="http://www.tecmint.com/tag/iptables/" rel="tag">iptables</a></p>					<div class="author-bio">
+<div class="bio-avatar"><img src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/1a488abfc89d7db68797f78d5b66fdb3?s=128&amp;d=blank&amp;r=g" alt="" srcset="1a488abfc89d7db68797f78d5b66fdb3.dat 2x" class="avatar avatar-128 photo" width="128" height="128"></div>
+<p style="float: right; font-weight: 600;"><a target="_blank" class="author-link" href="http://www.tecmint.com/author/marintodorov89/" rel="author">View all Posts</a></p>
+<p class="bio-name">Marin Todorov</p>
+<p class="bio-desc">I am a bachelor in computer science and a Linux Foundation Certified System Administrator. Currently working as a Senior Technical support in the hosting industry. In my free time I like testing new software and inline skating.</p>
+<p><span style="font-size: 20px; font-weight: 400; color: rgb(162, 4, 46);">Your name can also be listed here. Got a tip? <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/submit-articles/">Submit it here</a> to become an <b>TecMint</b> author.</span></p>
+<div class="clear"></div>
+</div>
+<div id="exam_announcement">
+<span style="color: rgb(247, 93, 89); font-weight: 400; font-size: 18px;">Receive Your Free Complimentary eBook NOW!</span> - <span style="color: rgb(39, 118, 198); font-weight: 600; font-size: 18px; text-decoration: underline;"><a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_make180/prgm.cgi">4 Promising Linux Distros To Look Forward To In 2015</a></span></div>
+<div class="hr"></div>
+<div class="freebooks">
+<center><h1 style="padding-bottom: 15px; font-size: 25px;">Download Free Linux eBooks</h1></center>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_advb01/prgm.cgi"><img title="Advanced Bash-Scripting Guide" src="w_advb01c4.png" alt="Advanced Bash-Scripting Guide"></a>
+</div>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi"><img title="Linux Bible" src="w_wile13c4.png" alt="Linux Bible"></a>
+</div>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi"><img title="A Newbie's Getting Started Guide to Linux" src="w_make07c4.png" alt="A Newbie's Getting Started Guide to Linux"></a>
+</div>
+<div class="grid one-fourth last">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi"><img title="Introduction to Linux - A Hands on Guide" src="w_mach01c4.png" alt="Introduction to Linux - A Hands on Guide"></a>
+</div>
+<div class="clear"></div>
+</div>
+<ul class="post-nav group">
+<li class="next"><a href="http://www.tecmint.com/manage-and-create-lvm-parition-using-vgcreate-lvcreate-and-lvextend/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>LFCS: How to Manage and Create LVM Using vgcreate, lvcreate and lvextend Commands – Part 11</span></a></li>
+<li class="previous"><a href="http://www.tecmint.com/ubuntu-16-04-installation-guide/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>Ubuntu 16.04 LTS (Xenial Xerus) Installation Guide</span></a></li>
+</ul>
+<h4 class="heading">
+<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+<ul class="related-posts group">
+<li class="related post-hover">
+<article class="post-17761 post type-post status-publish format-standard has-post-thumbnail hentry category-firewalls category-security tag-firewalld tag-iptables">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/block-ssh-and-ftp-access-to-specific-ip-and-network-range/" title="How to Block SSH and FTP Access to Specific IP and Network Range in Linux">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/12/Block-SSH-FTP-Access-IPtables-FirewallD.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Block SSH and FTP Access Using IPtables/FirewallD" width="720" height="345">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/block-ssh-and-ftp-access-to-specific-ip-and-network-range/#comments"><span><i class="fa fa-comments-o"></i>5</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/block-ssh-and-ftp-access-to-specific-ip-and-network-range/" rel="bookmark" title="How to Block SSH and FTP Access to Specific IP and Network Range in Linux">How to Block SSH and FTP Access to Specific IP and Network Range in Linux</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">15 Dec, 2015</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-5101 post type-post status-publish format-standard has-post-thumbnail hentry category-firewalls category-open-source tag-firewalls-2 tag-free-firewalls tag-linux-firewalls">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/open-source-security-firewalls-for-linux-systems/" title="10 Useful Open Source Security Firewalls for Linux Systems">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/12/10-free-firewall-for-Linux.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Linux Firewalls" width="573" height="422">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/open-source-security-firewalls-for-linux-systems/#comments"><span><i class="fa fa-comments-o"></i>29</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/open-source-security-firewalls-for-linux-systems/" rel="bookmark" title="10 Useful Open Source Security Firewalls for Linux Systems">10 Useful Open Source Security Firewalls for Linux Systems</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">16 Dec, 2013</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-11124 post type-post status-publish format-standard has-post-thumbnail hentry category-firewalls tag-ipfire">
+<div class="post-thumbnail">
+<a href="http://www.tecmint.com/install-ipfire-firewall-distribution/" title="How to Install ‘IPFire’ Free Firewall Linux Distribution">
+<img src="1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2015/01/IPFire-Installation-Guide-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="IPFire Firewall Installation Guide" srcset="IPFire-Installation-Guide-520x245.jpg 520w, IPFire-Installation-Guide-620x293.jpg 620w, IPFire-Installation-Guide.jpg 720w" sizes="(max-width: 520px) 100vw, 520px" width="520" height="245">																								</a>
+<a class="post-comments" href="http://www.tecmint.com/install-ipfire-firewall-distribution/#comments"><span><i class="fa fa-comments-o"></i>12</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="http://www.tecmint.com/install-ipfire-firewall-distribution/" rel="bookmark" title="How to Install ‘IPFire’ Free Firewall Linux Distribution">How to Install ‘IPFire’ Free Firewall Linux Distribution</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">2 Feb, 2015</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+</ul><!--/.post-related-->
+<section id="comments" class="themeform">
+<h3 class="heading">4 Responses</h3>
+<ul class="comment-tabs group">
+<li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>Comments<span>4</span></a></li>
+<li><a href="#pinglist-container"><i class="fa fa-share"></i>Pingbacks<span>0</span></a></li>
+</ul>
+<div id="commentlist-container" class="comment-tab">
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-782043">
+<div id="div-comment-782043" class="comment-body">
+<div class="comment-author vcard">
+<img src="1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/3c726443dbde60fef45fbfd7a62efdb1?s=96&amp;d=blank&amp;r=g" alt="" srcset="3c726443dbde60fef45fbfd7a62efdb1.dat 2x" class="avatar avatar-96 photo" width="96" height="96">			<cite class="fn">chanuka</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-782043">
+May 19, 2016 at 11:57 am</a>		</div>
+<p>Really needful</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/?replytocom=782043#respond" aria-label="Reply to chanuka">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-756658">
+<div id="div-comment-756658" class="comment-body">
+<div class="comment-author vcard">
+<img src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/1c3e1ffd653d6108807f51cecb4473ef?s=96&amp;d=blank&amp;r=g" alt="" srcset="1c3e1ffd653d6108807f51cecb4473ef.dat 2x" class="avatar avatar-96 photo" width="96" height="96">			<cite class="fn">cybernard</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-756658">
+March 4, 2016 at 8:50 pm</a>		</div>
+<p>Step 21:  Instead of having a 2 potiential long blocks<br>
+iptables -I INPUT -d SITE -p tcp -m multiport –dports 21,25,110,143,465,587,993,995 -j DROP<br>
+use this instead<br>
+iptables -A INPUT -m conntrack –ctstate ESTABLISHED,RELATED -j ACCEPT<br>
+iptables -I INPUT -d SITE i  -p tcp -m multiport ! –dports 80,443 -j DROP</p>
+<p>This teaches the allow only was is required principle instead of a long blacklist.</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/?replytocom=756658#respond" aria-label="Reply to cybernard">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-756440">
+<div id="div-comment-756440" class="comment-body">
+<div class="comment-author vcard">
+<img src="1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/c4c998ac32dfa490b530b6665ec902d2?s=96&amp;d=blank&amp;r=g" alt="" srcset="c4c998ac32dfa490b530b6665ec902d2.dat 2x" class="avatar avatar-96 photo" width="96" height="96">			<cite class="fn">Wodin</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-756440">
+March 3, 2016 at 3:34 pm</a>		</div>
+<p>You don’t want to block ALL incoming ICMP.  If you just want to block PING requests, then you need to block ICMP echo requests like this:<br>
+iptables -A INPUT -p icmp –icmp-type echo-request -j DROP</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/?replytocom=756440#respond" aria-label="Reply to Wodin">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-756191">
+<div id="div-comment-756191" class="comment-body">
+<div class="comment-author vcard">
+<img src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/1c3e1ffd653d6108807f51cecb4473ef?s=96&amp;d=blank&amp;r=g" alt="" srcset="1c3e1ffd653d6108807f51cecb4473ef.dat 2x" class="avatar avatar-96 photo" width="96" height="96">			<cite class="fn">me</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="#comment-756191">
+March 1, 2016 at 8:31 pm</a>		</div>
+<p>For black/white lists, banning IP, you should teach people IPSET as it is way more efficient.  Blocking with iptables doesn’t scale well, and at approx 2000 blocks (depending on your CPU) your CPU utilization will go through the roof.</p>
+<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.tecmint.com/linux-iptables-firewall-rules-examples-commands/?replytocom=756191#respond" aria-label="Reply to me">Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+</ol><!--/.commentlist-->
+</div>	
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Got something to say? Join the discussion. <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display: none;">Cancel reply</a></small></h3>				<form action="http://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" id="author" name="author" value="" size="30" maxlength="245" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" value="" size="30" maxlength="200" type="text"></p>
+<p class="form-submit"><input name="submit" id="submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="19047" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="135855a4cd" type="hidden"></p><!-- Subscribe to Comments Reloaded version160115 --><!-- BEGIN: subscribe to comments reloaded --><p class="comment-form-subscriptions"><label for="subscribe-reloaded"><input style="width: 30px;" name="subscribe-reloaded" id="subscribe-reloaded" value="yes" type="checkbox"> Notify me of followup comments via e-mail. You can also <a href="http://www.tecmint.com/comment-subscriptions/?srp=19047&amp;srk=673f0568a0637a1105113a34047afde3&amp;sra=s">subscribe</a> without commenting.</label></p><!-- END: subscribe to comments reloaded --><p style="display: none;"></p>				<input id="ak_js" name="ak_js" value="1471572826555" type="hidden"></form>
+</div><!-- #respond -->
+</section><!--/#comments-->		
+</div><!--/.pad-->
+</section><!--/.content-->
+<div class="sidebar s1">
+<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+<div class="sidebar-content">
+<div class="sidebar-top group">
+<span style="color: rgb(0, 40, 115); font-weight: 600; font-size: 20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: rgb(51, 204, 255);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: rgb(59, 89, 152);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: rgb(219, 74, 57);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: rgb(135, 192, 64);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: rgb(196, 48, 43);"></i></a></li></ul>			</div>
+<div id="text-23" class="widget widget_text">			<div class="textwidget">  <div style="background: none repeat scroll 0% 0% rgb(219, 68, 85);" class="message">
+<center><a href="http://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank"><span style="font-weight: bold; font-size: 18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+</center>
+</div></div>
+</div><div id="text-21" class="widget widget_text">			<div class="textwidget"><center>
+<!-- Sidebar Top Ad 300x250 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7270921771"></ins>
+
+</center></div>
+</div><div id="text-25" class="widget widget_text">			<div class="textwidget"><div class="message"><center><a href="http://www.tecmint.com/vi-editor-usage/" target="_blank"><span style="font-weight: bold; font-size: 17px;"><i class="fa fa-linux"></i> Vi/Vim Editor BEGINNER'S GUIDE <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Learn vi/vim as a Full Text Editor</span> <i class="fa fa-file-text"></i>
+</a></center></div></div>
+</div><div id="text-24" class="widget widget_text">			<div class="textwidget"><span style="float: right; text-decoration: underline;"><a target="_blank" href="http://www.tecmint.com/advertise/">Advertise Here</a></span>
+
+
+</div>
+</div><div id="text-26" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: rgb(171, 6, 25);"><center><span style="font-weight: bold; font-size: 17px;"><i class="fa fa-linux"></i> Linux Foundation Certification <i class="fa fa-linux"></i></span> <span style="font-weight: bold; font-size: 16px;">Exam Study Guide to <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS</a> and <a style="text-decoration: underline;" target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE</a></span></center></div></div>
+</div><div id="text-3" class="widget widget_text">			<div class="textwidget"><div class="ads-sidebar-desktop">
+<center>
+<!-- SideBar2 Ads 300x600 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9098920170"></ins>
+
+</center>
+</div></div>
+</div><div id="alxtabs-2" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular active"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+<div class="alx-tabs-container">
+<ul style="display: block;" id="tab-popular" class="alx-tab group ">
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="Nagios 4.2.0 Released – Install on RHEL/CentOS 7.x/6.x/5.x and Fedora 24-19">Nagios 4.2.0 Released – Install on RHEL/CentOS 7.x/6.x/5.x and Fedora 24-19</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 24-12">Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 24-12</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="Google Chrome 52 Released – Install on RHEL/CentOS 7/6 and Fedora 23-15">Google Chrome 52 Released – Install on RHEL/CentOS 7/6 and Fedora 23-15</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-wine-in-rhel-centos-and-fedora/" rel="bookmark" title="Wine 1.8 Released After 17 Months of Development – Install on RHEL/CentOS and Fedora">Wine 1.8 Released After 17 Months of Development – Install on RHEL/CentOS and Fedora</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="http://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/" rel="bookmark" title="Install Latest Apache 2.4, MySQL 5.5/MariaDB 10.1 and PHP 5.5/5.6 on RHEL/CentOS 7/6 &amp; Fedora 24-18">Install Latest Apache 2.4, MySQL 5.5/MariaDB 10.1 and PHP 5.5/5.6 on RHEL/CentOS 7/6 &amp; Fedora 24-18</a></p>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+<ul style="display: none;" id="tab-comments" class="alx-tab group avatars-enabled">
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/installation-of-fedora-23-server-and-administration-with-cockpit-tool/comment-page-1/#comment-807698">
+<img src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&amp;d=blank&amp;r=g" alt="" srcset="7badddbc53297b2e8ed7011cf45df0c0.dat 2x" class="avatar avatar-96 photo" width="96" height="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Ravi Saive says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/installation-of-fedora-23-server-and-administration-with-cockpit-tool/comment-page-1/#comment-807698">@Ravi,  Follow our guide below to setup OpenVPN on Fedora...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/install-linux-from-usb-device/comment-page-2/#comment-807697">
+<img src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&amp;d=blank&amp;r=g" alt="" srcset="7badddbc53297b2e8ed7011cf45df0c0.dat 2x" class="avatar avatar-96 photo" width="96" height="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Ravi Saive says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/install-linux-from-usb-device/comment-page-2/#comment-807697">@Lyashenkogs,  I think it should work, have you tried it...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/chkconfig-command-examples/comment-page-1/#comment-807695">
+<img src="1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/a86b22bfa2fd3a10b909bf2029100e02?s=96&amp;d=blank&amp;r=g" alt="" srcset="a86b22bfa2fd3a10b909bf2029100e02.dat 2x" class="avatar avatar-96 photo" width="96" height="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Glitter says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/chkconfig-command-examples/comment-page-1/#comment-807695">very informative article and simple to understand</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/linux-server-hardening-security-tips/comment-page-5/#comment-807688">
+<img src="1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/9757472007ca7e9ee488ce3cee036c2a?s=96&amp;d=blank&amp;r=g" alt="" srcset="9757472007ca7e9ee488ce3cee036c2a.dat 2x" class="avatar avatar-96 photo" width="96" height="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Dave says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/linux-server-hardening-security-tips/comment-page-5/#comment-807688">I stopped reading at number 2.  Different partitions do nothing...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/configure-postfix-and-dovecot-with-virtual-domain-users-in-linux/comment-page-2/#comment-807604">
+<img src="1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/038487ddd828f299977d1f250826f640?s=96&amp;d=blank&amp;r=g" alt="" srcset="038487ddd828f299977d1f250826f640.dat 2x" class="avatar avatar-96 photo" width="96" height="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Mareg says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/configure-postfix-and-dovecot-with-virtual-domain-users-in-linux/comment-page-2/#comment-807604">I've installed all as is decribed in part 1 and 2,...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="http://www.tecmint.com/configure-postfix-and-dovecot-with-virtual-domain-users-in-linux/comment-page-2/#comment-807602">
+<img src="1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/038487ddd828f299977d1f250826f640?s=96&amp;d=blank&amp;r=g" alt="" srcset="038487ddd828f299977d1f250826f640.dat 2x" class="avatar avatar-96 photo" width="96" height="96">							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Mareg says:</div>
+<div class="tab-item-comment"><a href="http://www.tecmint.com/configure-postfix-and-dovecot-with-virtual-domain-users-in-linux/comment-page-2/#comment-807602">I tried this again but its true. So if You look...</a></div>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+</div>
+</div>
+<div id="text-27" class="widget widget_text">			<div class="textwidget"><center>
+<a target="_blank" href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/"><img alt="RedHat RHCSA and RHCE Certification Exam Study Ebook" src="RedHat-RHCSA-RHCE-Exam.png"></a>
+</center></div>
+</div><div id="text-28" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: rgb(13, 124, 57);"><center><p style="font-weight: bold; font-size: 18px;">Linux System Administrator Bundle with 7-Courses (96% off)</p> 
+<p style="background-color: rgb(3, 68, 29); margin: 6px 35px; padding: 10px;"><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&amp;utm_medium=referral&amp;utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu&amp;_ga=1.95416024.550662903.1451974395" style="font-size: 25px; font-weight: bold;">Add to Cart - $69</a></p>
+<p style="font-size: 14px; font-weight: bold;"><i aria-hidden="true" class="fa fa-clock-o"></i> Ending In: 3 days
+</p></center></div>
+<div style="background-color: rgb(244, 64, 59);" class="message"><center><p style="font-weight: bold; font-size: 18px;">CentOS &amp; Red Hat Certified System Administrator Course (90% off)</p> 
+<p style="background-color: rgb(157, 24, 21); margin: 6px 35px; padding: 10px;"><a style="font-size: 25px; font-weight: bold;" href="http://www.tecmint.com/redhat-linux-certified-system-administrator-course/" target="_blank" rel="nofollow">Add to Cart - $19</a></p>
+<p style="font-size: 14px; font-weight: bold;"><i class="fa fa-clock-o" aria-hidden="true"></i> Ending In: 4 days
+</p></center></div></div>
+</div><div id="text-4" class="widget widget_text"><h3>Download Free Linux eBooks</h3>			<div class="textwidget"><ol>
+<li><a href="http://tecmint.tradepub.com/free/w_makb09/prgm.cgi" rel="nofollow" target="_blank">Complete Linux Command Line Cheat Sheet</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_free01/prgm.cgi" rel="nofollow" target="_blank">The GNU/Linux Advanced Administration Guide</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux Servers</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk12/prgm.cgi" rel="nofollow" target="_blank">Linux Patch Management: Keeping Linux Up To Date</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi" rel="nofollow" target="_blank">Introduction to Linux – A Hands on Guide</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk10/prgm.cgi" rel="nofollow" target="_blank">Understanding the Linux® Virtual Memory Manager</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi" rel="nofollow" target="_blank">Linux Bible – Packed with Updates and Exercises</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi" rel="nofollow" target="_blank">A Newbie’s Getting Started Guide to Linux</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_linu01/prgm.cgi" rel="nofollow" target="_blank">Linux from Scratch – Create Your Own Linux OS</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_pack42/prgm.cgi" rel="nofollow" target="_blank">Linux Shell Scripting Cookbook, Second Edition</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux: The Hacking Solution</a></li>
+<li><a href="http://tecmint.tradepub.com/free/w_infk09/prgm.cgi" rel="nofollow" target="_blank">User Mode Linux – Understanding and Administration</a></li>
+</ol></div>
+</div><div id="text-29" class="widget widget_text">			<div class="textwidget"><div id="subscribebox">
+<div class="follow-subscribe-social">
+<ul>
+<li><a href="http://twitter.com/tecmint" target="_blank"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><i class="fa fa-google"></i></a></li>
+<li><a href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="_blank"><i class="fa fa-youtube"></i></a></li>
+<li><a href="https://www.linkedin.com/company/tecmint" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+<p>INSTANT UPDATES FOR NEW POSTS</p>
+<form target="popupwindow" method="post" action="https://feedburner.google.com/fb/a/mailverify">
+<input name="uri" value="tecmint" type="hidden">
+<input name="loc" value="en_US" type="hidden">
+<input value="Enter Your Email Address :)" name="email" class="subscribe-email" type="text">
+<input class="subscribe-button" value="Subscribe" type="submit">
+</form>
+</div></div>
+</div>			
+</div><!--/.sidebar-content-->
+</div><!--/.sidebar-->
+				</div><!--/.main-inner-->
+</div><!--/.main-->			
+</div><!--/.container-inner-->
+</div><!--/.container-->
+<footer id="footer">
+<section class="container" id="footer-ads">
+<div class="container-inner">
+</div><!--/.container-inner-->
+</section><!--/.container-->
+<section class="container" id="footer-widgets">
+<div class="container-inner">
+<div class="pad group">
+<div class="footer-widget-1 grid one-third ">
+<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/monitors-linux-server-performance-remotely-using-web-browser/" rel="bookmark" title="linux-dash: Monitors “Linux Server Performance” Remotely Using Web Browser">linux-dash: Monitors “Linux Server Performance” Remotely Using Web Browser</a></p>
+<p class="post-item-date">28 Apr, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/linux-network-configuration-and-troubleshooting-commands/" rel="bookmark" title="13 Linux Network Configuration and Troubleshooting Commands">13 Linux Network Configuration and Troubleshooting Commands</a></p>
+<p class="post-item-date">24 Sep, 2012</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-web-vmstat-in-linux/" rel="bookmark" title="Web VMStat: A Real Time System Statistics (Memory, CPU, Processess, etc) Monitoring Tool for Linux">Web VMStat: A Real Time System Statistics (Memory, CPU, Processess, etc) Monitoring Tool for Linux</a></p>
+<p class="post-item-date">23 Jun, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/manage-and-limit-downloadupload-bandwidth-with-trickle-in-linux/" rel="bookmark" title="How to Limit the Network Bandwidth Used by Applications in a Linux System with Trickle">How to Limit the Network Bandwidth Used by Applications in a Linux System with Trickle</a></p>
+<p class="post-item-date">25 Feb, 2015</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-2 grid one-third ">
+<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/ls-command-interview-questions/" rel="bookmark" title="15 Interview Questions on Linux “ls” Command – Part 1">15 Interview Questions on Linux “ls” Command – Part 1</a></p>
+<p class="post-item-date">30 Sep, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/apache-interview-questions/" rel="bookmark" title="25 Apache Interview Questions for Beginners and Intermediates">25 Apache Interview Questions for Beginners and Intermediates</a></p>
+<p class="post-item-date">8 Jan, 2014</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/basic-linux-interview-questions-and-answers-part-ii/" rel="bookmark" title="Basic Linux Interview Questions and Answers – Part II">Basic Linux Interview Questions and Answers – Part II</a></p>
+<p class="post-item-date">23 Nov, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/ls-interview-questions/" rel="bookmark" title="10 Useful ‘ls’ Command Interview Questions – Part 2">10 Useful ‘ls’ Command Interview Questions – Part 2</a></p>
+<p class="post-item-date">7 Mar, 2015</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-3 grid one-third last">
+<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/create-your-own-instant-messagingchat-server-using-openfire-in-linux/" rel="bookmark" title="Create Your Own Instant Messaging/Chat Server Using “Openfire” in Linux">Create Your Own Instant Messaging/Chat Server Using “Openfire” in Linux</a></p>
+<p class="post-item-date">27 Dec, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/automate-wordpress-installations-in-multiple-linux-servers-using-ansible/" rel="bookmark" title="How to Automate Simultaneous WordPress Deployments in Multiple Linux Servers Using Ansible – Part 3">How to Automate Simultaneous WordPress Deployments in Multiple Linux Servers Using Ansible – Part 3</a></p>
+<p class="post-item-date">14 Oct, 2015</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-gnump3d-a-streaming-media-server/" rel="bookmark" title="Install GNUMP3d – A Streaming Media Server in RHEL/CentOS/Fedora and Ubuntu/Debian">Install GNUMP3d – A Streaming Media Server in RHEL/CentOS/Fedora and Ubuntu/Debian</a></p>
+<p class="post-item-date">27 Aug, 2013</p>			</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="http://www.tecmint.com/install-openvpn-in-debian/" rel="bookmark" title="OpenVPN Server and Client Installation and Configuration on Debian 7">OpenVPN Server and Client Installation and Configuration on Debian 7</a></p>
+<p class="post-item-date">4 Apr, 2014</p>			</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->	
+<nav class="nav-container group" id="nav-footer">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-18572" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18572"><a href="http://www.tecmint.com/donate-to-tecmint/">Donate to TecMint</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="http://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="http://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="http://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="http://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="http://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="http://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-15143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15143"><a target="_blank" href="http://www.tecmint.com/linux-system-administration-jobs/">Linux Admin Jobs</a></li>
+</ul></div>
+</nav><!--/#nav-footer-->
+<section class="container" id="footer-bottom">
+<div class="container-inner">
+<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="pad group">
+<div class="grid one-half">
+<div id="copyright">
+<p>Tecmint: Linux Howtos, Tutorials &amp; Guides © 2016. All Rights Reserved.</p>
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license"><b style="color: rgb(204, 204, 204);">(cc) BY-NC</b></a></p>
+<p>The material in this site cannot be republished either online or offline, without our permission.</p>
+</div><!--/#copyright-->
+</div>
+<div class="grid one-half last">	
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: rgb(51, 204, 255);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: rgb(59, 89, 152);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: rgb(219, 74, 57);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: rgb(135, 192, 64);"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: rgb(196, 48, 43);"></i></a></li></ul>					</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->
+</footer><!--/#footer-->
+</div><!--/#wrapper-->
+
+<!-- <link rel='stylesheet' id='stcr-plugin-style-css'  href='http://www.tecmint.com/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/stcr-plugin-style.css?ver=4.5.3' type='text/css' media='all' /> -->
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+<!--     ===== START Dreamgrow Scroll Triggered Box 2.3 =====   -->
+<div class="dgd_overlay"></div>
+<div style="padding: 10px; opacity: 0; width: 300px; bottom: -190px; right: 10px;" class="dgd_stb_box clean_white" id="dgd_scrollbox-11027"><a class="dgd_stb_box_close dgd_stb_box_x"> </a><h5>Join Over 150K+ Linux Users</h5>
+<div id="social_sprite">
+<ol>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><span id="soc_fbuk" class="soc_icon"></span><span class="count">100,756</span></a></li>
+<li><a href="http://twitter.com/tecmint" target="_blank"><span id="soc_twitter" class="soc_icon"> </span><span class="count">5,113</span></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><span id="soc_gplus" class="soc_icon"> </span><span class="count">36,418</span></a></li>
+</ol>
+</div>
+<p>Enter your email to get latest Linux Howto's</p>
+<form class="stbContactForm" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"><input name="uri" value="tecmint" type="hidden"><input name="loc" value="en_US" type="hidden"><input name="email" value="Enter Your Email Address :)" type="text"><input class="stb-submit" value="Subscribe" type="submit"></form>
+<p class="stbMsgArea">
+</p><ul class="stb_social"></ul></div>
+<!--     ===== END OF Dreamgrow Scroll Triggered Box 2.3 =====   -->
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="http://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="http://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="http://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="http://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="http://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="http://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="http://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li style="display: list-item;"><a href="http://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">Ebook: Introducing the RHCSA and RHCE Exam Preparation Guide</a></li>
+<li><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Foundation Certified SysAdmin) Exam</a></li>
+<li><a href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Foundation Certified Engineer) Exam</a></li>
+<li><a href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+
+</body>
+</html>

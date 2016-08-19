@@ -1,0 +1,2994 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/QAPage" itemscope="">
+<head>
+<meta charset="UTF-8">
+
+
+<title>networking - How can I get the current network interface throughput statistics on Linux/UNIX? - Stack Overflow</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&amp;a">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="How can I get the current network interface throughput statistics on Linux/UNIX?">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Tools such as MRTG provide network throughput / bandwidth graphs for the current network utilisation on specific interfaces, such as eth0. How can I return that information at the command line on L...">
+    <meta property="og:url" content="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix">
+    <link rel="canonical" href="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix">
+
+    
+    
+    
+    
+    
+
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        
+
+
+    
+    
+        
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="question-page new-topbar">
+    
+    
+        
+        <iframe id="adzerk-user-match" src="index_1.html" style="display: none;" marginheight="0" marginwidth="0" scrolling="no" width="0" frameborder="0" height="0"></iframe>
+
+
+
+
+    <div id="notify-container"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+                    <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+        </ul>
+    </div>
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f596590%2fhow-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f596590%2fhow-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+            </div>
+    </div>
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com/" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+                <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 159 Stack Exchange sites">
+                    <span class="hidden-text">Stack Exchange</span>
+                </a>
+
+    <a href="#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display: none;"></span>
+    </a>
+    <a href="#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display: none;">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://stackoverflow.com/users/signup?ssrc=head&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f596590%2fhow-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix" class="login-link">sign up</a>
+                                <a href="https://stackoverflow.com/users/login?ssrc=head&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f596590%2fhow-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix" class="login-link">log in</a>
+
+                            <a href="http://stackoverflow.com/tour">tour</a>
+        <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+            help
+            <span class="triangle"></span>
+        </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                                About Us
+                                <span class="item-summary">
+                                    Learn more about Stack Overflow the company
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://business.stackoverflow.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                                Business
+                                <span class="item-summary">
+                                    Learn more about hiring developers or posting ads with us
+                                </span>
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+                                            </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="Search Q&amp;A" value="" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-jobs" href="http://stackoverflow.com/jobs?med=site-ui&amp;ref=jobs-tab">Jobs</a></li>
+                                                <li><a id="nav-docs" href="http://stackoverflow.com/documentation">Documentation</a></li>
+                        <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="http://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+<div class="hero-box docs-announcement">
+    <div class="hero-close js-dismiss">Dismiss</div>
+    
+    
+    <div class="hero-content text-left">
+        <div class="text-wrapper">
+            <div class="hero-title">
+                Announcing Stack Overflow Documentation
+            </div>
+
+            <p class="subtitle">
+                We started with Q&amp;A. Technical documentation is next, and we need your help.
+            </p>
+            <p class="subtitle">
+                Whether you're a beginner or an experienced developer, you <i>can</i> contribute.
+            </p>
+        </div>
+
+            <a href="http://stackoverflow.com/users/signup?ssrc=docs_hero&amp;returnurl=%2Ftour%2Fdocumentation" class="btn js-gps-track" data-gps-track="docs.hero.clicked({target: 2 })">
+                Sign up and start helping →
+            </a>
+            <a href="http://stackoverflow.com/tour/documentation" class="btn-clear js-gps-track" data-gps-track="docs.hero.clicked({target: 1 })">
+                Learn more about Documentation →
+            </a>
+
+        <div class="img"></div>
+    </div>
+</div>
+
+			<div id="question-header">
+                <h1 itemprop="name"><a href="#" class="question-hyperlink">How can I get the current network interface throughput statistics on Linux/UNIX? [closed]</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="596590" id="question">
+
+    
+                <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="596590" type="hidden">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">63</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>36</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>Tools such as MRTG provide network throughput / bandwidth graphs for the current network utilisation on specific interfaces, such as eth0. How can I return that information at the command line on Linux/UNIX?</p>
+
+<p>Preferably this would be without installing anything other than what is available on the system as standard.</p>
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag js-gps-track" title="show questions tagged 'linux'" rel="tag">linux</a> <a href="http://stackoverflow.com/questions/tagged/networking" class="post-tag js-gps-track" title="show questions tagged 'networking'" rel="tag">networking</a> <a href="http://stackoverflow.com/questions/tagged/bandwidth" class="post-tag js-gps-track" title="show questions tagged 'bandwidth'" rel="tag">bandwidth</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/596590" title="short permalink to this question" class="short-link" id="link-post-596590">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/596590/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/596590/revisions" title="show all edits to this post">edited <span title="2009-03-31 09:06:08Z" class="relativetime">Mar 31 '09 at 9:06</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/61/bernard"><div class="gravatar-wrapper-32"><img src="af29baa43e6e6f77180e631cea686847.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/61/bernard">Bernard</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 15,883" dir="ltr">15.9k</span><span title="12 gold badges"><span class="badge1"></span><span class="badgecount">12</span></span><span title="43 silver badges"><span class="badge2"></span><span class="badgecount">43</span></span><span title="64 bronze badges"><span class="badge3"></span><span class="badgecount">64</span></span>
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2009-02-27 20:39:12Z" class="relativetime">Feb 27 '09 at 20:39</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/2183/davidm"><div class="gravatar-wrapper-32"><img src="caa0ee22a59ee7a4fc261281940ccb54.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/2183/davidm">DavidM</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 12,698" dir="ltr">12.7k</span><span title="30 gold badges"><span class="badge1"></span><span class="badgecount">30</span></span><span title="69 silver badges"><span class="badge2"></span><span class="badgecount">69</span></span><span title="85 bronze badges"><span class="badge3"></span><span class="badgecount">85</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                    <tr>
+            <td class="special-status" colspan="2">
+                <div class="question-status">
+        <h2>                    <b>closed</b> as off-topic by <a href="http://stackoverflow.com/users/993547/patrick-hofman">Patrick Hofman</a>, <a href="http://stackoverflow.com/users/1110381/l4mpi">l4mpi</a>, <a href="http://stackoverflow.com/users/578411/rene">rene</a>, <a href="http://stackoverflow.com/users/1009479/yu-hao">Yu Hao</a>, <a href="http://stackoverflow.com/users/524368/datenwolf">datenwolf</a> <span dir="ltr"><span title="2014-12-24 12:02:46Z" class="relativetime">Dec 24 '14 at 12:02</span></span>
+</h2>
+        <p>This question appears to be off-topic. The users who voted to close gave this specific reason:</p><ul class="close-as-off-topic-status-list"><li>"Questions about <b>general computing hardware and software</b> are off-topic for Stack Overflow unless they directly involve tools used primarily for programming. You may be able to get help on <a href="http://superuser.com/about">Super User</a>." – Patrick Hofman, l4mpi, rene, Yu Hao, datenwolf</li></ul><span class="close-status-suffix">If this question can be reworded to fit the rules in the <a href="http://stackoverflow.com/help/closed-questions">help center</a>, please <a href="http://stackoverflow.com/posts/596590/edit">edit the question</a>.</span><p></p>
+    </div>
+            </td>
+        </tr>
+    
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-596590" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-596590" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								15 Answers
+                                <span style="display: none;" itemprop="answerCount">15</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="596614"></a>
+<div id="answer-596614" class="answer accepted-answer" data-answerid="596614" itemscope="" itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="596614" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">12</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You can parse the output of <code>ifconfig</code></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/596614" title="short permalink to this answer" class="short-link" id="link-post-596614">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/596614/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-02-27 20:45:30Z" class="relativetime">Feb 27 '09 at 20:45</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/33708/mehrdad-afshari"><div class="gravatar-wrapper-32"><img src="eKxnb.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/33708/mehrdad-afshari">Mehrdad Afshari</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 273,863" dir="ltr">274k</span><span title="62 gold badges"><span class="badge1"></span><span class="badgecount">62</span></span><span title="697 silver badges"><span class="badge2"></span><span class="badgecount">697</span></span><span title="713 bronze badges"><span class="badge3"></span><span class="badgecount">713</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-596614" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-9834049" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This assumes root access is available</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/335185/lionel" title="1,161 reputation" class="comment-user">Lionel</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment9834049_596614"><span title="2011-11-07 04:18:33Z" class="relativetime-clean">Nov 7 '11 at 4:18</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12714771" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="warm">12</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">(usually) You don't need to be root to run this...</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1477764/confiq" title="1,280 reputation" class="comment-user">confiq</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12714771_596614"><span title="2012-03-31 13:02:26Z" class="relativetime-clean">Mar 31 '12 at 13:02</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-29016676" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">/sbin/ifconfig?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/154680/russoue" title="580 reputation" class="comment-user">russoue</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment29016676_596614"><span title="2013-10-23 23:53:25Z" class="relativetime-clean">Oct 23 '13 at 23:53</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-33825774" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">A bad bash one-liner that does exactly this (and makes me long for BSD netstat(1) behaviour): <code>while true; do export `ifconfig p1p1 | grep packets | awk '{print $5, $3}' | xargs echo | sed -E -e "s/([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)/rx=\1 rxp=\2 tx=\3 txp=\4/"` ; echo $rx $rxp $tx $txp `cat /tmp/netstat` | awk '{print $1-$5, $2-$6, $3-$7, $4-$8}';echo $rx $rxp $tx $txp &gt; /tmp/netstat; sleep 5 ;done</code></span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/722207/jashank" title="115 reputation" class="comment-user">Jashank</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment33825774_596614"><span title="2014-03-08 11:39:27Z" class="relativetime-clean">Mar 8 '14 at 11:39</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-58070936" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Parsing ifconfig output is error-prone, for instance the above one-liner results in <code>-bash: export: </code>overruns:0': not a valid identifier` for me on RHEL6. Parsing <code>/sys/class/net/$dev/statistics</code> (see the perl script in @ephemient answer) directly works much better.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1026/nickolay" title="17,699 reputation" class="comment-user">Nickolay</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment58070936_596614"><span title="2016-02-03 12:24:34Z" class="relativetime-clean">Feb 3 at 12:24</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-596614" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+<div class="newsletter-anon">
+    <img src="apple-touch-icon.png" class="newsletter-logo">
+    <div class="newsletter-container">
+        <h2>Did you find this question interesting? Try our newsletter</h2>
+        <p class="newsletter-description">
+            Sign up for our newsletter and get our top new questions delivered to your inbox (<a href="http://stackexchange.com/newsletters/newsletter?site=stackoverflow.com" id="newsletter-preview">see an example</a>).
+        </p>
+        <form id="anon-newsletter-form" data-error="There was a problem signing up for the newsletter. Please try again later.">
+            <input id="newsletter-email-input" placeholder="email address" title="your email address" type="email">
+            <input value="Subscribe" id="newsletter-email-submit" type="submit">
+        </form>
+        <div style="margin-top: 10px; float: right;" class="dno cbt newsletter-status-confirmed">
+            <b>Subscribed!</b>
+        </div>
+        <div style="margin-top: 10px; float: right;" class="dno cbt newsletter-status-unconfirmed">
+            <b>Success!</b> Please click the link in the confirmation email to activate your subscription.
+        </div>
+    </div>
+</div>
+
+
+
+  
+<a name="674400"></a>
+<div id="answer-674400" class="answer" data-answerid="674400" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="674400" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">122</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><code>iftop does for network usage what top(1) does for CPU usage</code> -- <a href="http://www.ex-parrot.com/~pdw/iftop/">http://www.ex-parrot.com/~pdw/iftop/</a></p>
+
+<p>I don't know how "standard" iftop is, but I was able to install it with <code>yum install iftop</code> on Fedora.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/674400" title="short permalink to this answer" class="short-link" id="link-post-674400">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/674400/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/674400/revisions" title="show all edits to this post">edited <span title="2014-01-20 19:01:33Z" class="relativetime">Jan 20 '14 at 19:01</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/993246/aliaksandr-belik"><div class="gravatar-wrapper-32"><img src="5f8d79b9aef0b5155fc4f6ba5343149d.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/993246/aliaksandr-belik">Aliaksandr Belik</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">7,714</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="32 silver badges"><span class="badge2"></span><span class="badgecount">32</span></span><span title="67 bronze badges"><span class="badge3"></span><span class="badgecount">67</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-03-23 17:29:27Z" class="relativetime">Mar 23 '09 at 17:29</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/19464/philip-durbin"><div class="gravatar-wrapper-32"><img src="6b686fe7f07115890ca63099d088948d.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/19464/philip-durbin">Philip Durbin</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">2,824</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="14 silver badges"><span class="badge2"></span><span class="badgecount">14</span></span><span title="30 bronze badges"><span class="badge3"></span><span class="badgecount">30</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-674400" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="2" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-6361021" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Fantastic tool! Thx you.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/111600/mr-euro" title="1,247 reputation" class="comment-user">mr-euro</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment6361021_674400"><span title="2011-04-08 00:22:59Z" class="relativetime-clean">Apr 8 '11 at 0:22</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12882865" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="warm">7</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy"><code>iftop</code> can be installed on a clean Ubuntu install easily as well: <code>apt-get install iftop</code>.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/450164/tom-marthenal" title="833 reputation" class="comment-user">Tom Marthenal</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment12882865_674400"><span title="2012-04-08 18:44:37Z" class="relativetime-clean">Apr 8 '12 at 18:44</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-28249002" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">and on Arch Linux with <code>pacman -S iftop</code></span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/485048/benjamin-kaiser" title="1,155 reputation" class="comment-user">Benjamin Kaiser</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment28249002_674400"><span title="2013-09-30 23:25:25Z" class="relativetime-clean">Sep 30 '13 at 23:25</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-39108719" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">3</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy"><b>sigh</b> Well, I guess this means I'm putting off learning to parse <code>tcpdump</code> output again. Thank you <code>iftop</code> and <code>wireshark</code>, for allowing me to be this lazy.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/3680301/parthian-shot" title="574 reputation" class="comment-user">Parthian Shot</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment39108719_674400"><span title="2014-08-04 20:21:36Z" class="relativetime-clean">Aug 4 '14 at 20:21</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-55697523" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Note that the question asked for per-interface statistics, but <code>iftop</code> is more detailed, and gives per connection statistics.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/946226/joachim-breitner" title="15,283 reputation" class="comment-user">Joachim Breitner</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment55697523_674400"><span title="2015-11-28 10:53:18Z" class="relativetime-clean">Nov 28 '15 at 10:53</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-674400" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link  dno" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link " title="expand to show all comments on this post" href="#">show <b>2</b> more comments</a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="4036709"></a>
+<div id="answer-4036709" class="answer" data-answerid="4036709" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="4036709" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">84</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Got sar?  Likely yes if youre using RHEL/CentOS.  </p>
+
+<p>No need for priv, dorky binaries, hacky scripts, libpcap, etc.  Win.</p>
+
+<pre><code>$ sar -n DEV 1 3
+Linux 2.6.18-194.el5 (localhost.localdomain)    10/27/2010
+
+02:40:56 PM     IFACE   rxpck/s   txpck/s   rxbyt/s   txbyt/s   rxcmp/s   txcmp/s  rxmcst/s
+02:40:57 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:40:57 PM      eth0  10700.00   1705.05 15860765.66 124250.51      0.00      0.00      0.00
+02:40:57 PM      eth1      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:40:57 PM     IFACE   rxpck/s   txpck/s   rxbyt/s   txbyt/s   rxcmp/s   txcmp/s  rxmcst/s
+02:40:58 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:40:58 PM      eth0   8051.00   1438.00 11849206.00 105356.00      0.00      0.00      0.00
+02:40:58 PM      eth1      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:40:58 PM     IFACE   rxpck/s   txpck/s   rxbyt/s   txbyt/s   rxcmp/s   txcmp/s  rxmcst/s
+02:40:59 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:40:59 PM      eth0   6093.00   1135.00 8970988.00  82942.00      0.00      0.00      0.00
+02:40:59 PM      eth1      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxpck/s   txpck/s   rxbyt/s   txbyt/s   rxcmp/s   txcmp/s  rxmcst/s
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:         eth0   8273.24   1425.08 12214833.44 104115.72      0.00      0.00      0.00
+Average:         eth1      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4036709" title="short permalink to this answer" class="short-link" id="link-post-4036709">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4036709/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-10-27 19:04:44Z" class="relativetime">Oct 27 '10 at 19:04</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/489238/filler"><div class="gravatar-wrapper-32"><img src="d809d5cd1c6c04831bd73651945578b0.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/489238/filler">filler</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">841</span><span title="6 silver badges"><span class="badge2"></span><span class="badgecount">6</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4036709" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-9834282" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="warm">10</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">For kB/s Transmit and Receive: sar -n DEV 1 3 | grep $IFACE | tail -n1 | awk '{print $5, $6}'</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/335185/lionel" title="1,161 reputation" class="comment-user">Lionel</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment9834282_4036709"><span title="2011-11-07 04:49:09Z" class="relativetime-clean">Nov 7 '11 at 4:49</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-19594687" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Lionel - minor nit: you meant Receive and Transmit, in that order. :-)</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/685100/lacinato" title="311 reputation" class="comment-user">lacinato</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment19594687_4036709"><span title="2013-01-03 22:09:08Z" class="relativetime-clean">Jan 3 '13 at 22:09</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-55949124" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Sar is a lovely old tool. It it another binary or four and assorted cronjobs for collecting, though :)</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/387660/xtl" title="650 reputation" class="comment-user">XTL</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment55949124_4036709"><span title="2015-12-04 22:25:40Z" class="relativetime-clean">Dec 4 '15 at 22:25</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-4036709" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="596960"></a>
+<div id="answer-596960" class="answer" data-answerid="596960" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="596960" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">34</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I wrote this dumb script a long time ago, it depends on nothing but Perl and Linux≥2.6:</p>
+
+<pre><code>#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use POSIX qw(strftime);
+use Time::HiRes qw(gettimeofday usleep);
+
+my $dev = @ARGV ? shift : 'eth0';
+my $dir = "/sys/class/net/$dev/statistics";
+my %stats = do {
+    opendir +(my $dh), $dir;
+    local @_ = readdir $dh;
+    closedir $dh;
+    map +($_, []), grep !/^\.\.?$/, @_;
+};
+
+if (-t STDOUT) {
+    while (1) {
+        print "\033[H\033[J", run();
+        my ($time, $us) = gettimeofday();
+        my ($sec, $min, $hour) = localtime $time;
+        {
+            local $| = 1;
+            printf '%-31.31s: %02d:%02d:%02d.%06d%8s%8s%8s%8s',
+            $dev, $hour, $min, $sec, $us, qw(1s 5s 15s 60s)
+        }
+        usleep($us ? 1000000 - $us : 1000000);
+    }
+}
+else {print run()}
+
+sub run {
+    map {
+        chomp (my ($stat) = slurp("$dir/$_"));
+        my $line = sprintf '%-31.31s:%16.16s', $_, $stat;
+        $line .= sprintf '%8.8s', int (($stat - $stats{$_}-&gt;[0]) / 1)
+            if @{$stats{$_}} &gt; 0;
+        $line .= sprintf '%8.8s', int (($stat - $stats{$_}-&gt;[4]) / 5)
+            if @{$stats{$_}} &gt; 4;
+        $line .= sprintf '%8.8s', int (($stat - $stats{$_}-&gt;[14]) / 15)
+            if @{$stats{$_}} &gt; 14;
+        $line .= sprintf '%8.8s', int (($stat - $stats{$_}-&gt;[59]) / 60)
+            if @{$stats{$_}} &gt; 59;
+        unshift @{$stats{$_}}, $stat;
+        pop @{$stats{$_}} if @{$stats{$_}} &gt; 60;
+        "$line\n";
+    } sort keys %stats;
+}
+
+sub slurp {
+    local @ARGV = @_;
+    local @_ = &lt;&gt;;
+    @_;
+}
+</code></pre>
+
+<p>It just reads from <code>/sys/class/net/$dev/statistics</code> every second, and prints out the current numbers and the average rate of change:</p>
+
+<pre><code>$ ./net_stats.pl eth0
+rx_bytes                       :  74457040115259 4369093 4797875 4206554 364088
+rx_packets                     :     91215713193   23120   23502   23234  17616
+...
+tx_bytes                       :  90798990376725 8117924 7047762 7472650 319330
+tx_packets                     :     93139479736   23401   22953   23216  23171
+...
+eth0                           : 15:22:09.002216      1s      5s     15s     60s
+
+                                ^ current reading  ^-------- averages ---------^
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/596960" title="short permalink to this answer" class="short-link" id="link-post-596960">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/596960/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/596960/revisions" title="show all edits to this post">edited <span title="2016-02-03 12:30:26Z" class="relativetime">Feb 3 at 12:30</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1026/nickolay"><div class="gravatar-wrapper-32"><img src="ea331e778d54effc15b5fbc694bc8232.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1026/nickolay">Nickolay</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 17,699" dir="ltr">17.7k</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="44 silver badges"><span class="badge2"></span><span class="badgecount">44</span></span><span title="92 bronze badges"><span class="badge3"></span><span class="badgecount">92</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-02-27 22:40:53Z" class="relativetime">Feb 27 '09 at 22:40</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/20713/ephemient"><div class="gravatar-wrapper-32"><img src="09b9758a4a83cc25547eb93891f19df7.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/20713/ephemient">ephemient</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 115,813" dir="ltr">116k</span><span title="26 gold badges"><span class="badge1"></span><span class="badgecount">26</span></span><span title="173 silver badges"><span class="badge2"></span><span class="badgecount">173</span></span><span title="300 bronze badges"><span class="badge3"></span><span class="badgecount">300</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-596960" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-13082494" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="warm">5</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">That's an awesome little script, thanks man!</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/389405/gui13" title="5,156 reputation" class="comment-user">Gui13</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13082494_596960"><span title="2012-04-17 12:38:45Z" class="relativetime-clean">Apr 17 '12 at 12:38</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-58071000" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I had to replace "8s" and "8.8s" with "16s" and "16.16s" for the numbers to fit.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1026/nickolay" title="17,699 reputation" class="comment-user">Nickolay</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment58071000_596960"><span title="2016-02-03 12:26:28Z" class="relativetime-clean">Feb 3 at 12:26</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-596960" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="596657"></a>
+<div id="answer-596657" class="answer" data-answerid="596657" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="596657" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">20</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You could parse <a href="http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/en-US/Reference%5FGuide/s2-proc-dir-net.html">/proc/net/dev</a>.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/596657" title="short permalink to this answer" class="short-link" id="link-post-596657">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/596657/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-02-27 20:54:57Z" class="relativetime">Feb 27 '09 at 20:54</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/43427/codelogic"><div class="gravatar-wrapper-32"><img src="403cdea06d09870a185e495f2194bbcd.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/43427/codelogic">codelogic</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 36,144" dir="ltr">36.1k</span><span title="7 gold badges"><span class="badge1"></span><span class="badgecount">7</span></span><span title="45 silver badges"><span class="badge2"></span><span class="badgecount">45</span></span><span title="46 bronze badges"><span class="badge3"></span><span class="badgecount">46</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-596657" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-408566" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">3</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">/proc does not exist on every UNIX.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/33708/mehrdad-afshari" title="273,863 reputation" class="comment-user">Mehrdad Afshari</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment408566_596657"><span title="2009-02-27 20:59:18Z" class="relativetime-clean">Feb 27 '09 at 20:59</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-408637" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="hot">24</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">True, just assumed due to the Linux tag, that OP was only interested in Linux.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/43427/codelogic" title="36,144 reputation" class="comment-user">codelogic</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment408637_596657"><span title="2009-02-27 21:13:50Z" class="relativetime-clean">Feb 27 '09 at 21:13</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-44886070" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">there is no such file on 3.17 kernel</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/909579/summerbreeze" title="1,685 reputation" class="comment-user">SummerBreeze</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment44886070_596657"><span title="2015-02-01 16:03:56Z" class="relativetime-clean">Feb 1 '15 at 16:03</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-58071242" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Seems to be equivalent to parsing <code>/sys/class/net/$dev/statistics</code> as in ephemient's script.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1026/nickolay" title="17,699 reputation" class="comment-user">Nickolay</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment58071242_596657"><span title="2016-02-03 12:32:23Z" class="relativetime-clean">Feb 3 at 12:32</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-596657" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="2785328"></a>
+<div id="answer-2785328" class="answer" data-answerid="2785328" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="2785328" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">15</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Besides iftop and iptraf, also check:</p>
+
+<ul>
+<li><code>bwm-ng</code> (Bandwidth Monitor Next Generation)</li>
+</ul>
+
+<p>and/or</p>
+
+<ul>
+<li><code>cbm</code> (Color Bandwidth Meter)</li>
+</ul>
+
+<p>ref: <a href="http://www.powercram.com/2010/01/bandwidth-monitoring-tools-for-ubuntu.html">http://www.powercram.com/2010/01/bandwidth-monitoring-tools-for-ubuntu.html</a></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/2785328" title="short permalink to this answer" class="short-link" id="link-post-2785328">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/2785328/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/2785328/revisions" title="show all edits to this post">edited <span title="2014-01-20 19:00:41Z" class="relativetime">Jan 20 '14 at 19:00</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/993246/aliaksandr-belik"><div class="gravatar-wrapper-32"><img src="5f8d79b9aef0b5155fc4f6ba5343149d.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/993246/aliaksandr-belik">Aliaksandr Belik</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">7,714</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="32 silver badges"><span class="badge2"></span><span class="badgecount">32</span></span><span title="67 bronze badges"><span class="badge3"></span><span class="badgecount">67</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-05-07 00:00:33Z" class="relativetime">May 7 '10 at 0:00</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/334959/miguel"><div class="gravatar-wrapper-32"><img src="2a6d29806bff0b68e846a1955a0308ac.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/334959/miguel">miguel</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">151</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-2785328" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-26052028" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">bwm-ng rocks: it does not need any special permission to be run.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/2257411/rudy-matela" title="3,662 reputation" class="comment-user">Rudy Matela</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment26052028_2785328"><span title="2013-07-24 23:04:30Z" class="relativetime-clean">Jul 24 '13 at 23:04</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-26305322" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I use it for years already and in most use cases I find its interface much clearer than for example iftop's.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/145400/jan-philip-gehrcke" title="13,133 reputation" class="comment-user">Jan-Philip Gehrcke</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment26305322_2785328"><span title="2013-08-01 10:44:01Z" class="relativetime-clean">Aug 1 '13 at 10:44</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-2785328" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="20149803"></a>
+<div id="answer-20149803" class="answer" data-answerid="20149803" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="20149803" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">13</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<ul>
+<li><code>dstat</code> - Combines vmstat, iostat, ifstat, netstat information and more </li>
+<li><code>iftop</code> - Amazing network bandwidth utility to analyse what is really happening on your eth </li>
+<li><code>netio</code> - Measures the net throughput of a network via TCP/IP </li>
+<li><code>inq</code> - CLI troubleshooting utility that displays info on storage, typically Symmetrix. By default, INQ returns the device name, Symmetrix ID, Symmetrix LUN, and capacity.</li>
+<li><code>send_arp</code> - Sends out an arp broadcast on the specified network device (defaults to eth0), reporting an old and new IP address mapping to a MAC address.</li>
+<li><code>EtherApe</code> - is a graphical network monitor for Unix modeled after etherman. Featuring link layer, IP and TCP modes, it displays network activity graphically.</li>
+<li><code>iptraf</code> - An IP traffic monitor that shows information on the IP traffic passing over your network.</li>
+</ul>
+
+<p>More details:
+<a href="http://felipeferreira.net/?p=1194">http://felipeferreira.net/?p=1194</a></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/20149803" title="short permalink to this answer" class="short-link" id="link-post-20149803">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/20149803/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/20149803/revisions" title="show all edits to this post">edited <span title="2014-01-20 19:00:11Z" class="relativetime">Jan 20 '14 at 19:00</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/993246/aliaksandr-belik"><div class="gravatar-wrapper-32"><img src="5f8d79b9aef0b5155fc4f6ba5343149d.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/993246/aliaksandr-belik">Aliaksandr Belik</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">7,714</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="32 silver badges"><span class="badge2"></span><span class="badgecount">32</span></span><span title="67 bronze badges"><span class="badge3"></span><span class="badgecount">67</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-11-22 16:30:43Z" class="relativetime">Nov 22 '13 at 16:30</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/2832526/xoroz"><div class="gravatar-wrapper-32"><img src="Mohli.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/2832526/xoroz">Xoroz</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">171</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="3 bronze badges"><span class="badge3"></span><span class="badgecount">3</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-20149803" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-60091095" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thanks for the simple list and that these are mostly default utilities. In particular I was able to get very nice peak bandwidth out of iftop without installing anything.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/2209448/foliovision" title="111 reputation" class="comment-user">Foliovision</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment60091095_20149803"><span title="2016-03-26 00:00:54Z" class="relativetime-clean">Mar 26 at 0:00</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-20149803" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="22975221"></a>
+<div id="answer-22975221" class="answer" data-answerid="22975221" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="22975221" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">13</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p><a href="http://www.debuntu.org/nload-a-network-traffic-analyser/">nload</a> is a great tool for monitoring bandwidth in real time and easily installed in Ubuntu or Debian with sudo apt-get install nload.</p>
+
+<pre><code>Device eth0 [10.10.10.5] (1/2):
+=====================================================================================
+Incoming:
+
+
+                               .         ...|    
+                               #         ####|   
+                           .. |#|  ...   #####.         ..          Curr: 2.07 MBit/s
+                          ###.###  #### #######|.     . ##      |   Avg: 1.41 MBit/s
+                         ########|#########################.   ###  Min: 1.12 kBit/s
+             ........    ###################################  .###  Max: 4.49 MBit/s
+           .##########. |###################################|#####  Ttl: 1.94 GByte
+Outgoing:
+            ##########  ###########    ###########################
+            ##########  ###########    ###########################
+            ##########. ###########   .###########################
+            ########### ###########  #############################
+            ########### ###########..#############################
+           ############ ##########################################
+           ############ ##########################################
+           ############ ##########################################  Curr: 63.88 MBit/s
+           ############ ##########################################  Avg: 32.04 MBit/s
+           ############ ##########################################  Min: 0.00 Bit/s
+           ############ ##########################################  Max: 93.23 MBit/s
+         ############## ##########################################  Ttl: 2.49 GByte
+</code></pre>
+
+<p>Another excellent tool is <a href="http://www.ex-parrot.com/pdw/iftop/">iftop</a>, also easily apt-get'able:</p>
+
+<pre><code>             191Mb      381Mb                 572Mb       763Mb             954Mb     
+└────────────┴──────────┴─────────────────────┴───────────┴──────────────────────
+box4.local            =&gt; box-2.local                      91.0Mb  27.0Mb  15.1Mb
+                      &lt;=                                  1.59Mb   761kb   452kb
+box4.local            =&gt; box.local                         560b   26.8kb  27.7kb
+                      &lt;=                                   880b   31.3kb  32.1kb
+box4.local            =&gt; userify.com                         0b   11.4kb  8.01kb
+                      &lt;=                                  1.17kb  2.39kb  1.75kb
+box4.local            =&gt; b.resolvers.Level3.net              0b     58b    168b
+                      &lt;=                                     0b     83b    288b
+box4.local            =&gt; stackoverflow.com                   0b     42b     21b
+                      &lt;=                                     0b     42b     21b
+box4.local            =&gt; 224.0.0.251                         0b      0b    179b
+                      &lt;=                                     0b      0b      0b
+224.0.0.251           =&gt; box-2.local                         0b      0b      0b
+                      &lt;=                                     0b      0b     36b
+224.0.0.251           =&gt; box.local                           0b      0b      0b
+                      &lt;=                                     0b      0b     35b
+
+
+─────────────────────────────────────────────────────────────────────────────────
+TX:           cum:   37.9MB   peak:   91.0Mb     rates:   91.0Mb  27.1Mb  15.2Mb
+RX:                  1.19MB           1.89Mb              1.59Mb   795kb   486kb
+TOTAL:               39.1MB           92.6Mb              92.6Mb  27.9Mb  15.6Mb
+</code></pre>
+
+<p>Don't forget about the classic and powerful sar and netstat utilities on older *nix!</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/22975221" title="short permalink to this answer" class="short-link" id="link-post-22975221">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/22975221/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-04-09 22:32:59Z" class="relativetime">Apr 9 '14 at 22:32</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1301627/jamieson-becker"><div class="gravatar-wrapper-32"><img src="cd9053c0fe310f04e42abb4197819a41.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1301627/jamieson-becker">Jamieson Becker</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">493</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="11 bronze badges"><span class="badge3"></span><span class="badgecount">11</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-22975221" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-22975221" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="17102611"></a>
+<div id="answer-17102611" class="answer" data-answerid="17102611" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="17102611" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">12</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I got another quick'n'dirty bash script for that:</p>
+
+<pre><code>#!/bin/bash
+IF=$1
+if [ -z "$IF" ]; then
+        IF=`ls -1 /sys/class/net/ | head -1`
+fi
+RXPREV=-1
+TXPREV=-1
+echo "Listening $IF..."
+while [ 1 == 1 ] ; do
+        RX=`cat /sys/class/net/${IF}/statistics/rx_bytes`
+        TX=`cat /sys/class/net/${IF}/statistics/tx_bytes`
+        if [ $RXPREV -ne -1 ] ; then
+                let BWRX=$RX-$RXPREV
+                let BWTX=$TX-$TXPREV
+                echo "Received: $BWRX B/s    Sent: $BWTX B/s"
+        fi
+        RXPREV=$RX
+        TXPREV=$TX
+        sleep 1
+done
+</code></pre>
+
+<p>It's considering that <code>sleep 1</code> will actually last exactly one second, which is not true, but good enough for a rough bandwidth assessment.</p>
+
+<p>Thanks to @ephemient for the <code>/sys/class/net/&lt;interface&gt;</code>! :)</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/17102611" title="short permalink to this answer" class="short-link" id="link-post-17102611">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/17102611/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-06-14 06:45:53Z" class="relativetime">Jun 14 '13 at 6:45</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1098603/matthieu"><div class="gravatar-wrapper-32"><img src="sb0id.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1098603/matthieu">Matthieu</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">3,000</span><span title="20 silver badges"><span class="badge2"></span><span class="badgecount">20</span></span><span title="43 bronze badges"><span class="badge3"></span><span class="badgecount">43</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-17102611" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-31816660" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">If you want to format your numbers as MB/s, swap out the "echo" line with this:      echo $BWRX $BWTX | awk '{ rx = $1 / 1024 / 1024 ; tx = $2 / 1024 / 1024 ; print "Received " rx "MB/s, Sent " tx "MB/s" }'</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/58962/michael-b%c3%b6ckling" title="2,152 reputation" class="comment-user">Michael Böckling</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment31816660_17102611"><span title="2014-01-15 15:23:44Z" class="relativetime-clean">Jan 15 '14 at 15:23</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-31921365" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@BuddyCasino I'm sure you could do it directly in the <code>let BWRX=($RX-$RXPREV)/1024</code> (though I don't have anything to test it now)</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1098603/matthieu" title="3,000 reputation" class="comment-user">Matthieu</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment31921365_17102611"><span title="2014-01-18 00:39:52Z" class="relativetime-clean">Jan 18 '14 at 0:39</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-32240439" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">It seems you are right, it didn't work for some reason when I tried to do it that way, so I settled for awk, but I guess it was just a typo.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/58962/michael-b%c3%b6ckling" title="2,152 reputation" class="comment-user">Michael Böckling</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment32240439_17102611"><span title="2014-01-27 10:28:28Z" class="relativetime-clean">Jan 27 '14 at 10:28</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-34379422" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Great code and big knowledge. Thanks</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/1959181/edgard-leal" title="819 reputation" class="comment-user">Edgard Leal</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment34379422_17102611"><span title="2014-03-22 20:40:41Z" class="relativetime-clean">Mar 22 '14 at 20:40</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-17102611" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="596612"></a>
+<div id="answer-596612" class="answer" data-answerid="596612" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="596612" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">4</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I like <a href="http://iptraf.seul.org/" rel="nofollow"><code>iptraf</code></a> but you probably have to install it and it seems to not being maintained actively anymore.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/596612" title="short permalink to this answer" class="short-link" id="link-post-596612">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/596612/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-02-27 20:44:32Z" class="relativetime">Feb 27 '09 at 20:44</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/55925/johannes-wei%c3%9f"><div class="gravatar-wrapper-32"><img src="4d4fbbf7cbb15f7076a5bc273f7fa039.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/55925/johannes-wei%c3%9f">Johannes Weiß</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 28,624" dir="ltr">28.6k</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="66 silver badges"><span class="badge2"></span><span class="badgecount">66</span></span><span title="108 bronze badges"><span class="badge3"></span><span class="badgecount">108</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-596612" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-9683027" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">There's an iptraf-ng, any suggestions on differences between them?</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/646735/felix-yan" title="6,531 reputation" class="comment-user">Felix Yan</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment9683027_596612"><span title="2011-10-28 08:08:53Z" class="relativetime-clean">Oct 28 '11 at 8:08</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-26051978" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">iptraf-ng is a fork of the original project. It should have all original features with more.</span>
+                    –&nbsp;<a href="http://stackoverflow.com/users/2257411/rudy-matela" title="3,662 reputation" class="comment-user">Rudy Matela</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment26051978_596612"><span title="2013-07-24 23:02:13Z" class="relativetime-clean">Jul 24 '13 at 23:02</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-596612" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="25949141"></a>
+<div id="answer-25949141" class="answer" data-answerid="25949141" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="25949141" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">3</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>If you want just to get the value, you can use simple shell oneliner like this:</p>
+
+<pre><code>S=10; F=/sys/class/net/eth0/statistics/rx_bytes; X=`cat $F`; sleep $S; Y=`cat $F`; BPS="$(((Y-X)/S))"; echo $BPS
+</code></pre>
+
+<p>It will show you the average "received bytes per second" for period of 10 seconds (you can change period by changing <code>S=10</code> parameter, and you can measure transmitted BPS instead of received BPS by using <code>tx_bytes</code> instead of <code>rx_bytes</code>). Don't forget to change <code>eth0</code> to network device you want to monitor.</p>
+
+<p>Of course, you are not limited to displaying the average rate (as mentioned in other answers, there are other tools that will show you much nicer output), but this solution is easily scriptable to do other things. </p>
+
+<p>For example, the following shell script (split into multiple lines for readability) will execute offlineimap process only when 5-minute average transmit speed drops below 10kBPS (presumably, when some other bandwidth-consuming process finishes):</p>
+
+<pre><code>#!/bin/sh
+S=300; F=/sys/class/net/eth0/statistics/tx_bytes
+BPS=999999
+while [ $BPS -gt 10000 ]
+do
+  X=`cat $F`; sleep $S; Y=`cat $F`; BPS="$(((Y-X)/S))";
+  echo BPS is currently $BPS
+done
+offlineimap
+</code></pre>
+
+<p>Note that <code>/sys/class/...</code> is Linux specific (which is ok as submitter did choose <code>linux</code> tag), and needs non-archaic kernel. Shell code itself is /bin/sh compatible (so not only bash, but dash and other /bin/sh implementations will work) and /bin/sh is something that is really always installed.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/25949141" title="short permalink to this answer" class="short-link" id="link-post-25949141">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/25949141/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-09-20 13:10:06Z" class="relativetime">Sep 20 '14 at 13:10</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/2600099/matija-nalis"><div class="gravatar-wrapper-32"><img src="f987e5fcc1463e4ebe90870565c5c602.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/2600099/matija-nalis">Matija Nalis</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">356</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-25949141" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-25949141" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="703905"></a>
+<div id="answer-703905" class="answer" data-answerid="703905" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="703905" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I find dstat to be quite good. Has to be installed though. Gives you way more information than you need. Netstat will give you packet rates but not bandwith also. netstat -s </p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/703905" title="short permalink to this answer" class="short-link" id="link-post-703905">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/703905/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-04-01 02:59:35Z" class="relativetime">Apr 1 '09 at 2:59</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        Sav
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-703905" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-703905" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="25003363"></a>
+<div id="answer-25003363" class="answer" data-answerid="25003363" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="25003363" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You can use iperf to benchmark network performance (<em>maximum possible throughput</em>).
+See following links for details:</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Iperf" rel="nofollow">http://en.wikipedia.org/wiki/Iperf</a></p>
+
+<p><a href="https://iperf.fr/" rel="nofollow">https://iperf.fr/</a></p>
+
+<p><a href="https://code.google.com/p/iperf/" rel="nofollow">https://code.google.com/p/iperf/</a></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/25003363" title="short permalink to this answer" class="short-link" id="link-post-25003363">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/25003363/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-07-28 20:02:12Z" class="relativetime">Jul 28 '14 at 20:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/374833/ssh"><div class="gravatar-wrapper-32"><img src="04f11854dfc4194f395d9d45f4e532b0.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/374833/ssh">ssh</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">496</span><span title="6 silver badges"><span class="badge2"></span><span class="badgecount">6</span></span><span title="18 bronze badges"><span class="badge3"></span><span class="badgecount">18</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-25003363" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-25003363" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="27359163"></a>
+<div id="answer-27359163" class="answer" data-answerid="27359163" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="27359163" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<pre><code>ifconfig -a
+ip -d link
+ls -l /sys/class/net/ (physical and virtual devices)
+route -n
+</code></pre>
+
+<p>If you want the output of (ifconfig -a) in json format you can use <a href="https://github.com/tazjel/python-ifcfg" rel="nofollow">this</a> (python)</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/27359163" title="short permalink to this answer" class="short-link" id="link-post-27359163">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/27359163/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/27359163/revisions" title="show all edits to this post">edited <span title="2014-12-16 11:41:50Z" class="relativetime">Dec 16 '14 at 11:41</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-12-08 13:31:01Z" class="relativetime">Dec 8 '14 at 13:31</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1377439/yahya-yahyaoui"><div class="gravatar-wrapper-32"><img src="5fd78315c2d3ee09934510e4dc18dbf4.dat" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1377439/yahya-yahyaoui">Yahya Yahyaoui</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">702</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-27359163" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-27359163" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="27129524"></a>
+<div id="answer-27129524" class="answer" data-answerid="27129524" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input name="_id_" value="27129524" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I couldn't get the parse ifconfig script to work for me on an AMI so got this to work measuring received traffic averaged over 10 seconds</p>
+
+<pre><code>date &amp;&amp; rxstart=`ifconfig eth0 | grep bytes | awk '{print $2}' | cut -d : -f 2` &amp;&amp; sleep 10 &amp;&amp; rxend=`ifconfig eth0 | grep bytes | awk '{print $2}' | cut -d : -f 2` &amp;&amp; difference=`expr $rxend - $rxstart` &amp;&amp; echo "Received `expr $difference / 10` bytes per sec"
+</code></pre>
+
+<p>Sorry, it's ever so cheap and nasty but it worked!</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/27129524" title="short permalink to this answer" class="short-link" id="link-post-27129524">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/27129524/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-11-25 14:39:48Z" class="relativetime">Nov 25 '14 at 14:39</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1295852/rolandw"><div class="gravatar-wrapper-32"><img src="77Oha.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1295852/rolandw">rolandw</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-27129524" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-27129524" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#"></a>
+        </div>         
+    </td>
+</tr>    </tbody></table>
+</div>
+				    <div class="question-status">
+        <h2>                    <b>protected</b> by <a href="http://stackoverflow.com/users/1026459/travis-j">Travis J</a> <span dir="ltr"><span title="2014-12-24 11:21:46Z" class="relativetime">Dec 24 '14 at 11:21</span></span>
+</h2>
+        <p>
+Thank you for your interest in this question. 
+Because it has attracted low-quality or spam answers that had to be removed, posting an answer now requires 10 <a href="http://stackoverflow.com/help/whats-reputation">reputation</a> on this site (the <a href="http://stackoverflow.com/help/privileges/new-user">association bonus does not count</a>).
+<br><br>
+Would you like to answer one of these <a href="http://stackoverflow.com/unanswered?fromProtectedNotice=true">unanswered questions</a> instead?
+</p>
+    </div>
+
+
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag" title="show questions tagged 'linux'" rel="tag">linux</a> <a href="http://stackoverflow.com/questions/tagged/networking" class="post-tag" title="show questions tagged 'networking'" rel="tag">networking</a> <a href="http://stackoverflow.com/questions/tagged/bandwidth" class="post-tag" title="show questions tagged 'bandwidth'" rel="tag">bandwidth</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key" title="2009-02-27 20:39:12Z"><b>7 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px;">
+			                    <p class="label-key">
+			                        <b>194962 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px;">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/596590/how-can-i-get-the-current-network-interface-throughput-statistics-on-linux-unix?lastactivity" class="lastactivity-link" title="2016-02-03 12:30:26Z">6 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			
+            <div class="everyonelovesstackoverflow" id="adzerk1795096952"></div>
+            <div id="hireme"></div>
+        
+			<div class="module" id="chat-feature">
+
+    <h4><a title="65 users active in 33 rooms the last 60 minutes" href="http://chat.stackoverflow.com/" id="h-chat-link">65 People Chatting</a></h4>
+    <div class="related" id="ad502-rooms"><div class="ad502-room"><h3 class="ad502-room-h3"><span class="ad502-room-title" title="JavaScript"><a href="http://chat.stackoverflow.com/rooms/17">JavaScript</a></span></h3><span title="2016-08-18 23:02:42Z" class="ad502-last-message">2 hours ago - <a href="http://chat.stackoverflow.com/users/400654">Kevin B</a></span><br><div class="ad502-users"><a href="http://chat.stackoverflow.com/users/956900"><img src="4416acf0ee6259443ee3cca16d894d14.dat" title="Luggage: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/829835"><img src="N6iem.png" title="rlemon: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/690573"><img src="YV51q.jpg" title="Nathan Jones: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/400654"><img src="afc1068910df4dd83c2fc3af0255af11.dat" title="Kevin B: 3 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/785745"><img src="f9fc3249a341a64ee2721637915cd301.dat" title="Kendall Frey: 3 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/1348195"><img src="f6dca2295546af21e1cde8e68f2d49bd.dat" title="Benjamin Gruenbaum: 3 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/2125913"><img src="vn9G9.png" title="Meredith: 3 hours ago" width="23" height="23"></a></div></div><div class="ad502-room"><h3 class="ad502-room-h3"><span class="ad502-room-title" title="PHP"><a href="http://chat.stackoverflow.com/rooms/11">PHP</a></span></h3><span title="2016-08-18 23:01:32Z" class="ad502-last-message">2 hours ago - <a href="http://chat.stackoverflow.com/users/4251625">Wes</a></span><br><div class="ad502-users"><a href="http://chat.stackoverflow.com/users/4251625"><img src="YflUW.jpg" title="Wes: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/2153758"><img src="3659fff22e890aaa5d7b03e799f9047f.dat" title="bwoebi: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/746010"><img src="0fd2816e78f6a04d5f8ce0aba1cb42e6.dat" title="cspray: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/1925055"><img src="d425bbf2f1fd518bea9dfde49561daad.dat" title="tibanez: 2 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/2439754"><img src="ff52be277448d60987ee029864145638.dat" title="Trowski: 3 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/1071515"><img src="JC3EX.jpg" title="kaleeway: 3 hours ago" width="23" height="23"></a><a href="http://chat.stackoverflow.com/users/576767"><img src="7b30843578e5daecaa12b25536801c96.dat" title="Félix Gagnon-Grenier: 4 hours ago" width="23" height="23"></a></div></div></div>
+    
+
+</div>
+
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/10233239?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">6</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/10233239/how-can-i-get-maximum-bandwidth-of-an-interface-in-linux-c?noredirect=1&amp;lq=1" class="question-hyperlink">how can I get maximum bandwidth of an interface in linux C?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/561999?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">2</div></a><a href="http://stackoverflow.com/questions/561999/how-can-i-monitor-limit-network-traffic-used-by-my-app?rq=1" class="question-hyperlink">How can I monitor / limit network traffic used by my app?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/1656806?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">0</div></a><a href="http://stackoverflow.com/questions/1656806/problem-with-getting-information-of-currently-configured-network-interfaces-on-l?rq=1" class="question-hyperlink">Problem with getting information of currently configured network interfaces on Linux</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/4066029?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">4</div></a><a href="http://stackoverflow.com/questions/4066029/get-the-current-bandwidth-use-in-linux-with-php?rq=1" class="question-hyperlink">Get the current bandwidth use in Linux with PHP</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/4723852?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">0</div></a><a href="http://stackoverflow.com/questions/4723852/how-can-i-test-my-applications-network-footprint?rq=1" class="question-hyperlink">How can I test my application's network footprint?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/7861586?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">1</div></a><a href="http://stackoverflow.com/questions/7861586/how-to-measure-network-throughput-during-runtime?rq=1" class="question-hyperlink">How to measure network throughput during runtime</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/14357207?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">2</div></a><a href="http://stackoverflow.com/questions/14357207/how-do-i-hide-a-network-interface-from-a-process-under-linux?rq=1" class="question-hyperlink">How do I hide a network interface from a process under Linux?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/32396826?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/32396826/get-current-bandwidth-of-network-connection-wlan-3g?rq=1" class="question-hyperlink">Get current bandwidth of network connection (WLAN/3G)?</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/35559649?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">1</div></a><a href="http://stackoverflow.com/questions/35559649/network-design-one-to-many-high-bandwidth-transmissions-that-excludes-users?rq=1" class="question-hyperlink">Network design: one-to-many high bandwidth transmissions that excludes users</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/36909694?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/36909694/how-can-i-get-the-list-of-network-interfaces-and-their-ips-on-linux-without-usin?rq=1" class="question-hyperlink">How can I get the list of network interfaces and their IPs on Linux without using ipconfig or ip</a></div><div class="spacer js-gps-track"><a href="http://stackoverflow.com/q/38184799?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="http://stackoverflow.com/questions/38184799/slow-network-in-docker-container-after-openshift-install?rq=1" class="question-hyperlink">Slow network in Docker container after OpenShift install</a></div>
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/51999/could-a-warlord-with-access-to-telepathy-take-over-the-world" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Could a warlord with access to telepathy take over the world
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="http://movies.stackexchange.com/questions/59191/why-are-so-many-american-spy-movies-set-in-europe" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are so many American (spy) movies set in Europe?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1896503/a-set-theoretical-completion" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    a set theoretical completion?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1896323/what-is-the-remainder-when-the-product-of-the-primes-between-1-and-100-is-divide" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What Is The Remainder When The Product Of The Primes Between 1 And 100 Is Divided By 16?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/51444/how-do-i-protect-my-shop-from-teleporters" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I protect my shop from teleporters?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-diy" title="Home Improvement Stack Exchange"></div><a href="http://diy.stackexchange.com/questions/97709/hvac-fan-set-to-continuous-by-landlord-please-help-me-rewire" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:73 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    HVAC Fan Set to Continuous By Landlord- Please help me rewire
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/90131/calculate-the-difficulty-of-a-code-golf-question" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Calculate the difficulty of a Code Golf question
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/813638/how-can-i-batch-convert-folder-names-from-one-date-format-to-another" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I batch convert folder names from one date format to another
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/100898/meaning-of-mess-lmao" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Meaning of "mess lmao"
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mechanics" title="Motor Vehicle Maintenance &amp; Repair Stack Exchange"></div><a href="http://mechanics.stackexchange.com/questions/35387/put-2-stroke-mix-in-4-stroke-car-engine-by-mistake" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:224 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Put 2 stroke mix in 4 stroke car engine by mistake
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1896422/is-11-2-true-in-any-base" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is 1+1 = 2 true in any base?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/40888/who-is-this-man" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Who is this man?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stats" title="Cross Validated"></div><a href="http://stats.stackexchange.com/questions/230415/is-there-any-mathematical-basis-for-the-bayesian-vs-frequentist-debate" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:65 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there any *mathematical* basis for the Bayesian vs frequentist debate?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/253031/why-does-the-voltage-of-vinegar-batteries-in-series-not-equal-the-sum-of-the-ind" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does the voltage of vinegar batteries in series not equal the sum of the individual voltages?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/274858/why-are-muons-considered-to-be-elementary-particles-in-the-standard-model" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are muons considered to be "elementary particles" in the Standard Model?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-monero" title="Monero Stack Exchange"></div><a href="http://monero.stackexchange.com/questions/1190/what-is-the-difference-between-cryptonote-and-cryptonight" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:656 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the difference between CryptoNote and CryptoNight?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-networkengineering" title="Network Engineering Stack Exchange"></div><a href="http://networkengineering.stackexchange.com/questions/34117/does-having-a-longer-ethernet-cable-slow-your-connection" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:496 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does having a longer Ethernet cable slow your connection?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/52026/how-to-battle-enemies-who-have-superhuman-speed" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to battle enemies who have superhuman speed
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/343552/what-word-can-be-used-to-describe-not-belonging-to-a-country" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What word can be used to describe 'not belonging to a country'?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/282375/what-is-this-egg-doing-in-a-gym" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is this Egg doing in a Gym?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-blender" title="Blender Stack Exchange"></div><a href="http://blender.stackexchange.com/questions/61215/view-camera-boundaries-in-user-perspective" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:502 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    View camera boundaries in user perspective?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-datascience" title="Data Science Stack Exchange"></div><a href="http://datascience.stackexchange.com/questions/13513/why-do-internet-companies-prefer-java-python-for-data-scientist-job" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:557 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do internet companies prefer Java/Python for data scientist job?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/139032/reinventing-the-basic-calculator-functions" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Reinventing the basic calculator functions
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/75318/would-it-be-rude-to-ask-a-famous-professor-who-doesnt-know-me-personally-for-a" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would it be rude to ask a famous professor who doesn't know me personally for a recommendation letter if I have published in a high ranking journal?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+		
+<div style="display: none;" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">            
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                    <a href="http://stackoverflow.com/company/about">about us</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackoverflow.com/company/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="http://expressionengine.stackexchange.com/" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://movies.stackexchange.com/" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="http://chemistry.stackexchange.com/" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="http://biology.stackexchange.com/" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2016.8.18.3907
+            </div>
+                </div>
+    </div>
+    
+
+
+
+    
+        
+    
+            
+    
+<img style="display: none;" src="to.gif"></body>
+</html>
