@@ -1,0 +1,996 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+  极客大讲堂：手把手教你用树莓派控制红绿灯 - FreeBuf.COM | 关注黑客与极客</title>
+<meta name="description" content="涉及硬件：树莓派以及相关套件、LED红绿灯
+涉及知识：电路实验板、CanaKit
+当准备好以上，我们就可以开始啦。使用树莓派进行LED原型控制。
+
+
+首先要明白的是，接入所有的电线、电阻器以及工具包附带的指示灯需要…">
+<meta name="keywords" content="LED灯, 树莓派">
+<meta name="baidu-site-verification" content="nKKKqQxp6R">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="6620477777662552566375">
+
+
+
+
+
+<link rel="prev" title="银行大盗“Carbanak”木马攻击目标移至中东" href="http://www.freebuf.com/news/99391.html">
+<link rel="next" title="希拉里·克林顿、奥巴马都钟爱的黑莓手机真的无懈可击吗？" href="http://www.freebuf.com/news/99487.html">
+<link rel="canonical" href="http://www.freebuf.com/geek/99483.html">
+<link rel="shortlink" href="http://www.freebuf.com/?p=99483">
+
+
+
+
+          
+      
+      	
+<link rel="shortcut icon" href="favicon.ico">
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+    <script src="http://www.freebuf.com/buf/themes/freebuf/js/html5shiv.min.js"></script>
+    <script src="http://www.freebuf.com/buf/themes/freebuf/js/respond.min.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body>
+<!----------header---------->
+<div style="height: 72px;" class="sticky-wrapper" id="undefined-sticky-wrapper"><div class="main-header">
+  <nav class="navbar navbar-inverse" role="navigation">
+
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <div class="logo"><a href="http://www.freebuf.com/"><img src="logo.png"></a><span class="visible-lg-block">关注黑客与极客</span></div>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse globalnav" aria-expanded="false">
+        <ul class="nav nav-pills pull-left">
+          <li><a href="http://www.freebuf.com/">首页</a></li>
+          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown">分类阅读<b class="caret"></b> </a>
+            <ul class="dropdown-menu article-nav">
+              <li> <strong>黑客</strong>
+                <div class="nav"> <a href="http://www.freebuf.com/vuls" target="_blank">漏洞</a> <a href="http://www.freebuf.com/sectool" target="_blank">安全工具</a> <a href="http://www.freebuf.com/articles/web" target="_blank">WEB安全</a> <a href="http://www.freebuf.com/articles/system" target="_blank">系统安全</a> <a href="http://www.freebuf.com/articles/network" target="_blank">网络安全</a> <a href="http://www.freebuf.com/articles/wireless" target="_blank">无线安全</a> <a href="http://www.freebuf.com/articles/terminal" target="_blank">设备/客户端安全</a> <a href="http://www.freebuf.com/articles/database" target="_blank">数据库安全</a> <a href="http://www.freebuf.com/articles/security-management" target="_blank">安全管理</a></div>
+              </li>
+              <li> <strong>极客</strong>
+                <div class="nav"> <a href="http://www.freebuf.com/geek" target="_blank">极客有意思</a> <a href="http://www.freebuf.com/news/others" target="_blank">周边</a></div>
+              </li>
+              <li> <strong>特色</strong>
+                <div class="nav"><a href="http://www.freebuf.com/news/special" target="_blank">头条</a><a href="http://www.freebuf.com/articles/people" target="_blank">人物志</a><a href="http://www.freebuf.com/fevents" target="_blank">活动</a><a href="http://www.freebuf.com/video" target="_blank">视频</a><a href="http://www.freebuf.com/articles/neopoints" target="_blank">观点</a><a href="http://www.freebuf.com/jobs" target="_blank">招聘</a><a href="http://www.freebuf.com/paper/" target="_blank">报告</a></div>
+              </li>
+            </ul>
+          </li>
+          <li> <a href="http://www.freebuf.com/wenku" target="_blank">文库<b class="icon-betr"></b> </a></li>
+          <li><a href="http://bar.freebuf.com/" target="_blank">小酒馆</a><span></span></li>
+          <li><a href="http://open.freebuf.com/" target="_blank">公开课</a></li>
+          <li><a href="http://shop.freebuf.com/" target="_blank">商城</a></li>
+          <li><a href="https://www.vulbox.com/" target="_blank">漏洞盒子</a><span class="icon-hot"></span></li>
+        </ul>
+                <div class="main-login">
+          <ul class="nav nav-pills pull-right login">
+            <li class="pull-right"><a href="https://account.tophant.com/register.html">注册</a></li>
+            <li class="active pull-right"><a href="http://www.freebuf.com/oauth">登录</a></li>
+          </ul>
+        </div>
+              </div>
+    </div>
+  </nav>
+</div></div>
+ 
+<!----------header end---------->
+
+
+
+
+
+<div class="container pad-top35">
+  <div class="row clearfix">
+        <div class="col-md-9">
+      <div class="article-wrap panel panel-default">
+                    <div class="articlecontent">
+        <div class="title">
+          <h2> 极客大讲堂：手把手教你用树莓派控制红绿灯 </h2>
+          <div class="property">
+		  		  <span class="name"><a href="http://www.freebuf.com/author/%e6%9e%81%e5%ae%a2%e5%b0%8f%e9%bb%98" title="由 极客小默 发布" rel="author">极客小默</a></span>
+		  		  <span class="icon-f"></span>
+		  <span class="time">2016-03-20</span>
+                  <img style="float: left; margin-top: 2px;" title="金币奖励" src="gold.png"> 
+      <span class="coin"><strong>+6</strong></span>
+             
+		  <span class="look">共<strong>127482</strong>人围观
+              ，发现 <strong>15</strong> 个不明物体 </span>          
+		  <span class="tags">		  
+		  <a href="http://www.freebuf.com/geek">极客</a></span>	
+        <span class="tags_01"></span>			  
+		  </div>
+        </div>
+                        <div id="contenttxt">
+           <p style="text-align: center;"><a href="http://image.3001.net/images/20160320/14584384089751.png" class="highslide-image" target="_blank"><img style="display: inline;" alt="8.png" data-original="http://image.3001.net/images/20160320/14584384089751.png!small" src="14584384089751.png!small" width="520"></a></p>
+
+<p><b>涉及硬件：</b>树莓派以及相关套件、LED红绿灯</p>
+<p><b>涉及知识：</b>电路实验板、CanaKit</p>
+<p>当准备好以上，我们就可以开始啦。使用树莓派进行LED原型控制。</p>
+<p style="text-align: center;"><a href="http://www.example.com/" target="_blank"></a><a href="http://image.3001.net/images/20160320/14584384205957.jpg" class="highslide-image" target="_blank"><img alt="88.jpg" data-original="http://image.3001.net/images/20160320/14584384205957.jpg!small" src="grey.gif" width="520"></a></p>
+
+<p>首先要明白的是，接入所有的电线、电阻器以及工具包附带的指示灯需要谨慎操作，毕竟如果你设置操作不当将有可能损坏你的硬件。</p>
+<p>为了简化与树莓派和LED的接触，也为了方便编写控制代码，我决定编写一个叫做Pi交通灯的小玩意，这是用树莓派控制LED的第一步。</p>
+<p style="text-align: center;"><a href="http://image.3001.net/images/20160320/14584384292883.jpg" class="highslide-image" target="_blank"><img alt="888.jpg" data-original="http://image.3001.net/images/20160320/14584384292883.jpg!small" src="grey.gif" width="300"></a></p>
+
+<p>有了这个“红绿灯”之后，你要做的就只是把这个小装置直接插到树莓派的GPIO接口上。你不需要担心连接到线路板的导线是否正确，也不需要费心思寻找与LED匹配的电阻，更不用搞清楚线路板上哪里是正极哪里是负极。</p>
+<p>在默认设置下，Pi交通灯是被标记在GPIO第10、9、11和GND这几个接口上的，这几个接口在Pi设置上都是紧挨着的。但是在后来版本的树莓派中，这几个接口都是在GPIO的中间位置，这就有点不好办了（万一视力不好或是光纤太暗，那就很难看清了）。我一般会把我自己的Pi交通灯插在13、19、26号GPIO接口和GND接口上，这样操作起来会容易得多。</p>
+<p style="text-align: center;"><a href="http://image.3001.net/images/20160320/14584384436314.jpg" class="highslide-image" target="_blank"><img alt="7.jpg" data-original="http://image.3001.net/images/20160320/14584384436314.jpg!small" src="grey.gif" width="520"></a></p>
+
+<p>在插好这些接口之后，你就可以打开树莓派，然后编写一些代码来控制LED了。在这篇文章中，我会写一些示例。第一个例子，我是用了Python来读取树莓派的CPU使用率，通过RPi.GPIO库来显示红、黄、绿三种LED灯。</p>
+<h2>原理</h2>
+<p><b>如果CPU负载低于50%，会显示绿灯；在50%到90%之间，显示黄灯；高于90%就会显示红灯。也设计了异常处理程序，只要按下Ctrl+C就可以退出程序，这样所有的灯都不会亮。</b>这样设计的原因和意图只有一个，那就是通过这个交通灯提醒你树莓派对CPU的使用率。</p>
+<pre><code class="hljs sql"><span class="co1">#!/usr/bin/env python</span>
+<span class="co1"># to <span class="hljs-keyword">use</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">Pi</span> Traffic Light</span>
+&nbsp;
+<span class="kw1"><span class="hljs-keyword">import</span></span> RPi.<span style="color: black;" class="me1">GPIO</span> <span class="kw1"><span class="hljs-keyword">as</span></span> GPIO
+<span class="kw1"><span class="hljs-keyword">import</span></span> psutil
+&nbsp;
+GREEN <span class="sy0">=</span> <span class="nu0"><span class="hljs-number">26</span></span>
+YELLOW <span class="sy0">=</span> <span class="nu0"><span class="hljs-number">13</span></span>
+RED <span class="sy0">=</span> <span class="nu0"><span class="hljs-number">19</span></span>
+&nbsp;
+<span class="co1"># Pin Setup:</span>
+GPIO.<span style="color: black;" class="me1">setmode</span><span style="color: black;" class="br0">(</span>GPIO.<span style="color: black;" class="me1">BCM</span><span style="color: black;" class="br0">)</span>   <span class="co1"># Broadcom pin-numbering scheme.</span>
+GPIO.<span style="color: black;" class="me1">setwarnings</span><span style="color: black;" class="br0">(</span><span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+GPIO.<span style="color: black;" class="me1">setup</span><span style="color: black;" class="br0">(</span>GREEN<span class="sy0">,</span> GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">OUT</span></span><span style="color: black;" class="br0">)</span>
+GPIO.<span style="color: black;" class="me1">setup</span><span style="color: black;" class="br0">(</span>YELLOW<span class="sy0">,</span> GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">OUT</span></span><span style="color: black;" class="br0">)</span>
+GPIO.<span style="color: black;" class="me1">setup</span><span style="color: black;" class="br0">(</span>RED<span class="sy0">,</span> GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">OUT</span></span><span style="color: black;" class="br0">)</span>
+&nbsp;
+<span class="kw1">try</span>:
+   <span class="kw1"><span class="hljs-keyword">while</span></span> <span style="color: black;" class="br0">(</span><span class="nu0"><span class="hljs-number">1</span></span><span style="color: black;" class="br0">)</span>:
+      cpu_pc <span class="sy0">=</span> psutil.<span style="color: black;" class="me1">cpu_percent</span><span style="color: black;" class="br0">(</span><span class="hljs-built_in">interval</span><span class="sy0">=</span><span class="nu0"><span class="hljs-number">2</span></span><span style="color: black;" class="br0">)</span>
+      <span class="kw1">print</span> <span class="st0"><span class="hljs-string">'CPU: %d%%'</span></span> % <span style="color: black;" class="br0">(</span>cpu_pc<span style="color: black;" class="br0">)</span>
+      <span class="kw1"><span class="hljs-keyword">if</span></span> cpu_pc <span class="sy0">&lt;=</span> <span class="nu0"><span class="hljs-number">50</span></span>:
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>RED<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>YELLOW<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>GREEN<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">True</span></span><span style="color: black;" class="br0">)</span>
+      <span class="kw1"><span class="hljs-keyword">if</span></span> <span class="nu0"><span class="hljs-number">50</span></span> <span class="sy0">&lt;</span> cpu_pc <span class="sy0">&lt;</span> <span class="nu0"><span class="hljs-number">90</span></span>:
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>GREEN<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>RED<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>YELLOW<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">True</span></span><span style="color: black;" class="br0">)</span>
+      <span class="kw1"><span class="hljs-keyword">if</span></span> cpu_pc <span class="sy0">&gt;=</span><span class="nu0"><span class="hljs-number">90</span></span> :
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>GREEN<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>YELLOW<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+         GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>RED<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">True</span></span><span style="color: black;" class="br0">)</span>
+<span class="kw1"><span class="hljs-keyword">except</span></span> <span class="kw2">KeyboardInterrupt</span>:
+    <span class="kw1">print</span> <span class="st0"><span class="hljs-string">"Good bye"</span></span>
+    GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>GREEN<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+    GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>YELLOW<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span>
+    GPIO.<span style="color: black;" class="me1"><span class="hljs-keyword">output</span></span><span style="color: black;" class="br0">(</span>RED<span class="sy0">,</span> <span class="kw2"><span class="hljs-literal">False</span></span><span style="color: black;" class="br0">)</span></code></pre>
+<p><span style="font-size: 16px;">第二个例子相比第一个而言简单很多，在某种程度上也有趣很多，因为我使用了Scratch来控制LED。它是一种免费的visual程序设计语言，允许程序员用它来创建互动游戏、故事和动画。它最初由麻省理工学院开发，作为一种面向儿童的编程概念，现在已经取得了巨大成功。</span><span></span></p>
+<p><span></span></p>
+<p style="text-align: center;"><a href="http://image.3001.net/images/20160320/14584384536575.png" class="highslide-image" target="_blank"><img alt="8888.png" data-original="http://image.3001.net/images/20160320/14584384536575.png!small" src="grey.gif" width="520"></a></p>
+
+<p>为了使得Scratch与树莓派的GPIO接口建立联系，你首先要做的是就是打开这个程序，进入编辑界面，选择启动GPIO服务器。然后你就可以使用广播块来分辨你想要使用的GPIO接口了。在上面的截图中，这两个广播块分别指向config19out和gpio19on。而GPIO 19指向的就是红色LED灯。</p>
+<p>关于如何将Scratch连接到GPIO接口，可以点击<a href="https://www.raspberrypi.org/documentation/usage/scratch/gpio/README.md" target="_blank"><b>此处</b></a>了解更多信息。</p>
+<p style="text-align: center;"><a href="http://image.3001.net/images/20160320/14584384613088.jpg" class="highslide-image" target="_blank"><img alt="88888.jpg" data-original="http://image.3001.net/images/20160320/14584384613088.jpg!small" src="grey.gif" width="520"></a></p>
+
+<p>最后，如果你不擅长操作这些电子设备，我希望这篇关于Pi交通灯的简介可以让你对树莓派更加感兴趣。如果有人想要学习怎样编写代码，我希望使用Scratch可以让事情变得更加有趣，就像用它控制LED灯那样。</p>
+<p><b>*参考来源：<a href="https://opensource.com/life/16/3/simple-led-control-raspberry-pi" target="_blank">opensource</a>，FB小编极客小默编译，转载请注明来自FreeBuf黑客与极客（FreeBuf.COM）</b></p>
+        </div>
+        <div class="article-oper">
+        <!-- Baidu Button BEGIN -->
+        <div class="share float-l"><div data-bd-bind="1471844181405" class="bdsharebuttonbox bdshare-button-style1-24"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+        </div>
+        <!-- Baidu Button END -->
+		<div class="statement">
+        <div class="but-col"><span class="wpfp-span"><img src="heart.png" alt="Favorite" title="Favorite" class="wpfp-img"><img src="loading.gif" alt="Loading" title="Loading" class="wpfp-hide wpfp-img"><a class="wpfp-link" href="http://www.freebuf.com/geek/99483.html?wpfpaction=add&amp;postid=99483" title="收藏该文" rel="nofollow">收藏该文</a></span></div>
+		  </div>
+		<span class="score float-r"></span>
+        </div>        
+        <div class=" panel panel-default author-info">
+          <div class="author-detial">
+		                <div class="user_photo"><img src="wp-user-avatar-96x96.png" alt="" class="avatar avatar-50 wp-user-avatar wp-user-avatar-50 photo avatar-default" width="50" height="50"></div>
+            <p><span class="name"><a href="http://www.freebuf.com/author/%e6%9e%81%e5%ae%a2%e5%b0%8f%e9%bb%98" title="由 极客小默 发布" rel="author">极客小默</a></span>
+			<span class="icon-f"></span>
+			<span><i class="colour-red">17</i>篇文章</span><span>等级：<i class="colour-green">5</i>级</span></p>
+            <p>这家伙太懒，还未填写个人描述！</p>
+                      </div>
+                    <div class="but">
+		  <a href="http://www.freebuf.com/author/%E6%9E%81%E5%AE%A2%E5%B0%8F%E9%BB%98" class="btn btn-default btn-home">个人主页</a>
+		  <a href="http://www.freebuf.com/user/pm?pmaction=newmessage&amp;to=%E6%9E%81%E5%AE%A2%E5%B0%8F%E9%BB%98" class="btn btn-default btn-letter">发私信</a>
+		  </div>
+		          </div>
+                        		        <div class="article-pager">
+          <ul>
+            <li class="previous"><span>上一篇：</span><a href="http://www.freebuf.com/geek/99192.html" rel="prev">极客DIY：如何利用树莓派提高睡眠质量？</a>			</li>
+            <li class="next"><span>下一篇：</span>
+			<a href="http://www.freebuf.com/geek/100164.html" rel="next">极客DIY：开源WiFi智能手表制作</a>			</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+          <div class="comment-bright"><div class="main-tit04">
+    <h3>这些评论亮了</h3></div>      <ul>      <li>
+            <div class="user_photo"> <a href="http://www.freebuf.com/author/Time%20tries%20all%20things">
+            <img src="wp-user-avatar-96x96.png" width="58" height="58"></a>
+             </div>
+            <div class="tit"><span class="name"> <a href="http://www.freebuf.com/author/Time%20tries%20all%20things" target="_blank">Time tries all things</a>  </span> 
+						<span class="icon-f">  </span> 
+			<span class="rank">(1级)</span>
+						<span class="explain"></span>
+			<span class="reply"><a href="http://www.freebuf.com/geek/99483.html?replytocom=#respond" class="comment-reply-link" rel="nofollow">回复</a></span></div>
+            <div class="txt">
+						应该教点控制监控摄像头的技术，以后闯红灯也不怕了</div>
+            <div class="but"><span class="vote-count">)</span><span style="none" id="cos_support-2180168" class="vote-count">7</span><span class="vote-count">(</span><span class="vote">  <a class="ilike_icon" id="vote4-2180168">亮了</a></span></div>
+          </li>
+            <li>
+            <div class="user_photo">             <img src="pic2.png">             </div>
+            <div class="tit"><span class="name"> 峰---珉<span class="weibo"></span> </span> 
+						<span class="explain"></span>
+			<span class="reply"><a href="http://www.freebuf.com/geek/99483.html?replytocom=#respond" class="comment-reply-link" rel="nofollow">回复</a></span></div>
+            <div class="txt">
+						大三的课程设计，呵呵</div>
+            <div class="but"><span class="vote-count">)</span><span style="none" id="cos_support-2180169" class="vote-count">7</span><span class="vote-count">(</span><span class="vote">  <a class="ilike_icon" id="vote4-2180169">亮了</a></span></div>
+          </li>
+            <li>
+            <div class="user_photo"> <a href="http://www.freebuf.com/author/andy88">
+            <img src="QQ图片20150206035815.jpg" width="58" height="58"></a>
+             </div>
+            <div class="tit"><span class="name"> <a href="http://www.freebuf.com/author/andy88" target="_blank">andy88</a>  </span> 
+						<span class="icon-f">  </span> 
+			<span class="rank">(5级)</span>
+						<span class="explain">我相信我加入互联网，就是我未来的路、希望有大神关注http:...</span>
+			<span class="reply"><a href="http://www.freebuf.com/geek/99483.html?replytocom=#respond" class="comment-reply-link" rel="nofollow">回复</a></span></div>
+            <div class="txt">
+						·····可以一起交流学习~~~~~好东西</div>
+            <div class="but"><span class="vote-count">)</span><span style="none" id="cos_support-2180170" class="vote-count">7</span><span class="vote-count">(</span><span class="vote">  <a class="ilike_icon" id="vote4-2180170">亮了</a></span></div>
+          </li>
+            <li>
+            <div class="user_photo"> <a href="http://www.freebuf.com/author/%E6%B3%95%E5%AE%98">
+            <img src="wp-user-avatar-96x96.png" width="58" height="58"></a>
+             </div>
+            <div class="tit"><span class="name"> <a href="http://www.freebuf.com/author/%E6%B3%95%E5%AE%98" target="_blank">法官</a>  </span> 
+						<span class="icon-f">  </span> 
+			<span class="rank">(1级)</span>
+						<span class="explain"></span>
+			<span class="reply"><a href="http://www.freebuf.com/geek/99483.html?replytocom=#respond" class="comment-reply-link" rel="nofollow">回复</a></span></div>
+            <div class="txt">
+						标题党，TM我还以为是入侵道路红绿灯，，，，</div>
+            <div class="but"><span class="vote-count">)</span><span style="none" id="cos_support-2180172" class="vote-count">7</span><span class="vote-count">(</span><span class="vote">  <a class="ilike_icon" id="vote4-2180172">亮了</a></span></div>
+          </li>
+            <li>
+            <div class="user_photo"> <a href="http://www.freebuf.com/author/Suddoo">
+            <img src="wp-user-avatar-96x96.png" width="58" height="58"></a>
+             </div>
+            <div class="tit"><span class="name"> <a href="http://www.freebuf.com/author/Suddoo" target="_blank">Suddoo</a>  </span> 
+						<span class="icon-f">  </span> 
+			<span class="rank">(1级)</span>
+						<span class="explain"></span>
+			<span class="reply"><a href="http://www.freebuf.com/geek/99483.html?replytocom=#respond" class="comment-reply-link" rel="nofollow">回复</a></span></div>
+            <div class="txt">
+						Scratch这种小孩玩的也能上</div>
+            <div class="but"><span class="vote-count">)</span><span style="none" id="cos_support-2180173" class="vote-count">7</span><span class="vote-count">(</span><span class="vote">  <a class="ilike_icon" id="vote4-2180173">亮了</a></span></div>
+          </li>
+         </ul></div><div class="comment-list">
+      <div class="main-tit02">
+		<a rel="nofollow" class="btnbtn-default btn-comment" href="#respond">发表评论</a>
+        <h3>已有 <span class="color_red">15</span> 条评论
+      </h3></div>
+      <ul>
+         <li class="comment even thread-even depth-1" id="li-comment-180167">
+    <div id="comment-180167">
+        <div class="photo">     <img src="pic13.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> 标题党 </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180167#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">1楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>标题党</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180167"><span id="acv_stat_180167"></span><a class="ilike_icon" id="vote4-180167">亮了</a>(<span id="cos_support-180167">6</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180167" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180167" class="click_report">不友善内容</a></li>
+<li><a data-id="180167" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180167" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180167" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-time-tries-all-things odd alt thread-odd thread-alt depth-1" id="li-comment-180168">
+    <div id="comment-180168">
+        <div class="photo"> <a href="http://www.freebuf.com/author/Time%20tries%20all%20things">
+    <img src="wp-user-avatar-96x96.png"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/Time%20tries%20all%20things" target="_blank">Time tries all things&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(1级)</span>
+				<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180168#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">2楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>应该教点控制监控摄像头的技术，以后闯红灯也不怕了</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180168"><span id="acv_stat_180168"></span><a class="ilike_icon" id="vote4-180168">亮了</a>(<span id="cos_support-180168">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180168" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180168" class="click_report">不友善内容</a></li>
+<li><a data-id="180168" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180168" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180168" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+<ul class="children">
+<li class="comment byuser comment-author-anymous even depth-2" id="li-comment-180175">
+    <div id="comment-180175">
+        <div class="photo"> <a href="http://www.freebuf.com/author/anymous">
+    <img src="2015011616054137174.png"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/anymous" target="_blank">anymous&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(3级)</span>
+				<span class="explain"> 专注于廉价迷你方便快捷的解决方案ด้้้้้็็็็็้้้... </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180175#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor"></span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>@ Time tries all things&nbsp;   使用不在可见光波长但又在监控波长内的光源</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180175"><span id="acv_stat_180175"></span><a class="ilike_icon" id="vote4-180175">亮了</a>(<span id="cos_support-180175">5</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180175" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180175" class="click_report">不友善内容</a></li>
+<li><a data-id="180175" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180175" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180175" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-even depth-1" id="li-comment-180169">
+    <div id="comment-180169">
+        <div class="photo">     <img src="pic8.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> 峰---珉<span class="weibo"></span> </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180169#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">3楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>大三的课程设计，呵呵</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180169"><span id="acv_stat_180169"></span><a class="ilike_icon" id="vote4-180169">亮了</a>(<span id="cos_support-180169">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180169" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180169" class="click_report">不友善内容</a></li>
+<li><a data-id="180169" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180169" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180169" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+<ul class="children">
+<li class="comment even depth-2" id="li-comment-180178">
+    <div id="comment-180178">
+        <div class="photo">     <img src="pic8.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> abcd </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180178#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor"></span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>@ 峰—珉  Scratch是给吸引未成年人编程用的，这是科普文233333</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180178"><span id="acv_stat_180178"></span><a class="ilike_icon" id="vote4-180178">亮了</a>(<span id="cos_support-180178">6</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180178" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180178" class="click_report">不友善内容</a></li>
+<li><a data-id="180178" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180178" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180178" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-andy88 odd alt thread-odd thread-alt depth-1" id="li-comment-180170">
+    <div id="comment-180170">
+        <div class="photo"> <a href="http://www.freebuf.com/author/andy88">
+    <img src="QQ图片20150206035815.jpg"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/andy88" target="_blank">andy88&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(5级)</span>
+				<span class="explain"> 我相信我加入互联网，就是我未来的路、希望有大神关注http:... </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180170#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">4楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>·····可以一起交流学习~~~~~好东西</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180170"><span id="acv_stat_180170"></span><a class="ilike_icon" id="vote4-180170">亮了</a>(<span id="cos_support-180170">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180170" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180170" class="click_report">不友善内容</a></li>
+<li><a data-id="180170" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180170" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180170" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="li-comment-180171">
+    <div id="comment-180171">
+        <div class="photo">     <img src="pic5.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> 蚂蚁的邂逅 </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180171#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">5楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>这都能上。无情</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180171"><span id="acv_stat_180171"></span><a class="ilike_icon" id="vote4-180171">亮了</a>(<span id="cos_support-180171">6</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180171" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180171" class="click_report">不友善内容</a></li>
+<li><a data-id="180171" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180171" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180171" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-74356 odd alt thread-odd thread-alt depth-1" id="li-comment-180172">
+    <div id="comment-180172">
+        <div class="photo"> <a href="http://www.freebuf.com/author/%E6%B3%95%E5%AE%98">
+    <img src="wp-user-avatar-96x96.png"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/%E6%B3%95%E5%AE%98" target="_blank">法官&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(1级)</span>
+				<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180172#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">6楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>标题党，TM我还以为是入侵道路红绿灯，，，，</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180172"><span id="acv_stat_180172"></span><a class="ilike_icon" id="vote4-180172">亮了</a>(<span id="cos_support-180172">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180172" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180172" class="click_report">不友善内容</a></li>
+<li><a data-id="180172" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180172" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180172" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-suddoo even thread-even depth-1" id="li-comment-180173">
+    <div id="comment-180173">
+        <div class="photo"> <a href="http://www.freebuf.com/author/Suddoo">
+    <img src="wp-user-avatar-96x96.png"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/Suddoo" target="_blank">Suddoo&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(1级)</span>
+				<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180173#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">7楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>Scratch这种小孩玩的也能上</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180173"><span id="acv_stat_180173"></span><a class="ilike_icon" id="vote4-180173">亮了</a>(<span id="cos_support-180173">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180173" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180173" class="click_report">不友善内容</a></li>
+<li><a data-id="180173" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180173" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180173" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-180174">
+    <div id="comment-180174">
+        <div class="photo">     <img src="pic18.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> XiaoBingBy </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180174#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">8楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>太简单了 </p>
+<div class="comment-tools">
+<div class="vote" id="vote-180174"><span id="acv_stat_180174"></span><a class="ilike_icon" id="vote4-180174">亮了</a>(<span id="cos_support-180174">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180174" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180174" class="click_report">不友善内容</a></li>
+<li><a data-id="180174" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180174" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180174" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="li-comment-180176">
+    <div id="comment-180176">
+        <div class="photo">     <img src="pic18.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> dominic<span class="weibo"></span> </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180176#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">9楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>超简单。。</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180176"><span id="acv_stat_180176"></span><a class="ilike_icon" id="vote4-180176">亮了</a>(<span id="cos_support-180176">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180176" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180176" class="click_report">不友善内容</a></li>
+<li><a data-id="180176" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180176" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180176" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-180191">
+    <div id="comment-180191">
+        <div class="photo">     <img src="pic4.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> Crystal-112233<span class="weibo"></span> </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-20</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180191#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">10楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>这样不会被抓起来吗</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180191"><span id="acv_stat_180191"></span><a class="ilike_icon" id="vote4-180191">亮了</a>(<span id="cos_support-180191">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180191" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180191" class="click_report">不友善内容</a></li>
+<li><a data-id="180191" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180191" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180191" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="li-comment-180202">
+    <div id="comment-180202">
+        <div class="photo">     <img src="pic10.png">     </div>
+    <div class="tit"> 
+	    <span class="name"> 赵子龙 </span>
+        		<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-21</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180202#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">11楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>标题党！我以为控制马路上的红绿灯呢。。。。</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180202"><span id="acv_stat_180202"></span><a class="ilike_icon" id="vote4-180202">亮了</a>(<span id="cos_support-180202">7</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180202" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180202" class="click_report">不友善内容</a></li>
+<li><a data-id="180202" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180202" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180202" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+<li class="comment byuser comment-author-55254 odd alt thread-odd thread-alt depth-1" id="li-comment-180214">
+    <div id="comment-180214">
+        <div class="photo"> <a href="http://www.freebuf.com/author/%E6%9C%89%E5%85%B3%E9%A2%86%E5%AF%BC">
+    <img src="wp-user-avatar-96x96.png"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/%E6%9C%89%E5%85%B3%E9%A2%86%E5%AF%BC" target="_blank">有关领导&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(2级)</span>
+				<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-21</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180214#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor">12楼</span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>freebuf的逼格就是这样被拉低的</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180214"><span id="acv_stat_180214"></span><a class="ilike_icon" id="vote4-180214">亮了</a>(<span id="cos_support-180214">6</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180214" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180214" class="click_report">不友善内容</a></li>
+<li><a data-id="180214" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180214" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180214" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+<ul class="children">
+<li class="comment byuser comment-author-59771 bypostauthor even depth-2" id="li-comment-180241">
+    <div id="comment-180241">
+        <div class="photo"> <a href="http://www.freebuf.com/author/%E6%9E%81%E5%AE%A2%E5%B0%8F%E9%BB%98">
+    <img src="wp-user-avatar-96x96.png"></a>
+     </div>
+    <div class="tit"> 
+	    <span class="name"> <a href="http://www.freebuf.com/author/%E6%9E%81%E5%AE%A2%E5%B0%8F%E9%BB%98" target="_blank">极客小默&nbsp;</a>  </span>
+        		
+		<span class="icon-f"> </span>
+		<span class="rank">(5级)</span>
+				<span class="explain">  </span>
+		<span class="time">&nbsp;2016-03-21</span>
+		<span class="time"> </span>
+        <span class="useragent_output_custom"></span>
+        <span class="useragent_output_custom"></span> 
+		<span class="reply">
+		        <!-- 正常情况 -->
+           <a href="http://www.freebuf.com/geek/99483.html?replytocom=180241#respond" class="comment-reply-link" rel="nofollow">回复</a>
+        	    </span>
+		<span class="floor"></span>
+	</div>
+	    <div class="txt">
+	  <p class="useragent_output_custom"></p>
+      <p>@ 有关领导&nbsp;   这是争对大众的科普文，不是所有人都会，对刚起步的小白来说还是很好的文章。大神你知识渊博，就高抬贵手不要喷了，好么？！请做个有素质的阅读者。</p>
+<div class="comment-tools">
+<div class="vote" id="vote-180241"><span id="acv_stat_180241"></span><a class="ilike_icon" id="vote4-180241">亮了</a>(<span id="cos_support-180241">5</span>)</div>
+<div class="dropup"><a class="dropdown-toggle btn-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: none;"> 举报</a>
+<ul class="dropdown-menu" style="display: none; bottom: auto;">
+<li><a data-id="180241" class="click_report">广告等垃圾信息</a></li>
+<li><a data-id="180241" class="click_report">不友善内容</a></li>
+<li><a data-id="180241" class="click_report">违反法律法规的内容</a></li>
+<li><a data-id="180241" class="click_report">不宜公开讨论的政治内容</a></li>
+<li><a data-id="180241" class="click_report">其他</a></li>
+</ul></div>
+</div>
+	</div></div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+      </ul>
+      <div class="commentnav page01" style="padding-top: 10px; text-align: center;">
+               </div>
+	  
+
+<div id="respond" class="comment-box">
+<input id="uploadUnit" name="upfile" class="hidden" value="" type="file">
+    <form action="http://www.freebuf.com/wp-comments-post.php" method="post" id="commentform">
+        <div id="comment-author-info">
+	    <div class="login-other">
+		  <div class="login_button login_icon_sina" title="使用新浪微博登陆"></div>
+          <div class="login_button login_icon_qq" title="使用腾讯QQ登陆"></div></div>
+        <div class="login-input">
+	    <p><label for="author">昵称</label>
+		          <input name="author" id="author" value="" size="14" tabindex="1" aria-required="true" placeholder="请输入昵称" required="" type="text">
+        </p><span>必须</span><span>您当前尚未登录。<a class="simplemodal-login" href="http://www.freebuf.com/wp-login.php?redirect_to=http%3A%2F%2Ffreebuf.com%2Fgeek%2F99483.html%3Futm_source%3Dtuicool%26utm_medium%3Dreferral" title="登陆">登陆？</a><a href="http://www.freebuf.com/wp-login.php?action=register" target="_blank">注册</a></span></div>
+		<div class="login-input">
+		  <p><label for="email">邮箱</label><input name="email" id="email" value="" size="25" tabindex="2" aria-required="true" placeholder="请输入邮箱地址" required="" type="text"></p>
+		<span>必须（保密）</span>
+		</div>
+    </div>
+
+        <div id="test" class="post-area">
+      <div class="holiday"></div>
+	    <div class="comment-editor">
+			<a id="comment-smiley">表情</a><a id="imageThumb">插图</a>
+	    </div>
+        <div id="smileys">
+           <a title="mrgreen"><img src="icon_mrgreen.gif"></a><a title="razz"><img src="icon_razz.gif"></a><a title="sad"><img src="icon_sad.gif"></a><a title="smile"><img src="icon_smile.gif"></a><a title="oops"><img src="icon_redface.gif"></a><a title="grin"><img src="icon_biggrin.gif"></a><a title="eek"><img src="icon_surprised.gif"></a><a title="???"><img src="icon_confused.gif"></a><a title="cool"><img src="icon_cool.gif"></a><a title="lol"><img src="icon_lol.gif"></a><a title="mad"><img src="icon_mad.gif"></a><a title="twisted"><img src="icon_twisted.gif"></a><a title="roll"><img src="icon_rolleyes.gif"></a><a title="wink"><img src="icon_wink.gif"></a><a title="idea"><img src="icon_idea.gif"></a><a title="arrow"><img src="icon_arrow.gif"></a><a title="neutral"><img src="icon_neutral.gif"></a><a title="cry"><img src="icon_cry.gif"></a><a title="?"><img src="icon_question.gif"></a><a title="evil"><img src="icon_evil.gif"></a><a title="shock"><img src="icon_eek.gif"></a><a title="!"><img src="icon_exclaim.gif"></a>        </div>
+         <textarea name="comment" id="comment" cols="100%" rows="7" tabindex="4" style="overflow: hidden; border: 0px none; width: 100%;"></textarea><div style="display: none;" id="loading"><img src="wpspin_light.gif" style="vertical-align: middle;" alt=""> 正在提交, 请稍候...</div><div style="display: none;" id="error">#</div>
+    </div>
+      <div class="subcon but">
+      <input class="btn btn-success" name="submit" id="submit" tabindex="5" value="提交评论(Ctrl+Enter)" type="submit">
+      <a rel="nofollow" class="btn btn-default" id="cancel-comment-reply-link">取消</a>
+      <div class="checkbox"><input name="comment_post_ID" value="99483" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+<label for="comment_mail_notify" class="comment_mail"><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" type="checkbox">有人回复时邮件通知我</label></div>
+      </div>
+    <input name="Token" id="Token" value="ya9uoi" type="hidden">
+  </form>
+  </div>
+</div>	  
+<div class="commentshow">
+<div class="comments-loading">Loading...</div>
+</div>
+    </div>
+        <div class="col-md-3 visible-md-block visible-lg-block">
+      <div class="panel panel-default">
+        <div class="author-wrap">
+          <div class="author-header"><img src="wp-user-avatar-150x150.png" alt="" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" width="100" height="100"></div>
+          <p class="name"><a href="http://www.freebuf.com/author/%e6%9e%81%e5%ae%a2%e5%b0%8f%e9%bb%98" title="由 极客小默 发布" rel="author">极客小默</a><span></span></p>
+          <p class="signature">这家伙太懒，还未填写个人描述！</p>
+          <p class="art-com"><span class="aut-article"><a href="http://www.freebuf.com/author/%E6%9E%81%E5%AE%A2%E5%B0%8F%E9%BB%98" target="_blank">17篇文章</a></span><span class="aut-comment"><a href="http://www.freebuf.com/author/%E6%9E%81%E5%AE%A2%E5%B0%8F%E9%BB%98?comment=1" target="_blank">6条评论</a></span></p>
+        </div>
+      </div>
+	  
+      <div class="form-group has-active search-col search-in">
+        <form id="hpsform-new" class="navbar-search navbar-form">
+          <div class="form-group">
+            <input id="q" class="input form-control" placeholder="关键字查找" autocomplete="off" title="关键字查找" name="q" type="text">
+            <button class="submit" value="Search" type="submit"></button>
+          </div>
+        </form>
+      </div>
+ 
+      <div class="panel panel-default">
+        <div class="read visible-md-block visible-lg-block">
+          <div class="main-tit02">
+            <h3>相关阅读</h3>
+          </div>		
+          <ul>
+  <li><a href="http://www.freebuf.com/geek/99483.html" target="_blank">极客大讲堂：手把手教你用树莓派控制红绿灯</a></li>
+  
+  <li><a href="http://www.freebuf.com/geek/103560.html" target="_blank">极客DIY：通过树莓派发送摩斯码</a></li>
+  
+  <li><a href="http://www.freebuf.com/geek/99192.html" target="_blank">极客DIY：如何利用树莓派提高睡眠质量？</a></li>
+  
+  <li><a href="http://www.freebuf.com/geek/86906.html" target="_blank">让你家的楼宇门变聪明：基于树莓派实现任意终端控制楼宇门</a></li>
+  
+  <li><a href="http://www.freebuf.com/news/91098.html" target="_blank">良心赞助者：愿帮助树莓派安装后门程序</a></li>
+  </ul>        </div>
+      </div>
+      <!--<div class="ad-wrap"><a href="http://www.ijiami.cn/?freebuf.com" target="_blank"><img width="100%" src="http://image.3001.net/images/20141201/14174039186901.jpg"></a></div>-->
+      <div class="panel panel-default rec-spe">
+        <div class="main-tit03 colour-blue">
+          <h3>特别推荐</h3>
+        </div>
+         
+      </div>
+	  <div style="height: 0px;" class="sticky-wrapper" id="mar-right-sticky-wrapper"><div id="mar-right">
+      <!--<div class="read visible-lg-block">
+        <div class="main-tit04">
+          <h3>商城新品</h3>
+        </div>
+        <div id="slider" class="nivoSlider">  </div>
+      </div>-->
+      <div class="panel panel-default code"> <img src="code.jpg" width="192" height="192">
+        <p>关注我们  分享每日精选文章</p>
+      </div>
+	  </div></div>
+    </div>
+  </div>
+  <div class="row marvellous visible-lg-block">
+    <h3>不容错过</h3>
+    <ul>
+      <li><a href="http://www.freebuf.com/sectool/106218.html" rel="bookmark" title="Nessus API连接工具AutoNessus">Nessus API连接工具AutoNessus</a>
+        <p>		  <span class="name"><a href="http://www.freebuf.com/author/phper" title="由 phper 发布" rel="author">phper</a></span>
+		  		<span class="time">2016-06-07</span></p>
+      </li>
+      <li><a href="http://www.freebuf.com/news/46428.html" rel="bookmark" title="一周海外安全事件回顾（9.29-10.05）：黑客与游戏的恩怨">一周海外安全事件回顾（9.29-10.05）：黑客与游戏的恩怨</a>
+        <p>		  <span class="name"><a href="http://www.freebuf.com/author/blackscreen" title="由 blackscreen 发布" rel="author">blackscreen</a></span>
+		  		<span class="time">2014-10-11</span></p>
+      </li>
+      <li><a href="http://www.freebuf.com/sectool/102661.html" rel="bookmark" title="新手指南：手把手教你如何搭建自己的渗透测试环境">新手指南：手把手教你如何搭建自己的渗透测试环境</a>
+        <p>		  <span class="name"><a href="http://www.freebuf.com/author/felix" title="由 felix 发布" rel="author">felix</a></span>
+		  		<span class="time">2016-04-27</span></p>
+      </li>
+      <li><a href="http://www.freebuf.com/articles/web/15188.html" rel="bookmark" title="[科普]如何防止跨站点脚本攻击">[科普]如何防止跨站点脚本攻击</a>
+        <p>		  <span class="name"><a href="http://www.freebuf.com/author/littlehann" title="由 LittleHann 发布" rel="author">LittleHann</a></span>
+		  		<span class="time">2013-10-29</span></p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!----------footer---------->
+<div class="footer">
+  <div class="container">
+    <div class="footer-list col-sm-2 col-md-2">
+      <h3>FREEBUF</h3>
+      <ul>
+        <li><a href="http://www.freebuf.com/dis">免责声明</a></li>
+        <li><a href="http://www.freebuf.com/news/others/864.html">关于我们</a></li>
+        <li><a href="http://www.freebuf.com/jobs/40386.html">加入我们</a></li>
+        <li><a href="http://www.freebuf.com/donate">捐助我们</a></li>
+      </ul>
+    </div>
+    <div class="footer-list col-sm-2 col-md-2">
+      <h3>广告及服务</h3>
+      <ul>
+        <li><a target="_blank" href="mailto:root@freebuf.com">寻求报道</a></li>
+        <li><a href="http://www.freebuf.com/advertise">广告合作</a></li>
+        <li><a target="_blank" href="mailto:help@freebuf.com">联系我们</a></li>
+        <li><a href="http://www.freebuf.com/friends">友情链接</a></li>
+      </ul>
+    </div>
+    <div class="footer-list col-sm-2 col-md-2">
+      <h3>关注我们</h3>
+      <ul>
+        <li><div class="weixin-pannel weixin"><a class="qr"><span class="g-icon-qr1">官方微信</span><i></i></a></div></li>
+        <li><a rel="nofollow" target="_blank" href="http://weibo.com/freebuf">新浪微博</a></li>
+        <li><a rel="nofollow" target="_blank" href="http://t.qq.com/freebuf">腾讯微博</a></li>
+        <li><a rel="nofollow" target="_blank" href="http://twitter.com/freebuf">Twitter</a></li>
+      </ul>
+    </div>
+    <div class="footer-list col-sm-2 col-md-2">
+      <h3>赞助商</h3>
+      <ul>
+        <li style="padding: 6px 0px 10px;"><a rel="nofollow" target="_blank" href="http://www.aliyun.com/?freebuf"><img src="ali.png"></a></li>
+        <li><a rel="nofollow" target="_blank" href="http://www.upyun.com/?freebuf"><img src="upyun.png"></a></li>
+        <li style="padding: 6px 0px 10px;"><a rel="nofollow" target="_blank" href="https://www.trustasia.com/?freebuf"><img src="ad-yzcx.png"></a></li>
+      </ul>
+    </div>
+    <div class="footer-list col-sm-2 col-md-2">
+      <ul>
+      </ul>
+    </div>
+    <div class="footer-logo col-sm-2 col-md-2 pull-right"><img src="freebufrobot_shendanjie.png"></div>
+  </div>
+  <div class="copyright"><div class="container"><p>Copyright © 2013 WWW.FREEBUF.COM All Rights Reserved <a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备13033796号</a></p><span><a rel="nofollow" target="_blank" href="http://click.aliyun.com/m/1336/?freebuf"><img src="icon-aly.png"></a></span></div></div>
+</div>
+<div class="bottom_tools"><a id="scrollUp" title="飞回顶部"></a></div>
+<!----------footer end----------> 
+
+
+
+<img alt="css.php" src="css.php" width="1" height="1">
+
+
+
+
+<div style="padding: 0px; border: medium none; margin: 0px; position: absolute; left: 0px; top: 0px; width: 100%; z-index: 1001; direction: ltr;" class="highslide-container"><a style="position: absolute; top: -9999px; opacity: 0.75; z-index: 1;" title="点击关闭" class="highslide-loading">正在加载中...</a><div style="display: none;"></div><div style="padding: 0px; border: medium none; margin: 0px; visibility: hidden;" class="highslide-viewport highslide-viewport-size"></div><table style="padding: 0px; border: medium none; margin: 0px; visibility: hidden; position: absolute; border-collapse: collapse; width: 0px;" cellspacing="0"><tbody style="padding: 0px; border: medium none; margin: 0px;"><tr style="padding: 0px; border: medium none; margin: 0px; height: auto;"><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll 0px 0px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll 0px -40px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll -20px 0px transparent; height: 20px; width: 20px;"></td></tr><tr style="padding: 0px; border: medium none; margin: 0px; height: auto;"><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll 0px -80px transparent; height: 20px; width: 20px;"></td><td class="rounded-white highslide-outline" style="padding: 0px; border: medium none; margin: 0px; position: relative;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll -20px -80px transparent; height: 20px; width: 20px;"></td></tr><tr style="padding: 0px; border: medium none; margin: 0px; height: auto;"><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll 0px -20px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll 0px -60px transparent; height: 20px; width: 20px;"></td><td style="padding: 0px; border: medium none; margin: 0px; line-height: 0; font-size: 0px; background: url(&quot;rounded-white.png&quot;) repeat scroll -20px -20px transparent; height: 20px; width: 20px;"></td></tr></tbody></table></div></body>
+</html>

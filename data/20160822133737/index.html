@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>
+            如何用Windows远程桌面连接树莓派Raspbian Linux系统 - - Edi Wang
+    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Page-Enter" content="revealTrans(duration=1, transition=23)">
+
+        <meta name="keywords" content="IoT, Raspberry Pi, Raspbian, Linux, xrdp">
+    
+
+        <meta name="description" content="IoT, Raspberry Pi, Raspbian, Linux, xrdp">
+
+    <!-- for IE11 Reading View -->
+    <meta name="title" content="如何用Windows远程桌面连接树莓派Raspbian Linux系统">
+    <meta name="displaydate" content="2016-08-06 08:01:36Z">
+    <meta property="og:site_name" content="edi.wang">
+    <meta name="copyright" content="(C) 2009 - 2016 edi.wang">
+    <meta name="author" content="Edi Wang">
+
+    <link rel="start" title="Edi Wang" href="http://edi.wang/">
+    <link rel="alternate" type="application/rss+xml" title="Edi.Wang" href="http://edi.wang/subscription/RSS">
+    <link type="application/opensearchdescription+xml" rel="search" title="Edi Wang" href="http://edi.wang/opensearch.axd">
+        <link rel="canonical" href="http://edi.wang/post/2016/8/6/rdp-into-raspbian">
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://edi.wang/favicon/apple-touch-icon-57x57.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="60x60" href="http://edi.wang/favicon/apple-touch-icon-60x60.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="72x72" href="http://edi.wang/favicon/apple-touch-icon-72x72.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="76x76" href="http://edi.wang/favicon/apple-touch-icon-76x76.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="114x114" href="http://edi.wang/favicon/apple-touch-icon-114x114.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="120x120" href="http://edi.wang/favicon/apple-touch-icon-120x120.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="144x144" href="http://edi.wang/favicon/apple-touch-icon-144x144.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="152x152" href="http://edi.wang/favicon/apple-touch-icon-152x152.png?v=8jnxjWYG5l">
+<link rel="apple-touch-icon" sizes="180x180" href="http://edi.wang/favicon/apple-touch-icon-180x180.png?v=8jnxjWYG5l">
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://edi.wang/favicon/manifest.json?v=8jnxjWYG5l">
+<link rel="shortcut icon" href="favicon.ico">
+<meta name="apple-mobile-web-app-title" content="edi.wang">
+<meta name="application-name" content="edi.wang">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png?v=8jnxjWYG5l">
+<meta name="msapplication-config" content="/favicon/browserconfig.xml?v=8jnxjWYG5l">
+<meta name="theme-color" content="#ffffff">
+    <!-- css js -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+    <input id="HiddenCurrentUrl" name="HiddenCurrentUrl" value="/Dummy" type="hidden">
+
+    <header class="ediblog-header">
+        <h1 class="hidden">
+            <a href="http://edi.wang/">Edi Wang</a>
+        </h1>
+        <div class="nav-container navbar-fixed-top">
+            
+
+<div class="container">
+    <nav class="navbar navbar-ediblog " role="navigation" id="slide-nav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand hidden-xs" id="ediwang-logo" href="http://edi.wang/">
+                edi.wang
+            </a>
+            <a class="navbar-brand logo-mobile visible-xs" href="http://edi.wang/">edi.wang</a>
+        </div>
+
+        <div id="slidemenu">
+            <form class="navbar-form navbar-right visible-xs" role="form" action="http://edi.wang/search/keyword">
+                <div class="form-group">
+                    <input id="search-mobile" class="form-control" value="" title="Search" placeholder="Keyword" name="term" maxlength="30" type="text">
+                </div>
+                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i> Search</button>
+            </form>
+            <ul class="nav navbar-nav">
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        POSTS
+                        <b class="caret"></b>
+                    </a>
+
+                    <ul class="dropdown-menu category-menu" id="archives"><li><a href="http://edi.wang/Post">All Posts</a></li><li>
+                <a href="http://edi.wang/category/list/angerofjustice" title="Hacking and Cracking">
+Anger of Justice
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/aspnet" title="ASP.NET / MVC">
+ASP.NET
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/csharpdotnet" title="C# and .NET">
+C# and .NET
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/itjobs" title="Career and Workplace">
+Career and Workplace
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/database" title="SQL Server, ADO.NET and Entity Framework">
+Database
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/devops" title="DevOps">
+DevOps
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/essays" title="Essays">
+Essays
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/iis" title="IIS">
+IIS
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/iot" title="Raspberry Pi, Windows 10 IoT Core">
+Internet of Things
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/azure" title="Microsoft Azure Cloud Computing">
+Microsot Azure
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/software" title="Software">
+Software
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/webfront" title="HTML, JavaScript, CSS">
+Web Front-End
+                </a>
+            </li><li>
+                <a href="http://edi.wang/category/list/windowsxaml" title="Windows, WPF, and Xaml based Windows Apps">
+Windows / XAML
+                </a>
+            </li></ul>
+                </li>
+                
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+        PAGES<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a href="http://www.microsoft.com/china/livetocode/91.html" target="_blank">Microsoft "Live to Code" Interview</a></li>
+        <li><a href="http://www.weifengke.com/discussweb/replylist?id=1600311" target="_blank">微疯客《独立开发者面对面》采访第七期</a></li>
+            <li class="divider"></li>
+                <li><a href="http://edi.wang/page/my-windows-10-uwp.html">My Universal Windows 10 Apps</a></li>
+    </ul>
+</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        ARCHIVE
+                        <b class="caret"></b>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="http://edi.wang/tags">Tags</a></li>
+                        <li><a href="http://edi.wang/archive">Time</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        SUBSCRIPTION
+                        <b class="caret"></b>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="http://edi.wang/Subscription">RSS / Atom</a></li>
+                        <li><a href="http://edi.wang/subscription/email">Email</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://edi.wang/about">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        ABOUT
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav><div class="inverse" id="navbar-height-col"></div>
+</div>
+        </div>
+    </header>
+    <div id="page-cover" class="visible-xs">
+
+    </div>
+    <div id="page-content" class="content">
+        <div class="container">
+            <div class="row">
+                <section class="col-lg-9">
+                    
+
+
+
+
+<article>
+    <header class="post-header">
+        <h3 class="post-title">
+            如何用Windows远程桌面连接树莓派Raspbian Linux系统
+        </h3>
+        <hr>
+        <div class="hidden-xs">
+            <span class="label label-primary"><time datetime="2016-08-06 08:01:36Z">2016-8-6 16:01</time></span>
+
+            <span class="label label-success">137 Reads</span>
+            <span class="label label-warning">0 Comments</span>
+        </div>
+
+        <div class="bor hidden-xs"></div>
+    </header>
+
+    <section class="post-content">
+        <p>因为Windows 10 IoT Core还不能完全替代Raspbian，所以在有些场合我们软狗只能苟且偷生用Linux。Linux的远程操作通常通过SSH命令行完成，如果需要Windows那样的远程桌面的话，有2种解决办法：tightvnc或者xrdp。我以前一直用tightvnc，使用没有什么卵问题，唯一的问题就是要我在PC上装一个tightvnc客户端才能连接，拉低了软狗的尊严。而XRDP可以直接用Windows自带的MSTSC 远程桌面连接工具连接，假装有尊严。所以我今天就试了下XRDP，非常简单。</p>
+<p>首先，SSH到树莓派。运行命令：</p>
+<pre style="" class="prettyprint prettyprinted"><span class="pln">sudo apt</span><span class="pun">-</span><span class="kwd">get</span><span class="pln"> </span><span class="pun">-</span><span class="pln">y install xrdp</span></pre>
+<p><img style="" class="img-responsive img-thumbnail" src="xrdp1.png" data-original="/uploads/xrdp1.png" alt=""></p>
+<p>完成后，还有个逼要装，就是默认情况下，你只能用IP地址来访问树莓派，而Windows的Ping命令，ping一个主机名是可以得到IP地址的，为了能ping树莓派装成功这个逼，还需要安装一个包：</p>
+<pre style="" class="prettyprint prettyprinted"><span class="pln">sudo apt</span><span class="pun">-</span><span class="kwd">get</span><span class="pln"> </span><span class="pun">-</span><span class="pln">y install samba</span></pre>
+<p>这一步耗时比较长</p>
+<p>完成以后，就能从你的Windows PC Ping树莓派了：</p>
+<p><img style="" class="img-responsive img-thumbnail" src="2016-08-06.png" data-original="/uploads/2016-08-06.png" alt=""></p>
+<p>现在在Windows PC上运行mstsc，就可以通过主机名或IP地址连接树莓派。</p>
+<p><img style="" class="img-responsive img-thumbnail" src="2016-08-06-(1).png" data-original="/uploads/2016-08-06-(1).png" alt=""></p>
+<p>登录用的是你的Linux账号</p>
+<p><img style="" class="img-responsive img-thumbnail" src="2016-08-06-(2).png" data-original="/uploads/2016-08-06-(2).png" alt=""></p>
+<p><img style="" class="img-responsive img-thumbnail" src="2016-08-06-(3).png" data-original="/uploads/2016-08-06-(3).png" alt=""></p>
+<p>曲线装逼完成。</p>
+<p>等哪天Windows 10 IoT Core完善了蓝牙和PiCam支持，就再也不用苟且偷生用Raspbian了....</p>
+    </section>
+
+    <div class="hidden-print">
+        <hr>
+        <section class="post-footer">
+            <div class="button pull-right">
+                    <span class="toptags-list">
+<a href="http://edi.wang/tags/list/IoT">IoT</a><a href="http://edi.wang/tags/list/Raspberry%20Pi">Raspberry Pi</a><a href="http://edi.wang/tags/list/Raspbian">Raspbian</a><a href="http://edi.wang/tags/list/Linux">Linux</a><a href="http://edi.wang/tags/list/xrdp">xrdp</a>                    </span>
+            </div>
+
+                <ul class="list-inline">
+                        <li>
+                            <i class="fa fa-folder"></i>
+                            <a href="http://edi.wang/category/list/IoT">Internet of Things</a>
+                        </li>
+                </ul>
+        </section>
+        <div class="post-slug-actions hidden-xs">
+    <button class="btn btn-success btn-ratings" data-postid="cf4e92f5-93ed-46fb-b9de-e113cb610c0b" data-islike="true">
+        <i class="fa fa-thumbs-up"></i>
+        Like (<span class="likehits-num">0</span>)
+    </button>
+    <a class="btn btn-warning" data-toggle="modal" data-target="#qrcode-window">
+        <i class="fa fa-wechat"></i>
+        Share to WeChat
+    </a>
+    <span class="text-muted none ratemessage">Thanks For Your Rating</span>
+</div>
+
+<div class="modal fade" id="qrcode-window" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <i class="fa fa-qrcode"></i>
+                    Scan QR Code In WeChat
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="qrcode-scan-phone-container">
+
+                    <h2>
+                        <i class="fa fa-wechat"></i>
+                        WeChat
+                    </h2>
+
+                    <div title="http://edi.wang/post/2016/8/6/rdp-into-raspbian" id="qrcode">
+
+                    <canvas style="display: none;" height="286" width="286"></canvas><script>(function (data) { var scripts = document.getElementsByTagName("script"); var script = scripts[scripts.length-1], canvas = script.previousSibling; var img = new Image(); img.onload = function(){ canvas.getContext('2d').drawImage(img, 0, 0); }; img.src = data; script.parentNode.removeChild(script); })('data:image/png;base64,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')</script><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAR4AAAEeCAYAAABcyXrWAAAUqklEQVR4nO2awc7D2A6C8/4vfWcxu3+qVJccvoBrpKwqH4PBXvW6rut/zd8d6DqaCz3PJCRpT8p10fc6gVcMctTRXOh5JiFJe1Kui77XCbxikKOO5kLPMwlJ2pNyXfS9TuAVgxx1NBd6nklI0p6U66LvdQKvGOSoo7nQ80xCkvakXBd9rxN4xSBHHc2FnmcSkrQn5broyw9g0qIkBYnW56ijudD6krjQ2MMDcUkKp0Ofo47msoeHwx4eiEtSOB36HHU0lz08HPbwQFySwunQ56ijuezh4bCHB+KSFE6HPkcdzWUPD4c9PBCXpHA69DnqaC57eDjs4YG4JIXToc9RR3PZw8Ph+OFRh5k06KRlT0KSf9NzRr+ZNM+rXYAKB88JSPJves7oN5PmebULUOHgOQFJ/k3PGf1m0jyvdgEqHDwnIMm/6Tmj30ya59UuQIWD5wQk+Tc9Z/SbSfO82gWocPCcgCT/pueMfjNpnle7ABUOnhOQ5N/0nNFvJs3zahdA85wQJAcXFS3etvhOz+xBv24BNM+WANKzVtHibYvv9Mwe9OsWQPNsCSA9axUt3rb4Ts/sQb9uATTPlgDSs1bR4m2L7/TMHvTrFkDzbAkgPWsVLd62+E7P7EG/bgE0z5YA0rNW0eJti+/0zB706xZA82wJID1rFS3etvhOz+xBv24BKuiQ0TxbFixpiSZop2f2oF+3ABV0AGmetEcODUlzadFOz+xBv24BKugA0jxpjxwakubSop2e2YN+3QJU0AGkedIeOTQkzaVFOz2zB/26BaigA0jzpD1yaEiaS4t2emYP+nULUEEHkOZJe+TQkDSXFu30zB706xaggg4gzZP2yKEhaS4t2umZPeiXsWB3cARC7Zf0JWE94vybkIk9PP9nv6QvCevRHp6/2MNzsF/Sl4T1aA/PX+zhOdgv6UvCerSH5y/28Bzsl/QlYT3aw/MXe3gO9kv6krAe7eH5iz08B/slfUlYj/bw/IV0eFo+VfjWbd3EuqLvdQKPvpZAbN3WEXVF3+sEHn0tgdi6rSPqir7XCTz6WgKxdVtH1BV9rxN49LUEYuu2jqgr+l4n8OhrCcTWbR1RV/S9TuDR1xKIrds6oq7mu1W4+A/UsLT0mwB6oR1cpuO31QvYw5OPPTz5+G31Avbw5GMPTz5+W72APTz52MOTj99WL2APTz728OTjt9UL2MOTjz08+fht9QL28ORjD08+JPW0sbTpLSFLmqejH82lRYMDuD6SZNKiJNWpSJpny9JO0OAAro8kmbQoSXUqkubZsrQTNDiA6yNJJi1KUp2KpHm2LO0EDQ7g+kiSSYuSVKciaZ4tSztBgwO4PpJk0qIk1alImmfL0k7Q4ACujySZtChJdSqS5tmytBM0OIDrO8j9e7MBxiaFumVmDg1J3jq0T+By+8lMQQE0F1qfg0vSzBwakrx1aJ/A5faTmYICaC60PgeXpJk5NCR569A+gcvtJzMFBdBcaH0OLkkzc2hI8tahfQKX209mCgqgudD6HFySZubQkOStQ/sELrefzBQUQHOh9Tm4JM3MoSHJW4f2CVxuP5kpKIDmQutzcEmamUNDkrcO7RO43H4VJOGQqfjlN+l+9GKqXOh+9K7IX4rwpGGq+OU36X6OTDi40P3oXZG/FOFJw1Txy2/S/RyZcHCh+9G7In8pwpOGqeKX36T7OTLh4EL3o3dF/lKEJw1TxS+/SfdzZMLBhe5H74r8pQhPGqaKX36T7ufIhIML3Y/eFflLEZ40TBW//Cbdz5EJBxe6H70r8tcgLskEByzGGvS18FQ1rHYOe3gSTCgJdQtPVcNq57CHJ8GEklC38FQ1rHYOe3gSTCgJdQtPVcNq57CHJ8GEklC38FQ1rHYOe3gSTCgJdQtPVcNq57CHJ8GEklC38FQ1rHYOxzs6Bp1UNz24SYuShJZc01xU7OEJ0LCHJx8tud7DEzCUFmP38OSjJdd7eAKG0mLsHp58tOR6D0/AUFqM3cOTj5Zc7+EJGEqLsXt48tGS6z08AUNpMXYPTz5acj368IwQXrLstIYk7UmL6ehHZ16FxYfTRBwkHUgKC71gLdrpudAa6MyrsPhwmoiDpANJYaEXrEU7PRdaA515FRYfThNxkHQgKSz0grVop+dCa6Azr8Liw2kiDpIOJIWFXrAW7fRcaA105lVYfDhNxEHSgaSw0AvWop2eC62BzrwKiw+niThIOpAUFnrBWrTTc6E10JlXYfEBbRb0pqMfrb1lZg6etD4VE3xw6NvDc7Afrb1lZg6etD4VE3xw6NvDc7Afrb1lZg6etD4VE3xw6NvDc7Afrb1lZg6etD4VE3xw6NvDc7Afrb1lZg6etD4VE3xw6NvDc7Afrb1lZg6etD4VE3xw6NvDc7Afrb1lZg6etD4VE3xw6LsaSJqEV2hw1KlwzNqhYYLvSfNU8YVPxqIkmZekwVGnomVRJvieNE8VX/hkLEqSeUkaHHUqWhZlgu9J81TxhU/GoiSZl6TBUaeiZVEm+J40TxVf+GQsSpJ5SRocdSpaFmWC70nzVPGFT8aiJJmXpMFRp6JlUSb4njRPFV/4ZCxKknlJGhx1KloWZYLvSfNUccvn9IMykSATkrjQPNV+Dg0O7RN4Jnkr193+CpKkvySeKpLm4tDg0D6BZ5K3ct3tryBJ+kviqSJpLg4NDu0TeCZ5K9fd/gqSpL8kniqS5uLQ4NA+gWeSt3Ld7a8gSfpL4qkiaS4ODQ7tE3gmeSvX3f4KkqS/JJ4qkubi0ODQPoFnkrdy3e2vIEn6S+KpImkuDg0O7RN4Jnkr193+CpJMWgYVdOBp7SqXpEPgeJPeh6Q9kvncvhpC0sHFAXoZaO30Mqhc6DfxpQ3aI5nP7ashJB1cHKCXgdZOL4PKhX4TX9qgPZL53L4aQtLBxQF6GWjt9DKoXOg38aUN2iOZz+2rISQdXBygl4HWTi+DyoV+E1/aoD2S+dy+GkLSwcUBehlo7fQyqFzoN/GlDdojmc/tqyEkHVwcoJeB1k4vg8qFfhNf2qA9esCHFZ9i0HRM0J6kwcElaY8c2MMTEFwaE7QnadjDc1zf+0dnD895TNCepGEPz3F97x+dPTznMUF7koY9PMf1vX909vCcxwTtSRr28BzX9/7R2cNzHhO0J2nYw3Nc3/tHZw/PeUzQnqRhD89xfRmHgD5KE/TRGpL6tSDJBxpfdGSEjA78BH20hqR+LUjygcYXHRkhowM/QR+tIalfC5J8oPFFR0bI6MBP0EdrSOrXgiQfaHzRkREyOvAT9NEakvq1IMkHGl90ZISMDvwEfbSGpH4tSPKBxhcdGSGjAz9BH60hqV8Lknyg8UXHWZIO4dOXwcGzRV8SpvOkd3MPT/Fi7uHhMJ3nHh7ozQmLuYeHw3See3igNycs5h4eDtN57uGB3pywmHt4OEznuYcHenPCYu7h4TCd5x4e6M0Ji7mHh8N0nlGH5/iDA8xzGNsSFprL4jMm5HMPzwckmaC+6dBOc1l8xoR87uH5gCQT1Dcd2mkui8+YkM89PB+QZIL6pkM7zWXxGRPyuYfnA5JMUN90aKe5LD5jQj738HxAkgnqmw7tNJfFZ0zI5x6eD0gyQX3ToZ3msviMCfn88mUEKWlpHVwc/SbwVPs5kJQzGnQGr3bh6ps0F0e/CTzVfg4k5YwGncGrXbj6Js3F0W8CT7WfA0k5o0Fn8GoXrr5Jc3H0m8BT7edAUs5o0Bm82oWrb9JcHP0m8FT7OZCUMxp0Bq924eqbNBdHvwk81X4OJOWMBp3Bq124+ibNxdFvAk+1nwNJOaNBZ/D4/3hUcQ60LCaNJJ544A3ZTfL2DlHeSkV7eCL6TeD59rHZw7OH5zj28OTzfPvY7OHZw3Mce3jyeb59bPbw7OE5jj08+TzfPjZ7ePbwHMcennyebx+bPTx7eI5jD08+z7ePzR6eosMjNwv6HGgJ4B3opU3SQOesJdeqhtu64w8GmP2WQUmBUEEvWJIGOmctuVY13NYdfzDA7LcMSgqECnrBkjTQOWvJtarhtu74gwFmv2VQUiBU0AuWpIHOWUuuVQ23dccfDDD7LYOSAqGCXrAkDXTOWnKtaritO/5ggNlvGZQUCBX0giVpoHPWkmtVw23d8QcDzH7LoKRAqKAXLEkDnbOWXKsabusgfv82Kwmgo5+DZ9I86X5JhyBJX41HFjYCSbofHSQHz6R50v0cc0nKy4RM3H4WNgJJuh8dJAfPpHnS/RxzScrLhEzcfhY2Akm6Hx0kB8+kedL9HHNJysuETNx+FjYCSbofHSQHz6R50v0cc0nKy4RM3H4WNgJJuh8dJAfPpHnS/RxzScrLhEzcfhY2Akm6Hx0kB8+kedL9HHNJysuETHz5ug1yIElD0oIlfY5Z02/S/cLykrEMjoEl9aNNd7yZ9DlmTb9J9wvLS8YyOAaW1I823fFm0ueYNf0m3S8sLxnL4BhYUj/adMebSZ9j1vSbdL+wvGQsg2NgSf1o0x1vJn2OWdNv0v3C8pKxDI6BJfWjTXe8mfQ5Zk2/SfcLy0vGMjgGltSPNt3xZtLnmDX9Jt0vLC9nTU8aShJa9CUFnobjCDr60TxNGvIFOOpotOjbw7OHB9KQL8BRR6NF3x6ePTyQhnwBjjoaLfr28OzhgTTkC3DU0WjRt4dnDw+kIV+Ao45Gi749PHt4IA35Ahx1NFr07eHZw4NoUB50EFHfVEGbTgeJnlkLF/XNFv9aPNrDU/wlzayFi/pmi38tHu3hKf6SZtbCRX2zxb8Wj/bwFH9JM2vhor7Z4l+LR3t4ir+kmbVwUd9s8a/Foz08xV/SzFq4qG+2+Nfi0R6e4i9pZi1c1Ddb/Gvx6PjhcZBU65LMm/Cmg4vKs0UfXacCn/VpIipaFjOJy4TFVHm26KPrVOCzPk1ERctiJnGZsJgqzxZ9dJ0KfNaniahoWcwkLhMWU+XZoo+uU4HP+jQRFS2LmcRlwmKqPFv00XUq8FmfJqKiZTGTuExYTJVniz66TgU+69NEVLQsZhKXCYup8mzRR9epeGHWXFiSQu3A9FA7fKDn0pLPFo/UuislSLSxDtD6WurUN02Br8hni0dq3ZUSJNpYB2h9LXXqm6bAV+SzxSO17koJEm2sA7S+ljr1TVPgK/LZ4pFad6UEiTbWAVpfS536pinwFfls8Uitu1KCRBvrAK2vpU590xT4iny2eKTWXSlBoo11gNbXUqe+aQp8RT5bPFLrpP/xtBhEm5cUFrpfUl4sixLkbQuX2+/4gwbzHMLVN5PqVCT50OJfkrctXG6/4w8azHMIV99MqlOR5EOLf0netnC5/Y4/aDDPIVx9M6lORZIPLf4ledvC5fY7/qDBPIdw9c2kOhVJPrT4l+RtC5fb7/iDBvMcwtU3k+pUJPnQ4l+Sty1cbr/jDxrMcwhX30yqU5HkQ4t/Sd62cPnycYF3CKC5ODTQgZ/ARYVDg4NLkn8mDWeJ0AJoLg4NDu3TuahwaHBwSfLPpOEsEVoAzcWhwaF9OhcVDg0OLkn+mTScJUILoLk4NDi0T+eiwqHBwSXJP5OGs0RoATQXhwaH9ulcVDg0OLgk+WfScJYILYDm4tDg0D6diwqHBgeXJP9MGs4SoQXQXBwaHNqnc1Hh0ODgkuSfRYPcsQCOQbegJZwO0AeS5pnUbw/PB+zh2cOzh8fbbw/PB+zh2cOzh8fbbw/PB+zh2cOzh8fbbw/PB+zh2cOzh8fbbw/PB+zh2cOzh8fbbw/PB+zh2cOzh8fb70GezgeU/JJA66PfTJpLUiaSfKfrHnxsKNpDdoekANLhpOeSlIkk3+m6Bx8bivaQ3SEpgHQ46bkkZSLJd7ruwceGoj1kd0gKIB1Oei5JmUjyna578LGhaA/ZHZICSIeTnktSJpJ8p+sefGwo2kN2h6QA0uGk55KUiSTf6boHHxuK9pDdISmAdDjpuSRlIsl3uu7Bl2HeHcIGVhGkCTNr8Yj2XYWj34N5c8JVTFiiJH0tM2vxiPZdhaPfg3lzwlVMWKIkfS0za/GI9l2Fo9+DeXPCVUxYoiR9LTNr8Yj2XYWj34N5c8JVTFiiJH0tM2vxiPZdhaPfg3lzwlVMWKIkfS0za/GI9l2Fo9+DeXPCVUxYoiR9LTNr8Yj2XYWj34N5Z4TTMTCap4oknr+8mCqS8lm0mxkDM4lDeapI4knP2sGFRlI+i3YzY2AmcShPFUk86Vk7uNBIymfRbmYMzCQO5akiiSc9awcXGkn5LNrNjIGZxKE8VSTxpGft4EIjKZ9Fu5kxMJM4lKeKJJ70rB1caCTls2g3MwZmEofyVJHEk561gwuNpHwW7WbGwBziVEwIkkM73c9R58AEb1/Ql0HEMTAVYQbFhLNlGWhM8PYFfRlEHANTEWZQTDhbloHGBG9f0JdBxDEwFWEGxYSzZRloTPD2BX0ZRBwDUxFmUEw4W5aBxgRvX9CXQcQxMBVhBsWEs2UZaEzw9gV9GUQcA1MRZlBMOFuWgcYEb1/Ql0GkaGCovqRwJnFx1LVwUfuFcclflKSFpvXRQWrh4qhr4aL2C+OSvyhJC03ro4PUwsVR18JF7RfGJX9Rkhaa1kcHqYWLo66Fi9ovjEv+oiQtNK2PDlILF0ddCxe1XxiX/EVJWmhaHx2kFi6OuhYuar8wLvmLkrTQtD46SC1cHHUtXNR+YVw4IirogamYwDPpc2ig31T7JWk31XUvShIm8Ez6HBroN9V+SdpNdd2LkoQJPJM+hwb6TbVfknZTXfeiJGECz6TPoYF+U+2XpN1U170oSZjAM+lzaKDfVPslaTfVdS9KEibwTPocGug31X5J2k113YuShAk8kz6HBvpNtV+SdlPd+wFzhZMedNLn0EDPxQGHPgeX6d5ebyxFQjjDTEDnkvSmw1uVp6NOfXO6t9cbS5EQzjAT0LkkvenwVuXpqFPfnO7t9cZSJIQzzAR0LklvOrxVeTrq1Dene3u9sRQJ4QwzAZ1L0psOb1Wejjr1zeneXm8sRUI4w0xA55L0psNblaejTn1zurfXG0uREM4wE9C5JL3p8Fbl6ahT35zu7T9x0GytHZjXMAAAAABJRU5ErkJggg==" style="display: block;"></div>
+
+                    <div class="bor"></div>
+
+                    <p>
+                        Discover -&gt; Scan QR Code
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</article>
+
+<div class="hidden-print">
+    <hr>
+
+    <div class="row">
+    <div class="col-md-6">
+        <div class="tilesm">
+            <div class="tilesm-image">
+                <i class="fa fa-angle-left"></i>
+            </div>
+
+            <div class="tilesm-info">
+                <div class="tilesm-title">
+                    Newer
+                </div>
+                <div class="tilesm-subtitle">
+                    <a href="http://edi.wang/post/2016/8/8/raspbian-picamera-upload-azure">在树莓派上使用PiCamera拍照并上传到Azure</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="tilesm">
+            <div class="tilesm-image">
+                <i class="fa fa-angle-right"></i>
+            </div>
+
+            <div class="tilesm-info">
+                <div class="tilesm-title">
+                    Older
+                </div>
+                <div class="tilesm-subtitle">
+                    <a href="http://edi.wang/post/2016/7/30/windows-10-iot-ssd-1306-i2c-display">Windows 10 IoT开发：驱动SSD1306 I2C液晶显示屏（树莓派3）</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="bor"></div>
+
+            <div class="panel panel-primary comment-form-containter">
+            <div class="panel-heading">Comments (0)</div>
+            <div class="panel-body">
+                <div>
+<form novalidate="novalidate" action="http://edi.wang/Comment/WriteComment" data-ajax="true" data-ajax-complete="commentComplete" data-ajax-failure="commentBlowUp" data-ajax-loading="#loadingIndicator" data-ajax-mode="replace" data-ajax-success="commentSuccess" data-ajax-update="#ajaxTarget" id="form0" method="post"><input name="__RequestVerificationToken" value="yYBzvyuuq1ido26Hl7wAv14nhAW6QMuuEvBNKXPABPLen9zJJIzRj0_ToBC7Tlcl_RLZH77dzsjiJXQ7-NBEyZhaIZPP_isF76Dv8GKtisY1" type="hidden">    <span class="none">
+        <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" name="trapfield" id="trapfield" type="text">
+    </span>
+<input id="CommentPostModel_PostId" name="CommentPostModel.PostId" value="cf4e92f5-93ed-46fb-b9de-e113cb610c0b" type="hidden">                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input class="form-control" data-val="true" data-val-required="The Username field is required." id="CommentPostModel_Username" name="CommentPostModel.Username" placeholder="Your Name" value="" type="text">
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" data-val="true" data-val-regex="Invalid Email Format" data-val-regex-pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}" data-val-required="The Email field is required." id="CommentPostModel_Email" name="CommentPostModel.Email" placeholder="Email" value="" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" cols="60" data-val="true" data-val-required="The Content field is required." id="CommentPostModel_Content" name="CommentPostModel.Content" placeholder="Say something" rows="4"></textarea>
+                        </div>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <img alt="Captcha" src="CaptchaImage.dat">
+                            </span>
+                            <input class="form-control" data-val="true" data-val-required="The CaptchaCode field is required." id="CommentPostModel_CaptchaCode" name="CommentPostModel.CaptchaCode" placeholder="Captcha Code" value="" type="text">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a class="btn btn-success pull-right" data-ajax="true" data-ajax-loading="#loadingIndicator" data-ajax-mode="replace" data-ajax-update="#ajaxTarget" href="http://edi.wang/Comment/GetCommentOfPost?postId=cf4e92f5-93ed-46fb-b9de-e113cb610c0b">View All Comments</a>
+                        </div>
+</form>                </div>
+            </div>
+        </div>
+        <div class="loadercontainer">
+        </div>
+
+<div id="loadingIndicator" class="mvcLoadingElement">
+    <img src="spinner_20.gif">
+</div>
+
+<div id="thx-for-comment" class="alert alert-success none">
+    Thanks for your comment!
+</div>
+
+<div id="ajaxTarget">
+
+</div>
+
+
+    <div class="bor"></div>
+</div>
+                </section>
+                <aside class="col-lg-3 hidden-md hidden-sm hidden-xs">
+                    <div class="hidden-xs">
+    <h3>About</h3>
+<hr>
+<section class="sidebar-aboutme">
+    
+    <div class="media">
+        <a class="pull-left" href="http://edi.wang/About">
+            <img src="bloggerhead.png" alt="汪宇杰" style="height: 77px; width: 77px;" class="media-object">
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">汪宇杰 Edi.Wang</h4>
+            <span class="f12">ASP.NET, HTML and Windows 10 Developer</span>
+        </div>
+    </div>
+    
+    <div class="bor"></div>
+
+    <div class="btn-group btn-group-justified hidden-xs">
+        <a href="mailto:Edi_Wang@outlook.com" class="btn btn-success">
+            <i class="fa fa-envelope"></i>
+            Email
+        </a>
+        <a href="https://github.com/EdiWang" target="_blank" class="btn btn-primary" title="GayHub">
+            <i class="fa fa-github"></i>
+            GitHub
+        </a>
+        <a href="http://weibo.com/wyjexplorer" target="_blank" class="btn btn-warning">
+            <i class="fa fa-weibo"></i>
+            Weibo
+        </a>
+    </div>
+</section>
+    <div class="bor"></div>
+</div>
+
+<section class="search-container">
+    <form action="http://edi.wang/search/keyword" class="form-inline" method="get" role="search">    <div class="form-group">
+        <input class="form-control" id="search" maxlength="30" name="term" placeholder="Search" style="width: 215px;" title="Search" value="" type="text">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+    </div>
+</form>
+</section>
+
+<div class="bor"></div>
+<section class="top-tags">
+    <div class="panel panel-default">
+        <div class="panel-heading">Top Tags</div>
+        <div class="panel-body">
+            <div class="toptags-list">
+<a href="http://edi.wang/tags/list/asp.net" rel="33">ASP.NET</a><a href="http://edi.wang/tags/list/windows-10" rel="30">Windows 10</a><a href="http://edi.wang/tags/list/uwp" rel="24">UWP</a><a href="http://edi.wang/tags/list/wp" rel="23">WP</a><a href="http://edi.wang/tags/list/azure" rel="19">Azure</a><a href="http://edi.wang/tags/list/iis" rel="16">IIS</a><a href="http://edi.wang/tags/list/c%23" rel="15">C#</a><a href="http://edi.wang/tags/list/jquery" rel="15">jQuery</a><a href="http://edi.wang/tags/list/iot" rel="15">IoT</a><a href="http://edi.wang/tags/list/sql" rel="14">SQL</a></div>
+        </div>
+    </div>
+</section>
+
+<div class="bor"></div>
+<section class="recent-comments">
+    <div class="panel panel-default">
+        <div class="panel-heading">Recent Comments</div>
+            <ul class="list-group">
+            <li class="list-group-item">
+                <strong data-original-title="8/19/2016 4:27:25 PM" data-toggle="tooltip" data-placement="top" title="">
+                    <i class="fa fa-user"></i>
+                    陈志同
+                </strong>
+                <p class="justifytext">
+                    这样做好像很麻烦啊，IIS里有自带的HTTP重定向，在安装IIS时勾选上，然后在HTTP重定向里设置很方便。参考：http://blog.csdn.net/hk_yuting/article/details/6790660
+                </p>
+                <div class="text-muted">
+                    <i class="fa fa-bookmark-o"></i>
+                    <a href="http://edi.wang/post/2015/10/9/how-to-redirect-old-domain-to-new-domain-iis" target="_blank">如何配置IIS将旧域名的URL转向新域名</a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <strong data-original-title="8/19/2016 4:21:46 PM" data-toggle="tooltip" data-placement="top" title="">
+                    <i class="fa fa-user"></i>
+                    陈志同
+                </strong>
+                <p class="justifytext">
+                    直接在 Global.asax.cs 里添加一个 Timer 不行吗？这么高大上的写法比 Timer 好在哪里呢
+                </p>
+                <div class="text-muted">
+                    <i class="fa fa-bookmark-o"></i>
+                    <a href="http://edi.wang/post/2014/7/18/how-to-run-schedule-jobs-in-aspnet" target="_blank">如何在ASP.NET应用中执行定时任务</a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <strong data-original-title="8/17/2016 1:34:47 AM" data-toggle="tooltip" data-placement="top" title="">
+                    <i class="fa fa-user"></i>
+                    周亮
+                </strong>
+                <p class="justifytext">
+                    大大  这完整的代码应该是怎么样的啊
+                </p>
+                <div class="text-muted">
+                    <i class="fa fa-bookmark-o"></i>
+                    <a href="http://edi.wang/post/2016/3/24/windows-10-iot-uwp-shutdown" target="_blank">Windows 10 IoT开发：UWP应用调用关机和重启命令</a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <strong data-original-title="8/15/2016 10:52:44 AM" data-toggle="tooltip" data-placement="top" title="">
+                    <i class="fa fa-user"></i>
+                    Leonard
+                </strong>
+                <p class="justifytext">
+                    支持折腾，正好我来学习一下
+                </p>
+                <div class="text-muted">
+                    <i class="fa fa-bookmark-o"></i>
+                    <a href="http://edi.wang/post/2016/8/11/raspi-azure-camera" target="_blank">Linux + Azure实现树莓派远程监控摄像头</a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <strong data-original-title="8/15/2016 10:49:54 AM" data-toggle="tooltip" data-placement="top" title="">
+                    <i class="fa fa-user"></i>
+                    Leonard
+                </strong>
+                <p class="justifytext">
+                    注孤生，好心酸
+                </p>
+                <div class="text-muted">
+                    <i class="fa fa-bookmark-o"></i>
+                    <a href="http://edi.wang/post/2015/4/22/how-to-read-webconfig-appsettings-with-bigiblity" target="_blank">如何高逼格读取Web.config中的AppSettings</a>
+                </div>
+            </li>
+    </ul>
+
+    </div>
+</section>
+
+<div class="bor"></div>
+<section class="friend-links">
+    <div class="panel panel-default">
+        <div class="panel-heading">Friend Links</div>
+        <div class="panel-body">
+            
+    <ul class="list-unstyled friendlinklist">
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-globe"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://www.yinxiaojun.com/" target="_blank">
+                                晓俊的智慧小本
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-globe"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://skylark-workshop.xyz/" target="_blank">
+                                Skylark Works
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-rss"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://blogs.msdn.com/b/lighthouse/" target="_blank">
+                                Lighthouse
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                                <a href="http://blogs.msdn.com/b/lighthouse/rss.aspx" target="_blank"><i class="fa fa-rss"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-globe"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://www.haosblog.com/" target="_blank">
+                                小皓的blog
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-rss"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://www.gongxing.org/" target="_blank">
+                                躬行's Blog
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                                <a href="http://www.gongxing.org/feed/post.aspx" target="_blank"><i class="fa fa-rss"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-rss"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://www.cnblogs.com/manupstairs/" target="_blank">
+                                楼上那个男人
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                                <a href="http://feed.cnblogs.com/blog/u/105048/rss" target="_blank"><i class="fa fa-rss"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-globe"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://changwei.tech/" target="_blank">
+                                ChangWei Zhang
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-globe"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://www.typecodes.com/" target="_blank">
+                                TypeCodes
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-rss"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://blchen.com/" target="_blank">
+                                blchen
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                                <a href="http://blchen.com/feed/" target="_blank"><i class="fa fa-rss"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="tilexsm">
+                    <div class="tilexsm-image">
+                            <i class="fa fa-globe"></i>
+                    </div>
+
+                    <div class="tilexsm-info">
+                        <div class="tilexsm-title">
+                            <a href="http://www.terwer.com/" target="_blank">
+                                TerwerGreen
+                            </a>
+                        </div>
+                        <div class="tilexsm-subtitle">
+                        </div>
+                    </div>
+                </div>
+            </li>
+    </ul>
+
+        </div>
+    </div>
+</section>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        
+<div class="container">
+    <small>
+            <span>© 2009 - 2016 Edi.Wang</span>
+
+
+        <span class="seperator">|</span>
+
+        <a class="footer-opml-link" href="http://edi.wang/opml.axd" target="_blank">OPML</a>
+
+        <span class="txt-build-version text-muted pull-right hidden-xs">
+            7.23.6067.27808
+                <span class="label label-success">RELEASE</span>
+        </span>
+    </small>
+    
+    <a data-original-title="Scan QR Code" class="qrcode-link hidden-xs" title="" data-container="body" data-toggle="popover" data-placement="top" data-html="true" data-content="<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKgAAACoAQMAAABOhTf3AAAABlBMVEUAAAD///+l2Z/dAAAAgElEQVR4XtXUUQrAIAwEUe9/6S2L0+QK40aKfe1HBMkhoYhY0/TZLW9q5Qx3ITp9X/OKNrW5JWZ9bj5ksy9ibTL9MzHUymlO5qNZdxr/R4hYL0/NXqkUcLK/mZVwmVOIWEkC6XWGHdqYddqnf5ZddxjnHeWeuJXGwcLxKkFLsFQ/f2xx456oqrcAAAAASUVORK5CYII=' />">
+        <i class="fa fa-qrcode"></i>
+    </a>
+
+    <div class="bor"></div>
+</div>
+    </footer>
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+        
+        
+
+    
+
+            
+
+
+
+</body><div class="" style="display: none; width: 24px; left: 775px; top: 2910px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 546px; width: 1px; left: 89px; top: 2396px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 720px; height: 1px; left: 89px; top: 2396px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 546px; width: 1px; left: 809px; top: 2396px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 720px; height: 1px; left: 89px; top: 2942px;" class="diigotb-border diigotb-bottom"></div>
+</html>

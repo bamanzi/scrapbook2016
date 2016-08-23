@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+            <title>4 Ways to Set Up Your Raspberry Pi as a Media Server</title>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/makeuseof">
+
+	<meta name="apple-itunes-app" content="app-id=1016438893">
+    <meta name="google-play-app" content="app-id=com.makeuseof.makeuseof">
+	<link rel="apple-touch-icon" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/img/muo-app-icon.png?b34c28">
+    <link rel="android-touch-icon" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/img/muo-app-icon.png?b34c28">
+
+
+
+    <meta property="fb:app_id" content="526592050701370">
+    <link href="https://plus.google.com/112975774125810216140/" rel="publisher">
+    <!-- include g+ profiles in search results-->
+                <link rel="author" href="https://plus.google.com/101928897885465895617">
+    
+    
+    <!-- UNIVERSAL Google Analytics -->
+    <div style="display: none;" id="fit-vids-style" class="fit-vids-style">­</div>
+    <!-- End Google Analytics and Essential Scripts -->
+
+    <!--Sitesearch links for Google SERPs - ONLY on homepage, as recommended by google-->
+        <!-- end SiteSearch Schema Markup -->
+
+    <link rel="apple-touch-icon" sizes="57x57" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-57x57.png?b34c28">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-114x114.png?b34c28">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-72x72.png?b34c28">
+    <link rel="apple-touch-icon" sizes="144x144" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-144x144.png?b34c28">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-60x60.png?b34c28">
+    <link rel="apple-touch-icon" sizes="120x120" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-120x120.png?b34c28">
+    <link rel="apple-touch-icon" sizes="152x152" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-152x152.png?b34c28">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/apple-touch-icon-180x180.png?b34c28">
+    <link rel="icon" type="image/png" href="favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/images/favicon/mstile-144x144.png?b34c28">
+
+    <!--Wordpress Header-->
+    
+<!-- This site is optimized with the Yoast SEO plugin v2.3.5 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Which media center application should you install on your Raspberry Pi? Several options are on offer, and we're going to walk you through them now, looking at the features, advantages, and disadvantages of each.">
+<link rel="canonical" href="http://www.makeuseof.com/tag/4-ways-set-up-raspberry-pi-media-server/">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="https://api.w.org/" href="http://www.makeuseof.com/wp-json/">
+
+<link rel="alternate" type="application/json+oembed" href="http://www.makeuseof.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.makeuseof.com%2Ftag%2F4-ways-set-up-raspberry-pi-media-server%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.makeuseof.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.makeuseof.com%2Ftag%2F4-ways-set-up-raspberry-pi-media-server%2F&amp;format=xml">
+    <!--/Wordpress Header-->
+    <!-- Facebook Opengraph AND Twitter Whatever -->
+    <meta name="twitter:creator" content="thegadgetmonkey"><meta property="article:author" content="https://www.facebook.com/pages/The-Gadget-Monkey/183938094967036"><meta name="twitter:title" content="4 Ways to Set Up Your Raspberry Pi as a Media Server">
+<meta name="twitter:url" content="http://www.makeuseof.com/tag/4-ways-set-up-raspberry-pi-media-server/">
+<meta name="twitter:site" content="@MakeUseOf">
+<meta name="twitter:description" content="One of the most popular uses for the low-cost Raspberry Pi computers is as a media center. Indeed, it doesn't matter whether you're using a Model A, a Raspberry Pi Zero, or a Raspberry Pi 3 – while the later model will naturally offer superior performance, the fact is that all of the devices can…">
+<meta name="twitter:image" content="http://cdn.makeuseof.com/wp-content/uploads/2016/03/raspberry-pi-media-server-994x400.jpg?b34c28">
+<meta name="twitter:card" content="summary">
+<meta name="thumbnail" content="http://cdn.makeuseof.com/wp-content/uploads/2016/03/raspberry-pi-media-server-994x400.jpg?b34c28">
+<meta property="article:publisher" content="https://www.facebook.com/makeuseof"><meta property="og:title" content="4 Ways to Set Up Your Raspberry Pi as a Media Server">
+<meta property="og:url" content="http://www.makeuseof.com/tag/4-ways-set-up-raspberry-pi-media-server/">
+<meta property="og:site_name" content="MakeUseOf">
+<meta property="og:type" content="article">
+<meta property="og:description" content="One of the most popular uses for the low-cost Raspberry Pi computers is as a media center. Indeed, it doesn't matter whether you're using a Model A, a Raspberry Pi Zero, or a Raspberry Pi 3 – while the later model will naturally offer superior performance, the fact is that all of the devices can…">
+<meta property="og:image" content="http://cdn.makeuseof.com/wp-content/uploads/2016/03/raspberry-pi-media-server-994x400.jpg?b34c28">
+    <meta name="twitter:widgets:csp" content="on">
+    
+    <!-- core GPT script -->
+    
+
+    
+
+    <!--Media.net Advertising-->
+    
+
+    
+    <!-- Facebook Pixel Code -->
+
+
+<!-- End Facebook Pixel Code -->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="single single-post postid-553060 single-format-standard">
+    <div id="site" class="">
+        
+        <div id="content">
+            <header id="header">
+                <div itemscope="" itemtype="http://schema.org/Organization" id="logo"><a sl-processed="1" itemprop="url" href="http://www.makeuseof.com/"><img itemprop="logo" src="logo.svg" alt=""></a></div>
+                <div class="searchform">
+                    <form action="http://www.makeuseof.com/search/" id="searcher">
+                        <input name="cx" value="009717636731598800244:qhe4rh7wuxs" type="hidden">
+                        <input name="cof" value="FORID:11" type="hidden">
+                        <input name="q" id="q" speech="true" x-webkit-speech="true" type="search">
+                        <div class="butt"></div>
+                        <button type="submit" name="sa" id="searchsubmit" value="Search" class="searchSite"></button>
+                    </form>
+                </div>
+                
+                <div class="menu">
+                    <div class="icon">
+                    </div>
+                    <div class="name">Menu</div>
+                                                                <div class="category">
+                           <a sl-processed="1" href="http://www.makeuseof.com/service/linux/"><span class="icon-linux">Linux</span></a>
+                        </div>
+                                    </div>
+            </header>
+
+            <div id="wrapper">
+<div class="container ">
+
+    <!-- temp UK campaign -->
+    <!-- /1065821/MUO_billboard_unit -->
+    <div id="div-gpt-ad-1459770644038-0" style="margin: 0px 0px 20px 35px; width: 970px;">
+    
+    </div>
+
+	<div class="leftcol">
+		<div itemscope="" itemtype="http://schema.org/Article" class="blc_post fade">
+		    <h1 itemprop="headline">4 Ways to Set Up Your Raspberry Pi as a Media Server</h1>
+		    <div class="entry">
+		        <div class="author">
+                    <a sl-processed="1" href="http://www.makeuseof.com/tag/author/ccawley/">
+    		            <img alt="" src="2015-11-25-10.57.42-37x37.jpg" srcset="f5c5019fafc0c55bcb935f3106eaa804.dat 2x" class="avatar-37 photo">    		            <span class="name">Written by <span itemprop="author">Christian Cawley</span>
+    		            </span>
+    		            <span class="date"><time itemprop="datePublished">March 31, 2016</time></span>
+                    </a>
+		        </div>
+                                
+    		            <div class="single_featured_image">
+                      <img itemprop="image" src="raspberry-pi-media-server-644x250.jpg" alt="4 Ways to Set Up Your Raspberry Pi as a Media Server">
+    		            </div>
+
+                    <div itemprop="articleBody" class="article_body">
+                		        
+<div id="adsense1">
+<small><a sl-processed="1" style="color: LightGray;" href="https://support.google.com/adsense/troubleshooter/1631343?url=http%3A%2F%2Fwww.makeuseof.com%2Ftag%2F4-ways-set-up-raspberry-pi-media-server%2F&amp;client=ca-pub-9894449314507324">Ads by Google</a></small>
+
+ <ins><ins class="adsbygoogle" style="display: inline-block; width: 645px; height: 210px;" data-ad-client="ca-pub-9894449314507324" data-ad-slot="3092450298" data-font-face="verdana" data-max-num-ads="3"></ins></ins>
+ </div>
+
+<p>One of the most popular uses for the low-cost <a sl-processed="1" rel="nofollow" href="http://target.georiot.com/Proxy.ashx?TSID=15883&amp;GR_URL=http%3A%2F%2Fwww.amazon.com%2Fdp%2FB01C6Q2GSY%2Fref%3Das_at%3Ftag%3Dmak041-20%26linkCode%3Das2%26&amp;dtb=1">Raspberry Pi</a> computers is as a media center. Indeed, it doesn’t matter whether you’re using a Model A, a <a sl-processed="1" href="http://www.makeuseof.com/tag/getting-started-raspberry-pi-zero/">Raspberry Pi Zero</a>, or a <a sl-processed="1" href="http://www.makeuseof.com/tag/upgrade-raspberry-pi-3/">Raspberry Pi 3</a> – while the later model will naturally offer superior performance, the fact is that all of the devices can deliver you compact, affordable, low-power, media center solution.</p>
+<p>But which media center application should you <a sl-processed="1" href="http://www.makeuseof.com/tag/install-operating-system-raspberry-pi/">install on your Raspberry Pi’s SD card</a>?&nbsp;Several options are on offer, and we’re going to walk you through them now, looking at the features, advantages, and disadvantages of each.</p>
+<h2><a sl-processed="1" href="http://www.rasplex.com/get-started/rasplex-installers.html">RasPlex/Plex Media Server</a></h2>
+<p>A popular name in home media streaming, Plex can be used to stream content to all manner of devices, from desktop PCs to media streamers like the <a sl-processed="1" href="http://www.makeuseof.com/tag/how-to-set-up-new-google-chromecast/">Google Chromecast</a>.</p>
+<p>Installing the Plex Media Server on your Raspberry Pi requires you to first download the RasPlex installer to your Windows, Mac or Linux PC and write the software to an SD card compatible with your Pi. Once installed, you’ll need a client app on the device you wish to view content on.</p>
+<p><div style="padding-top: 56.25%;" class="fluid-width-video-wrapper"><iframe id="fitvid362179" src="index_1.html" allowfullscreen="" frameborder="0"></iframe></div></p>
+<p>This shouldn’t be a problem, however, as Plex is perhaps the widest-used of all media server applications. Mobile apps are available for Android, iOS and Windows 10 Mobile, while media streamers such as Apple TV, Amazon Fire TV and many Smart TVs also have&nbsp;<a sl-processed="1" href="https://plex.tv/downloads">Plex clients</a>. There are even clients for Xbox One and PlayStation 4, as well as <a sl-processed="1" href="https://downloads.plex.tv/plex-home-theater/1.4.1.469-47a90f01/PlexHomeTheater-1.4.1.469-47a90f01-windows-x86.exe">Windows</a>, and <a sl-processed="1" href="https://downloads.plex.tv/plex-home-theater/1.4.1.469-47a90f01/PlexHomeTheater-1.4.1.469-47a90f01-macosx-x86_64.zip">Mac OS X</a>, while various <a sl-processed="1" href="https://forums.plex.tv/discussion/87253/plex-home-theater-linux-builds">third-party builds are available for Linux</a>.</p>
+<div><div id="adsense2">
+<small><a sl-processed="1" style="color: LightGray;" href="https://support.google.com/adsense/troubleshooter/1631343?url=http%3A%2F%2Fwww.makeuseof.com%2Ftag%2F4-ways-set-up-raspberry-pi-media-server%2F&amp;client=ca-pub-9894449314507324">Ads by Google</a></small>
+ 
+ <ins><ins class="adsbygoogle" style="display: inline-block; width: 645px; height: 230px;" data-ad-client="ca-pub-9894449314507324" data-ad-slot="7522649890" data-font-face="verdana" data-max-num-ads="4"></ins></ins>
+ </div></div>
+<p>Note that Plex demands that your files are named in a particular format if it is to pull the appropriate metadata from the Web. This support page from the Plex website explains <a sl-processed="1" href="https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows">file organization and naming</a>.</p>
+<p>As things stand, Plex should be your first choice of media server for any device, and <a sl-processed="1" href="http://www.makeuseof.com/tag/easiest-raspberry-pi-media-centre-rasplex/">RasPlex is as good as the mainstream version</a>. For the best results, however, make sure you’re using a Raspberry Pi 2 or Raspberry Pi 3.</p>
+<h2>ReadyMedia (MiniDLNA)</h2>
+<p>Formerly known as MiniDLNA, ReadyMedia requires installing on a standard Raspberry Pi operating system, such as <a sl-processed="1" href="http://www.makeuseof.com/tag/5-ways-new-raspbian-jessie-makes-raspberry-pi-even-easier-use/">Raspbian Jessie</a>. Start by mounting the disk drive(s) with the media data on, and then use the standard installation command:</p>
+<pre>sudo apt-get install minidlna</pre>
+<p>Unlike the other examples here, some manual configuration is necessary, as described in this video.</p>
+<div>
+<!-- Mobile_in-content_300x250_01 -->
+
+<!-- /1065821/Mobile_in-content_300x250_01 -->
+<div id="div-gpt-ad-1460459119381-0" style="height: 250px; width: 300px; margin-bottom: 20px;">
+
+</div>
+</div>
+<p><div style="padding-top: 75%;" class="fluid-width-video-wrapper"><iframe id="fitvid623430" src="index_2.html" allowfullscreen="" frameborder="0"></iframe></div></p>
+<p>Once installed, this simple tool is compatible with DLNA/UPnP-AV, which means that any DLNA-compatible device on the same network should be able to detect your Pi and play media from it.</p>
+<p>Fast, lightweight and easily configurable, ReadyMedia is the option to choose if you just want to stream your media and have no interest in indexing it.</p>
+<h2>Kodi/<a sl-processed="1" href="http://openelec.tv/get-openelec">OpenElec</a>
+</h2>
+<p>Perhaps the most recognized name in this list, Kodi — formerly XBMC — is available for the Raspberry Pi. Various options are available for this. Among them are writing a full Kodi-based distro to SD card and manual installation using:</p>
+<div>
+<!-- Mobile_in-content_300x250_02 -->
+
+<!-- /1065821/Mobile_in-content_300x250_02 -->
+<div id="div-gpt-ad-1460459226459-0" style="height: 250px; width: 300px; margin-bottom: 20px;">
+
+</div>
+</div>
+<pre>sudo apt-get install kodi</pre>
+<p>Such distros include OpenElec, OSMC and XBian. You may already know that <a sl-processed="1" href="http://www.makeuseof.com/tag/how-noobs-for-raspberry-pi-can-help-first-time-users/">OpenElec is available on NOOBs</a> for easy installation.</p>
+<p><div style="padding-top: 56.25%;" class="fluid-width-video-wrapper"><iframe id="fitvid878103" src="index_3.html" allowfullscreen="" frameborder="0"></iframe></div></p>
+<p>But wait a minute. Aren’t the Kodi-based media servers actually media <em>centers</em>? Well, they’re actually both, which is how they come to be in this list. While you might use these distros (or manually install Kodi) as a media center/HTPC solution on a Raspberry Pi, <a sl-processed="1" href="http://kodi.wiki/view/UPnP/Server">the provision of DLNA/UPnP</a> means that Kodi (and its forks) can be used as a media server.</p>
+<p>If you’re already using OpenElec, OSMX, XBian, etc., then you don’t need a media server as you already have one. Simply open <strong>Settings &gt; Services &gt; UPnP</strong> and enable <strong>Share video and music libraries through UPnP</strong>. You’ll then have the ability to stream content from your Kodi-based system. It’s simple, but demands that you have already set up the media center software and attached the various hard disk drives that store your media.</p>
+<h2><a sl-processed="1" href="http://www.openmediavault.org/">OpenMediaVault</a></h2>
+<p>Admittedly closer to a NAS than a media server, OpenMediaVault is the current smart choice for Pi owners wishing to make their media files (and documents and other data) available to them from <a sl-processed="1" href="http://www.makeuseof.com/tag/turn-your-raspberry-pi-into-a-nas-box/">any device on the same network</a>.</p>
+<p><div style="padding-top: 75%;" class="fluid-width-video-wrapper"><iframe id="fitvid760486" src="index_4.html" allowfullscreen="" frameborder="0"></iframe></div></p>
+<p>Setup is straightforward, if lengthy, but you may run into initial problems mounting any hard disk drives that you have connected to your Pi. This should be quickly overcome, however, enabling you to configure the system correctly. Among the features with OMV are support for a UPS (uninterruptible power supplies) and statistics pages to assist in system monitoring. There is also EXT3/EXT4/XFS/JFS filesystem support and RAID can be set up for HDD mirroring. SSH, FTP, TFTP, SMB and RSync are all supported for direct connection to your OMV device, although you will typically access it via your web browser, by opening the IP address.</p>
+<p>Various plugins are also available for OMV, such as a Bittorrent client. You can try a <a sl-processed="1" href="http://demo.omv-extras.org/">demo version of the console</a> on the OMV website.</p>
+<p><strong>Summary: Great option for a media-focused NAS, but setup time may prove discouraging if you’re looking for a quick “turnkey” option.</strong></p>
+<h2>Which Raspberry Pi Media Server Do You Use?</h2>
+<p>We’ve presented you with four options for <a sl-processed="1" href="http://www.makeuseof.com/tag/build-a-raspberry-pi-media-center/">setting up your Raspberry Pi as a media server</a>, capable of delivering movies, photos and music to devices around your home at the touch of a button. But did we miss one?</p>
+<p><strong>Is there a tool that you prefer, and think everyone else should be using too? Tell us what you think in the comments.</strong></p>
+                </div>
+                <div id="eoa_trigger"></div>
+
+                <div class="new_sharebar" data-url="http://www.makeuseof.com/tag/4-ways-set-up-raspberry-pi-media-server/" data-title="4 Ways to Set Up Your Raspberry Pi as a Media Server">
+    <a sl-processed="1" class="new_sharebar_facebook" href="#" data-social="facebook"><span class="new-sharebar-icon-facebook2"></span> Share</a>
+    <a sl-processed="1" class="new_sharebar_twitter" href="#" data-social="twitter"><span class="new-sharebar-icon-twitter"></span> Tweet</a>
+    <a sl-processed="1" class="new_sharebar_pinterest" href="#" data-social="pinterest" data-description="Which media center application should you install on your Raspberry Pi? Several options are on offer, and we're going to walk you through them now, looking at the features, advantages, and disadvantages of each."><span class="new-sharebar-icon-pinterest"></span> Pin</a>
+    <a sl-processed="1" class="new_sharebar_whatsapp" href="#" data-social="whatsapp"><span class="new-sharebar-icon-whatsapp"></span> Text</a>
+    <a sl-processed="1" class="new_sharebar_stumbleupon" href="#" data-social="stumbleupon"><span class="new-sharebar-icon-stumbleupon"></span> Stumble</a>
+    <a sl-processed="1" class="new_sharebar_bookmark" href="#" title="Bookmark this article"><span class="new-sharebar-icon-bookmark"></span> Bookmark</a>
+    <a sl-processed="1" class="new_sharebar_email" href="mailto:?body=http://www.makeuseof.com/tag/4-ways-set-up-raspberry-pi-media-server/&amp;subject=4%20Ways%20to%20Set%20Up%20Your%20Raspberry%20Pi%20as%20a%20Media%20Server" target="_blank" title="Email"><span class="new-sharebar-icon-envelope"></span> Mail</a>
+</div>
+
+                <!-- note: class nolinks is to exclude viglink from autolinking to amazon here -->
+<div class="wdt_smart_alerts nolinks" data-widget="muoSmartAlert" style="display: none;">
+  <span class="closebox">×</span>
+  <div class="message" style="display: none;">
+          <p>Thanks for subscribing. We've sent you a confirmation link you'll need to click on to verify your email address.</p>
+      </div>
+  <div class="header">
+    <span>Sign up to be notified of new articles on the topics discussed:</span>
+  </div>
+  <form class="fv-form fv-form-bootstrap" novalidate="novalidate" data-fv-framework="bootstrap"><button style="display: none; width: 0px; height: 0px;" class="fv-hidden-submit" type="submit"></button>
+    <div class="items">
+                        <div class="item">
+            <input name="topics[0][type]" value="category" type="hidden">
+            <input name="topics[0][id]" value="73" type="hidden">
+            <input name="topics[0][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[0][checked]" value="1" type="checkbox"></span></div><span>Linux</span></label>
+          </div>
+                  <div class="item">
+            <input name="topics[1][type]" value="category" type="hidden">
+            <input name="topics[1][id]" value="4893" type="hidden">
+            <input name="topics[1][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[1][checked]" value="1" type="checkbox"></span></div><span>Smart Home</span></label>
+          </div>
+                  <div class="item">
+            <input name="topics[2][type]" value="category" type="hidden">
+            <input name="topics[2][id]" value="6389" type="hidden">
+            <input name="topics[2][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[2][checked]" value="1" type="checkbox"></span></div><span>Entertainment</span></label>
+          </div>
+                  <div class="item">
+            <input name="topics[3][type]" value="post_tag" type="hidden">
+            <input name="topics[3][id]" value="1574" type="hidden">
+            <input name="topics[3][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[3][checked]" value="1" type="checkbox"></span></div><span>Media Server</span></label>
+          </div>
+                  <div class="item">
+            <input name="topics[4][type]" value="post_tag" type="hidden">
+            <input name="topics[4][id]" value="4341" type="hidden">
+            <input name="topics[4][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[4][checked]" value="1" type="checkbox"></span></div><span>XBMC Kodi</span></label>
+          </div>
+                  <div class="item">
+            <input name="topics[5][type]" value="post_tag" type="hidden">
+            <input name="topics[5][id]" value="4447" type="hidden">
+            <input name="topics[5][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[5][checked]" value="1" type="checkbox"></span></div><span>Raspberry Pi</span></label>
+          </div>
+                  <div class="item">
+            <input name="topics[6][type]" value="post_tag" type="hidden">
+            <input name="topics[6][id]" value="6184" type="hidden">
+            <input name="topics[6][checked]" value="0" type="hidden">
+            <label><div class="checker"><span><input name="topics[6][checked]" value="1" type="checkbox"></span></div><span>Plex</span></label>
+          </div>
+                    <div class="item author">
+        <input name="topics[7][type]" value="author" type="hidden">
+        <input name="topics[7][id]" value="4242" type="hidden">
+        <input name="topics[7][checked]" value="0" type="hidden">
+        <label><div class="checker"><span><input name="topics[7][checked]" value="1" type="checkbox"></span></div><span>Christian Cawley</span></label>
+      </div>
+    </div>
+    <div class="controls">
+              <div class="col">
+          <input data-fv-field="email" name="email" data-fv-row=".col" data-fv-emailaddress="true" data-fv-emailaddress-message="The input is not a valid email address" data-fv-notempty="" data-fv-notempty-message="Email is required" placeholder="Enter your email..." type="text">
+        <small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="emailAddress" class="help-block" style="display: none;">The input is not a valid email address</small><small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="notEmpty" class="help-block" style="display: none;">Email is required</small></div>
+            <button class="submit ladda-button" data-style="expand-left" data-size="medium" disabled="" data-spinner-size="30" data-spinner-color="#fff">Subscribe</button>
+    </div>
+  </form>
+</div>
+
+                <div>
+<div style="margin-bottom: 10px; display: inline-block ! important;">
+<!-- /1065821/MUO_incontent-resp-01 -->
+<div id="div-gpt-ad-1464008731300-0">
+
+</div>
+</div>
+</div>
+                  <div style="display: block;" class="wdt_grouvi">
+    <div class="header">
+      <span class="web_view">Join live MakeUseOf Groups on Grouvi App</span>
+      <span class="mobile_view">Join live Groups on Grouvi</span>
+    </div>
+    <div class="items">
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="717c61c256f99d61b314d051824674d03b09faac.jpeg" alt="Awesome Internet (and Tips)">
+            </div>
+            <div class="title">Awesome Internet (and Tips)</div>
+            <div class="member">1383 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="69" href="https://grou.vi/sm">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="e13fc3a5a4a0375554cf58876c83e7aa018138b1.png" alt="Raspberry Pi Projects">
+            </div>
+            <div class="title">Raspberry Pi Projects</div>
+            <div class="member">556 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="78" href="https://grou.vi/qo">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="636229799bcdab621c07ff145dd8260e8e8492d9.jpeg" alt="Linux Tips &amp; Issues">
+            </div>
+            <div class="title">Linux Tips &amp; Issues</div>
+            <div class="member">416 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="143" href="https://grou.vi/gic">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="30a349c3561ec97b4b3dacc47e65b798e0f5cd92.png" alt="Music Apps &amp; Sites">
+            </div>
+            <div class="title">Music Apps &amp; Sites</div>
+            <div class="member">379 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="71" href="https://grou.vi/co">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="fb64881fd31a3b292daf7bc69978ffd969f84ab1.jpg" alt="DIY Tech Projects">
+            </div>
+            <div class="title">DIY Tech Projects</div>
+            <div class="member">372 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="77" href="https://grou.vi/oo">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="fc90f8111352ec84e2fc01973013f5a8e9b80c38.jpg" alt="Linux for Beginners">
+            </div>
+            <div class="title">Linux for Beginners</div>
+            <div class="member">347 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="142" href="https://grou.vi/eic">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="080361fa884cff361987e2b05b72dbca998d0780.png" alt="Arduino Projects">
+            </div>
+            <div class="title">Arduino Projects</div>
+            <div class="member">337 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="79" href="https://grou.vi/so">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="725dd1957ecc887b7cd49cbf840aec55b81460f4.jpeg" alt="Smart Home Gadgets">
+            </div>
+            <div class="title">Smart Home Gadgets</div>
+            <div class="member">164 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="267" href="https://grou.vi/ome">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="4013526950555f60d93e6928ad577ef1490f592d.jpeg" alt="Home Entertainment">
+            </div>
+            <div class="title">Home Entertainment</div>
+            <div class="member">93 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="80" href="https://grou.vi/aq">Join</a></div>
+          </div>
+
+      
+          <div class="item">
+            <div class="avatar">
+              <img style="width: 42px; height: 42px;" src="884b61a400534562ce387de33311c08a41f71493.jpg" alt="Apple TV Tips">
+            </div>
+            <div class="title">Apple TV Tips</div>
+            <div class="member">81 Members</div>
+            <div class="join"><a sl-processed="1" class="grouvi-link show-grouvi-window" rel="nofollow" data-grouvi-group-id="12" href="https://grou.vi/ec">Join</a></div>
+          </div>
+
+      
+    </div>
+  </div>
+
+  <div id="grouvi-window" class="modal fade grouvi" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="body">
+        <div class="description">
+            <p style="font-weight: bold;">Get a free Grouvi app (iOS/Android) to participate in MakeUseOf live chat groups.</p><br>
+            <p>Enter your mobile number to receive a free text message with the download link for the app.</p>
+        </div>
+        <div class="success-message"></div>
+        <div class="forms">
+          <form class="form">
+            <div class="items">
+              <div class="item phone_input">
+                <input required="" class="phone-number" name="meta[phone_number]" type="tel">
+                <div class="error-message help-block"></div>
+              </div>
+            </div>
+            <input class="meta-group-id" name="meta[group_id]" type="hidden">
+            <input class="meta-phone-number" name="meta[phone_number]" type="hidden">
+            <input name="action" value="grouvi_save" type="hidden">
+            <div class="controls">
+                <button class="ladda-button" type="submit" data-style="expand-left" data-size="small" data-spinner-size="30" data-spinner-color="#fff">
+                  <span class="ladda-label">Submit</span>
+                  <span class="ladda-spinner"></span>
+                </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                <div id="cantblock3">
+
+</div>
+
+
+<div id="crtoTextBanner">
+		
+		</div>
+
+
+		    </div>
+            <div class="blc_comments nolinks"><div class="header">
+            <div class="counts"></div>
+        <div class="title">Comments <span>(17)</span></div>
+    </div>
+    <div class="comment_inner">
+      <div class="write"><a sl-processed="1" href="#comment-form">Write a Comment</a></div>                      <ul>
+            
+    <li>
+                  <div itemprop="comment" itemscope="" itemtype="http://schema.org/Comment" data-comment-id="1689208" id="comment-1689208" class="comment">
+                            <div class="avatar">
+                  <img alt="" src="db52c2c0264c514c7ef53687cdf563f4.dat" srcset="db52c2c0264c514c7ef53687cdf563f4_001.dat 2x" class="avatar-42 photo">              </div>
+              <div itemscope="" itemprop="creator" itemtype="http://schema.org/Person" class="author"><span itemprop="name">Jez Caudle</span></div>
+              <div class="date"><a sl-processed="1" href="#comment-1689208"><time itemprop="dateCreated" datetime="2016-08-14 08:32">14 August, 2016</time></a></div>
+              <div class="comment_body" itemprop="text">
+                  <p></p><p>RasPlex IS NOT A MEDIA SERVER. You may want to remove this falsehood from your article.</p>
+<p></p>
+              </div>
+              <div class="manage">
+                  <a sl-processed="1" href="#comment-form" class="reply">Reply</a>
+              </div>
+          </div>
+        
+            </li><!-- #comment-## -->
+
+    <li>
+                  <div itemprop="comment" itemscope="" itemtype="http://schema.org/Comment" data-comment-id="1689207" id="comment-1689207" class="comment">
+                            <div class="avatar">
+                  <img alt="" src="db52c2c0264c514c7ef53687cdf563f4.dat" srcset="db52c2c0264c514c7ef53687cdf563f4_001.dat 2x" class="avatar-42 photo">              </div>
+              <div itemscope="" itemprop="creator" itemtype="http://schema.org/Person" class="author"><span itemprop="name">Jez Caudle</span></div>
+              <div class="date"><a sl-processed="1" href="#comment-1689207"><time itemprop="dateCreated" datetime="2016-08-14 08:31">14 August, 2016</time></a></div>
+              <div class="comment_body" itemprop="text">
+                  <p></p><p>RaspPlex </p>
+<p></p>
+              </div>
+              <div class="manage">
+                  <a sl-processed="1" href="#comment-form" class="reply">Reply</a>
+              </div>
+          </div>
+        
+            </li><!-- #comment-## -->
+
+    <li>
+                  <div itemprop="comment" itemscope="" itemtype="http://schema.org/Comment" data-comment-id="1686881" id="comment-1686881" class="comment">
+                            <div class="avatar">
+                  <img alt="" src="3939097eef27c54c5225e2112cf81907.dat" srcset="3939097eef27c54c5225e2112cf81907_001.dat 2x" class="avatar-42 photo">              </div>
+              <div itemscope="" itemprop="creator" itemtype="http://schema.org/Person" class="author"><span itemprop="name">Chathun</span></div>
+              <div class="date"><a sl-processed="1" href="#comment-1686881"><time itemprop="dateCreated" datetime="2016-08-02 03:08">2 August, 2016</time></a></div>
+              <div class="comment_body" itemprop="text">
+                  <p></p><p>Hello, every one , i have raspberry pi 3 model B, i want to make raspberry  as server, to get video to ipad from Desktop which i have connected to  raspberry, please anyone can suggest me which server i have to make raspberry.Iam very new to this raspberry</p>
+<p>Thank You...</p>
+<p></p>
+              </div>
+              <div class="manage">
+                  <a sl-processed="1" href="#comment-form" class="reply">Reply</a>
+              </div>
+          </div>
+        
+            </li><!-- #comment-## -->
+
+    <li>
+                  <div itemprop="comment" itemscope="" itemtype="http://schema.org/Comment" data-comment-id="1676294" id="comment-1676294" class="comment">
+                            <div class="avatar">
+                  <img alt="" src="1149a3e0d4d4dfc1e81f0fcd922b6b58.dat" srcset="1149a3e0d4d4dfc1e81f0fcd922b6b58_001.dat 2x" class="avatar-42 photo">              </div>
+              <div itemscope="" itemprop="creator" itemtype="http://schema.org/Person" class="author"><span itemprop="name">Rob</span></div>
+              <div class="date"><a sl-processed="1" href="#comment-1676294"><time itemprop="dateCreated" datetime="2016-06-09 18:01">9 June, 2016</time></a></div>
+              <div class="comment_body" itemprop="text">
+                  <p></p><p>According to everything else I've read about RasPlex, it is a PLEX CLIENT on OpenELEC not a PLEX SERVER, as this article states: "Installing the Plex Media Server on your Raspberry Pi requires you to first download the RasPlex installer to your Windows, Mac or Linux PC and write the software to an SD card compatible with your Pi. Once installed, you’ll need a client app on the device you wish to view content on."</p>
+<p>RasPlex states that a Plex Server must still be installed on another machine in order for RasPlex to work.</p>
+<p>I came here looking for a solution to run the PLEX SERVER on a Raspberry Pi.</p>
+<p>Please clear this up!</p>
+<p></p>
+              </div>
+              <div class="manage">
+                  <a sl-processed="1" href="#comment-form" class="reply">Reply</a>
+              </div>
+          </div>
+        
+            </li><!-- #comment-## -->
+
+    <li>
+                  <div itemprop="comment" itemscope="" itemtype="http://schema.org/Comment" data-comment-id="1674502" id="comment-1674502" class="comment">
+                            <div class="avatar">
+                  <img alt="" src="286c9cac34562158b68a1cc131dcde86.dat" srcset="286c9cac34562158b68a1cc131dcde86_001.dat 2x" class="avatar-42 photo">              </div>
+              <div itemscope="" itemprop="creator" itemtype="http://schema.org/Person" class="author"><span itemprop="name">Mike Heim</span></div>
+              <div class="date"><a sl-processed="1" href="#comment-1674502"><time itemprop="dateCreated" datetime="2016-05-31 17:23">31 May, 2016</time></a></div>
+              <div class="comment_body" itemprop="text">
+                  <p></p><p>I just got a RPi3 and the first thing I did was load Kodi on it to watch my ripped movie collection on an external USB.<br>
+Figuring out how to load the software was a fun little challenge, then getting the speaker to work through the headphone jack was a little project too. But then I got it up and running and then I noticed that the movie was dragging, like the file was too big for the machine. Any advice out there?</p>
+<p>I used Handbrake to rip my DVD collection and I'm sure it was the standard default file, so probably an 800Mg file.</p>
+<p></p>
+              </div>
+              <div class="manage">
+                  <a sl-processed="1" href="#comment-form" class="reply">Reply</a>
+              </div>
+          </div>
+        
+            </li><!-- #comment-## -->
+        </ul>
+                    <span class="button btn-tertiary main-comments__load-more load-more-comments-button" id="load-more-comments">Load 10 more</span>
+                  </div>
+
+    <section id="comment-form" class="comment-form-container">
+            <div class="blc_addanswer">
+    <form class="fv-form fv-form-bootstrap" novalidate="novalidate" action="http://www.makeuseof.com/wp-admin/admin-ajax.php" method="post" id="commentform"><button style="display: none; width: 0px; height: 0px;" class="fv-hidden-submit" type="submit"></button>
+        <div class="item">
+            <textarea data-fv-field="comment" id="comment" name="comment" cols="30" rows="10"></textarea>
+        <small data-fv-result="NOT_VALIDATED" data-fv-for="comment" data-fv-validator="notEmpty" class="help-block" style="display: none;">A comment is required and cannot be empty</small><small data-fv-result="NOT_VALIDATED" data-fv-for="comment" data-fv-validator="blank" class="help-block" style="display: none;">A comment is not valid</small></div>
+        <div class="controls">
+            <input name="comment_post_ID" value="553060" id="comment_post_ID" type="hidden">
+            <input name="comment_parent" id="comment_parent" value="0" type="hidden">
+            <button type="submit" class="submit ladda-button" data-style="expand-left" data-size="medium" disabled="" data-spinner-size="30" data-spinner-color="#fff">Post comment</button>
+        </div>
+    </form>
+</div>
+    </section>
+</div>
+            <!-- /blc_comments -->
+
+            <div class="wdt_disclimer mobile_view">
+              <div class="header">Affiliate Disclamer</div>
+              <div class="disclimer">
+                <p>This article may contain affiliate links, which pays us a small compensation if you do decide to make a purchase based on our recommendation. Our judgement is in no way biased, and our recommendations are always based on the merits of the items. </p>
+                For more details, please read <a sl-processed="1" href="http://www.makeuseof.com/affiliate-disclaimer/">our disclosure</a>.
+              </div>
+            </div>
+
+            <div class="footer_ad">
+              <div style="text-align: center; margin-bottom: 20px;">
+
+
+<!-- Footer-Ledderboard-728x90-468x60 -->
+           
+<div id="div-gpt-ad-1360132638304-0">
+            
+            </div>
+
+</div>            </div>
+
+		</div>
+		<!-- /blc_post -->
+	</div>
+	<!-- /leftcol -->
+	<div class="rightcol nolinks">
+    <div class="subscription">
+    <form method="POST" action="http://newsletter.makeuseof.com/subscribe" accept-charset="utf-8" target="_blank">
+        <label for="subscriptionID">Subscribe to our newsletter</label>
+        <input name="list" value="9reTgbmdexdVu3skLnj0lw" type="hidden">
+        <input name="reg_date" value="2016-08-22 05:32:29" type="hidden">
+        <input name="ip" value="117.136.40.230" type="hidden">
+        <input id="subscriptionID" name="email" placeholder="E-mail" type="text">
+        <button type="submit" value="Subscribe!">Get</button>
+    </form>
+</div>
+
+            <div class="wdt_ads">
+                <div class="item">
+                    <div id="cantblock1">
+
+</div>
+
+<!-- /1065821/Sidebar-300x600 -->
+<div id="div-gpt-ad-1450961284217-0">
+
+</div>
+                </div>
+            </div>
+                <div class="wdt_sticky">
+                <div class="item">
+                    <a sl-processed="1" href="http://www.makeuseof.com/tag/acer-switch-alpha-12-hybrid-tablet-review-giveaway/">
+                        <img src="acer-switch-alpha-retina-quality-300x110.jpg" alt="Acer Switch Alpha 12 Hybrid Tablet Review and Giveaway" width="300" height="110">
+                        <span class="title">Win an Acer Switch Alpha 12 in Our Latest Giveaway!</span>
+                        <span class="desc"></span>
+                    </a>
+                </div>
+            </div>
+            
+
+                                                    <div class="wdt_ads">
+                    <div class="item">
+                        
+<div id="cantblock2">
+
+</div>
+
+<!-- Sidebar-top-300x600-300x250 -->
+<div id="div-gpt-ad-1411482340693-0" style="width: 300px; height: 250px;">
+
+</div>
+
+                    </div>
+                </div>
+                <!-- /wdt_ads -->
+                            <div class="wdt_sticky">
+            <div class="item">
+                <a sl-processed="1" href="http://www.makeuseof.com/tag/getting-started-raspberry-pi-zero/">
+                    <img src="raspberry-pi-zero1-300x110.jpg" alt="" width="300" height="110">
+                    <span class="title">Getting Started with Raspberry Pi Zero</span>
+                    <span class="desc"><p>Whether you were lucky enough to buy a magazine with one glued to the front, or you've patiently waited after buying the full kit online, the chances are that you're now the proud owner of …</p></span>
+                </a>
+            </div>
+        </div>
+        <!-- /wdt_sticky -->
+                                                    <div class="wdt_ads">
+                    <div class="item">
+                        <!-- Sidebar-Middle-300x250 -->
+<div id="div-gpt-ad-1411482473332-0" style="width: 300px; height: 250px;">
+
+</div>
+                    </div>
+                </div>
+                <!-- /wdt_ads -->
+                            <div class="wdt_sticky">
+            <div class="item">
+                <a sl-processed="1" href="http://www.makeuseof.com/tag/upgrade-raspberry-pi-3/">
+                    <img src="raspberry-pi-3-300x110.jpg" alt="" width="300" height="110">
+                    <span class="title">How to Upgrade to a Raspberry Pi 3</span>
+                    <span class="desc"><p>You've just received a brand&nbsp;new Raspberry Pi 3 – the latest, most powerful version of the popular mini-computer that has taken the "maker" world by storm. If this is your first Pi, then you'll need …</p></span>
+                </a>
+            </div>
+        </div>
+        <!-- /wdt_sticky -->
+                                                    <div class="wdt_ads">
+                    <div class="item">
+                        <!-- Sidebar-Second_Middle-300x250 -->
+<div id="div-gpt-ad-1411482584935-0" style="width: 300px; height: 250px;">
+
+</div>
+                    </div>
+                </div>
+                <!-- /wdt_ads -->
+                            <div class="wdt_sticky">
+            <div class="item">
+                <a sl-processed="1" href="http://www.makeuseof.com/tag/install-operating-system-raspberry-pi/">
+                    <img src="raspberry-pi-os-300x110.jpg" alt="" width="300" height="110">
+                    <span class="title">How To Install An Operating System To Your Raspberry Pi</span>
+                    <span class="desc"><p>Your Raspberry Pi doesn't come with an operating system. This is not a weakness, however, rather a feature that means you can choose from a wide of OSs, each of which can be flashed to …</p></span>
+                </a>
+            </div>
+        </div>
+        <!-- /wdt_sticky -->
+                                                    <div class="wdt_ads">
+                    <div class="item">
+                        <!-- Sidebar-bottom-300x600-300x250 -->
+<div id="div-gpt-ad-1411482649292-0" style="width: 300px; height: 250px;">
+
+</div>
+
+                    </div>
+                </div>
+                <!-- /wdt_ads -->
+                            <div class="wdt_sticky">
+            <div class="item">
+                <a sl-processed="1" href="http://www.makeuseof.com/tag/how-to-set-up-new-google-chromecast/">
+                    <img src="chromecast-guide-300x110.jpg" alt="" width="300" height="110">
+                    <span class="title">How to Set Up Your New Google Chromecast</span>
+                    <span class="desc"><p>There are a wealth of media-streaming sticks on the market today; so many, in fact, that it's difficult to know which is best for your own personal needs. As we noted in our Chromecast review, …</p></span>
+                </a>
+            </div>
+        </div>
+        <!-- /wdt_sticky -->
+                                                    <div class="wdt_ads">
+                    <div class="item">
+                        <!-- /1065821/Sidebar-Third_Middle-300x250 -->
+<div id="div-gpt-ad-1436298895171-0" style="height: 250px; width: 300px;">
+
+</div>                    </div>
+                </div>
+                <!-- /wdt_ads -->
+                            <div class="wdt_sticky">
+            <div class="item">
+                <a sl-processed="1" href="http://www.makeuseof.com/tag/easiest-raspberry-pi-media-centre-rasplex/">
+                    <img src="header-300x110.jpg" alt="" width="300" height="110">
+                    <span class="title">The Easiest Raspberry Pi Media Centre, With RasPlex</span>
+                    <span class="desc"><p>The Raspberry Pi is a surprisingly capable little computer. In the past, we've show you how to make a Raspberry Pi home theatre with Rasbmc. Since we published that guide, an easier to use and …</p></span>
+                </a>
+            </div>
+        </div>
+        <!-- /wdt_sticky -->
+                                                    <div class="wdt_sticky">
+            <div class="item">
+                <a sl-processed="1" href="http://www.makeuseof.com/tag/5-ways-new-raspbian-jessie-makes-raspberry-pi-even-easier-use/">
+                    <img src="raspberry-pi-jessie-300x110.jpg" alt="" width="300" height="110">
+                    <span class="title">5 Ways New Raspbian Jessie Makes Raspberry Pi Even Easier to Use</span>
+                    <span class="desc"><p>Following the release of Debian Jessie in July, the Raspberry Pi community has been blessed with a new release of the Raspbian variant, based on the "parent" distro. But Jessie is more than just a …</p></span>
+                </a>
+            </div>
+        </div>
+        <!-- /wdt_sticky -->
+        <div class="wdt_disclimer web_view">
+      <div class="header">Affiliate Disclamer</div>
+      <div class="disclimer">
+        <p>This article may contain affiliate links, which pays us a small compensation if you do decide to make a purchase based on our recommendation. Our judgement is in no way biased, and our recommendations are always based on the merits of the items. </p>
+        For more details, please read <a sl-processed="1" href="http://www.makeuseof.com/affiliate-disclaimer/">our disclosure</a>.
+      </div>
+    </div>
+	</div>
+	<!-- /rightcol -->
+</div> <!-- /container -->
+</div> <!-- /wrapper -->
+</div> <!-- /content -->
+<div id="sidebar">
+    <div class="close"></div>
+    <div style="height: 819px; overflow: hidden; padding: 0px; width: 265px;" class="scroll-pane">
+                    
+        
+        
+        <!-- /mainmenu -->
+        
+        <!-- /wdt_social -->
+    <div style="width: 265px; height: 1267px;" class="jspContainer"><div style="padding: 0px; top: 0px; left: 0px; width: 265px;" class="jspPane"><div class="wdt_login">
+                <div class="title">One-Click Login</div>
+                <div class="login">
+                    <ul>
+                        <li>
+                            <a sl-processed="1" href="#" data-provider="facebook" class="i_facebook"></a>
+                        </li>
+                        <li>
+                            <a sl-processed="1" href="#" data-provider="gplus" class="i_gplus"></a>
+                        </li>
+                        <li>
+                            <a sl-processed="1" href="#" data-toggle="modal" data-target="#modalSignin" class="i_email"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div><div id="mainmenu" class="with_counters">
+            <ul>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/" class="i_home">Home</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/my-bookmarks/" class="i_my_bookmarks">My Bookmarks</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/news/" data-tid="6208" class="i_tech_news_digest news">Tech News</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/product-reviews/" data-tid="4458" class="i_product_reviews product-reviews">Giveaways</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/windows/" data-tid="77" class="i_windows windows">Windows</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/mac/" data-tid="76" class="i_mac_os mac">Mac</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/linux/" data-tid="73" class="i_linux linux">Linux</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/google-android/" data-tid="3624" class="i_android google-android">Android</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/ios/" data-tid="3899" class="i_ios ios">iOS</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/web-based/" data-tid="1" class="i_the_internet web-based">Internet</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/social-media/" data-tid="166" class="i_the_internet social-media">Social Media</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/browser/" data-tid="80" class="i_the_internet browser">Browsers</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/smart-home/" data-tid="4893" class="i_smart_home smart-home">Smart Home</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/diy-projects/" data-tid="4884" class="i_do_it_yourself diy-projects">DIY</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/security/" data-tid="4864" class="i_security_matters security">Security</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/games/" data-tid="862" class="i_gaming games">Gaming</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/technology-explained/" data-tid="3299" class="i_tech_explained technology-explained">Tech Explained</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/self-improvement/" data-tid="3706" class="i_self_improvement self-improvement">Self Improvement</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/creative/" data-tid="4934" class="i_creative creative">Creative</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/productivity/" data-tid="6380" class="i_creative productivity">Office Productivity</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/entertainment/" data-tid="6389" class="i_entertainment entertainment">Entertainment</a></li>
+                <li><a sl-processed="1" href="http://www.makeuseof.com/service/finance/" data-tid="6390" class="i_finance finance">Finance</a></li>
+                <li><a sl-processed="1" href="https://deals.makeuseof.com/" rel="nofollow" class="i_deals deals">Deals</a></li>
+            </ul>
+        </div><div class="wdt_social">
+            <ul>
+                <li><a sl-processed="1" href="https://www.facebook.com/makeuseof" target="_blank" class="i_facebook"><span>413k</span></a>
+                </li>
+                <li><a sl-processed="1" href="https://twitter.com/MakeUseOf" target="_blank" class="i_twitter"><span>137k</span></a>
+                </li>
+                <li><a sl-processed="1" href="https://plus.google.com/+makeuseof" target="_blank" class="i_gplus"><span>172k</span></a>
+                </li>
+            </ul>
+        </div></div></div></div>
+
+    <footer id="footer">
+    <div class="bmenu">
+        <ul>
+            <li><a sl-processed="1" href="http://www.makeuseof.com/about">About</a>
+            </li>
+            <li><a sl-processed="1" href="http://www.makeuseof.com/advertise">Advertise</a>
+            </li>
+            <li><a sl-processed="1" href="http://www.makeuseof.com/disclaimer/">Privacy</a>
+            </li>
+            <li><a sl-processed="1" href="http://www.makeuseof.com/contact/">Contact</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+</div>
+</div> <!-- /site -->
+<div class="splash"></div>
+<form id="redirectHelper" action="http://www.makeuseof.com/wp-admin/admin-ajax.php?action=redirect_helper" method="POST">
+    <input name="url" value="www.makeuseof.com/tag/4-ways-set-up-raspberry-pi-media-server/" type="hidden">
+    <textarea style="display: none;"></textarea>
+</form>
+<div id="fb-root"></div>
+
+<!--[if lt IE 10]>
+    <script src="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/vendor/placeholder/jquery.placeholder.js?b34c28"></script>
+    <script>
+        $(document).ready(function(){
+            $('input, textarea').placeholder();
+        });
+    </script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+    <script src="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/vendor/others/js/html5shiv.js?b34c28"></script>
+    <script src="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/vendor/others/js/respond.min.js?b34c28"></script>
+    <link rel="stylesheet" href="http://cdn.makeuseof.com/wp-content/themes/makeuseof2015/css/ie8.css?b34c28">
+<![endif]-->
+
+<!-- js globals -->
+
+
+
+
+
+
+
+<iframe src="index_5.html" id="loginFrame"></iframe>
+
+<div class="modal fade login" id="modalSignin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+            <div class="header">Login instanly using your social accounts or email</div>
+            <div class="body">
+                <div class="node" id="signin">
+                    <div class="alerts"></div>
+                    <div class="social">
+                        <ul>
+                            <li>
+                                <a sl-processed="1" href="#" data-provider="facebook" data-undistract="true" class="i_facebook"></a>
+                            </li>
+                            <li>
+                                <a sl-processed="1" href="#" data-provider="gplus" data-undistract="true" class="i_gplus"></a>
+                            </li>
+                            <li>
+                                <a sl-processed="1" href="#" data-provider="email" class="i_email"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="seperate">or</div>
+                    <div class="forms">
+                        <form class="fv-form fv-form-bootstrap" novalidate="novalidate" id="signinForm" action="http://www.makeuseof.com/wp-login.php?redirect_to=http%3A%2F%2Fwww.makeuseof.com" method="POST"><button style="display: none; width: 0px; height: 0px;" class="fv-hidden-submit" type="submit"></button>
+                            <div class="items">
+                                <div class="item">
+                                    <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAALZJREFUOBFjYKAANDQ0rGWiQD9IqzgL0BQ3IKMXiB8AcSKQ/waIrYDsKUD8Fir2pKmpSf/fv3+zgPxfzMzMSbW1tbeBbAaQC+b+//9fB4h9gOwikCAQTAPyDYHYBciuBQkANfcB+WZAbPP37992kBgIUOoFBiZGRsYkIL4ExJvZ2NhAXmFgYmLKBPLPAfFuFhaWJpAYEBQC+SeA+BDQC5UQIQpJYFgdodQLLyh0w6j20RCgUggAAEREPpKMfaEsAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" data-fv-field="log" name="log" placeholder="E-mail Address" type="text">
+                                <small data-fv-result="NOT_VALIDATED" data-fv-for="log" data-fv-validator="notEmpty" class="help-block" style="display: none;">The email is required and cannot be empty</small><small data-fv-result="NOT_VALIDATED" data-fv-for="log" data-fv-validator="emailAddress" class="help-block" style="display: none;">Invalid email address</small></div>
+                                <div class="item">
+                                    <input style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAALZJREFUOBFjYKAANDQ0rGWiQD9IqzgL0BQ3IKMXiB8AcSKQ/waIrYDsKUD8Fir2pKmpSf/fv3+zgPxfzMzMSbW1tbeBbAaQC+b+//9fB4h9gOwikCAQTAPyDYHYBciuBQkANfcB+WZAbPP37992kBgIUOoFBiZGRsYkIL4ExJvZ2NhAXmFgYmLKBPLPAfFuFhaWJpAYEBQC+SeA+BDQC5UQIQpJYFgdodQLLyh0w6j20RCgUggAAEREPpKMfaEsAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" data-fv-field="pwd" name="pwd" placeholder="Password" type="password">
+                                <small data-fv-result="NOT_VALIDATED" data-fv-for="pwd" data-fv-validator="notEmpty" class="help-block" style="display: none;">The password is required and cannot be empty</small></div>
+                            </div>
+                            <div class="controls">
+                                <div class="remember">
+                                    Don't have an account? <a sl-processed="1" href="#" class="register">Register</a>
+                                </div>
+                                <button class="ladda-button" type="submit" data-style="expand-left" data-size="medium" data-spinner-size="30" data-spinner-color="#fff"><span class="ladda-label">Log In</span><span class="ladda-spinner"></span></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="footer">
+                        <div class="lost"><a sl-processed="1" href="#" data-toggle="modal" data-target="#modalResetPassword">Lost your password?</a>
+                        </div>
+                        <div class="back"><a sl-processed="1" href="#" data-dismiss="modal">← Back to MakeUseOf</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="node" id="registration">
+                    <div class="forms">
+                        <form class="fv-form fv-form-bootstrap" novalidate="novalidate" id="registrationForm" action="http://www.makeuseof.com/wp-login.php?action=register" method="POST"><button style="display: none; width: 0px; height: 0px;" class="fv-hidden-submit" type="submit"></button>
+                            <div class="items">
+                                <div class="item">
+                                    <input data-fv-field="email" name="email" placeholder="E-mail Address" type="email">
+                                <small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="notEmpty" class="help-block" style="display: none;">The email is required and cannot be empty</small><small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="emailAddress" class="help-block" style="display: none;">Invalid email address</small><small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="remote" class="help-block" style="display: none;">It looks like you've already registered using either Facebook or Google Plus - try logging in with that</small></div>
+                            </div>
+                            <div class="controls">
+                                <button class="ladda-button" type="submit" data-style="expand-left" data-size="medium" data-spinner-size="30" data-spinner-color="#fff"><span class="ladda-label">Register</span><span class="ladda-spinner"></span></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="footer">
+                        <div class="lost"><a sl-processed="1" href="#" data-toggle="modal" data-target="#modalResendConfirmation">Resend Confirmation Link</a>
+                        </div>
+                        <div class="back"><a sl-processed="1" href="#" data-dismiss="modal">← Back to MakeUseOf</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="modal fade login" id="modalResetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="body">
+                <div class="description">
+                    <p>Please enter your email address.</p>
+                    <p>You will receive a link to create a new password via email.</p>
+                </div>
+                <div class="forms">
+                    <form class="fv-form fv-form-bootstrap" novalidate="novalidate" id="resetForm" action="http://www.makeuseof.com/wp-login.php?action=lostpassword" method="POST"><button style="display: none; width: 0px; height: 0px;" class="fv-hidden-submit" type="submit"></button>
+                        <div class="items">                            
+                            <div class="item">
+                                <input data-fv-field="email" name="email" placeholder="E-mail Address" type="email">
+                            <small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="notEmpty" class="help-block" style="display: none;">Email is required and cannot be empty</small><small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="emailAddress" class="help-block" style="display: none;">Invalid email address</small><small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="remote" class="help-block" style="display: none;">Email does not exist</small></div>
+                        </div>
+                        <div class="controls">
+                            <button class="ladda-button" type="submit" data-style="expand-left" data-size="medium" data-spinner-size="30" data-spinner-color="#fff"><span class="ladda-label">Get new password</span><span class="ladda-spinner"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="modal fade login" id="modalResendConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="body">
+                <div class="description">
+                    <p>Please enter your email address.</p>
+                    <p>You will receive a confirmation link.</p>
+                </div>
+                <div class="forms">
+                    <form class="fv-form fv-form-bootstrap" novalidate="novalidate" id="resendConfirmationForm"><button style="display: none; width: 0px; height: 0px;" class="fv-hidden-submit" type="submit"></button>
+                        <div class="items">                            
+                            <div class="item">
+                                <input data-fv-field="email" name="email" placeholder="E-mail Address" type="email">
+                            <small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="notEmpty" class="help-block" style="display: none;">Email is required and cannot be empty</small><small data-fv-result="NOT_VALIDATED" data-fv-for="email" data-fv-validator="emailAddress" class="help-block" style="display: none;">Invalid email address</small></div>
+                        </div>
+                        <div class="controls">
+                            <button class="ladda-button" type="submit" data-style="expand-left" data-size="medium" data-spinner-size="30" data-spinner-color="#fff"><span class="ladda-label">Resend Confirmation Link</span><span class="ladda-spinner"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="askSitewideModal" tabindex="-1" role="dialog" aria-labelledby="askSitewideModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">
+                    ×
+                </span>
+                <span class="sr-only">
+                    Close
+                </span>
+            </button>
+            <div class="blc_askquestion">
+            </div>
+            <!-- /blc_askquestion -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- STICKY FOOTER PROMOTIONAL THING -->
+
+
+
+<div id="stickyfooter">
+    <a sl-processed="1" href="#" class="close-thik"></a>
+    <div id="stickyfooter_outer">
+        <div id="stickyfooter_content">
+            <div class="promotext"><p>Sign up for more tips and awesome articles</p></div>
+            <div class="footer_subscription subscription">
+                <form method="POST" action="http://newsletter.makeuseof.com/subscribe" accept-charset="utf-8" target="_blank">
+                    <input name="list" value="9m892NkFtsZkFu892d892lAfUgAQ" type="hidden">
+                    <input name="reg_date" value="2016-08-22 05:32:29" type="hidden">
+                    <input name="ip" value="117.136.40.230" type="hidden">
+                    <input id="subscriptionID" name="email" placeholder="E-mail" type="text">
+                    <button type="submit" value="Subscribe!">Let's go</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TEST END Sticky Footer PROMO -->
+
+
+
+
+
+
+<footer>
+<!-- iTunes auto-linker (removed temporarily as viglink is interrupting) -->
+
+
+  
+
+
+
+
+<!-- /1065821/Premium_1x1 -->
+<div id="div-gpt-ad-1449001588498-0" style="height: 1px; width: 1px;">
+
+</div>
+
+  </footer>
+
+
+<div style="display: none;" class="remodal-overlay remodal-is-closed"></div><div style="display: none;" class="remodal-wrapper remodal-is-closed"><div tabindex="-1" class="remodal remodal-is-initialized remodal-is-closed" data-remodal-id="new_anonym_comment" data-remodal-options="hashTracking: false">
+  <div class="header">New comment</div>
+  <div class="body">
+    <form lpformnum="3">
+      <fieldset class="items">
+        <div class="item">
+          <input id="name" name="name" placeholder="Name" required="" type="text">
+        </div>
+        <div class="item">
+          <input id="email" name="email" placeholder="Email" required="" type="email">
+        </div>
+        <div id="captchaContainer" class="item captcha">
+        </div>
+      </fieldset>
+      <div class="controls">
+        <div class="remember">
+          <p>Please login to avoid entering captcha</p>
+          <a sl-processed="1" href="#" data-need-auth="true" data-login-message="Log In" data-remodal-action="close" class="register">Log In</a>
+        </div>
+        <button class="ladda-button" type="submit" disabled="" data-style="expand-left" data-size="medium" data-spinner-size="30" data-spinner-color="#fff"><span class="ladda-label">Submit</span></button>
+      </div>
+    </form>
+  </div>
+</div></div></body><div style="display: none; width: 24px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none;" class="diigotb-border diigotb-left"></div><div style="display: none;" class="diigotb-border diigotb-top"></div><div style="display: none;" class="diigotb-border diigotb-right"></div><div style="display: none;" class="diigotb-border diigotb-bottom"></div>
+</html>
