@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>iptraf：一个实用的TCP/UDP网络监控工具 - 51CTO.COM</title>
+    <meta name="description" content="iptraf是一个基于ncurses的IP局域网监控器，用来生成包括TCP信息、UDP计数、ICMP和OSPF信息、以太网负载信息、节点状态信息、IP校验和错误等等统计数据。">
+    <meta name="keywords" content="iptraf,运维工具">
+    <base target="_blank">
+    
+    
+    
+    
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<!-- 导航 开始-->
+<!-- top start -->
+<div class="home-top" id="topx">
+    <div class="w1001 cent">
+        <div class="pdr10 fl">中国领先的IT技术网站</div>
+        <div class="pdr10 fl">|</div>
+        <div class="pdr10 fl">
+            <div class="subweb"><span class="trans">51CTO旗下网站</span><i></i>
+                <!--旗下网站-->
+                <div class="subweb-list">
+                    <a href="http://www.51cto.com/" target="_blank">51CTO.com</a>
+                    <a href="http://www.cioage.com/" target="_blank">CIOage.com</a>
+                    <a href="http://www.watchstor.com/" target="_blank">WatchStor.com</a>
+                    <a href="http://www.hc3i.cn/" target="_blank">HC3i.cn</a>
+                </div>
+                <!--旗下网站-->
+            </div>
+        </div>
+        <div class="pdr10 fl">|</div>
+        <div class="pdr10 fl"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a></div>
+        <div class="top-r">
+        <div id="login_status" style="text-align: right;" class="login"><i></i><a href="http://home.51cto.com/index?reback=http://os.51cto.com/art/201505/476216.htm" target="_self">登录</a> <a href="http://ucenter.51cto.com/2015/register.php?reback=http://os.51cto.com/art/201505/476216.htm" target="_self">注册</a><span class="fl">|</span><a href="http://www.51cto.com/">收藏本站</a></div>
+        </div>
+    </div>
+</div>
+<!-- top end -->
+<!-- 导航 结束-->
+
+<!-- 频道导航 -->
+<div class="top_bg">
+	<div class="wrap">
+		<div id="tonglanad" class="left"><iframe noresize="" marginheight="0" marginwidth="0" src="index_1.html" scrolling="No" width="760" align="middle" frameborder="0" height="90"></iframe></div>
+		<div id="list4" class="right">
+			<ul>
+				<li id="wordlinkad1"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=4317__zoneid=254__cb=551ad63487__oadest=http%3A%2F%2Fnetwork.51cto.com%2Fact%2Ft1_2015%2F10" target="_blank"><font color="red">高性能融合安全架构解析</font></a><div id="beacon_551ad63487" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_001.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+				<li id="wordlinkad2"><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3990__zoneid=255__cb=9dd5213b21__oadest=http%3A%2F%2Fserver.51cto.com%2Fact%2Fveeam2016%2Fveeam" target="_blank"><font color="red">Veeam助力财富500强</font></a><div id="beacon_9dd5213b21" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_002.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+				<li id="wordlinkad3"><a href="http://gg.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3717__zoneid=594__cb=526f97015a__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-18.html%3Fxiaoshou" target="_blank"><font color="red">微软企业级内训课程免费学</font></a><div id="beacon_526f97015a" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_003.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+				<li id="wordlinkad4"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=0ad8d35236__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_0ad8d35236" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_004.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			</ul>
+		</div>
+	</div>
+	<div class="nav">
+		<a href="http://www.51cto.com/" class="logo"><img src="nr_logo.png" alt=""></a>
+		<ul>
+			<li><a href="http://os.51cto.com/" class="active">系统频道</a></li>
+			<li><a href="http://os.51cto.com/">首页</a></li>
+			<li><a href="http://os.51cto.com/col/543/">资讯</a></li>
+			<li><a href="http://os.51cto.com/linux/">Linux</a></li>
+			<li><a href="http://os.51cto.com/windows/">Windows</a></li>
+			<li><a href="http://os.51cto.com/col/610/">开源</a></li>
+			<li><a href="http://os.51cto.com/col/975/">桌面</a></li>
+			<li><a href="http://os.51cto.com/col/545/">运维&amp;工具</a></li>
+			<li><a href="http://os.51cto.com/col/1496/">技巧集锦</a></li>
+			<li><a href="http://os.51cto.com/speclist/519/">专题</a></li>
+		</ul>
+		<div class="nav-rsear">
+			<form method="post" action="http://www.51cto.com/php/search.php" name="searchform" target="_blank">
+				<input name="keyword" id="q" placeholder="输入您要搜索的内容" class="sear-1" type="text">
+				<input name="" value="" class="sear-2" type="submit">
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- 频道导航结束 -->
+
+<div class="main">
+    <!-- 左侧内容 -->
+    <div class="main_left">
+        <div class="wznr">
+            <h2>iptraf：一个实用的TCP/UDP网络监控工具</h2>
+            <p>iptraf是一个基于ncurses的IP局域网监控器，用来生成包括TCP信息、UDP计数、ICMP和OSPF信息、以太网负载信息、节点状态信息、IP校验和错误等等统计数据。</p>
+            <dl>
+                <dt><span>作者：译者：DongShuaike</span><span>来源：<a href="https://linux.cn/article-5430-1.html" target="_blank">Linux中国</a></span>|<em>2015-05-12 10:26</em></dt>
+                <dd>
+                	<div class="left" style="padding-right: 10px;">
+                		<a title="一键收藏，随时查看，分享好友！" target="_self" class="bds_more1">&nbsp;收藏</a>
+                	</div>
+					<div data-bd-bind="1471930059151" class="bdsharebuttonbox left bdshare-button-style0-16" data-tag="share_2">
+						<a class="bds_more" data-cmd="more">&nbsp;&nbsp;分享</a>
+					</div>
+                </dd>
+            </dl>
+        </div>
+        <div class="zwnr">
+            <h2><a href="http://mobile.51cto.com/mobile/mdsa12/" target="_blank"></a></h2>
+            <p>iptraf是一个基于ncurses的IP局域网监控器，用来生成包括TCP信息、UDP计数、ICMP和OSPF信息、以太网负载信息、节点状态信息、IP校验和错误等等统计数据。</p>
+<p>它基于ncurses的用户界面可以使用户免于记忆繁琐的命令行开关。</p>
+
+<h3 id="toc_1">特征</h3>
+<ul>
+    <li>IP流量监控器，用来显示你的网络中的IP流量变化信息。包括TCP标识信息、包以及字节计数，ICMP细节，OSPF包类型。</li>
+    <li>简单的和详细的接口统计数据，包括IP、TCP、UDP、ICMP、非IP以及其他的IP包计数、IP校验和错误，接口活动、包大小计数。</li>
+    <li>TCP和UDP服务监控器，能够显示常见的TCP和UDP应用端口上发送的和接收的包的数量。</li>
+    <li>局域网数据统计模块，能够发现在线的主机，并显示其上的数据活动统计信息。</li>
+    <li>TCP、UDP、及其他协议的显示过滤器，允许你只查看感兴趣的流量。</li>
+    <li>日志功能。</li>
+    <li>支持以太网、FDDI、ISDN、SLIP、PPP以及本地回环接口类型。</li>
+    <li>利用Linux内核内置的原始套接字接口，允许它（指iptraf）能够用于各种支持的网卡上</li>
+    <li>全屏，菜单式驱动的操作。</li>
+</ul>
+
+<h3 id="toc_2">安装方法</h3>
+<p><strong>Ubuntu以及其衍生版本</strong></p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln">sudo apt</span><span class="pun">-</span><span class="kwd">get</span><span class="pln"> install iptraf</span></code></li></ol></pre>
+<p><strong>Arch Linux以及其衍生版本</strong></p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln">sudo pacman </span><span class="pun">-</span><span class="pln">S iptra</span></code></li></ol></pre>
+<p><strong>Fedora以及其衍生版本</strong></p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln">sudo yum install iptraf</span></code></li></ol></pre>
+
+<h3 id="toc_3">用法</h3>
+<p>如果不加任何命令行选项地运行<strong>iptraf</strong>命令，程序将进入一种交互模式，通过主菜单可以访问多种功能。</p>
+<p style="text-align: center;"><img alt="" src="wKioL1dFxs2AOpSfAAB5h1iHMo0041.jpg-wh_651x-s_1407414727.jpg"></p>
+<p>简易的上手导航菜单。</p>
+<p style="text-align: center;"><img alt="" src="wKiom1dFxdmC3YmAAABa_ZGGUnA777.jpg-wh_600x-s_4167787887.jpg"></p>
+<p>选择要监控的接口。</p>
+<p style="text-align: center;"><img alt="" src="wKioL1dFxs6RbnBIAABM1Zw8ozk412.jpg-wh_600x-s_866486941.jpg"></p>
+<p>接口<strong>ppp0</strong>处的流量。</p>
+<p style="text-align: center;"><img alt="" src="wKiom1dFxdqQcyf_AAEm_rR6QUI624.jpg-wh_600x-s_4220361466.jpg"></p>
+<p>试试吧！</p>
+<hr>
+<p>via: <a href="http://www.unixmen.com/iptraf-tcpudp-network-monitoring-utility/">http://www.unixmen.com/iptraf-tcpudp-network-monitoring-utility/</a></p>
+<p>作者：<a href="http://www.unixmen.com/author/seth/">Enock Seth Nyamador</a> 译者：<a href="https://github.com/DongShuaike">DongShuaike</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>【编辑推荐】</p>
+<div>
+<ol>
+    <li><a target="_blank" href="http://os.51cto.com/art/201312/424179.htm">自动化运维工具Puppet在实际工作中的注意事项</a></li>
+    <li><a target="_blank" href="http://os.51cto.com/art/201409/451927.htm">自动化运维工具之ansible</a></li>
+</ol>
+</div>
+<div align="right">【责任编辑：<a class="ln" href="mailto:linss@51cto.com">林师授</a> TEL：（010）68476606】</div><br>
+            <a href="###" class="dzdz zhan" target="_self">点赞 <span>1</span></a>
+        </div>
+        <div class="share5">
+            <ul>
+                <li><a href="http://www.51cto.com/php/search.php?keyword=iptraf" target="_blank" class="underline">iptraf</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=%D4%CB%CE%AC%B9%A4%BE%DF" target="_blank" class="underline">运维工具</a></li>
+            </ul>
+            <dl>
+                <dt><em>分享:</em>
+<div data-bd-bind="1471930059151" class="bdsharebuttonbox bdshare-button-style0-16" data-tag="share_1">
+    <a title="分享到新浪微博" class="wb" data-cmd="tsina"></a>
+    <a title="分享到微信" class="wx" data-cmd="weixin"></a>
+    <a class="more" data-cmd="more"></a>
+</div>
+</dt>
+
+<!-- Baidu Button END -->
+            </dl>
+        </div>
+        <div class="nrdp comment">
+            <div class="comment center">
+	<div class="inner center" id="cmscmt_iframe"><div class="title"><span class="word">内容点评</span><p class="con">已有<span class="total" id="cmt_num">0</span>条评论,<span class="total" id="zan_num">0</span>次赞</p><p style="float: right; margin-top: 17px;">还可以输入<span id="uyan_tts">500</span>字</p></div><div class="frame center"><textarea value="" id="comment" style="color: rgb(124, 124, 124); font-family: Microsoft Yahei;">请输入你的评论</textarea></div><div class="user"><a id="uyan_cmt_btn" class="submit">提交</a><dl><dt class="icon"><img src="duface.png" alt=""></dt><dd class="btn"><span>您还没有登录！</span><span class="note">请先</span>&nbsp;<a href="http://home.51cto.com/index.php?s=/Index/index/reback/http%253A%252F%252Fos.51cto.com%252Fart%252F201505%252F476216.htm" style="color: red;">登录</a>&nbsp;<span class="note">或</span>&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http%253A%252F%252Fos.51cto.com%252Fart%252F201505%252F476216.htm" style="color: red;">注册</a>&nbsp;</dd></dl></div><ul class="list center first" id="uyan_cmt_list"><div style="margin-top: 10px; padding-top: 10px; font-size: 12px; color: rgb(48, 48, 48); text-align: center;" id="uyan_cmt_list_warn">还没有评论内容</div></ul></div>
+</div>
+
+
+        </div>
+        <div class="dzk">
+            <dl><dt class="show">大家都在看</dt><dt>猜你喜欢</dt></dl>
+            <div>
+                <ul>
+                    <li class="show">
+                        <div class="djdzk" id="djdzk"><div class="m15"><a href="http://zhuanlan.51cto.com/art/201607/515054.htm"><img src="wKioL1eZ2cKTCBATAACHIWT-kX4833.jpg-wh_151x97-wm_-wmp_-s_22179369.jpg" title="WOT2016王楠：Cocos告诉你如何做好H5游戏"></a><a href="http://zhuanlan.51cto.com/art/201607/515054.htm" title="WOT2016王楠：Cocos告诉你如何做好H5游戏">WOT2016王楠：Cocos告诉你如何做好H5游戏</a></div><div class="m15"><a href="http://zhuanlan.51cto.com/art/201607/514986.htm"><img src="wKiom1eYVFbwyaedAAByZUQcjKY927.jpg-wh_151x97-wm_-wmp_-s_2084724442.jpg" title="WOT2016王庆友：听首席构架师论大型APP服务端架构"></a><a href="http://zhuanlan.51cto.com/art/201607/514986.htm" title="WOT2016王庆友：听首席构架师论大型APP服务端架构">WOT2016王庆友：听首席构架师论大型APP服务端架构</a></div><div class="m15"><a href="http://zhuanlan.51cto.com/art/201608/516026.htm"><img src="wKioL1ez2hqzyQdMAAEZROMGsgc906.jpg-wh_151x97-wm_-wmp_-s_2923422449.jpg" title="汇聚、引领开发者生态—2016华为开发者大赛总决赛现场纪实"></a><a href="http://zhuanlan.51cto.com/art/201608/516026.htm" title="汇聚、引领开发者生态—2016华为开发者大赛总决赛现场纪实">汇聚、引领开发者生态—2016华为开发者大赛总决赛现场纪实</a></div><div><a href="http://developer.51cto.com/art/201607/515091.htm"><img src="wKioL1ebCUDBCmTGAABqBJyoksE863.jpg-wh_151x97-wm_-wmp_-s_959264930.jpg" title="基于RethinkDB +React Native开发实时移动Web应用程序"></a><a href="http://developer.51cto.com/art/201607/515091.htm" title="基于RethinkDB +React Native开发实时移动Web应用程序">基于RethinkDB +React Native开发实时移动Web应用程序</a></div></div>
+                    </li>
+                    <li>
+                        <div class="djdzk" id="cnxh"><div class="m15"><a href="http://os.51cto.com/art/201505/476216.htm?pc"><img src="wKiom1e0HCWxr3ZzAAOk7CG7yos583.jpg-wh_151x97-wm_-wmp_-s_619231100.jpg" title="跳出IT运维“死循环” 看河南省统计局如"></a><a href="http://os.51cto.com/art/201505/476216.htm?pc" title="跳出IT运维“死循环” 看河南省统计局如">跳出IT运维“死循环” 看河南省统计局如</a></div><div class="m15"><a href="http://os.51cto.com/art/201505/476216.htm?pc"><img src="wKioL1ekGtaAKkpFAACT06gugNU801.jpg-wh_151x97-wm_-wmp_-s_4216868351.jpg" title="SaaS已过半场，Docker和HTML"></a><a href="http://os.51cto.com/art/201505/476216.htm?pc" title="SaaS已过半场，Docker和HTML">SaaS已过半场，Docker和HTML</a></div><div class="m15"><a href="http://virtual.51cto.com/art/201608/515476.htm?pc"><img src="wKioL1egUImxlEwhAAE-4LitjVo123.jpg-wh_151x97-wm_-wmp_-s_1567340160.jpg" title="准确定位虚拟数据中心应用性能问题"></a><a href="http://virtual.51cto.com/art/201608/515476.htm?pc" title="准确定位虚拟数据中心应用性能问题">准确定位虚拟数据中心应用性能问题</a></div><div><a href="http://book.51cto.com/art/201606/0.htm?pc"><img src="wKioL1dqJVzCI6S7AAAhqqFG74o029.gif-wh_151x97-wm_-wmp_-s_425071057.gif" title="写给大忙人的Hadoop 2"></a><a href="http://book.51cto.com/art/201606/0.htm?pc" title="写给大忙人的Hadoop 2">写给大忙人的Hadoop 2</a></div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 文章左侧结束 -->
+    <!-- 文章右侧 -->
+    <div class="wrap_right">
+        <div><span class="mtgg" id="right1_ad" style="height: auto; width: 300px;"><div class="m30"><img src="wKiom1ejG5fQM6cPAAIMTT2DQlA632.jpg" usemap="#Map" width="300" border="0" height="855"><map name="Map" id="Map"><area shape="rect" coords="210,451,282,469" href="http://wot.51cto.com/2016mobile/" alt="浜嗚В鏇村"><area shape="rect" coords="209,723,281,742" href="http://wot.51cto.com/2016mobile/" alt="浜嗚В鏇村"><area shape="rect" coords="78,788,223,822" href="http://wot.51cto.com/2016mobile/index.html#buy" alt="甯綅鎶㈠崰"></map> </div></span>
+
+
+</div>
+        <div class="mtgg m30"><iframe noresize="" marginheight="0" marginwidth="0" src="index_2.html" scrolling="No" width="300" align="left" frameborder="0" height="260"></iframe></div>
+        <div></div>
+        <div class="bjtj m30">
+            <h2><span>编辑推荐</span></h2>
+            <dl><dt>头条</dt><dd><a href="http://os.51cto.com/art/201603/507057.htm" title="如何选择最适合你的Linux发行版？">如何选择最适合你的Linux发行版？</a></dd></dl><dl><dt>头条</dt><dd><a href="http://os.51cto.com/art/201603/506801.htm" title="Zabbix监控自动化的未来如何发展">Zabbix监控自动化的未来如何发展</a></dd></dl><dl><dt>外电</dt><dd><a href="http://os.51cto.com/art/201603/507358.htm" title="绝对值得你使用的75个开源移动工具">绝对值得你使用的75个开源移动工具</a></dd></dl><dl><dt>头条</dt><dd><a href="http://os.51cto.com/art/201602/505598.htm" title="如何破解微软Windows 10的升级难题">如何破解微软Windows 10的升级难题</a></dd></dl><dl><dt>头条</dt><dd><a href="http://edu.51cto.com/roadmap/view/id-64.html?os1" title="Linux运维工程师快速就业学习路线图">Linux运维工程师快速就业学习路线图</a></dd></dl>
+        </div>
+        <div></div>
+        <div class="news m30">
+            <dl><dt class="show">24H热文</dt><dt>一周话题</dt><dt>本月最赞</dt></dl>
+            <ul><li class="show"><a href="http://os.51cto.com/art/201608/515920.htm" title="骨灰级Windows实用教程：如何在一分钟内解决Windows" 10的崩溃问题="">骨灰级Windows实用教程：如何在一分钟内解决Windows 10的崩溃问题</a><a href="http://os.51cto.com/art/201101/244090.htm" title="如何在Linux中查看所有正在运行的进程">如何在Linux中查看所有正在运行的进程</a><a href="http://os.51cto.com/art/201608/516261.htm" title="太好玩了！用好Windows" 10虚拟桌面="">太好玩了！用好Windows 10虚拟桌面</a><a href="http://os.51cto.com/art/201608/516256.htm" title="Linux" 命令行下的最佳文本编辑器="">Linux 命令行下的最佳文本编辑器</a><a href="http://os.51cto.com/art/201405/439494.htm" title="安装" kali="" linux="" 后需要做的="" 20="" 件事="">安装 Kali Linux 后需要做的 20 件事</a><a href="http://os.51cto.com/art/201508/487487.htm" title="安装Linux与Windows" 10双系统，你需要了解的一切="">安装Linux与Windows 10双系统，你需要了解的一切</a><a href="http://os.51cto.com/art/201412/460698.htm" title="你值得拥有：25个Linux性能监控工具">你值得拥有：25个Linux性能监控工具</a><a href="http://os.51cto.com/art/201608/516280.htm" title="微软Windows" 10冻结系统怎么办？试一试这些办法！="">微软Windows 10冻结系统怎么办？试一试这些办法！</a></li><li><a href="http://os.51cto.com/art/201608/515920.htm" title="骨灰级Windows实用教程：如何在一分钟内解决Windows" 10的崩溃问题="">骨灰级Windows实用教程：如何在一分钟内解决Windows 10的崩溃问题</a><a href="http://os.51cto.com/art/201508/487487.htm" title="安装Linux与Windows" 10双系统，你需要了解的一切="">安装Linux与Windows 10双系统，你需要了解的一切</a><a href="http://os.51cto.com/art/201101/244090.htm" title="如何在Linux中查看所有正在运行的进程">如何在Linux中查看所有正在运行的进程</a><a href="http://os.51cto.com/art/201405/439494.htm" title="安装" kali="" linux="" 后需要做的="" 20="" 件事="">安装 Kali Linux 后需要做的 20 件事</a><a href="http://os.51cto.com/art/201404/435279.htm" title="Linux服务器上监控网络带宽的18个常用命令">Linux服务器上监控网络带宽的18个常用命令</a><a href="http://os.51cto.com/art/201412/460698.htm" title="你值得拥有：25个Linux性能监控工具">你值得拥有：25个Linux性能监控工具</a><a href="http://os.51cto.com/art/201001/177866.htm" title="Linux下RPM软件包的安装及卸载">Linux下RPM软件包的安装及卸载</a><a href="http://os.51cto.com/art/201403/431103.htm" title="Windows下Redis的安装使用">Windows下Redis的安装使用</a></li><li><a href="http://os.51cto.com/art/201508/487487.htm" title="安装Linux与Windows" 10双系统，你需要了解的一切="">安装Linux与Windows 10双系统，你需要了解的一切</a><a href="http://os.51cto.com/art/201405/439494.htm" title="安装" kali="" linux="" 后需要做的="" 20="" 件事="">安装 Kali Linux 后需要做的 20 件事</a><a href="http://os.51cto.com/art/201608/515452.htm" title="如何在Linux上运行Windows应用程序？">如何在Linux上运行Windows应用程序？</a><a href="http://os.51cto.com/art/201412/460698.htm" title="你值得拥有：25个Linux性能监控工具">你值得拥有：25个Linux性能监控工具</a><a href="http://os.51cto.com/art/201101/244090.htm" title="如何在Linux中查看所有正在运行的进程">如何在Linux中查看所有正在运行的进程</a><a href="http://os.51cto.com/art/201001/177866.htm" title="Linux下RPM软件包的安装及卸载">Linux下RPM软件包的安装及卸载</a><a href="http://os.51cto.com/art/201510/493330.htm" title="三种查看Windows" 10版本号的方法="">三种查看Windows 10版本号的方法</a><a href="http://os.51cto.com/art/201404/435279.htm" title="Linux服务器上监控网络带宽的18个常用命令">Linux服务器上监控网络带宽的18个常用命令</a></li></ul>
+        </div>
+        <div></div>
+        <div class="spkc m30">
+            <h2><span>视频课程</span><a href="http://edu.51cto.com/">+更多</a></h2>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-6143.html"><img src="238e06f03776c93dceb504a64e74f82b24bb30.jpg" title="UI引擎入门到实战开发视频课程" alt="UI引擎入门到实战开发视频课程" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-6143.html" target="_blank" title="UI引擎入门到实战开发视频课程">UI引擎入门到实战开发视频课程</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-10892124.html" target="_blank">刘火树</a></em></span><span class="fr"><em>5</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-6141.html"><img src="212957f179c1a451cc8686b3bec129623563ad.jpg" title="C#语言知识系统学习视频课程" alt="C#语言知识系统学习视频课程" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-6141.html" target="_blank" title="C#语言知识系统学习视频课程">C#语言知识系统学习视频课程</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-3990033.html" target="_blank">刘建萍</a></em></span><span class="fr"><em>29</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+            <dl>
+                <dt><a href="http://edu.51cto.com/course/course_id-6138.html"><img src="c1479ba68c7beb9834530125ec9ebd3d884e5c.png" title="专家解读计算机网络原理视频课程2.0版（上）" alt="专家解读计算机网络原理视频课程2.0版（上）" width="100px" height="80px"></a><span></span></dt>
+                <dd>
+                    <h3><a href="http://edu.51cto.com/course/course_id-6138.html" target="_blank" title="专家解读计算机网络原理视频课程2.0版（上）">专家解读计算机网络原理视频课程2.0版（上）</a></h3>
+                    <h4><span class="fl">讲师：<em><a href="http://edu.51cto.com/lecturer/user_id-55153.html" target="_blank">王达</a></em></span><span class="fr"><em>5</em>人学习过</span></h4>
+                </dd>
+            </dl>
+            
+        </div>
+        <div></div>
+        <div class="rmzw m30">
+            <h2><span>热门职位</span><a href="http://gaozhao.51cto.com/">+更多</a></h2>
+            <div id="rmzw"><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3596.html" target="_blank"> 运维工程师 </a></dt><dd><h3>全职/3-5年/本科</h3><span>12k-20k</span><a href="http://gaozhao.51cto.com/company/view/id-741.html" target="_blank">光年电商</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-2549.html" target="_blank"> 高级运维工程师（高级讲师） </a></dt><dd><h3>兼职/5-10年/本科</h3><span>15k-25k</span><a href="http://gaozhao.51cto.com/company/view/id-565.html" target="_blank">京峰教育</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4327.html" target="_blank"> 中科信软招聘ansible兼职讲师 </a></dt><dd><h3>兼职/3-5年/本科</h3><span>20k-30k</span><a href="http://gaozhao.51cto.com/company/view/id-839.html" target="_blank">中科信软</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4323.html" target="_blank"> 微信开发项目经理 </a></dt><dd><h3>全职/不限/不限</h3><span>999k-1000k</span><a href="http://gaozhao.51cto.com/company/view/id-840.html" target="_blank">乐乎创新网络</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3033.html" target="_blank"> 运维工程师 </a></dt><dd><h3>全职/1-3年/大专</h3><span>6k-10k</span><a href="http://gaozhao.51cto.com/company/view/id-651.html" target="_blank">动视云科技</a></dd></dl></div>
+        </div>
+        <div></div>
+        <div class="zxzt m30">
+            <h2><span>最新专题</span><a href="http://os.51cto.com/speclist/1417">+更多</a></h2>
+            <dl>
+                <dt><a href="http://os.51cto.com/art/201603/507057.htm" title="如何选择最适合你的Linux发行版？"><img src="wKioL1beLAixuvyFAACz5r8rLPw433.jpg-wh_100x70-s_2159590033.jpg" alt="如何选择最适合你的Linux发行版？" title="如何选择最适合你的Linux发行版？"></a></dt>
+                <dd>
+                    <a href="http://os.51cto.com/art/201603/507057.htm" title="如何选择最适合你的Linux发行版？">如何选择最适合你的Linux发行版？</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=Linux">Linux</a></h3>
+                </dd>
+            </dl><dl>
+                <dt><a href="http://os.51cto.com/art/201602/505598.htm" title="如何破解微软Windows 10的升级难题"><img src="wKiom1bBzmOgG99uAACJwiEfFQw073.jpg-wh_100x70-s_4286889212.jpg" alt="如何破解微软Windows 10的升级难题" title="如何破解微软Windows 10的升级难题"></a></dt>
+                <dd>
+                    <a href="http://os.51cto.com/art/201602/505598.htm" title="如何破解微软Windows 10的升级难题">如何破解微软Windows 10的升级难题</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=%CE%A2%C8%ED">微软</a></h3>
+                </dd>
+            </dl><dl>
+                <dt><a href="http://os.51cto.com/art/201601/503687.htm" title="智能化运维在日常业务中的最佳实践探索"><img src="wKiom1aPI2Gx4Qw6AACXFDeaW94853.jpg-wh_100x70-s_4074910719.jpg" alt="智能化运维在日常业务中的最佳实践探索" title="智能化运维在日常业务中的最佳实践探索"></a></dt>
+                <dd>
+                    <a href="http://os.51cto.com/art/201601/503687.htm" title="智能化运维在日常业务中的最佳实践探索">智能化运维在日常业务中的最佳实践探索</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=%D6%C7%C4%DC%BB%AF%D4%CB%CE%AC">智能化运维</a></h3>
+                </dd>
+            </dl><dl>
+                <dt><a href="http://os.51cto.com/art/201512/501902.htm" title="你应该使用开源软件的九大理由"><img src="wKiom1aExVSgoasqAAC4d3P-TJs622.jpg-wh_100x70-s_976432699.jpg" alt="你应该使用开源软件的九大理由" title="你应该使用开源软件的九大理由"></a></dt>
+                <dd>
+                    <a href="http://os.51cto.com/art/201512/501902.htm" title="你应该使用开源软件的九大理由">你应该使用开源软件的九大理由</a>
+                    <h3><a href="http://www.51cto.com/php/search.php?keyword=%BF%AA%D4%B4%C8%ED%BC%FE">开源软件</a></h3>
+                </dd>
+            </dl>
+        </div>
+        <div></div>
+        <div id="jcpl"><div class="jcpl m30"><h2><span>精彩评论</span></h2><dl><dt><a href="http://home.51cto.com/index.php?s=/space/11864611"><img src="avatar.php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/11864611"></a><h3><a href="http://home.51cto.com/index.php?s=/space/11864611">liaomy</a>评论了：<a href="http://developer.51cto.com/art/201608/516026.htm">汇聚、引领开发者生态—2016华为开发者大赛总决赛现场纪实</a></h3><h4>在全国都在举办开发者的当前局面来看，华为给开发者确实很大的力度支持的，不管是自身资源还是远程实验室，都是为开发者考虑的比较周到，现在独立的开发者在资源上确实是不足的。</h4></dd></dl><dl><dt><a href="http://home.51cto.com/index.php?s=/space/11864586"><img src="avatar_001.php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/11864586"></a><h3><a href="http://home.51cto.com/index.php?s=/space/11864586">cadcjl</a>评论了：<a href="http://developer.51cto.com/art/201608/516026.htm">汇聚、引领开发者生态—2016华为开发者大赛总决赛现场纪实</a></h3><h4>依托华为开发者，我也是一名参加活动的，所以很关注这次活动，希望华为接下来的活动举办越来越好，为开发者带来更多的实用价值，为科技带来新鲜血液，支持华为能做出世界牛逼的作品。</h4></dd></dl><dl><dt><a href="http://home.51cto.com/index.php?s=/space/11864611"><img src="avatar_002.php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/11864611"></a><h3><a href="http://home.51cto.com/index.php?s=/space/11864611">liaomy</a>评论了：<a href="http://developer.51cto.com/art/201608/516026.htm">汇聚、引领开发者生态—2016华为开发者大赛总决赛现场纪实</a></h3><h4>@liaomy:非常好啊</h4></dd></dl><dl><dt><a href="http://home.51cto.com/index.php?s=/space/512293"><img src="avatar_003.php" width="45px" height="45px"></a></dt><dd><a href="http://home.51cto.com/index.php?s=/space/512293"></a><h3><a href="http://home.51cto.com/index.php?s=/space/512293">wwenyunkui</a>评论了：<a href="http://os.51cto.com/art/201608/515452.htm">如何在Linux上运行Windows应用程序？</a></h3><h4>不要提wine了，一把辛酸泪；还是乖乖用虚拟机吧，别瞎费劲儿</h4></dd></dl></div></div>
+        <div></div>
+        <div class="news m30">
+            <dl><dt class="show">精选博文</dt><dt>论坛热帖</dt><dt>下载排行</dt></dl>
+            <div>
+                <ul>
+                    <li class="show">
+                        <a href="http://knightswarrior.blog.51cto.com/1792698/408721/" target="_blank" title="自动更新组件分享">自动更新组件分享</a><a href="http://xiaoju.blog.51cto.com/1917999/408714/" target="_blank" title="我从远方赶来，恰巧你也在这儿（白门楼见面帖）">我从远方赶来，恰巧你也在这儿（白门</a><a href="http://jiangxuezhi.blog.51cto.com/839007/408702/" target="_blank" title="江湖这些事儿">江湖这些事儿</a><a href="http://crazycen.blog.51cto.com/1291307/408691/" target="_blank" title="WinXP+Mac OS X+Linux的多操作系统安装">WinXP+Mac OS X+Linux的多操作系统安</a><a href="http://sunyongjie.blog.51cto.com/445592/408679/" target="_blank" title="国内企业应如何实施ITSM">国内企业应如何实施ITSM</a>
+                    </li>
+                    <li>
+                        <a href="http://bbs.51cto.com/thread-1315488-1.html" target="_blank" title="exchange2013客户端设置SMTP 25端口提示接收密码错误。">exchange2013客户端设置SMTP 25端口</a><a href="http://bbs.51cto.com/thread-1315733-1.html" target="_blank" title="微软Exchange Server 2013 CU11更新已发布">微软Exchange Server 2013 CU11更新</a><a href="http://bbs.51cto.com/thread-1315750-1.html" target="_blank" title="exchange对外发送邮件问题">exchange对外发送邮件问题</a><a href="http://bbs.51cto.com/thread-1315837-1.html" target="_blank" title="[战报] MCSE BI pass 70-461 - 70-467 经验分享">[战报] MCSE BI pass 70-461 - 70-46</a><a href="http://bbs.51cto.com/thread-1316005-1.html" target="_blank" title="Python中http请求方法库汇总">Python中http请求方法库汇总</a>
+                    </li>
+                    <li>
+                        <a href="http://down.51cto.com/data/546448/" target="_blank" title="风云房产信息网(修改版)">风云房产信息网(修改版)</a><a href="http://down.51cto.com/data/546447/" target="_blank" title="初级反汇编教程01">初级反汇编教程01</a><a href="http://down.51cto.com/data/546446/" target="_blank" title="[Dedecms]精仿A5经典模板 for dedecms 5.5 GBK">[Dedecms]精仿A5经典模板 for dedecm</a><a href="http://down.51cto.com/data/546445/" target="_blank" title="PureFlex System整体方案介绍">PureFlex System整体方案介绍</a><a href="http://down.51cto.com/data/546444/" target="_blank" title="IBM_PureSystems_whitepaper">IBM_PureSystems_whitepaper</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div></div>
+        <div class="ds m30">
+            <h2><span>读 书 </span><a href="http://book.51cto.com/">+更多</a></h2>
+            <dl>
+                
+                <dt><a href="http://book.51cto.com/art/200708/53960.htm" title="Struts 2权威指南：基于WebWork核心的MVC开发"><img src="150233281.gif" width="98px" height="144px"></a></dt>
+                <dd><h3><a href="http://book.51cto.com/art/200708/53960.htm" title="Struts 2权威指南：基于WebWork核心的MVC开发">Struts 2权威指南：基于WebWork核心的MVC开发</a></h3>
+                    本书所介绍的Struts 2已经完全超出了Struts 1框架原有的高度，Struts 2建立在Struts 1和WebWork两个框架整合的基础之上，因此提供了更多优...
+                </dd>
+                
+            </dl>
+        </div>
+        <div></div>
+        <div class="dydy">
+            <dl>
+                <dt><img src="dydy.jpg" alt=""></dt>
+                <dd>
+                    <h3>订阅51CTO邮刊</h3>
+                    <h4><a href="http://news.51cto.com/col/1323/">点击这里查看样刊</a></h4>
+                    <a href="http://home.51cto.com/index.php?s=/Subscribe"><img src="ljdy.jpg" alt="订阅51CTO邮刊"></a>
+                </dd>
+            </dl>
+        </div>
+        <div></div>
+    </div>
+    <!-- 文章右侧结束 -->
+    </div>
+<div class="footer_nav">
+   <div class="wrap">
+       <h2>51CTO旗下网站：</h2>
+       <a href="http://www.51cto.com/">领先的IT技术网站 51CTO</a>|<a href="http://www.watchstor.com/">领先的中文存储媒体 WatchStor</a>|
+       <a href="http://www.cioage.com/">中国首个CIO网站 CIOage </a>|<a href="http://www.hc3i.cn/">中国首家数字医疗网站 HC3i</a>          
+   </div>
+</div>
+<div id="ft"><div id="foot" align="center">Copyright©2005-2016 <a href="http://www.51cto.com/">51CTO.COM</a> 版权所有 未经许可 请勿转载<div style="display: none;"></div></div></div>
+<div class="clk"><a class="ewm" href="###" target="_self"><img src="wxwx.jpg" style="display: none;"></a><a class="yjk" href="#comment" target="_self"></a><a class="topx" href="#topx" target="_self"></a></div>
+
+
+
+
+
+
+
+
+
+
+
+<!--  一大波JS来袭 -->
+<div id="MyMoveAd" style="display: none;">
+    <span id="pinglun">0</span>
+	<span id="tonglan"><iframe noresize="" marginheight="0" marginwidth="0" src="index_3.html" scrolling="No" width="760" align="middle" frameborder="0" height="90"></iframe></span>
+	<span id="wordlink_1"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=4317__zoneid=254__cb=551ad63487__oadest=http%3A%2F%2Fnetwork.51cto.com%2Fact%2Ft1_2015%2F10" target="_blank"><font color="red">高性能融合安全架构解析</font></a><div id="beacon_551ad63487" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_001.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+	<span id="wordlink_2"><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3990__zoneid=255__cb=9dd5213b21__oadest=http%3A%2F%2Fserver.51cto.com%2Fact%2Fveeam2016%2Fveeam" target="_blank"><font color="red">Veeam助力财富500强</font></a><div id="beacon_9dd5213b21" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_002.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+	<span id="wordlink_3"><a href="http://gg.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3717__zoneid=594__cb=526f97015a__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-18.html%3Fxiaoshou" target="_blank"><font color="red">微软企业级内训课程免费学</font></a><div id="beacon_526f97015a" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_003.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+	<span id="wordlink_4"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=0ad8d35236__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_0ad8d35236" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_004.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+	<span id="wordlink"></span>
+</div>
+
+<!-- 结束 -->
+
+
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>【博文推荐】安全运维之：网络性能评估工具Iperf详解 - 51CTO.COM</title>
+<meta name="description" content="Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，它可以用来测量网络带宽和网络质量，还可以提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。">
+<meta name="keywords" content="安全运维,Iperf">
+<base target="_blank">
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><iframe src="index_1.html" style="display: none;" frameborder="0"></iframe><div style="display: block;" id="bdshare_s"><iframe src="index_2.html" id="bdsIfr" style="position: absolute; display: none; z-index: 9999;" frameborder="0"></iframe><div style="display: none;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+<!-- 导航 开始-->
+<meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://os.51cto.com/art/201410/454889.htm#">
+<div id="home_top">    <div class="top_nav">        <div class="left" style="width: 400px;"><div class="logo_51cto" title="51CTO.COM - 技术成就梦想 -  中国领先的IT技术网站"></div><a href="http://www.51cto.com/">首页</a><img src="top_bg_xian.gif" style="padding-top: 2px;" width="16" align="absmiddle" height="25"><a href="http://www.51cto.com/col/35/" target="_blank">技术频道<img src="nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a><img src="top_bg_xian.gif" width="16" align="absmiddle" height="25"><a href="http://www.51cto.com/" target="_blank">51CTO旗下网站<img src="nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a><img src="top_bg_xian.gif" width="16" align="absmiddle" height="25"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a> <a href="http://www.51cto.com/about/rss.html" target="_blank"><img src="143749870.gif" style="vertical-align: middle; margin-bottom: 5px; margin-left: 5px;"></a>       </div>        <div class="right">            <div class="more"><img src="top_shequ.gif" width="27" align="absmiddle" height="16"><a href="http://gaozhao.51cto.com/" target="_blank" style="color: rgb(204, 0, 0);">招聘</a><a href="http://edu.51cto.com/" target="_blank" style="color: rgb(204, 0, 0);">学院</a><a href="http://down.51cto.com/" target="_blank">下载</a><a href="http://bbs.51cto.com/" target="_blank">论坛</a><a href="http://blog.51cto.com/" target="_blank">博客</a><a>更多<img src="nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a>            </div>            <span id="login_status"><div class="login" style="padding-top: 8px; text-align: right;"><a href="http://home.51cto.com/index?reback=http://os.51cto.com/art/201410/454889.htm" target="_self">登录</a><a href="http://ucenter.51cto.com/2015/register.php?reback=http://os.51cto.com/art/201410/454889.htm" target="_self">注册</a></div></span>                </div>    </div></div>
+<div class="subMenu1" id="s1">
+<ul>
+<li><a href="http://network.51cto.com/" target="_blank">网络</a></li>
+<li><a href="http://netsecurity.51cto.com/" target="_blank">安全</a></li>
+<li><a href="http://developer.51cto.com/" target="_blank">开发</a></li>
+<li><a href="http://database.51cto.com/" target="_blank">数据库</a></li>
+<li><a href="http://server.51cto.com/" target="_blank">服务器</a></li>
+<li><a href="http://os.51cto.com/" target="_blank">系统</a></li>
+<li><a href="http://virtual.51cto.com/" target="_blank">虚拟化</a></li>
+<li><a href="http://cloud.51cto.com/" target="_blank">云计算</a></li>
+<li><a href="http://developer.51cto.com/embed/" target="_blank">嵌入式</a></li>
+<li><a href="http://mobile.51cto.com/" target="_blank">移动开发</a></li>
+</ul>
+</div> 
+<div class="subMenu2" id="s2">
+<ul>
+<li><a href="http://www.51cto.com/" target="_blank" title="中国领先的IT技术网站">51CTO.COM</a></li>
+<li><a href="http://www.cioage.com/" target="_blank" title="中国首个专门服务于CIO的专业网站">CIOage.com</a></li>
+<li><a href="http://www.watchstor.com/" target="_blank" title="领先的中文存储网络媒体">WatchStor.com</a></li>
+<li><a href="http://www.hc3i.cn/" target="_blank" title="中国首家专注于数字医疗及医疗信息化的专业网站">HC3i.cn</a></li>
+</ul>
+</div>
+
+
+
+<div class="subMenu3" id="s3" style="z-index: 9999; position: absolute;">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://gaozhao.51cto.com/" target="_blank" style="color: red;">招聘</a></li>
+<li><a href="http://edu.51cto.com/" target="_blank">学院</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://t.51cto.com/" target="_blank" style="color: red;">题库</a></li>
+</ul>
+</div>
+
+<!-- 登陆信息 -->
+<!-- 导航 结束--> 
+ <div class="g_39 mb10">
+	<div id="tonglanad" class="fl"><iframe noresize="" marginheight="0" marginwidth="0" src="index_3.html" scrolling="No" width="760" align="middle" frameborder="0" height="90"></iframe></div>
+	<div id="list4" class="fr">
+		<ul>
+			<li id="wordlinkad1"><a href="http://gg2.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=4317__zoneid=254__cb=a2bf41f8c6__oadest=http%3A%2F%2Fnetwork.51cto.com%2Fact%2Ft1_2015%2F10" target="_blank"><font color="red">高性能融合安全架构解析</font></a><div id="beacon_a2bf41f8c6" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_001.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			<li id="wordlinkad2"><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3990__zoneid=255__cb=6d8e003a4d__oadest=http%3A%2F%2Fserver.51cto.com%2Fact%2Fveeam2016%2Fveeam" target="_blank"><font color="red">Veeam助力财富500强</font></a><div id="beacon_6d8e003a4d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_002.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			<li id="wordlinkad3"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3717__zoneid=594__cb=4cb4e5ebad__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-18.html%3Fxiaoshou" target="_blank"><font color="red">微软企业级内训课程免费学</font></a><div id="beacon_4cb4e5ebad" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_003.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			<li id="wordlinkad4"><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=201490be85__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_201490be85" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_004.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+		</ul>
+	</div>
+<br class="dle">
+</div>
+
+<div class="g_39 menu">
+<div class="subNav_logo">
+<a href="http://os.51cto.com/" target="_blank"><img src="caozuoxitong_logo.gif" border="0"></a></div>
+<div class="subNav_l">
+<a href="http://os.51cto.com/col/543/" target="_blank">新闻</a> | 
+<a href="http://os.51cto.com/linux/" target="_blank">Linux</a> | 
+<a href="http://os.51cto.com/windows/" target="_blank">Windows</a> | 
+<a href="http://os.51cto.com/col/975/" target="_blank">浏览器</a> | 
+<a href="http://os.51cto.com/col/610/" target="_blank">开源</a> | 
+<a href="http://os.51cto.com/col/545/" target="_blank">运维</a> | 
+<a href="http://publish.51cto.com/list/519/" target="_blank">全部</a> | 
+<a href="http://os.51cto.com/art/201106/266501.htm" target="_blank">投稿指南</a> | 
+<a href="http://os.51cto.com/art/201109/292676.htm"><img src="143749870.gif" alt="RSS" width="15" height="16"> RSS订阅</a>
+</div>
+  
+<div class="search fr">
+<dl>
+<form name="searchform" action="http://www.51cto.com/php/search.php" target="_blank" method="post" style="margin: 0px; padding: 0px;">
+<dt class="fl"><input name="keyword" class="searchInput f14 input" value="请输入关键字" type="text"></dt>
+<dd class="fl"><input src="search.gif" type="image"></dd></form>
+</dl>
+</div>
+<br class="dle">
+</div>
+<div class="g_39 b3-s-4273B3 rel">
+<!--width : 26*25 - 15 = 635px-->
+<div class="g_26 fl m_l">
+<div class="brief bgF8F8F8">
+<p class="crumb ">您所在的位置：<a href="http://os.51cto.com/">操作系统</a> &gt; <a href="http://os.51cto.com/col/545/">运维经验&amp;工具</a> &gt;  <b>【博文推荐】安全运维之：网络性能评估工具Iperf详解</b> </p>
+<h1>【博文推荐】安全运维之：网络性能评估工具Iperf详解</h1>
+<div class="msg">
+<div>2014-10-23 09:47  南非蚂蚁  51CTO  字号：<span class="f14-b"><a target="_self">T</a></span> | <span class="f16-b"><a target="_self">T</a></span></div>
+<div class="artHd" id="books" style="padding: 5px 25px; display: none;"></div>
+<div class="fav"><a title="一键收藏，随时查看，分享好友！" target="_self"><img src="Fav.gif" alt="一键收藏，随时查看，分享好友！" border="0"></a></div>
+</div>
+<div class="brieftext">
+<p class="f14 green">Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，它可以用来测量网络带宽和网络质量，还可以提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p>
+<p class="ad">AD：<a href="http://mobile.51cto.com/mobile/mdsa12/" target="_blank" style="text-decoration: none; color: red;">51CTO 网+ 第十二期沙龙：大话数据之美_如何用数据驱动用户体验</a>
+</p>
+</div>
+<!--  <div style="border-left:5px solid #4065aa;height:25px; line-height:25px;margin-top:10px;background:#eef7ff;padding-left:10px;">
+<a style="text-decoration: none;color:red" target="_blank" href="http://server.51cto.com/exp/OpenPower/">IBM POWER8通过一年充分融入了“开放”基因，现在有哪些成效？快来注册观看直播，一起拥抱开源的力量。</a>
+</div> -->
+
+
+
+</div>
+<div class="tag bgF8F8F8" id="indexlist" style="display: none;">
+<ul id="indexliststr">
+</ul>
+<br class="dle">
+</div>
+<div class="content bgF8F8F8 f14">
+<div id="content">
+<p></p><p></p><table style="border-width: 1px; border-style: dotted; border-color: rgb(204, 204, 204); table-layout: fixed;" width="95%" align="center" border="0" cellpadding="6" cellspacing="0">
+    <tbody>
+        <tr>
+            <td style="word-wrap: break-word;" bgcolor="#fdfddf"><font color="#ff0000">本文出自<a href="http://ixdba.blog.51cto.com/">南非蚂蚁</a>的BLOG，如需与本文作者讨论互动，请直接<a href="http://ixdba.blog.51cto.com/2895551/1563110">点击这里</a>跳转。</font></td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+<h3 style="text-align: center;"><a target="_blank" href="http://s3.51cto.com/wyfs02/M00/70/F5/wKioL1XCGOaxJXRvAAEZkXq4EMY426.jpg"><img class="fit-image" alt="" src="wKioL1XCGOaxJXRvAAEZkXq4EMY426.jpg" width="498" border="0" height="350"></a></h3>
+<h3>一、网络性能评估工具Iperf</h3>
+<p>网络性能评估主要是监测网络带宽的使用率，将网络带宽利用最大化是保证网络性能的基础，但是由于网络设计不合理、网络存在安全漏洞等原因，都会导致网络带宽利用率不高。要找到网络带宽利用率不高的原因，就需要对网络传输进行监控，此时就需要用到一些网络性能评估工具，而Iperf就是这样一款网络带宽测试工具，本节将详细介绍一下Iperf的使用。</p>
+<h5>1、Iperf能做什么</h5>
+<p>Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，它可以用来测量网络带宽和网络质量，还可以提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p>
+<p>下面介绍Iperf的主要功能。</p>
+<p>（1）TCP方面</p>
+<p>q 测试网络带宽。</p>
+<p>q 支持多线程，在客户端与服务端支持多重连接。</p>
+<p>q 报告MSS/MTU值的大小。</p>
+<p>q 支持TCP窗口值自定义并可通过套接字缓冲。</p>
+<p>（2）UDP方面</p>
+<p>q 可以设置指定带宽的UDP数据流</p>
+<p>q 可以测试网络抖动值、丢包数</p>
+<p>q 支持多播测试</p>
+<p>q 支持多线程，在客户端与服务端支持多重连接。</p>
+<h3>二、Iperf的安装与使用</h3>
+<p>iperf可以运行在任何IP网络上，包括本地以太网、接入因特网、Wi-Fi网络等。在工作模式上，iperf运行于服务器、客户端模式下，其服务器端主要用于监听到达的测试请求，而客户端主要用于发起连接会话，因此要使用iperf，需要两台服务器，一台运行在服务器模式下，另一台运行在客户端模式下。</p>
+<h4>1．安装iperf</h4>
+<p>iperf支持Win32、Linux、FreeBSD、MacOS X、OpenBSD和Solaris等多种操作系统平台。读者可以从iperf官方主页<a href="http://iperf.fr/" target="\&quot;_blank\&quot;">http://iperf.fr/</a> 下载各种版本，目前最新的版本是iperf3.0，这里下载的软件包为iperf-3.0.tar.gz，安装过程如下：</p>
+<p>[root@ networkserver ~]# tar zxvf iperf-3.0.tar.gz</p>
+<p>[root@ networkserver ~]# cd iperf</p>
+<p>[root@ networkserver iperf]# make</p>
+<p>[root@ networkserver iperf]# make install</p>
+<p>这样，iperf就安装完成了。</p>
+<h4>2．iperf参数介绍</h4>
+<p>在完成iperf安装后，执行“iperf3 –h”即可显示iperf的详细用法。iperf的命令行选项共分为三类，分别是客户端与服务器端公用选项、服务器端专用选项和客户端专用选项，下面对常用的选项进行介绍。</p>
+<p>服务器端专用选项的含义如表1所示。</p>
+<p>表1 服务器端专用选项的含义
+</p><table border="1" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td>
+            <p>命令行参数</p>
+            </td>
+            <td>
+            <p>含义描述</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-s</p>
+            </td>
+            <td>
+            <p>将iperf以server模式启动，例如：iperf3 –s，iperf3默认启动的监听端口为5201，可以通过“-p”选项修改默认监听端口</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-D</p>
+            </td>
+            <td>
+            <p>将iperf作为后台守护进程运行，例如：iperf3 -s -D</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+<p>客户端专用选项的含义如表2.5所示。</p>
+<p>表2 客户端专用选项的含义
+</p><table border="1" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td>
+            <p>命令行参数</p>
+            </td>
+            <td>
+            <p>含义描述</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-c</p>
+            </td>
+            <td>
+            <p>将iperf以client模式启动</p>
+            <p>例如：iperf3 -c 192.168.12.168，其中192.168.12.168是server端的IP地址</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-u</p>
+            </td>
+            <td>
+            <p>指定使用UDP协议</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-b [K|M|G]</p>
+            </td>
+            <td>
+            <p>指定UDP模式使用的带宽，单位bits/sec。此选项与“-u”选项相关。默认值是1 Mbit/sec</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-t</p>
+            </td>
+            <td>
+            <p>指定传输数据包的总时间。iperf将在指定的时间内，重复发送指定长度的数据包。默认是10秒钟</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-n [K|M|G]</p>
+            </td>
+            <td>
+            <p>指定传输数据包的字节数，例如：iperf3 -c 192.168.12.168 –n 100M</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-l</p>
+            </td>
+            <td>
+            <p>指定读写缓冲区的长度。TCP方式默认大小为8KB，UDP方式默认大小为1470字节</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-P</p>
+            </td>
+            <td>
+            <p>指定客户端与服务端之间使用的线程数。默认是1个线程。需要客户端与服务器端同时使用此参数</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-R</p>
+            </td>
+            <td>
+            <p>切换数据发送接收模式，例如默认客户端发送，服务器端接收，设置此参数后，数据流向变为客户端接收，服务器端发送</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-w</p>
+            </td>
+            <td>
+            <p>指定套接字缓冲区大小，在TCP方式下，此设置为TCP窗口的大小。在UDP方式下，此设置为接受UDP数据包的缓冲区大小，用来限制可以接收数据包的最大值</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-B</p>
+            </td>
+            <td>
+            <p>用来绑定一个主机地址或接口，这个参数仅用于具有多个网络接口的主机。在UDP模式下，此参数用于绑定和加入一个多播组</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-M</p>
+            </td>
+            <td>
+            <p>设置TCP最大信息段的值</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-N</p>
+            </td>
+            <td>
+            <p>设置TCP无延时</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+<p>客户端与服务器端公用选项的含义如表3所示。</p>
+<p>表3 客户端与服务器端公用选项的含义
+</p><table border="1" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td>
+            <p>命令行参数</p>
+            </td>
+            <td>
+            <p>含义描述</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-f [k|m|g|K|M|G]</p>
+            </td>
+            <td>
+            <p>指定带宽输出单位，“[k|m|g|K|M|G]”分别表示以Kbits, Mbits, Gbits, KBytes, MBytes,GBytes显示输出结果，默认以Mbits为单位，例如：iperf3 -c 192.168.12.168 -f M</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-p</p>
+            </td>
+            <td>
+            <p>指定服务器端使用的端口或客户端所连接的端口，例如：</p>
+            <p>iperf3 -s -p 9527;</p>
+            <p>iperf3 -c 192.168.12.168 -p 9527</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-i</p>
+            </td>
+            <td>
+            <p>指定每次报告之间的时间间隔，单位为秒。如果设置为非零值，就会按照此时间间隔输出测试报告。默认值为1。</p>
+            <p>例如：iperf3 -c 192.168.12.168 -i 2</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p>-F</p>
+            </td>
+            <td>
+            <p>指定文件作为数据流进行带宽测试。</p>
+            <p>例如：iperf3 -c 192.168.12.168 -F web-ixdba.tar.gz</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+<h3>2.3.3 Iperf应用实例</h3>
+<p>要使用iperf，首先要启用一个服务端，这里假定服务端的IP地址为192.168.12.168，在此服务器上运行“iperf3 -s”即可开启iperf的服务器模式。在默认情况下，iperf3将在服务端打开一个5201监听端口，此时就可以将另一台服务器作为客户端执行iperf功能测试了。</p>
+<h4>1．测试TCP吞吐量</h4>
+<p>为了确定网卡的最大吞吐量，可以在任意客户端运行iperf命令，iperf将尝试从客户端尽可能快地向服务端发送数据请求，并且会输出发送的数据量和网卡平均带宽值。图1是一个最简单的带宽测试命令。</p>
+<p sizcache06817263942100118="0" sizset="29" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167333EhYk.jpg" sizcache06817263942100118="0" sizset="29" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_1413167334OXxe.jpg" alt="clip_image002" title="clip_image002" width="498" border="0"></a></p>
+<p style="text-align: center;">图1通过iperf测试网络带宽利用率</p>
+<p>从图1可以看出，iperf默认的运行时间是10秒钟，每隔一秒钟输出一次传输状态，同时还可以看到每秒钟传输的数据量在112MB左右，刚好与“Bandwidth”列的值对应起来，网卡的带宽速率维持在941Mbits/sec左右，而测试的服务器是千兆网卡，这个测试值也基本合理。在输出的最后，iperf还给出了总的数据发送、接收量，并给出了带宽速率平均值，通过这些值，基本可以判断网络带宽是否正常，网络传输状态是否稳定。</p>
+<p>iperf提供很多参数，可以多角度、全方位地测试网络带宽利用率，例如，要改变iperf运行的时间和输出频率，可以通过“-t”和“-i”参数来实现，如图2所示。</p>
+<p sizcache06817263942100118="0" sizset="30" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167334lazp.jpg" sizcache06817263942100118="0" sizset="30" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_1413167334nbhB.jpg" alt="clip_image004" title="clip_image004" width="498" border="0"></a></p>
+<p style="text-align: center;">图2 添加“-t”和“-i”参数后的iperf输出</p>
+<p>从图2 可以看出，输出状态的间隔变为每5秒钟一次，总共执行测试时间为20秒，测试的带宽速率仍然保持在941Mbits/sec左右，唯一变化的是失败重传次数增加了。</p>
+<p>为了模拟大量的数据传输，也可以指定要发送的数据量，这可以通过“-n”参数来实现。在指定“-n”参数后，“-t”参数失效，iperf在传输完毕指定大小的数据包后，自动结束，如图3所示。</p>
+<p sizcache06817263942100118="0" sizset="31" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167335hUaQ.jpg" sizcache06817263942100118="0" sizset="31" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_14131673357rMn.jpg" alt="clip_image006" title="clip_image006" width="498" border="0"></a></p>
+<p style="text-align: center;">图3 iperf客户端通过“-n”参数指定要传输的数据量</p>
+<p>图3的例子是指定发送一个5GB左右的数据包，并且每隔10秒钟输出一次传输状态，从这个输出可以看出，当失败重传次数较多时，传输速率急速下降。</p>
+<p>有时候，为了模拟更真实的TCP应用，iperf客户端允许从一个特定的文件发送数据，这可以通过“-F”参数实现，如图4所示。</p>
+<p sizcache06817263942100118="0" sizset="32" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_14131673351XGr.jpg" sizcache06817263942100118="0" sizset="32" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_14131673357bUa.jpg" alt="clip_image008" title="clip_image008" width="498" border="0"></a></p>
+<p style="text-align: center;">图4 iperf客户端通过“-F”参数指定文件来发送数据</p>
+<p>在图4的例子中，通过“-F”参数指定了一个webdata.tar.gz文件作为iperf要传输的数据，在使用此参数时，需要同时指定一个“-t”参数来设置要测试传输的时间，这个时间尽量设置长一些，因为在默认传输时间10秒内，这个文件可能还没有传完。</p>
+<p>在使用iperf进行网络带宽测试时，如果没有指定发送方式，iperf客户端只会使用一个单一的线程，而iperf是支持多线程的，可以使用iperf提供的“-P”参数来设置多线程的数目，通过使用多线程，可以在一定程度上增加网络的吞吐量。</p>
+<p>下面通过两个例子进行简单对比，图5是iperf使用单线程传输1.86GBytes数据所消耗的时间和带宽使用情况。为了速率单位统一，这里使用“-f”参数将输出结果都通过MBytes来显示。</p>
+<p sizcache06817263942100118="0" sizset="33" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167335ktiV.jpg" sizcache06817263942100118="0" sizset="33" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_1413167336Rqo2.jpg" alt="clip_image010" title="clip_image010" width="498" border="0"></a></p>
+<p style="text-align: center;">图5 iperf在单线程模式下的传输时间和传输速率</p>
+<p>从图5中可以看出，传输1.86GBytes的数据消耗了17秒的时间，平均带宽速率为112MBytes/sec（注意单位）.下面再看看使用多线程后，iperf传输同样大小数据量所消耗的时间和平均带宽速率，如图6所示。</p>
+<p sizcache06817263942100118="0" sizset="34" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167336qZdl.jpg" sizcache06817263942100118="0" sizset="34" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_1413167336tXzA.jpg" alt="clip_image012" title="clip_image012" width="498" border="0"></a></p>
+<p style="text-align: center;">图6 iperf使用多线程后的数据传输状态</p>
+<p>这里通过“-P”参数开启了2个多线程，从传输时间上看，传输1.86GBytes的数据，消耗时间为10.79秒，比之前单线程的传输时间少了近7秒钟，在平均带宽速率上，从之前单线程的112MBytes/sec提高到177MBytes/sec，从这个结果可以看出，多线程对网络传输性能的提高不小。</p>
+<h4>2 . 测试UDP丢包和延迟</h4>
+<p>iperf也可以用于UDP数据包吞吐量、丢包率和延迟指标，但是由于UDP协议是一个非面向连接的轻量级传输协议，并且不提供可靠的数据传输服务，因此对UDP应用的关注点不是传输数据有多快，而是它的丢包率和延时指标。通过iperf的“-u”参数即可测试UDP应用的传输性能，图7测试的是在iperf客户端传输100MB的UDP数据包的输出结果.：</p>
+<p sizcache06817263942100118="0" sizset="35" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167336pPOs.jpg" sizcache06817263942100118="0" sizset="35" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_1413167337PAn5.jpg" alt="clip_image014" title="clip_image014" width="498" border="0"></a></p>
+<p style="text-align: center;">图7 iperf传输100MB的UDP数据包的输出结果</p>
+<p>在图7中，重点关注虚线下的一段内容，在这段输出中，“Jitter”列表示抖动时间，或者称为传输延迟，“Lost/Total”列表示丢失的数据报和总的数据报数量，后面的0.33%是平均丢包的比率，“Datagrams”列显示的是总共传输数据报的数量。</p>
+<p>这个输出结果过于简单，要了解更详细的UDP丢包和延时信息，可以在iperf服务端查看，因为在客户端执行传输测试的同时，服务端也会同时显示传输状态，如图8所示。</p>
+<p sizcache06817263942100118="0" sizset="36" style="text-align: center;"><a href="http://img1.51cto.com/attachment/201410/13/2895551_1413167337XHzC.jpg" sizcache06817263942100118="0" sizset="36" target="\&quot;_blank\&quot;"><img class="fit-image" src="2895551_1413167337PLch.jpg" alt="clip_image016" title="clip_image016" width="498" border="0"></a></p>
+<p style="text-align: center;">图8 iperf服务端显示的UDP传输状态</p>
+<p>在这个输出中，详细记录了在传输过程中，每个阶段的传输延时和丢包率，在UDP应用中随着传输数据的增大，丢包率和延时也随之增加。对于延时和丢包可以通过改变应用程序来缓解或修复，例如视频流应用，可以通过缓存数据的方式而可以容忍更大的延时。</p>
+<div align="right">【责任编辑：<a href="mailto:linss@51cto.com" class="ln">林师授</a> TEL：（010）68476606】</div><br> 
+<p class="blank10"></p> 
+ 
+ 
+
+
+<div class="f12"> <span class="fl">原文：<a href="#" class="blue"><b>【博文推荐】安全运维之：网络性能评估工具Iperf详解</b></a></span> <span class="fr"><a href="http://os.51cto.com/">返回操作系统首页</a></span> </div>
+<p class="blank1"></p>
+</div>
+<hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(85, 85, 85) -moz-use-text-color -moz-use-text-color; height: 1px;">
+<div style="width: 600px; background: none repeat scroll 0% 0% rgb(255, 255, 255);"><img alt="" src="wKioL1ZOwrbDjDqxAABJOr5GFjU021.png" width="600" border="0" height="140"></div>
+<hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(85, 85, 85) -moz-use-text-color -moz-use-text-color; height: 1px;">
+<iframe src="index_4.html" scrolling="no" width="600" frameborder="0" height="239"></iframe>
+<div class="tips">
+<div style="float: left;">
+<span style="float: left; margin-top: 4px;">分享到：</span>
+<!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="margin-right: 5px; float: left;">
+        <a href="#" title="分享到QQ空间" class="bds_qzone"></a>
+        <a href="#" title="分享到新浪微博" class="bds_tsina"></a>
+        <a href="#" title="分享到腾讯微博" class="bds_tqq"></a>
+        <a href="#" title="分享到人人网" class="bds_renren"></a>
+        <a href="#" title="分享到网易微博" class="bds_t163"></a>
+        <span class="bds_more"></span>
+		<a title="累计分享12次" href="#" class="shareCount">12</a>
+
+</div>
+<!--<div class="fl"> 
+    </div>
+-->
+
+
+<!-- Baidu Button END -->
+
+
+
+</div><div class="fr blue"><a target="_self">收藏</a>|<a target="_self">打印</a>|<a id="msnqqcopy" title="分享本资源给好友" target="_self">复制</a></div>
+</div>
+</div>
+<!--内容 end-->
+<p class="blank10"></p>
+<div class="comment center">
+	<div class="inner center" id="cmscmt_iframe"><div class="title"><span class="word">内容点评</span><p class="con">已有<span class="total" id="cmt_num">0</span>条评论,<span class="total" id="zan_num">0</span>次赞</p><p style="float: right; margin-top: 17px;">还可以输入<span id="uyan_tts">500</span>字</p></div><div class="frame center"><textarea value="" id="comment" style="color: rgb(124, 124, 124); font-family: Microsoft Yahei;">请输入你的评论</textarea></div><div class="user"><a id="uyan_cmt_btn" class="submit">提交</a><dl><dt class="icon"><img src="duface.png" alt=""></dt><dd class="btn"><span>您还没有登录！</span><span class="note">请先</span>&nbsp;<a href="http://home.51cto.com/index.php?s=/Index/index/reback/http%253A%252F%252Fos.51cto.com%252Fart%252F201410%252F454889.htm" style="color: red;">登录</a>&nbsp;<span class="note">或</span>&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http%253A%252F%252Fos.51cto.com%252Fart%252F201410%252F454889.htm" style="color: red;">注册</a>&nbsp;</dd></dl></div><ul class="list center first" id="uyan_cmt_list"><div style="margin-top: 10px; padding-top: 10px; font-size: 12px; color: rgb(48, 48, 48); text-align: center;" id="uyan_cmt_list_warn">还没有评论内容</div></ul></div>
+</div>
+
+
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg pl15">关于<a href="http://www.51cto.com/php/search.php?keyword=%B0%B2%C8%AB%D4%CB%CE%AC" target="_blank" class="underline">安全运维</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=Iperf" target="_blank" class="underline">Iperf</a>的更多文章</div>
+<div class="reltag">
+<ul class="fl list02">
+  <li><a href="#" title="【博文推荐】安全运维之：网络性能评估工具Iperf详解">【博文推荐】安全运维之：网络性能评估工具</a></li><li><a href="http://os.51cto.com/art/201408/447201.htm" title="一次Linux系统被攻击的分析过程">一次Linux系统被攻击的分析过程</a></li><li><a href="http://os.51cto.com/art/201403/431950.htm" title="五款好玩又好用的Linux网络测试和监控工具">五款好玩又好用的Linux网络测试和监控工具</a></li>
+</ul>
+<div class="fr">
+<div class="h5 f12"><a href="http://netsecurity.51cto.com/art/201111/302197.htm" title="2011中国SOC安全运维管理平台调研报告"><b>2011中国SOC安全运维管理平台调研报告</b></a></div>
+<a href="http://netsecurity.51cto.com/art/201111/302197.htm" title="2011中国SOC安全运维管理平台调研报告"><img src="104339168.jpg" alt="2011中国SOC安全运维管理平台调研报告" width="100" border="0" height="80"></a>
+<p class="c666">大家都对SOC、SIM、SIEM等自己不同的见解，就像很多人说SOC的真<a class="blue" href="http://netsecurity.51cto.com/art/201111/302197.htm" title="2011中国SOC安全运维管理平台调研报告">[详细]</a></p>
+</div>
+</div>
+<!--reltag end-->
+</div>
+<p class="blank10"></p>
+
+<!--box end-->
+<p class="blank10"></p>
+<div class="relart fl bor">
+<div class="titbg">
+<h3 class="fl t1">栏目热门</h3>
+<a href="http://os.51cto.com/click/545" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+  
+	  <li><a href="http://os.51cto.com/art/201409/451927.htm" title="自动化运维工具之ansible">自动化运维工具之ansible</a></li>
+	  
+	  <li><a href="http://os.51cto.com/art/201404/437182.htm" title="Nginx多Server反向代理配置">Nginx多Server反向代理配置</a></li>
+	  
+	  <li><a href="http://os.51cto.com/art/201406/441461.htm" title="试试Linux下的ip命令，ifconfig已经过时了">试试Linux下的ip命令，ifconfig已经过时了</a></li>
+	  
+	  <li><a href="http://os.51cto.com/art/201312/423616.htm" title="详解Linux运维工程师必备技能">详解Linux运维工程师必备技能</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201505/476370.htm" title="【博文推荐】Linux企业运维高效技巧心得及分享">【博文推荐】Linux企业运维高效技巧心得及</a></li>
+	  
+</ul>
+</div>
+<div class="cathot fr bor">
+<div class="titbg">
+<h3 class="fl t1">同期最新</h3>
+<a href="http://os.51cto.com/col/545" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+	
+	  <li><a href="http://os.51cto.com/art/201410/453613.htm" title="基于git的软件开发中并行工程管理">基于git的软件开发中并行工程管理</a></li>
+	  
+	  <li><a href="http://os.51cto.com/art/201409/452605.htm" title="Nagios利用NRPE监控Linux主机">Nagios利用NRPE监控Linux主机</a></li>
+	  
+	  <li><a href="http://os.51cto.com/art/201409/452346.htm" title="三款工具助力Linux桌面端扫描">三款工具助力Linux桌面端扫描</a></li>
+	  
+	  <li><a href="http://os.51cto.com/art/201409/452338.htm" title="如何在Linux中借助Puppet和Augeas管理配置？">如何在Linux中借助Puppet和Augeas管理配置</a></li>
+	  
+	  <li><a href="http://developer.51cto.com/art/201409/452049.htm" title="Git 使用中的教训：签名提交确保代码完整可信">Git 使用中的教训：签名提交确保代码完整可</a></li>
+	  
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1"><a href="http://os.51cto.com/">操作系统</a></h3>
+<span class="pl10">频道导航</span></div>
+ <ul class="xtlist">
+<li><span class="tit">生产环境</span>
+<div><a href="http://os.51cto.com/linux/">Linux</a>
+|<a href="http://os.51cto.com/windows/">Windows</a>
+|<a href="http://os.51cto.com/col/522/">Unix</a>
+|<a href="http://os.51cto.com/col/545/">运维教程</a>
+|<a href="http://os.51cto.com/art/201011/233915.htm">Linux运维趋势</a>
+</div>
+</li>
+<li class="last"><span class="tit">OS前沿</span>
+<div><a href="http://os.51cto.com/col/975/">浏览器</a>
+|<a href="http://os.51cto.com/col/610/">开源技术</a>
+|<a href="http://os.51cto.com/windows7/">Windows 7</a>
+|<a href="http://os.51cto.com/windows2008/">Server 08</a>
+|<a href="http://os.51cto.com/col/1417/">移动OS</a>
+</div>
+</li>
+</ul> 
+</div> 
+<p class="blank10"></p>
+<p class="blank10"></p>
+<div class="leftbotcon">
+<div class="bor jdlist">
+<div class="titbg">
+<h3 class="t2">热点推荐</h3></div>
+<ul>
+<li><a href="http://mobile.51cto.com/mobile-182392.htm"><img src="153546162.jpg"></a> 
+<div class="name"><a href="http://mobile.51cto.com/mobile-182392.htm">Android开发应用详解</a></div></li>
+<li><a href="http://developer.51cto.com/art/201106/266369.htm"><img src="133620622.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/201106/266369.htm">那些性感的让人尖叫的程序员</a></div></li>
+<li><a href="http://developer.51cto.com/art/200907/133407.htm"><img src="134217922.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/200907/133407.htm">HTML5 下一代Web开发标准详解</a></div></li>
+<li><a href="http://developer.51cto.com/art/201104/257581.htm"><img src="123123954.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/201104/257581.htm">高性能WEB开发应用指南</a></div></li>
+<li><a href="http://os.51cto.com/art/200706/49181.htm"><img src="195816929.jpg"></a> 
+<div class="name"><a href="http://os.51cto.com/art/200706/49181.htm">Ubuntu开源技术交流频道</a></div></li></ul></div>
+<p class="blank10"></p>
+<div class="bor hotTag"><strong>热门标签：</strong> <a href="http://os.51cto.com/windows/">windows频道</a><a href="http://mobile.51cto.com/">移动开发</a><a href="http://cloud.51cto.com/">云计算</a><a href="http://mobile.51cto.com/mobile/objc/">objective-c</a><a href="http://network.51cto.com/art/200909/151122.htm">tp-link路由器设置图解</a><a href="http://developer.51cto.com/art/200907/133407.htm">html5</a> </div></div>
+<div class="leftbotbox"> </div>
+</div>
+<!--left end-->
+<div class="g_13 fr">
+<div style="height: 640px;" class="focus fixfloat"> 
+ <img style="border: 1px solid rgb(204, 204, 204); margin: 5px 0px;" src="weixin.jpg" width="298"><div style="top: 450px;" class="hot">
+<ul>
+<li class="tit"><em>头条</em> <a href="http://os.51cto.com/art/201603/507057.htm">如何选择最适合你的Linux发行版？</a> </li>
+<li class="con"><dl><dt><a href="http://os.51cto.com/art/201603/507057.htm"><img src="wKiom1b6KQGAGVthAABbyABK9PI856.jpg" border="0"></a></dt>
+<dd>Linux界极具活力，面向不同的用户可以使用不同的Linux发行版，比如适合新手和游戏爱好者等。</dd>
+</dl></li></ul><ol class="hotlist"><li><a href="http://os.51cto.com/art/201603/506801.htm">Zabbix监控自动化的未来如何发展</a></li><li><a href="http://os.51cto.com/art/201603/507358.htm">绝对值得你使用的75个开源移动工具</a></li></ol></div>
+<p>
+<iframe noresize="" marginheight="0" marginwidth="0" src="index_5.html" scrolling="No" width="300" align="left" frameborder="0" height="260"></iframe>
+</p>
+</div>
+<div class="bor vlist" id="edu">
+	<div class="titbg">
+    <h3 class="fl t1"><a href="http://edu.51cto.com/" target="_blank">视频课程</a></h3>
+    <a class="tmore" id="change" style="cursor: pointer;">换一换</a>
+    </div>
+    
+    	<ul class="plist01" id="edu1"><li><a class="ico" href="http://edu.51cto.com/course/course_id-4201.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4201.html" target="_blank"><img title="JSP分页标签" alt="JSP分页标签" src="a29bef130d5c68847bb798a8ae7ba7f15568f7.jpg" width="100" height="80"></a><h5><a title="JSP分页标签" href="http://edu.51cto.com/course/course_id-4201.html" target="_blank">JSP分页标签</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-2340749.html" target="_blank">刘英杰</a></p><p> 12人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-4200.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4200.html" target="_blank"><img title="Ajax程序开发经典实例视频教程" alt="Ajax程序开发经典实例视频教程" src="e660b6c5415dac1ea2b9012afb5f616a31a8cd.png" width="100" height="80"></a><h5><a title="Ajax程序开发经典实例视频教程" href="http://edu.51cto.com/course/course_id-4200.html" target="_blank">Ajax程序开发经典实例视频教程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-2340749.html" target="_blank">刘英杰</a></p><p> 2人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-4199.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4199.html" target="_blank"><img title="WebSocket实战视频课程" alt="WebSocket实战视频课程" src="57f1847288e8ffb0b8596837de5efcfa396914.png" width="100" height="80"></a><h5><a title="WebSocket实战视频课程" href="http://edu.51cto.com/course/course_id-4199.html" target="_blank">WebSocket实战视频课程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-545509.html" target="_blank">高淇</a></p><p> 25人学习过</p></div></li></ul><ul class="plist01" id="edu2" style="display: none;"><li><a class="ico" href="http://edu.51cto.com/course/course_id-4198.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4198.html" target="_blank"><img title="SpringMVC视频课程" alt="SpringMVC视频课程" src="630abe86521c9c3223e757dc495af357e2e33f.jpg" width="100" height="80"></a><h5><a title="SpringMVC视频课程" href="http://edu.51cto.com/course/course_id-4198.html" target="_blank">SpringMVC视频课程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-545509.html" target="_blank">高淇</a></p><p> 25人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-4197.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4197.html" target="_blank"><img title="OA课程" alt="OA课程" src="2116f0885ad922e474c6631d02c6592242f58b.jpg" width="100" height="80"></a><h5><a title="OA课程" href="http://edu.51cto.com/course/course_id-4197.html" target="_blank">OA课程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-545509.html" target="_blank">高淇</a></p><p> 6人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-4196.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4196.html" target="_blank"><img title="Jsonp视频课程" alt="Jsonp视频课程" src="b3a07e125ec3fcdb903771c4289739ae27d85c.png" width="100" height="80"></a><h5><a title="Jsonp视频课程" href="http://edu.51cto.com/course/course_id-4196.html" target="_blank">Jsonp视频课程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-545509.html" target="_blank">高淇</a></p><p> 9人学习过</p></div></li></ul><ul class="plist01" id="edu3" style="display: none;"><li><a class="ico" href="http://edu.51cto.com/course/course_id-4195.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4195.html" target="_blank"><img title="JBPM实战视频课程" alt="JBPM实战视频课程" src="f955c197779553a8dc83433704356c96d7ca17.png" width="100" height="80"></a><h5><a title="JBPM实战视频课程" href="http://edu.51cto.com/course/course_id-4195.html" target="_blank">JBPM实战视频课程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-545509.html" target="_blank">高淇</a></p><p> 9人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-4194.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-4194.html" target="_blank"><img title="EasyUI视频课程" alt="EasyUI视频课程" src="455d0e65214ff0d6385925f607e03f3a0d4579.png" width="100" height="80"></a><h5><a title="EasyUI视频课程" href="http://edu.51cto.com/course/course_id-4194.html" target="_blank">EasyUI视频课程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-545509.html" target="_blank">高淇</a></p><p> 13人学习过</p></div></li></ul>
+	
+</div>
+<div class="rank">
+<div class="tlt">
+      <h3>文章排行</h3>
+      <a id="top_3">本月</a><a id="top_2">本周</a><a class="myon" id="top_1">24小时</a> </div>
+ <div id="top10_1" style="display: block;" class="list"><ul>
+<li><a href="http://os.51cto.com/art/201009/223806.htm" target="_blank" title="十五个常用Linux命令行总汇">十五个常用Linux命令行总汇</a>
+</li><li><a href="http://os.51cto.com/art/201608/515547.htm" target="_blank" title="推荐 | 基于Linux命令行的五个文件下载">推荐 | 基于Linux命令行的五个文件下载</a>
+</li><li><a href="http://os.51cto.com/art/201403/432079.htm" target="_blank" title="从Linux终端管理进程：10个你必须知道">从Linux终端管理进程：10个你必须知道</a>
+</li><li><a href="http://os.51cto.com/art/201410/456046.htm" target="_blank" title="Git Rebase教程： 用Git Rebase让时光">Git Rebase教程： 用Git Rebase让时光</a>
+</li><li><a href="http://os.51cto.com/art/201607/514679.htm" target="_blank" title="Linux终于足够好，可以取代Windows了吗">Linux终于足够好，可以取代Windows了吗</a>
+</li><li><a href="http://os.51cto.com/art/201012/240726.htm" target="_blank" title="df、du、fdisk：Linux磁盘管理三板斧的">df、du、fdisk：Linux磁盘管理三板斧的</a>
+</li><li><a href="http://os.51cto.com/art/201103/249398.htm" target="_blank" title="CentOS下配置iptables防火墙">CentOS下配置iptables防火墙</a>
+</li><li><a href="http://os.51cto.com/art/201608/515452.htm" target="_blank" title="如何在Linux上运行Windows应用程序？">如何在Linux上运行Windows应用程序？</a>
+</li><li><a href="http://os.51cto.com/art/201602/505148.htm" target="_blank" title="如何升级到Windows 10并完美解决开机闪">如何升级到Windows 10并完美解决开机闪</a>
+</li><li><a href="http://os.51cto.com/art/201001/177059.htm" target="_blank" title="Linux删除目录的命令">Linux删除目录的命令</a>
+</li></ul></div>
+<div id="top10_2" style="display: none;" class="list"><ul>
+<li><a href="http://os.51cto.com/art/201608/515452.htm" target="_blank" title="如何在Linux上运行Windows应用程序？">如何在Linux上运行Windows应用程序？</a>
+</li><li><a href="http://os.51cto.com/art/201607/515011.htm" target="_blank" title="这10款最佳开源协作软件工具，你值得拥">这10款最佳开源协作软件工具，你值得拥</a>
+</li><li><a href="http://os.51cto.com/art/201607/515065.htm" target="_blank" title="Windows 10免费升级计划的利与弊">Windows 10免费升级计划的利与弊</a>
+</li><li><a href="http://os.51cto.com/art/201607/515068.htm" target="_blank" title="基础拾掇之http基础应用详解">基础拾掇之http基础应用详解</a>
+</li><li><a href="http://os.51cto.com/art/201607/515105.htm" target="_blank" title="awk 系列：如何使用 awk 复合表达式">awk 系列：如何使用 awk 复合表达式</a>
+</li><li><a href="http://os.51cto.com/art/201607/515107.htm" target="_blank" title="Windows 10周年更新无法关闭Cortana？">Windows 10周年更新无法关闭Cortana？</a>
+</li><li><a href="http://os.51cto.com/art/201607/515108.htm" target="_blank" title="在Docker和Kubernetes上运行MongoDB微">在Docker和Kubernetes上运行MongoDB微</a>
+</li><li><a href="http://os.51cto.com/art/201608/515456.htm" target="_blank" title="Git 系列（一）：什么是 Git">Git 系列（一）：什么是 Git</a>
+</li><li><a href="http://os.51cto.com/art/201608/515451.htm" target="_blank" title="Linux 上 10 个最好的 Markdown 编辑器">Linux 上 10 个最好的 Markdown 编辑器</a>
+</li><li><a href="http://os.51cto.com/art/201608/515402.htm" target="_blank" title="专为分布式系统管理员打造的五款开源支">专为分布式系统管理员打造的五款开源支</a>
+</li></ul></div>
+<div id="top10_3" style="display: none;" class="list"><ul>
+<li><a href="http://os.51cto.com/art/201607/514679.htm" target="_blank" title="Linux终于足够好，可以取代Windows了吗">Linux终于足够好，可以取代Windows了吗</a>
+</li><li><a href="http://os.51cto.com/art/201608/515452.htm" target="_blank" title="如何在Linux上运行Windows应用程序？">如何在Linux上运行Windows应用程序？</a>
+</li><li><a href="http://os.51cto.com/art/201607/514092.htm" target="_blank" title="在Windows 10使用上，哪些是效果最佳和">在Windows 10使用上，哪些是效果最佳和</a>
+</li><li><a href="http://os.51cto.com/art/201607/515011.htm" target="_blank" title="这10款最佳开源协作软件工具，你值得拥">这10款最佳开源协作软件工具，你值得拥</a>
+</li><li><a href="http://os.51cto.com/art/201607/514006.htm" target="_blank" title="你不要升级到Windows 10的十大理由">你不要升级到Windows 10的十大理由</a>
+</li><li><a href="http://os.51cto.com/art/201607/514821.htm" target="_blank" title="11个炫酷的Linux终端命令大全">11个炫酷的Linux终端命令大全</a>
+</li><li><a href="http://os.51cto.com/art/201607/514876.htm" target="_blank" title="你应该安装Linux系统的五个理由">你应该安装Linux系统的五个理由</a>
+</li><li><a href="http://os.51cto.com/art/201607/514836.htm" target="_blank" title="Windows 10那么好用 你为啥不升级？">Windows 10那么好用 你为啥不升级？</a>
+</li><li><a href="http://os.51cto.com/art/201607/514936.htm" target="_blank" title="你必须要避免Linux桌面的这六大错误">你必须要避免Linux桌面的这六大错误</a>
+</li><li><a href="http://os.51cto.com/art/201607/513796.htm" target="_blank" title="程序员喜欢的9款最佳的Linux文件比较工">程序员喜欢的9款最佳的Linux文件比较工</a>
+</li></ul></div>
+ 
+ </div>
+<p class="blank1"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点职位</h3>
+<a href="http://gaozhao.51cto.com/job-search/list" class="tmore">更多&gt;&gt;</a></div>
+	<div class="rmzwn_xx"><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3596.html" target="_blank"> 运维工程师 </a></dt><dd><h2>全职/3-5年/本科</h2><span>12k-20k</span><a href="http://gaozhao.51cto.com/company/view/id-741.html" target="_blank">光年电商</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-2549.html" target="_blank"> 高级运维工程师（高级讲师） </a></dt><dd><h2>兼职/5-10年/本科</h2><span>15k-25k</span><a href="http://gaozhao.51cto.com/company/view/id-565.html" target="_blank">京峰教育</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4327.html" target="_blank"> 中科信软招聘ansible兼职讲师 </a></dt><dd><h2>兼职/3-5年/本科</h2><span>20k-30k</span><a href="http://gaozhao.51cto.com/company/view/id-839.html" target="_blank">中科信软</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4323.html" target="_blank"> 微信开发项目经理 </a></dt><dd><h2>全职/不限/不限</h2><span>999k-1000k</span><a href="http://gaozhao.51cto.com/company/view/id-840.html" target="_blank">乐乎创新网络</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3033.html" target="_blank"> 运维工程师 </a></dt><dd><h2>全职/1-3年/大专</h2><span>6k-10k</span><a href="http://gaozhao.51cto.com/company/view/id-651.html" target="_blank">动视云科技</a></dd></dl></div>
+</div>
+<div class="blank10"></div>
+
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点专题</h3>
+<a href="http://os.51cto.com/speclist/545" class="tmore">更多&gt;&gt;</a></div>
+<ul class="plist01">
+<li><a href="http://os.51cto.com/art/201401/426963.htm" title="Fedora 20尝鲜：安装部署体验"><img src="wKiom1LOCIex_mgzAAAhq4dCVY4208.jpg" alt="Fedora 20尝鲜：安装部署体验" width="100" height="80"></a>
+<h5><a href="http://os.51cto.com/art/201401/426963.htm" title="Fedora 20尝鲜：安装部署体验">Fedora 20尝鲜：安装</a></h5>
+<div class="c666">Fedora是基于Linux的一个开放操作系统和平台，由全球</div>
+</li><li><a href="http://os.51cto.com/art/201401/426306.htm" title="《Linux运维趋势》2013年12月号携技术趣闻迎新年"><img src="wKiom1LGdB2S6LL6AAA375PwVAE972.jpg" alt="《Linux运维趋势》2013年12月号携技术趣闻迎新年" width="100" height="80"></a>
+<h5><a href="http://os.51cto.com/art/201401/426306.htm" title="《Linux运维趋势》2013年12月号携技术趣闻迎新年">《Linux运维趋势》201</a></h5>
+<div class="c666">俗话说：“年怕中秋月怕半，星期就怕礼拜三”，这周的</div>
+</li><li><a href="http://os.51cto.com/art/201401/426194.htm" title="Nginx实战：性能优化指南"><img src="wKioJlLE1yfAooUbAAAznTf36fs254.jpg" alt="Nginx实战：性能优化指南" width="100" height="80"></a>
+<h5><a href="http://os.51cto.com/art/201401/426194.htm" title="Nginx实战：性能优化指南">Nginx实战：性能优化</a></h5>
+<div class="c666">Nginx是一款轻量级的Web 服务器/反向代理服务器及电子</div>
+</li> 
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tagCloud">
+<div class="tlt">
+<h3>热点标签</h3>
+</div>
+<div class="taglist"><a title="IIS服务" href="http://os.51cto.com/art/201104/256478.htm">IIS服务</a>
+<a title="Windows 8" href="http://os.51cto.com/art/201104/256380.htm">Windows 8</a>
+<a title="浏览器战报" href="http://os.51cto.com/art/201103/250662.htm">浏览器战报</a>
+
+<a title="Ubuntu 11.04" href="http://os.51cto.com/art/201101/244030.htm">Ubuntu 11.04</a>
+<a title="运维秘诀" href="http://os.51cto.com/art/201101/244021.htm">运维秘诀</a>
+<a title="活动目录" href="http://os.51cto.com/art/201012/236185.htm">活动目录</a>
+<a title="Linux管理员" href="http://os.51cto.com/art/201104/253193.htm">Linux管理员</a>
+<a title="Fedora 15" href="http://os.51cto.com/art/201103/246763.htm">Fedora 15</a>
+<a title="Linux运维趋势" href="http://os.51cto.com/art/201011/233915.htm">Linux运维趋势</a>
+<a title="开源社区" href="http://os.51cto.com/art/201010/230570.htm">开源社区</a>
+<a title="开源社区" href="http://gaozhao.51cto.com/job-search/list/category-0-36" class="imp">系统招聘</a></div>
+</div>
+<div class="rss">
+<ul>
+<li class="lin f12-c"><a href="http://news.51cto.com/col/1323/"><strong>点击这里查看样刊</strong></a></li>
+<li>
+<dl>
+<dt> </dt>
+<dd><a href="http://home.51cto.com/index.php?s=/Subscribe"><img src="dingy.gif"></a></dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">全站热点</h3>
+</div>
+<div class="webhot fixfloat">
+<ul>
+
+<li>
+  <a href="http://netsecurity.51cto.com/art/201503/468553.htm" title="315披露虚假WiFi  信息泄露再成焦点"><img src="wKioL1UHnDrxJ82UAAAi5eWKgPw303.jpg"></a>
+  <div><a href="http://netsecurity.51cto.com/art/201503/468553.htm" title="315披露虚假WiFi  信息泄露再成焦点">315披露虚假WiFi  信息泄露再成焦点</a></div>
+</li>
+
+<li>
+  <a href="http://netsecurity.51cto.com/art/201503/468000.htm" title="聚焦两会▪话说安全"><img src="wKioL1UCV5nBHR7JAAAclBdl_kw752.jpg"></a>
+  <div><a href="http://netsecurity.51cto.com/art/201503/468000.htm" title="聚焦两会▪话说安全">聚焦两会▪话说安全</a></div>
+</li>
+
+</ul>
+</div>
+<p class="blank1"></p>
+<ul class="list03">
+
+<li><a href="http://mobile.51cto.com/news-487244.htm" title="用一句话来表达设计模式">用一句话来表达设计模式</a></li>
+
+<li><a href="http://developer.51cto.com/art/201508/487243.htm" title="大数据与Hadoop之间是什么关系？">大数据与Hadoop之间是什么关系？</a></li>
+
+<li><a href="http://netsecurity.51cto.com/art/201508/487242.htm" title="可远程开走通用汽车的黑客设备OwnStar">可远程开走通用汽车的黑客设备OwnSta</a></li>
+
+<li><a href="http://mobile.51cto.com/news-487240.htm" title="他把公司卖掉后，给员工发了150个月工资！">他把公司卖掉后，给员工发了150个月</a></li>
+
+<li><a href="http://mdsa.51cto.com/art/201508/487238.htm" title="iOS9每天多了解一点4 :: UIStack View">iOS9每天多了解一点4 :: UIStack Vie</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">读书</h3>
+</div>
+  
+<div class="catbook"><a href="http://book.51cto.com/art/200712/61514.htm" title="Head First 设计模式（中文版）"><img src="154011556.gif" width="66" border="0" height="98"></a>
+<h5><a href="http://book.51cto.com/art/200712/61514.htm">Head First 设计模式（中文版）</a></h5>
+<div class="c666 text">本书共有14章，每章都介绍了几个设计模式，完整地涵盖了四人组版本全部23个设计模式。前言先介绍这本书的用法；第1章到第11章陆</div>
+</div>
+
+
+<ul class="list03">
+
+<li><a href="http://book.51cto.com/art/200710/58100.htm" title="征服Python—语言基础与典型应用">征服Python—语言基础与典型应用</a></li>
+
+<li><a href="http://book.51cto.com/art/200710/58179.htm" title="Microsoft SQL Server 2005技术内幕:T-SQL程序设计">Microsoft SQL Server 2005技术内幕:T-SQL程序设</a></li>
+
+<li><a href="http://book.51cto.com/art/200710/58274.htm" title="软件设计师考试考前冲刺预测卷及考点解析">软件设计师考试考前冲刺预测卷及考点解析</a></li>
+
+<li><a href="http://book.51cto.com/art/200710/58355.htm" title="网络工程师考试考前冲刺预测卷及考点解析">网络工程师考试考前冲刺预测卷及考点解析</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1 fl">博文推荐</h3>
+<a class="tmore" href="http://blog.51cto.com/">更多&gt;&gt;</a></div>
+
+<ul class="list03">
+ <li><a href="http://xjsunjie.blog.51cto.com/999372/669479/" target="_blank" title="F5负载均衡的直连和旁路配置模式解析">F5负载均衡的直连和旁路配置模式解析</a></li><li><a href="http://zhangjiayang.blog.51cto.com/197218/669466/" target="_blank" title="鲁泰纺织：在行业整合中稳健前行">鲁泰纺织：在行业整合中稳健前行</a></li><li><a href="http://over140.blog.51cto.com/2543800/669257/" target="_blank" title="[Android]只显示月和日的DatePickerDialog">[Android]只显示月和日的DatePickerD</a></li><li><a href="http://yangkaiye.blog.51cto.com/2392850/669158/" target="_blank" title="关于帮客户节约成本的一些想法">关于帮客户节约成本的一些想法</a></li>
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tj">
+<div class="tlt">
+<h3>最新热帖</h3>
+<a class="more" href="http://bbs.51cto.com/hotthreads.php">更多&gt;&gt;</a></div>
+<ul>
+<li><a href="http://bbs.51cto.com/thread-831268-1.html" target="_blank" title="30岁之前的目标，51CTO的Fans，共勉！">30岁之前的目标，51CTO的Fans，共勉</a></li><li><a href="http://bbs.51cto.com/thread-818279-1.html" target="_blank" title="CCNA重点知识点">CCNA重点知识点</a></li><li><a href="http://bbs.51cto.com/thread-817761-1.html" target="_blank" title="XenServer老死机怎么回事">XenServer老死机怎么回事</a></li><li><a href="http://bbs.51cto.com/thread-814108-1.html" target="_blank" title="大公司里的草还是小公司里的宝？">大公司里的草还是小公司里的宝？</a></li><li><a href="http://bbs.51cto.com/thread-682482-1.html" target="_blank" title="一道局域网布线的基础题目">一道局域网布线的基础题目</a></li>
+</ul>
+</div>
+<div class="picAD">
+<iframe class="bann" src="index_6.html" style="background-color: white; height: 265px; width: 300px; padding: 0px; margin: 0px; overflow: hidden;" scrolling="No" frameborder="0"></iframe>
+</div>
+</div>
+<p class="blank1"></p> 
+<!--leftbotcon end-->
+</div> 
+<div class="subweb">
+<h4>51CTO旗下网站</h4>
+<div>
+<a target="_blank" href="http://www.51cto.com/">领先的IT技术网站 51CTO</a>
+<a target="_blank" href="http://www.watchstor.com/">领先的中文存储媒体 WatchStor</a>
+<a target="_blank" href="http://www.cioage.com/">中国首个CIO网站 CIOage</a>
+<a target="_blank" href="http://www.hc3i.cn/">中国首家数字医疗网站 HC3i</a>
+</div>
+</div>
+<div id="ft"><div id="foot" align="center">Copyright©2005-2016 <a href="http://www.51cto.com/">51CTO.COM</a> 版权所有 未经许可 请勿转载<div style="display: none;"><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=b6e2d52e9f0660b9fbaf0f2029c046c0" target="_blank"><img src="21.gif" width="20" border="0" height="20"></a></div></div></div>
+
+
+
+
+
+
+
+<!-- 新监测代码 -->
+<!-- 新监测代码 -->
+<div id="MyMoveAd" style="display: none; height: 2px;">
+<span id="wordlink_1"><a href="http://gg2.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=4317__zoneid=254__cb=a2bf41f8c6__oadest=http%3A%2F%2Fnetwork.51cto.com%2Fact%2Ft1_2015%2F10" target="_blank"><font color="red">高性能融合安全架构解析</font></a><div id="beacon_a2bf41f8c6" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_001.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="wordlink_2"><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3990__zoneid=255__cb=6d8e003a4d__oadest=http%3A%2F%2Fserver.51cto.com%2Fact%2Fveeam2016%2Fveeam" target="_blank"><font color="red">Veeam助力财富500强</font></a><div id="beacon_6d8e003a4d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_002.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="wordlink_3"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3717__zoneid=594__cb=4cb4e5ebad__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-18.html%3Fxiaoshou" target="_blank"><font color="red">微软企业级内训课程免费学</font></a><div id="beacon_4cb4e5ebad" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_003.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="wordlink_4"><a href="http://gg3.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=201490be85__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_201490be85" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_004.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="pinglun">0</span>
+<span id="tonglan"></span>
+<span id="wordlink"></span>
+
+<span id="bookss"></span>
+</div>   
+
+
+
+  
+
+
+<div style="position: absolute; left: 589px; top: 8289px; width: 34px; height: 16px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" name="ZeroClipboardMovie_1" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=34&amp;height=16" wmode="transparent" width="34" align="middle" height="16"></div> 
+
+
+
+
+
+
+</body>
+</html>

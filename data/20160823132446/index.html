@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>只需一枚树莓派，轻松造个游戏机 | 雷锋网</title>
+            <link rel="dns-prefetch" href="http://www.leiphone.com/">
+        <link rel="dns-prefetch" href="http://home.leiphone.com/">
+        <link rel="dns-prefetch" href="http://m.leiphone.com/">
+        <link rel="dns-prefetch" href="http://leiphone.com/">
+    	<meta name="google-site-verification" content="4c2S0LRoSpcyGiNmASqakMSa7yVC9C8Jnu-IRNyq5oU">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+    <meta property="qc:admins" content="10002525706451007656375">
+    <link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.leiphone.com/">
+        	<meta name="keywords" content="树莓派,游戏机,创客">
+	<meta name="description" content="任天堂、街机游戏任你选。">
+    <meta name="sogou_site_verification" content="ilkqV8FehD">
+    <meta name="renderer" content="webkit">
+	<link rel="cannoical" href="http://www.leiphone.com/news/201512/gDPLOKagumxwq1xb.html">    
+    
+	
+	<!-- <script type="text/javascript" src="//s.union.360.cn/9052.js"></script> -->
+	
+
+	<!--[if IE]>
+    <script>
+       (function(){var e="abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');var i=e.length;while(i--){document.createElement(e[i])}})()
+    </script>
+    <![endif]-->
+
+    <!--<script src="/resWeb/js/libs/sea.js"></script>-->
+    
+    
+    
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<!-- 顶栏广告位 -->
+
+<div class="explorer" id="low-explorer">
+    <div class="inner">
+        <em class="warn ico"></em>
+        <span>您正在使用IE低版浏览器，为了您的雷锋网账号安全和更好的产品体验，强烈建议使用更快更安全的浏览器</span>
+        <span class="ico exp-ico1"></span>
+        <span class="ico exp-ico2"></span>
+        <span class="ico exp-ico3"></span>
+        <span class="ico exp-ico4"></span>
+        <span class="ico exp-ico5"></span>
+    </div>
+</div>
+<!--[if lte IE 8]>
+    <script>
+       (function(){var e=['abbr', 'article', 'aside', 'audio', 'canvas', 'datalist', 'details', 'dialog', 'eventsource', 'figure', 'footer', 'header', 'hgroup', 'mark', 'menu', 'meter', 'nav', 'output', 'progress', 'section', 'time', 'video'];for(var i = e.length; i--;) document.createElement(e[i])})()
+
+       //低版本浏览器
+        document.getElementById("low-explorer").style.display = 'block';
+
+    </script>
+<![endif]-->
+
+
+
+<header class="yp-header">
+        <div class="yp-header-top  inner clr">
+        <a class="yp-header-logo" href="http://www.leiphone.com/">
+            <img src="lp_logo.png" alt="logo" height="52">
+                        <span>
+                读懂<em>智能</em>&amp;未来			</span>
+        </a>
+         <div class="yp-header-message">
+            <a class="bell" href="http://home.leiphone.com/">
+                <i class="ico"></i>
+                <em class="count"></em>                
+            </a>
+            <!-- 这一块是测试用的 ， 测试完毕删除 -->
+           
+            <!-- 这一块是测试用的 ， 测试完毕删除 -->
+        </div>
+        <div class="yp-header-user-box">
+            <div class="yp-header-user"><input id="is_login_tag_status" value="0" type="hidden"><div class="user-main"><div class="avatar"><img src="noLogin.jpg" alt="" width="36" height="36"></div><span class="nickname">用户</span><span class="arrow"></span></div><div class="user-link"><ul><li class="l1"><a><i></i>登录</a></li><li class="l2"><a><i></i>注册</a></li></ul></div></div>
+        </div>
+        <div class="yp-header-search">
+            <form method="GET" action="http://www.leiphone.com/search" style="height: 100%;">
+                <div class="searchType">
+                    <div class="sehType-name"><span class="site-name">全站</span><span class="arrow"></span></div>
+                    <div class="sehType-list">
+                        <!-- 试用 m ：site=tryout,海淘：site=haitao,产品：site=product -->
+                        <p data-type="tryout">试用</p>
+                        <p data-type="product">产品</p>
+                        <p data-type="haitao">海淘</p>
+                    </div>
+                </div>
+                                <input name="site" value="" type="hidden">
+                <input class="text" name="s" autocomplete="off" value="" type="text">
+                <input class="submit" value="" type="submit">
+            </form>
+        </div>
+    </div>
+    <nav style="visibility: hidden;" class="yp-header-nav nav-static">
+        <div class="nav_wrap">
+            <div class="inner clr">
+                <div class="yp-header-menu">
+                    <span style="left: 24.5px; display: block;" class="arrow"></span>
+                    <ul>
+                        <li class="first  ">
+                            <a href="http://www.leiphone.com/">首页</a>
+                        </li>
+                        <li class=" ">
+                            <a href="http://www.leiphone.com/category/jingdu">精读</a>
+                        </li>
+                        <li class="ej " data-dl="newsDl">
+                            <a>AIR+<span class="arro"></span></a>
+							<div class="sub-menu">
+								<span class="arro"></span>
+								<a href="http://www.leiphone.com/recommend/index/id/57" target="_blank">金融科技</a>
+								<a href="http://www.leiphone.com/recommend/index/id/59" target="_blank">运动健康</a>
+								<a href="http://www.leiphone.com/recommend/index/id/55" target="_blank">新智驾</a>
+								<!--a href="http://www.leiphone.com/recommend/index/id/56" target="_blank">新智造</a-->
+							</div>
+                        </li>
+                        <li class=" ">
+                            <a href="http://www.leiphone.com/recommend/index/id/58">AI科技评论</a>
+                        </li>
+                        <li class=" ">
+                            <a href="http://www.leiphone.com/specials">专题</a>
+                        </li>
+						<li class="ej li-events ">
+							<a href="http://www.leiphone.com/events/list" class="">活动<em class="point"></em><span class="arro"></span></a>
+							<div class="events-list">
+																		<div class="ls finished">
+											<a class="title" href="http://www.leiphone.com/events/index/unqiue/25.html" target="_blank">
+												机器人 x 开源 = 10000种可能（Robotics x Open Source = 10000 Possibilities）											</a>
+											<span class="status">查看</span>
+											<div class="date">07月02日</div>
+										</div>
+																			<div class="ls finished">
+											<a class="title" href="http://www.leiphone.com/events/index/unqiue/26.html" target="_blank">
+												【29日下午】全球人工智能与机器人创新大会暨AI &amp; ROBOT 系列创新沙龙											</a>
+											<span class="status">查看</span>
+											<div class="date">06月29日</div>
+										</div>
+																			<div class="ls finished">
+											<a class="title" href="http://www.leiphone.com/events/index/unqiue/21.html" target="_blank">
+												线下体验会：周六和一加X产品经理零距离搞机											</a>
+											<span class="status">查看</span>
+											<div class="date">11月07日</div>
+										</div>
+																	<a href="http://www.leiphone.com/events/list" class="more-events" target="_blank">更多活动</a>
+							</div>
+						</li>
+						<li class=" ">
+							<a href="http://www.leiphone.com/special/222/201608/57a940e79e658.html">GAIR</a>
+						</li>
+                        <li class="ej borleft  ">
+                            <div class="line"></div>
+                            <a href="http://www.igao7.com/">爱搞机<span class="arro"></span></a>
+                            <div class="sub-menu sub-menu2">
+                                <span class="arro"></span>
+								<a href="http://www.leiphone.com/category/chai" target="_blank">评测</a>
+                                <a href="http://tryout.igao7.com/" target="_blank">试用</a>
+                                <a href="http://product.leiphone.com/preference/index" target="_blank">优选</a>
+                                <a href="http://www.leiphone.com/category/tiyan" target="_blank">体验</a>
+                                <a href="http://www.leiphone.com/video" target="_blank">TV</a>
+                                <a href="http://product.leiphone.com/qa" target="_blank">问答</a>
+                            </div>
+                        </li>
+                        <li class=" ">
+                            <a href="http://haitao.leiphone.com/">极客购</a>
+                        </li>
+
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </nav>
+    <nav style="display: block;" class="yp-header-nav nav-fixed">
+        <div class="nav_wrap">
+            <div class="inner clr">
+                <div class="yp-header-menu">
+                    <span style="left: 24.5px; display: block;" class="arrow"></span>
+					<ul>
+						<li class="first  ">
+							<a href="http://www.leiphone.com/">首页</a>
+						</li>
+						<li class=" ">
+							<a href="http://www.leiphone.com/category/jingdu">精读</a>
+						</li>
+						<li class="ej " data-dl="newsDl">
+							<a>AIR+<span class="arro"></span></a>
+							<div class="sub-menu">
+								<span class="arro"></span>
+								<a href="http://www.leiphone.com/recommend/index/id/57" target="_blank">金融科技</a>
+								<a href="http://www.leiphone.com/recommend/index/id/59" target="_blank">运动健康</a>
+								<a href="http://www.leiphone.com/recommend/index/id/55" target="_blank">新智驾</a>
+								<!--a href="http://www.leiphone.com/recommend/index/id/56" target="_blank">新智造</a-->
+							</div>
+						</li>
+						<li class=" ">
+							<a href="http://www.leiphone.com/recommend/index/id/58">AI科技评论</a>
+						</li>
+						<li class=" ">
+							<a href="http://www.leiphone.com/specials">专题</a>
+						</li>
+						<li class="ej li-events ">
+							<a href="http://www.leiphone.com/events/list" class="">活动<em class="point"></em><span class="arro"></span></a>
+							<div class="events-list">
+																		<div class="ls finished">
+											<a class="title" href="http://www.leiphone.com/events/index/unqiue/25.html" target="_blank">
+												机器人 x 开源 = 10000种可能（Robotics x Open Source = 10000 Possibilities）											</a>
+											<span class="status">查看</span>
+											<div class="date">07月02日</div>
+										</div>
+																			<div class="ls finished">
+											<a class="title" href="http://www.leiphone.com/events/index/unqiue/26.html" target="_blank">
+												【29日下午】全球人工智能与机器人创新大会暨AI &amp; ROBOT 系列创新沙龙											</a>
+											<span class="status">查看</span>
+											<div class="date">06月29日</div>
+										</div>
+																			<div class="ls finished">
+											<a class="title" href="http://www.leiphone.com/events/index/unqiue/21.html" target="_blank">
+												线下体验会：周六和一加X产品经理零距离搞机											</a>
+											<span class="status">查看</span>
+											<div class="date">11月07日</div>
+										</div>
+																	<a href="http://www.leiphone.com/events/list" class="more-events" target="_blank">更多活动</a>
+							</div>
+						</li>
+						<li class=" ">
+							<a href="http://www.leiphone.com/special/222/201608/57a940e79e658.html">GAIR</a>
+						</li>
+						<li class="ej borleft  ">
+							<div class="line"></div>
+							<a href="http://www.igao7.com/">爱搞机<span class="arro"></span></a>
+							<div class="sub-menu sub-menu2">
+								<span class="arro"></span>
+								<a href="http://www.leiphone.com/category/chai" target="_blank">评测</a>
+								<a href="http://tryout.igao7.com/" target="_blank">试用</a>
+								<a href="http://product.leiphone.com/preference/index" target="_blank">优选</a>
+								<a href="http://www.leiphone.com/category/tiyan" target="_blank">体验</a>
+								<a href="http://www.leiphone.com/video" target="_blank">TV</a>
+								<a href="http://product.leiphone.com/qa" target="_blank">问答</a>
+							</div>
+						</li>
+						<li class=" ">
+							<a href="http://haitao.leiphone.com/">极客购</a>
+						</li>
+
+
+					</ul>
+                </div>
+                
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!--<link rel="stylesheet" type="text/css" href="--><!--/resWeb/css/foundation.css" media="all" />-->
+
+
+
+
+<div class="index-main lph-main clr">
+    <div class="artle-nowsite">
+        <div class="inner">
+            <a href="http://www.leiphone.com/">雷锋网</a>&gt;
+                            <a href="http://maker.leiphone.com/">硬创邦</a>&gt;
+                        <a href="http://www.leiphone.com/category/diyer">DIY</a>&gt;正文
+        </div>
+    </div>
+    <div class="inner">
+        <div class="article-left lph-left">
+            <div class="pageTop">
+                <h1>只需一枚树莓派，轻松造个游戏机</h1>
+            </div>
+            <!-- pageTop END-->
+            <div class="pageInfo clr">
+                <div class="pi-author">
+                    <span>2015-12-21</span>
+                    <span>14:38</span>
+                    <i style="color: rgb(253, 93, 60);"></i>
+                    <a href="http://www.leiphone.com/author/wupan" target="_blank">吴攀</a>
+                </div>
+                <!-- pi-author END -->
+                <div class="pi-comment">
+                    <a><span>12</span><span>条评论</span></a>
+                </div>
+                <!-- pi-comment END -->
+            </div>
+            <!-- pageInfo END -->
+
+             <!-- pageTag -->
+            <div class="pageCont lph-article-comView ">
+                <p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="5677907f18d17.jpg"></p><p>编者注：本项目来自<a href="http://makezine.com/projects/build-retro-gaming-console-raspberry-pi/" target="_self">Makezine</a>，原作者为David&nbsp;Beauchamp。Makezine给出的项目难度评级为：简单。</p><p>你怀恋小时候玩过的小霸王和街机游戏吗？使用RetroPie软件、树莓派和USB游戏控制器，不到一个小时，你就能重新捡起小时候玩过的游戏了：那些小时候没有打通的关，现在还有兴趣吗？</p><p>RetroPie软件搭建在Emulation&nbsp;Station前端游戏软件的基础上，每一个游戏都运行在单独的游戏模拟器上，并且还可以将其适配到树莓派上。该免费软件现在作为RetroPie项目还在继续更新和升级，你可以在<a href="http://blog.petrockblock.com/retropie" target="_self">petRockBlog</a>上查看相关信息。</p><p>刚安装RetroPie后，里面的游戏数量非常少，但是你可以自行添加游戏ROM。因为版权的问题，这里就不给出下载链接了，你可以自行搜索。</p><h4>第一步：组件</h4><blockquote><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>树莓派</p></li><li><p>Micro&nbsp;SD卡，至少4GB</p></li><li><p>电源</p></li><li><p>USB控制器，一个或两个</p></li><li><p>显示器（连接树莓派充当游戏显示屏）</p></li></ul></blockquote><h4>第二步：下载RetroPie镜像</h4><p>在<a href="http://blog.petrockblock.com/retropie/retropie-downloads/" target="_self">petRockBlog</a>上下载适用于你的树莓派版本的RetroPie。</p><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778e88e4cd4.png"></p><p>下载完成后对文件进行解压，即可得到你需要的镜像文件。</p><h4>第三步：格式化SD卡</h4><p>使用FAT32模式格式化SD卡。</p><h4>第四步：在SD卡上写入RetroPie镜像</h4><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778d4ce0c10.png"></p><p>如果是Windows系统计算机，则可以通过免费软件<a href="http://win32-disk-imager.en.uptodown.com/" target="_self">Win32DiskImager</a>写入。</p><p>如果是Mac，则可使用Apple&nbsp;Pi&nbsp;Baker进行写入，<a href="https://www.raspberrypi.org/documentation/installation/installing-images/mac.md" target="_self">写入方法点击这里</a>。</p><p>注：写入镜像时，磁盘容量看起来会减少到4GB；这时候你也不能直接使用磁盘的剩余空间，第六步会告诉你如何释放这些磁盘空间。</p><h4>第五步：在RetroPie中配置USB控制器</h4><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778f1fb482e.jpg"></p><p>将SD卡插入到树莓派中，然后找一块显示器将其连接起来。RetroPie将自动启动到游戏模拟器系统。系统会要求你对你所使用的控制器进行设置。我发现我的超级任天堂USB控制器几乎能和所有任天堂、超级任天堂、世嘉、雅达利和街机游戏兼容。</p><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778f3042d62.jpg"></p><p>注意：在这一步支持的游戏系统只有Amiga、Apple&nbsp;II、Macintosh、MS&nbsp;DOS、PORTS、ScummVM和INFOCOM；<a href="http://blog.petrockblock.com/retropie/arcade-systems-game-consoles-and-home-computers-in-retropie/" target="_self">你可以在这些下载这些模拟器</a>。</p><p>这些都是比较古老的计算机游戏模拟器，其中一些自带了一些游戏，但是需要键鼠才能玩。如果你对使用键鼠不感兴趣，可以删掉这些系统，安装支持两个玩家的<a target="_blank" href="http://www.leiphone.com/tag/%E6%B8%B8%E6%88%8F%E6%89%8B%E6%9F%84" title="游戏手柄">游戏手柄</a>。</p><h4>第六步：扩展磁盘</h4><p>为了利用SD的剩余空间，需要对SD卡的容量进行扩展。</p><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778f8a1951e.jpg"></p><p>进入RetroPie菜单，选择Raspberry&nbsp;Pi&nbsp;Configuration&nbsp;tool&nbsp;Raspi-config（树莓派配置工具）。</p><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778fc5c4da2.jpg"></p><p>选择其中第一个选项对容量进行扩展。</p><h4>第七步：获取更多游戏模拟器</h4><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778d71389b8.png"></p><p>要安装任天堂或超级任天堂的模拟器，你只需要将相应的ROM放到SD卡特定的文件夹中即可；如果SD在Windows计算机或Mac上连接不正常，你可以使用网络（如局域网、FTP或SSH）进行传输。</p><p>最简单的当然是使用局域网的方式了，只需要通过网线将树莓派连接到你的路由器端口上，然后再通过连接到这台路由器的计算机复制文件即可。</p><p>注：文件复制时，树莓派处于开启状态。</p><h4>第八步：将ROM复杂到相应的文件夹</h4><p>通过局域网、FTP或SSH配置好树莓派和计算机的连接之后，就该复制ROM了。首先找到路径retropie/roms/*。</p><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778d3dc5d34.png"></p><p>在roms文件夹中包含大量的模拟器ROM文件夹，其中一些很容易识别，如果不认识，你可以查看<a href="https://github.com/retropie/RetroPie-Setup/wiki" target="_self">Retro&nbsp;Wiki</a>进行鉴定。下面列出几个常见的ROM：</p><blockquote><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>任天堂=&nbsp;/nes</p></li><li><p>超级任天堂=&nbsp;/snes</p></li><li><p>任天堂64&nbsp;=&nbsp;/n64</p></li><li><p>世嘉&nbsp;=&nbsp;/mastersystem</p></li><li><p>世嘉创世&nbsp;=&nbsp;/genesis</p></li></ul></blockquote><p>如果你不需要AMIGA或Apple这样的默认配置的模拟器，可以直接删掉。如果不愿意删掉，也可以在其文件夹名称前加上一个“-”号，这样该模拟器就不会在RetroPie上显示了。</p><h4>第九步：完成并试玩</h4><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="5677905e48138.jpg"></p><p>完成配置之后重启树莓派，你配置的各种模拟器就出现在了你的屏幕上，选择相应的模拟器就能看到对应的游戏。开始玩耍吧！游戏视频：<span style="line-height: 1.8;">&nbsp;</span></p><p><a href="http://v.qq.com/page/x/o/u/h01771bq3ox.html" target="_blank">http://v.qq.com/page/x/o/u/h01771bq3ox.html</a></p><h4>第十步：其它建议</h4><p>1、默认热键：</p><blockquote><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>选择+开始：退出</p></li><li><p>选择+右肩键：保存</p></li><li><p>选择+左肩键：加载</p></li><li><p>选择+右键：输入状态槽增加</p></li><li><p>选择+左键：输入状态槽减少</p></li><li><p>选择+X键：RGUI菜单</p></li><li><p>选择+B：重置</p></li></ul></blockquote><p>2、一些模拟器（Playstation、雅达利等）需要其它bios文件才能正常工作，可将这些文件放在路径/RetroPie/BIOS下。</p><p>3、如果你想玩街机游戏，那只有Romset&nbsp;0.37b5才能工作，这是相对较为古老的版本了，而且ROM很难找到。</p><p>4、RetroPie的屏幕和主题可以通过菜单中相应的选项进行修改。</p><h4>第十一步：3D打印和游戏盒子</h4><p style="text-align: center;"><img alt="只需一枚树莓派，轻松造个游戏机" src="56778d644510a.jpg"></p><p>为了外形的美观，可以给游戏配置一个外壳，我选择的是3D打印制作的外壳，文件<a href="http://www.thingiverse.com/thing:449877" target="_self">点击此处</a>下载。我还在上面进行了一点涂鸦，增加了一点任天堂的味道。</p><p><br></p><p><strong>关注“硬创邦”（微信号：leiphone_bang），可实时跟进最新活动消息！而且，雷锋网<span style="color: rgb(253, 93, 60);">(搜索“雷锋网”公众号关注)</span>在未来三个月内选一个合适的时间，在北上深选择一个地点，举办创马“火星救援”专场！<a href="http://www.leiphone.com/events/index/unqiue/24.html" target="_self">详情可点此处了解</a>。<br>此外还可加入全球创客马拉松主群（群号：259592983），参与我们的互动讨论~</strong></p><p style="text-align: center;"><strong><img alt="只需一枚树莓派，轻松造个游戏机" src="5677a06206687.png"></strong></p>            </div>
+
+
+            <!-- pageCont END -->
+            <div class="pageActive clr">
+                <div class="mark-like-btn clr">
+                   <!--  <a class="share-btn like-btn" href="javascript:;" ><i></i><span>1</span>个人喜欢</a> -->
+                    <a class="share-btn collect collect-no"><i></i><span>11</span>人收藏</a>
+                </div>
+                <!-- Baidu Button BEGIN -->
+                <div data-bd-bind="1471929878405" id="bdshare" class="bdshare_t bds_tools get-codes-bdshare baidu-share baidu-share bdsharebuttonbox bdshare-button-style0-16">
+                    <span class="s-txt">分享：</span>
+                    <a class="bds_tsina weibo-btn share-btn lpatrshare-btn2 " data-cmd="tsina" href="#" title="分享到新浪微博"><i></i><!-- 分享到微博 --></a>
+                    <a class="weixin-btn bds_weixin share-btn lpatrshare-btn2" data-cmd="weixin" title="分享到微信">
+                        <i></i>
+                        <!-- 分享到朋友圈 -->
+                    </a>
+                    <a class="wy-btn lpatrshare-btn2" target="_blank" href="http://hot.163.com/share.html?title=%E5%8F%AA%E9%9C%80%E4%B8%80%E6%9E%9A%E6%A0%91%E8%8E%93%E6%B4%BE%EF%BC%8C%E8%BD%BB%E6%9D%BE%E9%80%A0%E4%B8%AA%E6%B8%B8%E6%88%8F%E6%9C%BA&amp;image=&amp;url=http://www.leiphone.com/news/201512/gDPLOKagumxwq1xb.html" title="分享到网易">
+                        <i></i>
+                    </a>
+                    <a class="bds_more more-btn share-btn" href="#" data-cmd="more">更多</a>
+                </div>
+                
+
+                
+                <!-- Baidu Button END -->
+            </div>
+            
+            <!-- 相关文章start author huangdi20150706 -->
+                        <!-- 相关文章end  -->
+
+            <!-- 大家再看start -->
+            <!-- 热门文章 start -->
+<div class="artle-watch">
+    <div class="tit clr">
+        <h1>大家在看</h1>
+        <!-- <a href="javascript:;" class="reflash"><i></i>换一换</a> -->
+    </div>
+    <!-- <div class="list clr">
+        <ul>
+        </ul>
+    </div> -->
+    <!-- 某段不知名的代码 -->
+    
+    <div id="ENGAGEYA_WIDGET_76"><div class="eng_recs_holder" id="eng_recs_holder_21883220654562772"><div class="eng_top_ww_widget" id="eng_top_ww_widget_21883220654562772"><div class="eng_ww_widget" id="eng_ww_widget_76"><div class="eng_ww_title" id="eng_ww_title_21883220654562772"><span class="eng_ww_ttl_span1">精彩内容推荐：</span><span class="eng_ww_ttl_span2"></span></div><div class="eng_asw" id="eng_asw_21883220654562772"><div id="eng_sw_0_76" class="eng_widget_sw"><a id="eng_href_0_76" class="eng_widget_href eng_inner" href="http://www.leiphone.com/news/201608/83h1voIX40gf6Fd1.html" title="滴滴姓什么？"><div id="eng_img_w_0_76" class="eng_widget_img_w"><img id="eng_img_0_76" class="eng_widget_img" src="static.leiphone.com.80_165344_2.jpg" data-pin-no-hover="true"></div><div id="eng_in_0_76" class="eng_widget_in"><span id="eng_is_0_76" class="eng_widget_is">滴滴姓什么？</span></div></a></div><div id="eng_sw_1_76" class="eng_widget_sw"><a id="eng_href_1_76" class="eng_widget_href eng_inner" href="http://www.leiphone.com/news/201608/VpU1RQFHeXuY6MnQ.html" title="在夹缝中行走，小米笔记本的抉择"><div id="eng_img_w_1_76" class="eng_widget_img_w"><img id="eng_img_1_76" class="eng_widget_img" src="static.leiphone.com.80_178548_2.jpg" data-pin-no-hover="true"></div><div id="eng_in_1_76" class="eng_widget_in"><span id="eng_is_1_76" class="eng_widget_is">在夹缝中行走，小米笔记本的抉择</span></div></a></div><div id="eng_sw_2_76" class="eng_widget_sw"><a id="eng_href_2_76" class="eng_widget_href eng_inner" href="http://www.leiphone.com/news/201608/iuBQ6aj8mIUWWjjX.html" title="滴滴收购Uber中国背后：出行巨头诞生，但谈垄断过早"><div id="eng_img_w_2_76" class="eng_widget_img_w"><img id="eng_img_2_76" class="eng_widget_img" src="static.leiphone.com.80_107115_2.jpg" data-pin-no-hover="true"></div><div id="eng_in_2_76" class="eng_widget_in"><span id="eng_is_2_76" class="eng_widget_is">滴滴收购Uber中国背后：出行巨头诞生，但谈垄断过早</span></div></a></div><div id="eng_sw_3_76" class="eng_widget_sw"><a id="eng_href_3_76" class="eng_widget_href eng_inner" href="http://www.leiphone.com/news/201509/FUbhPm4lunaNqQ6J.html" title="不只是当编辑，人工智能都会写小说了"><div id="eng_img_w_3_76" class="eng_widget_img_w"><img id="eng_img_3_76" class="eng_widget_img" src="static.leiphone.com.80_137465_2.jpg" data-pin-no-hover="true"></div><div id="eng_in_3_76" class="eng_widget_in"><span id="eng_is_3_76" class="eng_widget_is">不只是当编辑，人工智能都会写小说了</span></div></a></div></div><div id="eng_brnd_76" class="eng_branding"><a href="http://goingnative.cn/" target="_blank" title="GoingNative powered by Engageya"><img id="eng_brnd_img_76" class="eng_brnd_img" src="gn.png" width="20px" height="20px"></a><a href="http://goingnative.cn/" style="color: rgb(22, 134, 198);" target="_blank" title="GoingNative powered by Engageya">&nbsp;GoingNative</a></div></div></div></div></div>
+    <!-- 某段不知名的代码 -->
+</div>
+<!-- 热门文章 end -->
+
+
+            <!-- 大家在看end  -->
+
+
+            <!-- pageRelate END -->
+            <!-- 评论 -->
+<div class="article-coment">
+    <div class="lp-comment useComJs" id="lph-comment">
+        <input id="lp_item_id" name="item_id" value="108380" type="hidden">
+        <input id="lp_item_type" name="type" value="2" type="hidden">
+
+        <div class="h2 clr">
+            <h2>文章点评：</h2>
+            <!-- <strong class="h2-tip">
+                （您需要<a class="c-log" href="javascript:openPop('#lp-login-pop');">登录</a>后才能评论 <a href="http://home.leiphone.com/main/register" class="c-reg">没有账号</a> ？）</strong>
+            -->        
+        </div>
+        <div class="submit clr" id="commentForm">
+            <div class="text">
+                <textarea name="Comment[content]" placeholder="我有话要说……" id="saytext0"></textarea>
+            </div>
+            <div class="sub clr publishtosina">
+                <span class="emotionc emotion0" data-emotion="0">表情</span>
+                <label><input id="" name="pushForWeibo" type="checkbox"> 同步到新浪微博</label>
+                <div class="qqFace" style="position: absolute; display: none; z-index: 10;"></div>
+                <button type="submit" title="提交">提交</button>
+            </div>
+        </div>
+        <!-- <div class="jcWords">
+            <h3><strong>精彩评论</strong></h3>
+            <ul class="comment-say">
+                
+            </ul>
+        </div>
+        <div class="words">
+            <h3><strong>最新评论</strong><span></span>条评论<i></i></h3>
+            <ul class="comment-say">
+                
+            </ul>
+            <div id="comment-say-more" class="comment-say-more">
+
+                <span>加载更多</span>
+                <em>没有更多了</em>
+
+            </div>
+        </div> -->
+    				<div class="article-comment-container" data-item-id="108380" data-type-id="2">															<div class="words">						<h3><strong>最新评论</strong></h3>						<ul class="comment-say">																					<li class="comment-say-li clr comment-level-1" data-current-comment-id="156311" data-parent-comment-id="0" data-member-id="4013254">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4013254"> <img src="54_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4013254" class="name replyName">大敏感词							</a>																						<a class="xb type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																																										<span>一次次证明了树莓派就是能做这些然并卵的事。</span>						</div>						<div class="time">							<span>12月22日 12:27</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>大敏感词</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="156177" data-parent-comment-id="0" data-member-id="4279867">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4279867"> <img src="67_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4279867" class="name replyName">摩顿•狄龙							</a>																						<a class="xb type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																																										<span>好东西</span>						</div>						<div class="time">							<span>12月22日 09:54</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>摩顿•狄龙</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="156036" data-parent-comment-id="0" data-member-id="4095567">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4095567"> <img src="67_avatar_pic_40_40_001.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4095567" class="name replyName">艾维斯•加拉							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>不好卖</span>						</div>						<div class="time">							<span>12月22日 08:31</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>艾维斯•加拉</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155860" data-parent-comment-id="0" data-member-id="4312470">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4312470"> <img src="70_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4312470" class="name replyName">Nashty							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>这人应该是很无聊</span>						</div>						<div class="time">							<span>12月21日 23:14</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>Nashty</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155817" data-parent-comment-id="0" data-member-id="4117140">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4117140"> <img src="40_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4117140" class="name replyName">流行科技							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>可以试试</span>						</div>						<div class="time">							<span>12月21日 22:30</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>流行科技</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155750" data-parent-comment-id="0" data-member-id="4231874">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4231874"> <img src="74_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4231874" class="name replyName">读物							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span><img src="1.gif"></span>						</div>						<div class="time">							<span>12月21日 21:38</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>读物</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155749" data-parent-comment-id="0" data-member-id="4231874">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4231874"> <img src="74_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4231874" class="name replyName">读物							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>有点麻烦</span>						</div>						<div class="time">							<span>12月21日 21:38</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>读物</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155532" data-parent-comment-id="0" data-member-id="4319228">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4319228"> <img src="28_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4319228" class="name replyName">二小							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span><img src="63.gif"><img src="63.gif"></span>						</div>						<div class="time">							<span>12月21日 16:42</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>二小</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155519" data-parent-comment-id="0" data-member-id="4318172">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4318172"> <img src="72_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4318172" class="name replyName">Moono2							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>了不起~</span>						</div>						<div class="time">							<span>12月21日 16:12</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>Moono2</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155508" data-parent-comment-id="0" data-member-id="4294332">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4294332"> <img src="32_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4294332" class="name replyName">美国奥巴马							</a>																						<a class="xb type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																																										<span>记得赤色要塞一直没打通关</span>						</div>						<div class="time">							<span>12月21日 15:41</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>美国奥巴马</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155505" data-parent-comment-id="0" data-member-id="4013610">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4013610"> <img src="10_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4013610" class="name replyName">太阳狮							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>这动手能力令人佩服。曾经的任天堂多么的流行啊</span>						</div>						<div class="time">							<span>12月21日 15:39</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>太阳狮</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>							<li class="comment-say-li clr comment-level-1" data-current-comment-id="155486" data-parent-comment-id="0" data-member-id="4054585">					<div class="csl-img">						<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4054585"> <img src="85_avatar_pic_40_40.jpg" width="40" height="40"> </a>					</div>					<div class="csl-body">						<div class="cont">							<a rel="nofollow" href="http://product.leiphone.com/otherProduct/otherMemberId/4054585" class="name replyName">中秋八月							</a>																																				<a class="i_vip type" href="http://fuli.leiphone.com/guide#module3" target="_blank"></a>																												<span>好怀念小时玩游戏的时候，现在孩子都会玩游戏了、</span>						</div>						<div class="time">							<span>12月21日 15:08</span>							<a class="respond-coin" title="回复"><i></i><em>回复</em></a>							<span class="zan "><i></i>								<em class="z-count">									(0)								</em>							</span>						</div>						<ul class="csl-respond">		      			</ul>		      			<div class="respond-submit">		      				<div class="text"><input type="text"><div class="tip">回复<a>中秋八月</a>：</div></div>							<div class="sub clr">								<span class="emotionc">表情</span>								<button>提交</button>								<div class="qqFace" style="position: absolute; display: none; z-index: 10;">								</div>							</div>						</div>					</div>				</li>											</ul>											</div>									</div>		</div>
+</div>
+<!-- 评论 -->
+
+
+            <div class="related-article"><h2>最新资讯</h2>
+                <div class="related-article-container">  					<div class="related-date-group first-group">  						<span class="day">今天</span>  						<div class="related-article-list">  							<ul><li class="clr first-item">								<span class="time">13:19<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/cVm4d2veRVqGNvVC.html" class="litpic">                                    <img src="57bbc9e69e8eb.jpg" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/cVm4d2veRVqGNvVC.html">连手机都能自动组装了，人类真的要被机器抢走饭碗？</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/MIT">MIT</a><a target="_blank" href="http://www.leiphone.com/tag/%E6%89%8B%E6%9C%BA">手机</a><a target="_blank" href="http://www.leiphone.com/tag/%E8%87%AA%E5%8A%A8%E7%BB%84%E8%A3%85">自动组装</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/liuziyu">子榆</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">12:30<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/8VubP21BjTbrjrpw.html" class="litpic">                                    <img src="57baea9b93700.jpg" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/8VubP21BjTbrjrpw.html">陌生人社交的突破口，腾讯是如何找到的？ </a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/%E5%85%B4%E8%B6%A3%E9%83%A8%E8%90%BD">兴趣部落</a><a target="_blank" href="http://www.leiphone.com/tag/QQ">QQ</a><a target="_blank" href="http://www.leiphone.com/tag/%E5%BE%AE%E4%BF%A1">微信</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/%E9%83%9D%E6%99%93%E8%8C%B9">郝晓茹</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">12:03<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/RHDq9gzin4yoSLk6.html" class="litpic">                                    <img src="57bbca2af17da.png" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/RHDq9gzin4yoSLk6.html">交通“神话”破灭，巴铁测试线本月底或被拆除</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/%E5%B7%B4%E9%93%81">巴铁</a><a target="_blank" href="http://www.leiphone.com/tag/%E9%9D%9E%E6%B3%95%E9%9B%86%E8%B5%84">非法集资</a><a target="_blank" href="http://www.leiphone.com/tag/%E6%B2%BB%E5%A0%B5%E7%A5%9E%E5%99%A8">治堵神器</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/yafeng">亚峰</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">11:55<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/JTTXVaXDf6bINa3F.html" class="litpic">                                    <img src="57bbc4916e0f3.jpg" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/JTTXVaXDf6bINa3F.html">智驾新宠 NVIDIA发布Tegra Parker车载处理器</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/NVIDIA">NVIDIA</a><a target="_blank" href="http://www.leiphone.com/tag/%E6%97%A0%E4%BA%BA%E9%A9%BE%E9%A9%B6">无人驾驶</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/XDXO">莫昌佑</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">11:36<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/JHsCrYKQMEhrB0hD.html" class="litpic">                                    <img src="57bbbd2f53c5a.jpg" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/JHsCrYKQMEhrB0hD.html">ACM SIGCOMM 2016 | 微软论文（一）</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/Chuanxiong%20Guo%E2%80%8B">Chuanxiong Guo​</a><a target="_blank" href="http://www.leiphone.com/tag/ACM%20SIGCOMM%202016">ACM SIGCOMM 2016</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/zhangmin">章敏</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">11:00<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/5KwZREXAYOCaURu5.html" class="litpic">                                    <img src="57bbb8c74523d.png" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/5KwZREXAYOCaURu5.html">为抢占苹果A12订单，各大厂商卯足劲研发7nm芯片</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/A12">A12</a><a target="_blank" href="http://www.leiphone.com/tag/7nm">7nm</a><a target="_blank" href="http://www.leiphone.com/tag/%E5%8F%B0%E7%A7%AF%E7%94%B5">台积电</a><a target="_blank" href="http://www.leiphone.com/tag/GlobalFoundries">GlobalFoundries</a><a target="_blank" href="http://www.leiphone.com/tag/%E8%8A%AF%E7%89%87">芯片</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/yafeng">亚峰</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">11:00<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/PmU6Il2qfEJzziow.html" class="litpic">                                    <img src="57bbb59735b63.jpg" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/PmU6Il2qfEJzziow.html">钥匙还在手里，特斯拉Model S却被偷</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/%E7%89%B9%E6%96%AF%E6%8B%89">特斯拉</a><a target="_blank" href="http://www.leiphone.com/tag/Models">Models</a><a target="_blank" href="http://www.leiphone.com/tag/%E5%A4%B1%E7%AA%83">失窃</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/yameng">亚萌</a></span>                                    </div>                                </div>    						</li><li class="clr ">								<span class="time">10:46<span class="dot"></span></span>                                <a href="http://www.leiphone.com/news/201608/ihDy5wvbuFTsTsCh.html" class="litpic">                                    <img src="57bb8885da930.jpg" alt="" width="140" height="92">                                </a>                                <div class="info">                                    <h3><a href="http://www.leiphone.com/news/201608/ihDy5wvbuFTsTsCh.html">如何构建一套完整的VR设计流程</a></h3>                                    <div class="ft">                                        <span class="tags">                                            <i></i><a target="_blank" href="http://www.leiphone.com/tag/%E8%99%9A%E6%8B%9F%E7%8E%B0%E5%AE%9E">虚拟现实</a><a target="_blank" href="http://www.leiphone.com/tag/%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1">产品设计</a><a target="_blank" href="http://www.leiphone.com/tag/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C">用户体验</a>                                        </span>                                        <span class="author">by <a target="_blank" href="http://www.leiphone.com/author/shanghongwei">商宏伟</a></span>                                    </div>                                </div>    						</li></ul>  						</div>  					</div>  				</div>
+                <div class="related-article-loading"></div>
+            </div>
+            <!-- 首页按钮 -->
+            <div class="indexBtn">
+                <a href="http://www.leiphone.com/"><i class="arrow"></i><span>返回首页</span></a>
+            </div>
+                        <!-- 硬创邦code-->
+         <!--    <div class="ycb-code">
+                <a href="javascript:void(0)"><img src="http://static.leiphone.com/uploads/new/publicAccount/201511/56415e8509a66.jpg?imageMogr2/thumbnail/!152x152r/gravity/Center/crop/152x152/quality/90" alt="雷锋网" width="152" height="152"></a>
+                <div class="des">
+                    <h3>雷锋网</h3>
+                    <p>关注产品和创新的科技媒体</p>
+                </div>
+            </div> -->
+                    </div>
+        <!-- lph-left -->
+	    <div class="lph-right">
+		    <!-- 二维码 -->
+<div class="lph-code">
+    <a>
+        <img src="lph-code.jpg" alt="雷锋网" width="104" height="104">
+    </a>
+    <div class="des">
+        <h3>雷锋网</h3>
+        <p>关注产品和创新的科技媒体</p>
+    </div>
+</div>
+<div class="about-author" id="article_author_info">
+    
+    <div class="aboutAur-main">
+        <div class="aboutAur-mes clr">
+            <div class="au-face">
+                <a rel="nofollow" href="http://www.leiphone.com/author/wupan" target="_blank">
+                    <img src="55b63cfe6d1f2_100_100.jpg" alt="吴攀">
+                </a>
+                <em class="v"></em>
+            </div>
+            <div class="aboutAur-name">
+                <div class="name">
+                    <a rel="nofollow" href="http://www.leiphone.com/author/wupan" target="_blank">吴攀</a>
+                </div>
+                <div class="rank">专栏作者</div>
+                <div class="ope">
+
+                                            <a class="focus">+关注</a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="atten-area">
+            <em class="l-quote"></em>
+            人类尚处于科技文明的黎明时代，如果你已经无法理解现在所发生的一切，请不要惊慌。微信联系：p_NizXdr<em class="r-quote"></em>
+        </div>
+
+        <!--
+            <div class="au-code">
+                    <img src="" alt=""/>
+                    <p>扫描二维码，关注作者</p>
+            </div>
+        -->        
+<div class="monthHot-artle">
+    <div class="tit"><span>当月热门文章</span></div>
+    <div class="list">
+        <ul>
+                        <li class="first">
+                <a href="http://www.leiphone.com/news/201510/5yYgkmMKckVLGs49.html" title="旧手机不要丢，用来DIY个蒸汽朋克音箱" target="_blank">旧手机不要丢，用来DIY个蒸汽朋克音箱</a>
+            </li>
+                        <li>
+                <a href="http://www.leiphone.com/news/201512/2JXkwpHQNyTjQGe7.html" title="只需一根铜线，就能DIY一个喇叭" target="_blank">只需一根铜线，就能DIY一个喇叭</a>
+            </li>
+                        <li>
+                <a href="http://www.leiphone.com/news/201510/w8ncJgsnJ7o4dvLU.html" title="Instagram CEO：不能露乳全怪苹果" target="_blank">Instagram CEO：不能露乳全怪苹果</a>
+            </li>
+                        <li>
+                <a href="http://www.leiphone.com/news/201508/scHNzoiNssu2M8uv.html" title="条件已经成熟，超级高铁Hyperloop明年开建" target="_blank">条件已经成熟，超级高铁Hyperloop明年开建</a>
+            </li>
+                        <li>
+                <a href="http://www.leiphone.com/news/201508/tbA8u2AJIZNf7Z3t.html" title="胆小勿点！这十五部电影告诉你计算机有多恐怖" target="_blank">胆小勿点！这十五部电影告诉你计算机有多恐怖</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+    </div>
+</div>
+<!-- 临时广告begin   -->
+<!--
+<div class="right-box">
+    <a href="http://www.knewbi.com/topic/deal-weekly" target="_blank">
+        <img src="http://www.leiphone.com/resWeb/images/temp/wankrtuijian.jpg">
+    </a>
+</div> -->
+<!-- 临时广告end -->
+
+<!-- 关联广告begin -->
+<!-- 话题推荐 -->
+<div class="aside-hotTopic right-box aside-items">
+    <a href="http://product.leiphone.com/productTopic/view/id/47.html" target="_blank">
+        <img src="566f8f2547da6.png">
+    </a>
+    <div class="txt clr">
+        <span class="num">5人投票</span>
+        <span class="webName">话题推荐</span>
+    </div>
+    <div class="cover">
+        <a href="http://product.leiphone.com/productTopic/view/id/47.html" target="_blank">去推荐</a>
+    </div>
+</div>
+<!-- e修begin -->
+
+<div class="e-fix-man right-box">
+    <div class="e-tit clr"><span>e修大师</span><a href="http://efix.leiphone.com/?source=leiphone" target="_blank">雷锋网旗下手机后市场服务平台</a></div>
+    <div class="e-choice">
+        <div class="shadow-block">
+            <div class="qo-tit">
+                <div class="tabs-tit clr">
+                    <ul class="">
+                        <li class="active" id="e-iphone" data-ty="3">苹果手机</li>
+                        <li id="e-xm" data-ty="5">小米手机</li>
+                        <li id="e-hw" data-ty="6">华为手机</li>
+                    </ul>
+                    <a href="http://efix.leiphone.com/?source=leiphone" target="_blank" class="more-clasify">其他品牌</a>
+                </div>
+            </div>
+            <div class="list clr">
+                <div class="sel clr active">
+                    <ul>
+                        <li class="pr">
+                            <span id="sel-type" class="default-span"><span class="con">机型</span><s class="jt"></s></span>
+                            <dl id="type-list" class="ps" data-zc="">
+
+                            <dd class="type-item" data-id="14">6</dd><dd class="type-item" data-id="13">6 Plus</dd><dd class="type-item" data-id="79">SE</dd><dd class="type-item" data-id="21">6S Plus</dd><dd class="type-item" data-id="20">6S</dd><dd class="type-item" data-id="15">5S </dd><dd class="type-item" data-id="16">5</dd><dd class="type-item" data-id="19">5C</dd><dd class="type-item" data-id="17">4S</dd><dd class="type-item" data-id="18">4</dd></dl>
+                        </li>
+                        <li class="pr">
+                            <span id="sel-color" class="default-span"><span class="con">颜色</span><s class="jt"></s></span>
+                            <dl id="color-list" class="ps" data-zc2="">
+
+                            </dl>
+                        </li>
+                        <li class="pr gz">
+                            <span id="sel-fault" class="default-span"><span class="con">故障</span><s class="jt"></s></span>
+                            <dl id="fault-list" class="ps" data-zc3="">
+
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+                <div class="e-price"><div id="e-total">￥0</div><div>（免费上门 手机快修）</div></div>
+                <button id="e-btn" class="ent2" data-ent2="32">立即预约</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- e修end -->
+
+<!-- 海淘秒杀begin -->
+
+<div class="buyingT right-box">
+    <div class="b-tit">今日特价</div>
+    <div class="b-goods">
+        <div class="g-up clr">
+            <a class="ent" data-ent="28" href="http://haitao.leiphone.com/"><div class="up-i"><img src="574e86b06f785.jpg" width="126" height="112"></div></a>
+            <div class="up-con">
+                <a class="ent" data-ent="29" href="http://haitao.leiphone.com/"><p class="con-tit">Innoants甲壳充 智能充电手机壳[秒杀]</p></a>
+                <div class="con-price"><span class="w-red">￥179.00</span><span class="hx">￥399.00</span></div>
+                <a class="ent" data-ent="30" href="http://haitao.leiphone.com/"><div class="buyingT-btn">立即抢购</div></a>
+            </div>
+        </div>
+        <div class="g-down clr">
+            <div class="down-i" data-value="2016/08/23 23:55:37"><img src="ti.png"><span id="t_h">10</span>:<span id="t_m">30</span>:<span id="t_s">50</span><span class="jx">后恢复原价</span></div>
+            <div class="down-r">已抢<span class="w-red">2</span>件</div>
+        </div>
+    </div>
+</div>
+    
+    
+<!-- 海淘秒杀end -->
+
+<!-- 关联广告end -->
+<!--<a href="http://efix.leiphone.com" target="_blank">-->
+<!--    <img title="免费上门修手机" src="--><!--/resWeb/images/exds.jpg" style="margin-bottom:20px;">-->
+<!--</a>-->
+
+<!-- 热门试用 -->
+<div class="hot-tryout right-box"><div class="right-box-title">热门试用</div>
+<div class="list">
+	<ul>
+					<li>
+				<a href="http://tryout.igao7.com/item/285.html" class="pic" target="_blank">
+					<img src="57b6b78360eb4.jpg" alt="酷宝智能脉冲仪" width="90" height="64">
+				</a>
+				<div class="txt">
+					<div class="name">
+						<a href="http://tryout.igao7.com/item/285.html" target="_blank">酷宝智能脉冲仪 </a>
+					</div>
+					<div class="tags">
+						<p>数量：12</p>
+						<p>申请：100 积分</p>
+					</div>
+				</div>
+			</li>
+					<li>
+				<a href="http://tryout.igao7.com/item/282.html" class="pic" target="_blank">
+					<img src="57b6767cb3bde.jpg" alt="Withing Body智能体重秤" width="90" height="64">
+				</a>
+				<div class="txt">
+					<div class="name">
+						<a href="http://tryout.igao7.com/item/282.html" target="_blank">Withing Body智能体重秤 </a>
+					</div>
+					<div class="tags">
+						<p>数量：7</p>
+						<p>申请：100 积分</p>
+					</div>
+				</div>
+			</li>
+					<li>
+				<a href="http://tryout.igao7.com/item/284.html" class="pic" target="_blank">
+					<img src="57b6a80bbb9f9.jpg" alt="小牛N1S" width="90" height="64">
+				</a>
+				<div class="txt">
+					<div class="name">
+						<a href="http://tryout.igao7.com/item/284.html" target="_blank">小牛N1S </a>
+					</div>
+					<div class="tags">
+						<p>数量：2</p>
+						<p>申请：100 积分</p>
+					</div>
+				</div>
+			</li>
+					<li>
+				<a href="http://tryout.igao7.com/item/283.html" class="pic" target="_blank">
+					<img src="57b675244a56b.jpg" alt="必虎路由2" width="90" height="64">
+				</a>
+				<div class="txt">
+					<div class="name">
+						<a href="http://tryout.igao7.com/item/283.html" target="_blank">必虎路由2 </a>
+					</div>
+					<div class="tags">
+						<p>数量：10</p>
+						<p>申请：100 积分</p>
+					</div>
+				</div>
+			</li>
+					<li>
+				<a href="http://tryout.igao7.com/item/281.html" class="pic" target="_blank">
+					<img src="57b52b831a22b.jpg" alt="B-LINK必联AC1200U千兆双频路由器" width="90" height="64">
+				</a>
+				<div class="txt">
+					<div class="name">
+						<a href="http://tryout.igao7.com/item/281.html" target="_blank">B-LINK必联AC1200U千兆双频路由器 </a>
+					</div>
+					<div class="tags">
+						<p>数量：10</p>
+						<p>申请：100 积分</p>
+					</div>
+				</div>
+			</li>
+					<li>
+				<a href="http://tryout.igao7.com/item/280.html" class="pic" target="_blank">
+					<img src="57b3f1f21b1d1.jpg" alt="翻翻风扇" width="90" height="64">
+				</a>
+				<div class="txt">
+					<div class="name">
+						<a href="http://tryout.igao7.com/item/280.html" target="_blank">翻翻风扇 </a>
+					</div>
+					<div class="tags">
+						<p>数量：20</p>
+						<p>申请：100 积分</p>
+					</div>
+				</div>
+			</li>
+			</ul>
+</div></div>
+
+
+
+<!-- 知趣广告 -->
+<div class="zhiqu-ads right-box">
+    <div class="zhiqu-ads-header right-box-title clr">
+        <h3 class="fl">会员换购</h3>
+        <a class="reflash"><i></i>换一批</a>
+    </div>
+    <ul class="clr">
+    
+    </ul>
+    <div class="zhiqu-ads-src">本栏目由<a href="http://www.knewbi.com/" target="_blank" style="padding: 0px 2px;">极客购</a>提供</div>
+</div>
+
+<!-- 发送私信 -->
+<div class="send-message-box">
+    <div class="send-message-header">
+        发送私信
+        <em>X</em>
+    </div>
+    <div class="send-message-body">
+        <div class="send-to clr">
+            <span>发送：</span>
+            <input name="" id="" readonly="true" value="吴攀" type="text">
+        </div>
+        <div class="send-content">
+            <div class="title">内容：</div>
+            <textarea name=""></textarea>
+        </div>
+        <div class="tr"><a href="#" class="send-button">发 送</a></div>
+    </div>
+</div>
+<!-- # 发送私信-->
+	    </div>
+        <!-- lph-right -->
+        
+    </div>
+
+    <!-- 清除浮动 -->
+    <div class="clr"></div>
+    
+</div>
+<!-- index-main END -->
+
+
+<!--<script>-->
+<!--    $(document).ready(function(){-->
+<!--        $(".compare_img").twentytwenty({default_offset_pct: 0.5});-->
+<!--    });-->
+<!--</script>-->
+<!-- js END -->
+
+
+<div class="yp-footer">
+    <div class="inner container">
+       <div class="yp-footer-top clr">
+            <div class="left">
+                <div class="flogo">
+                    <img src="lph-footer-logo.png">
+                </div>
+            </div>
+            <div class="right clr">
+                <div class="links">
+                    <a rel="nofollow" href="http://www.leiphone.com/us/concact">联系我们</a>|
+                    <a rel="nofollow" href="http://www.leiphone.com/us/index">关于我们</a>|
+                    <a rel="nofollow" href="http://www.leiphone.com/contribute/index">投稿</a>|
+                    <a rel="nofollow" href="http://www.leiphone.com/news/201410/x8AfHAEDgcsONrdF.html">加入我们</a>
+                    <div class="us">
+                        <a rel="nofollow" class="weibo" href="http://www.weibo.com/p/1006062118746300" target="_blank"></a>
+                        <a rel="nofollow" class="email" href="mailto:web@leiphone.com" title="web@leiphone.com"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       <!--  <div class="cooperate">
+            
+        </div> -->
+        <div class="yp-footer-btm">
+            <br>
+            <span style="font-size: 13px; color: rgb(99, 99, 99);">友情链接：</span><ul class="clr"><li><a href="http://digi.163.com/" target="_blank">网易数码</a></li><li><a href="http://it.sohu.com/" target="_blank">搜狐IT</a></li><li><a href="http://www.ithome.com/" target="_blank">IT之家</a></li><li><a href="http://tech.ifeng.com/" target="_blank">凤凰科技</a></li><li><a href="http://www.9game.cn/" target="_blank">九游</a></li><li><a href="http://www.chinaz.com/" target="_blank">站长之家</a></li><li><a href="http://www.qianzhan.com/" target="_blank">前瞻网</a></li><li><a href="http://bbs.360.cn/" target="_blank">360社区</a></li><li><a href="http://www.yzmg.com/" target="_blank">亿智蘑菇</a></li><li><a href="http://www.apple110.com/" target="_blank">苹果序列号查询</a></li><li><a href="http://product.igao7.com/testReport/allList" target="_blank">搞机体验</a></li><li><a href="http://product.igao7.com/" target="_blank">搞机产品</a></li><li><a href="http://product.igao7.com/qa" target="_blank">搞机问答</a></li><li><a href="http://www.igao7.com/" target="_blank">爱搞机</a></li><li><a href="http://tryout.igao7.com/" target="_blank">雷锋试用</a></li><li><a href="http://www.zealer.com/" target="_blank">ZEALER 中国</a></li><li><a href="http://efix.leiphone.com/" target="_blank">手机维修</a></li><li><a href="http://efix.leiphone.com/" target="_blank">e修大师</a></li><li><a href="http://www.dfrobot.com.cn/" target="_blank">DF创客社区</a></li><li><a href="http://www.18touch.com/" target="_blank">超好玩</a></li><li><a href="http://www.72byte.com/" target="_blank">智能硬件推荐</a></li><li><a href="http://acg.18touch.com/" target="_blank">萌聚 </a></li><li><a href="http://box.18touch.com/" target="_blank">苹果助手</a></li><li><a href="http://www.nruan.com/" target="_blank">N软网</a></li><li><a href="http://tech.hexun.com/" target="_blank">和讯科技</a></li><li><a href="http://www.ebrun.com/" target="_blank">电子商务</a></li><li><a href="http://www.woshipm.com/" target="_blank">人人都是产品经理</a></li><li><a href="http://www.yixieshi.com/" target="_blank">互联网的一些事</a></li><li><a href="http://news.pconline.com.cn/" target="_blank">品科技</a></li><li><a href="http://www.oschina.net/" target="_blank">开源中国社区</a></li><li><a href="http://www.yesky.com/" target="_blank">天极网</a></li><li><a href="http://www.duote.com/" target="_blank">多特软件站</a></li><li><a href="http://www.eoemarket.com/" target="_blank">安卓软件</a></li><li><a href="http://www.mydrivers.com/" target="_blank">快科技</a></li><li><a href="http://www.managershare.com/" target="_blank">经理人分享</a></li><li><a href="http://www.feng.com/" target="_blank">威锋网</a></li><li><a href="http://www.hiapk.com/" target="_blank">安卓网</a></li><li><a href="http://www.iyiou.com/" target="_blank">亿欧网</a></li><li><a href="http://www.iheima.com/" target="_blank">i黑马</a></li><li><a href="http://newseed.pedaily.cn/" target="_blank">新芽NewSeed</a></li><li><a href="http://www.tvhome.com/" target="_blank">电视之家</a></li><li><a href="http://www.66law.cn/" target="_blank">华律网</a></li><li><a href="http://www.gezila.com/" target="_blank">格子啦下载</a></li><li><a href="http://bbs.kechuang.org/" target="_blank">科创论坛 </a></li><li><a href="http://www.leikeji.com/" target="_blank">雷科技</a></li><li><a href="http://www.zggonglue.com/" target="_blank">掌柜攻略</a></li><li><a href="http://www.mc100.com/" target="_blank">觅创100</a></li></ul>        </div>
+    </div>
+    <div class="yp-copyright">
+
+        <div class="inner container">
+            <p>Copyright © 2011-2018 www.leiphone.com 雷锋网-移动互联网智能终端第一媒体 All Rights Reserved <a target="_blank" style="color: rgb(111, 111, 111);" href="http://www.miitbeian.gov.cn/">粤ICP备11095991号-1</a>
+                <!--<a rel="nofollow" key="550b8046efbfb05947002fb1" logo_size="83x30" logo_type="business" href="http://www.anquan.org/authenticate/cert/?site=leiphone.com&amp;at=business" target="_blank">
+                <!--
+                <script src="http://static.anquan.org/static/outer/js/aq_auth.js">
+                </script>
+                -->
+                <!-- <a  key ="54914497efbfb06e545f711c"  logo_size="83x30"  logo_type="realname"  href="http://www.anquan.org" ><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a>
+                <img src="https://static.anquan.org/static/outer/image/hy_83x30.png" alt="安全联盟认证" width="83" height="30" style="border: none;"></a>
+				--><a target="_blank" key="54914497efbfb06e545f711c" logo_size="83x30" logo_type="realname" href="http://v.pinpaibao.com.cn/authenticate/cert/?site=www.leiphone.com&amp;at=realname"><b id="aqLogoHDRTK" style="display: none;"></b><img style="border: medium none;" alt="安全联盟认证" src="sm_83x30.png" width="83" height="30"></a>
+                &nbsp;&nbsp;
+				<a href="http://szcert.ebs.org.cn/0ee69ac3-f114-4bd9-9ea1-a5a04f7cd44b" target="_blank"><img src="govIcon.gif" title="深圳市市场监督管理局企业主体身份公示" alt="深圳市市场监督管理局企业主体身份公示" style="border: medium none;" width="29" border="0" height="40"></a>				&nbsp;&nbsp;
+				<a href="http://www.leiphone.com/resWeb/images/ICP.jpg" target="_blank" style="color: rgb(111, 111, 111);">ICP证粤B2-20150332</a>
+                <a href="http://www.qiniu.com/" target="_blank" rel="nofollow" style="float: right;">
+                    <img src="hzs4.png">
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div class="gotoBar" id="lph-footer-gotoBar">
+            <!-- 如果是文章详情页 -->
+        <a rel="nofollow" class="comment" data-goto="#lph-comment" data-start="100" title="查看评论"></a>
+    
+    <a style="display: block;" class="top" rel="nofollow" data-goto="0" data-start="100" title="返回顶部"></a>
+    <a class="sugg" href="http://www.leiphone.com/us/feedback" target="_self"><span>意见<br>反馈</span></a>
+    <!-- <a class="btm" href="javascript:;" data-event="btm"></a> -->
+</div>
+
+    <!-- 登录弹层 -->
+    <!--
+<div class="lph-login-pop lph-pops" id="lph-login-pop">
+    <div class="top">
+        <h1>直接用社交账户登录</h1>
+        <div class="login-type">
+            <div class="line"></div>
+            <div class="type">
+                <a href="http://home.leiphone.com/main/oauth/type/qq" class="qq-login" alt="QQ登录"></a>
+                <a href="http://home.leiphone.com/main/oauth/type/weibo" class="sina-login" alt="sina登录"></a>
+            </div>
+        </div>
+    </div>
+    <div class="loginBox-main">
+        <form id="loginForm" action="http://home.leiphone.com/main/login" method="post">        <div class="rows account">
+             <label class="login-name-label" for="login-name-inp"></label>
+            <em></em><input type="text" class="checkinput" placeholder="用户名" name="Login[email]">
+        </div>
+        <div class="rows passwd">
+            <label class="login-pwd-label" for="login-pwd-inp"></label>
+            <em></em><input type="password" class="checkinput" placeholder="密码" name="Login[password]">
+        </div>
+        <input type="hidden" name="Login[return]" value="">
+        <input type="hidden" name="Login[rememberMe]" value="1">
+        <div class="login-btn">
+            <a href="javascript:" onclick="$('#loginForm').submit()">立即登录</a>
+        </div>
+        <div class="opearte">
+            <a href="http://home.leiphone.com/main/getPassword" target="_blank">忘记密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="http://home.leiphone.com/main/register" target="_blank" class="c1">注册</a>
+        </div>
+        </form>    </div>
+</div>
+-->
+<!-- 遮罩层 -->
+<div class="lph-overlay"></div>
+    <!-- 右上角持续提示，邮箱未绑定的时候输出 -->
+    <div style="top: 60px;" class="yzEmail_tip yzEmail_tip1" id="bandEmailTip">
+        <em></em>
+        <span>为了您的账户安全，请<a class="bbtn">验证邮箱</a></span>
+        <i class="close"></i>
+    </div>
+
+    <!-- 右上角持续提示，邮箱发送但未验证的时候输出 -->
+    <div style="top: 60px;" class="yzEmail_tip yzEmail_tip2" id="sendEmailTip">
+        <span style="text-align: center;">您的邮箱还未验证,完成可获20积分哟！</span>
+        <p class="links"><a class="rbtn">重发邮箱</a><a class="sbtn">修改邮箱</a></p>
+        <i class="close"></i>
+    </div>
+
+    <!-- 记cookie弹窗，邮箱未绑定的时候弹出 -->
+    <div class="yzEmail_box yzEmail_box1 lph-pops" id="sendEmailBox">
+        <div class="head">请验证您的邮箱</div>
+        <div class="box">
+            <span class="tipp"><!-- *邮箱 --></span>
+            <input class="inp" id="sendEmail_input" placeholder="输入您的邮箱" value="">
+            <!-- <strong>验证邮件已发送，请您查收</strong> -->
+            <a class="btn" target="_blank" id="sendEmail_btn"><i></i><em>立即验证</em></a>
+            <div class="error"></div>
+        </div>
+        <!-- <div class="boxOk">
+            <strong>验证邮件已发送，请您查收</strong>
+        </div> -->
+        <i class="close"></i>
+    </div>
+
+    <!-- 记cookie弹窗，已发送邮件但未验证 -->
+    <div class="yzEmail_box yzEmail_box2 lph-pops" id="setPwBox">
+        <div class="head">完善账号信息</div>
+        <div class="top">
+            <span>您的账号已经绑定，现在您可以<a>设置密码</a>以方便用邮箱登录</span>
+        </div>
+        <div class="btm">
+            <input class="inp" id="sendEmail_input" placeholder="输入您的密码" value="" type="password">
+            <a class="btn" target="_blank" id="sendEmail_btn"><i></i><em>立即设置</em></a>
+            <a class="clo">以后再说</a>
+            <div class="error"></div>
+        </div>
+        <i class="close"></i>
+    </div>
+
+    <!-- iphone6 弹窗 -->
+    
+
+
+    <!-- <div class="ip6-overlay"></div>
+    <div id="ip6Box" class="lph-pops"> 
+        <a href="http://tryout.leiphone.com/item/63.html" class="get">点击领取</a>
+        <i class="close"></i>
+    </div> -->
+
+    
+
+
+
+
+
+<iframe src="index_1.html" class="YP-LOGIN" id="YP_LOGIN_WINDOW" scrolling="no"></iframe><div class="YP-OVERLAY" id="YP_LOGIN_WINDOW_OVERLAY"><div style="background-image: url(&quot;close_03.png&quot;);" title="关闭" class="close"></div></div></body><div class="" style="display: none; width: 24px; left: 706px; top: 1562px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 553px; width: 1px; left: 0px; top: 1552px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 740px; height: 1px; left: 0px; top: 1552px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 553px; width: 1px; left: 740px; top: 1552px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 740px; height: 1px; left: 0px; top: 2105px;" class="diigotb-border diigotb-bottom"></div>
+</html>
