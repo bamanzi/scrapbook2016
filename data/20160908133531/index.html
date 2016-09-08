@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="initial-scale=1,width=device-width">
+<link rev="canonical" href="http://www.lognormal.com/blog/2012/09/27/linux-tcpip-tuning/" type="text/html">
+<link rel="profile" href="http://microformats.org/profile/hcard">
+<link rel="apple-touch-icon" sizes="57x57" href="http://www.lognormal.com/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://www.lognormal.com/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://www.lognormal.com/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://www.lognormal.com/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://www.lognormal.com/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://www.lognormal.com/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://www.lognormal.com/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://www.lognormal.com/apple-touch-icon-152x152.png">
+<link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196">
+<link rel="icon" type="image/png" href="favicon-160x160.png" sizes="160x160">
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<title>Linux TCP/IP tuning for scalability</title>
+
+
+<link rel="alternate" title="a normal log ATOM feed" href="http://www.lognormal.com/blog/atom.xml" type="application/atom+xml">
+
+
+
+
+<iframe style="width: 0px; height: 0px; border: 0px none; display: none;" src="index_1.html"></iframe>
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body>
+
+<!-- BEGIN SOASTA HEADER -->
+  <header role="banner" class="soasta-header">
+    <div id="inner-header" class="soasta-header-wrap clearfix">        
+      <div class="newlogo"><a href="http://www.lognormal.com/"><span>log</span>normal</a></div>
+      <p style="margin-bottom: 20px;">A SOASTA Company</p>
+    </div>      
+  </header>
+<!-- END SOASTA HEADER -->
+
+  <div class="navbar navbar-fixed">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <li><a href="http://www.lognormal.com/blog/">Blog</a></li>
+          
+           <li><a href="http://www.lognormal.com/features/">Features</a></li>
+           
+
+           <li><a href="https://app.lognormal.com/login">Sign In</a></li>
+          
+          <li><a href="https://app.lognormal.com/contact">Contact Us</a></li>
+          
+           <li><a class="btn btn-success" href="http://www.soasta.com/free">Sign Up for Free</a></li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<div class="body">
+
+<div class="blog">
+<h1>Linux TCP/IP tuning for scalability</h1>
+<div class="meta">
+posted by <span class="author"><a href="http://twitter.com/bluesmoon">bluesmoon</a></span>
+on <span class="date">27 September 2012</span>
+
+</div>
+
+<div class="post-container">
+<div class="post-content">
+  <p>We’re a performance company, and performance and scalability go hand in hand. Better scalability results in more consistent performance and at <a href="http://www.lognormal.com/">LogNormal</a>, we like pushing our hardware as far as it will go.</p>
+
+<p>Today’s post is about some of the infrastructure we use and how we tune it to handle a large number of requests. <!-- More --></p>
+
+<p>We have separate components of our software stack to handle different tasks. In this post I’ll only cover the parts that make up our beacon collection component and how we tune it. Only a few of the tuning points are specific to this component.</p>
+
+<h2 id="the_stack">The Stack</h2>
+
+<p>(side note… someone needs to start a Coffee Shop + Co-working Space called <em>The Stack</em>).</p>
+
+<ul>
+<li>
+<p>The beacon collector runs Linux at its base. We use a combination of Ubuntu 11.10 and 12.04, which for most purposes are the same. If you’re going with a new implementation though, I’d suggest 12.04 (or at least the 3.x kernels).</p>
+</li>
+
+<li>
+<p>Slightly higher up is <code>iptables</code> to restrict inbound connections. This is mainly because we’re hosted on shared infrastructure and need to restrict internal communications only to hosts that we trust. iptables is the cheapest way to do this, but it brings in a few caveats that we address in the tuning section later.</p>
+</li>
+
+<li>
+<p>We then have <code>nginx</code> set up to serve HTTP traffic on ports 80 and 443 and do some amount of filtering (more on this later)</p>
+</li>
+
+<li>
+<p>Behind <code>nginx</code> is our custom <code>node.js</code> server that handles and processes beacons as they come in. It reads some configuration data from <code>couchdb</code> and then sends these processed beacons out into the ether. Nginx and node talk to each other over a unix domain socket.</p>
+</li>
+</ul>
+
+<p>That’s about all that’s relevant for this discussion, but at the heart of it, you’ll see that there are lots of file handles and sockets in use at any point of time.</p>
+
+<p>A large part of this is due to the fact that <code>nginx</code> only uses HTTP/1.0 when it proxies requests to a back end server, and that means it opens a new connection on every request rather than using a persistent connection.</p>
+
+<h2 id="what_should_we_tune">What should we tune?</h2>
+
+<p>In this post I’ll talk only about the first two parts of our stack. Linux and iptables.</p>
+
+<h3 id="open_files">Open files</h3>
+
+<p>Since we deal with a lot of file handles (each TCP socket requires a file handle), we need to keep our open file limit high. The current value can be seen using <code>ulimit -a</code> (look for open files). We set this value to <code>999999</code> and hope that we never need a million or more files open. In practice we never do.</p>
+
+<p>We set this limit by putting a file into <code>/etc/security/limits.d/</code> that contains the following two lines:</p>
+<pre>*	soft	nofile	999999
+*	hard	nofile	999999
+</pre>
+<p>(side node: it took me 10 minutes trying to convince Markdown that those asterisks were to be printed as asterisks)</p>
+
+<p>If you don’t do this, you’ll run out of open file handles and could see one or more parts of your stack die.</p>
+
+<h3 id="ephemeral_ports">Ephemeral Ports</h3>
+
+<p>The second thing to do is to increase the number of Ephemeral Ports available to your application. By default this is all ports from <code>32768</code> to <code>61000</code>. We change this to all ports from <code>18000</code> to <code>65535</code>. Ports below 18000 are reserved for current and future use of the application itself. This may change in the future, but is sufficient for what we need right now, largely because of what we do next.</p>
+
+<h3 id="time_wait_state">TIME_WAIT state</h3>
+
+<p>TCP connections go through various states during their lifetime. There’s the handshake that goes through multiple states, then the <code>ESTABLISHED</code> state, and then a whole bunch of states for either end to terminate the connection, and finally a <code>TIME_WAIT</code> state that lasts a really long time. If you’re interested in all the states, read through the <a href="http://linux.die.net/man/8/netstat">netstat man page</a>, but right now the only one we care about is the <code>TIME_WAIT</code> state, and we care about it mainly because it’s so long.</p>
+
+<p>By default, a connection is supposed to stay in the <code>TIME_WAIT</code> state for twice the <abbr title="Maximum Segment
+Lifetime">msl</abbr>. Its purpose is to make sure any lost packets that arrive after a connection is closed do not confuse the TCP subsystem (the full details of this are beyond the scope of this article, but ask me if you’d like details). The default <code>msl</code> is 60 seconds, which puts the default <code>TIME_WAIT timeout</code> value at 2 minutes. Which means you’ll run out of available ports if you receive more than about 400 requests a second, or if we look back to how nginx does proxies, this actually translates to 200 requests per second. Not good for scaling.</p>
+
+<p>We fixed this by setting the timeout value to 1 second.</p>
+
+<p>I’ll let that sink in a bit. Essentially we reduced the timeout value by 99.16%. This is a huge reduction, and not to be taken lightly. Any documentation you read will recommend against it, but here’s why we did it.</p>
+
+<p>Again, remember the point of the <code>TIME_WAIT</code> state is to avoid confusing the transport layer. The transport layer will get confused if it receives an out of order packet on a currently established socket, and send a reset packet in response. The key here is the term <em>established socket</em>. A socket is a tuple of 4 terms. The source and destination IPs and ports. Now for our purposes, our server IP is constant, so that leaves 3 variables.</p>
+
+<p>Our port numbers are recycled, and we have 47535 of them. That leaves the other end of the connection.</p>
+
+<p>In order for a collision to take place, we’d have to get a new connection from an existing client, AND that client would have to use the same port number that it used for the earlier connection, AND our server would have to assign the same port number to this connection as it did before. Given that we use persistent HTTP connections between clients and nginx, the probability of this happening is so low that we can ignore it. 1 second is a long enough <code>TIME_WAIT</code> timeout.</p>
+
+<p>The two TCP tuning parameters were set using <code>sysctl</code> by putting a file into <code>/etc/sysctl.d/</code> with the following: </p><pre>net.ipv4.ip_local_port_range = 18000    65535
+net.ipv4.netfilter.ip_conntrack_tcp_timeout_time_wait = 1
+</pre><p></p>
+
+<h3 id="connection_tracking">Connection Tracking</h3>
+
+<p>The next parameter we looked at was Connection Tracking. This is a side effect of using <code>iptables</code>. Since <code>iptables</code> needs to allow two-way communication between established HTTP and ssh connections, it needs to keep track of which connections are established, and it puts these into a connection tracking table. This table grows. And grows. And grows.</p>
+
+<p>You can see the current size of this table using <code>sysctl net.netfilter.nf_conntrack_count</code> and its limit using <code>sysctl net.nf_conntrack_max</code>. If count crosses max, your linux system will stop accepting new TCP connections and you’ll never know about this. The only indication that this has happened is a single line hidden somewhere in <code>/var/log/syslog</code> saying that you’re out of connection tracking entries. One line, once, when it first happens.</p>
+
+<p>A better indication is if count is always very close to max. You might think, “Hey, we’ve set max exactly right.”, but you’d be wrong.</p>
+
+<p>What you need to do (or at least that’s what you first think) is to increase max.</p>
+
+<p>Keep in mind though, that the larger this value, the more RAM the kernel will use to keep track of these entries. RAM that could be used by your application.</p>
+
+<p>We started down this path, increasing <code>net.nf_conntrack_max</code>, but soon we were just pushing it up every day. Connections that were getting in there were never getting out.</p>
+
+<h3 id="nf_conntrack_tcp_timeout_established">nf_conntrack_tcp_timeout_established</h3>
+
+<p>It turns out that there’s another timeout value you need to be concerned with. The established connection timeout. Technically this should only apply to connections that are in the <code>ESTABLISHED</code> state, and a connection should get out of this state when a <code>FIN</code> packet goes through in either direction. This doesn’t appear to happen and I’m not entirely sure why.</p>
+
+<p>So how long do connections stay in this table then? The default value for <code>nf_conntrack_tcp_timeout_established</code> is 432000 seconds. I’ll wait for you to do the long division…</p>
+
+<p>Fun times.</p>
+
+<p>I changed the timeout value to 10 minutes (600 seconds) and in a few days time I noticed <code>conntrack_count</code> go down steadily until it sat at a very manageable level of a few thousand.</p>
+
+<p>We did this by adding another line to the sysctl file: </p><pre>net.netfilter.nf_conntrack_tcp_timeout_established=600
+</pre><p></p>
+
+<h2 id="speed_bump">Speed bump</h2>
+
+<p>At this point we were in a pretty good state. Our beacon collectors ran for months (not counting scheduled reboots) without a problem, until a couple of days ago, when one of them just stopped responding to any kind of network requests. No ping responses, no <code>ACK</code> packets to a <code>SYN</code>, nothing. All established ssh and HTTP connections terminated and the box was doing nothing. I still had console access, and couldn’t tell what was wrong. The system was using less than 1% CPU and less than 10% of RAM. All processes that were supposed to be running were running, but nothing was coming in or going out.</p>
+
+<p>I looked through <code>syslog</code>, and found one obscure message repeated several times.</p>
+<pre>IPv4: dst cache overflow
+</pre>
+<p>Well, there were other messages, but this was the one that mattered.</p>
+
+<p>I did a bit of searching online, and found something about <a href="http://lists.centos.org/pipermail/centos/2009-February/072015.html">an rt_cache leak in 2.6.18</a>. We’re on 3.5.2, so it shouldn’t have been a problem, but I investigated anyway.</p>
+
+<p>The details of the post above related to 2.6, and 3.5 was different, with no <code>ip_dst_cache</code> entry in <code>/proc/slabinfo</code> so I started searching for its equivalent on 3.5 when I came across <a href="http://vincent.bernat.im/en/blog/2011-ipv4-route-cache-linux.html">Vincent Bernat's post on the IPv4 route
+cache</a>. This is an excellent resource to understand the route cache on linux, and that’s where I found out about the <code>lnstat</code> command. This is something that needs to be added to any monitoring and stats gathering scripts that you run. <a href="http://www.mail-archive.com/netdev@vger.kernel.org/msg02107.html">Further reading</a> suggests that the dst cache gc routines are complicated, and a bug anywhere could result in a leak, one which could take several weeks to become apparent.</p>
+
+<p>From what I can tell, there doesn’t appear to be an <code>rt_cache</code> leak. The number of cache entries increases and decreases with traffic, but I’ll keep monitoring it to see if that changes over time.</p>
+
+<h2 id="other_things_to_tune">Other things to tune</h2>
+
+<p>There are a few other things you might want to tune, but they’re becoming less of an issue as base system configs evolve.</p>
+
+<h3 id="tcp_window_sizes">TCP Window Sizes</h3>
+
+<p>This is related to TCP Slow Start, and I’d love to go into the details, but our friends Sajal and Aaron over at CDN Planet have already done an awesome job explaining <a href="http://www.cdnplanet.com/blog/tune-tcp-initcwnd-for-optimum-performance/">how to tune TCP initcwnd for optimum
+performance</a>.</p>
+
+<p>This is not an issue for us because the 3.5 kernel’s default window size is already set to 10.</p>
+
+<h3 id="window_size_after_idle">Window size after idle</h3>
+
+<p>Related to the above is the <code>sysctl</code> setting <code>net.ipv4.tcp_slow_start_after_idle</code>. This tells the system whether it should start at the default window size only for new TCP connections or also for existing TCP connections that have been idle for too long (on 3.5, too long is <a href="http://lxr.free-electrons.com/source/include/net/tcp.h#L126">1
+second</a>, but see <code>net.sctp.rto_initial</code> for its current value on your system). If you’re using persistent HTTP connections, you’re likely to end up in this state, so set <code>net.ipv4.tcp_slow_start_after_idle=0</code> (just put it into the sysctl config file mentioned above).</p>
+
+<h2 id="endgame">Endgame</h2>
+
+<p>After changing all these settings, a single quad core vm (though using only one core) with 1Gig of RAM has been able to handle all the load that’s been thrown at it. We never run out of open file handles, never run out of ports, never run out of connection tracking entries and never run out of RAM.</p>
+
+<p>We have several weeks before another one of our beacon collectors runs into the dst cache issue, and I’ll be ready with the numbers when that happens.</p>
+
+<p>Thanks for reading, and let us know how these settings work out for you if you try them out. If you’d like to measure the real user impact of your changes, have a look at our <a href="http://www.lognormal.com/">Real User Measurement
+tool</a> at LogNormal.</p>
+
+<p><em>Update 2012-09-28:</em> There are some great comments on <a href="http://news.ycombinator.com/item?id=4582253">hacker news</a> with much more information.</p>
+</div>
+<div class="sidebar">
+
+<h2>References</h2>
+<ul class="posts">
+
+  <li class="post">
+    <a href="http://vincent.bernat.im/en/blog/2011-ipv4-route-cache-linux.html">IPv4 Route Cache on Linux</a>
+    <span class="meta">
+    by <a class="author" href="https://twitter.com/vince2_">Vincent Bernat</a>
+    
+    </span>
+  </li>
+
+  <li class="post">
+    <a href="http://www.amazon.com/TCP-Illustrated-Vol-Addison-Wesley-Professional/dp/0201633469">TCP/IP Illustrated, Vol. 1: The Protocols</a>
+    <span class="meta">
+    by Richard Stevens
+    on Amazon
+    </span>
+  </li>
+
+  <li class="post">
+    <a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">Transmission Control Protocol</a>
+    <span class="meta">
+    
+    on <a class="url" href="http://en.wikipedia.org/">Wikipedia</a>
+    </span>
+  </li>
+
+  <li class="post">
+    <a href="http://en.wikipedia.org/wiki/Slow-start">TCP Slow-Start</a>
+    <span class="meta">
+    
+    on Wikipedia
+    </span>
+  </li>
+
+  <li class="post">
+    <a href="http://www.cdnplanet.com/blog/tune-tcp-initcwnd-for-optimum-performance/">Tune TCP initcwnd for Optimum Performance</a>
+    <span class="meta">
+    by <a class="author" href="https://twitter.com/sajal">Sajal Kayan</a>
+    on <a class="url" href="http://www.cdnplanet.com/">CDN Planet</a>
+    </span>
+  </li>
+
+</ul>
+
+
+<h2>More Posts</h2>
+
+
+<ul class="posts">
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2013/11/11/calculating-first-paint/">A proxy for first paint and why I love Velocity</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">11 November 2013</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2013/06/22/setting-up-ssl-on-nginx/">Setting up SSL on nginx for performance and security</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">22 June 2013</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2013/03/18/the-performance-spirit/">The Performance Spirit</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">18 March 2013</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2013/02/26/caching-reloading-and-the-specs/">Caching, reloading &amp; the specs</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">26 February 2013</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/12/12/the-script-loader-pattern/">The non-blocking script loader pattern</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">12 December 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/10/03/the-3.5s-dash-for-attention/">The 3.5 second dash for attention</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">03 October 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/10/01/lognormal-acquired-by-soasta/">LogNormal Acquired By SOASTA</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bbrewer">bbrewer</a> on <span class="date">01 October 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="#">Linux TCP/IP tuning for scalability</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">27 September 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/08/17/accept-encoding-stats/">Some stats on Accept-Encoding</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">17 August 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/08/13/analysing-performance-data/">Analysing performance data</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">13 August 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/06/17/more-on-updating-boomerang/">More on updating cached copies of boomerang</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">17 June 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2012/06/05/updating-cached-boomerang/">Updating cached copies of boomerang</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">05 June 2012</span>
+</span>
+    </li>
+  
+
+  
+    <li class="post">
+      <a href="http://www.lognormal.com/blog/2011/11/14/analysing-network-characteristics/">Analysing network characteristics using JavaScript and the DOM, Part I</a>
+      <span class="meta">by <a class="author" href="http://twitter.com/bluesmoon">bluesmoon</a> on <span class="date">14 November 2011</span>
+</span>
+    </li>
+  
+
+</ul>
+
+
+
+
+
+<div class="about">
+<h2>About SOASTA mPulse</h2>
+<p>
+SOASTA mPulse helps sites measure and analyze their page load time from the end user's perspective.  mPulse was formerly known as LogNormal.
+</p>
+<p>
+Interested? <a href="http://www.soasta.com/free">Sign up now</a> for Free.
+</p>
+</div>
+</div>
+</div>
+<br style="clear: both;">
+
+
+<div id="disqus_thread"></div>
+
+
+
+
+</div>
+
+
+<br style="clear: both;">
+</div>
+
+<div class="footer">
+
+<div id="company">
+<h2>Who we are</h2>
+<ul>
+<li><a href="http://www.lognormal.com/about/">About Us</a></li>
+<li><a href="http://www.lognormal.com/team/">The Team</a></li>
+<li><a href="http://www.lognormal.com/legal/tos/">Terms of Use</a></li>
+<li><a href="http://www.lognormal.com/legal/privacy/">Privacy Policy</a></li>
+</ul>
+</div>
+
+<div id="services">
+<h2>Our Services</h2>
+<ul>
+<li><a href="http://www.lognormal.com/">LogNormal</a></li>
+<li><a href="http://www.lognormal.com/features/">Features</a></li>
+</ul>
+</div>
+
+<div id="community">
+<h2>Get in touch</h2>
+<ul>
+<li><a id="blog_link" href="http://www.lognormal.com/blog/">Blog</a></li>
+<li><a rel="me" id="github" title="Fork us on GitHub" href="https://github.com/lognormal">github:lognormal</a></li>
+<li><a rel="me" id="twitter" title="Follow us on Twitter" href="http://twitter.com/log_normal">twitter:@log_normal</a></li>
+<li><a href="mailto:contact@lognormal.com">contact@lognormal.com</a></li>
+</ul>
+</div>
+
+<div class="copyright">
+Copyright © 2012 Log-Normal, Inc. All Rights Reserved.
+</div>
+
+<br style="clear: both;">
+<div id="ln_widget"></div>
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>

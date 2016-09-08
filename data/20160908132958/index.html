@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>网卡流量统计实用工具nicstat-技术 ◆ 学习|Linux.中国-开源社区</title>
+ 
+<meta name="keywords" content="网卡流量统计实用工具nicstat">
+<meta name="description" content="nicstat安装
+# wget -c http://nchc.dl.sourceforge.net/project/nicstat/nicstat-1.92.tar.gz
+# tar zxvf nicstat-1.92.tar.gz
+# cd nicstat-1.92
+# cp Makefile.Linux Makefile
+# uname -m
+x86_64
+# diff Makefile ... ">
+<meta name="copyright" content="2005-2015 Linux.cn">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="referrer" content="always">
+<base href="">
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Linux.中国 - 开源社区 RSS" href="https://linux.cn/rss.xml">
+<link rel="shortcut icon" href="favicon.ico" sizes="32x32">
+<link rel="canonical" href="https://linux.cn/article-1588-1.html">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+
+<body id="nv_portal" class="pg_view">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="https://linux.cn/rss.xml" target="_blank">RSS</a><a href="https://linux.cn/tag/">TAG</a><a href="http://e.cn.miaozhen.com/r/k=2022193&amp;p=70nlR&amp;dx=0&amp;rt=2&amp;ns=__IP__&amp;ni=__IESID__&amp;v=__LOC__&amp;o=http://www-03.ibm.com/systems/cn/power/hardware/linux-lc.shtml?S_TACT=C4480D5W&amp;iio=psys&amp;cmp=c4480&amp;ct=c4480d5w&amp;cr=linux%E6%97%B6%E4%BB%A3&amp;cm=b&amp;csot=-&amp;ccy=-&amp;cpb=-&amp;cd=-&amp;cpg=psys&amp;cn=2q1" target="_blank" style="color: blue;">IBM Power Systems LC 服务器</a></div>
+<div class="y">
+<a href="https://linux.cn/aboutus.html">关于我们/aboutus</a><a href="https://linux.cn/business.html">广告合作/AD</a></div>
+</div>
+</div>
+
+
+<div id="hd">
+<div class="wp">
+<div class="hdc cl"><h2 style="padding: 5px 20px 5px 0px;"><a href="https://linux.cn/" title="Linux.中国 - 开源社区"><img src="linuxcn_logo_230x80_ani2.gif" alt="Linux.中国 - 开源社区" border="0"></a></h2><div class="y">
+<form method="post" autocomplete="off" id="lsform" action="https://linux.cn/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes">
+<div style="width: auto;" class="fastlg cl">
+<span id="return_ls" style="display: none;"></span>
+<div class="y pns">
+<table cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td><label for="ls_username">帐号</label></td>
+<td><input name="username" id="ls_username" class="px vm xg1" value="用户名/Email" tabindex="901" type="text"></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" type="checkbox">自动登录</label></td>
+<td>&nbsp;<a>找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password">密码</label></td>
+<td><input name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" type="password"></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904"><em>登录</em></button></td>
+<td>&nbsp;<a href="https://linux.cn/member.php?mod=knight" class="xi2 xw1">骑士注册</a></td>
+</tr>
+</tbody></table>
+<input name="quickforward" value="yes" type="hidden">
+<input name="handlekey" value="ls" type="hidden">
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px;">
+<p><a href="https://linux.cn/connect.php?mod=login&amp;op=init&amp;referer=portal.php%3Fmod%3Dview%26aid%3D1588%26page%3D1%26ref%3D&amp;statfrom=login_simple"><img src="qq_login.gif" class="vm" alt="QQ登录"></a></p>
+<p><a href="https://linux.cn/xwb.php?m=xwbAuth.login"><img src="sina_login.gif" class="vm" style="padding: 2px 0px;" alt="微博登录"></a></p>
+</div>
+
+
+</div>
+</form>
+
+
+</div>
+<h2 style="padding: 5px 20px; float: right;">
+<div class="linuxcnad">
+    </div>
+</h2>
+</div>
+<div class="p_pop h_pop" id="mn_userapp_menu" style="display: none;"></div><div id="topmenu_wrapper">
+<div id="topmenu">
+<div id="nv">
+<ul><li id="mn_N6666"><a href="https://linux.cn/" hidefocus="true" style="font-weight: bold;">首页</a></li><li id="mn_P3"><a href="https://linux.cn/tech/" hidefocus="true" style="color: rgb(255, 250, 229);">技术 ◆ 学习</a></li><li id="mn_P1"><a href="https://linux.cn/news/" hidefocus="true" style="color: rgb(255, 250, 229);">新闻 ◆ 快讯</a></li><li id="mn_P4"><a href="https://linux.cn/talk/" hidefocus="true" style="color: rgb(255, 250, 229);">观点 ◆ 热议</a></li><li id="mn_P8"><a href="https://linux.cn/share/" hidefocus="true" style="color: rgb(255, 250, 229);">软件 ◆ 分享</a></li><li id="mn_N9be8"><a href="https://linux.cn/forum/" hidefocus="true" target="_blank" style="color: cyan;">论坛</a></li><li id="mn_Ne749"><a href="https://linux.cn/forum.php?mod=post&amp;action=newthread&amp;fid=119" hidefocus="true" target="_blank" style="color: red;">投稿</a></li></ul>
+</div>
+<div id="mu" class="cl">
+<ul class="cl " id="snav_mn_P3" style="display: none;">
+<li><a href="https://linux.cn/tech/desktop/" hidefocus="true">桌面应用</a></li><li><a href="https://linux.cn/tech/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/tech/program/" hidefocus="true">软件开发</a></li></ul>
+<ul class="cl " id="snav_mn_P8" style="display: none;">
+<li><a href="https://linux.cn/share/distro/" hidefocus="true">Linux 发行版</a></li></ul>
+<ul class="cl " id="snav_mn_N9be8" style="display: none;">
+<li><a href="https://linux.cn/thread/" hidefocus="true" style="color: blue;">全部话题</a></li><li><a hidefocus="true" style="color: red;">发新帖</a></li><li><a hidefocus="true">|</a></li><li><a href="https://linux.cn/forum/news/" hidefocus="true">新闻杂谈</a></li><li><a href="https://linux.cn/forum/sa/" hidefocus="true">系统运维</a></li><li><a href="https://linux.cn/forum/program/" hidefocus="true">编程开发</a></li></ul>
+<ul class="cl " id="snav_mn_N39f5" style="display: none;">
+<li><a href="https://linux.cn/space.php" hidefocus="true">首页</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=home" hidefocus="true">动态</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=doing" hidefocus="true">记录</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=blog" hidefocus="true">博客</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=album" hidefocus="true">相册</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=favorite" hidefocus="true">收藏</a></li><li><a href="https://linux.cn/home.php?mod=space&amp;do=friend" hidefocus="true">好友</a></li><li><a href="https://linux.cn/home.php?mod=spacecp&amp;ac=invite" hidefocus="true">邀请</a></li></ul>
+<ul class="cl " id="snav_mn_userapp" style="display: none;">
+</ul>
+</div></div>
+</div>
+<div id="scbar" class="cl">
+<form id="scbar_form" method="post" autocomplete="off" action="https://linux.cn/search.php?searchsubmit=yes" target="_blank">
+<input name="mod" id="scbar_mod" value="search" type="hidden">
+<input name="formhash" value="33e11f09" type="hidden">
+<input name="srchtype" value="title" type="hidden">
+<input name="srhfid" value="0" type="hidden">
+<input name="srhlocality" value="portal::view" type="hidden">
+<table id="scbar_table" style="float: right;" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input name="srchtxt" id="scbar_txt" value="请注册后再搜索" autocomplete="off" speech="" type="text"></td>
+<td class="scbar_type_td"><a id="scbar_type" class="xg1" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+</div>
+</td>
+</tr>
+</tbody></table>
+</form>
+<span class="z titletext" style="padding: 0px 10px 0px 20px;">❏ <a href="http://locez.com/" target="_blank">Locez</a> 新手指南：</span>
+<ul class="cl mutag z">
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-4130-1.html">下载 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-5893-1.html">安装 Linux »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6042-1.html">安装软件 »</a></li>
+<li><a class="hidefocus" hidefocus="true" href="https://linux.cn/article-6160-1.html">基础命令 »</a></li>
+
+</ul>
+</div>
+<br class="clear">
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a rel="search">全站</a></li></ul>
+
+
+
+</div>
+</div>
+<div id="wp" class="wp">
+
+
+
+<div class="linuxcnad">
+    <div><a href="https://linux.cn/go/vm2" target="_blank"></a></div></div>
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="https://linux.cn/" class="nvhm" title="首页">Linux.中国 - 开源社区</a> <em>›</em><a href="https://linux.cn/tech/">技术 ◆ 学习</a> <em>›</em>
+查看内容
+</div>
+</div>
+
+<div class="linuxcnad"></div>
+
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+<div id="ct" class="ct2 wp cl">
+<div class="mn">
+<div class="linuxcnad">
+    </div>
+<div class="vw">
+<div class="h hm">
+<h1 class="ph" id="article_title">网卡流量统计实用工具nicstat </h1>
+</div>
+<div class="h">
+<p class="copyright">
+    	    	    	<span class="z">本文地址：<a href="#">https://linux.cn/article-1588-1.html</a></span>
+    	<span class="y"><a href="https://linux.cn/article-1588-1.html?pr" class="print" title="打印"></a></span>
+    	<br class="clear">
+    	</p>
+<p class="xg1">
+2013-7-5 09:20&nbsp;&nbsp;&nbsp;
+评论: <a href="https://linux.cn/thread-10996-1-1.html" title="查看全部评论"><em id="_commentnum">1</em></a>&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+</div>
+
+<!--[diy=diysummarytop]--><div id="diysummarytop" class="area"></div><!--[/diy]-->
+
+
+<!--[diy=diysummarybottom]--><div id="diysummarybottom" class="area"></div><!--[/diy]-->
+
+<div class="d">
+
+<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
+
+<div id="article_content">
+<div class="linuxcnad"></div>
+<h2>nicstat安装</h2>
+<pre class="brush: bash;font-size: 100%; first-line: 1; "># wget -c http://nchc.dl.sourceforge.net/project/nicstat/nicstat-1.92.tar.gz
+# tar zxvf nicstat-1.92.tar.gz
+# cd nicstat-1.92
+# cp Makefile.Linux Makefile
+# uname -m
+x86_64
+# diff Makefile Makefile.Linux  ## 如果不是64位机器则不需要修改Makefile
+17c17
+&lt; CFLAGS =	$(COPT)
+---
+&gt; CFLAGS =	$(COPT) -m32
+25c25
+&lt; CPUTYPE = x86_64
+---
+&gt; CPUTYPE =	i386
+# make &amp;&amp; make install</pre>
+<h2>nicstat使用</h2>
+<p>在解压包目录nicstat-1.92内,有个nicstat.sh脚本.</p>
+<h3 class="duanluo">查看网卡速度(-l):</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh -l
+Int      Loopback   Mbit/s Duplex State
+lo            Yes        -   unkn    up
+eth0           No     1000   full    up</pre>
+<h3 class="duanluo">间隔3秒,查看2次结果(留意%Util和Sat):</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat 3 2
+    Time      Int   rKB/s   wKB/s   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
+06:19:46       lo    0.72    0.72    2.15    2.15   341.2   341.2  0.00   0.00
+06:19:46     eth0    0.89    0.15    1.37    0.92   660.4   163.6  0.00   0.00
+    Time      Int   rKB/s   wKB/s   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
+06:19:49       lo    0.00    0.00    0.00    0.00    0.00    0.00  0.00   0.00
+06:19:49     eth0    0.02    0.12    0.33    0.33   66.00   354.0  0.00   0.00</pre>
+<ul>
+<li>Time列:表示当前采样的响应时间.</li>
+<li>lo and eth0 : 网卡名称.</li>
+<li>rKB/s : 每秒接收到千字节数.</li>
+<li>wKB/s : 每秒写的千字节数.</li>
+<li>rPk/s : 每秒接收到的数据包数目.</li>
+<li>wPk/s : 每秒写的数据包数目.</li>
+<li>rAvs : 接收到的数据包平均大小.</li>
+<li>wAvs : 传输的数据包平均大小.</li>
+<li>%Util : 网卡利用率(百分比).</li>
+<li>Sat : 网卡每秒的错误数.网卡是否接近饱满的一个指标.尝试去诊断网络问题的时候,推荐使用-x选项去查看更多的统计信息.</li>
+</ul>
+<h3 class="duanluo">查看扩展信息(-x 和 -s):</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat 3 2 -x
+06:33:57      RdKB    WrKB   RdPkt   WrPkt   IErr  OErr  Coll  NoCP Defer  %Util
+lo            0.69    0.69    2.08    2.08   0.00  0.00  0.00  0.00  0.00   0.00
+eth0          0.86    0.14    1.33    0.89   0.00  0.00  0.00  0.00  0.00   0.00
+06:34:00      RdKB    WrKB   RdPkt   WrPkt   IErr  OErr  Coll  NoCP Defer  %Util
+lo            0.00    0.00    0.00    0.00   0.00  0.00  0.00  0.00  0.00   0.00
+eth0          0.02    0.12    0.33    0.33   0.00  0.00  0.00  0.00  0.00   0.00</pre>
+<div>-</div>
+<div>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh -s
+    Time      Int          rKB/s          wKB/s
+06:37:48       lo          0.685          0.685
+06:37:48     eth0          0.848          0.140</pre>
+</div>
+<h3 class="duanluo">查看tcp相关信息(-t):</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh -t
+05:15:05    InKB   OutKB   InSeg  OutSeg Reset  AttF %ReTX InConn OutCon Drops
+TCP         0.00    0.00    4.01    3.50  0.00  0.01 0.000   0.05   0.09  0.0</pre>
+<ul>
+<li>InKB : 表示每秒接收到的千字节.</li>
+<li>OutKB : 表示每秒传输的千字节.</li>
+<li>InSeg : 表示每秒接收到的TCP数据段(TCP Segments).</li>
+<li>OutSeg : 表示每秒传输的TCP数据段(TCP Segments).</li>
+<li>Reset : 表示TCP连接从ESTABLISHED或CLOSE-WAIT状态直接转变为CLOSED状态的次数.</li>
+<li>AttF : 表示TCP连接从SYN-SENT或SYN-RCVD状态直接转变为CLOSED状态的次数,再加上TCP连接从SYN-RCVD状态直接转变为LISTEN状态的次数</li>
+<li>%ReTX : 表示TCP数据段(TCP Segments)重传的百分比.即传输的TCP数据段包含有一个或多个之前传输的八位字节.</li>
+<li>InConn : 表示TCP连接从LISTEN状态直接转变为SYN-RCVD状态的次数.</li>
+<li>OutCon : 表示TCP连接从CLOSED状态直接转变为SYN-SENT状态的次数.</li>
+<li>Drops : 表示从完成连接(completed connection)的队列和未完成连接(incomplete connection)的队列中丢弃的连接次数.</li>
+</ul>
+<h3 class="duanluo">查看udp相关信息(-u):</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh -u
+06:39:42                    InDG   OutDG     InErr  OutErr
+UDP                         0.01    0.01      0.00    0.00</pre>
+<ul>
+<li>InDG : 每秒接收到的UDP数据报(UDP Datagrams)</li>
+<li>OutDG : 每秒传输的UDP数据报(UDP Datagrams)</li>
+<li>InErr : 接收到的因包含错误而不能被处理的数据包</li>
+<li>OutErr :因错误而不能成功传输的数据包.</li>
+</ul>
+<h3 class="duanluo">默认以KB为单位,现在以M单位查看:</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh -M
+    Time      Int   rMbps   wMbps   rPk/s   wPk/s    rAvs    wAvs %Util    Sat
+05:16:55       lo    0.01    0.01    2.55    2.55   341.2   341.2  0.00   0.00
+05:16:55     eth0    0.01    0.00    1.61    1.08   667.3   163.7  0.00   0.00</pre>
+<h3 class="duanluo">其它用法:</h3>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh  -x -t -u
+06:49:25    InKB   OutKB   InSeg  OutSeg Reset  AttF %ReTX InConn OutCon Drops
+TCP         0.00    0.00    3.16    2.74  0.00  0.01 0.000   0.04   0.07  0.00
+06:49:25                    InDG   OutDG     InErr  OutErr
+UDP                         0.01    0.01      0.00    0.00
+06:49:25      RdKB    WrKB   RdPkt   WrPkt   IErr  OErr  Coll  NoCP Defer  %Util
+lo            0.67    0.67    2.00    2.00   0.00  0.00  0.00  0.00  0.00   0.00
+eth0          0.83    0.14    1.29    0.86   0.00  0.00  0.00  0.00  0.00   0.00</pre>
+<p>-</p>
+<pre class="brush: bash;font-size: 100%; first-line: 1; ">[root@centos192 nicstat-1.92]# ./nicstat.sh -a
+06:50:43    InKB   OutKB   InSeg  OutSeg Reset  AttF %ReTX InConn OutCon Drops
+TCP         0.00    0.00    3.15    2.74  0.00  0.01 0.000   0.04   0.07  0.00
+06:50:43                    InDG   OutDG     InErr  OutErr
+UDP                         0.01    0.01      0.00    0.00
+06:50:43      RdKB    WrKB   RdPkt   WrPkt   IErr  OErr  Coll  NoCP Defer  %Util
+lo            0.66    0.66    1.99    1.99   0.00  0.00  0.00  0.00  0.00   0.00
+eth0          0.82    0.14    1.28    0.86   0.00  0.00  0.00  0.00  0.00   0.00</pre>
+<p>使用”-a”与使用”-x -t -u”相当.</p>
+<div class="ref">
+<h2>参考</h2>
+<ol>
+<li><a class="external" href="https://blogs.oracle.com/timc/entry/nicstat_the_solaris_and_linux" target="_blank" rel="nofollow">nicstat – the Solaris and Linux Network Monitoring Tool You Did Not Know You Needed</a></li>
+<li><a class="external" href="http://www.brendangregg.com/K9Toolkit/nicstat.c" target="_blank" rel="nofollow">nicstat.c</a>&nbsp;</li>
+</ol>
+<div>via&nbsp;<a class="external" href="http://www.zrwm.com/?p=7235" target="_blank" rel="external nofollow">http://www.zrwm.com/?p=7235</a>&nbsp;</div>
+</div>
+</div>
+</div>
+<div class="b">
+<div class="hm">
+<a title="分享到新浪微博" class="tsina_large"></a>
+<a class="weixin_large"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=1588&amp;handlekey=favoritearticlehk_1588" id="a_favorite" class="fav_large"></a>
+</div>
+<p class="copyright">
+    	    	    	<br>
+    	    	<span>文章仅代表作者的知识和看法，如有不同观点，请楼下排队<a>吐槽</a> :D</span>
+    	<br class="clear">
+</p>
+
+
+<div class="linuxcnad"></div>
+<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+
+<div id="click_div"><table class="atd" cellpadding="0" cellspacing="0">
+<tbody><tr></tr>
+</tbody></table>
+
+
+</div>
+
+<!--[diy=diycontentclickbottom]--><div id="diycontentclickbottom" class="area"></div><!--[/diy]-->
+
+
+<div class="o cl ptm pbm">
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=share&amp;type=article&amp;id=1588&amp;handlekey=sharearticlehk_1588" id="a_share" title="站内分享" class="siteshare z"></a>
+<a href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=1588&amp;handlekey=favoritearticlehk_1588" id="a_favorite" class="favorite z" title="收藏"></a>
+<a href="https://linux.cn/misc.php?mod=invite&amp;action=article&amp;id=1588" id="a_invite" class="invite z" title="邀请"></a>
+<a href="https://linux.cn/article-1588-1.html?pr" class="print z" title="打印"></a>
+				
+</div>
+<div class="pren pbm cl">
+<em>上一篇：<a href="https://linux.cn/article-1587-1.html">PHP 5.5新特性</a></em><em>下一篇：<a href="https://linux.cn/article-1591-1.html">八大 Linux/Unix 服务器内存转储工具</a></em></div>
+</div>
+</div>
+
+<!--[diy=diycontentrelatetop]--><div id="diycontentrelatetop" class="area"></div><!--[/diy]-->
+
+<!--[diy=diycontentrelate]--><div id="diycontentrelate" class="area"></div><!--[/diy]-->
+
+<div style="margin-right: 15px;">
+<div id="add_comment" class="bm">
+<div class="bm_h cl">
+<h3>发表评论</h3>
+</div>
+<div class="bm_c pbn">
+<form id="cform" name="cform" action="https://linux.cn/forum.php?mod=post&amp;action=reply&amp;tid=10996&amp;replysubmit=yes&amp;infloat=yes&amp;handlekey=fastpost" method="post" autocomplete="off">
+<div class="tedt">
+<div class="area">
+<textarea name="message" rows="10" class="pt" id="message"></textarea>
+</div>
+</div>
+
+<div class="mtm z"><span id="seccode_cSekS01F"></span>		
+
+
+</div>
+<input name="portal_referer" value="https://linux.cn/article-1588-1.html#comment" type="hidden">
+<input name="referer" value="https://linux.cn/article-1588-1.html#comment" type="hidden">
+<input name="id" value="10996" type="hidden">
+<input name="idtype" value="tid" type="hidden">
+<input name="aid" value="1588" type="hidden">
+<input id="reppid" name="reppid" value="" type="hidden">
+<input name="formhash" value="33e11f09" type="hidden">
+<input name="replysubmit" value="true" type="hidden">
+<input name="commentsubmit" value="true" type="hidden">
+<p class="mtm z"><button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="pn"><strong>评论</strong></button></p>
+<br class="clear">
+</form>
+</div>
+</div>
+</div>
+<div id="comment" class="bm" style="margin-right: 15px;">
+<div class="bm_h cl">
+<h3 class="z"><a name="comment"></a>最新评论</h3>
+<h3 class="y"><a class="y" style="color: rgb(204, 0, 0);">我也要发表评论</a></h3>
+</div>
+<div id="comment_ul" class="bm_c"><a name="comment_anchor_38255"></a>
+<dl id="comment_38255_li" class="ptm pbm bbda cl">
+<dt class="mbm">
+<a href="https://linux.cn/space/8458/" class="xi2 xw1 vm" c="1" target="_blank">微博评论</a>
+<span class="xg1 xw0 vm">2013-7-5 09:38</span>
+</dt>
+<dd>
+你好，话题#网卡流量统计实用工具nicstat#暂无主持人，赶快去抢吧！http://t.cn/zQ7UxfV<br>
+<br>
+<img id="aimg_in2Re" class="zoom" src="icon_logo.png" alt="" border="0"> <font size="2"><font color="gray"><a href="http://weibo.com/u/2807295185" target="_blank">来自 话题 的新浪微博</a></font></font></dd>
+<dd>
+<span class="y xw0 xi2 opt">
+<a class="replyadd" href="https://linux.cn/portal.php?mod=review&amp;action=postreview&amp;do=support&amp;idtype=tid&amp;tid=10996&amp;pid=38255&amp;hash=33e11f09">赞 <span id="review_support_38255"></span></a> 
+<!--<a href="javascript:;" onclick="portal_comment_reppost(38255, '1588');">回复</a> --><a id="reply_38255" href="https://linux.cn/portal.php?mod=portalcp&amp;ac=comment&amp;op=reply&amp;cid=38255&amp;aid=1588&amp;idtype=tid">回复</a> </span>
+</dd>
+</dl><div class="ptm pbm cl">
+</div>
+</div>
+</div>
+
+<!--[diy=diycontentcomment]--><div id="diycontentcomment" class="area"></div><!--[/diy]-->
+</div>
+<div class="sd pph">
+
+
+<div class="drag">
+<!--[diy=diyrighttop]--><div id="diyrighttop" class="area"></div><!--[/diy]-->
+</div>
+
+<div class="linuxcnad">
+    </div>
+<div class="linuxcnad">
+    <div><a href="https://linux.cn/go/vmg" target="_blank"><img src="085715pffv0v0c5r656rv3.jpg" alt="LinuxCN 微信认证订阅号" width="100%" border="0"></a></div></div>
+
+<!--热门评论-->
+
+<div class="linuxcnad"></div>
+
+<div id="right_affix" style="width: 350px;">
+<div class="linuxcnad">
+    </div>
+<div id="inner_nav" class="bm">
+<div class="bm_h cl">
+<h3>本文导航</h3>
+</div>
+<div class="bm_c inner_menu">
+<ul class="xl cl"><li><span class="folder">-</span><a href="#2_0">nicstat安装</a></li><li><span class="folder"><a>-</a></span><a href="#2_504">nicstat使用</a></li><ul class="xl cl"><li><span class="folder">-</span><a href="#3_594">查看网卡速度(-l):</a></li><li><span class="folder">-</span><a href="#3_879">间隔3秒,查看2次结果(留意%Util和Sat):</a></li><li><span class="folder">-</span><a href="#3_2155">查看扩展信息(-x 和 -s):</a></li><li><span class="folder">-</span><a href="#3_3105">查看tcp相关信息(-t):</a></li><li><span class="folder">-</span><a href="#3_4425">查看udp相关信息(-u):</a></li><li><span class="folder">-</span><a href="#3_4985">默认以KB为单位,现在以M单位查看:</a></li><li><span class="folder">-</span><a href="#3_5408">其它用法:</a></li></ul><li><span class="folder">-</span><a href="#2_6829">参考</a></li></ul></div>
+</div>
+
+<div class="bm block">
+<div class="bm_h cl">
+<h3>相关阅读</h3>
+</div>
+<div class="bm_c pbn" id="related_tag">
+<ul class="xl xl2 cl bbs pbm" id="tag"><li><a href="https://linux.cn/tag-nicstat.html">nicstat</a></li>
+<li><a href="https://linux.cn/tag-%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7.html">实用工具</a></li>
+<li><a href="https://linux.cn/tag-%E6%B5%81%E9%87%8F%E7%BB%9F%E8%AE%A1.html">流量统计</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div class="drag">
+<!--[diy=diy2]--><div id="diy2" class="area"></div><!--[/diy]-->
+</div>
+
+
+</div>
+</div>
+
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+<input id="portalview" value="1" type="hidden">
+
+
+
+
+	</div>
+
+
+    <div id="footer">
+        <p>
+            <span>Linux.CN © 2003-2016 Linux中国</span>
+            <span class="line">|</span>
+            <span>Powered by <strong>DX</strong> | 图片存储于<a href="http://www.qiniu.com/" target="_blank">七牛云存储</a></span>
+        </p>
+        <p>
+            <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备05083684号-1</a>            京公网安备110105001595
+        </p>
+        <p>
+        <a href="https://linux.cn/legal.html">服务条款</a> |
+        除特别申明外，本站原创内容版权遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">CC-BY-NC-SA 协议规定</a></p>
+        <p>
+        <a href="https://linux.cn/"><img src="linuxcn_logo_mini.png" align="absmiddle"></a>
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img src="cc.png" align="absmiddle"></a>
+        </p>
+<p>
+</p>
+</div>
+
+<div id="ft" class="cl"></div>
+<div id="scrolltop">
+<span>
+<a class="wxicon"></a>
+<a title="分享到新浪微博" class="tsina"></a>
+<a title="收藏" href="https://linux.cn/home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=1588&amp;handlekey=favoritearticlehk_1588" id="a_favorite" class="favorite"></a>
+</span>
+<span hidefocus="true"><a title="返回顶部" class="scrolltopa"><b>返回顶部</b></a></span>
+</div>
+
+<div id="qrcode">
+<p>分享到微信朋友圈</p>
+<div id="canvas"></div>
+<p><em>打开微信，点击底部的“发现”，<br>
+使用“扫一扫”将网页分享至朋友圈。</em></p></div>
+
+<div id="Ll92CisOsS" style="display: none; background-color: rgb(170, 0, 0); position: fixed; top: 0px; width: 100%; z-index: 9999; left: 0px; font-size: 16px; color: rgb(255, 255, 255); text-align: center; padding: 0px;">请将我们加入您的广告过滤器的白名单，请支持开源站点。谢谢您。</div>
+
+
+
+<div style="display: none; z-index: 25 ! important;" id="__lpform_ls_username_numspan"></div><div style="max-height: 16px; vertical-align: top; position: absolute; top: 45px; left: 1139.5px; z-index: 24;" id="__lpform_ls_username"><img style="opacity: 0.6; vertical-align: top;" id="__lpform_ls_username_icon" width="16" height="16"></div><div style="display: none; z-index: 25 ! important;" id="__lpform_ls_password_numspan"></div><div style="max-height: 16px; vertical-align: top; position: absolute; top: 73px; left: 1139.5px; z-index: 24;" id="__lpform_ls_password"><img style="opacity: 0.6; vertical-align: top;" id="__lpform_ls_password_icon" width="16" height="16"></div></body><div class="" style="display: none; width: 24px; left: 1269px; top: 552px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 350px; width: 1px; left: 953px; top: 234px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 350px; height: 1px; left: 953px; top: 234px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 350px; width: 1px; left: 1303px; top: 234px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 350px; height: 1px; left: 953px; top: 584px;" class="diigotb-border diigotb-bottom"></div>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=7">
+<title>TCP连接的状态详解以及故障排查 - 51CTO.COM</title>
+<meta name="description" content="我们通过了解 TCP各个状态 ，可以排除和定位网络或系统故障时大有帮助。首先服务端需要打开一个 socket 进行监听，状态为LISTEN。">
+<meta name="keywords" content="TCP">
+<base target="_blank">
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<!-- 导航 开始-->
+<meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://network.51cto.com/art/201408/449186_all.htm#">
+<div id="home_top">    <div class="top_nav">        <div class="left" style="width: 400px;"><div class="logo_51cto" title="51CTO.COM - 技术成就梦想 -  中国领先的IT技术网站"></div><a href="http://www.51cto.com/">首页</a><img src="top_bg_xian.gif" style="padding-top: 2px;" width="16" align="absmiddle" height="25"><a href="http://www.51cto.com/col/35/" target="_blank">技术频道<img src="nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a><img src="top_bg_xian.gif" width="16" align="absmiddle" height="25"><a href="http://www.51cto.com/" target="_blank">51CTO旗下网站<img src="nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a><img src="top_bg_xian.gif" width="16" align="absmiddle" height="25"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a> <a href="http://www.51cto.com/about/rss.html" target="_blank"><img src="143749870.gif" style="vertical-align: middle; margin-bottom: 5px; margin-left: 5px;"></a>       </div>        <div class="right">            <div class="more"><img src="top_shequ.gif" width="27" align="absmiddle" height="16"><a href="http://gaozhao.51cto.com/" target="_blank" style="color: rgb(204, 0, 0);">招聘</a><a href="http://edu.51cto.com/" target="_blank" style="color: rgb(204, 0, 0);">学院</a><a href="http://down.51cto.com/" target="_blank">下载</a><a href="http://bbs.51cto.com/" target="_blank">论坛</a><a href="http://blog.51cto.com/" target="_blank">博客</a><a>更多<img src="nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a>            </div>            <span id="login_status"><div class="login" style="padding-top: 8px; text-align: right;"><a href="http://home.51cto.com/index?reback=http://network.51cto.com/art/201408/449186.htm" target="_self">登录</a><a href="http://ucenter.51cto.com/2015/register.php?reback=http://network.51cto.com/art/201408/449186.htm" target="_self">注册</a></div></span>                </div>    </div></div>
+<div class="subMenu1" id="s1">
+<ul>
+<li><a href="http://network.51cto.com/" target="_blank">网络</a></li>
+<li><a href="http://netsecurity.51cto.com/" target="_blank">安全</a></li>
+<li><a href="http://developer.51cto.com/" target="_blank">开发</a></li>
+<li><a href="http://database.51cto.com/" target="_blank">数据库</a></li>
+<li><a href="http://server.51cto.com/" target="_blank">服务器</a></li>
+<li><a href="http://os.51cto.com/" target="_blank">系统</a></li>
+<li><a href="http://virtual.51cto.com/" target="_blank">虚拟化</a></li>
+<li><a href="http://cloud.51cto.com/" target="_blank">云计算</a></li>
+<li><a href="http://developer.51cto.com/embed/" target="_blank">嵌入式</a></li>
+<li><a href="http://mobile.51cto.com/" target="_blank">移动开发</a></li>
+</ul>
+</div> 
+<div class="subMenu2" id="s2">
+<ul>
+<li><a href="http://www.51cto.com/" target="_blank" title="中国领先的IT技术网站">51CTO.COM</a></li>
+<li><a href="http://www.cioage.com/" target="_blank" title="中国首个专门服务于CIO的专业网站">CIOage.com</a></li>
+<li><a href="http://www.watchstor.com/" target="_blank" title="领先的中文存储网络媒体">WatchStor.com</a></li>
+<li><a href="http://www.hc3i.cn/" target="_blank" title="中国首家专注于数字医疗及医疗信息化的专业网站">HC3i.cn</a></li>
+</ul>
+</div>
+
+
+
+<div class="subMenu3" id="s3" style="z-index: 9999; position: absolute;">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://gaozhao.51cto.com/" target="_blank" style="color: red;">招聘</a></li>
+<li><a href="http://edu.51cto.com/" target="_blank">学院</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://t.51cto.com/" target="_blank" style="color: red;">题库</a></li>
+</ul>
+</div>
+
+<!-- 登陆信息 -->
+<!-- 导航 结束--> 
+ <div class="g_39 mb10">
+	<div id="tonglanad" class="fl"><iframe noresize="" marginheight="0" marginwidth="0" src="index_1.html" scrolling="No" width="760" align="middle" frameborder="0" height="90"></iframe></div>
+	<div id="list4" class="fr">
+		<ul>
+			<li id="wordlinkad1"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3933__zoneid=270__cb=52a24ada50__oadest=http%3A%2F%2Fedu.51cto.com%2Fzt%2Fzt_id-1.html%3Fan" target="_blank"><font color="red">网络安全一个大写的反“作死”</font></a><div id="beacon_52a24ada50" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_001.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			<li id="wordlinkad2"><a href="http://gg.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3546__zoneid=631__cb=3e8570e75d__oadest=http%3A%2F%2Fedu.51cto.com%2Fpx%2Ftrain%2F88" target="_blank"><font color="red">信息安全工程师，会挣钱的考试</font></a><div id="beacon_3e8570e75d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_002.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			<li id="wordlinkad3"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=4150__zoneid=256__cb=aa8df28e31__oadest=http%3A%2F%2Fcloud.51cto.com%2Fact%2Fbaidukaifangyun%2F201607" target="_blank"><font color="red">百度开放云：可靠智能的云产品</font></a><div id="beacon_aa8df28e31" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_003.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+			<li id="wordlinkad4"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=e40fa2441d__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_e40fa2441d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_004.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</li>
+		</ul>
+	</div>
+<br class="dle">
+</div>
+
+<div class="g_39 menu">
+<div class="subNav_logo"><img src="zuwang_logo.gif"></div>
+  <div class="subNav_l"><a href="http://network.51cto.com/" target="_blank">首页</a> | <a href="http://network.51cto.com/col/786/" target="_blank">思科</a> | <a href="http://network.51cto.com/router/" target="_blank">路由</a> | <a href="http://network.51cto.com/switch" target="_blank">交换</a> | <a href="http://network.51cto.com/wlan" target="_blank">无线</a> | <a href="http://network.51cto.com/col/888/" target="_blank">ADSL</a> | <a href="http://network.51cto.com/col/946/" target="_blank">VPN</a> | <a href="http://network.51cto.com/col/1022/" target="_blank">网管</a> | <a href="http://network.51cto.com/col/493/" target="_blank">布线</a> | <a href="http://network.51cto.com/col/513/" target="_blank">接入</a> | <a href="http://publish.51cto.com/list/481/" target="_blank">全部文章</a></div>  
+<div class="search fr">
+<dl>
+<form name="searchform" action="http://www.51cto.com/php/search.php" target="_blank" method="post" style="margin: 0px; padding: 0px;">
+<dt class="fl"><input name="keyword" class="searchInput f14 input" value="请输入关键字" type="text"></dt>
+<dd class="fl"><input src="search.gif" type="image"></dd></form>
+</dl>
+</div>
+<br class="dle">
+</div>
+<div class="g_39 b3-s-4273B3 rel">
+<!--width : 26*25 - 15 = 635px-->
+<div class="g_26 fl m_l">
+<div class="brief bgF8F8F8">
+<p class="crumb ">您所在的位置：<a href="http://network.51cto.com/">网络频道</a> &gt; <a href="http://network.51cto.com/col/615/">基础技术</a> &gt; <a href="http://network.51cto.com/col/551/">网络协议</a> &gt;  <b>TCP连接的状态详解以及故障排查</b> </p>
+<h1>TCP连接的状态详解以及故障排查</h1>
+<div class="msg">
+<div>2014-08-22 09:10  真实的归宿  CSDN  字号：<span class="f14-b"><a target="_self">T</a></span> | <span class="f16-b"><a target="_self">T</a></span></div>
+<div class="artHd" id="books" style="padding: 5px 25px; display: none;"></div>
+<div class="fav"><a title="一键收藏，随时查看，分享好友！" target="_self"><img src="Fav.gif" alt="一键收藏，随时查看，分享好友！" border="0"></a></div>
+</div>
+<div class="brieftext">
+<p class="f14 green">我们通过了解 TCP各个状态 ，可以排除和定位网络或系统故障时大有帮助。首先服务端需要打开一个 socket 进行监听，状态为LISTEN。</p>
+<p class="ad">AD：<a href="http://mobile.51cto.com/mobile/mdsa12/" target="_blank" style="text-decoration: none; color: red;">51CTO 网+ 第十二期沙龙：大话数据之美_如何用数据驱动用户体验</a>
+</p>
+</div>
+<!--  <div style="border-left:5px solid #4065aa;height:25px; line-height:25px;margin-top:10px;background:#eef7ff;padding-left:10px;">
+<a style="text-decoration: none;color:red" target="_blank" href="http://server.51cto.com/exp/OpenPower/">IBM POWER8通过一年充分融入了“开放”基因，现在有哪些成效？快来注册观看直播，一起拥抱开源的力量。</a>
+</div> -->
+
+
+
+</div>
+<div class="tag bgF8F8F8" id="indexlist" style="display: none;">
+<ul id="indexliststr">
+</ul>
+<br class="dle">
+</div>
+<div class="content bgF8F8F8 f14">
+<div id="content">
+<p></p><p>我们通过了解 TCP各个状态 ，可以排除和定位网络或系统故障时大有帮助。</p>
+<p><strong>一、TCP状态</strong></p>
+<p><strong>LISTENING ：侦听来自远方的TCP端口的连接请求 .</strong></p>
+<p>首先服务端需要打开一个 socket 进行监听，状态为LISTEN。</p>
+<p>有提供某种服务才会处于LISTENING状态， TCP状态变化就是某个端口的状态变化，提供一个服务就打开一个端口，例如：提供www服务默认开的是80端口，提供ftp服务默认的端口为21，当提供的服务没有被连接时就处于LISTENING状态。FTP服务启动后首先处于侦听(LISTENING)状态。处于侦听LISTENING状态时，该端口是开放的，等待连接，但还没有被连接。就像你房子的门已经敞开的，但还没有人进来。</p>
+<p>看LISTENING状态最主要的是看本机开了哪些端口，这些端口都是哪个程序开的，关闭不必要的端口是保证安全的一个非常重要的方面，服务端口都对应一个服务(应用程序)，停止该服务就关闭了该端口，例如要关闭21端口只要停止IIS服务中的FTP服务即可。关于这方面的知识请参阅其它文章。</p>
+<p>如果你不幸中了服务端口的木马，木马也开个端口处于LISTENING状态。</p>
+<p><strong>● SYN-SENT： 客户端SYN_SENT状态：</strong></p>
+<p>再发送连接请求后等待匹配的连接请求:</p>
+<p>客户端通过应用程序调用connect进行active open.于是客户端tcp发送一个SYN以请求建立一个连接.之后状态置为SYN_SENT.  /*The socket is actively attempting to establish a connection. 在发送连接请求后等待匹配的连接请求  */</p>
+<p>当请求连接时客户端首先要发送同步信号给要访问的机器，此时状态为SYN_SENT，如果连接成功了就变为ESTABLISHED，正常情况下SYN_SENT状态非常短暂。例如要访问网站http://www.baidu.com,如果是正常连接的话，用TCPView观察  IEXPLORE .EXE(IE)建立的连接会发现很快从SYN_SENT变为ESTABLISHED，表示连接成功。SYN_SENT状态快的也许看不到。</p>
+<p>如果发现有很多SYN_SENT出现，那一般有这么几种情况，一是你要访问的网站不存在或线路不好，二是用扫描软件扫描一个网段的机器，也会出出现很多SYN_SENT，另外就是可能中了病毒了，例如中了"冲击波"，病毒发作时会扫描其它机器，这样会有很多SYN_SENT出现。</p>
+<p><strong>● SYN-RECEIVED： 服务器端状态SYN_RCVD</strong></p>
+<p>再收到和发送一个连接请求后等待对方对连接请求的确认</p>
+<p>当服务器收到客户端发送的同步信号时，将标志位ACK和</p>
+<p>SYN置1发送给客户端，此时服务器端处于SYN_RCVD状态，如果连接成功了就变为ESTABLISHED，正常情况下SYN_RCVD状态非常短暂。</p>
+<p>如果发现有很多SYN_RCVD状态，那你的机器有可能被SYN Flood的DoS(拒绝服务攻击)攻击了。</p>
+<p><strong>● SYN Flood的攻击原理是：</strong></p>
+<p>在进行三次握手时，攻击软件向被攻击的服务器发送SYN连接请求(握手的第一步)，但是这个地址是伪造的，如攻击软件随机伪造了51.133.163.104、65.158.99.152等等地址。  服务器 在收到连接请求时将标志位 ACK和 SYN  置1发送给客户端(握手的第二步)，但是这些客户端的IP地址都是伪造的，服务器根本找不到客户机，也就是说握手的第三步不可能完成。</p>
+<p>这种情况下服务器端一般会重试(再次发送SYN+ACK给客户端)并等待一段时间后丢弃这个未完成的连接，这段时间的长度我们称为SYN  Timeout，一般来说这个时间是分钟的数量级(大约为30秒-2分钟);一个用户出现异常导致服务器的一个线程等待1分钟并不是什么很大的问题，但如果有一个恶意的攻击者大量模拟这种情况，服务器端将为了维护一个非常大的半连接列表而消耗非常多的资源----数以万计的半连接，即使是简单的保存并遍历也会消耗非常多的  CPU 时间和内存，何况还要不断对这个列表中的IP进行SYN+ACK的重试。此时从正常客户的角度看来，服务器失去响应，这种情况我们称做： 服务器端受到了SYN  Flood攻击(SYN洪水攻击 )</p>
+<p><strong>● ESTABLISHED：代表一个打开的连接。</strong></p>
+<p>ESTABLISHED状态是表示两台机器正在传输数据，观察这个状态最主要的就是看哪个程序正在处于ESTABLISHED状态。</p>
+<p>服务器出现很多 ESTABLISHED状态： netstat -nat |grep 9502或者使用lsof -i:9502可以检测到。</p>
+<p>当客户端未主动close的时候就断开连接：即客户端发送的FIN丢失或未发送。</p>
+<p>这时候若客户端断开的时候发送了FIN包，则服务端将会处于CLOSE_WAIT状态;</p>
+<p>这时候若客户端断开的时候未发送FIN包，则服务端处还是显示ESTABLISHED状态;</p>
+<p>结果客户端重新连接服务器。</p>
+<p>而新连接上来的客户端(也就是刚才断掉的重新连上来了)在服务端肯定是ESTABLISHED;  如果客户端重复的上演这种情况，那么服务端将会出现大量的假的ESTABLISHED连接和CLOSE_WAIT连接。</p>
+<p>最终结果就是新的其他客户端无法连接上来，但是利用netstat还是能看到一条连接已经建立，并显示ESTABLISHED，但始终无法进入程序代码。</p>
+<p><strong>● FIN-WAIT-1： 等待远程TCP连接中断请求，或先前的连接中断请求的确认</strong></p>
+<p>主动关闭(active close)端应用程序调用close，于是其TCP发出FIN请求主动关闭连接，之后进入FIN_WAIT1状态./* The  socket is closed, and the connection is shutting down.  等待远程TCP的连接中断请求，或先前的连接中断请求的确认 */</p>
+<p><strong>● FIN-WAIT-2：从远程TCP等待连接中断请求</strong></p>
+<p>主动关闭端接到ACK后，就进入了FIN-WAIT-2 ./* Connection is closed, and the socket is  waiting for a shutdown from the remote end. 从远程TCP等待连接中断请求 */</p>
+<p>这就是著名的半关闭的状态了，这是在关闭连接时，客户端和服务器两次握手之后的状态。在这个状态下，应用程序还有接受数据的能力，但是已经无法发送数据，但是也有一种可能是，客户端一直处于FIN_WAIT_2状态，而服务器则一直处于WAIT_CLOSE状态，而直到应用层来决定关闭这个状态。</p>
+<p><strong>● CLOSE-WAIT：等待从本地用户发来的连接中断请求</strong></p>
+<p>被动关闭(passive  close)端TCP接到FIN后，就发出ACK以回应FIN请求(它的接收也作为文件结束符传递给上层应用程序),并进入CLOSE_WAIT. /* The  remote end has shut down, waiting for the socket to close. 等待从本地用户发来的连接中断请求  */</p>
+<p><strong>● CLOSING：等待远程TCP对连接中断的确认</strong></p>
+<p>比较少见./* Both sockets are shut down but we still don't have all our data sent.  等待远程TCP对连接中断的确认 */</p>
+<p><strong>● LAST-ACK：等待原来的发向远程TCP的连接中断请求的确认</strong></p>
+<p>被动关闭端一段时间后，接收到文件结束符的应用程序将调用CLOSE关闭连接。这导致它的TCP也发送一个 FIN,等待对方的ACK.就进入了LAST-ACK  . /* The remote end has shut down, and the socket is closed. Waiting for  acknowledgement. 等待原来发向远程TCP的连接中断请求的确认 */</p>
+<p><strong>● TIME-WAIT：等待足够的时间以确保远程TCP接收到连接中断请求的确认</strong></p>
+<p>在主动关闭端接收到FIN后，TCP就发送ACK包，并进入TIME-WAIT状态。/* The socket is waiting after close  to handle packets still in the network.等待足够的时间以确保远程TCP接收到连接中断请求的确认 */</p>
+<p>TIME_WAIT等待状态，这个状态又叫做2MSL状态，说的是在TIME_WAIT2发送了最后一个ACK数据报以后，要进入TIME_WAIT状态，这个状态是防止最后一次握手的数据报没有传送到对方那里而准备的(注意这不是四次握手，这是第四次握手的保险状态)。这个状态在很大程度上保证了双方都可以正常结束，但是，问题也来了。</p>
+<p>由于插口的2MSL状态(插口是IP和端口对的意思，socket)，使得应用程序在2MSL时间内是无法再次使用同一个插口的，对于客户程序还好一些，但是对于服务程序，例如httpd，它总是要使用同一个端口来进行服务，而在2MSL时间内，启动httpd就会出现错误(插口被使用)。为了避免这个错误，服务器给出了一个平静时间的概念，这是说在2MSL时间内，虽然可以重新启动服务器，但是这个服务器还是要平静的等待2MSL时间的过去才能进行下一次连接。</p>
+<p><strong>● CLOSED：没有任何连接状态</strong></p>
+<p>被动关闭端在接受到ACK包后，就进入了closed的状态。连接结束./* The socket is not being used. 没有任何连接状态  */</p>
+<p><strong>二、TCP状态迁移路线图</strong></p>
+<p>client/server两条路线讲述TCP状态迁移路线图：</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKioL1P2m8SQfbwPAADGMe2VJfg745.jpg" width="498" height="577"></center>
+<p></p>
+<p>这是一个看起来比较复杂的状态迁移图，因为它包含了两个部分---服务器的状态迁移和客户端的状态迁移，如果从某一个角度出发来看这个图，就会清晰许多，这里面的服务器和客户端都不是绝对的，发送数据的就是客户端，接受数据的就是服务器。</p>
+<p><strong>客户端应用程序的状态迁移图</strong></p>
+<p>客户端的状态可以用如下的流程来表示：</p>
+<p>CLOSED-&gt;SYN_SENT-&gt;ESTABLISHED-&gt;FIN_WAIT_1-&gt;FIN_WAIT_2-&gt;TIME_WAIT-&gt;CLOSED</p>
+<p>以上流程是在程序正常的情况下应该有的流程，从书中的图中可以看到，在建立连接时，当客户端收到SYN报文的ACK以后，客户端就打开了数据交互地连接。而结束连接则通常是客户端主动结束的，客户端结束应用程序以后，需要经历FIN_WAIT_1，FIN_WAIT_2等状态，这些状态的迁移就是前面提到的结束连接的四次握手。</p>
+<p><strong>服务器的状态迁移图</strong></p>
+<p>服务器的状态可以用如下的流程来表示：</p>
+<p>CLOSED-&gt;LISTEN-&gt;SYN收到-&gt;ESTABLISHED-&gt;CLOSE_WAIT-&gt;LAST_ACK-&gt;CLOSED</p>
+<p>在建立连接的时候，服务器端是在第三次握手之后才进入数据交互状态，而关闭连接则是在关闭连接的第二次握手以后(注意不是第四次)。而关闭以后还要等待客户端给出最后的ACK包才能进入初始的状态。</p>
+<p><strong>其他状态迁移</strong></p>
+<p>还有一些其他的状态迁移，这些状态迁移针对服务器和客户端两方面的总结如下</p>
+<p>LISTEN-&gt;SYN_SENT，对于这个解释就很简单了，服务器有时候也要打开连接的嘛。</p>
+<p>SYN_SENT-&gt;SYN收到，服务器和客户端在SYN_SENT状态下如果收到SYN数据报，则都需要发送SYN的ACK数据报并把自己的状态调整到SYN收到状态，准备进入ESTABLISHED</p>
+<p>SYN_SENT-&gt;CLOSED，在发送超时的情况下，会返回到CLOSED状态。</p>
+<p>SYN_收到-&gt;LISTEN，如果受到RST包，会返回到LISTEN状态。</p>
+<p>SYN_收到-&gt;FIN_WAIT_1，这个迁移是说，可以不用到ESTABLISHED状态，而可以直接跳转到FIN_WAIT_1状态并等待关闭。</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKiom1P2mqzzyV8uAAB64PcrycQ432.jpg" width="469" height="529"></center>
+<p></p>
+<p>怎样牢牢地将这张图刻在脑中呢?那么你就一定要对这张图的每一个状态，及转换的过程有深刻的认识，不能只停留在一知半解之中。下面对这张图的11种状态详细解析一下，以便加强记忆!不过在这之前，先回顾一下TCP建立连接的三次握手过程，以及关闭连接的四次握手过程。</p>
+<p><strong>三、TCP连接建立三次握手</strong></p>
+<p>TCP是一个面向连接的协议，所以在连接双方发送数据之前，都需要首先建立一条连接。</p>
+<p>Client连接Server：</p>
+<p>当Client端调用socket函数调用时，相当于Client端产生了一个处于Closed状态的套接字。</p>
+<p>( 1)<strong> 第一次握手</strong> ： Client端又调用 connect  函数调用，系统为Client随机分配一个端口，连同传入connect中的参数(Server的IP 和  端口)，这就形成了一个连接四元组，客户端发送一个带SYN标志的TCP报文到服务器。这是三次握手过程中的报文1。connect调用让Client端的socket处于  SYN_SENT</p>
+<p>状态，</p>
+<p>等待服务器确认;SYN：同步序列编号( Synchronize Sequence Numbers)。</p>
+<p>( 2)<strong> 第二次握手</strong> ：  服务器收到syn包，必须确认客户的SYN(ack=j+1)，同时自己也发送一个SYN包(syn=k)，即SYN+ACK包，此时服务器进入 SYN_RECV  状态;</p>
+<p>( 3) <strong>第三次握手</strong> ：  客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户器和客务器进入 ESTABLISHED 状态，完成三次握手。  连接已经可以进行读写操作。</p>
+<p>一个完整的三次握手也就是： 请求---应答---再次确认 。</p>
+<p>TCP协议通过三个报文段完成连接的建立，这个过程称为三次握手(three-way handshake)，过程如下图所示。</p>
+<p>对应的函数接口：</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKiom1P2mqzRzOc9AAAwb010VcE821.jpg" width="416" height="209"></center>
+<p></p>
+<p>2)Server</p>
+<p>当Server端调用socket函数调用时，相当于Server端产生了一个处于Closed状态的监听套接字</p>
+<p>Server端调用 bind 操作，将监听套接字与指定的地址和 端口关联，然后又调用listen 函数，系统会为其分配未完成队列和</p>
+<p>完成队列，此时的监听套接字可以接受Client的连接，监听套接字状态处于LISTEN状态。</p>
+<p>当Server端调用accept操作时，会从完成队列中取出一个已经完成的client连接，同时在server这段会产生一个会话套接字，用于和</p>
+<p>client端套接字的通信，这个会话套接字的状态是ESTABLISH。</p>
+<p>从图中可以看出，当客户端调用 connect 时，触发了连接请求，向服务器发送了SYN  J包，这时connect进入阻塞状态;服务器监听到连接请求，即收到SYN J包，调用 accept 函数接收请求向客户端发送SYN K ，ACK  J+1，这时accept进入阻塞状态;客户端收到服务器的SYN K ，ACK J+1之后，这时connect返回，并对SYN K进行确认;服务器收到ACK  K+1时，accept返回，至此三次握手完毕，连接建立。</p>
+<p>我们可以通过网络抓包的查看具体的流程：</p>
+<p>比如我们服务器开启9502的端口。使用tcpdump来抓包：</p>
+<p>tcpdump -iany tcp port 9502</p>
+<p>然后我们使用 telnet 127.0.0.1 9502开连接.:</p>
+<p>telnet 127.0.0.1 9502</p>
+<p>14:12:45.104687 IP localhost.39870 &gt; localhost.9502: Flags [S], seq  2927179378, win 32792, options [mss 16396,sackOK,TS val 255474104 ecr  0,nop,wscale 3], length 0 (1)</p>
+<p>14:12:45.104701 IP localhost.9502 &gt; localhost.39870: Flags [S.], seq  1721825043, ack 2927179379, win 32768, options [mss 16396,sackOK,TS val  255474104 ecr 255474104,nop,wscale 3], length 0 (2)</p>
+<p>14:12:45.104711 IP localhost.39870 &gt; localhost.9502: Flags [.], ack 1, win  4099, options [nop,nop,TS val 255474104 ecr 255474104], length 0 (3)</p>
+<p>14:13:01.415407 IP localhost.39870 &gt; localhost.9502: Flags [P.], seq 1:8,  ack 1, win 4099, options [nop,nop,TS val 255478182 ecr 255474104], length 7</p>
+<p>14:13:01.415432 IP localhost.9502 &gt; localhost.39870: Flags [.], ack 8, win  4096, options [nop,nop,TS val 255478182 ecr 255478182], length 0</p>
+<p>14:13:01.415747 IP localhost.9502 &gt; localhost.39870: Flags [P.], seq 1:19,  ack 8, win 4096, options [nop,nop,TS val 255478182 ecr 255478182], length 18</p>
+<p>14:13:01.415757 IP localhost.39870 &gt; localhost.9502: Flags [.], ack 19,  win 4097, options [nop,nop,TS val 255478182 ecr 255478182], length 0</p>
+<p>我们看到 (1) (2) (3)三步是建立tcp：</p>
+<p><strong>第一次握手：</strong></p>
+<p>14:12:45.104687 IP localhost.39870 &gt; localhost.9502: Flags [S], seq  2927179378</p>
+<p>客户端 IP localhost.39870 (客户端的端口一般是自动分配的) 向服务器localhost.9502  发送syn包(syn=j)到服务器》</p>
+<p>syn的seq= 2927179378</p>
+<p><strong>第二次握手：</strong></p>
+<p>14:12:45.104701 IP localhost.9502 &gt; localhost.39870: Flags [S.], seq  1721825043, ack 2927179379,</p>
+<p>服务器收到syn包，必须确认客户的SYN(ack=j+1)，同时自己也发送一个SYN包(syn=k)，即SYN+ACK包</p>
+<p>SYN(ack=j+1)= ack 2927179379 服务器主机SYN包(syn= seq 1721825043)</p>
+<p><strong>第三次握手：</strong></p>
+<p>14:12:45.104711 IP localhost.39870 &gt; localhost.9502: Flags [.], ack 1,</p>
+<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1)</p>
+<p>客户端 和 服务器进入ESTABLISHED状态后，可以进行通信数据交互。此时  和accept接口没有关系，即使没有accepte，也进行3次握手完成。</p>
+<p>连 接出现连接不上的问题，一般是网路出现问题或者网卡超负荷或者是连接数已经满啦。</p>
+<p>紫色背景的部分：</p>
+<p>IP localhost.39870 &gt; localhost.9502: Flags [P.], seq 1:8, ack 1, win 4099,  options [nop,nop,TS val 255478182 ecr 255474104], length 7</p>
+<p>客户端向服务器发送长度为7个字节的数据，</p>
+<p>IP localhost.9502 &gt; localhost.39870: Flags [.], ack 8, win 4096, options  [nop,nop,TS val 255478182 ecr 255478182], length 0</p>
+<p>服务器向客户确认已经收到数据</p>
+<p>IP localhost.9502 &gt; localhost.39870: Flags [P.], seq 1:19, ack 8, win  4096, options [nop,nop,TS val 255478182 ecr 255478182], length 18</p>
+<p>然后服务器同时向客户端写入数据。</p>
+<p>IP localhost.39870 &gt; localhost.9502: Flags [.], ack 19, win 4097, options  [nop,nop,TS val 255478182 ecr 255478182], length 0</p>
+<p>客户端向服务器确认已经收到数据</p>
+<p>这个就是tcp可靠的连接，每次通信都需要对方来确认。</p>
+<p><strong>四、TCP连接的终止(四次握手释放)</strong></p>
+<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个  FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<p>建立一个连接需要三次握手，而终止一个连接要经过四次握手，这是由TCP的半关闭(half-close)造成的，如图：</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKioL1P2m8TybV_KAABhnevicGc715.jpg" width="498" height="309"></center>
+<p></p>
+<p>( 1 )客户端 A 发送一个 FIN ，用来关闭客户 A 到服务器 B 的数据传送(报文段 4 )。</p>
+<p>( 2 )服务器 B 收到这个 FIN ，它发回一个 ACK ，确认序号为收到的序号加 1(报文段 5 )。和 SYN 一样，一个 FIN  将占用一个序号。</p>
+<p>( 3 )服务器 B 关闭与客户端 A 的连接，发送一个 FIN 给客户端 A (报文段 6)。</p>
+<p>( 4 )客户端 A 发回 ACK 报文确认，并将确认序号设置为收到序号加 1 (报文段 7 )。</p>
+<p>对应函数接口如图：</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKioL1P2m8TColqhAAAyM4eITRM143.jpg" width="366" height="229"></center>
+<p></p>
+<p>调用过程如下：</p>
+<p>1) 当client想要关闭它与server之间的连接。client(某个应用进程)首先调用 close 主动关闭连接，这时TCP发送一个FIN  M;client端处于 FIN_WAIT1 状态。</p>
+<p>2) 当server端接收到FIN M之后，执行被动关闭。对这个FIN进行确认，返回给client ACK。当server端返回给client  ACK后，client处于 FIN_WAIT2 状态，server处于 CLOSE_WAIT 状态。它的接收也作为文件结束符传递给应用进程，因为FIN的接收  意味着应用进程在相应的连接上再也接收不到额外数据;</p>
+<p>3) 一段时间之后，当server端检测到client端的关闭操作(read返回为0)。接收到文件结束符的server端调用 close  关闭它的socket。这导致server端的TCP也发送一个FIN N;此时server的状态为 LAST_ACK。</p>
+<p>4) 当client收到来自server的FIN后 。 client端的套接字处于 TIME_WAIT  状态，它会向server端再发送一个ack确认，此时server端收到ack确认后，此套接字处于CLOSED状态。</p>
+<p>这样每个方向上都有一个FIN和ACK。</p>
+<p>1 .为什么建立连接协议是三次握手，而关闭连接却是四次握手呢?</p>
+<p>这是因为服务端的 LISTEN 状态下的 SOCKET 当收到 SYN 报文的建连请求后，它可以把 ACK和 SYN ( ACK 起应答作用，而 SYN  起同步作用)放在一个报文里来发送。但关闭连接时，当收到对方的 FIN  报文通知时，它仅仅表示对方没有数据发送给你了;但未必你所有的数据都全部发送给对方了，所以你可以未必会马上会关闭 SOCKET,  也即你可能还需要发送一些数据给对方之后，再发送 FIN 报文给对方来表示你同意现在可以关闭连接了，所以它这里的 ACK 报文和 FIN  报文多数情况下都是分开发送的。</p>
+<p>2 .为什么 TIME_WAIT 状态还需要等 2MSL 后才能返回到 CLOSED 状态?</p>
+<p>这是因为虽然双方都同意关闭连接了，而且握手的 4 个报文也都协调和发送完毕，按理可以直接回到 CLOSED 状态(就好比从 SYN_SEND 状态到  ESTABLISH状态那样)：</p>
+<p>一方面是可靠的实现TCP全双工连接的终止，也就是当最后的ACK丢失后，被动关闭端会重发FIN，因此主动关闭端需要维持状态信息，以允许它重新发送最终的ACK。</p>
+<p>另一方面，但是因为我们必须要假想网络是不可靠的，你无法保证你最后发送的ACK 报文会一定被对方收到，因此对方处于 LAST_ACK 状态下的 SOCKET  可能会因为超时未收到 ACK 报文，而重发 FIN 报文，所以这个 TIME_WAIT 状态的作用就是用来重发可能丢失的 ACK 报文。</p>
+<p>TCP在2MSL等待期间，定义这个连接(4元组)不能再使用，任何迟到的报文都会丢弃。设想如果没有2MSL的限制，恰好新到的连接正好满足原先的4元组，这时候连接就可能接收到网络上的延迟报文就可能干扰最新建立的连接。</p>
+<p><strong>五、同时打开</strong></p>
+<p>两个应用程序同时执行主动打开的情况是可能的，虽然发生的可能性较低。每一端都发送一个SYN,并传递给对方，且每一端都使用对端所知的端口作为本地端口。例如：</p>
+<p>主机a中一应用程序使用7777作为本地端口，并连接到主机b 8888端口做主动打开。</p>
+<p>主机b中一应用程序使用8888作为本地端口，并连接到主机a 7777端口做主动打开。</p>
+<p>tcp协议在遇到这种情况时，只会打开一条连接。</p>
+<p>这个连接的建立过程需要4次数据交换，而一个典型的连接建立只需要3次交换(即3次握手)</p>
+<p>但多数伯克利版的tcp/ip实现并不支持同时打开。</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKiom1P2mq3jJ6CGAAA8m3C-Ay8167.jpg" width="498" height="225"></center>
+<p></p>
+<p><strong>六、同时关闭</strong></p>
+<p>如果应用程序同时发送FIN，则在发送后会首先进入FIN_WAIT_1状态。在收到对端的FIN后，回复一个ACK，会进入CLOSING状态。在收到对端的ACK后，进入TIME_WAIT状态。这种情况称为同时关闭。</p>
+<p>同时关闭也需要有4次报文交换，与典型的关闭相同。</p>
+<p></p>
+<center><img class="fit-image" alt="" src="wKiom1P2mq2gP-qLAAA8m3C-Ay8154.jpg" width="498" height="225"></center>
+<p></p>
+<p><strong>七. TCP通信中服务器处理客户端意外断开</strong></p>
+<p>如果TCP连接被对方正常关闭，也就是说，对方是正确地调用了closesocket(s)或者shutdown(s)的话，那么上面的Recv或Send调用就能马上返回，并且报错。这是由于close  socket(s)或者shutdown(s)有个正常的关闭过程，会告诉对方“TCP连接已经关闭，你不需要再发送或者接受消息了”。</p>
+<p>但是，如果意外断开，客户端(3g的移动设备)并没有正常关闭socket。双方并未按照协议上的四次挥手去断开连接。</p>
+<p>那么这时候正在执行Recv或Send操作的一方就会因为没有任何连接中断的通知而一直等待下去，也就是会被长时间卡住。</p>
+<p>像这种如果一方已经关闭或异常终止连接，而另一方却不知道，我们将这样的TCP连接称为半打开 的。</p>
+<p><strong>解决意外中断办法都是利用保活机制。</strong>而保活机制分又可以让底层实现也可自己实现。</p>
+<p><strong>1、 自己编写心跳包程序</strong></p>
+<p>简单的说也就是在自己的程序中加入一条线程，定时向对端发送数据包，查看是否有ACK，如果有则连接正常，没有的话则连接断开</p>
+<p><strong>2、 启动TCP编程里的keepAlive机制</strong></p>
+<p><strong>一）双方拟定心跳(自实现)</strong></p>
+<p>一般由客户端发送心跳包，服务端并不回应心跳，只是定时轮询判断一下与上次的时间间隔是否超时(超时时间自己设定)。服务器并不主动发送是不想增添服务器的通信量，减少压力。</p>
+<p>但这会出现三种情况：</p>
+<p><strong>情况1.</strong></p>
+<p>客户端由于某种网络延迟等原因很久后才发送心跳(它并没有断)，这时服务器若利用自身设定的超时判断其已经断开，而后去关闭socket。若客户端有重连机制，则客户端会重新连接。若不确定这种方式是否关闭了原本正常的客户端，则在ShutDown的时候一定要选择send,表示关闭发送通道，服务器还可以接收一下，万一客户端正在发送比较重要的数据呢，是不?</p>
+<p><strong>情况2.</strong></p>
+<p>客户端很久没传心跳，确实是自身断掉了。在其重启之前，服务端已经判断出其超时，并主动close，则四次挥手成功交互。</p>
+<p><strong>情况3.</strong></p>
+<p>客户端很久没传心跳，确实是自身断掉了。在其重启之前，服务端的轮询还未判断出其超时，在未主动close的时候该客户端已经重新连接。</p>
+<p>这时候若客户端断开的时候发送了FIN包，则服务端将会处于CLOSE_WAIT状态;</p>
+<p>这时候若客户端断开的时候未发送FIN包，则服务端处还是显示ESTABLISHED状态;</p>
+<p>而新连接上来的客户端(也就是刚才断掉的重新连上来了)在服务端肯定是ESTABLISHED;这时候就有个问题，若利用轮询还未检测出上条旧连接已经超时(这很正常，timer总有个间隔吧)，而在这时，客户端又重复的上演情况3，那么服务端将会出现大量的假的ESTABLISHED连接和CLOSE_WAIT连接。</p>
+<p>最终结果就是新的其他客户端无法连接上来，但是利用netstat还是能看到一条连接已经建立，并显示ESTABLISHED，但始终无法进入程序代码。个人最初感觉导致这种情况是因为假的ESTABLISHED连接和  CLOSE_WAIT连接会占用较大的系统资源，程序无法再次创建连接(因为每次我发现这个问题的时候我只连了10个左右客户端却已经有40多条无效连接)。而最近几天测试却发现有一次程序内只连接了2，3个设备，但是有8条左右的虚连接，此时已经连接不了新客户端了。这时候我就觉得我想错了，不可能这几条连接就占用了大量连接把，如果说几十条还有可能。但是能肯定的是，这个问题的产生绝对是设备在不停的重启，而服务器这边又是简单的轮询，并不能及时处理，暂时还未能解决。</p>
+<p><strong>二）利用KeepAlive</strong></p>
+<p>其实keepalive的原理就是TCP内嵌的一个心跳包,</p>
+<p>以服务器端为例，如果当前 server 端检测到超过一定时间(默认是 7,200,000 milliseconds ，也就是 2  个小时)没有数据传输，那么会向 client 端发送一个 keep-alive packet (该 keep-alive packet 就是 ACK和 当前  TCP 序列号减一的组合)，此时 client 端应该为以下三种情况之一：</p>
+<p><strong>1. client 端仍然存在，网络连接状况良好。</strong>此时 client 端会返回一个 ACK 。server 端接收到  ACK 后重置计时器(复位存活定时器)，在 2 小时后再发送探测。如果 2 小时内连接上有数据传输，那么在该时间基础上向后推延 2 个小时。</p>
+<p><strong>2. 客户端异常关闭，或是网络断开。</strong>在这两种情况下， client  端都不会响应。服务器没有收到对其发出探测的响应，并且在一定时间(系统默认为 1000 ms )后重复发送 keep-alive packet  ，并且重复发送一定次数( 2000 XP 2003 系统默认为 5 次 , Vista 后的系统默认为 10 次)。</p>
+<p><strong>3.  客户端曾经崩溃，但已经重启。</strong>这种情况下，服务器将会收到对其存活探测的响应，但该响应是一个复位，从而引起服务器对连接的终止。</p>
+<p>对于应用程序来说，2小时的空闲时间太长。因此，我们需要手工开启Keepalive功能并设置合理的Keepalive参数。</p>
+<p>全局设置可更改 /etc/sysctl.conf ,加上:</p>
+<p>net.ipv4.tcp_keepalive_intvl = 20</p>
+<p>net.ipv4.tcp_keepalive_probes = 3</p>
+<p>net.ipv4.tcp_keepalive_time = 60</p>
+<p>在程序中设置如下:</p>
+<pre>&nbsp;</pre>
+<pre>#include &lt;sys/socket.h&gt;  
+ #include &lt;netinet/in.h&gt;  
+ #include &lt;arpa/inet.h&gt;  
+ #include &lt;sys/types.h&gt;  
+ #include &lt;netinet/tcp.h&gt;  
+  
+ int keepAlive = 1; // 开启keepalive属性  
+ int keepIdle = 60; // 如该连接在60秒内没有任何数据往来,则进行探测   
+ int keepInterval = 5; // 探测时发包的时间间隔为5 秒  
+ int keepCount = 3; // 探测尝试的次数.如果第1次探测包就收到响应了,则后2次的不再发.  
+  
+ setsockopt(rs, SOL_SOCKET, SO_KEEPALIVE, (void *)&amp;keepAlive, sizeof(keepAlive));  
+ setsockopt(rs, SOL_TCP, TCP_KEEPIDLE, (void*)&amp;keepIdle, sizeof(keepIdle));  
+ setsockopt(rs, SOL_TCP, TCP_KEEPINTVL, (void *)&amp;keepInterval, sizeof(keepInterval));  
+ setsockopt(rs, SOL_TCP, TCP_KEEPCNT, (void *)&amp;keepCount, sizeof(keepCount));  
+</pre>
+<p>在程序中表现为,当tcp检测到对端socket不再可用时(不能发出探测包,或探测包没有收到ACK的响应包),select会返回socket可读,并且在recv时返回-1,同时置上errno为ETIMEDOUT.</p>
+<p>【编辑推荐】</p>
+<div>
+<ol>
+    <li><a href="http://network.51cto.com/art/201309/410727.htm" target="_blank">深入浅出TCP之send和recv</a></li>
+    <li><a href="http://network.51cto.com/art/201310/413853.htm" target="_blank">OSI七层与TCP/IP五层网络架构详解</a></li>
+    <li><a href="http://network.51cto.com/art/201406/443801.htm" target="_blank">TCP窗口与拥塞处理</a></li>
+</ol>
+</div>
+<div align="right">【责任编辑：<a class="ln" href="mailto:linlin@51cto.com">林琳</a> TEL：（010）68476606】</div><br> 
+<p class="blank10"></p> 
+ 
+ 
+
+
+<div class="f12"> <span class="fl">原文：<a href="http://network.51cto.com/art/201408/449186.htm" class="blue"><b>TCP连接的状态详解以及故障排查</b></a></span> <span class="fr"><a href="http://network.51cto.com/">返回网络频道首页</a></span> </div>
+<p class="blank1"></p>
+</div>
+<hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(85, 85, 85) -moz-use-text-color -moz-use-text-color; height: 1px;">
+<div style="width: 600px; background: none repeat scroll 0% 0% rgb(255, 255, 255);"><img alt="" src="wKioL1ZOwrbDjDqxAABJOr5GFjU021.png" width="600" border="0" height="140"></div>
+<hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(85, 85, 85) -moz-use-text-color -moz-use-text-color; height: 1px;">
+<iframe src="index_2.html" scrolling="no" width="600" frameborder="0" height="239"></iframe>
+<div class="tips">
+<div style="float: left;">
+<span style="float: left; margin-top: 4px;">分享到：</span>
+<!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="margin-right: 5px; float: left;">
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+        <a class="bds_t163"></a>
+        <span class="bds_more"></span>
+		<a class="shareCount"></a>
+
+</div>
+<!--<div class="fl"> 
+    </div>
+-->
+
+
+<!-- Baidu Button END -->
+
+
+
+</div><div class="fr blue"><a target="_self">收藏</a>|<a target="_self">打印</a>|<a id="msnqqcopy" title="分享本资源给好友" target="_self">复制</a></div>
+</div>
+</div>
+<!--内容 end-->
+
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg pl15">关于<a href="http://www.51cto.com/php/search.php?keyword=TCP" target="_blank" class="underline">TCP</a>的更多文章</div>
+<div class="reltag">
+<ul class="fl list02">
+  <li><a href="http://network.51cto.com/art/201408/449186.htm" title="TCP连接的状态详解以及故障排查">TCP连接的状态详解以及故障排查</a></li><li><a href="http://network.51cto.com/art/201408/448536.htm" title="TCP协议关键点基础总结">TCP协议关键点基础总结</a></li><li><a href="http://network.51cto.com/art/201408/447334.htm" title="对TCP/IP网络协议的深入浅出归纳">对TCP/IP网络协议的深入浅出归纳</a></li><li><a href="http://network.51cto.com/art/201407/444897.htm" title="TCP/IP数据包结构具体解释">TCP/IP数据包结构具体解释</a></li><li><a href="http://network.51cto.com/art/201407/444152.htm" title="协议森林：先生，要点单吗?---HTTP协议概览">协议森林：先生，要点单吗?---HTTP协议概览</a></li>
+</ul>
+<div class="fr">
+<div class="h5 f12"><a href="http://network.51cto.com/art/200701/38863.htm" title="TCP/IP协议专题"><b>TCP/IP协议专题</b></a></div>
+<a href="http://network.51cto.com/art/200701/38863.htm" title="TCP/IP协议专题"><img src="175846127.jpg" alt="TCP/IP协议专题" width="100" border="0" height="80"></a>
+<p class="c666">TCP/IP（传输入控制地议/网际协议）是一种网络通信协议，它规范<a class="blue" href="http://network.51cto.com/art/200701/38863.htm" title="TCP/IP协议专题">[详细]</a></p>
+</div>
+</div>
+<!--reltag end-->
+</div>
+<p class="blank10"></p>
+<div class="uyan">
+<div id="uyan_frame"></div>
+
+</div>
+<!--box end-->
+<p class="blank10"></p>
+<div class="relart fl bor">
+<div class="titbg">
+<h3 class="fl t1">栏目热门</h3>
+<a href="http://network.51cto.com/click/551" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+  
+	  <li><a href="http://network.51cto.com/art/201403/431102.htm" title="重新设计TCP/IP协议栈以支持设备移动性">重新设计TCP/IP协议栈以支持设备移动性</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201308/405811.htm" title="UDP协议与TCP协议的比较">UDP协议与TCP协议的比较</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201307/401870.htm" title="详解BGP的14条选路原则">详解BGP的14条选路原则</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201311/416546.htm" title="你所不了解的静态路由特点及配置">你所不了解的静态路由特点及配置</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201305/395088.htm" title="解析OpenFlow建立软件定义网络工作原理">解析OpenFlow建立软件定义网络工作原理</a></li>
+	  
+</ul>
+</div>
+<div class="cathot fr bor">
+<div class="titbg">
+<h3 class="fl t1">同期最新</h3>
+<a href="http://network.51cto.com/col/551" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+	
+	  <li><a href="http://network.51cto.com/art/201408/448536.htm" title="TCP协议关键点基础总结">TCP协议关键点基础总结</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201408/448401.htm" title="动态选路协议">动态选路协议</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201408/447334.htm" title="对TCP/IP网络协议的深入浅出归纳">对TCP/IP网络协议的深入浅出归纳</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201407/446821.htm" title="OpenFlow的前世今生">OpenFlow的前世今生</a></li>
+	  
+	  <li><a href="http://network.51cto.com/art/201407/446801.htm" title="Openflow交换机的应用模式探讨">Openflow交换机的应用模式探讨</a></li>
+	  
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1"><a href="http://network.51cto.com/">网络频道</a></h3>
+<span class="pl10">频道导航</span></div>
+ <ul class="xtlist">
+<li><span class="tit">热门</span> 
+<div><a href="http://network.51cto.com/router/">路由技术</a>|<a href="http://network.51cto.com/switch/">交换网络</a>|<a href="http://network.51cto.com/wlan/">无线网络</a></div></li>
+<li><span class="tit">技术</span> 
+<div><a href="http://network.51cto.com/cabling/">布线技术</a>|<a href="http://network.51cto.com/col/1022/">运维技术</a>|<a href="http://network.51cto.com/access/">接入技术</a></div></li>
+<li class="last"><span class="tit">专题</span> 
+<div><a href="http://network.51cto.com/speclist/481/">专题汇总</a>|<a href="http://network.51cto.com/art/201101/242851.htm">网管软件</a>|<a href="http://network.51cto.com/art/201011/235584.htm">网络控速</a></div></li></ul> 
+</div> 
+<p class="blank10"></p>
+<p class="blank10"></p>
+<div class="leftbotcon">
+<div class="bor jdlist">
+<div class="titbg">
+<h3 class="t2">热点推荐</h3></div>
+<ul>
+<li><a href="http://mobile.51cto.com/mobile-182392.htm"><img src="153546162.jpg"></a> 
+<div class="name"><a href="http://mobile.51cto.com/mobile-182392.htm">Android开发应用详解</a></div></li>
+<li><a href="http://developer.51cto.com/art/201106/266369.htm"><img src="133620622.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/201106/266369.htm">那些性感的让人尖叫的程序员</a></div></li>
+<li><a href="http://developer.51cto.com/art/200907/133407.htm"><img src="134217922.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/200907/133407.htm">HTML5 下一代Web开发标准详解</a></div></li>
+<li><a href="http://developer.51cto.com/art/201104/257581.htm"><img src="123123954.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/201104/257581.htm">高性能WEB开发应用指南</a></div></li>
+<li><a href="http://os.51cto.com/art/200706/49181.htm"><img src="195816929.jpg"></a> 
+<div class="name"><a href="http://os.51cto.com/art/200706/49181.htm">Ubuntu开源技术交流频道</a></div></li></ul></div>
+<p class="blank10"></p>
+<div class="bor hotTag"><strong>热门标签：</strong> <a href="http://os.51cto.com/windows/">windows频道</a><a href="http://mobile.51cto.com/">移动开发</a><a href="http://cloud.51cto.com/">云计算</a><a href="http://mobile.51cto.com/mobile/objc/">objective-c</a><a href="http://network.51cto.com/art/200909/151122.htm">tp-link路由器设置图解</a><a href="http://developer.51cto.com/art/200907/133407.htm">html5</a> </div></div>
+<div class="leftbotbox"> </div>
+</div>
+<!--left end-->
+<div class="g_13 fr">
+<div style="height: 640px;" class="focus fixfloat"> 
+ <img style="border: 1px solid rgb(204, 204, 204); margin: 5px 0px;" src="weixin.jpg" width="298"><div style="top: 450px;" class="hot">
+<ul>
+<li class="tit"><em>专题</em> <a href="http://network.51cto.com/act/ruijie_yunketang/201605">2016锐捷网络云课堂网络交流研讨会</a> </li>
+<li class="con"><dl><dt><a href="http://network.51cto.com/act/ruijie_yunketang/201605"><img src="wKiom1dgw1mRkzCcAAAXq9KJsG4065.jpg" border="0"></a></dt>
+<dd>2016年5月21日，'云领课堂、智慧创新——2016 锐捷网络云课堂云网络交流研讨会'在福州福建会堂成功举行。</dd>
+</dl></li></ul><ol class="hotlist"><li><a href="http://network.51cto.com/network/ruijie/newton201509/">超越边界 洞见未来</a></li><li><a href="http://network.51cto.com/network/ruijie/201505/">简网络 云体验——锐捷简网络专区</a></li></ol></div>
+<p>
+<iframe noresize="" marginheight="0" marginwidth="0" src="index_3.html" scrolling="No" width="300" align="left" frameborder="0" height="260"></iframe>
+</p>
+</div>
+<div class="bor vlist" id="edu">
+	<div class="titbg">
+    <h3 class="fl t1"><a href="http://edu.51cto.com/" target="_blank">视频课程</a></h3>
+    <a class="tmore" id="change" style="cursor: pointer;">换一换</a>
+    </div>
+    
+    	<ul class="plist01" id="edu1"><li><a class="ico" href="http://edu.51cto.com/course/course_id-1957.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1957.html" target="_blank"><img title="Excel2010数据透视表经典教程" alt="Excel2010数据透视表经典教程" src="wKioL1P1X3Cg3r55AADHiAt2xl0907.jpg" width="100" height="80"></a><h5><a title="Excel2010数据透视表经典教程" href="http://edu.51cto.com/course/course_id-1957.html" target="_blank">Excel2010数据透视表经典教程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-9282451.html" target="_blank">刘伟</a></p><p> 81人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-1956.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1956.html" target="_blank"><img title="Spring4.0从入门到精通视频教程" alt="Spring4.0从入门到精通视频教程" src="wKiom1P1XayRHjLOAAF1ozJENxI751.jpg" width="100" height="80"></a><h5><a title="Spring4.0从入门到精通视频教程" href="http://edu.51cto.com/course/course_id-1956.html" target="_blank">Spring4.0从入门到精通视频教程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-8255096.html" target="_blank">佟刚</a></p><p> 59人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-1955.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1955.html" target="_blank"><img title="一款和GNS3同样强大的H3C模拟器（思科和H3C互动组网协同操作）" alt="一款和GNS3同样强大的H3C模拟器（思科和H3C互动组网协同操作）" src="wKioL1P1T-jz6MZaAAFpqdpTACk934.jpg" width="100" height="80"></a><h5><a title="一款和GNS3同样强大的H3C模拟器（思科和H3C互动组网协同操作）" href="http://edu.51cto.com/course/course_id-1955.html" target="_blank">一款和GNS3同样强大的H3C模拟器（思科和H3C互</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-7648423.html" target="_blank">谌玺</a></p><p> 644人学习过</p></div></li></ul><ul class="plist01" id="edu2" style="display: none;"><li><a class="ico" href="http://edu.51cto.com/course/course_id-1953.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1953.html" target="_blank"><img title="Android的API设计(应用篇)_跨进程API" alt="Android的API设计(应用篇)_跨进程API" src="wKioL1P1Yu_hQYOYAAGJhaNTyRc409.jpg" width="100" height="80"></a><h5><a title="Android的API设计(应用篇)_跨进程API" href="http://edu.51cto.com/course/course_id-1953.html" target="_blank">Android的API设计(应用篇)_跨进程API</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-8194129.html" target="_blank">高焕堂</a></p><p> 74人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-1952.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1952.html" target="_blank"><img title="深入浅出Java虚拟机" alt="深入浅出Java虚拟机" src="wKioL1P0R96xDITrAAajlbeGFtU254.jpg" width="100" height="80"></a><h5><a title="深入浅出Java虚拟机" href="http://edu.51cto.com/course/course_id-1952.html" target="_blank">深入浅出Java虚拟机</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-9140721.html" target="_blank">葛一鸣</a></p><p> 97人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-1951.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1951.html" target="_blank"><img title="安装配置VMware View 6.0虚拟桌面" alt="安装配置VMware View 6.0虚拟桌面" src="wKiom1P0NOCQpbXKAADeAZoAXQA104.jpg" width="100" height="80"></a><h5><a title="安装配置VMware View 6.0虚拟桌面" href="http://edu.51cto.com/course/course_id-1951.html" target="_blank">安装配置VMware View 6.0虚拟桌面</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-225186.html" target="_blank">王春海</a></p><p> 254人学习过</p></div></li></ul><ul class="plist01" id="edu3" style="display: none;"><li><a class="ico" href="http://edu.51cto.com/course/course_id-1950.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1950.html" target="_blank"><img title="Swift项目开发实战-基于分层架构的多版本iPhone计算器-直播视频教程" alt="Swift项目开发实战-基于分层架构的多版本iPhone计算器-直播视频教程" src="wKioL1Pz_Sjhg89jAAElTS8CjHU763.jpg" width="100" height="80"></a><h5><a title="Swift项目开发实战-基于分层架构的多版本iPhone计算器-直播视频教程" href="http://edu.51cto.com/course/course_id-1950.html" target="_blank">Swift项目开发实战-基于分层架构的多版本iPho</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-701759.html" target="_blank">关东升</a></p><p> 0人学习过</p></div></li><li><a class="ico" href="http://edu.51cto.com/course/course_id-1949.html" target="_blank"></a><a href="http://edu.51cto.com/course/course_id-1949.html" target="_blank"><img title="VMware vSphere 5.5管理教程" alt="VMware vSphere 5.5管理教程" src="wKiom1P0DXHTpajMAAECDY_eMUk830.jpg" width="100" height="80"></a><h5><a title="VMware vSphere 5.5管理教程" href="http://edu.51cto.com/course/course_id-1949.html" target="_blank">VMware vSphere 5.5管理教程</a></h5><div class="c666"><p>讲师：<a href="http://edu.51cto.com/lecturer/user_id-24360.html" target="_blank">王隆杰</a></p><p> 1801人学习过</p></div></li></ul>
+	
+</div>
+<div class="rank">
+<div class="tlt">
+      <h3>文章排行</h3>
+      <a id="top_3">本月</a><a id="top_2">本周</a><a class="myon" id="top_1">24小时</a> </div>
+ <div id="top10_1" style="display: block;" class="list"><ul>
+<li><a href="http://network.51cto.com/art/201509/490498.htm" target="_blank" title="使用tshark监视和检查网络流量">使用tshark监视和检查网络流量</a>
+</li><li><a href="http://network.51cto.com/art/201109/289287.htm" target="_blank" title="为什么路由器设置地址192.168.1.1打不">为什么路由器设置地址192.168.1.1打不</a>
+</li><li><a href="http://network.51cto.com/art/201311/0.htm" target="_blank" title="七步走：AngularJS从菜鸟到专家">七步走：AngularJS从菜鸟到专家</a>
+</li><li><a href="http://network.51cto.com/art/201311/0.htm" target="_blank" title="IE CSS Bug 解决实例">IE CSS Bug 解决实例</a>
+</li><li><a href="http://network.51cto.com/art/201608/515561.htm" target="_blank" title="分段路由：一个新的SDN内部技术">分段路由：一个新的SDN内部技术</a>
+</li><li><a href="http://network.51cto.com/art/201004/196752.htm" target="_blank" title="全面认识F5负载均衡">全面认识F5负载均衡</a>
+</li><li><a href="http://network.51cto.com/art/201311/0.htm" target="_blank" title="开发频道2013年10月第5周重点内容推荐">开发频道2013年10月第5周重点内容推荐</a>
+</li><li><a href="http://network.51cto.com/art/201009/223596.htm" target="_blank" title="详谈DHCP SNOOP等多方面的安全设置">详谈DHCP SNOOP等多方面的安全设置</a>
+</li><li><a href="http://network.51cto.com/art/201312/420475.htm" target="_blank" title="SDN本质：让网络软件化、敏捷化">SDN本质：让网络软件化、敏捷化</a>
+</li><li><a href="http://network.51cto.com/art/201007/215018.htm" target="_blank" title="宽带路由器连接如何设置">宽带路由器连接如何设置</a>
+</li></ul></div>
+<div id="top10_2" style="display: none;" class="list"><ul>
+<li><a href="http://network.51cto.com/art/201607/515116.htm" target="_blank" title="网随云动：网络技术创新的重要方向">网随云动：网络技术创新的重要方向</a>
+</li><li><a href="http://network.51cto.com/art/201607/515114.htm" target="_blank" title="解读：欧美国家网络共建共享模式及启示">解读：欧美国家网络共建共享模式及启示</a>
+</li><li><a href="http://network.51cto.com/art/201607/515097.htm" target="_blank" title="曹淑敏:加快推进5G创新发展,开创万物互">曹淑敏:加快推进5G创新发展,开创万物互</a>
+</li><li><a href="http://network.51cto.com/art/201608/515527.htm" target="_blank" title="《人民日报》教你如何正确使用路由器">《人民日报》教你如何正确使用路由器</a>
+</li><li><a href="http://network.51cto.com/art/201607/515090.htm" target="_blank" title="NFV/SDN标准化过程现“脱节” 运营商将">NFV/SDN标准化过程现“脱节” 运营商将</a>
+</li><li><a href="http://network.51cto.com/art/201608/515529.htm" target="_blank" title="从五大网络供应商定位看，为何5G能驱动">从五大网络供应商定位看，为何5G能驱动</a>
+</li><li><a href="http://network.51cto.com/art/201608/515515.htm" target="_blank" title="邬贺铨：未来5G使移动互联网应用变得无">邬贺铨：未来5G使移动互联网应用变得无</a>
+</li><li><a href="http://network.51cto.com/art/201608/515528.htm" target="_blank" title="移动大数据时代：无线网络的挑战与机遇">移动大数据时代：无线网络的挑战与机遇</a>
+</li><li><a href="http://network.51cto.com/art/201608/515424.htm" target="_blank" title="ADC的演进与挑选ADC的关键">ADC的演进与挑选ADC的关键</a>
+</li><li><a href="http://network.51cto.com/art/201608/515562.htm" target="_blank" title="欲重回高地，欧美争抢5G先机">欲重回高地，欧美争抢5G先机</a>
+</li></ul></div>
+<div id="top10_3" style="display: none;" class="list"><ul>
+<li><a href="http://network.51cto.com/art/201607/514686.htm" target="_blank" title="三分钟教你认清比特率与波特率">三分钟教你认清比特率与波特率</a>
+</li><li><a href="http://network.51cto.com/art/201607/514432.htm" target="_blank" title="SDN的发展壮大确实在蚕食物理网络基础">SDN的发展壮大确实在蚕食物理网络基础</a>
+</li><li><a href="http://network.51cto.com/art/201607/515116.htm" target="_blank" title="网随云动：网络技术创新的重要方向">网随云动：网络技术创新的重要方向</a>
+</li><li><a href="http://network.51cto.com/art/201607/514764.htm" target="_blank" title="在SDN走向商用部署的路上，锐捷网络一">在SDN走向商用部署的路上，锐捷网络一</a>
+</li><li><a href="http://network.51cto.com/art/201607/514931.htm" target="_blank" title="企业采用CDN的六个理由">企业采用CDN的六个理由</a>
+</li><li><a href="http://network.51cto.com/art/201607/515114.htm" target="_blank" title="解读：欧美国家网络共建共享模式及启示">解读：欧美国家网络共建共享模式及启示</a>
+</li><li><a href="http://network.51cto.com/art/201607/513769.htm" target="_blank" title="SDN/NFV:定义网络未来发展的两个不同面">SDN/NFV:定义网络未来发展的两个不同面</a>
+</li><li><a href="http://network.51cto.com/art/201607/513766.htm" target="_blank" title="SDN持续火热！未来5年复合增长率超40%">SDN持续火热！未来5年复合增长率超40%</a>
+</li><li><a href="http://network.51cto.com/art/201607/515097.htm" target="_blank" title="曹淑敏:加快推进5G创新发展,开创万物互">曹淑敏:加快推进5G创新发展,开创万物互</a>
+</li><li><a href="http://network.51cto.com/art/201607/514761.htm" target="_blank" title="SDN的当下与未来：十年发展看十大趋势">SDN的当下与未来：十年发展看十大趋势</a>
+</li></ul></div>
+ 
+ </div>
+<p class="blank1"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点职位</h3>
+<a href="http://gaozhao.51cto.com/job-search/list" class="tmore">更多&gt;&gt;</a></div>
+	<div class="rmzwn_xx"><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3568.html" target="_blank"> Webmaster-IT管理员 </a></dt><dd><h2>全职/3-5年/大专</h2><span>4k-7k</span><a href="http://gaozhao.51cto.com/company/view/id-736.html" target="_blank">VML Teein</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3923.html" target="_blank"> 运维主管 </a></dt><dd><h2>全职/3-5年/本科</h2><span>8k-15k</span><a href="http://gaozhao.51cto.com/company/view/id-793.html" target="_blank">广州乐牛</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4421.html" target="_blank"> 中科信软招聘DevOps兼职讲师 </a></dt><dd><h2>兼职/3-5年/硕士</h2><span>20k-30k</span><a href="http://gaozhao.51cto.com/company/view/id-839.html" target="_blank">中科信软</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-3033.html" target="_blank"> 运维工程师 </a></dt><dd><h2>全职/1-3年/大专</h2><span>6k-10k</span><a href="http://gaozhao.51cto.com/company/view/id-651.html" target="_blank">动视云科技</a></dd></dl><dl><dt><a href="http://gaozhao.51cto.com/job/view/id-4221.html" target="_blank"> 系统运维工程师 </a></dt><dd><h2>全职/1-3年/大专</h2><span>4k-8k</span><a href="http://gaozhao.51cto.com/company/view/id-829.html" target="_blank">小i机器人</a></dd></dl></div>
+</div>
+<div class="blank10"></div>
+
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点专题</h3>
+<a href="http://network.51cto.com/speclist/551" class="tmore">更多&gt;&gt;</a></div>
+<ul class="plist01">
+<li><a href="http://network.51cto.com/art/201405/438861.htm" title="为锐捷方案起名 70000元梦想基金等你拿"><img src="wKioL1NwPi7Cr-NlAAAie5Jgkrs566.jpg" alt="为锐捷方案起名 70000元梦想基金等你拿" width="100" height="80"></a>
+<h5><a href="http://network.51cto.com/art/201405/438861.htm" title="为锐捷方案起名 70000元梦想基金等你拿">为锐捷方案起名 70000</a></h5>
+<div class="c666">锐捷网络破解视频监控老大难问题，推出自主可控的智能</div>
+</li><li><a href="http://network.51cto.com/art/201401/427457.htm" title="2013网络安全盘点及展望之网络市场篇"><img src="wKioL1LV-AvSDiUzAAB0VfC1YCo005.jpg" alt="2013网络安全盘点及展望之网络市场篇" width="100" height="80"></a>
+<h5><a href="http://network.51cto.com/art/201401/427457.htm" title="2013网络安全盘点及展望之网络市场篇">2013网络安全盘点及展</a></h5>
+<div class="c666"> 2013年，网络行业充满着了变革：SDN、BYOD、网络虚拟</div>
+</li><li><a href="http://network.51cto.com/art/201401/426803.htm" title="2013网络安全盘点及展望之通信篇"><img src="wKioL1LMxUHjTd_AAABNZbL046Y506.jpg" alt="2013网络安全盘点及展望之通信篇" width="100" height="80"></a>
+<h5><a href="http://network.51cto.com/art/201401/426803.htm" title="2013网络安全盘点及展望之通信篇">2013网络安全盘点及展</a></h5>
+<div class="c666">2013年是中国通信业具有阶段性历史意义的一年，这一年</div>
+</li> 
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tagCloud">
+<div class="tlt">
+<h3>热点标签</h3>
+</div>
+<div class="taglist"><a title="局域网网速" href="http://network.51cto.com/art/201011/235584.htm">局域网网速</a> <a title="IPv6" href="http://network.51cto.com/art/200703/41485.htm">IPv6</a> <a title="负载均衡" href="http://network.51cto.com/art/201101/241997.htm">负载均衡</a> <a title="思科" href="http://network.51cto.com/cisco/uc/">思科</a> <a title="交换机典型配置" href="http://network.51cto.com/art/200508/1688.htm">交换机典型配置</a> <a title="VPN技术" href="http://network.51cto.com/art/200511/11865.htm">VPN技术</a> <a title="路由器设置" href="http://network.51cto.com/art/200512/13240.htm">路由器设置</a> <a title="家庭无线局域网" href="http://network.51cto.com/art/200512/13840.htm">家庭无线局域网</a> <a title="路由故障" href="http://network.51cto.com/art/200511/12105.htm">路由故障</a> <a class="imp" title="网管软件" href="http://network.51cto.com/art/201101/242851.htm">网管软件</a> <a title="广域网优化" href="http://network.51cto.com/network/sangfor/optimization/">广域网优化</a> <a title="视频会议" href="http://network.51cto.com/network/adslr/facemeeting/">视频会议</a> <a title="MOVE无线" href="http://network.51cto.com/network/move/">MOVE无线</a> <a title="十大布线品牌" href="http://network.51cto.com/network/cteam/ccb2010/">十大布线品牌</a> <a title="十大布线品牌" href="http://network.51cto.com/art/200912/169486.htm">tenda无线路由器设置</a><a class="imp" title="网络招聘" href="http://gaozhao.51cto.com/job-search/list/category-5-0">网络招聘</a></div>
+</div>
+<div class="rss">
+<ul>
+<li class="lin f12-c"><a href="http://news.51cto.com/col/1323/"><strong>点击这里查看样刊</strong></a></li>
+<li>
+<dl>
+<dt> </dt>
+<dd><a href="http://home.51cto.com/index.php?s=/Subscribe"><img src="dingy.gif"></a></dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">全站热点</h3>
+</div>
+<div class="webhot fixfloat">
+<ul>
+
+<li>
+  <a href="http://os.51cto.com/art/201312/426165.htm" title="《Linux运维趋势》2013年12月号"><img src="wKioJlLCvDyBs2epAABBq5nxodI990.jpg"></a>
+  <div><a href="http://os.51cto.com/art/201312/426165.htm" title="《Linux运维趋势》2013年12月号">《Linux运维趋势》2013年12月号</a></div>
+</li>
+
+<li>
+  <a href="http://netsecurity.51cto.com/secu/ecommerce2013/" title="网购狂欢季 冷眼看安全"><img src="wKioJlLAy4PSkESXAAAVpte7OXk790.jpg"></a>
+  <div><a href="http://netsecurity.51cto.com/secu/ecommerce2013/" title="网购狂欢季 冷眼看安全">网购狂欢季 冷眼看安全</a></div>
+</li>
+
+</ul>
+</div>
+<p class="blank1"></p>
+<ul class="list03">
+
+<li><a href="http://netsecurity.51cto.com/art/201408/447736.htm" title="安全宝-蓝莲花参战DEFCON CTF夺旗总决赛">安全宝-蓝莲花参战DEFCON CTF夺旗总</a></li>
+
+<li><a href="http://server.51cto.com/News-447734.htm" title="AMD公司推出基于64位ARM架构的AMD Opteron开发套件">AMD公司推出基于64位ARM架构的AMD Op</a></li>
+
+<li><a href="http://os.51cto.com/art/201408/447733.htm" title="Google调整搜索引擎算法：HTTPS网站排名更高">Google调整搜索引擎算法：HTTPS网站</a></li>
+
+<li><a href="http://mobile.51cto.com/comment-447729.htm" title="成为更优秀的程序员：退后一步看问题">成为更优秀的程序员：退后一步看问题</a></li>
+
+<li><a href="http://news.51cto.com/art/201408/447719.htm" title="谷歌搜索修改算法：经过加密处理的网页权重将提升">谷歌搜索修改算法：经过加密处理的网</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">读书</h3>
+</div>
+  
+<div class="catbook"><a href="http://book.51cto.com/art/200704/45459.htm" title="计算机与网络基础知识——考点解析及模拟训练"><img src="163103765.gif" width="66" border="0" height="98"></a>
+<h5><a href="http://book.51cto.com/art/200704/45459.htm">计算机与网络基础知识——考点解析及模拟训练</a></h5>
+<div class="c666 text">本书是根据全国计算机技术与软件专业技术资格（水平）考试的“计算机网络管理员考试大纲”所要求的考试范围而编写的辅导用书。全</div>
+</div>
+
+
+<ul class="list03">
+
+<li><a href="http://book.51cto.com/art/200704/45819.htm" title="计算机网络原理与实践标准教程">计算机网络原理与实践标准教程</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/45820.htm" title="网络工程师教程(第2版)">网络工程师教程(第2版)</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/45821.htm" title="Java网络编程精解">Java网络编程精解</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/45829.htm" title="精通Spring 2.0">精通Spring 2.0</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1 fl">博文推荐</h3>
+<a class="tmore" href="http://blog.51cto.com/">更多&gt;&gt;</a></div>
+
+<ul class="list03">
+ <li><a href="http://byteh.blog.51cto.com/141786/376039/" target="_blank" title="“垂直”规则之一 --- 牧羊与企业的持久经营">“垂直”规则之一 --- 牧羊与企业的</a></li><li><a href="http://verdureorange.blog.51cto.com/632758/376016/" target="_blank" title="Oracle与Google两IT巨头战争冲击整个硅谷">Oracle与Google两IT巨头战争冲击整个</a></li><li><a href="http://lwglucky.blog.51cto.com/1228348/375984/" target="_blank" title="从人民币来看国富民穷的现象">从人民币来看国富民穷的现象</a></li><li><a href="http://leelei.blog.51cto.com/856755/375980/" target="_blank" title="Windows Mobile 5 编程体验1">Windows Mobile 5 编程体验1</a></li>
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tj">
+<div class="tlt">
+<h3>最新热帖</h3>
+<a class="more" href="http://bbs.51cto.com/hotthreads.php">更多&gt;&gt;</a></div>
+<ul>
+<li><a href="http://bbs.51cto.com/thread-26429-1.html" target="_blank" title="通用WAP网站生成系统(PowerDiamond) v.1">通用WAP网站生成系统(PowerDiamond) </a></li><li><a href="http://bbs.51cto.com/thread-11063-1.html" target="_blank" title="八类大学毕业生求职时不受欢迎">八类大学毕业生求职时不受欢迎</a></li><li><a href="http://bbs.51cto.com/thread-6946-1.html" target="_blank" title="IT人为什么难以拿到高薪？【转帖】">IT人为什么难以拿到高薪？【转帖】</a></li><li><a href="http://bbs.51cto.com/thread-4333-1.html" target="_blank" title="想去外企上班">想去外企上班</a></li>
+</ul>
+</div>
+<div class="picAD">
+<iframe class="bann" src="index_4.html" style="background-color: white; height: 265px; width: 300px; padding: 0px; margin: 0px; overflow: hidden;" scrolling="No" frameborder="0"></iframe>
+</div>
+</div>
+<p class="blank1"></p> 
+<!--leftbotcon end-->
+</div> 
+<div class="subweb">
+<h4>51CTO旗下网站</h4>
+<div>
+<a target="_blank" href="http://www.51cto.com/">领先的IT技术网站 51CTO</a>
+<a target="_blank" href="http://www.watchstor.com/">领先的中文存储媒体 WatchStor</a>
+<a target="_blank" href="http://www.cioage.com/">中国首个CIO网站 CIOage</a>
+<a target="_blank" href="http://www.hc3i.cn/">中国首家数字医疗网站 HC3i</a>
+</div>
+</div>
+<div id="ft"><div id="foot" align="center">Copyright©2005-2016 <a href="http://www.51cto.com/">51CTO.COM</a> 版权所有 未经许可 请勿转载<div style="display: none;"></div></div></div>
+
+
+
+
+
+
+<!-- 新监测代码 -->
+<!-- 新监测代码 -->
+<div id="MyMoveAd" style="display: none; height: 2px;">
+<span id="wordlink_1"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3933__zoneid=270__cb=52a24ada50__oadest=http%3A%2F%2Fedu.51cto.com%2Fzt%2Fzt_id-1.html%3Fan" target="_blank"><font color="red">网络安全一个大写的反“作死”</font></a><div id="beacon_52a24ada50" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_001.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="wordlink_2"><a href="http://gg.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3546__zoneid=631__cb=3e8570e75d__oadest=http%3A%2F%2Fedu.51cto.com%2Fpx%2Ftrain%2F88" target="_blank"><font color="red">信息安全工程师，会挣钱的考试</font></a><div id="beacon_3e8570e75d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_002.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="wordlink_3"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=4150__zoneid=256__cb=aa8df28e31__oadest=http%3A%2F%2Fcloud.51cto.com%2Fact%2Fbaidukaifangyun%2F201607" target="_blank"><font color="red">百度开放云：可靠智能的云产品</font></a><div id="beacon_aa8df28e31" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_003.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="wordlink_4"><a href="http://gg1.51cto.com/www/delivery/ck.php?oaparams=2__bannerid=3549__zoneid=636__cb=e40fa2441d__oadest=http%3A%2F%2Fedu.51cto.com%2Ftraining%2Ftraining_id-17.html%3Fxiaoshou" target="_blank"><font color="red">2016年备战软考-重难点解析</font></a><div id="beacon_e40fa2441d" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="lg_004.php" alt="" style="width: 0px; height: 0px;" width="0" height="0"></div>
+</span>
+<span id="pinglun">0</span>
+<span id="tonglan"></span>
+<span id="wordlink"></span>
+
+<span id="bookss"></span>
+</div>   
+
+
+
+  
+
+
+<div style="position: absolute; left: 589px; top: 15178px; width: 34px; height: 16px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" name="ZeroClipboardMovie_1" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=34&amp;height=16" wmode="transparent" width="34" align="middle" height="16"></div> 
+
+
+
+
+
+
+</body>
+</html>
