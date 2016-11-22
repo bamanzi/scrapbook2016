@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Screen-like tmux: Attach a tmux session from multiple clients and view different windows per client  - fail2fail</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Powered-By" content="Serendipity v.1.6">
+    <link rel="stylesheet" type="text/css" href="serendipity.css">
+    <link rel="alternate" type="application/rss+xml" title="fail2fail RSS feed" href="http://www.fail2fail.com/feeds/index.rss2">
+    <link rel="alternate" type="application/x.atom+xml" title="fail2fail Atom feed" href="http://www.fail2fail.com/feeds/atom.xml">
+    
+    <link rel="pingback" href="http://www.fail2fail.com/comment.php?type=pingback&amp;entry_id=45">
+
+    <script type="text/javascript" src="about:blank"></script>
+    <script type="text/javascript">/* Code removed by ScrapBook */</script>
+<meta name="description" content="If using terminal multiplexer screen, one can easily attach a session which is not detached with [geshi lang=bash]screen">
+        <meta name="keywords" content="screen,tmux">
+<meta name="verify-v1" content="df3tV+iEu+ZA2T3nhrfStBVSqswL+92ptldL2a873rU=">
+<link href="custom_user.css" type="text/css" rel="stylesheet">
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script><script src="about:blank" type="text/javascript"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head>
+
+<body>
+
+<div id="serendipity_banner">
+    <h1><a class="homelink1" href="http://www.fail2fail.com/">Screen-like tmux: Attach a tmux session from multiple clients and view different windows per client</a></h1>
+    <h2><a class="homelink2" href="http://www.fail2fail.com/">fail2fail</a></h2>
+</div>
+
+<table id="mainpane">
+    <tbody><tr>
+        <td id="serendipityLeftSideBar" valign="top">    <div class="serendipitySideBarItem container_serendipity_plugin_multilingual">
+        <h3 class="serendipitySideBarTitle serendipity_plugin_multilingual">Translate Fails</h3>        <div class="serendipitySideBarContent"><form id="language_chooser" action="http://www.fail2fail.com/index.php?archives/45-Screen-like-tmux-Attach-a-tmux-session-from-multiple-clients-and-view-different-windows-per-client.html" method="post"><div><select style="font-size: 16px;" name="user_language"><option value="en" selected="selected">English</option><option value="de">German</option><option value="ru">Russian</option></select><input name="submit" value="Go!" size="4" type="submit"></div></form></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_html_nugget_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_html_nugget_plugin">Blogroll</h3>        <div class="serendipitySideBarContent"><p class="break"><a href="http://www.ehscheidt.de/">Ehscheidt's Blog</a></p><p class="break"><a href="http://sophie.fail2fail.com/">Sophie's Blog</a></p></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_plugin_creativecommons">
+        <h3 class="serendipitySideBarTitle serendipity_plugin_creativecommons">Creative Commons</h3>        <div class="serendipitySideBarContent"><div style="text-align: center;"><a href="http://creativecommons.org/licenses/by/3.0/"><img style="border: 0px none;" alt="Creative Commons License - Some Rights Reserved" title="Creative Commons License - Some Rights Reserved" src="somerights20.gif"></a><br>Original content in this work is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons License</a><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><Work rdf:about=""><license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/></Work><License rdf:about="http://creativecommons.org/licenses/by/3.0/">  <requires rdf:resource="http://web.resource.org/cc/Attribution" />  <permits rdf:resource="http://web.resource.org/cc/Reproduction" />  <permits rdf:resource="http://web.resource.org/cc/Distribution" />  <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />  <requires rdf:resource="http://web.resource.org/cc/Notice" /></License></rdf:RDF> --></div></div>
+    </div>
+</td>
+        <td id="content" valign="top"><!-- CONTENT START -->
+
+	<div class="serendipity_content_message"></div>
+
+<!-- ENTRIES START -->
+    
+
+        <div class="serendipity_Entry_Date">
+                <h3 class="serendipity_date">Wednesday, February  1. 2012</h3>
+        
+                <h4 class="serendipity_title"><a href="#">Screen-like tmux: Attach a tmux session from multiple clients and view different windows per client</a></h4>
+
+        <div class="serendipity_entry serendipity_entry_author_Juri-Hamburg ">
+                        <span class="serendipity_entryIcon">
+                                                    </span>
+            
+            <div class="serendipity_entry_body">
+                <p class="break">If using terminal multiplexer <tt><strong>screen</strong></tt>, one can easily attach a session which is not detached with </p><pre><div class="bash geshi" style="text-align: left;"><span style="color: rgb(194, 12, 185); font-weight: bold;">screen</span> <span style="color: rgb(102, 0, 51);">-x</span></div></pre><p class="whiteline">That way it is possible to attach the same session to multiple clients. By default you are able to view different screen windows per client which attached that session. 
+</p><p class="whiteline">In <tt><strong>tmux</strong></tt> the default behavior differs. Though you can also attach the same tmux session to multiple clients e.g. with </p><pre><div class="bash geshi" style="text-align: left;">tmux attach-session</div></pre><p> it will let you view the same tmux window in all clients that attached that tmux session. When tmux instance starts it creates automatically one tmux session. Such a session is presented equally to every client. 
+</p><h3>Create independend tmux sessions for the same window set</h3><p class="break">A user creates a new tmux session with</p><pre><div class="bash geshi" style="text-align: left;">user<span style="color: rgb(0, 0, 0); font-weight: bold;">@</span>clientA$ tmux new-session<br><span style="color: rgb(102, 102, 102); font-style: italic;">## create some more windows</span><br><span style="color: rgb(102, 102, 102); font-style: italic;">## work</span></div></pre><p>
+</p><p class="break">The user decides to work with the same window set in another terminal independend:</p><pre><div class="bash geshi" style="text-align: left;">user<span style="color: rgb(0, 0, 0); font-weight: bold;">@</span>clientB$ tmux list-sessions<br><span style="color: rgb(0, 0, 0);">0</span>: <span style="color: rgb(0, 0, 0);">8</span> windows <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>created Tue Dec <span style="color: rgb(0, 0, 0);">13</span> <span style="color: rgb(0, 0, 0);">20</span>:<span style="color: rgb(0, 0, 0);">55</span>:<span style="color: rgb(0, 0, 0);">56</span> <span style="color: rgb(0, 0, 0);">2011</span><span style="color: rgb(122, 8, 116); font-weight: bold;">)</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">[</span>136x49<span style="color: rgb(122, 8, 116); font-weight: bold;">]</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>group <span style="color: rgb(0, 0, 0);">0</span><span style="color: rgb(122, 8, 116); font-weight: bold;">)</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>attached<span style="color: rgb(122, 8, 116); font-weight: bold;">)</span><br><br>user<span style="color: rgb(0, 0, 0); font-weight: bold;">@</span>clientB$ tmux new-session <span style="color: rgb(102, 0, 51);">-t</span> <span style="color: rgb(0, 0, 0);">0</span></div></pre><p>That creates a new session which uses the same window set as group 0 listed above and attaches <tt>clientB</tt> to it. Two independent sessions working on the same set of windows are running. Very close to screen behavior.
+</p><p class="break">Output of <tt>tmux list-sessions</tt> looks now like:</p><pre><div class="bash geshi" style="text-align: left;"><span style="color: rgb(0, 0, 0);">0</span>: <span style="color: rgb(0, 0, 0);">8</span> windows <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>created Tue Dec <span style="color: rgb(0, 0, 0);">13</span> <span style="color: rgb(0, 0, 0);">20</span>:<span style="color: rgb(0, 0, 0);">55</span>:<span style="color: rgb(0, 0, 0);">56</span> <span style="color: rgb(0, 0, 0);">2011</span><span style="color: rgb(122, 8, 116); font-weight: bold;">)</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">[</span>136x49<span style="color: rgb(122, 8, 116); font-weight: bold;">]</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>group <span style="color: rgb(0, 0, 0);">0</span><span style="color: rgb(122, 8, 116); font-weight: bold;">)</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>attached<span style="color: rgb(122, 8, 116); font-weight: bold;">)</span><br><span style="color: rgb(0, 0, 0);">1</span>: <span style="color: rgb(0, 0, 0);">8</span> windows <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>created Wed Dec <span style="color: rgb(0, 0, 0);">14</span> <span style="color: rgb(0, 0, 0);">21</span>:<span style="color: rgb(0, 0, 0);">53</span>:<span style="color: rgb(0, 0, 0);">44</span> <span style="color: rgb(0, 0, 0);">2011</span><span style="color: rgb(122, 8, 116); font-weight: bold;">)</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">[</span>101x33<span style="color: rgb(122, 8, 116); font-weight: bold;">]</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>group <span style="color: rgb(0, 0, 0);">0</span><span style="color: rgb(122, 8, 116); font-weight: bold;">)</span> <span style="color: rgb(122, 8, 116); font-weight: bold;">(</span>attached<span style="color: rgb(122, 8, 116); font-weight: bold;">)</span></div></pre><p class="whiteline">While attached to a tmux session tmux lets you change your session interactively with <tt>&lt;C-b s&gt;</tt>. Closing sessions is done e.g. by </p><pre><div class="bash geshi" style="text-align: left;">tmux kill-session <span style="color: rgb(102, 0, 51);">-t</span> <span style="color: rgb(0, 0, 0); font-weight: bold;">&lt;</span>sessionnumber<span style="color: rgb(0, 0, 0); font-weight: bold;">&gt;</span></div></pre><p>
+</p>
+            </div>
+
+            
+            
+            <div class="serendipity_entryFooter">
+                Posted by <a href="http://www.fail2fail.com/authors/1-Juri-Hamburg">Juri Hamburg</a>
+                                   in <a href="http://www.fail2fail.com/categories/4-Software">Software</a>                
+                                    at
+                 <a href="#">10:39</a>
+
+                                                            | <a href="#comments">Comment (1)</a>
+                                    
+                                                            | <a href="#trackbacks">Trackbacks (0)</a>
+                                    
+                
+                <div class="serendipity_freeTag">Defined tags for this entry: <a href="http://www.fail2fail.com/index.php?/plugin/tag/screen" title="screen" rel="tag">screen</a>, <a href="http://www.fail2fail.com/index.php?/plugin/tag/software" title="software" rel="tag">software</a>, <a href="http://www.fail2fail.com/index.php?/plugin/tag/tmux" title="tmux" rel="tag">tmux</a></div><div class="serendipity_freeTag_related">Related entries by tags:<br> <a href="http://www.fail2fail.com/archives/52-Create-mysql-database-and-user.html" title="Create mysql database and user">Create mysql database and user</a><br> <a href="http://www.fail2fail.com/archives/51-mutt-mail-search-patterns.html" title="mutt mail search patterns">mutt mail search patterns</a><br> <a href="http://www.fail2fail.com/archives/48-Deshakestabilize-videos-with-transcode-the-simple-way.html" title="Deshake/stabilize videos with transcode - the simple way">Deshake/stabilize videos with transcode - the simple way</a><br> <a href="http://www.fail2fail.com/archives/47-Compress-mp4-videos-with-ffmpeg-the-simple-way.html" title="Compress mp4 videos with ffmpeg - the simple way">Compress mp4 videos with ffmpeg - the simple way</a><br> <a href="http://www.fail2fail.com/archives/46-Switch-CapsLock-and-Alt-use-physical-Alt-key-as-notionion3-META.html" title="Switch CapsLock and Alt - use physical Alt key as notion/ion3 META">Switch CapsLock and Alt - use physical Alt key as notion/ion3 META</a><br></div>
+            </div>
+        </div>
+        <!--
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <rdf:Description
+                 rdf:about="http://www.fail2fail.com/feeds/ei_45.rdf"
+                 trackback:ping="http://www.fail2fail.com/comment.php?type=trackback&amp;entry_id=45"
+                 dc:title="Screen-like tmux: Attach a tmux session from multiple clients and view different windows per client"
+                 dc:identifier="http://www.fail2fail.com/archives/45-Screen-like-tmux-Attach-a-tmux-session-from-multiple-clients-and-view-different-windows-per-client.html" />
+        </rdf:RDF>
+        -->
+        <div style="text-align: center;"><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><Work rdf:about=""><license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/></Work><License rdf:about="http://creativecommons.org/licenses/by/3.0/">  <requires rdf:resource="http://web.resource.org/cc/Attribution" />  <permits rdf:resource="http://web.resource.org/cc/Reproduction" />  <permits rdf:resource="http://web.resource.org/cc/Distribution" />  <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />  <requires rdf:resource="http://web.resource.org/cc/Notice" /></License></rdf:RDF> --></div>
+
+                    
+            
+            
+            
+            
+            <div class="serendipity_comments serendipity_section_trackbacks">
+                <br>
+                <a id="trackbacks"></a>
+                <div class="serendipity_commentsTitle">Trackbacks</div>
+                    <div class="serendipity_center">
+                        <a rel="nofollow" style="font-weight: normal;" href="http://www.fail2fail.com/comment.php?type=trackback&amp;entry_id=45" title="This link is not meant to be clicked. It contains the trackback URI for this entry. You can use this URI to send ping- &amp; trackbacks from your own blog to this entry. To copy the link, right click and select &quot;Copy Shortcut&quot; in Internet Explorer or &quot;Copy Link Location&quot; in Mozilla.">Trackback specific URI for this entry</a>
+                    </div>
+                    <br>
+                            <div class="serendipity_center">No Trackbacks</div>
+
+            </div>
+        
+                    <div class="serendipity_comments serendipity_section_comments">
+                <br>
+                <a id="comments"></a>
+                <div class="serendipity_commentsTitle">Comments</div>
+                <div class="serendipity_center">Display comments as
+                                    (<a rel="nofollow" href="http://www.fail2fail.com/index.php?url=archives/45-Screen-like-tmux-Attach-a-tmux-session-from-multiple-clients-and-view-different-windows-per-client.html&amp;serendipity[cview]=linear#comments">Linear</a> | Threaded)
+                                </div>
+                <br>
+                        <a id="c181"></a>
+    <div id="serendipity_comment_181" class="serendipity_comment serendipity_comment_author_Paul-Ivanov  comment_oddbox" style="padding-left: 0px;">
+        <div class="serendipity_commentBody">
+                    <p class="break">Thanks for this post, just what I needed to get more of my screen workflow ported over to tmux.</p>
+                </div>
+        <div class="serendipity_comment_source">
+            <a class="comment_source_trace" href="#c181">#1</a>
+            <span class="comment_source_author">
+                            Paul Ivanov
+                        </span>
+                            (<a class="comment_source_url" href="http://pirsquared.org/" title="http://pirsquared.org">Homepage</a>)
+                        on
+            <span class="comment_source_date">2013-03-09 00:05</span>
+
+                                        (<a class="comment_reply" href="#serendipity_CommentForm" id="serendipity_reply_181">Reply</a>)
+                <div id="serendipity_replyform_181"></div>
+                    </div>
+    </div>
+
+
+                                <a id="feedback"></a>
+
+                
+                
+                <br>
+                <div class="serendipity_section_commentform">
+	                <div class="serendipity_commentsTitle">Add Comment</div>
+	                <div id="serendipityCommentFormC" class="serendipityCommentForm">
+    <div id="serendipity_replyform_0"></div>
+    <a id="serendipity_CommentForm"></a>
+    <form id="serendipity_comment" action="http://www.fail2fail.com/index.php?url=archives/45-Screen-like-tmux-Attach-a-tmux-session-from-multiple-clients-and-view-different-windows-per-client.html#feedback" method="post">
+    <div><input name="serendipity[entry_id]" value="45" type="hidden"></div>
+    <table border="0" cellpadding="3" width="100%">
+        <tbody><tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_name">Name</label></td>
+            <td class="serendipity_commentsValue"><input id="serendipity_commentform_name" name="serendipity[name]" value="" size="30" type="text"></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_email">Email</label></td>
+            <td class="serendipity_commentsValue"><input id="serendipity_commentform_email" name="serendipity[email]" value="" type="text"></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_url">Homepage</label></td>
+            <td class="serendipity_commentsValue"><input id="serendipity_commentform_url" name="serendipity[url]" value="" type="text"></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_replyTo">In reply to</label></td>
+            <td class="serendipity_commentsValue"><select id="serendipity_replyTo" name="serendipity[replyTo]"><option value="0">[ Top level ]</option><option value="181">#1: Paul Ivanov on 2013-03-09 00:05</option>
+</select></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_comment">Comment</label></td>
+            <td class="serendipity_commentsValue">
+                <textarea rows="10" cols="40" id="serendipity_commentform_comment" name="serendipity[comment]"></textarea><br>
+                <div class="serendipity_commentDirection serendipity_comment_geshi">You can use <b>[geshi lang=lang_name [,ln={y|n}]][/geshi]</b> tags to embed source code snippets.</div><div class="serendipity_commentDirection serendipity_comment_s9ymarkup">Enclosing asterisks marks text as bold (*word*), underscore are made via _word_.</div><div class="serendipity_commentDirection serendipity_comment_emoticate">Standard emoticons like :-) and ;-) are converted to images.</div><div class="serendipity_commentDirection serendipity_comment_spamblock">E-Mail addresses will not be displayed and will only be used for E-Mail notifications.</div><input name="serendipity[token]" value="416739a74cf8fcabf7eb01ce3309d670" type="hidden"><div class="serendipity_commentDirection serendipity_comment_captcha"><br>To prevent automated Bots from commentspamming, please enter the string you see in the image below in the appropriate input box. Your comment will only be submitted if the strings match. Please ensure that your browser supports and accepts cookies, or your comment cannot be verified correctly.<br><img src="urn:scrapbook-download-error:http://www.fail2fail.com/plugin/captcha_7c349f18f30b874e324c5754baf7bd40" title="Enter the string you see here in the input box!" alt="CAPTCHA" class="captcha"><br><label for="captcha">Enter the string from the spam-prevention image above: </label><br><input class="input_textbox" size="5" name="serendipity[captcha]" value="" id="captcha" type="text"></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+            <td class="serendipity_commentsLabel">
+                <input id="checkbox_remember" name="serendipity[remember]" type="checkbox"><label for="checkbox_remember">Remember Information? </label>
+                    <br>
+                <input id="checkbox_subscribe" name="serendipity[subscribe]" type="checkbox"><label for="checkbox_subscribe">Subscribe to this entry</label>
+                </td>
+       </tr>
+
+
+       <tr>
+            <td>&nbsp;</td>
+            <td><input name="serendipity[submit]" value="Submit Comment" type="submit"> <input id="serendipity_preview" name="serendipity[preview]" value="Preview" type="submit"></td>
+        </tr>
+    </tbody></table>
+    </form>
+</div>
+				</div>
+
+                            </div>
+        
+        
+            </div>
+    
+    <div class="serendipity_entryFooter" style="text-align: center;">
+    
+    
+    
+    
+    </div>
+<!-- ENTRIES END -->
+
+
+<!-- CONTENT END --></td>
+        <td id="serendipityRightSideBar" valign="top">    <div class="serendipitySideBarItem container_serendipity_quicksearch_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_quicksearch_plugin">Quicksearch</h3>        <div class="serendipitySideBarContent"><form id="searchform" action="http://www.fail2fail.com/index.php" method="get">
+    <div>
+        <input name="serendipity[action]" value="search" type="hidden">
+        <input name="serendipity[fullentry]" value="1" type="hidden">
+        <input id="serendipityQuickSearchTermField" name="serendipity[searchTerm]" size="13" type="text">
+        <input class="quicksearch_submit" value=">" name="serendipity[searchButton]" title="Go!" style="width: 2em;" type="submit">
+    </div>
+    <div id="LSResult" style="display: none;"><div id="LSShadow"></div></div>
+</form>
+</div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_plugin_staticpage">
+        <h3 class="serendipitySideBarTitle serendipity_plugin_staticpage">Static Fails</h3>        <div class="serendipitySideBarContent"><a href="http://www.fail2fail.com/index.php">Frontpage</a><br><a href="http://www.fail2fail.com/pages/imprint.html" title="imprint" style="padding-left: 0px;">Imprint</a><br>
+<a href="http://www.fail2fail.com/pages/thinkscratchpad.html" title="Think(scratch)pad" style="padding-left: 0px;">Think(scratch)pad</a><br>
+</div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_categories_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_categories_plugin">Categorized Fails</h3>        <div class="serendipitySideBarContent"><form action="http://www.fail2fail.com/index.php?frontpage" method="post">
+              <div id="serendipity_category_form_content"><ul id="serendipity_categories_list" style="list-style: none outside none; margin: 0px; padding: 0px;"><li class="category_depth0 category_6" style="display: block;"><input style="width: 15px;" name="serendipity[multiCat][]" value="6" type="checkbox"><a class="serendipity_xml_icon" href="http://www.fail2fail.com/feeds/categories/6-Hardware.rss"><img src="xmfail.gif" alt="XML" style="border: 0px none;"></a> <a href="http://www.fail2fail.com/categories/6-Hardware" title="Hardware Fails" style="padding-left: 0px;">Hardware</a></li>
+<li class="category_depth0 category_2" style="display: block;"><input style="width: 15px;" name="serendipity[multiCat][]" value="2" type="checkbox"><a class="serendipity_xml_icon" href="http://www.fail2fail.com/feeds/categories/2-Linux.rss"><img src="xmfail.gif" alt="XML" style="border: 0px none;"></a> <a href="http://www.fail2fail.com/categories/2-Linux" title="Fails in my *nix world" style="padding-left: 0px;">Linux</a></li>
+<li class="category_depth0 category_1" style="display: block;"><input style="width: 15px;" name="serendipity[multiCat][]" value="1" type="checkbox"><a class="serendipity_xml_icon" href="http://www.fail2fail.com/feeds/categories/1-Misc.rss"><img src="xmfail.gif" alt="XML" style="border: 0px none;"></a> <a href="http://www.fail2fail.com/categories/1-Misc" title="Everything not fitting into other Fails" style="padding-left: 0px;">Misc</a></li>
+<li class="category_depth0 category_5" style="display: block;"><input style="width: 15px;" name="serendipity[multiCat][]" value="5" type="checkbox"><a class="serendipity_xml_icon" href="http://www.fail2fail.com/feeds/categories/5-Politics.rss"><img src="xmfail.gif" alt="XML" style="border: 0px none;"></a> <a href="http://www.fail2fail.com/categories/5-Politics" title="Fails of our(?) loayal representatives." style="padding-left: 0px;">Politics</a></li>
+<li class="category_depth0 category_4" style="display: block;"><input style="width: 15px;" name="serendipity[multiCat][]" value="4" type="checkbox"><a class="serendipity_xml_icon" href="http://www.fail2fail.com/feeds/categories/4-Software.rss"><img src="xmfail.gif" alt="XML" style="border: 0px none;"></a> <a href="http://www.fail2fail.com/categories/4-Software" title="Fails about any kind of Software" style="padding-left: 0px;">Software</a></li>
+</ul><div class="category_submit"><br><input name="serendipity[isMultiCat]" value="Go!" type="submit"></div><div class="category_link_all"><br><a href="http://www.fail2fail.com/index.php?frontpage" title="All categories">All categories</a></div></div></form></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_plugin_freetag">
+        <h3 class="serendipitySideBarTitle serendipity_plugin_freetag">Fails2Tags</h3>        <div class="serendipitySideBarContent"><span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/evdev" title="evdev (1) ">evdev</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/mutt" title="mutt (1) ">mutt</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/docutils" title="docutils (1) ">docutils</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/mobile" title="mobile (1) ">mobile</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/keyboard" title="keyboard (1) ">keyboard</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/pop3" title="pop3 (1) ">pop3</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/editor" title="editor (1) ">editor</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/s9y" title="s9y (1) ">s9y</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/pdf" title="pdf (1) ">pdf</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/freiheit" title="freiheit (1) ">freiheit</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/tmux" title="tmux (1) ">tmux</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/imap" title="imap (1) ">imap</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/python" title="python (1) ">python</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/webdav" title="webdav (1) ">webdav</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/fun" title="fun (1) ">fun</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/rest" title="rest (1) ">rest</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/thinkpad" title="thinkpad (1) ">thinkpad</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/music" title="music (1) ">music</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/xmodmap" title="xmodmap (1) ">xmodmap</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/synchronisation" title="synchronisation (1) ">synchronisation</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/eclipse" title="eclipse (1) ">eclipse</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/css" title="css (1) ">css</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/x41t" title="x41t (1) ">x41t</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/restructured+text" title="restructured text (1) ">restructured&nbsp;text</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/mysql" title="mysql (1) ">mysql</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/google" title="google (1) ">google</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/transcode" title="transcode (1) ">transcode</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/flash" title="flash (1) ">flash</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/alsa" title="alsa (1) ">alsa</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/lua" title="lua (1) ">lua</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/opera" title="opera (1) ">opera</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/unzip" title="unzip (1) ">unzip</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/htc" title="htc (1) ">htc</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/xrandr" title="xrandr (1) ">xrandr</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/gmail" title="gmail (1) ">gmail</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/mediawiki" title="mediawiki (1) ">mediawiki</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/screen" title="screen (1) ">screen</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/funambol" title="funambol (1) ">funambol</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/cvt" title="cvt (1) ">cvt</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/windows" title="windows (1) ">windows</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/ibm" title="ibm (1) ">ibm</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/wikir" title="wikir (1) ">wikir</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/musik" title="musik (1) ">musik</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/geshi" title="geshi (1) ">geshi</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/latex" title="latex (1) ">latex</a></span> <span class="tag_weight_70" style="font-size: 70%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/ffmpeg" title="ffmpeg (1) ">ffmpeg</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/xorg" title="xorg (2) ">xorg</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/politics" title="politics (2) ">politics</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/debian" title="debian (2) ">debian</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/politik" title="politik (2) ">politik</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/zensur" title="zensur (2) ">zensur</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/archlinux" title="archlinux (2) ">archlinux</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/hardware" title="hardware (2) ">hardware</a></span> <span class="tag_weight_74" style="font-size: 74%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/%C3%BCberwachung" title="überwachung (2) ">überwachung</a></span> <span class="tag_weight_79" style="font-size: 79%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/privacy" title="privacy (3) ">privacy</a></span> <span class="tag_weight_79" style="font-size: 79%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/notion" title="notion (3) ">notion</a></span> <span class="tag_weight_79" style="font-size: 79%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/vimperator" title="vimperator (3) ">vimperator</a></span> <span class="tag_weight_79" style="font-size: 79%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/video" title="video (3) ">video</a></span> <span class="tag_weight_79" style="font-size: 79%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/firefox" title="firefox (3) ">firefox</a></span> <span class="tag_weight_79" style="font-size: 79%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/ion3" title="ion3 (3) ">ion3</a></span> <span class="tag_weight_83" style="font-size: 83%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/datenschutz" title="datenschutz (4) ">datenschutz</a></span> <span class="tag_weight_83" style="font-size: 83%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/bash" title="bash (4) ">bash</a></span> <span class="tag_weight_83" style="font-size: 83%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/vim" title="vim (4) ">vim</a></span> <span class="tag_weight_88" style="font-size: 88%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/misc" title="misc (5) ">misc</a></span> <span class="tag_weight_132" style="font-size: 132%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/linux" title="linux (15) ">linux</a></span> <span class="tag_weight_150" style="font-size: 150%;"><a rel="tag" href="http://www.fail2fail.com/index.php?/plugin/tag/software" title="software (19) ">software</a></span></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_archives_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_archives_plugin">Archived Fails</h3>        <div class="serendipitySideBarContent"><ul class="plainList">
+<li><a href="http://www.fail2fail.com/archives/2016/11.html" title="November 2016">November 2016 (0)</a></li>
+<li><a href="http://www.fail2fail.com/archives/2016/10.html" title="October 2016">October 2016 (0)</a></li>
+<li><a href="http://www.fail2fail.com/archives/2016/09.html" title="September 2016">September 2016 (0)</a></li>
+<li><a href="http://www.fail2fail.com/index.php?frontpage">Recent...</a></li>
+<li><a href="http://www.fail2fail.com/archive">Older...</a></li>
+</ul>
+</div>
+    </div>
+</td>
+    </tr>
+</tbody></table>
+
+
+
+
+
+</body>
+</html>

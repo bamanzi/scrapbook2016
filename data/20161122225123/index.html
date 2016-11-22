@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" xmlns:addthis="http://www.addthis.com/help/api-spec" xmlns:fb="http://ogp.me/ns/fb#" class="wf-ffdinweb-i7-inactive wf-ffdinweb-n7-inactive wf-ffdinweb-n4-inactive wf-ffdinweb-i4-inactive wf-ffdinweb-i3-inactive wf-ffdinweb-n3-inactive wf-dincondensedweb-n4-inactive wf-inactive">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Simple Remote Pairing with wemux</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://spin.atomicobject.com/xmlrpc.php">
+	<link rel="icon" type="image/x-icon" href="urn:scrapbook-download:28a8e0ab-6db0-453e-b230-7ffb197b534a">
+
+	<!-- Styles -->
+	<script src="about:blank" async="" type="text/javascript"></script><script src="about:blank"></script>
+	<style type="text/css">
+/* Code tidied up by ScrapBook */
+</style><style type="text/css">
+/* Code tidied up by ScrapBook */
+@font-face {
+  font-family: "ff-din-web";
+  font-style: italic;
+  font-weight: 700;
+  src: url("urn:scrapbook-download:90be498e-9290-4c42-8acd-ddfe0d59e691") format("woff2"), url("urn:scrapbook-download:18fb8ce2-1ff3-4d39-8dae-9fbb0723254d") format("woff"), url("urn:scrapbook-download:5c30ae57-08eb-4184-963d-092f67638ed3") format("opentype");
+}
+@font-face {
+  font-family: "ff-din-web";
+  font-style: normal;
+  font-weight: 700;
+  src: url("urn:scrapbook-download:7547049d-a6c2-485c-a073-0b895d1eeb15") format("woff2"), url("urn:scrapbook-download:cd685d64-72af-444f-b419-b033b1b447a0") format("woff"), url("urn:scrapbook-download:aa25f26c-40a0-4e94-81bc-a63d339af26b") format("opentype");
+}
+@font-face {
+  font-family: "ff-din-web";
+  font-style: normal;
+  font-weight: 400;
+  src: url("urn:scrapbook-download:a65b641b-afce-4ba5-a413-bd4e0a2187f7") format("woff2"), url("urn:scrapbook-download:91e540fe-9ac2-4392-a4eb-16cf6444ecbc") format("woff"), url("urn:scrapbook-download:9e9122ad-f12e-420d-bfdb-e011608cc43a") format("opentype");
+}
+@font-face {
+  font-family: "ff-din-web";
+  font-style: italic;
+  font-weight: 400;
+  src: url("urn:scrapbook-download:a9d978e1-4496-4e5a-b8d0-04ae9188729d") format("woff2"), url("urn:scrapbook-download:56bc457f-6a8d-4bc0-b237-b52d4329fc35") format("woff"), url("urn:scrapbook-download:8588de42-e141-49e5-b358-92c8ba9cf6fd") format("opentype");
+}
+@font-face {
+  font-family: "ff-din-web";
+  font-style: italic;
+  font-weight: 300;
+  src: url("urn:scrapbook-download:eeaf4a0b-86bb-4b4e-879a-a448436a056a") format("woff2"), url("urn:scrapbook-download:126711c7-f90e-4e1a-b552-808caf9d8ee6") format("woff"), url("urn:scrapbook-download:1ba38eec-a99e-4de2-96ee-7d91afacdc8b") format("opentype");
+}
+@font-face {
+  font-family: "ff-din-web";
+  font-style: normal;
+  font-weight: 300;
+  src: url("urn:scrapbook-download:679c88e3-059a-4f3a-9489-335d8c5c15c6") format("woff2"), url("urn:scrapbook-download:ce605df6-5a83-4ac3-abf2-800d2876b354") format("woff"), url("urn:scrapbook-download:b47d44d2-4e69-4f4a-afb1-6916c78d0381") format("opentype");
+}
+@font-face {
+  font-family: "din-condensed-web";
+  font-style: normal;
+  font-weight: 400;
+  src: url("urn:scrapbook-download:99814be6-2562-48e8-966f-f23d61a44944") format("woff2"), url("urn:scrapbook-download:380129ac-a9e1-4cbd-a45f-6a59678d4604") format("woff"), url("urn:scrapbook-download:bfde453e-b84b-48ad-ba02-024998b9cbb8") format("opentype");
+}
+</style><script>/* Code removed by ScrapBook */</script>
+	<link rel="stylesheet" type="text/css" href="urn:scrapbook-download:c70fcd94-3fba-477d-8aad-09227fbf0710">
+
+	<!-- WP Head -->
+	
+	<style type="text/css">
+/* Code tidied up by ScrapBook */
+#fancybox-close { right: -15px; top: -15px; }
+div#fancybox-content { border-color: rgb(255, 255, 255); }
+div#fancybox-title { background-color: rgb(255, 255, 255); }
+div#fancybox-outer { background-color: rgb(255, 255, 255); }
+</style>
+
+	
+<!-- This site is optimized with the Yoast SEO plugin v3.8 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="wemux is a script that simplifies the management of shared tmux sessions.">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/">
+<link rel="publisher" href="https://plus.google.com/b/110228015808150756207/+Atomicobject">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simple Remote Pairing with wemux">
+<meta property="og:description" content="wemux is a script that simplifies the management of shared tmux sessions.">
+<meta property="og:url" content="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/">
+<meta property="og:site_name" content="Atomic Spin">
+<meta property="article:publisher" content="https://www.facebook.com/atomicobject">
+<meta property="article:tag" content="bash">
+<meta property="article:tag" content="pair programming">
+<meta property="article:tag" content="Remote Teams">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="terminal">
+<meta property="article:tag" content="tmux">
+<meta property="article:tag" content="wemux">
+<meta property="article:section" content="Developer Tools">
+<meta property="article:published_time" content="2012-04-04T12:52:31-05:00">
+<meta property="article:modified_time" content="2014-10-16T13:17:00-05:00">
+<meta property="og:updated_time" content="2014-10-16T13:17:00-05:00">
+<meta property="fb:admins" content="886890430">
+<meta property="og:image" content="https://spin.atomicobject.com/wp-content/uploads/wemux-590x271.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="wemux is a script that simplifies the management of shared tmux sessions.">
+<meta name="twitter:title" content="Simple Remote Pairing with wemux">
+<meta name="twitter:site" content="@atomicobject">
+<meta name="twitter:image" content="https://spin.atomicobject.com/wp-content/uploads/wemux-590x271.png">
+<meta name="twitter:creator" content="@atomicobject">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://s7.addthis.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Atomic Spin » Feed" href="https://spin.atomicobject.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Atomic Spin » Comments Feed" href="https://spin.atomicobject.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Atomic Spin » Simple Remote Pairing with wemux Comments Feed" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/feed/">
+		<script type="text/javascript">/* Code removed by ScrapBook */</script><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+  #diigotb-imagepanel { height: 22px ! important; position: absolute ! important; z-index: 11000022 ! important; margin: 0px ! important; }
+  #diigotb-imagepanel .diigotb-btn { cursor: pointer ! important; width: 20px ! important; height: 20px ! important; margin: 2px ! important; float: left ! important; background: url("chrome://diigotb/skin/save-image-action-icons.png") no-repeat scroll 0% 0% transparent ! important; }
+  #diigotb-imagepanel #diigotb-quick-save { background-position: 0px 0px ! important; }
+  .diigotb-border { position: absolute ! important; z-index: 11000000 ! important; margin: 0px ! important; background-color: rgb(75, 140, 220) ! important; }
+  .diigotb-left { width: 1px ! important; }
+  .diigotb-right { width: 1px ! important; }
+  .diigotb-top { height: 1px ! important; }
+  .diigotb-bottom { height: 1px ! important; }
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script type="text/javascript" src="about:blank"></script>
+		<style type="text/css">
+/* Code tidied up by ScrapBook */
+</style>
+<link rel="stylesheet" id="fancybox-css" href="urn:scrapbook-download:938f77b9-ef5a-4eca-8784-e297c9c103e4" type="text/css" media="all">
+<link rel="stylesheet" id="wp-syntax-css-css" href="urn:scrapbook-download:eb23ecf3-dbe0-4279-be38-0c4af7f52160" type="text/css" media="all">
+<link rel="stylesheet" id="spin_styles-css" href="urn:scrapbook-download:a8bde053-98ca-4063-946a-b31e26c8fe5e" type="text/css" media="all">
+<link rel="stylesheet" id="addthis_all_pages-css" href="urn:scrapbook-download:92e32445-b218-40f3-b571-14b4a698b48b" type="text/css" media="all">
+<!-- This site uses the Google Analytics by MonsterInsights plugin v5.5.4 - Universal disabled - https://www.monsterinsights.com/ -->
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<!-- / Google Analytics by MonsterInsights -->
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<link rel="https://api.w.org/" href="https://spin.atomicobject.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://spin.atomicobject.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://spin.atomicobject.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.6.1">
+<link rel="shortlink" href="https://spin.atomicobject.com/?p=85291">
+<link rel="alternate" type="application/json+oembed" href="https://spin.atomicobject.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspin.atomicobject.com%2F2012%2F04%2F04%2Fsimple-remote-pairing-with-wemux%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://spin.atomicobject.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fspin.atomicobject.com%2F2012%2F04%2F04%2Fsimple-remote-pairing-with-wemux%2F&amp;format=xml">
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+<!-- Fancybox for WordPress -->
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<!-- END Fancybox for WordPress -->
+<link rel="https://github.com/WP-API/WP-API" href="https://spin.atomicobject.com/wp-json">
+<style>
+/* Code tidied up by ScrapBook */
+</style>
+<!-- Dynamic Widgets by QURL - http://www.qurl.nl //-->
+
+<script>/* Code removed by ScrapBook */</script></head>
+
+<body class="single single-post postid-85291 single-format-standard group-blog" data-has-drawer="true">
+
+	<div id="border-top" class="borders border-h"></div>
+	<div id="border-left" class="borders border-v"></div>
+	<div id="border-right" class="borders border-v"></div>
+	<div id="border-bottom" class="borders border-h"></div>
+
+
+	<div id="mobile-header">
+		<a href="https://atomicobject.com/">
+			<img src="urn:scrapbook-download:6d481a4f-21d8-481d-a774-ee826d46a6a9" alt="Atomic Object" class="mobile-wordmark-logo">
+		</a>
+		<a href="#mobile-nav" id="mobile-nav-trigger" data-toggle="#mobile-nav">
+			<img src="urn:scrapbook-download:f78b19c1-d857-4950-9964-05c2003df74a" alt="Show Nav">
+		</a>
+	</div>
+
+  <nav id="mobile-nav">
+	  <div class="mobile-nav-close-wrap">
+	    <img src="urn:scrapbook-download:29c28bf1-4cd1-4785-9b3d-799f4a210f09" alt="Close Menu" id="icon-mobile-close" class="mobile-nav-close" data-toggle="#mobile-nav">
+	  </div>
+
+		<div class="nav-link-holder">
+			<a href="https://spin.atomicobject.com/" class="backlink">
+				&lt; Blog Home
+			</a>
+		</div>
+
+					<div class="nav-link-holder">
+				<a href="https://atomicobject.com/">
+					Atomic Object				</a>
+			</div>
+					<div class="nav-link-holder">
+				<a href="https://atomicobject.com/services">
+					Services				</a>
+			</div>
+					<div class="nav-link-holder">
+				<a href="https://atomicobject.com/team">
+					Team				</a>
+			</div>
+					<div class="nav-link-holder">
+				<a href="https://atomicobject.com/culture">
+					Culture				</a>
+			</div>
+					<div class="nav-link-holder">
+				<a href="https://atomicobject.com/portfolio">
+					Portfolio				</a>
+			</div>
+					<div class="nav-link-holder">
+				<a href="https://atomicobject.com/contact">
+					Contact				</a>
+			</div>
+		  </nav>
+
+	<nav id="main-nav" class="main-nav">
+	  <div id="top-nav">
+	    <div class="main-nav-inner">
+	      <a href="https://atomicobject.com/" class="logo wordmark">
+	        <img src="urn:scrapbook-download:74dc690a-92cd-4c78-9b78-bb471d42341d" alt="Atomic Object" class="white">
+	        <img src="urn:scrapbook-download:0fcdd9b7-dcec-45f5-a4a0-941e43c1bc61" alt="Atomic Object" class="color">
+	      </a>
+
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/services">
+						Services					</a>
+				</div>
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/team">
+						Team					</a>
+				</div>
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/culture">
+						Culture					</a>
+				</div>
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/portfolio">
+						Portfolio					</a>
+				</div>
+			
+		    <div class="nav-link-holder blog">
+		      <a href="https://spin.atomicobject.com/" class="current">
+		        Blog
+		      </a>
+		    </div>
+
+		    <div class="nav-link-holder contact">
+		      <a href="https://atomicobject.com/contact" class="button">
+		        Contact
+		      </a>
+		    </div>
+		  </div>
+	  </div><!-- /#top-nav -->
+
+    <div id="fixed-nav" class="animated">
+      <div class="main-nav-inner">
+        <a href="https://atomicobject.com/" class="logo symbol">
+	        <img src="urn:scrapbook-download:d80e9cd5-9a35-4d82-ab47-51593ef57fc0" alt="Atomic Object">
+        </a>
+
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/services">
+						Services					</a>
+				</div>
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/credentials">
+						Credentials					</a>
+				</div>
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/portfolio">
+						Portfolio					</a>
+				</div>
+							<div class="nav-link-holder">
+					<a href="https://atomicobject.com/culture">
+						Culture					</a>
+				</div>
+			
+        <div class="nav-link-holder blog">
+		      <a href="https://spin.atomicobject.com/" class="current">
+            Blog
+          </a>
+        </div>
+
+        <div class="nav-link-holder contact">
+		      <a href="https://atomicobject.com/contact" class="button">
+            Contact
+          </a>
+        </div>
+      </div>
+    </div><!-- /#fixed-nav -->
+  </nav><!-- /#main-nav -->
+
+
+	<div id="page" class="hfeed site">
+
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+				<h1 class="site-title">
+					<a href="https://spin.atomicobject.com/" rel="home">
+						Atomic Spin					</a>
+				</h1>
+				<h2 class="site-description">Atomic Object’s blog on everything we find fascinating.</h2>
+			</div>
+		</header><!-- #masthead -->
+
+		<div id="content" class="site-content">
+
+
+	
+<div id="secondary" class="secondary" role="complementary">
+	
+		<a class="secondary-close" data-toggle="#secondary">Close</a>
+
+		<div class="secondary-inner">
+			<div class="back-link-container">
+				<a href="https://spin.atomicobject.com/">&lt; back to Blog Home</a>
+			</div>
+
+			
+		<div class="author-bio">
+			<a href="https://spin.atomicobject.com/author/english/" class="author-bio-img">
+				<img src="urn:scrapbook-download:e17133f7-3ce5-47f1-bfc1-91207d658b97" alt="">
+			</a>
+			<h6 class="author-bio-name">
+				By: <a href="https://spin.atomicobject.com/author/english/">Mike English</a>
+			</h6>
+			
+			<ul class="social-icon-list author-bio-links"></ul>
+		</div>
+	
+			<div class="post-categories">
+				<div class="cat-title">Posted In</div>
+				<ul class="cat-list">				<li class="cat-developer-tools cat-development">
+					<a href="https://spin.atomicobject.com/category/development/developer-tools/" class="cat-developer-tools cat-development" rel="category tag">
+						Developer Tools
+					</a>
+				</li></ul>			</div>
+		</div>
+
+	</div>
+
+<div id="primary" class="primary content-area">
+
+	
+		<a href="#secondary" data-toggle="#secondary" class="secondary-toggle btn">
+			<svg class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+				<g class="bookmark">
+					<polygon points="24,32 16,24 8,32 8,0 24,0 "></polygon>
+				</g>
+				<g class="close">
+					<rect x="13" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.6274 16)" width="6" height="32"></rect>
+					<rect x="13" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 16 38.6274)" width="6" height="32"></rect>
+				</g>
+			</svg>
+			<span class="text">About This Author</span>
+		</a>
+	
+	<main id="main" class="site-main" role="main">
+
+		<article itemscope="" itemtype="http://schema.org/BlogPosting" id="post-85291" class="entry single-article post-85291 post type-post status-publish format-standard hentry category-developer-tools tag-bash tag-pair-programming tag-remote-teams tag-ssh tag-terminal tag-tmux tag-wemux">
+
+			<header class="entry-header">
+
+				<div class="entry-top-bar">
+					<div itemprop="datePublished" content="2012-04-04" class="post-date">
+						April 4, 2012					</div>
+					
+		<div class="post-author">
+			by:
+			<a href="https://spin.atomicobject.com/author/english/">
+				<span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+					<span itemprop="name">Mike English</span>
+				</span>
+			</a>
+		</div>
+						<div class="post-comment-count">
+						<a href="#comments" data-scroll-to-elem="">6 Comments</a>					</div>
+				</div><!-- .entry-meta -->
+
+				<h1 itemprop="name headline" class="entry-title">
+					Simple Remote Pairing with wemux				</h1>
+
+			</header><!-- .entry-header -->
+
+			<div itemprop="articleBody" class="entry-content">
+
+				<!-- AddThis Share Buttons above via filter on the_content -->
+<div class="at-above-post" data-url="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/" data-title="Simple Remote Pairing with wemux"></div><p><a href="https://spin.atomicobject.com/2012/03/10/atomic-object-is-expanding-to-detroit/">Atomic Object is opening an office in Detroit</a>. As part of the preparation for this new venture, I have been looking at ways to simplify remote <a href="https://spin.atomicobject.com/category/process-practices/pairing/">pairing</a>. I was happy to find out about a new project called wemux.</p>
+<p><a href="https://github.com/zolrath/wemux">wemux</a> is a script that simplifies the management of shared <a href="https://spin.atomicobject.com/2012/01/28/less-perplexing-terminal-multiplexing-with-tmux/">tmux</a> sessions.</p>
+<p><a href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/wemux/" rel="attachment wp-att-85294"><img itemprop="image" src="urn:scrapbook-download:5745cf87-c27e-49be-ba80-ba3c5934fe48" alt="wemux" title="wemux" class="size-medium wp-image-85294" srcset="urn:scrapbook-download:e68e7f7f-ac51-4b95-bc05-17793a8d8e31 590w, urn:scrapbook-download:bd6c1320-b97b-4a2f-b837-9817c79bfc91 940w" sizes="(max-width: 590px) 100vw, 590px" height="271" width="590"></a></p>
+<p><span id="more-85291"></span><br>
+</p><h2>wemux Basics</h2>
+<p>
+wemux seeks to facilitate two main usage patterns for shared tmux sessions:</p>
+<ul>
+<li>Direct user to user connections</li>
+<li>Multiple users connecting to shared central server (This scenario is likely to be less common, but wemux does include advanced configuration options to enable <a href="https://github.com/zolrath/wemux/wiki/Multi-Host-Capabilities">multi-host capabilities</a>.)</li>
+</ul>
+<p>In each case, wemux has a concept of one user being the “host” and others being “clients.” Each wemux “server” is created on its own socket. Common usage patterns are captured by wemux’s three main modes:</p>
+<p>
+</p><h3>1. Mirror Mode</h3>
+<p>
+Client is connected in read-only, non-interactive mode. This may be good for live demos, or some forms of remote pairing. NB: You should not rely on this being ‘secure’ — you are still giving another user access to your session.</p>
+<p>
+</p><h3>2. Pair Mode</h3>
+<p>
+Client is connected interactively but shares a cursor/window focus with the host. This is probably best for most forms of pairing where users may take turns driving, but always view the same screen.</p>
+<p>
+</p><h3>3. Rogue Mode</h3>
+<p>
+This allows clients to connect to a shared session but interact with different windows than the host.</p>
+<h2>Installation</h2>
+<p>Unfortunately, Wemux isn’t in Homebrew yet, but it there is an open pull request. In the meantime, you can use the formula like this:<br>
+<code>brew install https://github.com/downloads/zolrath/wemux/wemux.rb</code></p>
+<p>For those who are not using Homebrew, there are instructions for <a href="https://github.com/zolrath/wemux/wiki/Installation">manual installation</a>.</p>
+<h2>Configuration</h2>
+<p>The Homebrew formula automatically adds the current user to the list of users allowed to “host” sessions. If you’d like to have additional users as “hosts” (or make other configuration changes), running <code>wemux conf</code> will open the configuration file with your <code>$EDITOR</code>. More information on configuration can be found in the <a href="https://github.com/zolrath/wemux/wiki">wemux wiki</a>.</p>
+<p>Adding <code>#(wemux status_users)</code> to your <code>status-right</code> or <code>status-left in ~/.tmux.conf</code> will let you see who is currently connected to the wemux server. This is one of my favorite features. Names with an [m] are connected in mirror (read-only) mode.</p>
+<h2>Using wemux</h2>
+<p>Here are some of the basic commands to get started.</p>
+<h3>Host</h3>
+<ul>
+<li>Host a session: <code>wemux start</code></li>
+<li>See who’s connected: <code>wemux users</code></li>
+</ul>
+<h3>Client</h3>
+<ul>
+<li>Attach in ‘mirror’ mode: <code>wemux mirror</code></li>
+<li>Attach in ‘pair’ mode: <code>wemux pair</code></li>
+<li>Attach in ‘rogue’ mode: <code>wemux rogue</code></li>
+</ul>
+<h2>Example</h2>
+<p>If you tend to pair with the same person on a regular basis, you can streamline the process by creating a user for them on your local machine, adding their public <span class="caps">SSH</span> key to authorized_keys, and putting <code>wemux pair; exit</code> in their <code>~/.bash_profile</code>. Then, whenever they connect to your machine, they automatically join your wemux server in pair mode.<br>
+&nbsp;</p>
+<!-- AddThis Share Buttons below via filter on the_content -->
+<div class="at-below-post" data-url="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/" data-title="Simple Remote Pairing with wemux"></div><!-- AddThis Share Buttons generic via filter on the_content -->
+<!-- AddThis Related Posts below via filter on the_content -->
+<div class="at-below-post-recommended"></div><!-- AddThis Related Posts generic via filter on the_content -->
+
+				
+			</div><!-- .entry-content -->
+
+			<footer class="entry-footer">
+
+				<div class="entry-share"><span class="entry-share-label">Share this article:</span><ul class="social-icon-list entry-share-links"><li class="social-icon-list-item entry-share-link hackernews"><a href="https://news.ycombinator.com/submitlink?u=https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/%23.VNUdMcs6UCk.hackernews&amp;t=Simple%20Remote%20Pairing%20with%20wemux" data-popup="social-share">Hackernews</a></li><li class="social-icon-list-item entry-share-link twitter"><a href="https://twitter.com/intent/tweet?text=Simple%20Remote%20Pairing%20with%20wemux&amp;url=https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/%23.VNUemPABEaM.twitter&amp;related=" data-popup="social-share">Twitter</a></li><li class="social-icon-list-item entry-share-link facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/%23.VNUemgHMI00.facebook" data-popup="social-share">Facebook</a></li><li class="social-icon-list-item entry-share-link googleplus"><a href="https://plus.google.com/share?url=https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/%23.VNUerUAwXzw.google_plusone_share&amp;t=Simple%20Remote%20Pairing%20with%20wemux" data-popup="social-share">Googleplus</a></li><li class="social-icon-list-item entry-share-link linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/%23.VNUeuSKf2A4.linkedin&amp;title=Simple%20Remote%20Pairing%20with%20wemux&amp;ro=false&amp;summary=&amp;source=" data-popup="social-share">Linkedin</a></li></ul></div>
+				<span class="tags-links">Tagged: <a href="https://spin.atomicobject.com/tag/bash/" rel="tag">bash</a> <a href="https://spin.atomicobject.com/tag/pair-programming/" rel="tag">pair programming</a> <a href="https://spin.atomicobject.com/tag/remote-teams/" rel="tag">Remote Teams</a> <a href="https://spin.atomicobject.com/tag/ssh/" rel="tag">ssh</a> <a href="https://spin.atomicobject.com/tag/terminal/" rel="tag">terminal</a> <a href="https://spin.atomicobject.com/tag/tmux/" rel="tag">tmux</a> <a href="https://spin.atomicobject.com/tag/wemux/" rel="tag">wemux</a></span><span class="posted-on">Posted on <a href="#" rel="bookmark">April 4, 2012</a></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://spin.atomicobject.com/author/english/">Mike English</a></span></span><span class="cat-links"> in  <a href="https://spin.atomicobject.com/category/development/developer-tools/" rel="category tag" class="cat-developer-tools">Developer Tools</a></span>
+			</footer><!-- .entry-footer -->
+
+		</article><!-- #post-## -->
+
+	</main>
+
+	
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			6 Comments		</h2>
+
+		
+		<ol class="comment-list">
+				<li class="comment even thread-even depth-1" id="comment-14645">
+		<div id="div-comment-14645" class="comment-body">
+		<div class="comment-author vcard">
+	<img alt="" src="urn:scrapbook-download:b2e106fc-bc65-4ac1-a71f-8cc133a06494" class="avatar avatar-100 photo" height="100" width="100">	<cite class="fn"><a href="http://www.spilth.org/" rel="external nofollow" class="url">Brian Kelly</a></cite> <span class="says">says:</span>	</div>
+	
+	<div class="comment-meta commentmetadata"><a href="#comment-14645">
+		April 4, 2012</a>	</div>
+
+	<p>How do you get the graphica characters (arrow dividers) in your status-left?</p>
+
+	<div class="reply">
+	<a rel="nofollow" class="comment-reply-link" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/?replytocom=14645#respond" aria-label="Reply to Brian Kelly">Reply</a>	</div>
+		</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14646">
+		<div id="div-comment-14646" class="comment-body">
+		<div class="comment-author vcard">
+	<img alt="" src="urn:scrapbook-download:d8c0f112-01e2-4bc1-bc6f-b118babc8010" class="avatar avatar-100 photo" height="100" width="100">	<cite class="fn"><a href="http://www.spilth.org/" rel="external nofollow" class="url">Brian Kelly</a></cite> <span class="says">says:</span>	</div>
+	
+	<div class="comment-meta commentmetadata"><a href="#comment-14646">
+		April 4, 2012</a>	</div>
+
+	<p>How do you get the special characters (angled blocks) in your status-left?</p>
+
+	<div class="reply">
+	<a rel="nofollow" class="comment-reply-link" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/?replytocom=14646#respond" aria-label="Reply to Brian Kelly">Reply</a>	</div>
+		</div>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="comment-14647">
+		<div id="div-comment-14647" class="comment-body">
+		<div class="comment-author vcard">
+	<img alt="" src="urn:scrapbook-download:1ebb2177-be11-49f5-941c-13cd38af6063" class="avatar avatar-100 photo" height="100" width="100">	<cite class="fn"><a href="http://www.spilth.org/" rel="external nofollow" class="url">Brian Kelly</a></cite> <span class="says">says:</span>	</div>
+	
+	<div class="comment-meta commentmetadata"><a href="#comment-14647">
+		April 4, 2012</a>	</div>
+
+	<p>Also, your comment form provides no feedback as to if my comment was received, being moderated, etc. So I may have posted the same question twice.</p>
+
+	<div class="reply">
+	<a rel="nofollow" class="comment-reply-link" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/?replytocom=14647#respond" aria-label="Reply to Brian Kelly">Reply</a>	</div>
+		</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14653">
+		<div id="div-comment-14653" class="comment-body">
+		<div class="comment-author vcard">
+	<img alt="" src="urn:scrapbook-download:a6013096-b375-408a-a314-f8332cd0786f" class="avatar avatar-100 photo" height="100" width="100">	<cite class="fn"><a href="https://github.com/zolrath/wemux" rel="external nofollow" class="url">Matt Furden</a></cite> <span class="says">says:</span>	</div>
+	
+	<div class="comment-meta commentmetadata"><a href="#comment-14653">
+		April 4, 2012</a>	</div>
+
+	<p>Hi Brian, creator of <a href="https://github.com/zolrath/wemux" title="wemux" rel="nofollow">wemux</a> here.</p>
+<p>The session on the left in the example screen shot uses a <a href="https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts" title="patched font" rel="nofollow">patched font</a> from the <a href="https://github.com/Lokaltog/vim-powerline" title="vim-powerline" rel="nofollow">vim-powerline</a> project.</p>
+<p>I’ve included the relevant settings from my tmux.conf file in <a href="https://gist.github.com/2305333" title="a gist" rel="nofollow">a gist</a>.</p>
+
+	<div class="reply">
+	<a rel="nofollow" class="comment-reply-link" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/?replytocom=14653#respond" aria-label="Reply to Matt Furden">Reply</a>	</div>
+		</div>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="comment-14655">
+		<div id="div-comment-14655" class="comment-body">
+		<div class="comment-author vcard">
+	<img alt="" src="urn:scrapbook-download:485f6742-6a34-4b16-abb8-15bd30019a2b" class="avatar avatar-100 photo" height="100" width="100">	<cite class="fn"><a href="http://www.spilth.org/" rel="external nofollow" class="url">Brian Kelly</a></cite> <span class="says">says:</span>	</div>
+	
+	<div class="comment-meta commentmetadata"><a href="#comment-14655">
+		April 4, 2012</a>	</div>
+
+	<p>Thanks, Matt. I’ll check out the powerline project.</p>
+
+	<div class="reply">
+	<a rel="nofollow" class="comment-reply-link" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/?replytocom=14655#respond" aria-label="Reply to Brian Kelly">Reply</a>	</div>
+		</div>
+	</li><!-- #comment-## -->
+	<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-17708">
+		<div id="div-comment-17708" class="comment-body">
+		<div class="comment-author vcard">
+		<cite class="fn"><a href="http://spin.atomicobject.com/2012/09/13/from-imperative-to-declarative-system-configuration-with-puppet/" rel="external nofollow" class="url">From Imperative to Declarative System Configuration with Puppet | Atomic Spin</a></cite> <span class="says">says:</span>	</div>
+	
+	<div class="comment-meta commentmetadata"><a href="#comment-17708">
+		September 13, 2012</a>	</div>
+
+	<p>[…] we’d like to do is install and configure tmux and Matt Furden’s wemux script for managing shared tmux […]</p>
+
+	<div class="reply">
+	<a rel="nofollow" class="comment-reply-link" href="https://spin.atomicobject.com/2012/04/04/simple-remote-pairing-with-wemux/?replytocom=17708#respond" aria-label="Reply to From Imperative to Declarative System Configuration with Puppet | Atomic Spin">Reply</a>	</div>
+		</div>
+	</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Join the conversation <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display: none;">Cancel reply</a></small></h3>				<form action="https://spin.atomicobject.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+					<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" value="" size="30" maxlength="245" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required" type="email"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" value="" size="30" maxlength="200" type="url"></p>
+<!-- Subscribe to Comments Reloaded version 160915 --><!-- BEGIN: subscribe to comments reloaded --><p><label for="subscribe-reloaded"><select name="subscribe-reloaded" id="subscribe-reloaded">
+								<option value="none">Don't subscribe</option>
+								<option value="yes">All</option>
+								<option value="replies" selected="selected">Replies to my comments</option>
+							</select> Notify me of followup comments via e-mail. You can also <a href="https://spin.atomicobject.com/comment-subscriptions?srp=85291&amp;srk=788c0f0dc030a5236e2288367fd19262&amp;sra=s&amp;srsrc=f">subscribe</a> without commenting.</label></p><!-- END: subscribe to comments reloaded --><p class="form-submit"><input name="submit" id="submit" class="submit" value="Submit Comment" type="submit"> <input name="comment_post_ID" value="85291" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="1106faa6fd" type="hidden"></p><p style="display: none;"></p>				<input id="ak_js" name="ak_js" value="1479826095994" type="hidden"></form>
+					</div><!-- #respond -->
+		
+</div><!-- #comments -->
+
+</div>
+
+
+	</div>
+
+  
+</div> <!-- closing #page -->
+
+<footer class="call-to-action-footer red" style="background-image: url(&quot;urn:scrapbook-download:78a2d742-ecff-4401-947a-622be278674d&quot;); background-size: cover; background-position: 50% 50%;">
+
+	<div class="trapezoid"></div>
+
+	<div class="footer-content">
+		<p>Atomic does more than talk about software. We also make it — for clients large and small in all kinds of industries.</p>
+		<a href="http://atomicobject.com/portfolio">Check out our portfolio.</a>
+	</div>
+</footer>
+
+<footer id="main-footer">
+	<div id="footer-container">
+
+		<p class="atomic-slug">
+			<img src="urn:scrapbook-download:b7e8da6e-cb6b-4d83-9da9-4590eea25bf1" width="160">
+			Atomic is a software design + development consultancy.
+		</p>
+
+		<small class="copyright">© 2016 Atomic Object LLC</small>
+
+		<div class="footer-links" id="footer-explore">
+			<h5>Explore</h5>
+			<ul>
+				<li><a href="https://atomicobject.com/careers">Careers</a></li>
+				<li><a href="https://atomicobject.com/diversity">Diversity</a></li>
+				<li><a href="https://atomicobject.com/resources">Resources</a></li>
+				<li><a href="http://spin.atomicobject.com/">Atomic Blog</a></li>
+			</ul>
+		</div>
+
+		<div class="footer-links" id="footer-offices">
+			<h5>Offices</h5>
+			<ul>
+				<li><a href="https://atomicobject.com/contact/grand-rapids">Grand Rapids</a></li>
+				<li><a href="https://atomicobject.com/contact/ann-arbor">Ann Arbor</a></li>
+			</ul>
+		</div>
+
+		<div class="footer-links" id="footer-details">
+			<h5>Details</h5>
+			<ul>
+				<li><a href="http://atomobj.io/factsheet">Fact Sheet</a></li>
+				<li><a href="https://atomicobject.com/contact">Contact</a></li>
+				<li><a href="https://atomicobject.com/">+1 616 776 6020</a></li>
+			</ul>
+		</div>
+
+		<div class="social footer-links">
+			<ul>
+				<li>
+					<a href="https://twitter.com/atomicobject">
+						<img src="urn:scrapbook-download:f0b7fb41-8510-4ddc-a716-01b28fdcdcd1">
+					</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/atomicobject">
+						<img src="urn:scrapbook-download:b7718780-ae03-4536-9646-a92e8effebcf">
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/atomicobject">
+						<img src="urn:scrapbook-download:1dec902c-6aab-49ee-a5ac-1eaa6e397a56">
+					</a>
+				</li>
+				<li>
+					<a href="https://www.linkedin.com/company/atomic-object">
+						<img src="urn:scrapbook-download:475816ed-e62e-442d-9592-74ea38d82444">
+					</a>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+</footer>
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript" src="about:blank"></script>
+<link rel="stylesheet" id="stcr-plugin-style-css" href="urn:scrapbook-download:dbab39d3-3468-4585-8aa8-2d32e52ff216" type="text/css" media="all">
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript" src="about:blank"></script>
+
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body><div class="" style="display: none; width: 24px; left: 1131px; top: 670px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none; height: 271px; width: 1px; left: 575px; top: 431px;" class="diigotb-border diigotb-left"></div><div style="display: none; width: 590px; height: 1px; left: 575px; top: 431px;" class="diigotb-border diigotb-top"></div><div style="display: none; height: 271px; width: 1px; left: 1165px; top: 431px;" class="diigotb-border diigotb-right"></div><div style="display: none; width: 590px; height: 1px; left: 575px; top: 702px;" class="diigotb-border diigotb-bottom"></div>
+</html>

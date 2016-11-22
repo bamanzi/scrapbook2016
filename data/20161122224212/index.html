@@ -1,0 +1,363 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script><script>try {  for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){    var lastpass_f = document.forms[lastpass_iter];    if(typeof(lastpass_f.lpsubmitorig)=="undefined"){      if (typeof(lastpass_f.submit) == "function") {        lastpass_f.lpsubmitorig = lastpass_f.submit;        lastpass_f.submit = function(){          var form = this;          try {            if (document.documentElement && 'createEvent' in document)            {              var forms = document.getElementsByTagName('form');              for (var i=0 ; i<forms.length ; ++i)                if (forms[i]==form)                {                  var element = document.createElement('lpformsubmitdataelement');                  element.setAttribute('formnum',i);                  element.setAttribute('from','submithook');                  document.documentElement.appendChild(element);                  var evt = document.createEvent('Events');                  evt.initEvent('lpformsubmit',true,false);                  element.dispatchEvent(evt);                  break;                }            }          } catch (e) {}          try {            form.lpsubmitorig();          } catch (e) {}        }      }    }  }} catch (e) {}</script></head><body><br>
+
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>
+    GNU screen    [faq]
+  </title>
+
+  <meta name="generator" content="DokuWiki Release 2009-12-25c &quot;Lemming&quot;">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2015-03-02T15:52:25+0000">
+<meta name="keywords" content="faq">
+<link rel="search" type="application/opensearchdescription+xml" href="http://aperiodic.net/screen/lib/exe/opensearch.php" title="GNU screen">
+<link rel="start" href="http://aperiodic.net/screen/">
+<link rel="contents" href="http://aperiodic.net/screen/faq?do=index" title="Index">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://aperiodic.net/screen/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://aperiodic.net/screen/feed.php?mode=list&amp;ns=">
+<link rel="edit" title="Edit this page" href="http://aperiodic.net/screen/faq?do=edit">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://aperiodic.net/screen/_export/xhtml/faq">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="http://aperiodic.net/screen/_export/raw/faq">
+<link rel="canonical" href="http://aperiodic.net/screen/faq">
+<link rel="stylesheet" media="all" type="text/css" href="css.php">
+<link rel="stylesheet" media="screen" type="text/css" href="css_001.php">
+<link rel="stylesheet" media="print" type="text/css" href="css_002.php">
+<script type="text/javascript" charset="utf-8">/* Code removed by ScrapBook */</script>
+<script type="text/javascript" charset="utf-8" src="about:blank"></script>
+
+  <link rel="shortcut icon" href="favicon.ico">
+
+  
+
+
+
+
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+      <div class="header_left"></div>
+      <div class="logo">
+        <a href="http://aperiodic.net/screen/" name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[ALT+H]">GNU screen</a>      </div>
+      <div class="header_right"></div>
+      <div class="pagename">
+        [[<a href="http://aperiodic.net/screen/faq?do=backlink" title="Backlinks">faq</a>]]
+      </div>
+
+      <div id="tabnavi" class="tabnavi">
+	    <ul>
+<li><a href="http://aperiodic.net/screen/start">Home</a></li>
+<li><a href="http://aperiodic.net/screen/man:start">screen(1)</a></li>
+<li><a href="http://aperiodic.net/screen/commands:start">Commands</a></li>
+<li><a href="http://aperiodic.net/screen/faq?do=recent" class="action recent" accesskey="r" rel="nofollow">Recent Changes</a></li>
+</ul>
+	  </div>
+	  
+	  <div class="clearer"></div>
+      	</div>  
+  </div>
+    
+  
+  <div class="page">
+    <!-- ......... wikipage start ......... -->
+    <br>
+<b>Strict Standards</b>:  Declaration of syntax_plugin_graphviz::handle() should be compatible with DokuWiki_Syntax_Plugin::handle($match, $state, $pos, &amp;$handler) in <b>/home/public/screen/lib/plugins/graphviz/syntax.php</b> on line <b>20</b><br>
+<!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#faq" class="toc">FAQ</a></span></div>
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#how_do_i_get_screen_to_put_things_into_my_terminal_s_scrollback" class="toc">How do I get screen to put things into my terminal's scrollback?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_can_screen_use_xterm_s_title_bar" class="toc">How can screen use xterm's title bar?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_do_i_set_my_window_titles_automatically" class="toc">How do I set my window titles automatically?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_do_i_set_and_use_session_names" class="toc">How do I set and use session names?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#when_i_split_the_display_and_then_detach_screen_forgets_the_split" class="toc">When I split the display and then detach, screen forgets the split.</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_to_send_a_command_to_a_window_in_a_running_screen_session_from_the_commandline" class="toc">How to send a command to a window in a running screen session from the commandline?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_do_i_start_a_new_window_in_the_background_during_a_current_session" class="toc">How do I start a new window in the background during a current session?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_do_i_start_two_programs_in_a_detached_named_session" class="toc">How do I start two programs in a detached, named session?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#how_do_i_have_screen_windows_appear_in_my_terminal_as_tabs" class="toc">How do I have screen windows appear in my terminal as tabs?</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#i_have_a_nested_screen_session_-_how_do_i_send_screen_commands_to_the_inner_screen" class="toc">I have a nested screen session - how do I send screen commands to the inner screen?</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="faq" id="faq">FAQ</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="1-22" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="FAQ" type="submit"></div></form></div>
+<h3><a name="how_do_i_get_screen_to_put_things_into_my_terminal_s_scrollback" id="how_do_i_get_screen_to_put_things_into_my_terminal_s_scrollback">How do I get screen to put things into my terminal's scrollback?</a></h3>
+<div class="level3">
+
+<p>
+
+First off, it's recommended that you use <code>screen</code>'s scrollback buffer instead.  Since you can have multiple windows in a <code>screen</code> session, if you switch between those windows, your terminal scrollback will mix lines from all of those windows, but <code>screen</code> keeps separate scrollback buffers for each one.  Just use <code><a href="http://aperiodic.net/screen/commands:copy" class="wikilink1" title="commands:copy">C-a ESC</a></code>  or <code><a href="http://aperiodic.net/screen/commands:copy" class="wikilink1" title="commands:copy">C-a [</a></code> to enter <a href="http://aperiodic.net/screen/commands:copy" class="wikilink1" title="commands:copy">copy</a> mode.  (See also the <a href="http://aperiodic.net/screen/interface#xterm-style_scrolling" class="wikilink1" title="interface">interface examples</a> for a description of how to make <code>xterm</code>'s keystrokes work on <code>screen</code> instead.)  But if you do want scrollback in your terminal window (usually <code>xterm</code>), read on.
+</p>
+
+<p>
+Some background: One capability that a terminal may have is an “alternate screen”.  <code>xterm</code> has it, and you may have seen its effects–a program will request the alternate screen, the terminal switches there, and when the program exits the terminal goes back to the normal screen, leaving all the text there intact.  It is recommended that all full-screen apps use this, so as to minimize their impact on any purely command-line stuff.  It makes sense, for instance, for <code>vi</code> to use the alternate screen.  The drawback to the alternate screen is that only the main screen accumulates scrollback.
+</p>
+
+<p>
+As you might have guessed, <code>screen</code> uses the alternate screen, if it's available.  There's no real way to turn off use of the alternate screen, but you can make <code>screen</code> think that the terminal doesn't have an alternate screen with the <code><a href="http://aperiodic.net/screen/commands:termcapinfo" class="wikilink1" title="commands:termcapinfo">termcapinfo</a></code> command:
+</p>
+<pre class="code">termcapinfo xterm* ti@:te@
+</pre>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="23-1678" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How do I get screen to put things into my terminal's scrollback?" type="submit"></div></form></div>
+<h3><a name="how_can_screen_use_xterm_s_title_bar" id="how_can_screen_use_xterm_s_title_bar">How can screen use xterm's title bar?</a></h3>
+<div class="level3">
+
+<p>
+
+In your .screenrc:
+
+</p>
+<pre class="code">termcapinfo xterm*|rxvt*|kterm*|Eterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+defhstatus "screen ^E (^Et) | $USER@^EH"
+hardstatus off
+</pre>
+
+<p>
+Some terminals have a “hardstatus” line–a region that is separate from the main block of text but that programs can use to show status messages.  The termcap entry <code>hs</code> indicates that a terminal has a hardstatus line.  <code>ts</code> gives the escape sequence for entering the hardstatus line, <code>fs</code> gives the escape sequence for leaving it, and <code>ds</code> gives the escape sequence for clearing it.  The above hack treats <code>xterm</code>'s titlebar as a hardstatus line and defines a default status string.  (The status string understands the normal <a href="http://aperiodic.net/screen/man:string_escapes" class="wikilink1" title="man:string_escapes">string escapes</a>, but uses '^E' in place of '%'.)  The <code><a href="http://aperiodic.net/screen/commands:hardstatus" class="wikilink1" title="commands:hardstatus">hardstatus</a> off</code> line tells screen not to print status messages (such as “Bell in window 0” and so on) via the hardstatus line, useful since it isn't a <em>real</em> hardstatus line.
+</p>
+
+<p>
+As mentioned in <a href="http://aperiodic.net/screen/man:the_virtual_terminal" class="wikilink1" title="man:the_virtual_terminal">the virtual terminal</a>, programs in <code>screen</code> can use the escape sequence <code>ESC_<em>&lt;message&gt;</em>ESC\</code> to change the hardstatus message for a particular window.  The sequence <code>ESC]0;<em>&lt;message&gt;</em>^G</code> also works, so with the above hardstatus hack in place, programs' changes to the <code>xterm</code> titlebar will be passed through <code>screen</code>.
+</p>
+
+<p>
+See the <a href="http://aperiodic.net/screen/appearance#status_bar_and_xterm_title" class="wikilink1" title="appearance">status bar and xterm title</a> example for more details.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="1679-3145" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How can screen use xterm's title bar?" type="submit"></div></form></div>
+<h3><a name="how_do_i_set_my_window_titles_automatically" id="how_do_i_set_my_window_titles_automatically">How do I set my window titles automatically?</a></h3>
+<div class="level3">
+
+<p>
+
+See the page on <a href="http://aperiodic.net/screen/title_examples" class="wikilink1" title="title_examples">title examples</a>.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="3146-3238" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How do I set my window titles automatically?" type="submit"></div></form></div>
+<h3><a name="how_do_i_set_and_use_session_names" id="how_do_i_set_and_use_session_names">How do I set and use session names?</a></h3>
+<div class="level3">
+
+<p>
+
+See the page on <a href="http://aperiodic.net/screen/sessionnames" class="wikilink1" title="sessionnames">sessionnames</a>.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="3239-3320" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How do I set and use session names?" type="submit"></div></form></div>
+<h3><a name="when_i_split_the_display_and_then_detach_screen_forgets_the_split" id="when_i_split_the_display_and_then_detach_screen_forgets_the_split">When I split the display and then detach, screen forgets the split.</a></h3>
+<div class="level3">
+
+<p>
+
+(The implied question being, “How do I keep my split windows over a detach?”)
+</p>
+
+<p>
+The short is answer is that you can't.  The longer answer is that you can fake it.  (Note: the next <code>screen</code> release, probably numbered 4.1.0, will be able to remember display layouts.)
+</p>
+
+<p>
+Splits are a property of your display.  The process managing your <code>screen</code> session doesn't really know about them; only the single process that's displaying the session does.  Thus, the <code>screen</code> session can't remember the splits because it doesn't know about them, and once you detach, the process that did know about them has exited.
+</p>
+
+<p>
+The hack is to use nested <code>screen</code> sessions.  Start one session and give it some escape sequence that you won't use much (or just disable its escape character completely).  Bind your usual detach key sequence to this <code>screen</code> session.  Now, start or attach to your main <code>screen</code> session.  All of your work will be done in the inner session, and you can split your display.  When you detach, however, it will be the outer session that detaches, so your splits in the inner session will be preserved.
+</p>
+
+<p>
+Assuming you use the default escape character, C-a, your alternate screenrc should contain:
+</p>
+<pre class="code">escape ""
+bindkey ^ad detach
+</pre>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="3321-4651" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="When I split the display and then detach, screen forgets the split." type="submit"></div></form></div>
+<h3><a name="how_to_send_a_command_to_a_window_in_a_running_screen_session_from_the_commandline" id="how_to_send_a_command_to_a_window_in_a_running_screen_session_from_the_commandline">How to send a command to a window in a running screen session from the commandline?</a></h3>
+<div class="level3">
+
+<p>
+
+(We assume that we have a <code>screen</code> session with the name “test” running with a window 0.)
+</p>
+<pre class="code">screen -S test -p 0 -X stuff 'top^M'
+</pre>
+
+<p>
+The '^M' needs to be literal so precede it with '^V' in bash, for example.  Or you can use the (four characters) '\012' (which works for bash only in a script).
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="4652-5054" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How to send a command to a window in a running screen session from the commandline?" type="submit"></div></form></div>
+<h3><a name="how_do_i_start_a_new_window_in_the_background_during_a_current_session" id="how_do_i_start_a_new_window_in_the_background_during_a_current_session">How do I start a new window in the background during a current session?</a></h3>
+<div class="level3">
+
+<p>
+
+One can launch a program in a new window easily by simply typing the following at a commandline:
+</p>
+<pre class="code">screen top 
+</pre>
+
+<p>
+The window will appear with the application (in this case, <code>top</code>) running.  The following will open it, and switch back to your current window, in effect “launching” the command in the background:
+</p>
+<pre class="code">screen -X eval 'screen top' 'other'
+</pre>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="5055-5516" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How do I start a new window in the background during a current session?" type="submit"></div></form></div>
+<h3><a name="how_do_i_start_two_programs_in_a_detached_named_session" id="how_do_i_start_two_programs_in_a_detached_named_session">How do I start two programs in a detached, named session?</a></h3>
+<div class="level3">
+
+<p>
+
+Example: You want to run <a href="http://www.hellanzb.com/trac/" class="urlextern" title="http://www.hellanzb.com/trac/" rel="nofollow">HellaNZB</a> and <a href="http://hellanzb.com/trac/hellanzb/wiki/HellaHella" class="urlextern" title="http://hellanzb.com/trac/hellanzb/wiki/HellaHella" rel="nofollow">HellaHella</a> at the same time, in one session, with useful window names. Create a custom screenrc (e.g. $HOME/.screenrc_hellanzb):
+</p>
+<pre class="code">hella_ini=/mnt/usenet/nzbs/hella.ini
+cat &gt; ~/.screenrc_hellanzb &lt;&lt;_EOF
+sessionname hellanzb
+screen -t hellanzb hellanzb.py
+screen -t hellahella paster serve $hella_ini
+_EOF
+</pre>
+
+<p>
+Now you can run screen.
+</p>
+<pre class="code">screen -dm -c ~/.screenrc_hellanzb
+</pre>
+
+<p>
+Reattaching is easy.
+</p>
+<pre class="code">screen -r hellanzb
+</pre>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="5517-6163" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How do I start two programs in a detached, named session?" type="submit"></div></form></div>
+<h3><a name="how_do_i_have_screen_windows_appear_in_my_terminal_as_tabs" id="how_do_i_have_screen_windows_appear_in_my_terminal_as_tabs">How do I have screen windows appear in my terminal as tabs?</a></h3>
+<div class="level3">
+
+<p>
+
+You can patch gnome-terminal to become <code>screen</code>-aware, after which <code>screen</code> windows appear as tabs in the terminal, and you can still attach and detach from the <code>screen</code> session.
+</p>
+
+<p>
+Tutorial here: <a href="http://monia.wordpress.com/2006/08/31/integrating-gnome-terminal-and-screen/" class="urlextern" title="http://monia.wordpress.com/2006/08/31/integrating-gnome-terminal-and-screen/" rel="nofollow">http://monia.wordpress.com/2006/08/31/integrating-gnome-terminal-and-screen/</a>
+(Note:This link wants you to sign in to view it. Is there a copy of this page anywhere that doesn't require that?)
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="6164-6629" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="How do I have screen windows appear in my terminal as tabs?" type="submit"></div></form></div>
+<h3><a name="i_have_a_nested_screen_session_-_how_do_i_send_screen_commands_to_the_inner_screen" id="i_have_a_nested_screen_session_-_how_do_i_send_screen_commands_to_the_inner_screen">I have a nested screen session - how do I send screen commands to the inner screen?</a></h3>
+<div class="level3">
+
+<p>
+
+When your outer/local <code>screen</code> session appears to catch your escape character, you have two options to send the escape to the inner <code>screen</code> session:
+
+</p>
+<ol>
+<li class="level1"><div class="li"> (The quick-and-dirty method) When needed, tell the “outer” screen session to send a <code>C-a</code> to the inner session, with <code><a href="http://aperiodic.net/screen/commands:meta" class="wikilink1" title="commands:meta">C-a a</a></code>.  For example, if you want to send <code><a href="http://aperiodic.net/screen/commands:screen" class="wikilink1" title="commands:screen">C-a c</a></code> to the inner session, you would type <code>C-a a c</code> to the outer session.  For deeper nesting, just add more (middle) <code>a</code> keystrokes for each nested level.</div>
+</li>
+<li class="level1"><div class="li"> (The sticky method) Change the <a href="http://aperiodic.net/screen/commands:escape" class="wikilink1" title="commands:escape">escape</a> keystroke in one of the sessions, so they do not interfere.  For instance, to change the inner session's <a href="http://aperiodic.net/screen/commands:escape" class="wikilink1" title="commands:escape">escape</a> character to, say, <code>C-s</code> (instead of <code>C-a</code>), use ”<code><a href="http://aperiodic.net/screen/commands:colon" class="wikilink1" title="commands:colon">C-a a :</a> <a href="http://aperiodic.net/screen/commands:escape" class="wikilink1" title="commands:escape">escape</a> ^ss</code>”.  Thereafter, use <code>C-s</code> for the inner <code>screen</code> session, instead of <code>C-a</code>.</div>
+</li>
+</ol>
+
+</div>
+
+<h4><a name="oops_my_process_is_running_but_not_in_screen" id="oops_my_process_is_running_but_not_in_screen">Oops, my process is running but not in ''screen''</a></h4>
+<div class="level4">
+
+<p>
+
+On Linux, we've heard that <a href="https://github.com/nelhage/reptyr" class="urlextern" title="https://github.com/nelhage/reptyr" rel="nofollow">reptyr</a> will let you pull a process into <code>screen</code> (i.e. grab its controlling terminal).  <code>reptyr</code> claims to be better than <code>screenify</code>.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="lines" value="6630-" type="hidden"><input name="rev" value="1425311545" type="hidden"><input value="Edit" class="button" title="I have a nested screen session - how do I send screen commands to the inner screen?" type="submit"></div></form></div>
+    <!-- ......... wikipage stop  ......... -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+ 
+  <!--  footer -->  
+  <div class="stylefoot">
+
+        <div class="meta">
+      <div class="user">
+	          </div>
+      <div class="doc">
+		faq.txt · Last modified: 2015/03/02 15:52 by asciiphil	  </div>
+	</div>
+
+    <div class="bar" id="bar__bottom">
+       <!--  breadcrumbs and search -->
+	  		<div class="breadcrumbs">
+		  <span class="bchead">Trace:</span> <span class="bcsep">»</span> <span class="curid"><a href="#" class="breadcrumbs" title="faq">faq</a></span>		</div>
+	  	
+	  
+      <div class="bar-left" id="bar__bottomleft">
+        <form class="button btn_edit" method="post" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="edit" type="hidden"><input name="rev" value="" type="hidden"><input value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" type="submit"></div></form>        <form class="button btn_login" method="get" action="http://aperiodic.net/screen/faq"><div class="no"><input name="do" value="login" type="hidden"><input name="sectok" value="54fe54d0ebd5b2e0d87c521971b3c66c" type="hidden"><input value="Login" class="button" title="Login" type="submit"></div></form>      </div>
+      <div class="bar-right" id="bar__bottomright">
+        <a href="http://aperiodic.net/screen/faq?do=revisions" class="action revisions" accesskey="o" rel="nofollow">Old revisions | </a>         
+                        <a href="http://aperiodic.net/screen/faq?do=index" class="action index" accesskey="x" rel="nofollow">Index | </a>                <form action="http://aperiodic.net/screen/" accept-charset="utf-8" class="search" id="dw__search"><div class="no"><input name="do" value="search" type="hidden"><input id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" type="text"><input value="Search" class="button" title="Search" type="submit"><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>      </div>
+       
+      <div class="clearer"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footerinc">
+  <a href="http://aperiodic.net/screen/feed.php" title="Recent changes RSS feed"><img src="button-rss.png" alt="Recent changes RSS feed" height="15" width="80"></a>
+
+  <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="license" title="GNU General Public License (2.0 or later)"><img src="button-gpl.gif" alt="GNU General Public License" height="15" width="80"></a>
+
+  <a href="http://wiki.splitbrain.org/wiki:dokuwiki" title="Driven by DokuWiki"><img src="button-dw.png" alt="Driven by DokuWiki" height="15" width="80"></a>
+
+
+</div>
+
+<div class="no"><img src="urn:scrapbook-download-error:http://aperiodic.net/screen/lib/exe/indexer.php?id=faq&1479825668" alt="" height="1" width="1"></div>
+
+
+
+
+</body></html>

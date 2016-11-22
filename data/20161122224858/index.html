@@ -1,0 +1,3107 @@
+<!DOCTYPE html>
+<html dir="ltr" class="v2">
+<head><script src="about:blank" async=""></script><script src="about:blank" async=""></script>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="blogger" name="generator">
+<link href="favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="Core Dump - Atom" href="http://amjith.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="Core Dump - RSS" href="http://amjith.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="Core Dump - Atom" href="https://www.blogger.com/feeds/9876605/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="Core Dump - Atom" href="http://amjith.blogspot.com/feeds/9209047651312864547/comments/default">
+<!--[if IE]><script type="text/javascript" src="https://www.blogger.com/static/v1/jsbin/1290928137-ieretrofit.js"></script>
+<![endif]-->
+<link href="http://posterous.com/getfile/files.posterous.com/temp-2011-08-03/ucgsvidqdagbhdmwJJsxkwBekFpBvGyBqijpupiChuavtsftveikrmbnHrEi/python_dev.png.scaled1000.png" rel="image_src">
+<link href="https://plus.google.com/104674857866191393313" rel="publisher">
+<meta content="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html" property="og:url">
+<meta content="Scripting Tmux Layouts" property="og:title">
+<meta content="    Tmux  is an awesome replacement for Screen. I have a couple of standard terminal layouts for programming. One of them is shown below.   ..." property="og:description">
+<meta content="http://posterous.com/getfile/files.posterous.com/temp-2011-08-03/ucgsvidqdagbhdmwJJsxkwBekFpBvGyBqijpupiChuavtsftveikrmbnHrEi/python_dev.png.scaled1000.png" property="og:image">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>Scripting Tmux Layouts | Core Dump</title>
+<meta content="!" name="fragment">
+<meta content="dynamic" name="blogger-template">
+<meta content="IE=9,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
+<link type="text/css" rel="stylesheet" href="841698655-css_bundle_v2.css">
+<link type="text/css" rel="stylesheet" href="authorization.css">
+
+
+<script style="" src="about:blank" type="text/javascript"></script>
+<script src="about:blank" type="text/javascript"></script>
+<script src="about:blank" type="text/javascript"></script>
+<script src="about:blank" type="text/javascript"></script>
+<script src="about:blank" type="text/javascript"></script>
+<script src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script><style id="subscribecss" class="singleton-element">
+/* Code tidied up by ScrapBook */
+</style><style id="bloglistcss" class="singleton-element">
+/* Code tidied up by ScrapBook */
+.gadget-bloglist { padding: 12px; min-width: 240px; }
+.gadget-bloglist-item { line-height: 14px; padding: 8px; }
+.gadget-bloglist-title { font-weight: bold; height: 16px; line-height: 16px; margin: 0px 0px 2px; }
+.gadget-bloglist-title img, .gadget-bloglist-title a { vertical-align: middle; }
+.gadget-bloglist-recent { font-size: 11px; }
+.gadget-bloglist-recent-title { display: none; }
+.gadget-bloglist-show-recent-title .gadget-bloglist-recent-title { display: block; }
+.gadget-bloglist-recent-thumbnail { display: none; float: left; margin: 4px 8px 0px 0px; }
+.gadget-bloglist-recent-snippet { display: none; }
+.gadget-bloglist-recent-update { display: none; }
+.gadget-bloglist-show-recent-update .gadget-bloglist-recent-update { display: block; }
+</style><style id="labelcss" class="singleton-element">
+/* Code tidied up by ScrapBook */
+.gadget-label { padding: 12px; min-width: 320px; }
+.gadget-label-item { line-height: 14px; padding: 8px; }
+.gadget-label-count { display: none; color: rgb(102, 102, 102); font-size: 12px; }
+.gadget-label-show-freq-numbers .gadget-label-count { display: inline; }
+.gadget-label-count:before { content: " ("; }
+.gadget-label-count:after { content: ")"; }
+</style><style id="blogarchivecss" class="singleton-element">
+/* Code tidied up by ScrapBook */
+.blogarchive-tree { padding: 12px; transition: width 0.15s ease 0s, height 0.15s ease 0s; }
+.blogarchive-title { padding: 8px; vertical-align: middle; line-height: 14px; white-space: nowrap; cursor: pointer; }
+.blogarchive-title:after { content: ""; display: inline-block; border-width: 5px; border-color: transparent transparent transparent rgb(102, 102, 102); border-style: solid; width: 0px; height: 0px; position: relative; left: 4px; visibility: hidden; }
+.blogarchive-title:hover:after { border-color: transparent transparent transparent rgb(204, 204, 204); }
+.blogarchive-title:hover:after, .blogarchive-expanded > .blogarchive-title:after { visibility: visible; }
+.blogarchive-flat .blogarchive-title:after { display: none; }
+.blogarchive-dates { min-width: 128px; }
+.blogarchive-tree > .blogarchive-dates { position: relative; }
+.blogarchive-date > .blogarchive-dates { display: none; position: absolute; top: 0px; left: 90%; transition: left 0.15s ease-out 0s; }
+.blogarchive-expanded > .blogarchive-dates { display: inline-block; }
+.blogarchive-post-count { color: rgb(102, 102, 102); font-size: 12px; }
+.blogarchive-post-count:before { content: " ("; }
+.blogarchive-post-count:after { content: ")"; }
+@media only screen and (max-width: 546px) {
+  .blogarchive-tree { height: auto ! important; width: auto ! important; }
+  .blogarchive-date > .blogarchive-dates { position: static; margin-left: 12px; }
+}
+</style><style id="css">
+/* Code tidied up by ScrapBook */
+body, div, ul, ol, li, input, textarea, p, abbr { margin: 0px; outline: medium none; padding: 0px; }
+ol, ul { list-style: none outside none; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; margin: 0px; padding: 0px; }
+img { border: medium none; }
+body { background-color: rgb(238, 238, 238); background-position: left top; background-repeat: no-repeat; }
+body, input, textarea { font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; }
+a, a:focus { color: rgb(0, 158, 184); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; outline: medium none; text-decoration: none; transition: color 0.3s ease 0s; }
+a:visited { color: rgb(0, 158, 184); }
+a:hover { color: rgb(0, 158, 184); text-decoration: underline; }
+abbr.published { outline: medium none; text-decoration: none; border: medium none; }
+.title { color: rgb(51, 51, 51); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; }
+.title a { color: rgb(51, 51, 51); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; }
+.blog-admin, .item-control { display: none; }
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .blog-admin, .item-control { margin-left: 14px; }
+}
+.ribbon { color: rgb(238, 238, 238); cursor: default; display: inline-block; text-align: center; width: 35px; }
+a.ribbon { color: rgb(238, 238, 238); cursor: pointer; text-decoration: none; }
+.ribbon .ribbon-piece { background-color: rgb(102, 102, 102); box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); transition: background-color 0.5s ease-in 0s; }
+a.ribbon:hover .ribbon-piece { background-color: rgb(173, 58, 43); color: rgb(238, 238, 238); }
+.ribbon .top { border-bottom: 1px solid rgba(255, 255, 255, 0.6); border-radius: 1px 1px 0px 0px; font-size: 11px; padding: 4px 0px; position: relative; text-transform: uppercase; }
+.ribbon .bottom { font-size: 17px; padding: 5px 0px; }
+.ribbon .tail { height: 10px; overflow: hidden; position: relative; }
+.ribbon .tail .left, .ribbon .tail .right { height: 10px; position: absolute; top: -10px; width: 50px; }
+.ribbon .tail .left { left: -9px; transform: rotate(-25deg); }
+.ribbon .tail .right { right: -9px; transform: rotate(25deg); }
+.bubble { background-color: rgb(102, 102, 102); background-position: center center; border-radius: 3px 3px 3px 3px; border: 1px solid rgb(102, 102, 102); color: white; cursor: default; display: inline-block; font-size: 12px; padding: 2px 0px; position: relative; text-align: center; transition-property: background-color, border-color; transition-duration: 0.5s; transition-timing-function: ease-in; width: 26px; }
+.bubble .bubble-tail, .bubble.empty .bubble-tail:after { border-color: rgb(102, 102, 102) transparent transparent; border-style: solid; border-width: 5px; bottom: -10px; content: ""; height: 0px; left: 50%; margin-left: -5px; position: absolute; transition: border-color 0.5s ease-in 0s; width: 0px; }
+#loading { background-color: rgb(0, 0, 0); border-radius: 6px 6px 0px 0px; border-width: 1px 1px medium; border-style: solid solid none; border-color: rgb(102, 102, 102) rgb(102, 102, 102) -moz-use-text-color; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; bottom: 0px; box-shadow: 0px 0px 4px rgb(51, 51, 51); color: white; font-size: 18px; left: 50%; margin-bottom: -50px; margin-left: -60px; opacity: 0; padding: 5px 0px; position: fixed; text-align: center; transition-property: opacity, margin-bottom; transition-duration: 0.5s, 0.5s; transition-timing-function: ease, ease; transition-delay: 279ms; width: 120px; z-index: 999; }
+#loading span { background-repeat: no-repeat; background-position: right center; background-image: url("data:image/gif;base64,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"); display: inline-block; height: 30px; line-height: 30px; padding-right: 30px; }
+#loading span:after { content: "..."; }
+@media print {
+  .article { background-color: white ! important; margin: 0px ! important; }
+  .article img { border: medium none ! important; box-shadow: none ! important; }
+  .ribbon.date .ribbon-piece { display: none; }
+  .ribbon.date { display: inline-block; height: 100%; margin: 0px ! important; padding: 0px; position: static ! important; top: 0px; white-space: nowrap; width: auto; }
+  .ribbon.date:after { content: attr(title); color: rgb(51, 51, 51); font-size: 20px; }
+  .article-content a:after { content: " [" attr(href) "] "; font-size: 90%; }
+  .overview-open > *, .overview-backdrop, .overview-header, .share-controls, .adsense-aside, .adsense-aside { display: none ! important; }
+  .viewitem-open > *, .viewitem-background, .viewitem-header, .share-controls { display: none ! important; }
+  .viewitem-open > .viewitem-panel { display: block ! important; }
+  body.viewitem-open, .viewitem-panel, .viewitem-wrap, .viewitem-inner, .viewitem-content { background-color: white ! important; border: medium none ! important; box-shadow: none ! important; margin: 0px ! important; overflow: visible ! important; padding: 0px ! important; position: static ! important; }
+  .viewitem-panel .viewitem-content { position: static ! important; }
+}
+#attribution-container { padding: 8px; }
+#header-container { height: 105px; }
+#header { left: 0px; position: fixed; top: 0px; width: 100%; z-index: 1000; }
+#header .header-bar { background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.1), rgba(100, 100, 100, 0.05)); background-attachment: scroll; background-color: rgb(243, 243, 243); box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3); height: 65px; position: absolute; top: 0px; left: 0px; width: 100%; z-index: 1001; }
+#header .header-bar .title { display: block; height: 65px; line-height: 65px; margin-left: 20px; margin-right: 235px; overflow: hidden; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+#header .header-bar .title h1, #header .header-bar .title h3 { display: inline; height: 65px; text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3); white-space: nowrap; }
+#header .header-bar .title h1 { color: rgb(85, 85, 85); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 28px; }
+#header .header-bar .title h3 { color: rgb(85, 85, 85); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 20px; margin-left: 5px; }
+#header input#search { background-color: rgb(250, 250, 250); border-radius: 3px 3px 3px 3px; border: medium none; box-shadow: 1px 1px 2px rgb(187, 187, 187) inset; font-size: 15px; height: 30px; margin: 0px; padding: 0px 7px; right: 10px; text-align: left; text-transform: lowercase; top: 18px; transition: background-color 0.3s ease-in-out 0s; width: 200px; position: absolute; }
+#header input#search:focus { background-color: white; }
+#header .header-drawer { background-color: rgb(51, 51, 51); box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; height: 35px; margin-top: 31px; position: absolute; top: 34px; width: 100%; z-index: 1000; }
+#header .header-drawer.sticky { margin-top: 0px; top: 34px; transition: top 0.2s linear 0.3s; }
+#header:hover .header-drawer, #header .header-drawer.open { margin-top: 0px; top: 65px; }
+#header #views { float: left; position: relative; z-index: 999; }
+#header a.menu-item { font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; }
+#views .menu-item { text-transform: capitalize; }
+#header .indicator { border-color: rgb(255, 255, 255) transparent transparent; border-style: solid; border-width: 5px; height: 0px; margin: -1px 0px 0px; overflow: visible; padding: 0px; position: absolute; right: 0px; top: 50%; transition: all 0.3s linear 0s; transform-origin: center 2px 0px; }
+#header .tabs li { display: inline; height: 35px; line-height: 35px; margin-left: 10px; }
+#header .tabs li .menu-item { color: rgba(255, 255, 255, 0.6); transition: color 286ms ease-in 0s; }
+#header .tabs li .menu-item:hover, #header .menu li .menu-item:hover, #header .tabs li .menu-item.current { color: rgb(255, 255, 255) ! important; }
+#header .tabs .menu-heading { display: none; }
+#header .admin-controls { height: 35px; position: absolute; right: 10px; top: 0px; }
+#header .admin-controls .dashboard { background-repeat: no-repeat; background-position: center center; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAANCAYAAAB2HjRBAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAVdEVYdENyZWF0aW9uIFRpbWUAMTEvNy8xMZe/cygAAADVSURBVCiRpZG9agJBFEbPxB/E1mCTV4iFldW+hZWIRdqAr2EtIX2a9Ja24jPoE1gKWqmIyUnhqqvuqpDTzB34Dtz5BjJQG+pMbak1deeeroqaKUbqNA7P1b66vSurzUQwjaP8dCG2gW+gkPUcYHcYjrL6BnwBxRsiwCuQP0gFtXdjzTQGahX1Q/1RNw+KK/VXHQY1ApZABHzeWRngHRgBlXwIYRyvX0l2ByyADZADnuMTYApMzgoDyol5DXRCCC9AHZin5c6+KkHg1Hopvl+RJT/Ev+Q/DML6Kx8BC7sAAAAASUVORK5CYII="); display: block; height: 35px; opacity: 0.8; position: absolute; right: 0px; top: 0px; width: 18px; }
+#header .admin-controls .new-post { background-repeat: no-repeat; background-position: center center; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAVdEVYdENyZWF0aW9uIFRpbWUAMTEvNy8xMZe/cygAAADaSURBVCiRhdIxS0JRGMbx/z1a0KdwcyxttcXRLxBIEFgOfp0W5yAn56DNxUm3oiXItUmEgmwo/Dd4g+7p3HzW8/w45305sCNqW31QB2pQd4K6euc2C7WjVv8Dh+rcYl7Us0oJaAA3QDM6CsBTCjTVR/9mqXbV/RgclYA39TTvFMBxvqU4a/X8V68w9HMCfKiX0WtA3VOv8tImAheJmUGtqSO1pQ5z8K72SjZLAE6AT2ANtIAV0FevUwggU2fAAXALLIGJeh9CSP4XlSowBqbAAnjNsuyr7IaffAOehB+C7e2WDgAAAABJRU5ErkJggg=="); display: block; height: 35px; opacity: 0.8; position: absolute; right: 24px; top: 0px; width: 18px; }
+#header .admin-controls .dashboard:hover, #header .admin-controls .new-post:hover { opacity: 1; }
+body.viewitem-open { overflow: hidden; }
+body.viewitem-open #header .header-drawer { margin-top: 0px; position: fixed; top: 65px; }
+body.viewitem-open #header #views .menu-heading { color: rgba(255, 255, 255, 0.6) ! important; }
+body.viewitem-open #header #views .menu-heading .indicator { border-color: rgba(255, 255, 255, 0.6) transparent transparent ! important; }
+.viewitem-panel { bottom: 0px; border-top: 1px solid rgb(51, 51, 51); box-sizing: border-box; left: 0px; margin-top: 0px; position: fixed; right: 0px; top: 100px; transition: margin-top 1s ease-in-out 0s, bottom 1s ease-in-out 0s; z-index: 999; }
+.viewitem-panel .viewitem-wrap { background-color: white; box-sizing: border-box; height: 100%; left: 0px; margin: 0px; overflow: hidden; position: relative; z-index: 9999; }
+.viewitem-panel .viewitem-header { box-sizing: border-box; height: 50px; padding: 10px; position: absolute; top: 0px; z-index: 5; width: 100%; }
+.viewitem-panel .viewitem-inner { bottom: 0px; box-sizing: border-box; height: 100%; overflow-y: scroll; padding: 30px 0px; position: absolute; top: 0px; width: 100%; }
+.viewitem-panel .viewitem-background { background-color: rgb(238, 238, 238); background-position: left top; background-repeat: no-repeat; background-attachment: scroll; bottom: 0px; left: 0px; position: absolute; top: -100px; width: 100%; }
+.viewitem-panel .viewitem-content { background-color: white; background-clip: padding-box; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAANUlEQVQIW2NkYGBgQ8JAJsMvEGYEEjxQzA0SBYKvQPwFJCEExIJAfBcqoQyk3+OVwGkUVssBP4wMT0ZBZV0AAAAASUVORK5CYII=") 2 2 2 2 / 2px 2px 2px 2px repeat repeat; border-width: 2px; padding: 20px 70px; left: 8px; max-width: 750px; margin: 0px auto; position: relative; }
+.viewitem-panel .article { background-color: white; }
+.article { font-size: 14px; margin: 0px auto; max-width: 750px; position: relative; word-wrap: break-word; }
+.article .article-header { display: table; text-align: center; width: 100%; }
+.article .article-header .title { font-size: 20px; font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; width: 100%; display: table-cell; vertical-align: middle; text-align: center; padding-right: 40px; }
+.article .title .edit { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAA+UlEQVR42s3U2QmDQBAG4JRgKZbio4qieIAniniiYgkpwRIsISVYQkqwhMlMiHkIhITNhGRgYNeHz/1xncPhn0pV1dkwjNW2bYkNRAzCMIQ4jj+HdzBJEmiaBtq2hSzLxOFHcBgGGMcRuq4Tg5+Be9/gmQ2kxmdrnucSG9j3/TxNEy/IGvl3oKIokqZpC+sJdV1fHceBNE2vl5oDlC3LInBjAakw9tF13TPeNRljbwh8BlKZpnnGAXGkdRRFclEUd1gIpOj0cQijPa6VIAhOdV2LgXt03/cBoy8Ib57n0QvWsixz4XFG0XEuQlVVC8a23/6HX6A80DfrAlIMSJorw8fYAAAAAElFTkSuQmCC"); background-repeat: no-repeat; background-position: center center; cursor: pointer; display: inline-block; height: 21px; opacity: 0.8; position: relative; top: 3px; width: 21px; }
+.article .title .edit:hover { opacity: 1; }
+.article .article-header .date { float: left; left: 0px; margin: 0px 5px 5px 0px; position: relative; top: 5px; }
+.article .article-content { clear: both; color: rgb(51, 51, 51); line-height: 1.4; margin: 10px auto 5px; text-align: justify; }
+.article-content ul { list-style-type: disc; margin: 0.5em 0px; padding-left: 2em; }
+.article-content p { margin: 1em 0px; }
+.article .article-content a { display: inline; }
+.article .article-content img { box-sizing: border-box; display: inline-block; height: auto; margin: 10px auto; max-width: 100%; }
+.article .article-content img:not(.deferred) { padding: 8px; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAOVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///+8yHYvAAAAEnRSTlMAAgEDBAUJBwYzCw0UChARDghnBteEAAAAhElEQVR4XnWRSxJDIQgEEx1Axd/L/Q8bKCuuyOzsohHxdZLS25LSOV2ULQdflgEiIDu9KqiIFILXXpeEx2ChXwdnKNxUGxc4dZbNfXjPufkp5H0Nwtymq/dltUIweNy9qmXt08EgydDZ6+dT+9Qh9AeGenhROFI0fPjMaCHx6uIlh9/xBSJuB3l0A/6JAAAAAElFTkSuQmCC") 9 9 9 9 / 9px 9px 9px 9px; border-width: 9px; }
+.article .article-content iframe, .article .article-content embed { display: inline-block; max-width: 100%; }
+.article .article-footer { clear: both; text-align: center; }
+.article .article-footer .publish-info, .article .article-footer .geolocation-info, .article .article-footer .labels { color: rgb(128, 128, 128); font-family: 'Helvetica Neue Light',HelveticaNeue-Light,'Helvetica Neue',Helvetica,Arial,sans-serif; padding: 5px 0px; }
+.article .article-footer .publish-info .author a, .article .article-footer .publish-info .time { color: rgb(51, 51, 51); }
+.article .article-footer .label:not(:last-child):after { content: ","; }
+.article .article-footer .share-controls { display: inline-block; margin: 10px 5px; text-align: center; }
+.comments { clear: both; margin-top: 10px; }
+.comments .comments-header, .comments .comments-footer { text-align: center; }
+.comments .comments-header { margin-bottom: 10px; }
+.comments .comments-header .comments-count { top: -2px; }
+.comments .comments-header h3 { display: inline-block; padding: 5px; }
+@media only screen and (max-device-width: 1024px) {
+  .comments .comments-header h3 { color: rgb(34, 34, 34); font-family: arial,sans-serif; text-decoration: underline; }
+}
+.comments .toggle-switch:hover h3 { cursor: pointer; text-decoration: underline; }
+.blogger-comments .comments-content { background-color: whitesmoke; font-size: 13px; margin-bottom: 16px; border-radius: 10px 10px 10px 10px; transition: all 0.5s ease-in 0s; }
+@media only screen and (max-device-width: 1024px) {
+  .blogger-comments .comments-content { background-color: rgb(241, 241, 241); border: 1px solid rgb(187, 187, 187); border-radius: 0px 0px 0px 0px; }
+}
+.blogger-comments .comments-content .comment-actions { color: rgb(153, 153, 153); }
+.comments .comment .comment-actions a { padding-top: 5px; padding-right: 5px; }
+.comments .comment .comment-actions a:hover { text-decoration: underline; }
+.blogger-comments .comments-content .comment-thread { list-style-type: none; padding: 0px; text-align: left; }
+.blogger-comments .comments-content .comment-thread { margin: 8px; }
+.blogger-comments .comments-content .comment-thread:empty { display: none; }
+.blogger-comments .comments-content .comment-replies { background-color: rgb(235, 235, 235); margin-top: 1em; margin-left: 36px; border-radius: 10px 10px 10px 10px; }
+.blogger-comments .comments-content .comment { border-bottom: 1px solid rgb(227, 227, 227); margin-bottom: 16px; padding-bottom: 8px; }
+.blogger-comments .comments-content .comment:first-child { padding-top: 16px; }
+.blogger-comments .comments-content .comment:last-child { border-bottom: 0px none; padding-bottom: 0px; }
+.blogger-comments .comments-content .user { font-style: normal; font-weight: bold; }
+.blogger-comments .comments-content .datetime { margin-left: 6px; }
+.blogger-comments .comments-content .comment-header, .blogger-comments .comments-content .comment-content { margin: 0px 0px 8px; }
+.blogger-comments .comments-content .comment-content { text-align: justify; }
+.blogger-comments .comments-replybox { border: medium none; height: 250px; width: 100%; }
+.blogger-comments .comment-replybox-single { margin-top: 5px; margin-left: 48px; }
+.blogger-comments .comment-replybox-thread { margin-top: 5px; }
+.blogger-comments .comments-content .user, .blogger-comments .comments-content .user a { color: rgb(51, 51, 51); }
+.blogger-comments .comments-content .loadmore a { background: none repeat scroll 0% 0% rgb(250, 250, 250); border-top: 1px solid rgb(227, 227, 227); display: block; padding: 10px 16px; text-align: center; }
+.blogger-comments .continue { cursor: pointer; }
+.blogger-comments .continue a { color: rgb(136, 136, 136); display: block; padding: 0.5em; background: none repeat scroll 0% 0% white; border: 1px solid rgb(204, 204, 204); box-shadow: 1px 1px 3px rgb(136, 136, 136) inset; }
+.blogger-comments .comments-content .loadmore:hover a { background: none repeat scroll 0% 0% rgb(241, 241, 241); border-top: 1px solid rgb(255, 255, 255); }
+.blogger-comments .comments-content .loadmore { cursor: pointer; max-height: 3em; }
+.blogger-comments .comments-content .loadmore.loaded { max-height: 0px; opacity: 0; overflow: hidden; transition: all 0.5s ease-in 0s; }
+@media only screen and (max-device-width: 1024px) {
+  .blogger-comments .comments-content .loadmore a, .blogger-comments .comments-content .loadmore:focus a { background: none repeat scroll 0% 0% transparent; border-top: 1px solid rgb(204, 204, 204); }
+}
+.blogger-comments .avatar-image-container { float: left; width: 36px; max-height: 36px; overflow: hidden; }
+.blogger-comments .avatar-image-container img { width: 36px; }
+.blogger-comments .comment-block { margin-left: 48px; position: relative; }
+@media screen and (max-device-width: 480px) {
+  .blogger-comments .comments-content .comment-replies { margin-left: 0px; }
+}
+.share-controls { overflow: hidden; text-align: center; white-space: nowrap; }
+.share-controls span, .share-controls iframe { height: 20px ! important; }
+.share-controls .share-plusone, .share-controls .share-twitter, .share-controls .share-facebook { background-repeat: no-repeat ! important; background-position: left center ! important; display: inline-block; margin: 0px; }
+.share-controls .share-plusone { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAACrElEQVRIS8WW30tTYRjH37+roLyovKgor7xY0AySfoHSXRhSiRWUXYSEpAXRRSqsbSxlbI2xsaFt/aJEwTnn3Pm5n25uczi2b+d5ZQdP7JCVrYsP4zzPed7Pc973Pe8ZA8Ci0ahV44MGOgS5rORmkUhkeHl5GcViEfV6vSOQi5zkZouLi3KlUsHOzg6q1WpHIBc5yc0WFhZ4kAKdhJzkZuFwGOVy+b9AbhYKhVBKK5Cnn0MYv4e1/jNY7T2qsz7Qi8LKd2xvbx865GbBYBAx6ynkw++xu7uLZrMJ+ekdLleejaLRaPBuS6XSb5McGeDjmOXJzQKBABLaU9K6bG1tcWqlIuKXT/PizMewHj8oeTGFzbEhfRbN7iM38/v92LhpQaFQ0KGkMvFgbxZsrwy5dqxdPW+4phmNXzmH2MUTfAyzOnIzn8+HmKULOa3rfD6vo05P8uK0640h3o74tR7DtTT1GJVCjsdpDLM6cjOv18tvEmdfIpfL6UgTD7HW142SlDLE9xOznjRsWLqmOK0v/bYaMKsnN/N4PHvFluMQ7a+hajtefDeDeP9ZVFe+8k6z2WxbWu8ziVpnyf58qwGzenIzt9uNWmIV6tQjJO/eQOxCl1Z0BOWlT3wvZDKZXxLX9oBZnMYyqyM3m5+f50/Jj8hCnhfwoqUvSKfTB4Je03bxVgNmdeRmc3NzUBSFo6oqkrf6eFHsUjeEoFfP/Ql02FBzZnlyM5fLhZT7LTamxrAxPoLU6CDWr/fszYTlGM/JsvxPIDdzOp1IPrmNoiTwbmu1GurVinYO3NebEL59hiRJhw65mcPhEOj7TB2JosihJN/Rs5O8ic2ZF3rusEgkEiA3s9vtQ3QiUUAQBANFVeYNKNoy/Jz7G8hFTnIz+ltks9mGNWQNdAhyDZP7B9FT1Mw7jWv8AAAAAElFTkSuQmCC") ! important; height: 20px; min-width: 90px; transition: min-width 0.3s ease 0s; }
+.share-controls .share-plusone.defer { min-width: 34px; }
+.share-controls .share-plusone.delay { min-width: 90px; }
+.share-controls .share-twitter { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAAUCAYAAAAp46XeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFSklEQVRYCd1Ye0yTVxT/9UFbCm15qKU8JhQQURFQfMBUog6VxMSJJo5tZsvcPzPGZJkxzmzLEmOWbZIlji1LZtxkbPMRzHyyKI4hWubkvWEtIC8RmEApKrUP2u6e28JaqMuMcYmc5Pb7zrn3PH73nHO/r5/A5XKhqt3oajNaMFVIGyZDZlyYQKBrG3TJpFKkRwZNFWyo6xmBxWqFkDI2lYBRhggP4RJOmXT5ASImmcXu9DP17Is4uMeBUXLdgC7jMDYsnA3tNOXjqP7vazk4u9Pl4/jkdT1yUhKgkAX4yPMOXYC+bwhJIRK8tjwN3nqkc7yyzmc9MevSEvD6qsWT5E8qaO4bRqBEiJgwxSNN8Z5zOJ3wHjcHHiBjXxF2H7sEXUs3n/v8ajNa7TKIFWEwDIxg99EyH515MZFYlpKItFgNatvuIE49jfMLtDN91nn7eZL7D4+W4svSqkfaJsR+D5S9uYsQGhGNMy0D2Pb9r3jv53qc67oPoSwYwiAlhMEh+KWlB0NmK9oHzXzn4mco8PbaxXhrjTtLr6xI43xtWycKzur4GrPNgY0fF6Gpq5/zV27cwo5Dp/l98eVGrN/3NZ8/VWOA1eGupurmbrz82Q987tOfKri8/M9b0N/uQ1mDHlsPHkePaYTbmPjDwZEh72G2O/DF5qUI08RAHKrGuc4H6LMI2FYIIRAFQEQAA4Px/P5i1Le2j+sOW0dxz+Y+nB5abSBeqVDgxJUavubiH624eacfP15t4PxRXRMkIgEITOH5CryzcRV2rs3EniNnoTN04dbd+9haeAy56bPw0db1KK014OCZy0iKjkCEMhBadTjeWJGOELlsPIYxHATUb+ZoYqZCgsWxaoiU4TxjBIwTAQyQInS6GkuTtRhm2fg3ot4dNttQ39GLi3UGZCTE8B03M/C/GTqQt2QOvi27hqykWKjkgVApg5Aep0GJrgEndbWIn65kpR7F+zsnNR7H2MaEK+QIVamgjZiBlWmJEIn8w+BSh4P1HBvdgw/4le6lYjEOrIxDUricZ2wcAOtPovx5kTj86krkZ6WM65Ce1cEy7CHiiVbPT8SZ32/gUmMLDr65gcsKTlVCzLK2KEnL+ebuPhRX1PBBQeekJ2HUMYqBEQu+Ka/m8hGbC/nZGdyf0xMHlTr5mTjIqM+jQMXSu4sdItroUMxRa9AwaMXdId93TpfDjsCHJuSnzgcZnkhOx2TZpoxkbD98GrOjpvNNeyE1GSVVDdiUmcqDWjY3AeV1TXh/yxqEyqU4WdmARfHRiFIEoaiiHttWL8VCbQTKGpshE0u5SyGroM5+I0xmCy/LiXEQzzNnZb1LQ86O1v2bstFpdODdC0040WLEkGeHaLHLbkWi3IVDL6bzIMf0vK+0QSq5BKpgBbdJc0vmaLmMSpD4LZlzyRzo0CF+R24mZrE+ytpTiOSdBfiOleRD1rsp8VHYm5eNzQeKELf9E+wqOs/1SOel5QtQ3Xobqz/4Cr0m87gvmqNBJCiuvuPKilWyI1UIkdBdRnKpBHr2OCjrMKHZkzmlVIzlEVKsm6WBeZStYyXzKIoLD0bPsAXW0X/WqIMksLkE/ISlkg+RCmGysjL2rNEo5XAymzb7KEJYT7WbWMUwnjIpE4tgZH0bqZKN26UYFZ66+8syOR5dxz03uCXPhUyKUxQghJS1j3ezEijHU35VI7/+fNDGUwL+K13rMvn2nLciOXA/wdzZ9J57mvf+gJG/xwE2Fh9PrOfRNCabMlf+Z9XMTjhNkO975LOMsHfEDrlIBMHYZwZ9S9uzjMcn9uRELf/M8DdRh83rstvalwAAAABJRU5ErkJggg==") ! important; height: 20px; width: 110px; transition: width 0.3s ease 0s; }
+.share-controls .share-twitter.defer { width: 57px; }
+.share-controls .share-twitter.delay { width: 110px; }
+.share-controls .share-facebook { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAUCAYAAAAk/dWZAAAACXBIWXMAAAsTAAALEwEAmpwYAAADQElEQVRIDd1XXUhTYRh+tjPb5mwNpzV0aSiWZESihMQI7M6bEn8ujKKCQMIuDKurpMQLQxQWNEUIIoT0wkIrC4MMNCOiZUWU1tD5/5fzd87jNtf3HV2d6c5+jKD1wtn3/n/Pe973nJ1P5HK5YB6ZdVnmWThXXQgVYsQiRCql2BOrEon6h2dcizYHolUySBhxqNQAh3MVU7PLiJBLIKYdCLUC6J2mN5zipvjFdIRCqQP8UaG4Ofx8JZ+/XPkM3wd+8FWCfFJ8FKquZgna/7ZB8CEItAAKMBhfj4Kcc2h/+gmjrIc2aEGwCF+ZMlLj8Op+IXdR3iuxwyguqkejyROhtacTJ4o6MUeD2Fncav2ISafXDAErJQF78hyrrmRhdHIB30wTmJkWHjkbibE7PBEq4g6i8pITCpqPYaCBjJd5a+yWOkG3ogVcu/0CvYNLQe3MWvpQ83gAnv2hKZbwUN+A4oY+OIjETvWhrKSedK0ep/TvMO1jl6CK2KmOwNmcNC6dSr2d46kuGHIs2mA20R65iYGcsaO95gHuDcWjtCABEligv9EFWXYWWgy5yJn/ivLnE+6ATWtQ45QQF4nzeelckkP7doFePf1TmJxe3JRYULFhRzmsaKxtwvuh3aitPgI1CXSMD+M1WTVGI/S9DMwEf//YcqApBf04w5vuQehO1nEP9IfeCVwsa/YdwFkZPz4SyLZJgWULTON2xGjC4KTzREinS8Fh0miHLhkydfSa0stvUOPkJd6nSk6sC4tWOFg7rEssrGTlBp4XZSPDk12YjVKdE9XlTegYX4VUq0Um8TGaV5CYrEVKcgyiFMJQNzSXl52wqftjPRU8aUf4tl/27i8jPMtvlhbRdrcVbW6Vai/unCMC74VEfWysGOkF2ShZaSaFPIGy4jgulGbgZnkXcl92cdGazEzU5WndmTxWn0V4ePIE+uXrl6RaVBhOe3VrqV5XEx+9IX9dCMPRM/nkWheVSbhuSCQdJN1jwqCQbqET9FPiUYcRsaoojMyu/Re4+Y36Y2kHvIL9c6UYinDyvPgh0dvPY66EGKUft3/X3Dc6DzE9XNBv81AkipviF9PTET1chFoh7kMRxS/6H46nPwG0xCqstPx1sgAAAABJRU5ErkJggg==") ! important; height: 20px; width: 90px; transition: width 0.3s ease 0s; }
+.share-controls .share-facebook.defer { width: 51px; }
+.share-controls .share-facebook.delay { width: 90px; }
+#gadget-dock { background-color: rgb(51, 51, 51); width: 50px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); border-radius: 2px 0px 0px 2px; transition: right 0.15s ease-in-out 0s; position: fixed; right: -40px; top: 124px; z-index: 3000; }
+#gadget-dock:hover, #gadget-dock.gadget-notifying, #gadget-dock.gadget-opening { right: 0px; }
+#gadget-dock:after { content: ""; display: block; width: 90px; height: 110%; position: absolute; top: -5%; left: -40px; z-index: -100; }
+.gadget-item { position: relative; z-index: 1; }
+.gadget-item:empty { display: none; }
+.gadget-menu { cursor: pointer; background-color: rgb(51, 51, 51); border-top: 1px solid rgb(88, 88, 88); text-align: center; z-index: 0; }
+.gadget-icons { width: 50px; height: 50px; line-height: 50px; }
+.gadget-menu .gadget-title { display: none; }
+.gadget-item:first-child .gadget-menu { border-top: 1px solid transparent; border-radius: 2px 0px 0px 0px; }
+.gadget-item:last-child .gadget-menu { border-radius: 0px 0px 0px 2px; }
+.gadget-icon, .gadget-icon-selected { display: inline-block; max-width: 30px; max-height: 30px; vertical-align: middle; }
+.gadget-icon-selected { display: none; }
+.gadget-container { background-color: white; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); line-height: 1.4em; text-align: left; visibility: hidden; z-index: -1; margin-left: 100%; word-wrap: break-word; max-width: 700px; }
+.gadget-container { transition: right 0.15s ease-in-out 0s, opacity 0.15s ease-in-out 0s; opacity: 0; position: absolute; top: 0px; right: -100px; }
+.gadget-container:hover, .gadget-item:hover .gadget-container, .gadget-selected .gadget-container { visibility: visible; right: 49px; opacity: 1; }
+.gadget { margin: 0px; padding: 0px; width: 100%; height: 100%; }
+.gadget-content { display: none; overflow: hidden; position: relative; }
+.gadget-container .gadget-title { background-color: rgb(51, 51, 51); color: white; display: block; font-size: 14px; padding: 1px 16px 0px; height: 50px; line-height: 50px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; position: relative; }
+.gadget-container .gadget-title:hover { text-decoration: underline; }
+.gadget-content { background-color: white; }
+ol.items { text-align: center; padding: 18px 10px 20px; }
+li.item { background-color: white; background-clip: padding-box; border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAANUlEQVQIW2NkYGBgQ8JAJsMvEGYEEjxQzA0SBYKvQPwFJCEExIJAfBcqoQyk3+OVwGkUVssBP4wMT0ZBZV0AAAAASUVORK5CYII=") 2 2 2 2 / 2px 2px 2px 2px repeat repeat; border-width: 2px; padding: 20px 70px; max-width: 826px; margin: 0px auto; position: relative; }
+li.item + li.item { margin-top: 30px; }
+.article { position: static; }
+.article .article-header .date.ribbon { position: absolute; left: 20px; top: 20px; }
+img.deferred { background-repeat: no-repeat; background-position: center center; background-image: url("data:image/gif;base64,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"); border: 1px solid rgb(204, 204, 204); }
+@media only screen and (max-width: 600px) {
+  #header-container { height: 81px; }
+  #header .header-bar, #header .header-bar .title h1, #header .header-bar .title h3 { height: 48px; }
+  #header .header-bar .title { height: 48px; line-height: 48px; margin-right: 50px; }
+  #header .header-bar .title h1 { font-size: 20px; }
+  #header .header-bar .title h3 { font-size: 16px; }
+  #header input#search { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAuElEQVQ4y72UQQ2GMAyFJwEJk1AJSEBCJUwCTiaB086/BCQgAQlQki55aSD/mhEO77Dt7UvXtQ2llPCWwlewKBpF1AO7Lv9EB2gXsRdGevECbKJFtAI0eWA1omz2GYCxBRYhojtz/hcdLkY1Lw/mSc/nFhipeX0wJw8sQPLtzw1wRq0wTHTWpyXzw646S6bGDgDVNLCnA6JCZ1V9GtYc9/Ymm2i5t9EtkHqnBkP+hjdGECHo03nm1gl0/D1dbs3/WAAAAABJRU5ErkJggg=="); background-repeat: no-repeat; background-position: center center; color: transparent; top: 9px; transition: width 0.17s ease-in-out 0s; width: 22px; }
+  #header input#search:focus { background-image: none; color: black; width: 200px; }
+  #header .header-drawer, #header .menu .menu-heading, #header .tabs li, #header .admin-controls, #header .admin-controls .dashboard, #header .admin-controls .new-post { height: 28px; line-height: 28px; }
+  #header .header-drawer, #header .header-drawer.sticky { top: 17px; }
+  #header:hover .header-drawer, #header .header-drawer.open { top: 48px; }
+}
+@media only screen and (max-width: 600px) {
+  #gadget-dock { width: 40px; right: 0px; top: 100px; }
+  #gadget-dock:after { display: none; }
+  .gadget-icons { width: 40px; height: 40px; line-height: 40px; }
+  .gadget-container { max-width: 280px; }
+  .gadget-container:hover, .gadget-item:hover .gadget-container, .gadget-selected .gadget-container { right: 39px; }
+  .gadget-title { height: 40px; line-height: 40px; }
+}
+@media only screen and (max-width: 600px) {
+  li.item { padding: 20px 10px; }
+  .article .article-header { height: 64px; }
+  .article .article-header .title { padding-right: 0px; padding-left: 50px; }
+}
+.article-content iframe { max-width: 100%; }
+</style><!-- Yo Dawg... --><meta name="meta" content="meta"></head>
+<body class="variant-classic classic notouch viewitem-open"><div class="viewitem-panel">
+  <div class="viewitem-wrap">
+    <div class="viewitem-background"></div>
+    <div class="viewitem-header"></div>
+    <div class="viewitem-inner">
+      
+      
+      <div class="viewitem-content" tabindex="0">
+      
+  
+<div class="article hentry linux programming python tmux " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="9209047651312864547">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="4th August 2011" href="#" itemprop="url">
+
+
+  <div class="top ribbon-piece">Aug</div>
+  <div class="bottom ribbon-piece">4</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="#" rel="bookmark" itemprop="url" data-item-type="post" data-id="9209047651312864547">
+
+
+
+Scripting Tmux Layouts</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=9209047651312864547&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+<span class="Apple-style-span" style="font-family: Georgia,'Times New Roman',Times,serif; font-size: 14px; line-height: 21px;"></span><br>
+<div style="margin: 0px; padding: 0px;">
+<a href="http://tmux.sourceforge.net/" style="color: rgb(197, 88, 0); margin: 0px; padding: 0px; text-decoration: underline;">Tmux</a> is an awesome replacement for Screen. I have a couple of standard terminal layouts for programming. One of them is shown below.</div>
+<div style="margin: 15px 0px 18px; padding: 0px;">
+</div>
+<ul>
+<li><a href="http://vim.org/" style="color: rgb(197, 88, 0); margin: 0px; padding: 0px; text-decoration: underline;">Vim</a> editor on the left.</li>
+<li>Top right pane has the <a href="http://bpython-interpreter.org/" style="color: rgb(197, 88, 0); margin: 0px; padding: 0px; text-decoration: underline;">bpython</a> interpreter.</li>
+<li>Bottom right pane has the bash prompt.</li>
+</ul>
+<div class="p_embed p_image_embed">
+<a href="http://posterous.com/getfile/files.posterous.com/temp-2011-08-03/ucgsvidqdagbhdmwJJsxkwBekFpBvGyBqijpupiChuavtsftveikrmbnHrEi/python_dev.png.scaled1000.png"><img alt="Python_dev" src="python_dev.png.scaled1000.png" height="516" width="1000"></a> </div>
+<div class="CodeRay">
+I have a small tmux script in my ~/.tmux/pdev file that has the following lines </div>
+
+<br>
+<pre class="prettyprint">selectp -t 0              # Select pane 0
+splitw -h -p 50 'bpython' # Split pane 0 vertically by 50%
+selectp -t 1              # Select pane 1
+splitw -v -p 25           # Split pane 1 horizontally by 25%
+selectp -t 0              # Select pane 0</pre>
+
+In my <a href="https://github.com/amjith/_dotties/blob/master/tmux.conf">tmux.conf</a> file I have bound &lt;prefix&gt;+P to sourcing this file. So now anytime I want to launch my python dev layout, I hit &lt;prefix&gt;+&lt;shift&gt;+p. <br>
+
+<pre class="prettyprint">bind P source-file ~/.tmux/pdev</pre>
+
+</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2011-08-04T05:20:00.005Z" itemprop="datePublished">4th August 2011</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/linux" target="_self">linux</a> <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> <a class="label" href="http://amjith.blogspot.com/search/label/python" target="_self">python</a> <a class="label" href="http://amjith.blogspot.com/search/label/tmux" target="_self">tmux</a> 
+    </div>
+    
+    
+    
+<div class="share-controls  delay" data-defer="" data-delay="1000">
+<span class="share-plusone g-plusone  delay" data-href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html" data-hl="en" data-size="medium" data-source="blogger:blog:plusone" data-annotation="bubble" data-width="90" data-text="Scripting Tmux Layouts"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button  delay" data-url="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html" data-count="" data-size="" data-text="Scripting Tmux Layouts"><iframe src="index_16.html" scrolling="no" allowtransparency="true" frameborder="0"></iframe></span>
+
+
+<span class="share-facebook  delay" data-url="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html" data-count="" data-layout="" data-text="Scripting Tmux Layouts"><iframe src="index_17.html" scrolling="no" allowtransparency="true" frameborder="0"></iframe></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="5 comments">
+  <span class="bubble-content">5</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: block;" class="comments-wrapper blogger-comments toggle-container" data-itemid="9209047651312864547">
+  <div class="comments-content"><div id="bc_1_1C" kind="c"><div id="bc_1_1CT"><div id="bc_1_0T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_1_0TB"><li id="bc_1_2B" class="comment" kind="b"><div class="avatar-image-container"><img src="openid36-rounded.png"></div><div id="c313606523377543251" class="comment-block"><div id="bc_1_2M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://ormaaj.myopenid.com/">Ormaaj</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?showComment=1313328208385#c313606523377543251">7:23 AM</a></span></div><p id="bc_1_2MC" class="comment-content">For a second there I thought that was my screenshot. Yep if you glance at my screen at any given moment there's a very high chance of seeing the good old tmux/vim/bpython/bash combo.</p><span id="bc_1_2MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-1287457097"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=9876605&amp;postID=313606523377543251">Delete</a></span></span></div><div id="bc_1_2BR" class="comment-replies"></div><div id="bc_1_2B_box" class="comment-replybox-single"></div></li><li id="bc_1_3B" class="comment" kind="b"><div class="avatar-image-container"><img src="anon36.png"></div><div id="c5421968898826999432" class="comment-block"><div id="bc_1_3M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.learnsexualhealth.com/">Buy cialis</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?showComment=1323808706324#c5421968898826999432">1:38 PM</a></span></div><p id="bc_1_3MC" class="comment-content">hey I didn't get this part, could you explain it to me again please?<br>electp -t 0              # Select pane 0<br>splitw -h -p 50 'bpython' # Split pane 0 vertically by 50%<br>selectp -t 1              # Select pane 1<br>splitw -v -p 25           # Split pane 1 horizontally by 25</p><span id="bc_1_3MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-1641344726"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=9876605&amp;postID=5421968898826999432">Delete</a></span></span></div><div id="bc_1_3BR" class="comment-replies"></div><div id="bc_1_3B_box" class="comment-replybox-single"></div></li><li id="bc_1_4B" class="comment" kind="b"><div class="avatar-image-container"><img src="anon36.png"></div><div id="c6424228551084374535" class="comment-block"><div id="bc_1_4M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.learnsexualhealth.com/">Buy cialis</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?showComment=1323808745550#c6424228551084374535">1:39 PM</a></span></div><p id="bc_1_4MC" class="comment-content">I wonder if you have more codes for layouts! please help us!</p><span id="bc_1_4MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-438270680"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=9876605&amp;postID=6424228551084374535">Delete</a></span></span></div><div id="bc_1_4BR" class="comment-replies"></div><div id="bc_1_4B_box" class="comment-replybox-single"></div></li><li id="bc_1_5B" class="comment" kind="b"><div class="avatar-image-container"><img src="miileo.jpg"></div><div id="c4648984660955775090" class="comment-block"><div id="bc_1_5M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/13239336516762595640">LEOPiC</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?showComment=1346279566389#c4648984660955775090">4:32 PM</a></span></div><p id="bc_1_5MC" class="comment-content">Is there a way to execute a command on the pane 0 after you've switched back to it (last step)? I want to run ssh-add but when I try "selectp -t 0 'ssh-add'" I get an error.</p><span id="bc_1_5MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-1793283046"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=9876605&amp;postID=4648984660955775090">Delete</a></span></span></div><div id="bc_1_5BR" class="comment-replies"></div><div id="bc_1_5B_box" class="comment-replybox-single"></div></li><li id="bc_1_6B" class="comment" kind="b"><div class="avatar-image-container"><img src="photo.jpg"></div><div id="c4795096603500000199" class="comment-block"><div id="bc_1_6M" class="comment-header" kind="m"><cite class="user"><a rel="nofollow" href="http://www.blogger.com/profile/13911488484460405651">Minh Nam Ngo</a></cite><span class="icon user"></span><span class="datetime secondary-text"><a rel="nofollow" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?showComment=1357352241787#c4795096603500000199">7:17 PM</a></span></div><p id="bc_1_6MC" class="comment-content">Try teamocil, layouts are defined with .yml files</p><span id="bc_1_6MN" class="comment-actions secondary-text" kind="m"><a kind="i" target="_self" o="r">Reply</a><span class="item-control blog-admin pid-585681311"><a o="d" target="_self" href="https://www.blogger.com/delete-comment.g?blogID=9876605&amp;postID=4795096603500000199">Delete</a></span></span></div><div id="bc_1_6BR" class="comment-replies"></div><div id="bc_1_6B_box" class="comment-replybox-single"></div></li></ol><div style="display: none;" id="bc_1_0I" class="continue" kind="ci"><a target="_self">Add comment</a></div><div id="bc_1_0T_box" class="comment-replybox-thread"><iframe src="index_18.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=9209047651312864547" frameborder="0"></iframe></div><div style="display: none;" id="bc_1_0L" class="loadmore" kind="rb"><a target="_self">Load more</a></div></div></div></div></div>
+  <div class="comments-footer">
+    
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+
+      
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="header-container">
+  <div id="header" class="header">
+    <div class="header-bar">
+      
+<span class="title">
+  <a href="http://amjith.blogspot.com/" target="_self"><h1 title="Core Dump">Core Dump</h1></a>
+  <h3 title="Segfaults in my brain.">Segfaults in my brain.</h3>
+</span>
+<input id="search" autocomplete="off" placeholder="Search" type="text">
+
+      
+    </div>
+    <div class="header-drawer sticky open">
+      
+      <div id="views" class="tabs">
+        <span class="menu-heading">Classic<span class="indicator"></span></span>
+        <ul>
+          
+          <li class="Classic"><span class="menu-background"></span><a class="menu-item current" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=classic" target="_self" data-view-name="classic">Classic</a></li>
+          
+          <li class="Flipcard"><span class="menu-background"></span><a class="menu-item" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=flipcard" target="_self" data-view-name="flipcard">Flipcard</a></li>
+          
+          <li class="Magazine"><span class="menu-background"></span><a class="menu-item" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=magazine" target="_self" data-view-name="magazine">Magazine</a></li>
+          
+          <li class="Mosaic"><span class="menu-background"></span><a class="menu-item" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=mosaic" target="_self" data-view-name="mosaic">Mosaic</a></li>
+          
+          <li class="Sidebar"><span class="menu-background"></span><a class="menu-item" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=sidebar" target="_self" data-view-name="sidebar">Sidebar</a></li>
+          
+          <li class="Snapshot"><span class="menu-background"></span><a class="menu-item" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=snapshot" target="_self" data-view-name="snapshot">Snapshot</a></li>
+          
+          <li class="Timeslide"><span class="menu-background"></span><a class="menu-item" href="http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html?view=timeslide" target="_self" data-view-name="timeslide">Timeslide</a></li>
+          
+        </ul>
+      </div>
+      
+      
+      <div style="" class="blog-admin admin-controls">
+        <a class="new-post" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;from=pencil" target="_self" title="New post"></a>
+        <a class="dashboard" href="https://www.blogger.com/home" target="_self" title="Dashboard"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>/* Code removed by ScrapBook */</script>
+
+
+
+
+<div id="main" class="hfeed " tabindex="0">
+  <ol id="items" class="items"><li class="item" data-id="306850472253120611">
+  
+<div class="article hentry  " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="306850472253120611">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="24th May 2012" href="http://amjith.blogspot.com/2012/05/goodbye-utah_24.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">May</div>
+  <div class="bottom ribbon-piece">24</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2012/05/goodbye-utah_24.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="306850472253120611">
+
+
+
+Goodbye Utah</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=306850472253120611&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+The time has come to part ways. I'm leaving Utah to move to Portland on May 25th 2012. This July would have marked the 10 year anniversary of living in Utah. I can't believe I spent one third of my life so far in Utah. Some of the best memories in my life were formed here.<br>
+<strong>True Love:&nbsp;</strong><br>
+I met my beautiful wife here in Utah. She kicked my ass in TaeKwonDo, I asked her out, and the rest is history. Happily married for &nbsp;four years with a baby on the way.<br>
+<div class="p_embed p_image_embed">
+<img src="232323232-fp33-nu3282-384-873-WSNRCG323372-389847nu0mrj.jpeg.scaled600.jpg" alt="232323232-fp33-nu3282-384-873-wsnrcg323372-389847nu0mrj" height="480" width="360"> </div>
+<div class="p_embed p_image_embed">
+<a href="http://getfile4.posterous.com/getfile/files.posterous.com/temp-2012-05-23/fFtuwDHeHDwCIehzcluqsilDyoIywAqwmFIHxdABwjyfroyraFpCclDkkEnE/hisa_520.jpg.scaled1000.jpg"><img src="hisa_520.jpg.scaled1000.jpg" alt="Hisa_520" height="669" width="1000"></a> <a href="http://getfile4.posterous.com/getfile/files.posterous.com/temp-2012-05-23/qoHalBmxxhHbpDiDedbyhagHAxcADnJmahokehpjEhCvBCllGAlflsJJcCws/hisa_459.jpg.scaled1000.jpg"><img src="hisa_459.jpg.scaled1000.jpg" alt="Hisa_459" height="1000" width="667"></a> <br>
+<div class="p_see_full_gallery">
+<a href="http://amjith.posterous.com/goodbye-utah">See the full gallery on Posterous</a></div>
+</div>
+<strong>First Job:</strong><br>
+My first real programming job was with <a href="http://featurecam.com/">Delcam</a> USA. I still have my first paystub from Delcam. Tom my boss at Delcam is still the best boss I've had so far.<br>
+<div class="p_embed p_image_embed">
+<a href="http://getfile3.posterous.com/getfile/files.posterous.com/temp-2012-05-23/nkhIveuoJyttuoIrxsqdCmvExaphaDadswebBiHDdwwCswaFkivqAtaHhDiv/IMG_4637.JPG.scaled1000.jpg"><img src="IMG_4637.JPG.scaled1000.jpg" alt="Img_4637" height="750" width="1000"></a> </div>
+<strong>Higher Education:</strong><br>
+University of Utah. So many memories, so many sleepless nights at the computer lab. I still get a nostalgia when I walk through the campus.<br>
+<div>
+<strong>Parksvan:</strong></div>
+<div>
+Eight clueless kids from India got together to share accomodation while going to school and ended up sharing the best parts of our life. Although we have all parted ways since our college days, I can't help but feel they are part of my family.</div>
+<div>
+<div class="p_embed p_image_embed">
+<a href="http://getfile5.posterous.com/getfile/files.posterous.com/temp-2012-05-23/iClArlbcscjBnqCjyctGtmGxogqwCGEanvdArxBmaCDJrAeArdczjaraFAat/100_1141.JPG.scaled1000.jpg"><img src="100_1141.JPG.scaled600.jpg" alt="100_1141" height="450" width="600"></a> <a href="http://getfile7.posterous.com/getfile/files.posterous.com/temp-2012-05-23/syeJrhwlrftBkHjIapIasIJfJaijBAhnqkvryGkuhCvxrccltjIykzJvwsFG/100_1167.JPG.scaled1000.jpg"><img src="100_1167.JPG.scaled600.jpg" alt="100_1167" height="450" width="600"></a> <br>
+<div class="p_see_full_gallery">
+<a href="http://amjith.posterous.com/goodbye-utah">See the full gallery on Posterous</a></div>
+</div>
+</div>
+<div>
+<strong>Aikido:</strong></div>
+<div>
+When I went to my first class, I thought I was going there to give my wife some company. Four years and 6 belts later, it has become a dominating force in my life. I never knew getting thrown around was the way to make new friends. :)</div>
+<div>
+<div class="p_embed p_image_embed">
+<a href="http://getfile9.posterous.com/getfile/files.posterous.com/temp-2012-05-24/rEzruGkigvHgrfctEEGrslpwFzbsvpvBrcbtnBcJkDtchiBzFqGiisHkaJAo/IMG_8809.JPG.scaled1000.jpg"><img src="IMG_8809.JPG.scaled1000.jpg" alt="Img_8809" height="561" width="1000"></a> <a href="http://getfile7.posterous.com/getfile/files.posterous.com/temp-2012-05-24/AkwJHhcioDaJsDAbAhtpJFGicsIwxBzxlnFewfHymviACJCCdAwuEuIEGhCm/IMG_8848.JPG.scaled1000.jpg"><img src="IMG_8848.JPG.scaled600.jpg" alt="Img_8848" height="337" width="600"></a> <br>
+<div class="p_see_full_gallery">
+<a href="http://amjith.posterous.com/goodbye-utah">See the full gallery on Posterous</a></div>
+</div>
+</div>
+<div>
+Along the way I discovered the wonderful art of Iaido. I call it the art of playing with Japanese swords.<br>
+<div class="p_embed p_image_embed">
+<a href="http://getfile0.posterous.com/getfile/files.posterous.com/temp-2012-05-24/wDvHgJgvcdfItuFmjifpiemkABrjikjdrHpomIbGeIupgmeyyfGmBmspkIDI/DSC_4667.jpg.scaled1000.jpg"><img src="DSC_4667.jpg.scaled600.jpg" alt="Dsc_4667" height="902" width="600"></a> <a href="http://getfile7.posterous.com/getfile/files.posterous.com/temp-2012-05-24/mehuDsygBsnigpfnyqdtBiDGfhdEyliCCswDJdtHaJdedcHgmsvEkGjIiJhg/DSC_4591.jpg.scaled1000.jpg"><img src="DSC_4591.jpg.scaled1000.jpg" alt="Dsc_4591" height="1000" width="665"></a> <br>
+<div class="p_see_full_gallery">
+<a href="http://amjith.posterous.com/goodbye-utah">See the full gallery on Posterous</a></div>
+</div>
+</div>
+<div>
+<strong>Python:</strong></div>
+<div>
+I couldn't believe there was a <a href="http://www.utahpython.org/">group</a> of people who met every month to geek out about their favorite language. My heartfelt thanks to <a href="http://sexysexypenguins.com/">herlo</a>,&nbsp;<a href="http://hairysun.com/">mharrison</a>,&nbsp;<a href="http://mcquay.me/">smcquay</a>, <a href="http://the.softwaretoolsmith.com/">travis</a> and <a href="http://eseth.org/">seth</a>. You guys welcomed me into the group and helped me shape my future in the world of Python.&nbsp;</div>
+<div>
+<strong>Outdoor:</strong></div>
+<div>
+I took up Mountain Biking, Hiking and Snowboarding and I've loved every minute of it. I will miss the rocky moutains, Uintahs and the snowy hills.&nbsp;</div>
+<div>
+<div class="p_embed p_image_embed">
+<a href="http://getfile2.posterous.com/getfile/files.posterous.com/temp-2012-05-24/cBvwwJzIBvpFwqomctteDxzpsuhslIhsHeHHEkBtGaytkhavydAlFhGyvajf/Biking.jpg.scaled1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Biking" data-src="http://getfile2.posterous.com/getfile/files.posterous.com/temp-2012-05-24/cBvwwJzIBvpFwqomctteDxzpsuhslIhsHeHHEkBtGaytkhavydAlFhGyvajf/Biking.jpg.scaled1000.jpg" height="720" width="960"></a> <a href="http://getfile1.posterous.com/getfile/files.posterous.com/temp-2012-05-24/AaexyvvtFEFinGulfaCdvJAAEpqEJvoJeJAlGAzirJgoIDuHccpAIBFElniC/IMG_4597.JPG.scaled1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Img_4597" data-src="http://getfile1.posterous.com/getfile/files.posterous.com/temp-2012-05-24/AaexyvvtFEFinGulfaCdvJAAEpqEJvoJeJAlGAzirJgoIDuHccpAIBFElniC/IMG_4597.JPG.scaled1000.jpg" height="750" width="1000"></a> <a href="http://getfile4.posterous.com/getfile/files.posterous.com/temp-2012-05-24/ncjmrJrnpDimgrrjmhHiylkGiEahvkuDrkzJEhAmvFceByqbeApFygoeHsnJ/Hiking.jpg.scaled1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Hiking" data-src="http://getfile4.posterous.com/getfile/files.posterous.com/temp-2012-05-24/ncjmrJrnpDimgrrjmhHiylkGiEahvkuDrkzJEhAmvFceByqbeApFygoeHsnJ/Hiking.jpg.scaled1000.jpg" height="960" width="720"></a> <img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Snowboarding" data-src="http://getfile5.posterous.com/getfile/files.posterous.com/temp-2012-05-24/zxevmfvImxiBlcspHemozesvGBGtlBohxcAFEetFlldAoJGhaidDszoAikmu/Snowboarding.jpg.scaled1000.jpg" height="604" width="453"> <br>
+<div class="p_see_full_gallery">
+<a href="http://amjith.posterous.com/goodbye-utah">See the full gallery on Posterous</a></div>
+</div>
+</div>
+<div>
+Leaving all of this behind makes me sad. Utah made me into what I am today.</div>
+<div>
+But now I'm headed to Portland to work for <a href="http://newrelic.com/">New Relic</a>. I'm told Oregon is a wonderful place, but I'll always have fond memories of Utah wherever I go.&nbsp;</div>
+</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2012-05-24T07:29:00.001Z" itemprop="datePublished">24th May 2012</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2012/05/goodbye-utah_24.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Goodbye Utah"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2012/05/goodbye-utah_24.html" data-count="" data-size="" data-text="Goodbye Utah"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2012/05/goodbye-utah_24.html" data-count="" data-layout="" data-text="Goodbye Utah"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="0 comments">
+  <span class="bubble-content">0</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    
+    Add a comment
+    </h3>
+  </div>
+  
+<div style="display: block;" class="comments-wrapper blogger-comments toggle-container" data-itemid="306850472253120611">
+  <div class="comments-content"><div id="bc_0_1C" kind="c"><div id="bc_0_1CT"><div id="bc_0_0T" class="comment-thread" kind="r" t="0" u="0"><ol id="bc_0_0TB"></ol><div style="display: none;" id="bc_0_0I" class="continue" kind="ci"><a target="_self">Add comment</a></div><div id="bc_0_0T_box" class="comment-replybox-thread"><iframe src="index_19.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=306850472253120611" frameborder="0"></iframe></div><div style="display: none;" id="bc_0_0L" class="loadmore loaded" kind="rb"><a target="_self">No more comments</a></div></div></div></div></div>
+  <div class="comments-footer">
+    
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="8240017388112502858">
+  
+<div class="article hentry programming python " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="8240017388112502858">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="16th May 2012" href="http://amjith.blogspot.com/2012/05/python-profiling-part-1.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">May</div>
+  <div class="bottom ribbon-piece">16</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2012/05/python-profiling-part-1.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="8240017388112502858">
+
+
+
+Python Profiling - Part 1</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=8240017388112502858&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+I gave a talk on profiling python code at the 2012 Utah Open Source Conference.&nbsp;Here are the <a href="http://bit.ly/J4lO2L">slides</a> and the accompanying <a href="http://bit.ly/IJTm8e">code</a>.<br>
+There are three parts to this profiling talk:<br>
+<ul>
+<li>Standard Lib Tools - cProfile, Pstats</li>
+<li>Third Party Tools - line_profiler, mem_profiler</li>
+<li>Commercial Tools - New Relic</li>
+</ul>
+This is Part 1 of that talk. It covers:<br>
+<ul>
+<li>cProfile module - usage</li>
+<li>Pstats module - usage</li>
+<li>RunSnakeRun - GUI viewer</li>
+</ul>
+<strong>Why Profiling:</strong><br>
+<ul>
+<li>Identify the bottle-necks.</li>
+<li>Optimize intelligently.&nbsp;</li>
+</ul>
+<div style="text-align: center;">
+In God we trust, everyone else bring data</div>
+<div style="text-align: left;">
+<span style="text-decoration: underline;"><strong><a href="http://docs.python.org/library/profile.html#module-cProfile">cProfile:</a></strong></span></div>
+<div style="text-align: left;">
+cProfile is a profiling module that is included in the Python's standard library. It instruments the code and reports the time to run each function and the number of times each function is called.&nbsp;</div>
+<div style="text-align: left;">
+<strong><br></strong></div>
+<div style="text-align: left;">
+<strong>Basic Usage:</strong></div>
+<div style="text-align: left;">
+The sample code I'm profiling is finding the lowest common multiplier of two numbers. <a href="https://github.com/amjith/utosc_python_profiling/blob/master/code_samples/lcm.py">lcm.py</a></div>
+<pre># lcm.py - ver1 
+    def lcm(arg1, arg2):
+        i = max(arg1, arg2)
+        while i &lt; (arg1 * arg2):
+            if i % min(arg1,arg2) == 0:
+                return i
+            i += max(arg1,arg2)
+        return(arg1 * arg2)
+
+    lcm(21498497, 3890120)</pre>
+Let's run the profiler.<br>
+<pre>$ python -m cProfile lcm.py 
+     7780242 function calls in 4.474 seconds
+    
+    Ordered by: standard name
+   
+    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+         1    0.000    0.000    4.474    4.474 lcm.py:3()
+         1    2.713    2.713    4.474    4.474 lcm.py:3(lcm)
+   3890120    0.881    0.000    0.881    0.000 {max}
+         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+   3890119    0.880    0.000    0.880    0.000 {min}</pre>
+<strong>Output Columns:</strong><br>
+<ul>
+<li> ncalls - number of calls to a function.</li>
+<li> tottime - total time spent in the function without counting calls to sub-functions.</li>
+<li> percall - tottime/ncalls </li>
+<li> cumtime - cumulative time spent in a function and it's sub-functions.</li>
+<li> percall - cumtime/ncalls</li>
+</ul>
+It's clear from the output that the built-in functions max() and min() are called a few thousand times which could be optimized by saving the results in a variable instead of calling it every time.<br>
+<ul>  </ul>
+<span style="text-decoration: underline;"><strong><a href="http://docs.python.org/library/profile.html#the-stats-class">Pstats</a>:</strong></span><br>
+Pstats is also included in the standard library that is used to analyze profiles that are saved using the cProfile module.<br>
+<br>
+<strong>Usage:</strong><br>
+For scripts that are bigger it's not feasible to analyze the output of the cProfile module on the command-line. The solution is to save the profile to a file and use Pstats to analyze it like a database. Example:&nbsp;&nbsp;Let's analyze&nbsp;<a href="https://github.com/amjith/utosc_python_profiling/blob/master/code_samples/url_shortener/shorten.py">shorten.py</a>.<br>
+<pre>$ python -m cProfile -o shorten.prof shorten.py   # saves the output to shorten.prof  
+$ ls shorten.py shorten.prof</pre>
+Let's analyze the profiler output to list the top 5 frequently called functions.<br>
+<pre>$ python 
+&gt;&gt;&gt; import pstats
+&gt;&gt;&gt; p  = pstats.Stats('script.prof')   # Load the profiler output
+&gt;&gt;&gt; p.sort_stats('calls')              # Sort the results by the ncalls column
+&gt;&gt;&gt; p.print_stats(5)                   # Print top 5 items
+
+    95665 function calls (93215 primitive calls) in 2.371 seconds
+    
+   Ordered by: call count
+   List reduced from 1919 to 5 due to restriction &lt;5&gt;
+    
+       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    10819/10539    0.002    0.000    0.002    0.000 {len}
+           9432    0.002    0.000    0.002    0.000 {method 'append' of 'list' objects}
+           6061    0.003    0.000    0.003    0.000 {isinstance}
+           3092    0.004    0.000    0.005    0.000 /lib/python2.7/sre_parse.py:182(__next)
+           2617    0.001    0.000    0.001    0.000 {method 'endswith' of 'str' objects}
+</pre>
+<pre></pre>
+This is quite tedious or not a lot of fun. Let's introduce a GUI so we can easily drill down.<br>
+<br>
+<span style="text-decoration: underline;"><strong><a href="http://www.vrplumber.com/programming/runsnakerun/">RunSnakeRun</a>:</strong></span><br>
+This cleverly named GUI written in wxPython makes life a lot easy.&nbsp;Install it from PyPI using (requires wxPython)<br>
+<pre>$ pip install SquareMap RunSnakeRun&nbsp;</pre>
+<pre>$ runsnake shorten.prof     #load the profile using GUI</pre>
+The output is displayed using squaremaps that clearly highlights the bigger pieces of the pie that are worth optimizing.<br>
+<div class="p_embed p_image_embed">
+<a href="http://getfile8.posterous.com/getfile/files.posterous.com/temp-2012-05-15/gaJlueuhwimecexomyhcmrizGtCqHAwszdbsrxqIxsfmmlbwGgsdmgeeyqqD/runsnake.png.scaled1000.png"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Runsnake" data-src="http://getfile2.posterous.com/getfile/files.posterous.com/temp-2012-05-15/gaJlueuhwimecexomyhcmrizGtCqHAwszdbsrxqIxsfmmlbwGgsdmgeeyqqD/runsnake.png.scaled600.png" height="317" width="600"></a></div>
+It also lets you sort by clicking the columns or drill down by double clicking on a piece of the SquareMap.<br>
+<br>
+<span style="text-decoration: underline;"><strong>Conclusion:</strong></span><br>
+That concludes Part 1 of the profiling series. All the tools except RunSnakeRun are available as part of the standard library. It is essential to introspect the code before we start shooting in the dark in the hopes of optimizing the code.<br>
+<br>
+We'll look at line_profilers and mem_profilers in Part 2. Stay tuned.<br>
+<br>
+You are welcome to follow me on <a href="https://twitter.com/#!/amjithr">twitter(@amjithr)</a>.</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2012-05-16T02:28:00.001Z" itemprop="datePublished">16th May 2012</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> <a class="label" href="http://amjith.blogspot.com/search/label/python" target="_self">python</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2012/05/python-profiling-part-1.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Python Profiling - Part 1"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2012/05/python-profiling-part-1.html" data-count="" data-size="" data-text="Python Profiling - Part 1"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2012/05/python-profiling-part-1.html" data-count="" data-layout="" data-text="Python Profiling - Part 1"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="0 comments">
+  <span class="bubble-content">0</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    
+    Add a comment
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="8240017388112502858">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_20.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=8240017388112502858" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="824341406607321022">
+  
+<div class="article hentry  " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+    <meta itemprop="image_url" content="//img.youtube.com/vi/N4zdWLuSbV0#t=637s/0.jpg">
+    <meta itemprop="thumbnailUrl" content="//img.youtube.com/vi/N4zdWLuSbV0#t=637s/0.jpg">
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="824341406607321022">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="21st March 2012" href="http://amjith.blogspot.com/2012/03/pycon-2012-review.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Mar</div>
+  <div class="bottom ribbon-piece">21</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2012/03/pycon-2012-review.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="824341406607321022">
+
+
+
+PyCon 2012 Review</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=824341406607321022&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+PyCon 2012 was held at Santa Clara, California.<br>
+<br>
+<strong>Tutorial:</strong><br>
+<div>
+I was there on the Thrusday to attend a tutorial called <a href="http://pyvideo.org/video/613/python-epiphanies" target="_blank">Python Epiphanies</a>. The tutorial was educational in understanding some of the inner workings of Python. But I have a hard time trying to figure out how to use the knowledge I gained there.&nbsp;</div>
+<div>
+<strong><br></strong><br>
+<strong>Opening Ceremony:</strong></div>
+<div style="text-align: center;">
+<strong>We had ROBOTS.</strong></div>
+<div style="text-align: center;">
+<div class="p_embed p_image_embed">
+<a href="http://getfile2.posterous.com/getfile/files.posterous.com/amjith/ML1YQ727akZKMZpb5FBgc5S25JrSJpTfard0MbAZxcVA0jcASi6rYaOFJlFe/P1080277.jpg.scaled.1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="P1080277" data-src="http://getfile5.posterous.com/getfile/files.posterous.com/amjith/y3j5kUaOublzxav62l3qLoSuOcf4CJJxAmT1LXGullsP4xnVrmPeCQsijV4A/P1080277.jpg.scaled600.jpg" height="450" width="600"></a> <a href="http://getfile8.posterous.com/getfile/files.posterous.com/amjith/2YMaybIHQglVpeJ1UjVkC8lwtyzLVtrPGFO6Sa0A04dVw7Wy2G7XXEMyyC9f/P1080276.jpg.scaled.1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="P1080276" data-src="http://getfile0.posterous.com/getfile/files.posterous.com/amjith/9KB0wrjCDen6dJ77rIVQ6QJL6z9f49Nh0IsNUHzREOw6KHka7merdyFQqUzR/P1080276.jpg.scaled600.jpg" height="800" width="600"></a> <a href="http://getfile5.posterous.com/getfile/files.posterous.com/amjith/yGoseNeWUoX4wr3aeFX3mjQOhefZOCCUKIapxnLGtNB5HykviRD1R2zGgYvb/P1080279.jpg.scaled.1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="P1080279" data-src="http://getfile2.posterous.com/getfile/files.posterous.com/amjith/yUzOiSsPTBKrot6TRm93izW70h5CWYuismsDICgrGmzAYwFQeSNEz2gLK0tg/P1080279.jpg.scaled600.jpg" height="450" width="600"></a> <br>
+<div class="p_see_full_gallery">
+<a href="http://amjith.posterous.com/pycon-2012-review">See the full gallery on Posterous</a></div>
+</div>
+</div>
+<div style="text-align: left;">
+And they were dancing.... how cool was that? It was a splendid opening ceremony.&nbsp;</div>
+<div>
+<strong><br></strong><br>
+<strong>Socializing:</strong></div>
+<div>
+Thursday evening was bag stuffing. Where we helped out by stuffing the swag bag. I got to work side-by-side some well known figures in the community (<a href="https://twitter.com/#!/jessenoller" target="_blank">Jesse Noller</a>, <a href="http://pydanny.github.com/" target="_blank">Pydanny</a>). After that I hung out with some <a href="http://www.heroku.com/" target="_blank">Heroku</a> folks and learned about their awesome work culture.</div>
+<div>
+Later that night, Yannick and <a href="https://twitter.com/#!/bryanveloso" target="_blank">Bryan</a> gave a Pycon newbie orientation. I took their advice and gave a Lightning Talk about bpython (about 10mins into the video).</div>
+<div>
+<iframe allowfullscreen="" src="index_21.html" frameborder="0" height="417" width="500"></iframe></div>
+<div>
+I socialized plenty and got a lot of useful contacts from different companies.&nbsp;I got to meet the founders of <a href="http://octopart.com/" target="_blank">Octopart</a>, my favorite Electrical Engineering based startups.&nbsp;</div>
+<div>
+I also met with <a href="http://www.kennethreitz.com/" target="_blank">Kenneth Reitz</a>&nbsp;who is famous for his requests library and this awesome talk <a href="http://python-for-humans.heroku.com/" target="_blank">Python for Humans</a>.</div>
+<div>
+<br>
+I was quite thrilled when I first saw Guido at the Lunch hall sitting right next to my table. I was too shy to talk to him, but I managed to get a picture with him (in the frame).&nbsp;</div>
+<div style="text-align: center;">
+<div class="p_embed p_image_embed">
+<a href="http://getfile0.posterous.com/getfile/files.posterous.com/amjith/7jH6iwvNBdIqJEwWKDKaMuzMKGI35gJRcWkkSWEqkoULM3G2MAqm1DTO3BZf/P1080280.jpg.scaled.1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="P1080280" data-src="http://getfile5.posterous.com/getfile/files.posterous.com/amjith/jcy0wjMjnaUOtxniWf59meL1C8p1iR62Lcx3D8Y302txA51IjgiBEQ7aRC5I/P1080280.jpg.scaled600.jpg" height="450" width="600"></a> </div>
+</div>
+<div>
+Real gutsy! Maybe next year I'll actually shake his hand and get a picture with him.&nbsp;</div>
+<div>
+<strong><br></strong><br>
+<strong>Keynotes:</strong></div>
+<div>
+<ul>
+<li>I enjoyed Paul Graham's <a href="http://pyvideo.org/video/626/keynote-paul-graham-ycombinator" target="_blank">keynote</a> quite a bit. He talked about daring startup ideas. His keynote is summarized in these <a href="http://paulgraham.com/ambitious.html" target="_blank">two</a> <a href="http://paulgraham.com/property.html" target="_blank">essays</a>.&nbsp;</li>
+<li>David Beazly's <a href="http://pyvideo.org/video/659/keynote-david-beazley" target="_blank">keynote</a> was a walk-through (demo) of tinkering with PyPy. It looked hard as balls and I kept hoping a happy ending where he declared victory. But it ended up being one of those art movie endings that leaves the listeners in a confused and inconclusive state.&nbsp;</li>
+<li><a href="http://pyvideo.org/video/956/keynote-guido-van-rossum" target="_blank">Guido's Keynote</a> on the other hand was interesting. His talk was sprinkled with unintended hilarity that ensued due to Google's presentation software. He was sporting an awesome T-shirt that read "Python is for girls" and talked about dealing with Python Trolls.</li>
+</ul>
+</div>
+<div>
+<strong>Talks:&nbsp;</strong></div>
+<div>
+I knew that all the talks were video taped and posted <a href="http://pyvideo.org/" target="_blank">online</a>, so I didn't worry too much about missing some when I had conflicts.</div>
+<div>
+The following talks piqued my interest and will make me go exploring a little bit.&nbsp;</div>
+<div>
+<br>
+<ul style="text-align: left;">
+<li><a href="http://pyvideo.org/video/650/permission-or-forgiveness" target="_blank">Permission or Forgiveness</a>&nbsp;- Quaint. Applying Grace Murray Hopper's logic to Python programming.&nbsp;</li>
+<li><a href="http://pyvideo.org/video/696/pandas-powerful-data-analysis-tools-for-python" target="_blank">pandas: Powerful data-analysis tools for Python</a>&nbsp;- Useful.&nbsp;</li>
+<li><a href="http://pyvideo.org/video/703/web-server-bottlenecks-and-performance-tuning" target="_blank">Webserver Performance Tuning</a>&nbsp;- Sounded like a sales pitch for New Relic, but not in a bad way.</li>
+<li><a href="http://pyvideo.org/video/737/37-building-a-robot-that-can-play-angry-birds-on" target="_blank">Angry Birds playing Robot</a>&nbsp;- Hilarious and Informative.</li>
+<li><a href="http://pyvideo.org/video/686/the-pyed-piper-a-modern-python-alternative-to-aw" target="_blank">Pyed Piper: Modern Alternative to Awk, Sed etc.</a>&nbsp; - Interesting.</li>
+</ul>
+</div>
+<div>
+<strong>Capoeira:&nbsp;</strong></div>
+<div>
+I went to the open space organized by Pydanny where he brought his Capoeira instructor who taught us some awesome moves. By the end of the class, we are all breathing heavily and energized. Once I tried to do a hand stand and lost my balance, but Aikido training kicked in and I gracefully rolled out of my fall with just a carpet burn on my elbow.<br>
+<br></div>
+<div>
+<strong>Open Spaces:</strong></div>
+<div>
+I didn't get a chance to go to many of them, but I did attend the open space for <a href="http://saltstack.org/" target="_blank">SaltStack</a> and sat with <a href="http://eseth.org/" target="_blank">Seth House</a> to try and get Salt running on my Macbook. After a few failed attempts, I decided to give Salt a chance on my linux desktop once I got home.&nbsp;</div>
+<div>
+<strong><br></strong><br>
+<strong>Babbage Difference Engine: (Not Pycon related)</strong></div>
+<div>
+Sunday afternoon <a href="http://mcquay.me/">Stephen McQuay</a> (a fellow Utah Pythonista) and I decided to take up Vijay's offer to go visit the Computer History Museum where they were doing a live demo of the Babbage Difference Engine. OMG! It was awesome to watch the history come alive.&nbsp;</div>
+<div class="p_embed p_image_embed">
+<a href="http://getfile1.posterous.com/getfile/files.posterous.com/temp-2012-03-20/kfEnaqptlGcpwicjHpfwtqsJeDcaCtjGegahwCkkIetljfpDamAiAluawnEf/P1080286.JPG.scaled1000.jpg"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="P1080286" data-src="http://getfile1.posterous.com/getfile/files.posterous.com/temp-2012-03-20/kfEnaqptlGcpwicjHpfwtqsJeDcaCtjGegahwCkkIetljfpDamAiAluawnEf/P1080286.JPG.scaled1000.jpg" height="750" width="1000"></a> </div>
+</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2012-03-21T04:56:00.001Z" itemprop="datePublished">21st March 2012</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2012/03/pycon-2012-review.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="PyCon 2012 Review"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2012/03/pycon-2012-review.html" data-count="" data-size="" data-text="PyCon 2012 Review"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2012/03/pycon-2012-review.html" data-count="" data-layout="" data-text="PyCon 2012 Review"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="2 comments">
+  <span class="bubble-content">2</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="824341406607321022">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_22.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=824341406607321022" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="6870761903910191356">
+  
+<div class="article hentry algorithm programming python " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="6870761903910191356">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="11th February 2012" href="http://amjith.blogspot.com/2012/02/memoization-decorator.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Feb</div>
+  <div class="bottom ribbon-piece">11</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2012/02/memoization-decorator.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="6870761903910191356">
+
+
+
+Memoization Decorator</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=6870761903910191356&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+Recently I had the opportunity to give a short 10 min presentation on Memoization Decorator at our local UtahPython Users Group meeting.<br>
+<blockquote>
+<strong>Memoization:</strong><br>
+<ul>
+<li>Everytime a function is called, save the results in a cache (map).</li>
+<li>Next time the function is called with the exact same args, return the value from the cache instead of running the function.</li>
+</ul>
+</blockquote>
+The code for memoization decorator for python is here: <a href="http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize">http://wiki.python.org/moin/PythonDecoratorLibrary#Memoize</a><br>
+<br>
+<strong>Example:</strong><br>
+The typical recursive implementation of fibonacci calculation is pretty inefficient O(2^n).&nbsp; <br>
+<pre class="prettyprint">def fibonacci(num):
+        print 'fibonacci(%d)'%num
+        if num in (0,1):
+            return num
+        return fibonacci(num-1) + fibonacci(num-2)
+
+&gt;&gt;&gt; math_funcs.fibonacci(4)   # 9 function calls
+    fibonacci(4)
+    fibonacci(3)
+    fibonacci(2)
+    fibonacci(1)
+    fibonacci(0)
+    fibonacci(1)
+    fibonacci(2)
+    fibonacci(1)
+    fibonacci(0)
+    3
+</pre>
+But the memoized version makes it ridiculously efficient O(n) with very little effort.<br>
+<pre class="prettyprint">import memoized
+@memoized
+def fibonacci(num):
+    print 'fibonacci(%d)'%num
+    if num in (0,1):
+        return num
+    return fibonacci(num-1) + fibonacci(num-2)
+    
+&gt;&gt;&gt; math_funcs.mfibonacci(4)  # 5 function calls
+    fibonacci(4)
+    fibonacci(3)
+    fibonacci(2)
+    fibonacci(1)
+    fibonacci(0)
+    3
+</pre>
+<div>
+<strong>We just converted an algorithm from Exponential Complexity to Linear Complexity by simply adding the memoization decorator.</strong><br>
+<strong><br></strong><br>
+<strong>Slides</strong>:<br>
+<div>
+<script src="about:blank">/* Code removed by ScrapBook */</script>
+</div>
+<a href="http://speakerdeck.com/u/amjith/p/memoization-decorator">http://speakerdeck.com/u/amjith/p/memoization-decorator</a><br>
+<br>
+<strong>Presentation:</strong><br>
+I generated the slides using LaTeX Beamer. But instead of writing raw LaTeX code I used reStructured Text (rst) and used rst2beamer script to generate the .tex file.<br>
+<strong><br></strong><br>
+<strong>Source:</strong><br>
+The rst file and tex files are available in Github.<br>
+<a href="https://github.com/amjith/User-Group-Presentations/tree/master/memoization_decorator">https://github.com/amjith/User-Group-Presentations/tree/master/memoization_de...</a><br>
+<br>
+<u>Update</u>: <a href="http://news.ycombinator.com/item?id=3576791">Comment by dasht</a>&nbsp;via HackerNews pointed out that the terminology Cache is used when you have a fixed size container, whereas the memoization decorator above does not have a restriction on the size. Hence it's technically not a cache.<br>
+<br>
+Follow the comments in HackerNews:&nbsp;<a href="http://news.ycombinator.com/item?id=3576620">http://news.ycombinator.com/item?id=3576620</a></div>
+</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2012-02-10T16:42:00.001Z" itemprop="datePublished">11th February 2012</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/algorithm" target="_self">algorithm</a> <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> <a class="label" href="http://amjith.blogspot.com/search/label/python" target="_self">python</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2012/02/memoization-decorator.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Memoization Decorator"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2012/02/memoization-decorator.html" data-count="" data-size="" data-text="Memoization Decorator"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2012/02/memoization-decorator.html" data-count="" data-layout="" data-text="Memoization Decorator"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="1 comment">
+  <span class="bubble-content">1</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="6870761903910191356">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_23.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=6870761903910191356" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="2953516280970806173">
+  
+<div class="article hentry django programming python " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="2953516280970806173">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="10th February 2012" href="http://amjith.blogspot.com/2012/02/productive-meter.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Feb</div>
+  <div class="bottom ribbon-piece">10</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2012/02/productive-meter.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="2953516280970806173">
+
+
+
+Productive Meter</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=2953516280970806173&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div class="posterous_autopost"><p>A few weeks ago I decided that I should suck it up and start learning how to develop for the web. After asking around, my faithful community brethren, I decided to learn Django from its <a href="https://docs.djangoproject.com/en/1.3/intro/tutorial01/">docs</a>.&nbsp;</p>  <p>::Django documentation is awesome::</p>  <p>Around this time I came across this post about <a href="http://www.mattgreer.org/post/2fiveam">Waking up at 5am to code</a>. I tried it a few times and it worked wonders. I've been working on a small project that can keep track of my productivity on the computer. The concept is really simple, just log the window that is on top and find a way to display that data in a meaningful way.&nbsp;</p>  <p>Today's 5am session got me to a milestone on my project. I am finally able to visaulize the time I spend using a decent looking graph. Which is a huge milestone for someone who learned how to display html tables 3 weeks ago.</p>  <p><strong>Tools:</strong></p>  <ul>  <li><a href="https://www.djangoproject.com/">Django</a>&nbsp;for backend</li>  <li><a href="http://www.sqlite.org/">Sqlite</a></li>  <li><a href="http://haystacksearch.org/">Haystack/Solr</a> - search backend for Django</li>  <li><a href="http://fancybox.net/">FancyBox</a> - jquery plugin</li>  <li><a href="http://code.google.com/p/flot/">flot</a> - jquery plotting lib</li>  <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a> - html/css</li>  </ul>  <p>A huge thanks to my irc friends and random geeks who wrote awesome blog posts and SO answers on every problem I encountered.</p>  <p>I will be open-sourcing the app pretty soon. Stay tuned.</p>  <p></p><div class="p_embed p_image_embed"> <a href="http://getfile8.posterous.com/getfile/files.posterous.com/temp-2012-02-09/duGEaJvxHAffFfposnvqldjhhmCEAvhDBmIvhrlsFqqGhbqJcrvfwCzbudAf/productive_meter_screenshot.png.scaled1000.png"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Productive_meter_screenshot" data-src="http://getfile6.posterous.com/getfile/files.posterous.com/temp-2012-02-09/duGEaJvxHAffFfposnvqldjhhmCEAvhDBmIvhrlsFqqGhbqJcrvfwCzbudAf/productive_meter_screenshot.png.scaled600.png" height="313" width="600"></a> <a href="http://getfile3.posterous.com/getfile/files.posterous.com/temp-2012-02-09/ohgFstdpHDqsdhsFfHIEGamrgAnpFGijwixccArgwerwwlrFtluAbkDIprxi/productive_meter_screenshot1.png.scaled1000.png"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Productive_meter_screenshot1" data-src="http://getfile3.posterous.com/getfile/files.posterous.com/temp-2012-02-09/ohgFstdpHDqsdhsFfHIEGamrgAnpFGijwixccArgwerwwlrFtluAbkDIprxi/productive_meter_screenshot1.png.scaled1000.png" height="446" width="1000"></a> <div class="p_see_full_gallery"><a href="http://amjith.posterous.com/100506320">See the full gallery on Posterous</a></div> </div> <p></p></div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2012-02-10T06:09:00.001Z" itemprop="datePublished">10th February 2012</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/django" target="_self">django</a> <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> <a class="label" href="http://amjith.blogspot.com/search/label/python" target="_self">python</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2012/02/productive-meter.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Productive Meter"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2012/02/productive-meter.html" data-count="" data-size="" data-text="Productive Meter"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2012/02/productive-meter.html" data-count="" data-layout="" data-text="Productive Meter"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="0 comments">
+  <span class="bubble-content">0</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    
+    Add a comment
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="2953516280970806173">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_24.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=2953516280970806173" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="7335440754230861981">
+  
+<div class="article hentry  " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="7335440754230861981">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="22nd November 2011" href="http://amjith.blogspot.com/2011/11/im-taking-couple-of-free-online-classes.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Nov</div>
+  <div class="bottom ribbon-piece">22</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2011/11/im-taking-couple-of-free-online-classes.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="7335440754230861981">
+
+
+
+Too Many Classes Too Little Time</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=7335440754230861981&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div class="posterous_autopost"><p>I'm taking a couple of the free online classes offered by Standford. One on <a href="http://ai-class.org/">Artifical Intelligence</a> and one on <a href="http://ml-class.org/">Machine Learning</a>.&nbsp;</p>  <p>I haven't had so much fun since kindergarten. Actually that's not fair, I didn't enjoy kindergarten this much. I'm listening to the classes during my lunch, after work, during weekends. I'm working on my assignment with so much enthusiasm, I dread the day when this class ends.&nbsp;</p>  <p>Stanford just announced a slew of new <a href="http://www.hci-class.org/">online</a> classes offered starting in Jan 2012. I was way too excited when I first read the description on them. Now I'm a little sad, becasue I want to take 8 out of the 11 courses that are being offered and I don't have enough time. :(</p>  <p>Woe is me.&nbsp;</p>  <p>ps: If you are not taking any of these classes you are missing out big time. Please do yourself a favor and sign up.&nbsp;</p></div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2011-11-22T06:47:00.001Z" itemprop="datePublished">22nd November 2011</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2011/11/im-taking-couple-of-free-online-classes.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Too Many Classes Too Little Time"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2011/11/im-taking-couple-of-free-online-classes.html" data-count="" data-size="" data-text="Too Many Classes Too Little Time"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2011/11/im-taking-couple-of-free-online-classes.html" data-count="" data-layout="" data-text="Too Many Classes Too Little Time"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="0 comments">
+  <span class="bubble-content">0</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    
+    Add a comment
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="7335440754230861981">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_25.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=7335440754230861981" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="909988614520025137">
+  
+<div class="article hentry programming python recursion " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="909988614520025137">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="18th October 2011" href="http://amjith.blogspot.com/2011/10/picking-items-from-list-of-recursion.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Oct</div>
+  <div class="bottom ribbon-piece">18</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2011/10/picking-items-from-list-of-recursion.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="909988614520025137">
+
+
+
+Picking 'k' items from a list of 'n' - Recursion</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=909988614520025137&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+Let me preface this post by saying I suck at recursion. But it never stopped me from trying to master it. Here is my latest (successful) attempt at an algorithm that required recursion.<br>
+<br>
+<strong>Background:&nbsp;</strong><br>
+You can safely skip this section if you're not interested in the back story behind why I decided to code this up.<br>
+<br>
+I was listening to <a href="http://www.khanacademy.org/">KhanAcademy</a> videos on <a href="http://www.khanacademy.org/#probability">probability</a>. I was particularly intrigued by the combinatorics <a href="http://www.khanacademy.org/video/getting-exactly-two-heads--combinatorics?playlist=Probability">video</a>. The formula to calculate the number of combinations of nCr was simple, but I wanted to print all the possible combinations of nCr.<br>
+<strong><br></strong><br>
+<strong>Problem Statement:</strong><br>
+Given 'ABCD' what are the possible outcomes if you pick 3 letters from it to form a combination without repetition (i.e. 'ABC' is the same as 'BAC').<br>
+<br>
+At first I tried to solve this using an iterative method and gave up pretty quickly. It was clearly designed to be a recursive problem. After 4 hours of breaking my head I finally got a working algorithm using recursion. I was pretty adamant about not looking it up online but I seeked some help from IRC (Thanks <a href="http://www.jtolds.com/">jtolds</a>).<br>
+<strong><br></strong><br>
+<strong>Code:&nbsp;</strong><br>
+<pre class="prettyprint">def combo(w, l):
+    lst = []
+    for i in range(len(w)):
+        if l == 1:
+            lst.append(w[i])
+        for c in combo(w[i+1:], l-1):
+            lst.append(w[i] + c)
+    return lst
+</pre>
+<strong><br></strong><br>
+<strong>Output:</strong><br>
+<pre class="prettyprint">&gt;&gt;&gt; combinations.combo('abcde',3)
+    ['abc', 'abd', 'abe', 'acd', 'ace', 'ade', 'bcd', 'bce', 'bde', 'cde']
+</pre>
+<strong><br></strong><br>
+<strong>Thoughts:</strong><br>
+<ul>
+<li>It helps to think about recursion with the assumption that an answer for step n-1 already exists.</li>
+<li>If you are getting partial answers check the condition surrounding the return statement.</li>
+<li>Recursion is still not clear (or easy).&nbsp;</li>
+</ul>
+I have confirmed that this works for bigger data sets and am quite happy with this small victory.</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2011-10-18T05:01:00.001Z" itemprop="datePublished">18th October 2011</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> <a class="label" href="http://amjith.blogspot.com/search/label/python" target="_self">python</a> <a class="label" href="http://amjith.blogspot.com/search/label/recursion" target="_self">recursion</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2011/10/picking-items-from-list-of-recursion.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Picking 'k' items from a list of 'n' - Recursion"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2011/10/picking-items-from-list-of-recursion.html" data-count="" data-size="" data-text="Picking 'k' items from a list of 'n' - Recursion"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2011/10/picking-items-from-list-of-recursion.html" data-count="" data-layout="" data-text="Picking 'k' items from a list of 'n' - Recursion"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="1 comment">
+  <span class="bubble-content">1</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="909988614520025137">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_26.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=909988614520025137" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="4958320516126485052">
+  
+<div class="article hentry programming python " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="4958320516126485052">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="14th October 2011" href="http://amjith.blogspot.com/2011/10/python-profiling.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Oct</div>
+  <div class="bottom ribbon-piece">14</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2011/10/python-profiling.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="4958320516126485052">
+
+
+
+Python Profiling</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=4958320516126485052&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+I did a presentation at our <a href="http://www.utahpython.org/">local Python User Group</a> meeting tonight. It was well received, but shorter than I had expected. I should've added a lot more code examples.<br>
+We talked about usage of cProfile, pstats, runsnakerun and timeit.<br>
+Here are the slides from the presentations:<br>
+<br>
+<span style="color: rgb(0, 0, 238);"><u><a href="http://speakerdeck.com/u/amjith/p/python-profiling-1">http://speakerdeck.com/u/amjith/p/python-profiling-1</a></u></span><br>
+<span style="color: rgb(0, 0, 238);"><u><br></u></span><br>
+<script src="about:blank">/* Code removed by ScrapBook */</script>
+<br>
+The slides were done using <a href="http://en.wikipedia.org/wiki/Beamer_(LaTeX)">latex-beamer</a>, but I wrote the slides in <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> and used <a href="http://www.agapow.net/programming/python/rst2beamer">rst2beamer</a> to create slides.<br>
+The source code for the slides are available on my <a href="http://www.blogger.com/blogger.g?blogID=9876605">github page</a>.</div>
+</div></div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2011-10-14T04:50:00.001Z" itemprop="datePublished">14th October 2011</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> <a class="label" href="http://amjith.blogspot.com/search/label/python" target="_self">python</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2011/10/python-profiling.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Python Profiling"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2011/10/python-profiling.html" data-count="" data-size="" data-text="Python Profiling"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2011/10/python-profiling.html" data-count="" data-layout="" data-text="Python Profiling"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="0 comments">
+  <span class="bubble-content">0</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    
+    Add a comment
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="4958320516126485052">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_27.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=4958320516126485052" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="1383062871417921914">
+  
+<div class="article hentry programming " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="1383062871417921914">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="5th October 2011" href="http://amjith.blogspot.com/2011/10/programming-gateway-drug-to-math_04.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Oct</div>
+  <div class="bottom ribbon-piece">5</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2011/10/programming-gateway-drug-to-math_04.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="1383062871417921914">
+
+
+
+Programming - A Gateway Drug to Math</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=1383062871417921914&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+<div>
+I decided to try my hand at the Stanford's&nbsp;<a href="http://www.ai-class.com/">AI Class</a>.&nbsp;The pre-requisites mentioned Probability and Linear Algebra. So I started watching Probability videos on&nbsp;<a href="http://www.khanacademy.org/#probability">KhanAcademy</a>.<br>
+Sal Khan was teaching how to find the probability of 2 heads when you toss a coin 5 times.<br>
+A classic nCk problem:<br>
+<div style="text-align: center;">
+<img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="margin: 10px;" title="This is the rendered form of the equation. You can not edit this directly. Right click will give you the option to save the image, and in most browsers you can drag the image onto your desktop or another program." data-src="http://latex.codecogs.com/gif.latex?\small%20_nC_k%20=%20\frac{n!}{k!(n-k)!}"></div>
+</div>
+<span style="background-color: white; font-family: Arial,Helvetica,sans-serif; font-size: 13px;">T</span><span style="background-color: white; font-family: Arial,Helvetica,sans-serif; font-size: 13px;">he probability of getting 2 heads while tossing a coin 5 times is:</span><br>
+<div>
+<div style="text-align: center;">
+<span style="font-family: Arial,Helvetica,sans-serif;"><span style="font-size: 12px;"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="margin: 10px;" title="This is the rendered form of the equation. You can not edit this directly. Right click will give you the option to save the image, and in most browsers you can drag the image onto your desktop or another program." data-src="http://latex.codecogs.com/gif.latex?P(2)%20=%20\frac{{_5C_2}}{2^5}"></span></span></div>
+</div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;">But I wanted to find out the probability of getting at least 2 heads when I toss 5 coins.&nbsp;</span></div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;">Its really simple. All I had to do is P(2) + P(3) + P(4) + P(5).&nbsp;</span></div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;">But then computing</span><span style="font-family: Arial,Helvetica,sans-serif; font-size: 12px;"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="margin: 10px;" title="This is the rendered form of the equation. You can not edit this directly. Right click will give you the option to save the image, and in most browsers you can drag the image onto your desktop or another program." data-src="http://latex.codecogs.com/gif.latex?_nC_k"><span style="font-size: small;">by hand (or a calculator) was painfully slow, let alone do it 4 times.&nbsp;</span></span></div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;">So I wrote two little functions in Python that will calculate factorial (yes I reinvented the wheel) and</span><span style="font-family: Arial,Helvetica,sans-serif; font-size: 12px;"><img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="margin: 10px;" title="This is the rendered form of the equation. You can not edit this directly. Right click will give you the option to save the image, and in most browsers you can drag the image onto your desktop or another program." data-src="http://latex.codecogs.com/gif.latex?_nC_k"><span style="font-size: small;">.</span></span></div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;"><strong>Nothing teaches you math faster than trying to write a program to do the math for you.&nbsp;</strong></span></div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;">Writing a program is the same as teaching the computer how to do a certain task. The only way you can teach someone to do a task is to become a master at doing that task yourself.</span></div>
+<div>
+<span style="font-family: Arial,Helvetica,sans-serif;"><br></span><span style="font-family: Arial,Helvetica,sans-serif;">Bonus: It also teaches you corner cases like 0! = 1 and&nbsp;<img class="deferred" src="data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="margin: 10px;" title="This is the rendered form of the equation. You can not edit this directly. Right click will give you the option to save the image, and in most browsers you can drag the image onto your desktop or another program." data-src="http://latex.codecogs.com/gif.latex?\small%20_5C_5%20=%201">&nbsp;that you wouldn't think of otherwise.&nbsp;</span></div>
+</div>
+</div>
+</div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2011-10-05T05:44:00.001Z" itemprop="datePublished">5th October 2011</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2011/10/programming-gateway-drug-to-math_04.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Programming - A Gateway Drug to Math"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2011/10/programming-gateway-drug-to-math_04.html" data-count="" data-size="" data-text="Programming - A Gateway Drug to Math"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2011/10/programming-gateway-drug-to-math_04.html" data-count="" data-layout="" data-text="Programming - A Gateway Drug to Math"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="0 comments">
+  <span class="bubble-content">0</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    
+    Add a comment
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="1383062871417921914">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_28.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=1383062871417921914" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li><li class="item" data-id="6883539583294994725">
+  
+<div class="article hentry c programming " itemscope="" itemtype="http://schema.org/BlogPosting">
+  
+  
+  <meta itemprop="blogId" content="9876605">
+  <meta itemprop="postId" content="6883539583294994725">
+
+  
+  <div class="article-header">
+
+
+<a class="ribbon date " title="5th October 2011" href="http://amjith.blogspot.com/2011/10/rant-about-c-dependency-hell.html" itemprop="url">
+
+
+  <div class="top ribbon-piece">Oct</div>
+  <div class="bottom ribbon-piece">5</div>
+  <div class="tail">
+    <div class="left ribbon-piece"></div>
+    <div class="right ribbon-piece"></div>
+  </div>
+
+</a>
+
+
+
+<h1 class="title entry-title" itemprop="name">
+  
+  
+  <a href="http://amjith.blogspot.com/2011/10/rant-about-c-dependency-hell.html" rel="bookmark" itemprop="url" data-item-type="post" data-id="6883539583294994725">
+
+
+
+Rant about C++ dependency hell</a>
+  
+  
+
+<span class="blog-admin"><a class="edit" href="https://www.blogger.com/post-edit.g?blogID=9876605&amp;postID=6883539583294994725&amp;from=pencil" target="_self" title="Edit"></a></span>
+
+
+</h1>
+</div>
+  <div class="article-content entry-content" itemprop="articleBody"><div dir="ltr" style="text-align: left;" trbidi="on">
+<div class="posterous_autopost">
+When was the last time I vented about C++? The answer for that is always:<br>
+<br>
+"TOO LONG AGO".<br>
+<div>
+<br>
+The initial friction to setup a substantial project using C++ is unfucking bearable.<br>
+<br>
+When we started code revamp at work recently, I decided to be a good citizen and decided to incorporate <a href="http://cpptest.sourceforge.net/">cpptest</a>, a unit testing framework.<br>
+<br>
+It made me realize how unreasonably complicated Makefiles can become. After 3 hours of peeling away at the complexity I managed to add cpptest to the build dependency of the project.&nbsp;</div>
+<div>
+<br>
+Now time to write a few tests and check it out.&nbsp;I'm thinking "We are almost there".&nbsp;</div>
+<div>
+<br>
+FALSE!</div>
+<div>
+<br>
+Compilation gives me a gazillion error messages that make absolutely no sense. After about 30mins of <a href="http://www.stackoverflow.com/">StackOverflowing</a> and Googling, I find out that string and map that I declared in the headers files need to be namespaced. Of course there is no indication (not even a hint) of that in the error messages. So I add 'using namespace std' and get past it.</div>
+<div>
+<br>
+Awesome my first test is compiling successfully. Time to run this baby and declare victory.&nbsp;</div>
+<div>
+<br>
+Close! But no cigar.</div>
+<div>
+<br>
+The executable was unable to load the CppTest library during runtime. Argh!</div>
+<div>
+I set my LD_LIBRARY_PATH env variable and now it's running. But I can't ask everyone in my team to do that, so I have to figure out how to statically link that library.&nbsp;</div>
+<div>
+<br>
+It's already 6pm and I'm hungry. That'll have to wait for another day.&nbsp;</div>
+<div>
+<br>
+TL;DR - C++ and Makefile can burn in a fire of thousand suns.</div>
+</div>
+</div>
+</div>
+  <div class="article-footer">
+    
+<div class="publish-info">
+  
+    Posted <abbr class="time published" title="2011-10-05T03:39:00.001Z" itemprop="datePublished">5th October 2011</abbr> by <a class="url fn" href="https://plus.google.com/104674857866191393313" rel="author" itemprop="author">Amjith Ramanujam</a>
+  
+  
+</div>
+
+    
+
+
+    
+    <div class="labels" itemprop="keywords">
+      Labels: <a class="label" href="http://amjith.blogspot.com/search/label/c%2B%2B" target="_self">c++</a> <a class="label" href="http://amjith.blogspot.com/search/label/programming" target="_self">programming</a> 
+    </div>
+    
+    
+    
+<div class="share-controls defer delay" data-defer="true" data-delay="1000">
+<span class="share-plusone g-plusone defer" data-href="http://amjith.blogspot.com/2011/10/rant-about-c-dependency-hell.html" data-hl="en" data-size="" data-source="blogger:blog:plusone" data-annotation="" data-width="90" data-text="Rant about C++ dependency hell"></span>
+
+<span data-href="http://twitter.com/share" class="share-twitter twitter-share-button defer" data-url="http://amjith.blogspot.com/2011/10/rant-about-c-dependency-hell.html" data-count="" data-size="" data-text="Rant about C++ dependency hell"></span>
+
+
+<span class="share-facebook defer" data-url="http://amjith.blogspot.com/2011/10/rant-about-c-dependency-hell.html" data-count="" data-layout="" data-text="Rant about C++ dependency hell"></span>
+
+</div>
+
+    
+  </div>
+
+  
+
+  
+  
+    
+    
+<div class="comments" data-defer="view">
+  <div class="comments-header toggle-switch">
+    
+<span class="bubble  comments-count " title="2 comments">
+  <span class="bubble-content">2</span>
+  <span class="bubble-tail"></span>
+</span>
+
+    <h3>
+    View comments
+    
+    </h3>
+  </div>
+  
+<div style="display: none;" class="comments-wrapper blogger-comments toggle-container toggle-active" data-itemid="6883539583294994725">
+  <div class="comments-content"></div>
+  <div class="comments-footer">
+    <iframe src="index_29.html" class="comments-replybox" data-src="https://www.blogger.com/comment-iframe.g?blogID=9876605&amp;postID=6883539583294994725" frameborder="0"></iframe>
+  </div>
+</div>
+
+</div>
+
+    
+    
+  
+  
+</div>
+
+  
+</li></ol>
+</div>
+
+
+<div id="gadget-dock" class=""><div class="gadget-item" data-gadget-id="0">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAIUlEQVQoz2P4jwQYoOA/iYBh8BgyeMBowI4GLD0CFmQGAJeZHQCjUvPAAAAAAElFTkSuQmCC">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAJ0lEQVQoz2MwNjb+D8MMUIAsRgxmGDyGDB4wGrCjAUuPgP3//z8DAG+r2iZzG/daAAAAAElFTkSuQmCC">
+    </div>
+    <span class="gadget-title">My Blog List</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">My Blog List</span>
+      <div class="gadget-content"><ul class="gadget-bloglist
+    gadget-bloglist-show-recent-title
+    
+    
+    gadget-bloglist-show-recent-update">
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="unnamed.dat" height="16" width="16">
+    
+    <a href="http://yoshrama.blogspot.com/">
+      Life of Yoshi
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="http://yoshrama.blogspot.com/2011/07/nadeu-shihan-seminar-aikido-of-san.html" class="gadget-bloglist-recent-title">Nadeu Shihan Seminar @ Aikido of San Diego</a>
+      
+      
+      
+      <a href="http://yoshrama.blogspot.com/2011/07/nadeu-shihan-seminar-aikido-of-san.html" class="gadget-bloglist-recent-thumbnail">
+        <img src="NadeauShihan6.jpg" height="72" width="72">
+      </a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet">Thoughts on Nadeau Shihan's seminarJuly 15-17, 2011 -photo courtesy of 
+Megan and Jay Palm- For those who do not know Nadeau Sensei, he is a great 
+aikidoka ...</span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">5 years ago</div>
+    
+  </div>
+</li>
+
+  
+  
+<li class="gadget-bloglist-item">
+  <div class="gadget-bloglist-title">
+    
+    <img src="unnamed_001.dat" height="16" width="16">
+    
+    <a href="https://tamilkutti.wordpress.com/">
+      Tamil Kutti
+    </a>
+  </div>
+  <div class="gadget-bloglist-recent">
+    <p>
+      
+      <a href="https://tamilkutti.wordpress.com/2011/05/19/5-19-11-meet-up/" class="gadget-bloglist-recent-title">5-19-11 meet-up</a>
+      
+      
+      <span class="gadget-bloglist-recent-snippet">1st ACTIVITY: Vocabulary Practice We quizzed each other on Fruits/பழங்கள் 
+We tried to come up with tips on how to remember the vocabulary words, but 
+we cou...</span>
+    </p>
+    
+    <div class="gadget-bloglist-recent-update">5 years ago</div>
+    
+  </div>
+</li>
+
+  
+</ul></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="1">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAgUlEQVQ4y6XTwQ3AIAgFUEZyhI7gCIzuCGzwe9HWKhgo/2SUvBBFgi8XGQFAtBQ3AxEAxYPUvlkj0Iy05cDdUbQTFYrciQlpSCQCoGSRt6O+SEHUW8pAMm44A/H83n8gBrBNXwTi54mVMfZA/Bk241OdIF5qyYwBsVJHx0yQaMBAblcXSj0+j7awAAAAAElFTkSuQmCC">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAgklEQVQ4jaXSAQrAIAgAQJ8U9IE9YU/w6T2hH7gVWxPR0BlIUXJYBrVWcsQBxiAiAJHcDKTfUTzIOTbHHIE40vhBpKJoJSoUeRMT0pBITCiLfBU9ixQ0kJKE+tvSDIT8b/yBcD6s+GQRCFeL5XBC6woq4oCQ55rIBkKZt0UE1DXgRS6+HFtDSeJYlgAAAABJRU5ErkJggg==">
+    </div>
+    <span class="gadget-title">Labels</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">Labels</span>
+      <div class="gadget-content"><ul class="gadget-label gadget-label-list gadget-label-show-freq-numbers">
+  
+  
+<li class="gadget-label-item gadget-label-size-5">
+  <a href="http://amjith.blogspot.com/search/label/programming">programming</a><span class="gadget-label-count">29</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-4">
+  <a href="http://amjith.blogspot.com/search/label/tech">tech</a><span class="gadget-label-count">13</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-4">
+  <a href="http://amjith.blogspot.com/search/label/linux">linux</a><span class="gadget-label-count">12</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-4">
+  <a href="http://amjith.blogspot.com/search/label/python">python</a><span class="gadget-label-count">11</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-3">
+  <a href="http://amjith.blogspot.com/search/label/fun">fun</a><span class="gadget-label-count">8</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-3">
+  <a href="http://amjith.blogspot.com/search/label/personal">personal</a><span class="gadget-label-count">6</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-3">
+  <a href="http://amjith.blogspot.com/search/label/biking">biking</a><span class="gadget-label-count">4</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/PyQt4">PyQt4</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/algorithm">algorithm</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/c%2B%2B">c++</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/funny">funny</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/music">music</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/ptimer">ptimer</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/science">science</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/sun">sun</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/vim">vim</a><span class="gadget-label-count">3</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/camping">camping</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/django">django</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/haskell">haskell</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/osnews">osnews</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/scifi">scifi</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/solaris">solaris</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/ted">ted</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-2">
+  <a href="http://amjith.blogspot.com/search/label/tmux">tmux</a><span class="gadget-label-count">2</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/Mac%20OS%20X">Mac OS X</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/Mandriva">Mandriva</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/Ubuntu">Ubuntu</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/adventure">adventure</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/autoconf">autoconf</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/automake">automake</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/blog">blog</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/books">books</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/caving">caving</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/comics">comics</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/getkey">getkey</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/git">git</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/gnome%20ubuntu%20linux">gnome ubuntu linux</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/hiking">hiking</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/jobs">jobs</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/latex">latex</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/marriage">marriage</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/mysql">mysql</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/pomodoro">pomodoro</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/recursion">recursion</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/regex">regex</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/spelunking">spelunking</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/taekwondo">taekwondo</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/windows">windows</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+  
+<li class="gadget-label-item gadget-label-size-1">
+  <a href="http://amjith.blogspot.com/search/label/xkcd">xkcd</a><span class="gadget-label-count">1</span>
+</li>
+
+  
+</ul></div>
+    </div>
+  </div></div><div class="gadget-item" data-gadget-id="2">
+<div class="gadget-menu">
+    <div class="gadget-icons">
+      <img class="gadget-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAgMAAACdGdVrAAAACVBMVEX///8AAAD///9+749PAAAAAnRSTlMAAHaTzTgAAAAwSURBVHherYyxCQAwCAR/yhTZy8ZeC6c0BETU1msOjucBeyBF54s1FHEs5fZYWb12TL8307RAxVQAAAAASUVORK5CYII=">
+      <img class="gadget-icon-selected" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAgMAAACdGdVrAAAACVBMVEX///8AAAAzMzMTx/ayAAAAAnRSTlMAAHaTzTgAAAAwSURBVHherYyxCQAwCAR/yhTZy8ZeC6c0BFS09pqD43nAHijR+WINZZxLuTN2Vq8dTL8301DjA9oAAAAASUVORK5CYII=">
+    </div>
+    <span class="gadget-title">Blog Archive</span>
+  </div>
+  <div class="gadget-container">
+    <div class="gadget">
+      <span class="gadget-title">Blog Archive</span>
+      <div class="gadget-content"><div class="blogarchive-tree blogarchive-expanded blogarchive-flat">
+  <ul class="blogarchive-dates">
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2012_05_01_archive.html">May</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2012_03_01_archive.html">March</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2012_02_01_archive.html">February</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_11_01_archive.html">November</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_10_01_archive.html">October</a><span class="blogarchive-post-count">4</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_09_01_archive.html">September</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_08_01_archive.html">August</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_06_01_archive.html">June</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_05_01_archive.html">May</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_04_01_archive.html">April</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2011_02_01_archive.html">February</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2010_12_01_archive.html">December</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2010_11_01_archive.html">November</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2010_09_01_archive.html">September</a><span class="blogarchive-post-count">3</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_08_01_archive.html">August</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_07_01_archive.html">July</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_06_01_archive.html">June</a><span class="blogarchive-post-count">4</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_05_01_archive.html">May</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_04_01_archive.html">April</a><span class="blogarchive-post-count">3</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_03_01_archive.html">March</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2009_01_01_archive.html">January</a><span class="blogarchive-post-count">2</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2008_12_01_archive.html">December</a><span class="blogarchive-post-count">3</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2008_10_01_archive.html">October</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2008_09_01_archive.html">September</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2008_08_01_archive.html">August</a><span class="blogarchive-post-count">3</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2007_07_01_archive.html">July</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2006_07_01_archive.html">July</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2006_06_01_archive.html">June</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2006_04_01_archive.html">April</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2006_03_01_archive.html">March</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2006_02_01_archive.html">February</a><span class="blogarchive-post-count">4</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2006_01_01_archive.html">January</a><span class="blogarchive-post-count">3</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_12_01_archive.html">December</a><span class="blogarchive-post-count">8</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_11_01_archive.html">November</a><span class="blogarchive-post-count">5</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_10_01_archive.html">October</a><span class="blogarchive-post-count">6</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_09_01_archive.html">September</a><span class="blogarchive-post-count">5</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_08_01_archive.html">August</a><span class="blogarchive-post-count">6</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_07_01_archive.html">July</a><span class="blogarchive-post-count">6</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_06_01_archive.html">June</a><span class="blogarchive-post-count">6</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_05_01_archive.html">May</a><span class="blogarchive-post-count">7</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_04_01_archive.html">April</a><span class="blogarchive-post-count">4</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_03_01_archive.html">March</a><span class="blogarchive-post-count">7</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_02_01_archive.html">February</a><span class="blogarchive-post-count">5</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2005_01_01_archive.html">January</a><span class="blogarchive-post-count">10</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  
+<li class="blogarchive-date blogarchive-collapsed">
+  <div class="blogarchive-title">
+    <a href="http://amjith.blogspot.com/2004_12_01_archive.html">December</a><span class="blogarchive-post-count">1</span>
+  </div>
+  <ul class="blogarchive-dates">
+  
+  
+
+
+  </ul>
+</li>
+
+  
+  </ul>
+</div></div>
+    </div>
+  </div></div></div>
+
+
+
+<div id="loading">
+  <span>Loading</span>
+</div>
+
+
+
+
+
+<div id="attribution-container"></div></body>
+</html>

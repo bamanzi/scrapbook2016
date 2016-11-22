@@ -466,7 +466,7 @@ var searchEngine = {
         var cache = data.cache;
         var item = data.item;
         var wrapper = document.getElementById("result");
-        var result = document.createElement("LI");
+        var result = document.createElement("li");
         var subpath = "data/" + item.id + "/" + cache.path.replace(/[^\/]+/g, function(m){return encodeURIComponent(m);});
         var bullet = this.config["list_bullet"] + " ";
         var text = item.type == "bookmark" ?
@@ -474,7 +474,7 @@ var searchEngine = {
             item.title + ((cache.path != "index.html") ? (" (" + cache.path + ")") : "");
         if (item.type != "bookmark") {
             var href = scrapbook.path + "/" + "tree/frame.html#../" + subpath;
-            var link = document.createElement("A");
+            var link = document.createElement("a");
             link.setAttribute("href", href);
             link.setAttribute("target", "_blank");
             link.setAttribute("class", "bookmark");
@@ -484,7 +484,7 @@ var searchEngine = {
         }
         var href = (item.type == "bookmark") ? item.source : scrapbook.path + "/" + subpath;
         var target = (item.type == "bookmark") ? "_blank" : "main";
-        var link = document.createElement("A");
+        var link = document.createElement("a");
         link.setAttribute("href", href);
         link.setAttribute("target", target);
         link.setAttribute("class", item.type);
@@ -501,7 +501,7 @@ var searchEngine = {
 
     addMsg: function(msg) {
         var wrapper = document.getElementById("result");
-        var result = document.createElement("LI");
+        var result = document.createElement("li");
         result.appendChild(document.createTextNode(msg));
         wrapper.appendChild(result);
     },
