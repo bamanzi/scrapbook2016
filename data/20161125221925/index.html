@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+
+    <link href="bootstrap.min.css" rel="stylesheet" media="screen">
+      
+    <title>Rake让Jekyll写博更优雅 | 晚晴幽草轩</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="晚晴幽草轩轩主">
+    
+
+    
+    <meta name="description" content="编写Rakefile让Jekyll写博更便捷，一键生成/预览/发布...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rake让Jekyll写博更优雅">
+<meta property="og:url" content="http://www.jeffjade.com/2016/03/26/2016-03-26-rakefile-for-jekyll/index.html">
+<meta property="og:site_name" content="晚晴幽草轩">
+<meta property="og:description" content="编写Rakefile让Jekyll写博更便捷，一键生成/预览/发布...">
+<meta property="og:image" content="http://7xoosr.com1.z0.glb.clouddn.com/niceStar.jpg">
+<meta property="og:updated_time" content="2016-03-27T11:56:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rake让Jekyll写博更优雅">
+<meta name="twitter:description" content="编写Rakefile让Jekyll写博更便捷，一键生成/预览/发布...">
+<meta name="twitter:image" content="http://7xoosr.com1.z0.glb.clouddn.com/niceStar.jpg">
+<meta name="twitter:creator" content="@jeffjade2">
+
+    
+    <link rel="alternative" href="http://www.jeffjade.com/atom.xml" title="晚晴幽草轩" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="xuan.ico">
+    
+    
+    <link rel="apple-touch-icon" href="http://www.jeffjade.com/img/xuan.ico">
+    <link rel="apple-touch-icon-precomposed" href="http://www.jeffjade.com/img/xuan.ico">
+      
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="about:blank"></script>
+
+    <script src="about:blank"></script>
+ 
+<script charset="UTF-8" src="about:blank" async="" type="text/javascript"></script><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="http://www.jeffjade.com/" title="晚晴幽草轩"></a></h1>
+				<h2 class="blog-motto">It's only too late if you decide it is. Get busy living. or get busy dying!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="云轩菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="http://www.jeffjade.com/">Home</a></li>
+					
+						<li><a href="http://www.jeffjade.com/archives">Archives</a></li>
+					
+						<li><a href="http://www.jeffjade.com/Links">Links</a></li>
+					
+						<li><a href="http://www.jeffjade.com/About">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="http://google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" type="search">
+						<input name="q" value="site:www.jeffjade.com" type="hidden">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="#" class="title=&quot;Rake让Jekyll写博更优雅&quot;" itemprop="url">Rake让Jekyll写博更优雅</a>
+    
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.jeffjade.com/About" title="晚晴幽草轩轩主" target="_blank" itemprop="author">晚晴幽草轩轩主</a>
+		
+  </p><p class="article-time">
+    <time datetime="2016-03-26T08:30:00.000Z" itemprop="datePublished"> 发表于 2016-03-26</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>于想拥有个人站点品牌的人来讲，现如今是一个很好的时期。至少 <strong>Hexo</strong>、<strong>Jekyll</strong>、<strong>Leanote</strong>、<code>WordPress</code> 、<code>FarBox</code>  Octopress、ghost、marboo、Medium、Logdown、prose.io 等诸多层出不穷的好工具，让建站写文已经变得异常简洁方便。分分钟可搭建起美观大方的个人博客，这样的教程已经充盈网络，在此不提。这里要谈及的是，以<strong>Rake</strong>一键生成<strong>Jekyll</strong>文章模版，一键预览效果，一键发布等等；Rake让Jekyll写博更优雅。</p>
+<a id="more"></a>
+<p><img src="niceStar.jpg" alt="Rake让Jekyll写博更优雅"></p>
+<p>个人博客，目前主用这<strong>Hexo</strong>和<strong><a href="http://jekyllrb.com/" target="_blank" rel="external">jekyll</a></strong>，两者都很是轻量便捷。<strong>Hexo</strong>是一个开源的静态博客生成器,由一位台湾大学生用node.js开发而成，<a href="http://www.jeffjade.com/">晚晴幽草轩</a>就是用<strong>Hexo</strong>搭建而成。<strong>jekyll</strong>是Ruby写的一个轻量级的博客系统，也是Github Page默认搭配，<a href="http://nicejade.github.io/" target="_blank" rel="external">天意人间舫</a>则是以<strong>Jekyll</strong>创造出的；(题外话，Hexo发布前需要运行<code>Hexo g</code>本地生成下，文章多了，速度上也会慢些(百篇文章，5s左右)；发布后更新速度也没Jekyll那么快；其他常用体验倒差不太多)。</p>
+<p>在设计上，jekyll框架将博客模块化，比如有负责网页显示样式的部分（即模板），有负责博客内容的部分，也就是我们使用<strong>markdown</strong>语言来写的内容。其次，它通过一定的规则，又将各个模块的内容组织起来，并创建各个页面之间的联系。如此是它可以使我们在写作的时候，尽最大的精力去集中在内容的创作上，而不用太在意格式以及排版。并且借助于git这个相当流行的分布式版本控制系统，可很有效的管理所写的文章，完全可以做到在没有网络的情况下写作｜预览，待有网络时再将内容同步。</p>
+<p>使用<strong>Jekyll</strong>本已经非常方便了，不管是本地测试还是发布线上。但还是不够简洁，对于渴望极致的懒人来讲。比如发布文章到线上：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m "commit massge"</div><div class="line">git push origin master</div></pre></td></tr></tbody></table></figure><p></p>
+<p>如果能够敲击一个命令完成，就不能忍受搞三行；虽然三行只多余费了不到半分钟。撰文写字，本就不易，一篇下来，已是很累；欲长久此好，必须尽可能减轻完成这事儿之成本；否则累觉不爱之后，爱好这种事儿，会在累烦的折腾种被阉割抛弃的。在操纵<strong>Jekll</strong>博客方面，有很多可以利用的脚本，比如<strong>bash</strong>,<strong>Makefile</strong>,win下的<strong>bat</strong>等等； 朋友@<a href="http://pizida.com/" target="_blank" rel="external">痞子达</a> 向我推荐了<strong>Rake</strong>，这些日子用了下着实很方便，改写也颇为简单，就此录下一篇推荐给大家。</p>
+<p>何为<a href="http://rake.rubyforge.org/" target="_blank" rel="external">Rake</a>？: 即Ruby Make，一个用ruby开发的代码构建工具，要了解更多Rake可以参看其官网，抑或是这里整理的<a href="http://nicejade.github.io/2016/03/26/nice-rake.html" target="_blank" rel="external">简洁强大如斯：Rake</a>。</p>
+<p>下载安装<strong>Rake</strong>，可以使用 <strong>gem</strong>：</p>
+<blockquote>
+<p>gem install rake</p>
+</blockquote>
+<p>如何使用<strong>Rake</strong>来优雅Jekyll写博文流程？，只需要写一个<strong>Rakefile</strong>为名的Rake脚本放置在Blog项目的根目录下，同时做一点简单的配置即可。<a href="https://github.com/gummesson/jekyll-rake-boilerplate" target="_blank" rel="external">Jekyll Rake Boilerplate</a>是一个功能很完善的脚本，有以下诸多方法可供使用：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">rake post["Title"]</div><div class="line">rake draft["Title"]</div><div class="line">rake publish</div><div class="line">rake page["Title"]</div><div class="line">    rake page["Title","Path/to/folder"]</div><div class="line">rake build</div><div class="line">rake watch</div><div class="line">    rake watch[number]</div><div class="line">    rake watch["drafts"]</div><div class="line">rake preview</div><div class="line">rake deploy["Commit message"]</div><div class="line">rake transfer</div></pre></td></tr></tbody></table></figure>
+<p>这意味着使用<strong>Jekyll</strong>写文的流程可简化为：</p>
+<blockquote>
+<ul>
+<li>写草稿：rake draft[“Title”]</li>
+<li>将草稿发表：rake publish</li>
+<li>直接写博文：rake post[“Title”]</li>
+<li>做页面：rake page[“Title”]</li>
+<li>写完后发布，rake deploy[“Commit message”]</li>
+</ul>
+</blockquote>
+<p>这个脚本目测为国外人编写的，于个人需求还是得调整下的。并且这里采用 <code>rake draft["Title"]</code> 这样命令行来运行，对于使用 <code>zsh</code> 作为终端的朋友，就颇为有点蛋疼了。”[]”在<code>zsh</code>这里会被转义，所以运行命令就得这样 <code>rake post\["TitleName"\]</code>，否则会报如下错误：</p>
+<blockquote>
+<p>zsh: no matches found: post[TitleName]</p>
+</blockquote>
+<p>伊始用这个老报错，还不懂<strong>Ruby</strong>语言，去查看了下，用环境变量做参数可以，没报错（ENV[“Title”]来接收消息）。费了些功夫才找到的原因，参见<a href="https://ihower.tw/blog/archives/3546" target="_blank" rel="external">傳參數到 Rake 中</a>。所以这边自己稍微改了下原有的写法，比如新建一篇文章：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"># Add 2016-03－01(rake post title="xx")</div><div class="line">desc "Create a post in _posts"</div><div class="line">task :new do</div><div class="line">    puts "Input File Path(book/life/resource/tech/tool,default _posts Root)："</div><div class="line">    @dir = STDIN.gets.chomp</div><div class="line">    puts "Input File Name(for Url)："</div><div class="line">	@url = STDIN.gets.chomp</div><div class="line">	puts "Input Article Title(for Article)："</div><div class="line">	@name = STDIN.gets.chomp</div><div class="line">	puts "Input Article Categories(工具｜资源｜生活｜技术｜读书 Separated By Spaces)："</div><div class="line">	@categories = STDIN.gets.chomp</div><div class="line">    puts "Input Article Tags(Separated By ,)"</div><div class="line">    @tags = STDIN.gets.chomp</div><div class="line">    puts "Input Article Keywords(Separated By ,)"</div><div class="line">    @keywords = STDIN.gets.chomp</div><div class="line">    puts "Input Article Description(Article Desc)："</div><div class="line">	@description = STDIN.gets.chomp</div><div class="line"></div><div class="line">	@slug = "#{@url}"</div><div class="line">	@slug = @slug.downcase.strip.gsub(' ', '-')</div><div class="line">	@date = Time.now.strftime("%F")</div><div class="line">    @post_url = (@dir=="") ? "" : ("/" + "#{@dir}");</div><div class="line">	@post_name = "_posts#{@post_url}/#{@date}-#{@slug}.md"</div><div class="line">	if File.exist?(@post_name)</div><div class="line">	   abort("Failed to create the file name already exists !")</div><div class="line">	end</div><div class="line">	FileUtils.touch(@post_name)</div><div class="line">	open(@post_name, 'a') do |file|</div><div class="line">	    file.puts "---"</div><div class="line">		file.puts "layout: post"</div><div class="line">		file.puts "title: #{@name}"</div><div class="line">		file.puts "date: #{Time.now}"</div><div class="line">		file.puts "categories: #{@categories}"</div><div class="line">        file.puts "tags: #{@tags}"</div><div class="line">        file.puts "keywords: #{@keywords}"</div><div class="line">        file.puts "description: #{@description}"</div><div class="line">	    file.puts "---"</div><div class="line">	end</div><div class="line">	exec "vi #{@post_name}"</div><div class="line">end</div></pre></td></tr></tbody></table></figure>
+<p>运用的话，只需要<code>rake new</code>开启命令，按照其提示的一步步输入：title categories tags keywords description 等</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  nicejade.github.io git:(master) ✗ rake new</div><div class="line">Input File Path(book/life/resource/tech/tool,default _posts Root)：</div><div class="line">life</div><div class="line">Input File Name(<span class="keyword">for</span> Url)：</div><div class="line">the pleasure of thinking</div><div class="line">Input Article Title(<span class="keyword">for</span> Article)：</div><div class="line">思维的的乐趣</div><div class="line">Input Article Categories(工具｜资源｜生活｜技术｜读书 Separated By Spaces)：</div><div class="line">生活</div><div class="line">Input Article Tags(Separated By ,)</div><div class="line">Thinking,Essay</div><div class="line">Input Article Keywords(Separated By ,)</div><div class="line">思维的乐趣</div><div class="line">Input Article Description(Article Desc)：</div><div class="line">王小波散文随笔：思维的录乐趣</div></pre></td></tr></tbody></table></figure>
+<p><strong>Rake</strong>即可帮着在 <code>_posts/life</code>目录下创建命名为“2016-03-26-the-pleasure-of-thinking.md”的文件，并根据所输入的生成以下内容：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">layout: post</div><div class="line">title: 思维的乐趣</div><div class="line">date: 2016-03-26 00:22:39 +0800</div><div class="line">categories: 生活</div><div class="line">tags: Thinking,Essay</div><div class="line">keywords: 思维的乐趣</div><div class="line">description: 王小波散文随笔：思维的乐趣</div><div class="line">---</div></pre></td></tr></tbody></table></figure>
+<p>接下来只管产出内容即可。当然了，之前提到需要一点配置，就是需要在<code>_config.yml</code>种对template,page,git等进行配置，譬如：<br></p><figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="attr">post:</span></div><div class="line"><span class="attr">  template:</span> _post.txt</div><div class="line"><span class="attr">  extension:</span> md</div><div class="line"><span class="attr">page:</span></div><div class="line"><span class="attr">  template:</span> _page.txt</div><div class="line"><span class="attr">  extension:</span> md</div><div class="line"><span class="attr">editor:</span> atom</div><div class="line"><span class="attr">git:</span></div><div class="line"><span class="attr">  branch:</span> master</div><div class="line"><span class="attr">transfer:</span></div><div class="line"><span class="attr">  command:</span> rsync</div><div class="line"><span class="attr">  settings:</span> -av</div><div class="line"><span class="attr">  source:</span> _site/</div><div class="line"><span class="attr">  destination:</span> ~/Git/yourGithubName.github.com/</div></pre></td></tr></tbody></table></figure><p></p>
+<p>对应可以按需在<code>_config.yml</code>目录下 创建<strong>_post.txt</strong> <strong>_page.txt</strong>即可；根据Html种<strong>Meta</strong>对于<strong>SEO</strong>的重要，以及站点分类需要，个人配置内容如下：<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title:</div><div class="line">date:</div><div class="line">categories:</div><div class="line">tags:</div><div class="line">keywords:</div><div class="line">description:</div><div class="line">---</div></pre></td></tr></tbody></table></figure><p></p>
+<p>如此配置完毕，即可运行如下命令：</p>
+<blockquote>
+<p>rake new  // 新建文章<br>rake post[“TitleName”] // 生成纯净文章模版配置<br>rake deploy “message”=”Commit Message” //一键发布文章<br>rake preview   //一键预览(还会自主协助打开浏览器)<br>rake build      //Build the site<br>rake post[“Title”] //创建文章(tags,keywords等洁净的)</p>
+</blockquote>
+<p>当然Rake强大远非如此，完全可以用它来编出些强大的脚本，以此节省人力；并且比之于晦涩难记的Makefile，Bat，它的学习成本也小了很多。这里这是浅显的记载它能为Jekyll写博带来的便利。以上改写脚本已上传这里<a href="https://github.com/nicejade/jadeScriptCollect" target="_blank" rel="external">jadeScriptCollect</a>，会根据需要持续更新。</p>
+<p>折腾不是为折腾而折腾，只为偷懒而勤奋；简洁才是王道。</p>
+<p>2016-03-26 于深圳。</p>
+<blockquote>
+<p>原文出自: <a href="http://www.jeffjade.com/">http://www.jeffjade.com</a><br>原文链接：<a href="#">http://www.jeffjade.com/2016/03/26/2016-03-26-rakefile-for-jekyll/#</a></p>
+</blockquote>
+
+	</div>
+		<a href="#reward-modal-container" aria-label="Open Reward" id="open-reward-modal-a">打赏</a>
+<div id="reward-modal-container">
+		<div class="modal-div">
+			<h1 class="reward-title-h1">倾情打赏</h1>
+			<a aria-label="Close Modal" class="close-modal-a"></a>
+			<p class="reward-thx-p">感谢您的支持，我会继续努力！</p>
+			<div class="reward-img-div">
+				<img class="reward-qr-img" src="encourage.png" alt="打赏赞助">
+			</div>
+			<div class="reward-text-div">扫码打赏，建议金额1-10元</div>
+			<p class="reward-tip-p">
+				提醒：打赏金额将直接进此方账号，无法退款，请您谨慎操作。
+			</p>
+		</div>
+</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="http://www.jeffjade.com/categories/Toss/">Toss</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="http://www.jeffjade.com/tags/Tools/">Tools</a><a href="http://www.jeffjade.com/tags/Rake/">Rake</a><a href="http://www.jeffjade.com/tags/Jekyll/">Jekyll</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.jeffjade.com/2016/03/26/2016-03-26-rakefile-for-jekyll/" data-title="Rake让Jekyll写博更优雅 | 晚晴幽草轩" data-tsina="3235949794" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="http://www.jeffjade.com/2016/03/30/104-front-end-tutorial/" title="『引』最全前端资源汇集">
+  <strong>上一篇：</strong><br>
+  <span>
+  『引』最全前端资源汇集</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="http://www.jeffjade.com/2016/03/23/2016-03-23-toss-wechat-public_no/" title="微信公众号：静晴轩">
+ <strong>下一篇：</strong><br> 
+ <span>微信公众号：静晴轩
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/03/26/2016-03-26-rakefile-for-jekyll/" data-title="Rake让Jekyll写博更优雅" data-url="http://www.jeffjade.com/2016/03/26/2016-03-26-rakefile-for-jekyll/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  <div class="linkslist">
+	<p class="asidetitle">微博互动</p>
+	<iframe class="share_self" scrolling="no" src="index_9.html" frameborder="0" height="119" width="100%"></iframe>
+</div>
+
+  
+  <div class="widget-wrap linkslist">
+    <h3 class="widget-title asidetitle">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://www.jeffjade.com/2016/11/24/116-JavaScript-string-operation/">JavaScript 字符串实用常操纪要</a>
+          </li>
+        
+          <li>
+            <a href="http://www.jeffjade.com/2016/10/31/115-summary-of-cookie/">详解 Cookie 纪要</a>
+          </li>
+        
+          <li>
+            <a href="http://www.jeffjade.com/2016/10/28/114-talk-about-education/">话说这“驴得水”～老师</a>
+          </li>
+        
+          <li>
+            <a href="http://www.jeffjade.com/2016/09/16/112-vue-data-binding/">Vue 各类数据绑定</a>
+          </li>
+        
+          <li>
+            <a href="http://www.jeffjade.com/2016/08/08/113-toss-gulp/">Gulp折腾之路(III)</a>
+          </li>
+        
+          <li>
+            <a href="http://www.jeffjade.com/2016/07/24/111-talk-about-work-arena/">写于职业边上</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="linkslist">
+  <p class="asidetitle">轩站热度</p>
+  
+    <font id="counter"></font><br>
+    <font id="detail_counter"></font>
+  
+</div>
+
+  <div class="linkslist">
+	<p class="asidetitle">倾情款赠</p>
+	<div style="width: 100%;"><img style="width: 100%;" src="encourage.png" alt="encourage jeffjade"></div>
+</div>
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">云轩分类</p>
+		<ul>
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Android/" title="Android">Android<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Front-End/" title="Front-End">Front-End<sup>31</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Health/" title="Health">Health<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Internet/" title="Internet">Internet<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Java/" title="Java">Java<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Lua/" title="Lua">Lua<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Movie/" title="Movie">Movie<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Program/" title="Program">Program<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Read/" title="Read">Read<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Share/" title="Share">Share<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Thought/" title="Thought">Thought<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Toss/" title="Toss">Toss<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="http://www.jeffjade.com/categories/Travel/" title="Travel">Travel<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">云轩标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Thought/" title="Thought">Thought<sup>23</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Share/" title="Share">Share<sup>23</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/JavaScript/" title="JavaScript">JavaScript<sup>19</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Toss/" title="Toss">Toss<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Tools/" title="Tools">Tools<sup>13</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Efficiency/" title="Efficiency">Efficiency<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Lua/" title="Lua">Lua<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Android/" title="Android">Android<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Java/" title="Java">Java<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Gulp/" title="Gulp">Gulp<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/CSS/" title="CSS">CSS<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Vue/" title="Vue">Vue<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/NodeJs/" title="NodeJs">NodeJs<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/jQuery/" title="jQuery">jQuery<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Webpack/" title="Webpack">Webpack<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Movie/" title="Movie">Movie<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Read/" title="Read">Read<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Travel/" title="Travel">Travel<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Mac/" title="Mac">Mac<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/SublimeText/" title="SublimeText">SublimeText<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Health/" title="Health">Health<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Adb/" title="Adb">Adb<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Markdown/" title="Markdown">Markdown<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Backbone/" title="Backbone">Backbone<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Music/" title="Music">Music<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/SEO/" title="SEO">SEO<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/SSH/" title="SSH">SSH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Jekyll/" title="Jekyll">Jekyll<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Cookie/" title="Cookie">Cookie<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Html/" title="Html">Html<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Git/" title="Git">Git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="http://www.jeffjade.com/tags/Bat/" title="Bat">Bat<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">云轩关注</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://blog.codingnow.com/" target="_blank" title="云风Blog">云风Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://cnfeat.com/" target="_blank" title="陈素封">陈素封</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.williamlong.info/" target="_blank" title="月光博客">月光博客</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://coolshell.cn/" target="_blank" title="酷壳－陈浩">酷壳－陈浩</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me/" target="_blank" title="Jark's Blog">Jark's Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.zhangxinxu.com/" target="_blank" title="鑫空间-鑫生活">鑫空间-鑫生活</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://nicejade.github.io/" target="_blank" title="天意人间舫">天意人间舫</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://pizida.com/" target="_blank" title="发动机的小角落">发动机的小角落</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/users/9aae3d8f4c3d/latest_articles" target="_blank" title="晚晴幽草">晚晴幽草</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.cnblogs.com/jadeboy/" target="_blank" title="云轩奕鹤">云轩奕鹤</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.brucezhou.com/" target="_blank" title="夜殇的小站">夜殇的小站</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://lijunnan.com/" target="_blank" title="君南的稀罕货">君南的稀罕货</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://freedom.moe/" target="_blank" title="音符の新世界">音符の新世界</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.codemx.cn/" target="_blank" title="墨香博客">墨香博客</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">好书推荐</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://www.amazon.cn/gp/product/B00D73BJWK/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00D73BJWK&amp;linkCode=as2&amp;tag=droidyue-23" target="_blank" title="浪潮之巅">浪潮之巅</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.amazon.cn/gp/product/B00OB3SNMY/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=536&amp;creative=3200&amp;creativeASIN=B00OB3SNMY&amp;linkCode=as2&amp;tag=droidyue-23" target="_blank" title="三体">三体</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://book.douban.com/subject/1477390/" target="_blank" title="代码大全2">代码大全2</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="http://www.jeffjade.com/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 追求卓越，成功就会在不经意间 追上你！ <br>
+			As you think, so shall you become. </p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/3235949794" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/jeffjade" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/jeffjade2" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/100006379368522" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		<a href="http://www.douban.com/people/125966439/" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		
+		<a href="mailto:yunjeff@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="http://www.jeffjade.com/about" target="_blank" title="晚晴幽草轩轩主">晚晴幽草轩轩主</a>
+		
+		</p>
+</div>
+
+<script src="about:blank" type="text/javascript" charset="utf-8"></script>
+
+<script src="about:blank"></script>
+<script>/* Code removed by ScrapBook */</script><script src="about:blank" type="text/javascript"></script>
+<script src="about:blank"></script></footer>
+    <!-- <script src="/js/jquery-2.0.3.min.js"></script> -->
+<script src="about:blank"></script>
+<script src="about:blank"></script>
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="jquery.fancybox.css" media="screen" type="text/css">
+<script src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">/* Code removed by ScrapBook */</script><script src="about:blank" type="text/javascript"></script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="scrollup.png"></a>
+	</div>
+	<script src="about:blank"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  
+
+</body>
+</html>

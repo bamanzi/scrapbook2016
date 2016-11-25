@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="generator" content="Jekyll v3.3.1">
+  <link type="application/atom+xml" rel="alternate" href="https://jekyllrb.com/feed.xml" title="Jekyll • Simple, blog-aware, static sites">
+  <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/jekyll/jekyll/commits/master.atom">
+  <link rel="stylesheet" href="css.dat">
+  <link rel="stylesheet" href="screen.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Creating pages - Jekyll • Simple, blog-aware, static sites</title>
+<meta property="og:title" content="Creating pages">
+<meta name="description" content="In addition to writing posts, another thing you may want to do with your Jekyll site is create static pages. By taking advantage of the way Jekyll copies files and directories, this is easy to do.">
+<meta property="og:description" content="In addition to writing posts, another thing you may want to do with your Jekyll site is create static pages. By taking advantage of the way Jekyll copies files and directories, this is easy to do.">
+<link rel="canonical" href="https://jekyllrb.com/docs/pages/">
+<meta property="og:url" content="https://jekyllrb.com/docs/pages/">
+<meta property="og:site_name" content="Jekyll • Simple, blog-aware, static sites">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@jekyllrb">
+<meta name="google-site-verification" content="onQcXpAvtHBrUI5LlroHNE_FP0b2qvFyPq7VZw36iEY">
+<script src="about:blank"></script><script src="about:blank" data-site-id="503c5af6613f5d0f19000027" id="gauges-tracker" async="" type="text/javascript"></script><script type="application/ld+json">/* Code removed by ScrapBook */</script>
+<!-- End Jekyll SEO tag -->
+
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+<style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style></head>
+
+
+<body class="wrap">
+  <header>
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="https://jekyllrb.com/">Home</a>
+  </li>
+  <li class="current">
+    <a href="https://jekyllrb.com/docs/home/">Docs</a>
+  </li>
+  <li class="">
+    <a href="https://jekyllrb.com/news/">News</a>
+  </li>
+  <li class="">
+    <a href="https://jekyllrb.com/community/">Community</a>
+  </li>
+  <li class="">
+    <a href="https://jekyllrb.com/help/">Help</a>
+  </li>
+  <li>
+    <a href="https://github.com/jekyll/jekyll"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="https://jekyllrb.com/">
+          <span class="sr-only">Jekyll</span>
+          <img src="logo-2x.png" alt="Jekyll Logo" height="115" width="249">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="https://jekyllrb.com/">Home</a>
+  </li>
+  <li class="current">
+    <a href="https://jekyllrb.com/docs/home/">Docs</a>
+  </li>
+  <li class="">
+    <a href="https://jekyllrb.com/news/">News</a>
+  </li>
+  <li class="">
+    <a href="https://jekyllrb.com/community/">Community</a>
+  </li>
+  <li class="">
+    <a href="https://jekyllrb.com/help/">Help</a>
+  </li>
+  <li>
+    <a href="https://github.com/jekyll/jekyll"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="docs">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select>
+    <option value="">Navigate the docs…</option>
+    
+    <optgroup label="Getting Started">
+      
+  
+  
+  <option value="/docs/home/">Welcome</option>
+
+  
+  
+  <option value="/docs/quickstart/">Quick-start guide</option>
+
+  
+  
+  <option value="/docs/installation/">Installation</option>
+
+  
+  
+  <option value="/docs/usage/">Basic Usage</option>
+
+  
+  
+  <option value="/docs/structure/">Directory structure</option>
+
+  
+  
+  <option value="/docs/configuration/">Configuration</option>
+
+
+    </optgroup>
+    
+    <optgroup label="Your Content">
+      
+  
+  
+  <option value="/docs/frontmatter/">Front Matter</option>
+
+  
+  
+  <option value="/docs/posts/">Writing posts</option>
+
+  
+  
+  <option value="/docs/drafts/">Working with drafts</option>
+
+  
+  
+  <option value="/docs/pages/">Creating pages</option>
+
+  
+  
+  <option value="/docs/static-files/">Static Files</option>
+
+  
+  
+  <option value="/docs/variables/">Variables</option>
+
+  
+  
+  <option value="/docs/collections/">Collections</option>
+
+  
+  
+  <option value="/docs/datafiles/">Data Files</option>
+
+  
+  
+  <option value="/docs/assets/">Assets</option>
+
+  
+  
+  <option value="/docs/migrations/">Blog migrations</option>
+
+
+    </optgroup>
+    
+    <optgroup label="Customization">
+      
+  
+  
+  <option value="/docs/templates/">Templates</option>
+
+  
+  
+  <option value="/docs/permalinks/">Permalinks</option>
+
+  
+  
+  <option value="/docs/pagination/">Pagination</option>
+
+  
+  
+  <option value="/docs/plugins/">Plugins</option>
+
+  
+  
+  <option value="/docs/themes/">Themes</option>
+
+  
+  
+  <option value="/docs/extras/">Extras</option>
+
+
+    </optgroup>
+    
+    <optgroup label="Deployment">
+      
+  
+  
+  <option value="/docs/github-pages/">GitHub Pages</option>
+
+  
+  
+  <option value="/docs/deployment-methods/">Deployment methods</option>
+
+  
+  
+  <option value="/docs/continuous-integration/">Continuous Integration</option>
+
+
+    </optgroup>
+    
+    <optgroup label="Miscellaneous">
+      
+  
+  
+  <option value="/docs/troubleshooting/">Troubleshooting</option>
+
+  
+  
+  <option value="/docs/sites/">Sites using Jekyll</option>
+
+  
+  
+  <option value="/docs/resources/">Resources</option>
+
+  
+  
+  <option value="/docs/upgrading/0-to-2/">Upgrading from 0.x to 2.x</option>
+
+  
+  
+  <option value="/docs/upgrading/2-to-3/">Upgrading from 2.x to 3.x</option>
+
+
+    </optgroup>
+    
+    <optgroup label="Meta">
+      
+  
+  
+  <option value="/docs/contributing/">Contributing</option>
+
+  
+  
+  <option value="/docs/maintaining/">Maintaining Jekyll</option>
+
+  
+  
+  <option value="/docs/conduct/">Code of Conduct</option>
+
+  
+  
+  <option value="/docs/history/">History</option>
+
+
+    </optgroup>
+    
+  </select>
+</div>
+
+
+      <div class="unit four-fifths">
+        <article>
+          <div class="improve right hide-on-mobiles">
+            <a href="https://github.com/jekyll/jekyll/edit/master/docs/_docs/pages.md"><i class="fa fa-pencil"></i> &nbsp;Improve this page</a>
+          </div>
+          <h1>Creating pages</h1>
+          <p>In addition to <a href="https://jekyllrb.com/docs/posts/">writing posts</a>, another thing you may want to do
+with your Jekyll site is create static pages. By taking advantage of the way
+Jekyll copies files and directories, this is easy to do.</p>
+
+<h2 id="homepage">Homepage<a title="Permalink" href="#homepage" class="header-link"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a></h2>
+
+<p>Just about every web server configuration you come across will look for an HTML
+file called <code class="highlighter-rouge">index.html</code> (by convention) in the site’s root folder and display
+that as the homepage. Unless the web server you’re using is configured to look
+for some different filename as the default, this file will turn into the
+homepage of your Jekyll-generated site.</p>
+
+<div class="note">
+  <h5>ProTip™: Use layouts on your homepage</h5>
+  <p>
+    Any HTML file on your site can use layouts and/or includes, even the
+    homepage. Common content, like headers and footers, make excellent
+    candidates for extraction into a layout.
+  </p>
+</div>
+
+<h2 id="where-additional-pages-live">Where additional pages live<a title="Permalink" href="#where-additional-pages-live" class="header-link"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a></h2>
+
+<p>Where you put HTML or <a href="https://daringfireball.net/projects/markdown/">Markdown</a>
+files for pages depends on how you want the pages to work.
+There are two main ways of creating pages:</p>
+
+<ul>
+  <li>Place named HTML or <a href="https://daringfireball.net/projects/markdown/">Markdown</a>
+files for each page in your site’s root folder.</li>
+  <li>Create a folder in the site’s root for each page, and place an index.html
+or index.md file in each page folder.</li>
+</ul>
+
+<p>Both methods work fine (and can be used in conjunction with each other),
+with the only real difference being the resulting URLs.</p>
+
+<h3 id="named-html-files">Named HTML files<a title="Permalink" href="#named-html-files" class="header-link"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a></h3>
+
+<p>The simplest way of adding a page is just to add an HTML file in the root
+directory with a suitable name for the page you want to create. For a site with
+a homepage, an about page, and a contact page, here’s what the root directory
+and associated URLs might look like:</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>.
+|-- _config.yml
+|-- _includes/
+|-- _layouts/
+|-- _posts/
+|-- _site/
+|-- about.html    <span class="c"># =&gt; http://example.com/about.html</span>
+|-- index.html    <span class="c"># =&gt; http://example.com/</span>
+|-- other.md      <span class="c"># =&gt; http://example.com/other.html</span>
+└── contact.html  <span class="c"># =&gt; http://example.com/contact.html</span>
+</code></pre>
+</div>
+
+<h3 id="named-folders-containing-index-html-files">Named folders containing index HTML files<a title="Permalink" href="#named-folders-containing-index-html-files" class="header-link"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a></h3>
+
+<p>There is nothing wrong with the above method. However, some people like to keep
+their URLs free from things like filename extensions. To achieve clean URLs for
+pages using Jekyll, you simply need to create a folder for each top-level page
+you want, and then place an <code class="highlighter-rouge">index.html</code> file in each page’s folder. This way
+the page URL ends up being the folder name, and the web server will serve up
+the respective <code class="highlighter-rouge">index.html</code> file. Here’s an example of what this structure
+might look like:</p>
+
+<div class="language-sh highlighter-rouge">
+<pre class="highlight"><code>.
+├── _config.yml
+├── _includes/
+├── _layouts/
+├── _posts/
+├── _site/
+├── about/
+|   └── index.html  <span class="c"># =&gt; http://example.com/about/</span>
+├── contact/
+|   └── index.html  <span class="c"># =&gt; http://example.com/contact/</span>
+|── other/
+|   └── index.md    <span class="c"># =&gt; http://example.com/other/</span>
+└── index.html      <span class="c"># =&gt; http://example.com/</span>
+</code></pre>
+</div>
+
+<p>This approach may not suit everyone, but for people who like clean URLs it’s
+simple and it works. In the end, the decision is yours!</p>
+
+<div class="note">
+  <h5>ProTip™: Use permalink Front Matter Variable</h5>
+  <p>
+    Clean URLs can also be achieved using the <code>permalink</code> front
+    matter variable. In the example above, using the first method, you can
+    get URL <code>http://example.com/other</code> for the file
+    <code>other.md</code> by setting this at the top of the file:
+    <code>permalink: /other</code>
+  </p>
+</div>
+
+          
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="section-nav">
+      <div class="left align-right">
+          
+            
+            
+            <a href="https://jekyllrb.com/docs/drafts/" class="prev">Back</a>
+          
+      </div>
+      <div class="right align-left">
+          
+            
+            
+            <a href="https://jekyllrb.com/docs/static-files/" class="next">Next</a>
+          
+      </div>
+    </div>
+    <div class="clear"></div>
+    
+        </article>
+      </div>
+
+      <div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    
+    <h4>Getting Started</h4>
+    <ul>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/home/">Welcome</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/quickstart/">Quick-start guide</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/installation/">Installation</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/usage/">Basic Usage</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/structure/">Directory structure</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/configuration/">Configuration</a></li>
+
+</ul>
+
+    
+    <h4>Your Content</h4>
+    <ul>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/frontmatter/">Front Matter</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/posts/">Writing posts</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/drafts/">Working with drafts</a></li>
+
+  
+  
+  <li class="current"><a href="#">Creating pages</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/static-files/">Static Files</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/variables/">Variables</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/collections/">Collections</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/datafiles/">Data Files</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/assets/">Assets</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/migrations/">Blog migrations</a></li>
+
+</ul>
+
+    
+    <h4>Customization</h4>
+    <ul>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/templates/">Templates</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/permalinks/">Permalinks</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/pagination/">Pagination</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/plugins/">Plugins</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/themes/">Themes</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/extras/">Extras</a></li>
+
+</ul>
+
+    
+    <h4>Deployment</h4>
+    <ul>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/github-pages/">GitHub Pages</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/deployment-methods/">Deployment methods</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/continuous-integration/">Continuous Integration</a></li>
+
+</ul>
+
+    
+    <h4>Miscellaneous</h4>
+    <ul>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/troubleshooting/">Troubleshooting</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/sites/">Sites using Jekyll</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/resources/">Resources</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/upgrading/0-to-2/">Upgrading from 0.x to 2.x</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/upgrading/2-to-3/">Upgrading from 2.x to 3.x</a></li>
+
+</ul>
+
+    
+    <h4>Meta</h4>
+    <ul>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/contributing/">Contributing</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/maintaining/">Maintaining Jekyll</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/conduct/">Code of Conduct</a></li>
+
+  
+  
+  <li class=""><a href="https://jekyllrb.com/docs/history/">History</a></li>
+
+</ul>
+
+    
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <p>The contents of this website are <br>©&nbsp;2016 under the terms of the <a href="https://github.com/jekyll/jekyll/blob/master/LICENSE">MIT&nbsp;License</a>.</p>
+    </div>
+    <div class="unit two-thirds align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com/">
+          <img src="footer-logo.png" alt="GitHub • Social coding" height="30" width="100">
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+  <script>/* Code removed by ScrapBook */</script>
+
+  
+  <!-- Gauges (http://gaug.es/) -->
+  <script>/* Code removed by ScrapBook */</script>
+
+
+
+  <!-- Google Analytics (http://google.com/analytics) -->
+  <script>/* Code removed by ScrapBook */</script>
+
+
+
+
+
+</body>
+</html>

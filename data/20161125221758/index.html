@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class=" -moz-">
+<head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]--> <meta name="author" content="Su Yan"> <meta name="keywords" content="Jekyll,Github"> <link data-inprogress="" href="css.dat" rel="stylesheet" type="text/css"> <link rel="shortcut icon" href="site-favicon.ico"> <style data-href="/css/main.css" media="">
+/* Code tidied up by ScrapBook */
+@keyframes fadeIn {
+0% { transform: translateX(35px); opacity: 0; }
+100% { opacity: 1; }
+}
+@keyframes joggle {
+0%, 50%, 100% { transform: translateX(0px); }
+25%, 75% { transform: translateX(3px); }
+}
+@font-face {
+  font-family: "icomoon";
+  font-style: normal;
+  font-weight: normal;
+  src: url("icomoon.eot") format("embedded-opentype"), url("icomoon.ttf") format("truetype"), url("icomoon.woff") format("woff"), url("icomoon.svg") format("svg");
+}
+.sidebar-social-icon:before, #search-box:before, .toc-link:before, .post-meta-span.date:before, .post-meta-span.tag:before, .post-meta-span.comment:before, .post blockquote:before, .post-share-icon:before, #menu-icons, #post-toc-menu-icons { font-family: 'icomoon' ! important; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; }
+.post-share-icon.evernote:before { content: ""; }
+.post-meta-span.tag:before { content: ""; }
+.sidebar-social-icon.email:before { content: ""; }
+.post-meta-span.date:before { content: ""; }
+.post blockquote:before { content: ""; }
+#menu-icons:before { content: ""; }
+#menu-icons:after { content: ""; }
+#post-toc-menu-icons:before, #post-toc-menu-icons:after { content: ""; }
+.sidebar-social-icon.instagram:before { content: ""; }
+.sidebar-social-icon.twitter:before, .post-share-icon.twitter:before { content: ""; }
+.sidebar-social-icon.weibo:before, .post-share-icon.weibo:before { content: ""; }
+.sidebar-social-icon.feed:before { content: ""; }
+.sidebar-social-icon.github:before { content: ""; }
+.sidebar-social-icon.linkedin:before { content: ""; }
+*, *:before, *:after { box-sizing: border-box; }
+html { height: 100%; }
+body { position: relative; width: 100%; height: 100%; margin: 0px; color: rgb(40, 52, 68); font: 400 16px/1 "Open Sans","Hiragino Sans GB",sans-serif; background: none repeat scroll 0% 0% rgb(255, 255, 255); overflow: hidden; }
+input, textarea, button { -moz-appearance: none; }
+input::-moz-focus-inner, textarea::-moz-focus-inner, button::-moz-focus-inner { border: 0px none; padding: 0px; }
+#sidebar { position: absolute; top: 0px; bottom: 0px; left: -480px; z-index: 20; width: 480px; background-color: rgb(71, 77, 87); overflow: hidden; transition: left 0.35s cubic-bezier(0.77, 0, 0.175, 1) 0s, transform 0.35s cubic-bezier(0.77, 0, 0.175, 1) 0s; -moz-user-select: none; }
+#sidebar-left { float: left; width: 120px; height: 100%; background: none repeat scroll 0% 0% rgb(71, 77, 87); }
+#sidebar-avatar { display: block; width: 90px; margin: 4vh auto 1.5vh; border: 4px solid rgba(255, 255, 255, 0.75); border-radius: 50% 50% 50% 50%; overflow: hidden; }
+#sidebar-avatar-img { display: block; width: 100%; }
+#sidebar-social { padding: 0px 10px 3vh; text-align: center; }
+.sidebar-social-icon { display: inline-block; margin: 0px 1px; font-size: 18px; text-decoration: none; color: rgba(255, 255, 255, 0.6); outline: medium none; transition: color 0.15s linear 0s; }
+.sidebar-social-icon:hover { color: rgb(255, 255, 255); }
+#sidebar-tags { margin: 0px; padding: 0px; list-style: none outside none; border-top: 1px solid rgb(255, 255, 255); }
+.sidebar-tag { font-size: 17px; line-height: 40px; text-align: center; color: rgba(255, 255, 255, 0.7); border-bottom: 1px solid rgb(255, 255, 255); transition: color 0.15s linear 0s, box-shadow 0.3s cubic-bezier(0.77, 0, 0.175, 1) 0s; cursor: pointer; }
+.sidebar-tag:hover { color: rgba(255, 255, 255, 0.85); box-shadow: 6px 0px 0px rgb(255, 255, 255) inset; }
+.sidebar-tag.active { color: rgb(0, 0, 0); box-shadow: 120px 0px 0px rgb(255, 255, 255) inset; }
+#main { float: right; width: 100%; height: 100%; overflow: auto; transition: width 0.35s cubic-bezier(0.77, 0, 0.175, 1) 0s; }
+.container { max-width: 800px; width: 80%; margin: auto; padding: 0px 10px; }
+h2, h3, h4, h5, h6 { margin-top: 45px; margin-bottom: 15px; color: rgb(40, 52, 68); }
+.post { padding-top: 2em; font-size: 18px; line-height: 1.6; }
+.post-title { margin: 0px 0px 22.5px; font-size: 1.8em; color: rgb(40, 52, 68); }
+.post-meta { font-size: 0.9em; color: rgb(188, 193, 196); }
+.post-meta-span { margin-right: 1em; }
+.post-meta-span.date:before { margin-right: 0.2em; }
+.post-meta-span.tag:before { margin-right: 0.2em; }
+.post a { word-break: break-all; text-decoration: none; color: rgb(78, 101, 132); outline: medium none; }
+.post a:hover { color: rgb(48, 158, 133); }
+.post p, .post ul, .post ol { margin-top: 0px; margin-bottom: 30px; }
+.post ul, .post ol { padding-left: 1.5em; }
+.post li { margin-bottom: 7.5px; }
+.post blockquote { position: relative; margin: 0px 0px 30px 2em; font-style: italic; }
+.post blockquote:before { position: absolute; top: 0px; left: -1.5em; z-index: 1; transform: rotate(180deg); }
+.post img { display: block; width: 100%; border: 4px solid rgb(245, 245, 245); }
+.post code { font-family: "Droid Sans Mono",monospace; font-size: 0.9em; }
+.post :not(pre) > code { padding: 0px 0.25em; color: rgb(59, 77, 100); background: none repeat scroll 0% 0% rgb(230, 230, 230); }
+.post pre { margin-top: 0px; margin-bottom: 30px; padding: 1em; line-height: 1.3; background: none repeat scroll 0% 0% rgb(40, 42, 54); overflow: auto; }
+.post-share { margin: 2em 0px; padding-top: 0.7em; padding-bottom: 0.6em; font-size: 28px; text-align: center; background: none repeat scroll 0% 0% rgb(252, 252, 252); }
+.post-share-icon { margin: 0px 10px; text-decoration: none; color: rgb(188, 193, 196); transition: color 0.15s linear 0s; outline: medium none; }
+.post-share-icon:hover { color: rgb(48, 158, 133); }
+.footer { margin-top: 50px; padding-bottom: 30px; font-size: 14px; line-height: 20px; text-align: center; color: rgb(188, 193, 196); }
+.footer-entry { margin: 0px; }
+.footer-entry > a { color: rgb(147, 155, 160); text-decoration: none; transition: color 0.15s linear 0s; outline: medium none; }
+.footer-entry > a:hover { color: rgb(48, 158, 133); }
+#menu { display: block; position: fixed; top: 20px; right: 30px; z-index: 30; width: 42px; height: 42px; padding: 0px; background: none repeat scroll 0% 0% transparent; border: medium none; border-radius: 2px 2px 2px 2px; outline: medium none; overflow: hidden; cursor: pointer; }
+#menu-icons { display: block; width: 200%; height: 42px; margin-left: -100%; font-size: 24px; line-height: 42px; color: rgb(255, 255, 255); background: none repeat scroll 0% 0% rgb(71, 77, 87); overflow: hidden; }
+#menu-icons:before { float: left; width: 50%; }
+#menu-icons:after { float: left; width: 50%; }
+.highlight { color: rgb(248, 248, 242); background-color: rgb(40, 42, 54); }
+.highlight .cp { color: rgb(255, 121, 198); }
+.highlight .s { color: rgb(241, 250, 140); }
+.highlight .na { color: rgb(80, 250, 123); }
+.highlight .nt { color: rgb(255, 121, 198); }
+#post-toc-menu { display: block; position: fixed; top: 63px; right: 30px; z-index: 30; width: 42px; height: 42px; padding: 0px; background: none repeat scroll 0% 0% transparent; border: medium none; border-radius: 2px 2px 2px 2px; outline: medium none; overflow: hidden; cursor: pointer; }
+#post-toc-menu-icons { display: block; width: 200%; height: 42px; margin-left: -100%; font-size: 24px; line-height: 42px; color: rgb(255, 255, 255); background: none repeat scroll 0% 0% rgb(71, 77, 87); overflow: hidden; }
+#post-toc-menu-icons:before { float: left; width: 50%; }
+#post-toc-menu-icons:after { float: left; width: 50%; }
+#post-toc { width: 200px; height: 100%; padding-top: 10px; position: fixed; top: 106px; bottom: 0px; right: -200px; z-index: 30; background: none repeat scroll 0% 0% rgba(250, 250, 250, 0.9); border-top: 1px solid rgb(229, 232, 236); border-left: 1px solid rgb(229, 232, 236); border-radius: 10px 0px 0px 0px; display: block; overflow-y: scroll; -moz-user-select: none; transition: transform 0.35s cubic-bezier(0.77, 0, 0.175, 1) 0s; }
+#post-toc-title { padding: 0px 0px 5px 11px; color: rgb(44, 53, 61); font-size: 1em; display: block; }
+#post-toc-ul { margin: 0px; padding: 0px 10px 20px 15px; line-height: 1.6; }
+.post-toc-li { color: rgb(125, 139, 153); white-space: nowrap; text-overflow: ellipsis; display: block; overflow: hidden; }
+.post-toc-li > a { color: inherit; text-decoration: none; }
+.post-toc-li > a:hover { color: rgb(46, 182, 149); }
+.post-toc-h1 { font-size: 1em; list-style: none outside none; }
+.post-toc-h2 { font-size: 0.95em; }
+.post-toc-h3 { margin-left: 12px; font-size: 0.9em; }
+.post-toc-h3 + .post-toc-h2 { padding-top: 0.25em; }
+@media screen and (max-width: 1024px) {
+  #sidebar { left: -480px; }
+  #main { width: 100%; }
+  #menu { display: block; }
+  .container { max-width: 720px; width: 100%; }
+}
+@media screen and (max-width: 767px) {
+  #sidebar { left: -100%; width: 100%; overflow: auto; transition: transform 0.25s cubic-bezier(0.77, 0, 0.175, 1) 0s; }
+  #sidebar-left, #sidebar-right { float: none; width: 100%; height: auto; }
+  #sidebar-avatar { margin: 20px auto 15px; }
+  #sidebar-tags { display: none; }
+  .sidebar-social-icon { margin: 0px 2px; font-size: 26px; }
+  .post { padding-top: 20px; font-size: 16px; line-height: 1.5; }
+  .post p, .post ul, .post ol { margin-bottom: 24px; }
+  #menu { top: 0px; right: 0px; border-radius: 0px 0px 0px 2px; }
+  #post-toc-menu { top: 43px; right: 0px; border-radius: 0px 0px 0px 2px; }
+}
+</style> <link rel="canonical" href="http://yansu.org/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html"> <!-- Begin Jekyll SEO tag v2.1.0 --> <title>在Github上搭建Jekyll博客和创建主题 - 闫肃的博客</title> <meta property="og:title" content="在Github上搭建Jekyll博客和创建主题"> <meta name="description" content="之前本来想展开写的，后来发现Jekyll官网的教程已经非常完善了就没有多写，所以只有这篇。 但是过了这么久，发现很多人还是不清楚怎么搭建，所以这里打算详细写一下，并且把自己对图片的解决方案以及主题的创建步骤也一并写下。 本篇主要谈如何搭建，不再讲为什么用它们。"> <meta property="og:description" content="之前本来想展开写的，后来发现Jekyll官网的教程已经非常完善了就没有多写，所以只有这篇。 但是过了这么久，发现很多人还是不清楚怎么搭建，所以这里打算详细写一下，并且把自己对图片的解决方案以及主题的创建步骤也一并写下。 本篇主要谈如何搭建，不再讲为什么用它们。"> <link rel="canonical" href="http://yansu.org/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html"> <meta property="og:url" content="http://yansu.org/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html"> <meta property="og:site_name" content="闫肃的博客"> <meta property="og:type" content="article"> <meta property="article:published_time" content="2014-02-12T00:00:00+00:00"> <meta name="twitter:card" content="summary"> <meta name="twitter:site" content="@"> <meta name="twitter:creator" content="@Su Yan"> <script src="about:blank" async=""></script><script type="application/ld+json">/* Code removed by ScrapBook */</script> <!-- End Jekyll SEO tag --> <link type="application/atom+xml" rel="alternate" href="http://yansu.org/feed.xml" title="闫肃的博客"> <script src="about:blank"></script> <style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head> <body> <aside id="sidebar" class=""> <div id="sidebar-left"> <a id="sidebar-avatar" href="http://yansu.org/"> <img id="sidebar-avatar-img" alt="" src="site-avatar.png"> </a> <div id="sidebar-social"> <a href="http://yansu.org/pages/feed.xml" class="sidebar-social-icon feed"></a> <a href="mailto:suyan0830@gmail.com" class="sidebar-social-icon email"></a> <!-- Generate icon by yourself https://icomoon.io/app/#/select --> <a href="https://twitter.com/masonsuyan" class="sidebar-social-icon twitter" target="_blank"></a> <a href="http://www.weibo.com/suyan0830" class="sidebar-social-icon weibo" target="_blank"></a> <a href="https://github.com/suyan" class="sidebar-social-icon github" target="_blank"></a> <a href="https://www.linkedin.com/in/suyan0830" class="sidebar-social-icon linkedin" target="_blank"></a> <a href="https://www.instagram.com/suyan0830" class="sidebar-social-icon instagram" target="_blank"></a> </div> <ul id="sidebar-tags"> <li class="sidebar-tag active" data-filter="recent">最新文章</li> <li class="sidebar-tag" data-filter="技术">技术</li> <li class="sidebar-tag" data-filter="工具">工具</li> <li class="sidebar-tag" data-filter="资源">资源</li> <li class="sidebar-tag" data-filter="生活">生活</li> <li class="sidebar-tag" data-filter="读书">读书</li> <li class="sidebar-tag" data-filter="面试">面试</li> </ul> </div>  </aside> <main id="main" class=""> <article class="post container"> <div class="post-meta"> <span class="post-meta-span date">2014 February 12</span> <span class="post-meta-span tag">Jekyll</span> </div> <h1 class="post-title">在Github上搭建Jekyll博客和创建主题</h1> <blockquote> <p>之前本来想展开写的，后来发现Jekyll官网的教程已经非常完善了就没有多写，所以只有<a href="http://yansu.org/2013/04/23/deploy-jeklly-blog.html">这篇</a>。 但是过了这么久，发现很多人还是不清楚怎么搭建，所以这里打算详细写一下，并且把自己对图片的解决方案以及主题的创建步骤也一并写下。</p> <p>本篇主要谈如何搭建，不再讲为什么用它们。</p> </blockquote> <p><strong>说明：本篇用到的代码中，为了防止解析冲突，一律多了<code class="highlighter-rouge">\</code>这个来防止被误解析</strong></p> <h2 id="jeoga">创建一个库</h2> <p>在Github上新开一个库，名字叫做<code class="highlighter-rouge">username.github.io</code>，然后当别人在地址栏输入相应url的时候就可以访问进来了。</p> <p>在这个库中完全可以只上传一个<code class="highlighter-rouge">index.html</code>，来讲自己要写的东西写进去，但是这样会丧失很多灵活性，所以需要Jekyll的帮助来创建自己的博客。</p> <h2 id="tsdfj">设定目录结构</h2> <p>把自己的库clone到本地来，建立如下目录结构：</p> <div class="highlighter-rouge"><pre class="highlight"><code>├── CNAME
+├── README.md
+├── _config.yml
+├── _includes
+│&nbsp;&nbsp; ├── disqus.html
+│&nbsp;&nbsp; ├── footer.html
+│&nbsp;&nbsp; ├── googleanalytics.html
+│&nbsp;&nbsp; ├── header.html
+│&nbsp;&nbsp; └── navside.html
+├── _layouts
+│&nbsp;&nbsp; ├── base.html
+│&nbsp;&nbsp; ├── book.html
+│&nbsp;&nbsp; ├── page.html
+│&nbsp;&nbsp; └── post.html
+├── _posts
+│&nbsp;&nbsp; ├── Book
+│&nbsp;&nbsp; ├── Life
+│&nbsp;&nbsp; ├── Resource
+│&nbsp;&nbsp; ├── Technology
+│&nbsp;&nbsp; └── Tool
+├── index.html
+├── pages
+│&nbsp;&nbsp; ├── about.html
+│&nbsp;&nbsp; ├── archive.html
+│&nbsp;&nbsp; └── atom.xml
+├── public
+│&nbsp;&nbsp; ├── css
+│&nbsp;&nbsp; ├── fonts
+│&nbsp;&nbsp; ├── img
+│&nbsp;&nbsp; ├── js
+│&nbsp;&nbsp; └── upload
+└── sitemap.txt
+
+</code></pre></div> <p>这个目录结构是我自己设定的，也可以有不同的目录结构，看<a target="_blank" href="http://jekyllrb.com/docs/structure/">官网</a>。</p> <p>接下来我主要解释这里面每一个目录的功能。</p> <h3 id="ubhms">配置文件</h3> <p><code class="highlighter-rouge">_config.yml</code>里写有整个站点的主要配置项，我的如下：</p> <div class="highlighter-rouge"><pre class="highlight"><code>permalink: /:year/:month/:day/:title.html   #博文的固定链接
+paginate: 10                                #分页时每页博文数量
+author:                                     #自定义常亮
+  name: 闫肃
+  email: yansu0711@gmail.com
+  link: http://yansu.org
+title: 闫肃的博客                             #自定义常量
+locals:                                     #自定义常量
+  tags: 标签
+  about: 关于
+active: 技术                                 #自定义常量
+subscribe_rss: /pages/atom.xml              #订阅地址
+markdown: redcarpet                         #markdown解释器
+</code></pre></div> <p>这里的自定义常量可以在模板中使用，以后有修改的时候就不需要跑去改代码了。尤其是对一些私人的选项，可以在这里定义。现在我的博客中出了disqus和googleanalytics外都直接在这里设定就好了。</p> <h3 id="uqvcd">域名配置</h3> <p><code class="highlighter-rouge">CNAME</code>这个文件写明了这个站点的域名，如果不喜欢<code class="highlighter-rouge">username.github.io</code>的话，可以像我一样改掉</p> <div class="highlighter-rouge"><pre class="highlight"><code>yansu.org
+</code></pre></div> <p>改法只要在这个文件中写入域名就可以了。不过你需要去域名服务商那里设定域名解析规则。</p> <p>只要把<code class="highlighter-rouge">主机记录</code>为<code class="highlighter-rouge">@</code>,<code class="highlighter-rouge">www</code>的记录值写成<code class="highlighter-rouge">username.github.io</code>就好了。</p> <h3 id="wlxvp">博客存放</h3> <p><code class="highlighter-rouge">_posts</code>下的所有目录中的所有博客，都会被Jekyll处理成为静态的html文件，然后放在<code class="highlighter-rouge">_site</code>下。我这里没有<code class="highlighter-rouge">_site</code>目录，是因为我在<code class="highlighter-rouge">.gitignore</code>文件中把这个目录屏蔽掉了，它不会上传到Github上。</p> <div class="highlighter-rouge"><pre class="highlight"><code>_site/
+_drafts/
+.DS_Store
+</code></pre></div> <p>以上是我的<code class="highlighter-rouge">.gitignore</code>文件内容。</p> <p>在<code class="highlighter-rouge">_posts</code>下的符合<code class="highlighter-rouge">YYYY-MM-DD-xxxxxx.md</code>的文件，都会被Jekyll认定为博客内容。我在<code class="highlighter-rouge">_posts</code>下又新建了一些文件夹，主要是方便自己本地管理博客。</p> <p>在上述这些文件中，必须先定义一些配置项，例如这篇博客的md文件中，开头是这样的：</p> <div class="highlighter-rouge"><pre class="highlight"><code>
+layout: post                                   #这个博客的布局文件
+title: 在Github上搭建自己的Jekyll博客             #博客标题
+category: 工具                                  #博客分类
+tags: Jekyll                                   #博客标签
+keywords: Jekyll,Github                        #自定义常量
+description:                                   #自定义常量
+
+</code></pre></div> <p>除了自定义常量外的必须包含进去，自定义变量在这个布局中可以访问。</p> <h3 id="zvkdn">模版文件</h3> <p>剩余的目录，基本都属于模板文件了，我解释一下各自的作用：</p> <ul> <li><code class="highlighter-rouge">_includes</code> 可以在模板中随时包含的文件</li> <li><code class="highlighter-rouge">_layouts</code> 布局文件，在博客头配置中可以选择</li> <li><code class="highlighter-rouge">pages</code> 站内固定的页面</li> <li><code class="highlighter-rouge">public</code> 公共资源，包括<code class="highlighter-rouge">js</code>,<code class="highlighter-rouge">css</code>,<code class="highlighter-rouge">img</code>等，还有我博客中调用的图片，我都放这里</li> <li><code class="highlighter-rouge">index.html</code> 站点的首页，整个站的入口文件</li> <li><code class="highlighter-rouge">sitemap.txt</code> 给搜索引擎看的，如何爬取这个站</li> </ul> <h2 id="dboxk">创建自己的主题</h2> <p>上面讲了如何布局好站内文件结构，接下来主要就是如何创建一个自己的主题了。</p> <p>布局文件是整个主题最重要的文件，这些文件告诉Jekyll如何去形成一个html页面。</p> <p>首先我说一下我最基础的<code class="highlighter-rouge">page.html</code>文件，因为它决定了入口文件<code class="highlighter-rouge">index.html</code>的布局。</p> <div class="language-html highlighter-rouge"><pre class="highlight"><code>
+layout: base
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12 aside3-title"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"#identifier"</span><span class="nt">&gt;</span>{\{ page.title }}<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-12 aside3-content"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"page-content"</span><span class="nt">&gt;</span>
+      {\{ content }}
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;hr&gt;</span>
+    {\% include disqus.html %}
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div> <p>从这里可以看到这个文件写起来一点都不复杂，但是为什么开头还有个<code class="highlighter-rouge">layout</code>呢？因为它也不是最基本的布局文件，最基本的是<code class="highlighter-rouge">base.html</code>，我们看一下它的内容。</p> <div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  {\% include header.html %}
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+      {\% include navside.html %}
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8 col-lg-8 col-sm-12 col-xs-12 aside3"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"pjax"</span><span class="nt">&gt;</span>
+            {\{ content }}
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  {\% include footer.html %}
+  {\% include googleanalytics.html %}
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div> <p>这个文件就更像一个HTML文件了，用PHP或者Python写过web应用的人看到<code class="highlighter-rouge"><span class="p">{</span><span class="err">\%</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code>这样的标签应该不陌生，这不就是模板标签嘛。其实Jekyll也是借用了一下模板系统的，官网说明在<a target="_blank" href="http://jekyllrb.com/docs/templates/">这里</a>，看到开头第一句讲的它用了<a target="_blank" href="http://docs.shopify.com/themes/liquid-basics">Liquid</a>了吧。如果Jekyll的文档不能满足你的话，可以去Liquid那里查查。</p> <p>我解释一下<code class="highlighter-rouge">base.html</code>中几个标签的功能。</p> <ul> <li><code class="highlighter-rouge"><span class="p">{</span><span class="err">\%</span><span class="w"> </span><span class="err">include</span><span class="w"> </span><span class="err">header.html</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code> 从<code class="highlighter-rouge">_includes</code>中把<code class="highlighter-rouge">header.html</code>包含进来放在这里</li> <li><code class="highlighter-rouge"><span class="p">{</span><span class="err">\%</span><span class="w"> </span><span class="err">include</span><span class="w"> </span><span class="err">navside.html</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code> 同上</li> <li><code class="highlighter-rouge"><span class="p">{</span><span class="err">\{</span><span class="w"> </span><span class="err">content</span><span class="w"> </span><span class="p">}</span><span class="err">}</span></code> 这句的作用是将继承这个Layout的文件中的代码，放在这里</li> </ul> <p>所以再看<code class="highlighter-rouge">page.html</code>文件就很容易了，它就是把配置项下面的内容，填补到<code class="highlighter-rouge">base.html</code>中的<code class="highlighter-rouge"><span class="p">{</span><span class="err">\{</span><span class="w"> </span><span class="err">content</span><span class="w"> </span><span class="p">}</span><span class="err">}</span></code>处形成了一个文件。那么<code class="highlighter-rouge">page.html</code>中的<code class="highlighter-rouge"><span class="p">{</span><span class="err">\{</span><span class="w"> </span><span class="err">content</span><span class="w"> </span><span class="p">}</span><span class="err">}</span></code>做什么用呢？因为别人也可以以<code class="highlighter-rouge">page.html</code>来作为自己的布局文件。</p> <p>入口文件<code class="highlighter-rouge">index.html</code>就是这么干的：</p> <div class="language-html highlighter-rouge"><pre class="highlight"><code>layout: page
+title: 首页
+...
+</code></pre></div> <p>这里看到选择了page作为布局文件，那么title干嘛用的呢？其实它是在被包含的<code class="highlighter-rouge">header.html</code>中被用到了。来看看<code class="highlighter-rouge">header.html</code>怎么写的：</p> <div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>{\{ page.title }} | {\{ site.title }}<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"author"</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+{\% if page.keywords %}
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"keywords"</span> <span class="na">content=</span><span class="s">"Jekyll,Github"</span><span class="nt">&gt;</span>
+{\% endif %}
+{\% if page.description  %}
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"description "</span> <span class="na">content=</span><span class="s">""</span><span class="nt">&gt;</span>
+{\% endif %}
+
+...
+
+</code></pre></div> <p>这里又使用了一些新标签——<code class="highlighter-rouge"><span class="p">{</span><span class="err">\{</span><span class="w"> </span><span class="p">}</span><span class="err">\}</span></code>，这个标签就是用来书写变量的，通过在配置处配置变量，或者使用系统的自定义变量，可以轻松改变页面内的一些元素或者内容。</p> <p>系统变量查询可以去<a target="_blank" href="http://jekyllrb.com/docs/variables/">这里</a></p> <p>其实整个主题书写就是这么简单，如果有不清楚的可以再看看官网的文档。动一动手就非常明白了。</p> <h2 id="atlhw">插入图片</h2> <p>很多人感觉用Jekyll最不方便的就是插入图片了，其实我也是这么觉得的。所以只能自己去想些办法。</p> <h3 id="zcmwt">图片统一存放</h3> <p>图片我都放在了<code class="highlighter-rouge">/public/upload</code>下，所以我在插入图片的时候只要用<code class="highlighter-rouge">![xxx](http://7u2ho6.com1.z0.glb.clouddn.com/xxx)</code>就可以了。</p> <h3 id="fvftq">方便的图片导入</h3> <p>导入图片的方式是我将<code class="highlighter-rouge">upload</code>文件夹做了个软连接，放到mac的dock上就行了，有图片要用的时候直接往里面一拖。</p> <h3 id="ybqqp">方便的截图</h3> <p>很多时候图片都是现截取的，比如用QQ的截图工具，或者系统的截图工具，但是他们截取完都存放在了<code class="highlighter-rouge">user/Pictures</code>里面，来回移动太累了。我这里介绍一个Mac下的一个工具——Trickster，看图</p> <p><img src="tech-trickster-move-picture.png" alt="移动图片"></p> <p>这个工具可以看到刚刚修改过的图片，而且还有一个收藏的文件夹，我每次截取完图以后，从左边往右边一拖，然后在markdown中就可以继续书写了。一点都不耗时。</p> <h2 id="vuggt">本地预览及提交</h2> <p>本地预览自己的修改很容易，只要进入<code class="highlighter-rouge">username.github.io</code>目录，执行</p> <div class="highlighter-rouge"><pre class="highlight"><code>jekyll serve
+</code></pre></div> <p>然后访问<code class="highlighter-rouge">http://localhost:4000</code>就OK了，安装Jekyll的方式自行谷歌吧…</p> <p>自己预览过没有问题以后，就提交到服务端吧，Git三步走</p> <div class="highlighter-rouge"><pre class="highlight"><code>git add xxx
+git commit -m "xxx"
+git push
+</code></pre></div> <h2 id="aeohc">其他</h2> <p>我觉得自己的这个主题设定的算是比较好修改和移植的了，如果大家有什么问题，可以尽管问。</p> <p>另外一些特别的功能，比如三栏、评论、谷歌分析，这些都不难，相信你稍微打开Github读一下这个主题的代码就很快明白了。</p> <p>代码地址戳<a target="_blank" href="https://github.com/suyan/suyan.github.io">这里</a></p> </article> <div class="post-share"> <div class="container"> <a href="https://twitter.com/share?url=http://yansu.org/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html&amp;text=%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BAJekyll%E5%8D%9A%E5%AE%A2%E5%92%8C%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98" target="_blank" class="post-share-icon twitter"></a> <a href="https://www.evernote.com/clip.action?url=http://yansu.org/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html&amp;title=%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BAJekyll%E5%8D%9A%E5%AE%A2%E5%92%8C%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98" target="_blank" class="post-share-icon evernote"></a> <a href="http://service.weibo.com/share/share.php?url=http://yansu.org/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html&amp;title=%E5%9C%A8Github%E4%B8%8A%E6%90%AD%E5%BB%BAJekyll%E5%8D%9A%E5%AE%A2%E5%92%8C%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98" target="_blank" class="post-share-icon weibo"></a> </div> </div> <div class="comment container"> <div id="disqus_thread"> </div> </div> <div class="footer"> <div class="container"> <p class="footer-entry">All content is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA</a></p> <p class="footer-entry">Buit with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> and <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll theme</a> • Hosted on <a href="https://pages.github.com/" target="_blank">Github</a></p> </div> </div> </main> <button id="menu" class=""> <span id="menu-icons"></span> </button> <button id="post-toc-menu"> <span id="post-toc-menu-icons"></span> </button> <div id="post-toc"> <span id="post-toc-title">Table of Contents</span> <ul id="post-toc-ul"><li class="post-toc-li post-toc-h1"><a href="#post-title" class="js-anchor-link"></a></li><li class="post-toc-li post-toc-h2"><a href="#jeoga" class="js-anchor-link">创建一个库</a></li><li class="post-toc-li post-toc-h2"><a href="#tsdfj" class="js-anchor-link">设定目录结构</a></li><li class="post-toc-li post-toc-h3"><a href="#ubhms" class="js-anchor-link">配置文件</a></li><li class="post-toc-li post-toc-h3"><a href="#uqvcd" class="js-anchor-link">域名配置</a></li><li class="post-toc-li post-toc-h3"><a href="#wlxvp" class="js-anchor-link">博客存放</a></li><li class="post-toc-li post-toc-h3"><a href="#zvkdn" class="js-anchor-link">模版文件</a></li><li class="post-toc-li post-toc-h2"><a href="#dboxk" class="js-anchor-link">创建自己的主题</a></li><li class="post-toc-li post-toc-h2"><a href="#atlhw" class="js-anchor-link">插入图片</a></li><li class="post-toc-li post-toc-h3"><a href="#zcmwt" class="js-anchor-link">图片统一存放</a></li><li class="post-toc-li post-toc-h3"><a href="#fvftq" class="js-anchor-link">方便的图片导入</a></li><li class="post-toc-li post-toc-h3"><a href="#ybqqp" class="js-anchor-link">方便的截图</a></li><li class="post-toc-li post-toc-h2"><a href="#vuggt" class="js-anchor-link">本地预览及提交</a></li><li class="post-toc-li post-toc-h2"><a href="#aeohc" class="js-anchor-link">其他</a></li></ul> </div> <script src="about:blank"></script> <script src="about:blank"></script> <script src="about:blank"></script> <script src="about:blank"></script> <script>/* Code removed by ScrapBook */</script>  
+</body>
+</html>

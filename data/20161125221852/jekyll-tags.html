@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="module-default ">
+  <head> 
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Bash,Github,Vim,grep,awk,sed,JSON,Jekyll">
+
+<meta name="google-site-verification" content="eLkhUhgjmoDvyZ3RB9Co10qQdgK2T0Jgc49Z90sjjRw" />
+
+<!-- Begin Jekyll SEO tag v2.1.0 -->
+<title>Github Pages (Jekyll) 自动生成文章标签 - Harttle Land</title>
+<meta property="og:title" content="Github Pages (Jekyll) 自动生成文章标签" />
+<meta name="description" content="在Github Pages上写博客快三年了，为文章添加标签一直是一件困难的事情。 由于Harttle一直在Unix+Vim做开发和写博客， 所以写了一个『Bash脚本』来为文章生成标签列表， 并为Jekyll项目写了一点『Vim插件』，以便在编辑文章时一键生成标签。 为什么需要生成标签？ 并不是所有人都有这样的困惑。对我来讲Jekyll最不方便之处就是『为文章添加标签』。 原因有二： 标签名不统一。同样的标签经常会因大小写、中英文、连字符等原因被识别为不同标签。 提取标签困难。写完文章后需要仔细挑选标签，并参考以往的文章标签， 这一过程在标签变多时非常困难。 用怎样的策略生成标签？ 既然这件事情一定要自动化，那么用怎样的逻辑生成标签呢？ 想到提取标签，第一印象便是统计词频。 然而词频最高的词语往往是语言表述相关的东西，但它们不是文章的重点。 下面将会看到我们需要一个标签库、一个Bash脚本、再加一个Vim插件。" />
+<meta property="og:description" content="在Github Pages上写博客快三年了，为文章添加标签一直是一件困难的事情。 由于Harttle一直在Unix+Vim做开发和写博客， 所以写了一个『Bash脚本』来为文章生成标签列表， 并为Jekyll项目写了一点『Vim插件』，以便在编辑文章时一键生成标签。 为什么需要生成标签？ 并不是所有人都有这样的困惑。对我来讲Jekyll最不方便之处就是『为文章添加标签』。 原因有二： 标签名不统一。同样的标签经常会因大小写、中英文、连字符等原因被识别为不同标签。 提取标签困难。写完文章后需要仔细挑选标签，并参考以往的文章标签， 这一过程在标签变多时非常困难。 用怎样的策略生成标签？ 既然这件事情一定要自动化，那么用怎样的逻辑生成标签呢？ 想到提取标签，第一印象便是统计词频。 然而词频最高的词语往往是语言表述相关的东西，但它们不是文章的重点。 下面将会看到我们需要一个标签库、一个Bash脚本、再加一个Vim插件。" />
+<link rel="canonical" href="http://harttle.com/2016/03/30/jekyll-tags.html" />
+<meta property="og:url" content="http://harttle.com/2016/03/30/jekyll-tags.html" />
+<meta property="og:site_name" content="Harttle Land" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-03-30T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@harttleharttle" />
+<meta name="twitter:creator" content="@Harttle" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Github Pages (Jekyll) 自动生成文章标签",
+"datePublished": "2016-03-30T00:00:00+00:00",
+"description": "在Github Pages上写博客快三年了，为文章添加标签一直是一件困难的事情。 由于Harttle一直在Unix+Vim做开发和写博客， 所以写了一个『Bash脚本』来为文章生成标签列表， 并为Jekyll项目写了一点『Vim插件』，以便在编辑文章时一键生成标签。 为什么需要生成标签？ 并不是所有人都有这样的困惑。对我来讲Jekyll最不方便之处就是『为文章添加标签』。 原因有二： 标签名不统一。同样的标签经常会因大小写、中英文、连字符等原因被识别为不同标签。 提取标签困难。写完文章后需要仔细挑选标签，并参考以往的文章标签， 这一过程在标签变多时非常困难。 用怎样的策略生成标签？ 既然这件事情一定要自动化，那么用怎样的逻辑生成标签呢？ 想到提取标签，第一印象便是统计词频。 然而词频最高的词语往往是语言表述相关的东西，但它们不是文章的重点。 下面将会看到我们需要一个标签库、一个Bash脚本、再加一个Vim插件。",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://harttle.com/assets/img/favicon.png"}},
+"url": "http://harttle.com/2016/03/30/jekyll-tags.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link type="application/atom+xml" rel="alternate" href="http://harttle.com/feed.xml" title="Harttle Land" />
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="/assets/img/apple-touch-icon-precomposed.png">
+<link rel="stylesheet" href="/assets/lib/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/lib/font-awesome/4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" defer href="/assets/lib/lightbox/css/lightbox.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<script src="/assets/lib/jquery/jquery-2.0.3.min.js"></script>
+
+ </head>
+  <body id="body" >
+
+    <div class="banner ">
+      <div class="container-fluid">
+        <nav class="pull-right">
+          <a class="glow no-decoration" href="/tags.html">标签</a>
+          <a class="glow no-decoration" href="/archive.html">归档</a>
+          <a class="glow no-decoration" href="/about.html">关于</a>
+        </nav>
+        <a class="logo no-decoration" href="/">
+          <i class="logo-h fa fa-h-square"></i> 
+          <span class="logo-arttle glow">arttle</span>
+          <span class="logo-land">Land</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="site-content"> <div class="module-blog">
+  <header class="blog-header">
+    <div class="container-fluid">
+      <time class="pull-right">
+        
+        Wednesday, March 
+        30th
+          , 
+        2016
+      </time>
+      <h3>Github Pages (Jekyll) 自动生成文章标签
+        
+      </h3>
+
+      <aside> <div class="toc"></div> </aside>
+
+      <p class="tag-list">
+        
+          <a class="tag" href="/tags.html#Bash">Bash</a>
+        
+          <a class="tag" href="/tags.html#Github">Github</a>
+        
+          <a class="tag" href="/tags.html#Vim">Vim</a>
+        
+          <a class="tag" href="/tags.html#grep">grep</a>
+        
+          <a class="tag" href="/tags.html#awk">awk</a>
+        
+          <a class="tag" href="/tags.html#sed">sed</a>
+        
+          <a class="tag" href="/tags.html#JSON">JSON</a>
+        
+          <a class="tag" href="/tags.html#Jekyll">Jekyll</a>
+        
+      </p>
+    </div>
+  </header>
+
+  <div class="container-fluid">
+    <div class="content">
+      <article class="md">
+        <p>在Github Pages上写博客快三年了，为文章添加标签一直是一件困难的事情。
+由于Harttle一直在Unix+Vim做开发和写博客，
+所以写了一个『Bash脚本』来为文章生成标签列表，
+并为Jekyll项目写了一点『Vim插件』，以便在编辑文章时一键生成标签。</p>
+
+<h1 id="section">为什么需要生成标签？</h1>
+
+<p>并不是所有人都有这样的困惑。对我来讲Jekyll最不方便之处就是『为文章添加标签』。
+原因有二：</p>
+
+<ol>
+  <li>标签名不统一。同样的标签经常会因大小写、中英文、连字符等原因被识别为不同标签。</li>
+  <li>提取标签困难。写完文章后需要仔细挑选标签，并参考以往的文章标签，
+这一过程在标签变多时非常困难。</li>
+</ol>
+
+<h1 id="section-1">用怎样的策略生成标签？</h1>
+
+<p>既然这件事情一定要自动化，那么用怎样的逻辑生成标签呢？
+想到提取标签，第一印象便是统计词频。
+然而词频最高的词语往往是语言表述相关的东西，但它们不是文章的重点。
+下面将会看到我们需要一个标签库、一个Bash脚本、再加一个Vim插件。</p>
+
+<!--more-->
+
+<h2 id="section-2">需要一个标签库</h2>
+
+<p>所以需要一个标签库，然后从当前文章匹配那些既有标签。
+那么，我需要比较完整的标签库，同时要有我的技术特色。
+我在 harttle.com 已经有219篇文章了，把它们标签拿出来不就是现成的标签库嘛！
+<strong>所以，可以从Jekyll站点中提取标签形成标签库</strong>。</p>
+
+<h2 id="bashvim">需要Bash脚本+Vim插件</h2>
+
+<p>既然策略已定，那么现在开始写代码吧！我要在Vim里一键插入标签，需要写一个Vim插件。
+但根据Unix哲学『一个程序只做一件事情已达到较好的复用性』，
+我决定写一个Jekyll页面，一个Bash脚本，然后在Vim插件中调用它。</p>
+
+<h1 id="jekyll">Jekyll标签页面</h1>
+
+<p>既然要使用Jekyll既有的标签库，那么需要一个Jekyll页面来生成那些标签。
+恰好<a href="http://harttle.com">我的博客</a>有一个<code class="highlighter-rouge">tags.json</code>：</p>
+
+<div class="language-liquid highlighter-rouge"><pre class="highlight"><code>---
+---
+
+[
+  <span class="p">{%</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span>tag<span class="w"> </span>in<span class="w"> </span>site.tags<span class="w"> </span><span class="p">%}</span>
+    {
+      "name": "<span class="p">{{</span><span class="w"> </span><span class="nv">tag</span><span class="p">|</span><span class="nf">first</span><span class="w"> </span><span class="p">}}</span>",
+      "count": <span class="p">{{</span><span class="w"> </span><span class="nv">tag</span><span class="p">|</span><span class="nf">last</span><span class="p">|</span><span class="nf">size</span><span class="w"> </span><span class="p">}}</span>
+    }<span class="p">{%</span><span class="w"> </span><span class="kr">unless</span><span class="w"> </span><span class="nv">forloop</span><span class="p">.</span><span class="nv">last</span><span class="w"> </span><span class="p">%}</span>,<span class="p">{%</span><span class="w"> </span><span class="kr">endunless</span><span class="w"> </span><span class="p">%}</span>
+  <span class="p">{%</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">%}</span>
+]
+</code></pre>
+</div>
+
+<p>它生成的页面就是一个JSON文件（也可以访问 http://harttle.com/tags.json 查看）：</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Markdown"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Github"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>这个文件位于<code class="highlighter-rouge">_site/tags.json</code>，这便是标签库。</p>
+
+<h1 id="bash">生成标签的Bash脚本</h1>
+
+<p>首先这个Bash脚本应当接受一个文件名参数，给出要为哪篇文章生成标签。
+然后去<code class="highlighter-rouge">_site/tags.json</code>读取标签列表，最后输出文章匹配的标签。</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># Usage: ./generate_tags.sh xxx.md</span>
+
+<span class="c"># generate tag list </span>
+grep name ./_site/tags.json | awk -F : <span class="s1">'{print $2}'</span> | tr -d <span class="s1">',\" '</span>  &gt; /tmp/tags.txt
+
+<span class="c"># match tag string</span>
+grep <span class="nv">$1</span> -oFf /tmp/tags.txt | sort | uniq | tr <span class="s1">'\n'</span> <span class="s1">' '</span> | sed <span class="s1">'s/ $//'</span>; <span class="nb">echo</span> <span class="s1">''</span>
+</code></pre>
+</div>
+
+<p>保存上述脚本为<code class="highlighter-rouge">./scripts/generate_tags.sh</code>，该脚本分为两部分。首先读取<code class="highlighter-rouge">_site/tags.json</code>生成标签列表文件<code class="highlighter-rouge">/tmp/tags.txt</code>：</p>
+
+<blockquote>
+  <p>其中<code class="highlighter-rouge">awk</code>用来输出冒号后的标签名，<code class="highlighter-rouge">tr</code>用来移除逗号引号。</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Markdown
+Github
+Ruby
+...
+</code></pre>
+</div>
+
+<p>脚本第二部分用<code class="highlighter-rouge">grep</code>匹配文章中的标签，其中<code class="highlighter-rouge">$1</code>表示脚本的第一个参数。
+Grep的4个选项解释如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-o, --only-matching
+    Print only the matched (non-empty) parts of  a  matching  line,  with
+    each such part on a separate output line.
+-F, --fixed-strings
+    Interpret PATTERN as a list of fixed strings, separated by  newlines,
+    any of which is to be matched.  (-F is specified by POSIX.)
+-f FILE, --file=FILE
+    Obtain  patterns  from  FILE,  one per line.  The empty file contains
+    zero patterns, and therefore matches nothing.  (-f  is  specified  by
+    POSIX.)
+</code></pre>
+</div>
+
+<p>这个脚本可以在Jekyll根目录下直接调用，例如，为我正在编辑的<a href="#">这篇文章</a>生成标签：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ bash ./scripts/generate_tags.sh _drafts/jekyll-tags.md
+ArchLinux Bash CentOS Github HTML Makefile Markdown Ruby Unix Vim inline
+</code></pre>
+</div>
+
+<h1 id="vim">一键插入标签的Vim插件</h1>
+
+<p>Vim插件其实就是一些Vim配置：</p>
+
+<div class="language-vim highlighter-rouge"><pre class="highlight"><code><span class="c">" To enable this project vim config, add `set exrc` into your `~/.vimrc`</span>
+<span class="c">" Usage: Press `&lt;leader&gt;tags` in normal mode</span>
+<span class="c">" Note: make sure your cwd is the project root</span>
+
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">tags</span> <span class="p">:</span>read <span class="p">!.</span><span class="sr">/scripts/</span>generate_tags<span class="p">.</span><span class="k">sh</span> % <span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</code></pre>
+</div>
+
+<p>设置了一个键盘映射，按下<code class="highlighter-rouge">&lt;leader&gt;tags</code>时执行<code class="highlighter-rouge">./scripts/generate_tags.sh</code>，
+并将输出插入到当前光标所在位置。</p>
+
+<blockquote>
+  <p>其中<code class="highlighter-rouge">&lt;leader&gt;</code>是指你的Vim前导键（我的是<code class="highlighter-rouge">;</code>），<code class="highlighter-rouge">%</code>表示当前文件，作为第一个参数传入脚本中。前导键可以通过<code class="highlighter-rouge">let mapleader=';'</code>在<code class="highlighter-rouge">~/.vimrc</code>里设置。</p>
+</blockquote>
+
+<p>把上述Vim配置保存为<code class="highlighter-rouge">.vimrc</code>放在Jekyll项目的根目录下。
+下一个问题是让Vim在Jekyll项目工作时，载入上述配置。
+Vim何其强大，当然支持目录相关的配置，只需要在<code class="highlighter-rouge">~/.vimrc</code>中加入：</p>
+
+<div class="language-vim highlighter-rouge"><pre class="highlight"><code><span class="k">set</span> exrc    " 开启目录相关配置
+<span class="k">set</span> secure  " 开启目录相关配置会有风险，只执行安全的配置
+</code></pre>
+</div>
+
+<p>OK，至此我们在Jekyll站点中用Vim打开一篇文章（xxx.md），输入<code class="highlighter-rouge">;tags</code>将会在当前行插入自动生成的一行标签了。</p>
+
+<h1 id="section-3">参考资料</h1>
+
+<p><a href="http://vim.wikia.com/wiki/Append_output_of_an_external_command">http://vim.wikia.com/wiki/Append_output_of_an_external_command</a></p>
+
+<p><a href="https://andrew.stwrt.ca/posts/project-specific-vimrc/">https://andrew.stwrt.ca/posts/project-specific-vimrc/</a></p>
+
+
+      </article>
+
+      <div class="author-wrapper">
+        <section class="module-author">
+  <img src="/assets/img/avatar.png">
+  <header>Harttle</header>
+  <p>致力于简单的、一致的、高效的前端开发</p>
+</section>
+
+      </div>
+      <div class="post-pager clearfix">
+  
+    <a href="/2016/03/22/purge-large-files-in-gitrepo.html" class="previous btn-hover">
+      上一篇：寻找并删除Git记录中的大文件
+    </a>
+  
+  
+    <a href="/2016/04/05/socket-io-subscribe-redis.html" class="next btn-hover">
+      下一篇：Socket.IO 订阅 Redis Channel
+    </a>
+  
+
+  
+
+  
+
+  
+    <div id="social-share-block" class="text-center"></div>
+  
+
+</div>
+
+
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'harttleland'; 
+  $(function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  });
+</script>
+<noscript>请 <a href="http://disqus.com/?ref_noscript">启用 JavaScript</a> 来查看评论 </noscript>
+
+    </div>
+  </div>
+
+  <div class="recommend">
+    <h4>看看这个？</h4>
+    <p><a class="post-link" href=""></a></p>
+  </div>
+
+  <script type="text/x-mathjax-config">  
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$', '$'] ],
+            displayMath: [ ['$$', '$$'], ['$$$', '$$$']],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+    MathJax.Hub.Queue(function () {
+        $('body').scrollspy('refresh'); 
+    });
+</script>
+
+<script type="text/async-script" data-src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+
+</div>
+
+ </div>
+
+    <a href="#body" id="site-scroll-top" class="animate">
+      <span class="fa fa-chevron-up"></span>
+    </a>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="//oss.maxcdn.com/libs/html5shiv/3.6.2/html5shiv.js"></script>
+<script src="//v3.bootcss.com/docs-assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script src="/assets/lib/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/async-script" data-src="/assets/lib/lightbox/js/lightbox.min.js"></script>
+<script src="/assets/js/site.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-65795020-1', 'auto'); ga('send', 'pageview');
+</script>
+
+
+
+  </body>
+</html>
