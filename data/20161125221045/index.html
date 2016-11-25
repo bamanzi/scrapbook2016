@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/Article" itemscope="">
+<head>
+<meta charset="UTF-8">
+<link href="https://plus.google.com/100292833634918081724" rel="publisher">
+<title>How to Enable (and Troubleshoot) Remote Access to Your Plex Media Server</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="fb:page_id" content="65878196434">
+<meta name="verify-v1" content="WiU7236KQY8e6jcxePbZscPXDuMvJ3b9ydseGd4G5AE=">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta name="REVISIT-AFTER" content="1 DAYS">
+<link rel="alternate" type="application/rss+xml" title="How-To Geek RSS Feed" href="http://feeds.howtogeek.com/HowToGeek">
+<meta property="og:title" itemprop="name" name="title" content="How to Enable (and Troubleshoot) Remote Access to Your Plex Media Server">
+<meta property="og:type" content="article">
+<meta property="og:description" name="og:description" itemprop="og:description" content="Plex Media Server’s remote access function is usually so&nbsp;smooth to set up that&nbsp;it’s practically magic. But if you’re having trouble accessing your movies from afar,&nbsp;we’re here to help.">
+<meta property="og:image" content="http://www.howtogeek.com/thumbcache/280/160/6f09a1163f3a842b0236d241ac782c20/wp-content/uploads/2016/05/img_573e26a65f9e0.jpg">
+<link rel="image_src" href="http://www.howtogeek.com/thumbcache/280/160/6f09a1163f3a842b0236d241ac782c20/wp-content/uploads/2016/05/img_573e26a65f9e0.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@howtogeek">
+<meta name="twitter:title" content="How to Enable (and Troubleshoot) Remote Access to Your Plex Media Server">
+<meta name="twitter:description" content="Plex Media Server’s remote access function is usually so&nbsp;smooth to set up that&nbsp;it’s practically magic. But if you’re having trouble accessing your movies from afar,&nbsp;we’re here to help.">
+<meta name="twitter:image:src" content="http://www.howtogeek.com/thumbcache/280/160/6f09a1163f3a842b0236d241ac782c20/wp-content/uploads/2016/05/img_573e26a65f9e0.jpg">
+<link rel="stylesheet" href="A.howtogeek.css,q1466298260.pagespeed.gp+jp+jw+pj+ec+ei+fc+if+ii+js+rj+rp+rw+ri+cp+md.cf.8phhU3MPa4.css" type="text/css">
+<link href="css.dat" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script type="text/javascript" async="" src="about:blank"></script><script src="about:blank" async=""></script><script src="about:blank" async=""></script><script src="about:blank" id="twitter-wjs"></script><script src="about:blank" async="" type="text/javascript"></script><script src="about:blank" id="facebook-jssdk"></script><script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>	<script type="text/javascript" src="about:blank"></script>
+<link rel="https://api.w.org/" href="http://www.howtogeek.com/wp-json/">
+<link rel="shortlink" href="http://www.howtogeek.com/?p=255166">
+<link rel="alternate" type="application/json+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F255166%2Fhow-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F255166%2Fhow-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server%2F&amp;format=xml">
+<link rel="canonical" href="http://www.howtogeek.com/255166/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/">
+<meta property="og:url" content="http://www.howtogeek.com/255166/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/"><link rel="amphtml" href="http://www.howtogeek.com/255166/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/amp/">
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script pagespeed_no_defer="">/* Code removed by ScrapBook */</script><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head>
+<body class="v3">
+<div style="text-align: center; min-height: 90px; z-index: 999999; margin-right: auto; margin-left: auto; position: relative;" class="adslot adslot970">
+<div id="htgyl11">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>
+<div id="doc4" class="yui-t7">
+<div id="hd">
+<div id="htgHeader" style="border-top: 4px solid rgb(23, 34, 50);">
+<div class="logo" style="">
+<h1 id="printH1">How-To Geek</h1><a href="http://www.howtogeek.com/" class="home"><img src="data:image/gif;base64,R0lGODlhAQABAIAAADoSLQAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="How-To Geek"></a>
+<div style="float: right; width: 450px;">
+<ul class="bigmenu">
+<li class="menubaritem">Articles <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu">
+<div class="subMenuArticles">
+<div class="smawrap">
+<a href="http://www.howtogeek.com/64600/how-to-recover-windows-and-software-keys-from-a-broken-computer/" align="left" class="title" rel="bookmark"><span><img src="ximg_582a2ed227a27.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.96Pwt5AZ6k.png"></span></a>
+<a href="http://www.howtogeek.com/64600/how-to-recover-windows-and-software-keys-from-a-broken-computer/" class="title" rel="bookmark">How to Recover Software Product Keys From Any Computer, Even a Broken One</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/280843/do-led-light-bulbs-really-last-10-years/" align="left" class="title" rel="bookmark"><span><img src="x2016-11-14_0035-650x301.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.32ykAT1rp6.jpg"></span></a>
+<a href="http://www.howtogeek.com/280843/do-led-light-bulbs-really-last-10-years/" class="title" rel="bookmark">Do LED Light Bulbs Really Last 10 Years?</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/225568/how-to-configure-and-customize-the-taskbar-in-windows-10/" align="left" class="title" rel="bookmark"><span><img src="xwtt_top-650x300.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.gFsinIPhXN.png"></span></a>
+<a href="http://www.howtogeek.com/225568/how-to-configure-and-customize-the-taskbar-in-windows-10/" class="title" rel="bookmark">How to Customize the Taskbar in Windows 10</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/280646/how-to-get-your-streaming-video-to-stop-buffering-so-darn-much/" align="left" class="title" rel="bookmark"><span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOQAAAB4CAAAAADHmAFpAAABr0lEQVR42u3Z3ytDYRzH8WfbsR2LJoxoDcsocjMNJUkoN36k/Ghu2IVCEzdKuPBjpdwQ5XfUGi6QP9GVks55btWn9+vyfK/ePWfnPM+ZMQAAAAAAAAAAAAAAAAAA4H+EEwPz+eXpbCygWhhKb97fFQsrS5un76XV9qBiY8vR7VzCNcYYE3Da8uXDuN6NOnsz6v6+UDX/NVOh1Vi5d1D391rycjei1Fi9n3M8yndPXJ1Gp7Dk+TiNHG/rRI4Wwt6D6MOYSmPDUY3fqKNUr9EYWBz2n62vaUTWbkUtq/wZlYgcHLdND8clIvPWrc1gMSTQGF2xbmziT9UCkY1T9ndouUkgsnXY/uy9TQtEprL2+VWPQGSyz76SpxmF/U6//Sh91SEQWWWPdJ8VDs9OJmx9+L44CpuBdI1tOr0jseOJtdnW+bFbIjKYstyvmYewxjEkVuc7ilyMiByaA/W+qzV5LvPFLuT3xbzrLWFkON7fHpOlISPEcyU7PyZk/xP5OWfm3nvFE4PZ62KzcqAb79so32Slb9WGl9ezhVb1X6MTUi8EAAAAAAAAAAAAAAAAAGnfHnE03SYKBrAAAAAASUVORK5CYII="></span></a>
+<a href="http://www.howtogeek.com/280646/how-to-get-your-streaming-video-to-stop-buffering-so-darn-much/" class="title" rel="bookmark">How to Get Your Streaming Video to Stop Buffering So Darn Much</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</li>
+<li class="menubaritem">Subscribe <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu" style="padding-bottom: 10px;">
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>FOLLOW US</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-twitter" href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0" target="_blank">TWITTER</a></h2></li>
+<li><h2><a class="icon-google-plus" href="http://plus.google.com/+howtogeek">GOOGLE+</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-facebook" href="http://facebook.com/howtogeek" rel="nofollow">FACEBOOK</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<div id="subemsub" class="submenudetail sm400 noclick" style="padding-bottom: 20px;">
+<div id="emquest"><div class="fs1" aria-hidden="true" data-icon=""></div></div>
+<span>GET UPDATES BY EMAIL</span>
+<form action="http://www.howtogeek.com/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="topmenu" type="hidden">
+<input id="fromaddress" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<p style="font-family: 'Open Sans'; text-transform: none;">Enter your email below to get exclusive access to our best articles and tips before everybody else.</p>
+<p><input id="from" name="email" value="Enter Your Email Here" style="width: 200px; color: rgb(187, 187, 187); margin-left: 59px; font-family: 'Open Sans'; text-transform: none;" type="text"><input id="sub1" name="sub1" value="Get Your Newsletter Now" style="background: none repeat scroll 0% 0% rgb(85, 168, 223); margin-left: 59px; width: 212px; margin-top: 6px; font-family: 'Open Sans'; text-transform: none;" type="submit"></p>
+<div style="clear: both;"></div>
+</form>
+</div>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>RSS</h4>
+<ul style="width: 130px;">
+<li><h2><a class="icon-feed" href="http://feeds.howtogeek.com/howtogeek">ALL ARTICLES</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/features/feed/" rel="nofollow">FEATURES ONLY</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 150px;">
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/trivia/feed/" rel="nofollow">TRIVIA</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+<li class="menubaritem">Search <span class="icon-magnifying-glass" style="padding-left: 10px; font-size: 16px;"></span>
+<div class="subMenu" style="padding: 20px; text-align: center;">
+<form action="http://www.howtogeek.com/search/" method="get" id="sea">
+<input name="q" id="s" value="" style="width: 900px; height: 40px; line-height: 40px; border: 1px solid rgb(204, 204, 204);" type="text">
+<input id="searchsubmit" value="Go" style="height: 42px; border: 1px solid rgb(204, 204, 204); font-family: 'Open Sans'; font-size: 16px; padding: 10px; background: none repeat scroll 0% 0% rgba(196, 230, 237, 0.99); border-radius: 0px 5px 5px 0px;" type="submit">
+</form>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="bd">
+<div class="yui-g" id="headerpanel"></div>
+<div class="yui-ge">
+<div class="yui-u first">
+<div class="content" id="htgArticle">
+<h1 id="printHeader" style="display: none;">How-To Geek</h1>
+<!-- abovepost -->
+<div class="thepost" id="post-255166">
+<style>
+/* Code tidied up by ScrapBook */
+p + .relatedside { margin-top: 8px ! important; }
+</style>
+<h2 style="margin-top: 10px;"><a style="font-family: 'Open Sans',sans-serif;" href="http://www.howtogeek.com/255166/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/" rel="bookmark" title="How to Enable (and Troubleshoot) Remote Access to Your Plex Media Server">How to Enable (and Troubleshoot) Remote Access to Your Plex Media Server</a></h2>
+<div class="thecontent">
+<!-- google_ad_section_start -->
+<p><img class="alignnone size-full wp-image-255785" alt="" src="img_573e26a65f9e0.jpg"></p>
+<p>Plex Media Server’s remote access function is usually so&nbsp;smooth to set up that&nbsp;it’s practically magic. But if you’re having trouble accessing your movies from afar,&nbsp;we’re here to help.</p>
+<p>If you primarily use Plex Media Server for watching content on your local network (like streaming your favorite shows to your HDTV or smartphone), you may not have given much though to the benefits of remote access.</p>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/"><img src="ximg_571fe01808391.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.8FPPSKJAhf.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/">How to Set Up Plex (and Watch Your Movies on Any Device)</a></span><div style="clear: both;"></div></div></div>
+<p>One of the greatest things about the Plex Media Server platform, however, is the ease with which you can access your media from&nbsp;<em>anywhere.&nbsp;</em>With remote access enabled and properly configured, you can watch your favorite TV shows anywhere&nbsp;you have internet access: on your phone while you’re sitting in a waiting room, on your laptop while you’re vacationing, or even on a smart TV at a friend’s house.</p>
+<p>Most of the time you should have very little trouble setting up remote access to your Plex Media Server, but there are a few instances where your home network configuration can throw you a curve ball. Let’s look at how to enable remote access and then how to trouble shoot remote access issues. If you need help with the initial setup and configuration of Plex Media Server, please refer to <a href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/">our getting started with Plex guide here</a>.</p>
+<div class="inlinessp" style="width: 650px; overflow: hidden; max-height: 250px; margin-top: -5px; margin-bottom: -20px; min-height: 25px;">
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" border="0" height="1" width="1"></div><h3>How to Enable Remote Access</h3>
+<p>During the initial setup of the Plex Media Server, the setup wizard prompts you to enable or disable remote access. While the default state is enabled, you may have opted at the time to disable remote access, or perhaps you inadvertently disabled it while messing around with the system settings later on. Regardless, it’s easy enough to check the status of remote access and enable it if it is currently disabled.</p>
+<p>While logged into your Plex Media Server’s web control panel, select the Settings icon from the upper right toolbar.</p>
+<p><img class="alignnone size-full wp-image-255183" alt="" src="img_5739fa9dca472.png"></p>
+<p>Within the Settings menu select, the “Server” tab. Then, from the left hand navigation pane, select “Remote Access”. By default, you’ll only see a simple view (the information in the large red box below), for the more advanced view with the “Server Mapping” information visible, click on the “Show Advanced” button in the upper right corner of the navigation bar.</p>
+<p><img class="alignnone size-full wp-image-255185" alt="" src="img_5739fb4fd0a5b.png"></p>
+<p>If your server is currently not configured for remote access, it will say “Not available outside your network” as seen above. Click the large&nbsp;orange button that reads&nbsp;“Enable Remote Access”.</p>
+<p>After you enable remote access (or if remote access was already enabled), you’ll see an entry similar to the one below.</p>
+<p><img class="alignnone size-full wp-image-255188" alt="" src="img_5739fbd700c41.png"></p>
+<p>In addition to telling you that the server is accessible, the control panel will also indicate the internal IP address and port number of the Plex Media Server on your local network as well as external, or public, IP address and port number.</p>
+<p>Although making note of both the internal and external IP addresses and port numbers is useful for troubleshooting, you don’t need to know any of this information for regular day-to-day use of Plex Media Server. The Plex system automatically handles all the connection data as long as you are logged into the same Plex account on your media server and all your client devices. If you’re having issues, however, don’t worry–in the next section we’ll look at the most common issues and how to solve them.</p>
+<h3>Troubleshooting Your Plex Media Server’s Connection</h3>
+<p>While remote access is generally headache free, sometimes you run into a hiccup or two. If you enable remote access to your Plex Media Server and see an error message like “Not available outside your network”, then you have a little trouble shooting to do.</p>
+<p><img class="alignnone size-full wp-image-255195" alt="" src="img_573a006a02220.png"></p>
+<p>It’s important to note that the Plex Media Server can still reach the internet (the server is signed in), but the Plex system can’t access your Plex server from the outside. If you can’t log in, at all then you’ve got a bigger problem on your hands–a general internet outage. (But don’t worry, even if you’re experiencing network problems beyond just setting up your Plex server, <a href="http://www.howtogeek.com/231887/htg-explains-how-to-troubleshoot-your-internet-connection/">we still have you covered</a>.)</p>
+<h4>Enable UPnP For Automatic Connections</h4>
+<p>The first thing you should check, when you encounter this error message, is that your router supports either NAT-PMP (less common) or UPnP (more common). Both of these services allow for automatic port forwarding and if your router supports them, then Plex Media Server will automatically configure its own port forwarding.</p>
+<p><img class="alignnone size-full wp-image-255196" alt="" src="img_573a01f28b3ce.png"></p>
+<p>Check the documentation of your router or simply search for the router name and additional search terms like “how to enable UPnP” for additional information. If UPnP is off, turning it on will allow Plex to automatically forward itself to the greater internet.</p>
+<p>If your router doesn’t support NAT-PMP or UPnP (or you have a pressing reason not to use it) then you’ll want to jump to the section below “Manually Forward Your Ports”</p>
+<h4>Banish Address Problems With Bridge Mode</h4>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/255206/how-use-your-router-and-isps-modemrouter-combo-in-tandem/"><img src="ximg_573b650af2b22.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.xyKbSs81ix.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/255206/how-use-your-router-and-isps-modemrouter-combo-in-tandem/">How to Use Your Router and ISP’s Modem/Router Combo In Tandem</a></span><div style="clear: both;"></div></div></div>
+<p>Far&nbsp;and away the UPnP fix should remedy nearly everyone’s connectivity issues. In rare situations, however, your network configuration can be conspiring against you. Routers have a feature known as Network Address Translation (NAT) that handles the complex task of juggling all the network requests coming into your single public facing IP against all the many internal IP addresses those requests are destined for.</p>
+<p>All by itself, the NAT system works awesome. When a NAT system is doubled up with another NAT system, however, it can create issues for apps (like the Plex Media Server) that rely on UPnP to create automatic port forwarding rules. This occurs commonly when you have a router/modem combo supplied by your ISP and your own router plugged into that unit. For help dealing with that particular situation, as well as eliminating double NAT problems in general, <a href="http://www.howtogeek.com/255206/how-use-your-router-and-isps-modemrouter-combo-in-tandem/">check out our guide here</a>.</p>
+<h4>Manually Forward Your Ports</h4>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/"><img src="ximg_581b5269602a7.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.bmcnmSeMz_.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/">How to Forward Ports on Your Router</a></span><div style="clear: both;"></div></div></div>
+<p>If you prefer not to use UPnP or you can’t resolve your double NAT situation that’s playing havoc with UPnP, you can circumvent the entire issue by manually <a href="http://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/">setting up a port forwarding rule</a>. For the unfamiliar, port forwarding is simply when you tell your router “OK router, any requests that come in to my public IP address at port #XXXX, should be forwarded to&nbsp;<em>this</em> internal IP address at Port #YYYY.”</p>
+<p>To do so, you need to tell Plex Media Server you wish to manually specify the port number, and then, at the router level, assign a static IP address to your Plex Media Server computer and create a port forwarding rule. First, let’s turn on the manual port mode in Plex. To do so navigate to Settings &gt; Server &gt; Remote Access (as we did in the previous section of the tutorial).</p>
+<p>Check “Manually specify public port”. Unless you have a pressing reason to do so, there’s no need to change the port number here. Click “Apply”.</p>
+<p><img class="alignnone size-full wp-image-255780" alt="" src="img_573e1ea620560.png"></p>
+<p>If you don’t see the manual port option in your settings, you need to click on the “Show Advanced” button in the upper right navigation bar.</p>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/184310/ask-htg-should-i-be-setting-static-ip-addresses-on-my-router/"><img src="data:image/jpeg;base64,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"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/184310/ask-htg-should-i-be-setting-static-ip-addresses-on-my-router/">Should I Be Setting Static IP Addresses On My Router?</a></span><div style="clear: both;"></div></div></div>
+<p>Once you’ve turned on the option in Plex, it’s time to <a href="http://www.howtogeek.com/179700/beginner-geek-how-to-configure-your-router/">access your router’s admin page</a>. How you set up a static IP address and port forwarding rules vary from router to router, but the general premise is the same. You’ll need to identify your Plex Media Server computer on the network and then look for an option in your router to create a “static IP”, “static lease”, or “DHCP reservation” to permanently associate the Plex Media Center with a given IP address. Below you can see an example of what adding a static IP address looks like, via our DD-WRT router.</p>
+<p><img class="alignnone size-full wp-image-255782" alt="" src="img_573e20e72fb0a.png"></p>
+<p>If you don’t do this every time your router assigns a new internal address to the media server it will break your port forwarding rule. If you need more information on setting up a static IP address you can search for documentation for your specific router and <a href="http://www.howtogeek.com/184310/ask-htg-should-i-be-setting-static-ip-addresses-on-my-router/">read up on static IP addresses here</a>.</p>
+<p>Once you’ve set a static IP address for the server, then you simply need to tell the router, via port forwarding rule, that all traffic on that port should be directed at that internal IP address. Again, via our DD-WRT router, here’s a general example of what that looks like: we’ve forwarded everything on external port 32400 to the internal IP address of the Plex server, also on port 32400 to keep things simple. Check out <a href="http://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/">our full guide to port forwarding</a> for more information, if you need it.</p>
+<p><img class="alignnone size-full wp-image-255783" alt="" src="img_573e2286a3804.png"></p>
+<p>After you’ve set the port in Plex and set up the two rules (static IP and port forwarding) in your router, everything is all set. Simply hop back over or to the Plex Media Server control panel to double check the server status page, and enjoy.</p>
+<hr>
+<p>Plex Media Server generally works, by the magic of UPnP, right out of the box. But in those rare instances it doesn’t, it’s just a matter of applying a few simple tweaks to get your media server back online.</p>
+<!-- google_ad_section_end -->
+</div>
+<div style="clear: both; height: 0px;"></div>
+<!-- discourse comments begin -->
+<style>
+/* Code tidied up by ScrapBook */
+#discusslink { color: rgb(88, 88, 88); text-decoration: none; }
+#discusslink:hover { color: blue; text-decoration: none; }
+</style>
+<div style="max-width: 650px; width: 100%; padding-top: 10px;"><span style="font-family: bebas_neueregular; font-size: 19px; position: relative; top: -9px; padding-right: 10px; float: left; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(134, 134, 134);"><a id="discusslink" href="#">JOIN THE DISCUSSION (1 REPLY)</a></span><div style="border-top: 4px solid rgb(204, 204, 204);"></div></div>
+<div id="discusscomments" style="display: none;"><style>
+/* Code tidied up by ScrapBook */
+</style>
+<div style="clear: both;"></div>
+<!-- You can start editing here. -->
+<!-- If comments are closed. -->
+<div style="clear: both;"></div>
+<div id="discourselink">
+<h3 id="reply-title"><a href="https://discuss.howtogeek.com/t/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/46720">Got Feedback? Click Here to Join the Discussion</a></h3>
+</div>
+</div>
+<div style="clear: both; height: 0px;"></div>
+<div id="socialmediabuttons" style="margin-bottom: 0px;">
+<div id="fb-root"></div>
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script>/* Code removed by ScrapBook */</script>
+<div style="padding-right: 20px; float: left;">
+<div class="fb-like" data-href="http://www.howtogeek.com/255166/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+</div>
+<div style="padding-right: 20px; float: left;">
+<div class="g-plusone" data-size="tall"></div>
+</div>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<div style="padding-right: 20px; float: left;">
+<a data-pocket-label="pocket" data-pocket-count="vertical" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="padding-right: 20px; float: left;">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.howtogeek.com/255166/how-to-enable-and-troubleshoot-remote-access-to-your-plex-media-server/" data-via="howtogeek" data-lang="en" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div id="postiddiv" post="255166"></div>
+<div style="clear: both;"></div>
+<div class="articleExtras" style="background: none repeat scroll 0% 0% rgb(254, 254, 254); border-top: medium none;">
+<div style="width: 450px; float: left;" id="authorinfobox">
+<p style="font-weight: normal; color: rgb(51, 51, 51);"><a href="http://www.howtogeek.com/author/jasonfitzpatrick/"><strong>Jason Fitzpatrick</strong></a> is a warranty-voiding DIYer who spends his days cracking opening cases and wrestling with code so you don't have to. If it can be modded, optimized, repurposed, or torn apart for fun he's interested (and probably already at the workbench taking it apart). You can follow him on <a href="https://twitter.com/jasonfitzpatric" rel="author">Twitter</a> if you'd like.</p>
+</div>
+<div style="width: 130px; float: right;">
+<ul class="normul" style="margin-bottom: 6px;">
+<li>Published 05/23/16</li>
+<!--<li><span id="pv3"></span></li>-->
+</ul>
+<div style="margin-left: -14px;"><a href="https://twitter.com/jasonfitzpatric" class="twitter-follow-button" data-show-count="false"></a></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div class="below-post-features" style="width: 650px; overflow: hidden; max-height: 250px; margin-bottom: 20px;">
+<div id="outbrain-below-article" style="">
+<style>
+/* Code tidied up by ScrapBook */
+.below-post-features:hover { box-shadow: 0px 0px 3pt 2pt rgb(98, 128, 156); }
+#sb3 { padding-top: 0px; }
+.content { padding-bottom: 0px; margin-bottom: 0px; }
+</style>
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" border="0" height="1" width="1">
+</div>
+</div>
+<div style="width: 100%; max-width: 650px; margin-bottom: 0px;">
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div class="yui-u">
+<div class="sidebar">
+<div style="margin-top: 24px; clear: both;"></div>
+<div class="sidebar-glossary">
+<h4 class="sidebarh4">DID YOU KNOW?</h4><div class="glossaryhomebox" style="padding: 10px;"><p>The maximum achievable score in the arcade classic Pac-Man is 3,333,360 points.</p>
+</div>
+</div>
+<div id="side78"><div id="htgyr11">
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>	<div class="sidebar-glossary lazyloaddiv">
+<style>
+/* Code tidied up by ScrapBook */
+</style>
+<h4 class="sidebarh4">BEST OF HOW-TO GEEK</h4>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/273733/the-biggest-design-mistakes-apple-has-made-in-the-past-two-years/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAUGBwIECAMB/8QANRAAAQMDAwIDBgILAAAAAAAAAQIDBAAFEQYhMRJBBxNxIzIzUWGRCJIWQkNEU2JygaGiwf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/AOM/7UxgRrW7AcclzlMSAo9CEoKsp2/zyORS2igbOQLUlpS0XcLIbUoJ8jBJA2T73JP/AH6Z9H4FkUQuPeFJQc4StnKsg4xnI52PyxnfIxSWigdKt9n26bwDnIHsjyEnnJHKsAeu/Ga+C2WpQ9nfEFRUhKQqORuc5J32SNt99s7bb2v4M+CiL9b2NQaqW81CeAXGhtnpW6jspauUpPYDcjfI7oPxIWrTth1fBs2nbexCRHgpU+lrOStSlEdROST0gHf5igrFwJS4pKD1JB2OMZFYUUUBRRU90Vp+1Mobm3loSn14U3GUSG2x2K8e8rv08DvnJACBU20bBjXPV9nt0xaURpU5ll5SlYAQpYCt+2xNX1Zp9rbaDSYkNtrGPLQylKPygYrXvOk/D+9jrftogPHl2AsMn8uCj/XP1qxKsHXXijpPR9rWG5sadOSjpYgxHEqOewV07IT69uAa5G1HeJ1/vky83J3zJUtwuOEcD5AfIAYA+grorS9i0Dp0BcO0R5EgfvEzDznqM7JP9IFSO4X6yzIxjzIcOSyRgtuspWnHoRig5Coq0/FbSunW4rt5sHlwFIOXY3X7NeT+pnhX8vB7Y71ZUV6RylLyFKAISc4PfFOmbw6k5Kzk8nNFFBvM6hdQPiH71sDVDwHxD96KKtQfpS//ABT96wVqh8/tD96KKlIj97usm5PjzXFFtHuJzt9T60uooor/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/273733/the-biggest-design-mistakes-apple-has-made-in-the-past-two-years/" class="title" rel="bookmark">The Biggest Design Mistakes Apple Has Made in the Past Two Years</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" border="0" height="1" width="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/200962/how-to-find-and-remove-duplicate-files-on-windows/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/200962/how-to-find-and-remove-duplicate-files-on-windows/" class="title" rel="bookmark">How to Find and Remove Duplicate Files on Windows</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAUCAwQGAQj/xAA3EAACAQMDAQQGBwkAAAAAAAABAgMABBEFEiExE0FhkQYUInGhsSMyQlFSgcEVJDRTY3KU0vD/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQID/8QAGBEBAQEBAQAAAAAAAAAAAAAAAAECMRH/2gAMAwEAAhEDEQA/APqEWWoyQqYxC7Bm3MjgDGfZGNx5Axnnnr4Vh1yw9Il06QWMkEFwxASWRgyrzznr3ZHvIrodCuYbqyBiUKy47RYnTAJHXCswHnV2qAiwlOJBx3t4+8fOg4yxsNetbQv6Qyw3DNKTE8JOFTaOCVKc5B7vCmLWIa2S4t7aSRW4fbI7nOOeA+R8ad6pCJdOVnneBVwSzudv54YfOo+jvtaduUyMO0bkN4/3N86BW2mjspLhLSfs9uURZXLK3HUB+ee7ArwC7ZezNu6SM21GZGjXP3ZJI57qe6XHJHbFJHllcSMCwY88+LE/Hyqd6kpSMoHGJU3Z5yM445GD48+40CVbW/tlea7t2liVclYpBuqme6iik2Mh6ZBGWBB5BBBweKfaoRHZO0kV06ZAbs5QpAz1zkcVyl2R2ilZiAY0I3SAnG0f1x8vPrQdXYBmtw7ky7jkF1MZA+4qeaNRG2ylYRcgcYYk9fuAJpe13cRlEkubZWbhd6gFvjV1xa6nPC0TiLa3XCL+poPdVWQ6UBFFkkLkbmPH5KT8KloS/uA3REHcc7mYH4gH4VnkivbqOSyLQthcOOzUkeZxUIorrTYhADEi/WA7IfpRbLOmdovsybkB+lbktjjPuqdyv0Y2xKTvX7Z/EKwQ2+owxsUWEKzFziNe/k9DVUUlzfqUgmtpdhV2Cqpxg5GefCiGd4SlpK6IAwQlTv78cdx+R91cndxXMjo/YzuTEmW+mGTtGekWP+6Cneox3nqrC7FuIz3tGpwe4jk8jrWJ9KsmIDQgFVCcRxfZAH4PCgYWvY+sRzPdKgjLZTn2sgYPBx5g0x9cs/56+VFFVC+3mt7OeSe4vROJBjCQNwc56AmtP7Y03P15f8aT/Wiir3rpnMsRfV9NkVog8uWBX+HkA89vHvothplvIZIp3yRj2pXYeRJFFFNTxnU8XTz6fNE0UkwKN1HT5UukePtH2upXccc92aKKiP/Z"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/" class="title" rel="bookmark">How to Troubleshoot Your Mac With Activity Monitor</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" border="0" height="1" width="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/259644/nest-vs.-ecobee3-vs.-honeywell-lyric-which-smart-thermostat-should-you-buy/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABQcABggDBP/EADAQAAEDAwMDAgMIAwAAAAAAAAECAwQABREGEiEHMUETYQgUcRUiMlFygZGxssLx/8QAGQEAAwEBAQAAAAAAAAAAAAAABAUGAAIB/8QAIREAAQQCAwADAQAAAAAAAAAAAQACAwQRIQUSMRNRcaH/2gAMAwEAAhEDEQA/AL5a7jFcUAH2yf1VaoKkFIIxWZtZarnWdz14mlowitZLoTuSppOQAd6FlWfdeR2yDTD6M6/j39LbAecUheQgOkb0KHdCscEjI5GMgg4HIDOT5ISBI0t/UmjqkeOym1Nxs7VT74raVcjH1rz9UtRPWoRoDDvpKfBKlg8hI/Kktqm43BxDi4kqWsjvsJViuBbDStLQfMPcK7X50lKgjz5qh3hS+e9LePre+W++tJXOXIjqWErQ5zwT4poXdSFWxE0JJ9RIKUgZJJ8UXHaEgKnbtCSq8A7yqXcnFAnJxQRxZ3nCx/Nams/RzSejdDjVvUi3XC+3FxIV9nRd3pxyQSE4SU7lDHJUdueAOxI232Pole2TNX07vsdQUUFKGJQScc5HpLKcc0E+cEpvBxTw3Z2lLcLnbHbawTHMeQ3j5h4uDY62EnfuGSc5wB4IHYV5Ph+bfavnrthSWnJaA2PYBW7/ACT/ADXGL09eEhLU2RdJLSTwymPgn2ypWE/XB+hpwdONKG2OImvRURUtp2sMJ5DY9z5Ue5P9DADbn+cbyvQMZ1Dc/wBTahRdXyXHOUC+J+7Kt90tDgVgLaUP34pKP6oWVfdloZyfxLb3gcHxg/8AcHwK0H1w0crWtmaSw8GpkZRU0rwfY1nx3pTq5lxSXIiHAOAUuEf6mp4Ru+kZJIxp9VJccU5NSvOfvjH81pG1OMw42m5swD5WPNjOyM9ghLiSrP7A0stNdJ767c2l3MNssIUFKwc5xTlnW+P9liCoAthGyjK8bsHKmuZuRBzOpzg5Tx6/x75eNHRTZYhujceaiRKgobS58y0EqwjarhQ3FOfOORyBSegdOupt2gR5elmJWloeza5EfX8qpxwd3PTT+Y2pycE7c4HFdtE9YL/oqE3Z7zal323sDZGfadCJDaB2ScghYA4HY+5o/I+J5ptzbE0JcHWsfiemIQrP0CT/AHQ7oXA+JrFyVd7A7sFfblaWUuFSWUA+yaCTmS0kgVKlavsbTi6erdKt3OQpvPNAJlyUnOVVKlOI2Dqoy5K/PqHquoyQVUPmXAKzzUqViFOTkl20DuEtKuO9B3ncrOKlSuSF5G0L/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/259644/nest-vs.-ecobee3-vs.-honeywell-lyric-which-smart-thermostat-should-you-buy/" class="title" rel="bookmark">Nest vs. Ecobee3 vs. Honeywell Lyric: Which Smart Thermostat Should You Buy?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/125923/7-ways-to-free-up-hard-disk-space-on-windows/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAwEAAwEAAAAAAAAAAAAAAAYHBQECBAj/xAAuEAABAwMDAwMDAwUAAAAAAAABAgMEAAURBhIhBzFRE0FhInGBFDKRFUKCobH/xAAZAQACAwEAAAAAAAAAAAAAAAAABAIDBQb/xAAeEQACAgMBAQEBAAAAAAAAAAABAgARAyExEgQiQf/aAAwDAQACEQMRAD8ASmtYdUGmJLki/MtqjrKFJUw2oHHggcj5pGsfV3W9qu93kuXBr9RMfSuQlbIKcpSEgpHtwB28U26w6laS1BbILypMuNcUtpMhl1lSUlZAC0gjO4ZAOffB80gS7Rb7zqZhuLIEeJITmTJkoVsbV5ThIVz4xSON8pYhppPjweB57GK39UtTagkO25bsqVOlHbFQyMhSvb6e4Hkj802wG75CSIs1EKVIz3Q+ELUraFFITjGRkc5xjHPeqN0o6N2u2wwIF1jJdcRslOsFtUhxWP2pLiwEgZx9OfuTTnd9Ewo8lcCMm3KvKEt+gzKlpXLWf3ZCU7Ep4B7lQq1r7F7UGpCLTd7fd/UbZSpD6EgusPI2uJB7HHuD5GRXhvOmIMwKcjoEd7ykfSfuKWuuETWNj18qU/ZX7UuMn0kPshK08IztKkcHOR37fiqToPUiJWk7cuXF0o/KRGQJK5D7wdC+AfUSMBJyft79qjkqtiWYXYH8mSiXDdhSFMvoIWk/g13bUkJHFN/Udt16/es4xBYCmk7UQystDHjfz8+OaVvQ+1IsQDN3FbKDHnpf09iL07Gu8xKXZctHqI3chtB7AfJHOfmmZ7p6+8pv0ZziEpc3FoIAQseDtwo8cZ3Um9FNfsStOs2yU4EyoI9PBPKkf2kfjj8VTBq5lDf0rArWIucwLHI12m4XKw2owoFltUGEMkpYU6ygc+4Qsbv8txNeeRfFQ5BaYmvRFvL3FERCWWSvB7gEc4zyr+amOu9YPybFJaYdOCBnB9s1laI10pEMyruESCyNja1qCVJ8nJ+lXHH1efzVTMqmpYqFtyr3CalTymZG9clzcVAqDhOBlWSMjI9+SalfUdiDJkqbnwmlvpAwpaAVAe2D3x9qo9h1DbdWX6FaIkVhiS/MAZXlsFpCkqBQChXuDycE8HHeudSaXjy7xcY7yEL/AKdIVG3pHCiME4z8mpKwMCvmRdi3T7xIiBy4oaZjRww2lTfGM91Edz8/ArCdVsdW24SlaFFJHyKqc+3swHihtIFZEy12+W960iMhbmMFXIzSuXGGOo/830HGKM+b470y2vM3KI7sKicFJ9x3BqoR9WWe5yGWbXOlMqLDfqIm7UlTu0b9pHG3dnGecUUU7/LmbxqjzpiM1I+iWkOBQwQrkEVtSumVvnwvStk9UEKUFFCkb0/buD/2iiolQw3D2VOozdG9ENaO1uxqO7T0Tf0xW400w3jKykhJJPYDJ/1TfcpLTbUlxAwp95byz3JUtRUT/JoooCheQLljuTG9Pl2ao+wNZ5VRRS57Ghyf/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/125923/7-ways-to-free-up-hard-disk-space-on-windows/" class="title" rel="bookmark">7 Ways To Free Up Hard Disk Space On Windows</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/187797/dont-be-intimidated-building-your-own-computer-is-easier-than-youd-think/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYFBwIECAP/xAAzEAACAQMDAgUCBAUFAAAAAAABAgMEBREABhIhMQcTIlFhQXEUFTKBFiNCobEkYpGS4f/EABgBAQEBAQEAAAAAAAAAAAAAAAUDBAIB/8QAIREAAgICAgIDAQAAAAAAAAAAAQIAAwQREiEFUSIxQRT/2gAMAwEAAhEDEQA/AKip3lhf0syH4JGpe3vXVc6QQtLK7dhnOp3atlt+5rVPdK/zKWaJv5rIwCn5xg9ftpdNxgobtNRW+ZmiEnEO36nAGicaj+i0p6+4rbkLWnL3H617eoaRaae6VcRkldQ0UcSAAk4wXwT7dhoaDclSs/4elVI6fKK7colyO4B/fSVui6M9oEmZEkUBlIbsR1Ge2mC1+In8QVlFY7lSrJU4Lh06K3oLAnB79B099bcnHWntB0JlqsFh+Zi7u2pqq6CKhqyOdOpDhW5YYlQev2Ua8rVs+K31C3Ckkn80IcB8Yyyke2R3170VmvE9VBE9uqPMmmVTmMkHrk/2/wAatQbfkWJVKccdcEfXQuRmNURwM1pWpGjOdb1LP+aNSSo0PkZLq3Q51FSVNNG3GWeVn/q8oZA+Pvq1vEhdtVdQtPLTCeanHCWZXKk9f0DjjPUHv841A001vooVggttPHGOy8Qf7nqdN0WF6wxGoe66bQMthNg7iqdpUlrtdws0EuWlqo3nZCH6YX9JBwuPr3zpAunhV4gWyuNb+Ux16JJlmpKhHIA/25B7fGmTdl8r9qWCn3BDTvJT1EzU4UNjiyqGGT8gH/qdVzSeM2/Rc2FvaJhMwURGItn2HfOeurV2BE1X7nBBZ9vJe/bZv72+VnoJHBH6Rgsv7Dr+x097J8J5dt3SkvVynEqCiEszMnAU0h6FTyxyGCOo+fjOe1LpLXXJ6W5PSTVoA/EmNP5ULNnKsT0/9zpt3pdbtbbC9J+Z15iq5o4YaimpPOenUZYk9sL6QMn317kFbBxY/c5rDg8lHQkLua406PTNT86ZqKVpRyX0FgOmT39xjH9WpUbxs8lOzF5IZeGQJFwM4+M63LZt6011DBOJluLMiu8tRyVzn6sCRj3xj6jSN43U1tsC0Mdqq4WkroWkeJY1JgC4B5Y6dScfsfbOjW8XQ9YUAjUuuUwfv9lVNBIZvOlk5PyLs7nqWPc9dR1bXDzyDIBj51q101TGW4uGQnqFXH+NQVXXIsxHU9NIBdDUkTOqvEayR1/hDT2aKCaetn8uphREyVJbkzNnoqhWYZP1I0o7T2DddviiaptcKwyKZErYPWq+hmIdsdCMDvgffRo0f44cwQ36SZfJ+I2I12ymtt2pqiluVlhj4RI3nUqNT5Z+QJPA4YjiPUe+mbb1PQUX+me5zS0YUgxVqo4x7chxAX7g6NGnFpRzoiHLYynozOs2bYayY3GlNPRUvV2emmZvNB78cj0k/wDHxrn/AMZ4mtV+YQTTyUbgNFKzcstgch7A5Hb2xo0aMWxuYXfUXupRVLAd9Srq258l4R8gfZTga0Bl8u5LMTkknRo1qh8//9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/187797/dont-be-intimidated-building-your-own-computer-is-easier-than-youd-think/" class="title" rel="bookmark">Don’t Be Intimidated: Building Your Own Computer is Easier Than You’d Think</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/269331/how-to-disable-all-of-windows-10s-built-in-advertising/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/269331/how-to-disable-all-of-windows-10s-built-in-advertising/" class="title" rel="bookmark">How to Disable All of Windows 10’s Built-in Advertising</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/186431/ask-htg-how-can-i-easily-send-news-articles-to-my-kindle-for-later-reading/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/186431/ask-htg-how-can-i-easily-send-news-articles-to-my-kindle-for-later-reading/" class="title" rel="bookmark">How to Send Articles to Your Kindle for Later Reading with Tinderizer, Instapaper, or Pocket</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/225385/what%e2%80%99s-the-best-antivirus-for-windows-10-is-windows-defender-good-enough/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAABAYABQECAwf/xAAzEAABAwMDAwIEAgsAAAAAAAABAgMRAAQSBQYhEzFRYYEUIkGRB3EWMjM0QkOCkqGx8P/EABsBAAMAAgMAAAAAAAAAAAAAAAABBQYHAgME/8QAKhEAAQIEBAQHAQAAAAAAAAAAAQACAwQREwUhUZESQlKBBhUWIjNBofD/2gAMAwEAAhEDEQA/AEdpY80U2pBiYpMVuWxZdU2t1YUhRSqEHuK3G7NNA/auH+g1uMY1Ig0MVu4WpnYLOOzEM7FP1s6wnvE0e3qNqymVFIry5zd9r/Atf9poG73Oh0QlxZ9q4RMfkAPkB7rp9MTcU+5hHZer3O/29JPUssesnsYBikPeW+9f3G6oanqdzcNg/I2pw4J/IdhSe9qaHVSpaj7UI5coUZyP2qFM4zLxDVrmjaqu4f4dMoKBh/UU67JJ80OXBNcS+knvXMuieBUx09BPON1cbJxRylX22b3QrXW7t7XrI3bCssEj6Knv/wB35EiZHPbmpqsL28XauWbbLv8AJvGuo2tIVKZHkGDVG5ytRnuZrdi66DbrYQ0sOCCVoCing8jweaxSJJxL74nCc9llnmgfJQpQ8NGVz+89T/fgoznUrhTVy2XduDqJTk58KjKSCmEnHgjGfcGiXtbdcJDh2w6nNCxFmE8JWFBPABAMAR4kUsOayVFM2lhwZ/dxyee/3rKNcdQ042GLPFapINunjtwPTifzmixF6SvLdZqEyp3FdFDjGO2ClwYk/ApA47EGPlMHgjkenehtb1J7VbEt3FzoCZWFFTFtg6TP1VEwJ8+3c1RXGtl5tSFWliMk4ym3AI4jg/Tiujm4XnAQu2sVSZOVskkn8zyaLEXpKLrNVlGmWy7joI1W2ktZhauEZTymf9GOfSoxpbTqCpWrac18xELWqTBieEnihNQ1P43DNi2awEDotBHHrHf3oQut+aLEXpKLrNUrlavJ+9YKleT96lSiqdFu2pvpr6inM+MMYj1mi3xpg0u3Uw/dG+KVddC0gISrMxj5GMEk/XiI5qVKVSnRaupsUi0KLh5eQHxPEFPaQn2/yKYfw/OxBvMI3k5qn6PlpYztky6Fx8pIBEiZ7elSpTqkqy6VoC9a1NVmp9vTjdLNgLhJU4GMlY5Yn9bHGee81UXBR13OkolvI4T4nipUoqii/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/225385/what%e2%80%99s-the-best-antivirus-for-windows-10-is-windows-defender-good-enough/" class="title" rel="bookmark">What’s the Best Antivirus for Windows 10? (Is Windows Defender Good Enough?)</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div style="clear: both;"></div>	<div style="width: 300px; min-height: 20px; margin-top: 30px;">
+<div style="text-align: center; margin-left: auto; margin-right: auto;">
+<div id="htgys01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="padding-top: 10px;"></div>
+</div>
+<div id="sidebar-float-widget">
+<div class="sidebar-float-widget-internal">
+<div class="adSystem_ads">
+<div class="html"><div style="margin-bottom: 0px;"></div>
+<div class="g-page" data-width="320" data-href="//plus.google.com/100292833634918081724" data-layout="landscape" data-rel="publisher"></div>
+<div style="margin-top: 8px;">
+<a href="https://twitter.com/howtogeek" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @howtogeek</a>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div id="fb-root"></div>
+<script>/* Code removed by ScrapBook */</script>
+<div style="margin-bottom: 10px;"></div>
+<div class="fb-like" data-href="https://www.facebook.com/howtogeek" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div style="margin-bottom: 15px;"></div></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both; margin-bottom: 20px;"></div>
+<div style="clear: both;"></div>
+<div id="htgyr01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<div class="yui-g" id="sb2">
+<div id="sb3">
+<div id="ns_ad8">
+<div id="sb4">
+<div style="padding: 0px 20px 20px;">
+<h3 style="text-align: left; font-size: 30px; color: rgb(35, 70, 113); font-family: bebas_neueregular; text-transform: uppercase; font-weight: normal;">More Articles You Might Like</h3>
+<script async="" src="about:blank"></script>
+<!-- htg-below-article-content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="8688851009" data-ad-format="autorelaxed"></ins>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div id="htgyl01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+<div class="yui-g" style=""></div>
+</div>
+<div class="footer" id="ft">
+<div style="width: 18%;" class="ftdiv">
+<div class="ftsection" style="">ABOUT</div>
+<ul class="bottomul">
+<li><a href="http://www.howtogeek.com/about/" rel="nofollow">About Us</a></li>
+<li><a href="http://www.howtogeek.com/contact/" rel="nofollow">Contact Us</a></li>
+<li><a href="https://discuss.howtogeek.com/">Discussion Forum</a></li>
+<li><a href="http://purch.com/" rel="nofollow">Advertising</a></li>
+<li><a href="http://www.howtogeek.com/privacy-policy/" rel="nofollow">Privacy Policy</a></li>
+</ul>
+</div>
+<div style="width: 45%;" class="ftdiv">
+<div class="ftsection" style="color: rgb(255, 152, 84);">GET ARTICLES BY EMAIL</div>
+<p id="ftemp">Enter your email address to get our daily newsletter.</p>
+<p>
+</p><form action="http://www.howtogeek.com/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="footer" type="hidden">
+<input id="fromaddress2" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<input name="email" id="ftemtxt" style="color: rgb(187, 187, 187);" value="Enter Your Email Here" type="text">
+<input id="ftemsub" value="Get Articles by Email" style="background: none repeat scroll 0% 0% rgb(85, 168, 223);" type="submit">
+</form>
+<p></p>
+<div style="clear: both;"></div>
+</div>
+<div style="width: 280px; float: left;">
+<div class="ftsection">FOLLOW US</div>
+<ul class="ftsub" style="float: left;">
+<li class="icon-twitter"><a href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0">Twitter</a></li>
+<li class="icon-facebook"><a href="http://facebook.com/howtogeek" rel="nofollow">Facebook</a></li>
+</ul>
+<ul class="ftsub" style="float: left; margin-left: 20px;">
+<li class="icon-google-plus"><a href="http://plus.google.com/+howtogeek">Google+</a></li>
+<li class="icon-feed"><a href="http://feeds.howtogeek.com/howtogeek">RSS Feed</a></li>
+</ul>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="font-style: italic; font-size: 11px; text-align: center;">Disclaimer: Most of the pages on the internet include affiliate links, including some on this site.</div>
+<br>
+<div class="copyright" style="font-size: 11px;">Copyright © 2006-2016 How-To Geek, LLC&nbsp; All Rights Reserved</div>
+</div>
+</div><script src="about:blank" id="pocket-btn-js"></script>
+<style>
+/* Code tidied up by ScrapBook */
+#subscribeoverlay { background: url("emailoverlay4.jpg") no-repeat scroll 0% 0% transparent; }
+#emailoverlaylist { color: rgb(34, 34, 34); }
+#emailoverlayformbutton { background: none repeat scroll 0% 0% rgb(111, 198, 255); }
+#emailoverlayformbutton:hover { background: none repeat scroll 0% 0% rgb(41, 167, 250); }
+#emfh2 { color: rgb(0, 0, 0); top: 100px; }
+</style>
+<div class="overlay-bg">
+<div id="subscribeoverlay">
+<a href="#" id="ovclose"></a>
+<h2 id="emfh2"></h2>
+<div id="emftag"></div>
+<ul id="emailoverlaylist">
+<li>Get exclusive articles before everybody else.</li>
+<li>Get downloadable ebooks for free!</li>
+<li>Get geeky trivia, fun facts, and much more.</li>
+</ul>
+<form id="emailoverlayform" method="GET" action="http://www.howtogeek.com/em/subscribe">
+<p>
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="overlay1" type="hidden">
+</p><p id="emoflbl" style="position: absolute; left: 20px; top: 240px; font-weight: bold; font-size: 120%; color: rgb(0, 0, 0);">Enter Your Email Here to Get Access for Free:</p>
+<input style="color: rgb(187, 187, 187);" id="overlayfrom" name="email" value="Enter Your Email Here" type="text">
+<input id="emailoverlayformbutton" value="Get Free Content Now" style="" type="submit">
+<p></p>
+</form>
+<div id="overlayformsuccess">Go check your email!</div>
+<img id="overlayimage" style="position: absolute; left: -9000px; top: -9000px;" src="xemailoverlay4.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.bdAMUqnBuz.jpg">
+</div>
+</div>
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<!-- Begin comScore Tag -->
+<script>/* Code removed by ScrapBook */</script>
+<noscript>
+<img src="http://b.scorecardresearch.com/p?c1=2&c2=6035753&cv=2.0&cj=1"/>
+</noscript>
+<!-- End comScore Tag -->
+<script>/* Code removed by ScrapBook */</script>
+<!-- Quantcast Tag -->
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<noscript>
+<div style="display:none;">
+<img src="//pixel.quantserve.com/pixel/p-e1gWzoEHleH1I.gif" height="1" width="1" alt="Quantcast"/>
+</div>
+</noscript>
+<!-- End Quantcast tag -->
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+</body>
+</html>
