@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>在 Termux 与 Raspberry Pi 上安装 Fedora 25 Beta · LinuxTOY</title>
+        <link rel="stylesheet" href="main.css">
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://linuxtoy.org/theme/css/grids-responsive-old-ie-min.css">
+        <link rel="stylesheet" href="https://linuxtoy.org/theme/css/side-menu-old-ie.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="grids-responsive-min.css">
+        <link rel="stylesheet" href="side-menu.css">
+        <!--<![endif]-->
+        <link rel="stylesheet" href="pygments.css">
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link rel="alternate" type="application/atom+xml" href="https://linuxtoy.org/feeds/all.atom.xml" title="LinuxTOY Atom Feed">
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <script src="about:blank" async="" type="text/javascript"></script><script src="about:blank" async=""></script><script src="about:blank" async="" type="text/javascript"></script><script async="" src="about:blank"></script>
+        <script>/* Code removed by ScrapBook */</script>
+        <meta name="keywords" content="Linux, 自由软件, 新闻, 教程，提示">
+        <meta name="description" content="除了一如既往的更新以外，Fedora 25 在还带来了平台支持上的一个里程碑：首次正式支持 aarch64 和 Raspberry Pi。">
+        <meta name="subject" content="Linux 新闻、应用及提示">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@linuxtoy">
+        <meta name="twitter:creator" content="@linuxtoy">
+        <meta name="twitter:url" content="https://linuxtoy.org/archives/howto-install-fedora25beta-on-termux-and-raspberrypi.html">
+        <meta name="twitter:title" content="在 Termux 与 Raspberry Pi 上安装 Fedora 25 Beta">
+        <meta name="twitter:description" content="除了一如既往的更新以外，Fedora 25 在还带来了平台支持上的一个里程碑：首次正式支持 aarch64 和 Raspberry Pi。">
+        <meta name="twitter:image" content="https://linuxtoy.org/logo.png">
+        <meta property="og:url" content="https://linuxtoy.org/archives/howto-install-fedora25beta-on-termux-and-raspberrypi.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="在 Termux 与 Raspberry Pi 上安装 Fedora 25 Beta">
+        <meta property="og:image" content="https://linuxtoy.org/logo.png">
+        <meta property="og:description" content="除了一如既往的更新以外，Fedora 25 在还带来了平台支持上的一个里程碑：首次正式支持 aarch64 和 Raspberry Pi。">
+        <meta property="og:site_name" content="LinuxTOY">
+        <meta property="article:author" content="lovenemesis">
+        <link rel="canonical" href="https://linuxtoy.org/archives/howto-install-fedora25beta-on-termux-and-raspberrypi.html">
+    <script src="about:blank" async="" type="text/javascript"></script><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><link href="new_embed-59af57b2801d7d8cca80ebe043cdcf80.css" type="text/css" rel="stylesheet"><style type="text/css">
+/* Code tidied up by ScrapBook */
+</style></head>
+    <body>
+        <div id="layout" class="pure-g">
+            <div class="sidebar pure-u-1">
+                <div class="header">
+                    <a id="menuLink" class="menu-link" href="#menu"><span></span></a>
+                    <div id="menu" class="pure-menu">
+                        <a class="pure-menu-heading" href="https://linuxtoy.org/" title="LinuxTOY">LinuxTOY</a>
+                        <ul class="pure-menu-list">
+
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/all-archives.html" title="Archives">Archives</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/books.html" title="Books">Books</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/talks.html" title="Talks">Talks</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/download.html" title="Download">Download</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/faq.html" title="FAQs">FAQs</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/contact.html" title="Contact">Contact</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/donate.html" title="Donate">Donate</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/license.html" title="License">License</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/links.html" title="Links">Links</a>
+                            </li>
+
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/pages/comments.html" title="Comments">Comments</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/random.html" title="Random">Random</a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a class="pure-menu-link" href="https://linuxtoy.org/feeds/all.atom.xml" title="RSS">RSS</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+<div class="content pure-u-1 pure-u-md-3-5">
+    <div class="posts">
+        <section class="post">
+            <header class="post-header">
+                <h2 class="post-title">
+                    <a href="#" rel="bookmark" title="Permalink to 在 Termux 与 Raspberry Pi 上安装 Fedora 25 Beta">在 Termux 与 Raspberry Pi 上安装 Fedora 25 Beta</a>
+                </h2>
+                <p class="post-meta">
+                    2016-10-27
+                    · By
+                    <a href="https://linuxtoy.org/author/lovenemesis.html">黑日白月</a>
+                    · Posted in <a href="https://linuxtoy.org/category/tutorials.html">tutorials</a>
+                    · <a href="#disqus_thread">0 Comments</a>
+                </p>
+            </header>
+            <div class="post-description">
+            <p>除了<a href="https://linuxtoy.org/archives/fedora-25-beta.html">一如既往的更新</a>以外，Fedora 25 在还带来了平台支持上的一个里程碑：首次正式支持 aarch64 和 Raspberry Pi。</p>
+
+
+<h3>Raspberry Pi 定制版</h3>
+<p>得宜于 Raspberry Pi 合并入 Linux Kernel 4.7 内核主线，Fedora 对于 Raspbery Pi 的官方主持逐渐成为可能。不过毕竟 Raspberry Pi 有不少独特的地方，所以在内核之外还是有许多用户态的工具需要调整，最终这些变化在 Fedora 25 Beta 首次与公众见面。</p>
+<p>经过一段时间的使用，Fedora 25 Beta 当下在 Raspberry Pi 下的状态为：</p>
+<ul>
+<li>基于 Kernel 4.8 的 32 位 ARM 内核，适用于 Raspberry Pi 2/3</li>
+<li>全部使用开源组件和允许自由分发的固件，VC4 GPU 通过 Mesa 实现 3D 加速，但是没有媒体硬件解码</li>
+<li>提供 Worksatation, Server, Cloud 等多个不同版本</li>
+<li>常见操作与 X86 的无异，更新无忧，无需特别屏蔽某个软件包</li>
+<li>默认启用 SELinux</li>
+<li>由于固件分发协议问题，暂不支持 Raspberry Pi 3 的内置 Wifi 和蓝牙模块，不过支持包括 USB 无线网卡在内的各类 USB 设备</li>
+<li>HAT 等传感器由于需要固件模块及其自由分发协议，也是暂不支持的</li>
+</ul>
+<p>个人在测试中使用 Server 版本，首次启动后按照终端提示可以完成初步配置，尚不清楚这些步骤是否可在不连接 HDMI 显示的情况下完成，不过系统默认开启 SSH 服务的，应该可以。此外由于是 Server 版本，它启用 Cockpit 服务，可以方便的在浏览器中完成系统管理操作。</p>
+<p>当做无头服务器使用初步体验良好，软件包方面比 Raspbian 要新很多。根据邮件列表的反馈来看，其 XFCE 版本的桌面非 3D 应用体验尚可。这下 Raspberry Pi 用户又多了一个选择。</p>
+<p><a href="https://fedoraproject.org/wiki/Raspberry_Pi">镜像下载与项目 Wiki</a></p>
+<p><em>消息来源</em>：<a href="https://fedoramagazine.org/raspberry-pi-support-fedora-25-beta/">Fedora Magzine</a></p>
+<h3>利用 Termux 在非 Root Android 系统上运行 Fedora</h3>
+<p>如果您还没有听过 <a href="https://linuxtoy.org/archives/termux-032.html">Termux</a>的话，它是一款适用于 Android 系统的 Linux 终端模拟器和精简 Linux 环境，具有高度的可定制性。令（hou）人（zhi）惊（hou）喜（jue）的是，它打包了 <code>proot</code> 工具，可以 chroot 至其他 Linux 系统。</p>
+<p>再说回 Fedora。其实早有<a href="https://nmilosev.svbtle.com/fedora-on-nonrooted-android-phones-2016-update">博文</a>给出使用 GNURoot 以移花接木的方式在非 Root Android 手机上运行 Fedora 的方式。在下以此为参考，的确运行起了当时的 Fedora 23，但是由于设备是 aarch64 架构的，dnf 拒绝运行，呃……之后发觉了提供 aarch64 的 Termux，于是接下来的以它为主，不过其软件包有限，且不支持图形环境，所以总有那么一些不便。</p>
+<p>最近该博主，现在亦是 Fedora 项目大使，再次<a href="https://nmilosev.svbtle.com/termuxfedora-install-fedora-on-your-phone-with-termux">发文</a>，运用 Termux 打包的 <code>proot</code> 成功运行起来 Fedora。在下经过小幅改进，成功的在 Xperia Z4 Tablet 上运行起了 Fedora 25 Beta aarch64 版本。</p>
+<p>说了这么多，其实操作起来很简单：
+1. 在 Android 手机或平板上安装好 Termux
+2. 前往 Github 下载<a href="https://github.com/nmilosev/termux-fedora/raw/master/termux-fedora.sh">脚本</a> 放到 Termux 主目录，内含执行帮助，支持 armhfp 和 aarch64 版本
+3. 取决于网速，耐心等待完成
+4. 敲入 <code>startfedora</code> 开始使用</p>
+<p>有了 Fedora 的一大好处就是可以弥补 Termux 没有图形环境的不足，于是可以安装你偏好的桌面环境（推荐使用无需 3D 加速的）即可，然后配合使用 <a href="https://play.google.com/store/apps/details?id=x.org.server">XServer XSDL</a>即可。对于 Xperia Z4 Tablet 来说，合适的比例为 1280x800, 字体倍率0.7。过大或过小的倍率会导致 LXDE 的一些应用看不到菜单。</p>
+<p>经测试，尽管在安装过程中有一两个软件包异常，不过 <strong>LXDE 及 LibreOffice</strong> 基本可用。遗憾的是另一款在下常用的软件 R 则由于 <code>gcc</code> 安装失败，尽管成功了但是基本无法实际使用。有几点需要注意的：</p>
+<ul>
+<li>中文输入法与Android 系统的输入法配置有关，谷歌拼音不可用，但触宝可以</li>
+<li>在 Android 6.0+ 以上系统中由于 SELinux 限制了创建硬连接，会导致有此需求的软件包安装失败，比如常见的 <code>unzip</code> 和 <code>gcc</code> 等。</li>
+</ul>
+<p>对于朝内用户来说，aarch64 作为次级架构，国内并没有镜像同步，于是 dnf 速度较慢，需要科学解决。此外毕竟是次级架构，有些软件包可能存在安装异常的问题（比如常见的 <code>unzip</code> 和 <code>gcc</code>）。不过若是你的 Android 手机使用了 ARMv8 指令集的较新 SoC 的话，这只能是一个必须忍受的痛苦，ARMv7 的用户则不受此条困扰。</p>
+<p>另外在下修改过的安装脚本已经被原作者收录，现在支持 Fedora 24 和 Fedora 25 Beta 两个版本的 armv7l 和 aarch64 架构。</p>
+<p><a href="https://nmilosev.svbtle.com/termuxfedora-install-fedora-on-your-phone-with-termux">博客原文</a></p>
+            <p class="post-meta">
+                # 
+                Tagged as 
+                <a href="https://linuxtoy.org/tag/fedora.html">fedora</a>,                 <a href="https://linuxtoy.org/tag/raspberrypi.html">raspberrypi</a>,                 <a href="https://linuxtoy.org/tag/termux.html">termux</a>                · 
+                Edit on <a href="https://github.com/LinuxTOY/linuxtoy.org/blob/master/content/howto-install-fedora25beta-on-termux-and-raspberrypi.md">GitHub</a>
+            </p>            <!-- <p class="post-meta">&num; <a href="http://resume.linuxtoy.org" title="若有兴趣，欢迎来电 :)">寻 GNU/Linux 相关工作，欢迎联系 :)</a></p> -->
+            </div>
+        </section>
+        <h4>Read More:</h4>
+        <div class="nav-left">
+        <script async="" src="about:blank"></script>
+        <ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px;" data-ad-client="ca-pub-9432205671574187" data-ad-slot="6128171428"></ins>
+        <script>/* Code removed by ScrapBook */</script>
+        </div>
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                    <a href="https://linuxtoy.org/archives/fedora-9-beta-released.html">Fedora 9 Beta 发布</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="https://linuxtoy.org/archives/fad-2014-beijing.html">FAD 2014 北京</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="https://linuxtoy.org/archives/fedora-13-graphic-testing-week.html">Fedora 13  显卡测试周开始</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="https://linuxtoy.org/archives/fedora-11-release-schedule.html">Fedora 11 发布计划</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="https://linuxtoy.org/archives/chongqing-lug-fedora-21-release-party.html">重庆 LUG 沙龙活动：Fedora 21 release party 重庆站</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">/* Code removed by ScrapBook */</script>
+    <div class="footer">
+        <p class="nav-left">
+            <a href="https://linuxtoy.org/archives/fedora-25-beta.html">
+                « Fedora 25 Beta
+            </a>
+        </p>
+        <p class="nav-right">
+            <a href="https://linuxtoy.org/archives/ubuntu-jam.html">
+                Ubuntu Core 16 黑客松 — Celebrate Ubuntu »
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="content pure-u-1 pure-u-md-1-5">
+    <div class="posts">
+    <script async="" src="about:blank"></script>
+    <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-9432205671574187" data-ad-slot="6262929029"></ins>
+    <script>/* Code removed by ScrapBook */</script>
+        <h1 class="content-subhead">Popular Posts</h1>
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-perfect-linux-desktop-arch-linux-2007-08-2-1.html">Archlinux 安装指南</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/unix-linux-command-cheat-sheet.html">Unix/Linux 命令速查表</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/efficient-editing-with-vim.html">高效率编辑器 Vim</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/wget-tips.html">Wget 使用技巧</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/playing-around-with-mplayer.html">玩转 MPlayer</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/awesome.html">平铺式窗口管理器 Awesome</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/3_free_antivirus_under_linux.html">Linux 下的桌面级杀毒软件</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/openbox-getting-started-guide.html">窗口管理器 Openbox 入门指南</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/minimalist-install-of-ubuntu.html">最小化安装 Ubuntu</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/5-desktop-environment-for-linux.html">你可能不知道的 Linux 桌面</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-7-deadly-linux-commands.html">7 个致命的 Linux 命令</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/lightweight-desktop-compare.html">轻量级桌面环境比较</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/zsh.html">终极 Shell——Zsh</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/6-of-the-best-free-linux-cad-software.html">高品质的免费 Linux CAD 程序</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/game_emulator_for_linux.html">Linux 下的几个游戏模拟器</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/history-command-usage-examples.html">History（历史）命令用法 15 例</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/the-best-tips-and-tricks-for-bash.html">bash 使用技巧</a></li>
+                <li class="pure-menu-item"><a href="https://linuxtoy.org/archives/10-oreilly-books.html">10 本 O'Reilly 出版的免费好书</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <script src="about:blank"></script>
+        <script src="about:blank"></script>
+        <script>/* Code removed by ScrapBook */</script>
+        <script id="dsq-count-scr" src="about:blank" async=""></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+    
+<div id="st-injected-content" data-st-install-key="zWjtxRdA6ciZ7LBm4R4K" class="st-injected-content-generated st-install-zWjtxRdA6ciZ7LBm4R4K">
+<div class="st-ui-embed st-search-chrome-overlay-output st-search-escape-hide-outputs st-search-zoom-on-mobile" style="display: none;">
+    <div class="st-ui-overlay st-search-hide-outputs"></div>
+  <!-- Swiftype input and results overlay -->
+  <div class="st-ui-container st-ui-container-overlay  st-ui-injected-overlay-container ">
+    <!-- HEADER -->
+    <div class="st-ui-container-header_bar st-position-container">
+        <section class="st-ui-header">
+          <form>
+            <input autocapitalize="off" autocorrect="off" autocomplete="off" class="st-default-search-input st-search-set-focus" value="" placeholder="Search this site" id="st-overlay-search-input" type="text">
+          </form>
+          <span class="st-ui-search-icon"></span>
+
+            <a class="st-ui-close-button st-search-hide-outputs">Close</a>
+
+            <a class="st-ui-stamp" href="https://swiftype.com/" target="_blank">search by swiftype</a>
+        </section>
+    </div>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="st-ui-container-left_sidebar st-position-container">
+      <div class="st-ui-injected-search-controls">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="st-ui-container-right_sidebar st-position-container">
+      <div class="st-ui-injected-container-right_sidebar">
+        <div class="st-ui-injected-search-controls">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMARY CONTENT -->
+    <div class="st-ui-container-primary_content st-position-container">
+        <section style="display: none;" class="st-ui-slide-autocomplete st-autocomplete-keyboard-navigable st-autocomplete-transient-on-select-and-results" data-st-target-element="#st-overlay-search-input" data-st-active-query-class="active">
+          <span class="st-ui-type-heading-small">suggested results</span>
+          <div class="st-autocomplete-results"><div style="display: none;" class="st-query-present"></div></div>
+        </section>
+
+        <section class="st-ui-content st-search-results"><div class="st-query-not-present">
+          <span class="st-ui-fallback"></span>
+        </div><div style="display: none;" class="st-query-present"></div></section>
+
+      <section class="st-ui-no-results st-search-suggestions"><div class="st-query-not-present">
+      </div></section>
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <div class="st-ui-container-footer_bar st-position-container">
+      <section class="st-ui-footer">
+          <span class="st-ui-search-summary st-search-summary"></span>
+        <span class="st-ui-pagination st-search-pagination"></span>
+      </section>
+    </div>
+  </div>
+</div>
+<div class="st-default-autocomplete" data-st-target-element=".st-default-search-input" style="display: none; position: absolute; top: 49px; left: 0px; z-index: 999999;">
+  <div class="st-autocomplete-results st-ui-autocomplete"><div style="display: none;" class="st-query-present"></div></div>
+</div>
+<a class="st-search-show-outputs st-ui-search-tab">Search this site</a></div></body>
+</html>
