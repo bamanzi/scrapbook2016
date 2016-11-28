@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+/* Code tidied up by ScrapBook */
+@font-face {
+  font-family: "icomoon";
+  font-style: normal;
+  font-weight: normal;
+  src: url("data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg8SAywAAAC8AAAAYGNtYXAaVcxZAAABHAAAAExnYXNwAAAAEAAAAWgAAAAIZ2x5ZjAeVDIAAAFwAAABzGhlYWQFJeYbAAADPAAAADZoaGVhB8IDyAAAA3QAAAAkaG10eA4AADgAAAOYAAAAHGxvY2EAzgFgAAADtAAAABBtYXhwAAoAMAAAA8QAAAAgbmFtZVcZpu4AAAPkAAABRXBvc3QAAwAAAAAFLAAAACAAAwQAAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmAgPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADgAAAAKAAgAAgACAAEAIOYC//3//wAAAAAAIOYA//3//wAB/+MaBAADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQA4/9oDyAOIACYAAAkBNjQnJgYHCQEmIgcGFhcJAQYUFx4BMzI2NwkBHgEzMjY3NjQnAQKKAT4bGxtPIP7C/sIbTyAfBBsBPv7CGxsSJBISIg4BPgE+DSMSEiIOGxv+yAHAAT4bTyAfBBv+wgE4GxsbTyD+yP7CG08gCQ8QDgE4/sINERAOG08gAT4AAAAAAgAAAAAEAAKAABAALQAAASEiBhURFBYzITI2NRE0JiMHIxUzFSE1MzUhFTMVITUzNSM1IRUjFSE1IzUhFQPz/BoFCAgFA+YFCAgFgG1t/rp5/rR5/rptbQFGeQFMeQFGAoAIBf2aBQgIBQJmBQjG+lpgWlpZWfRgWk1HYGAAAAACAAAAgAQAAwAAEAAtAAABISIGFREUFjMhMjY1ETQmIwcjFTMVITUzNSEVMxUhNTM1IzUhFSMVITUjNSEVA/P8GgUICAUD5gUICAWAbW3+unn+tHn+um1tAUZ5AUx5AUYDAAgF/ZoFCAgFAmYFCMb6WmBaWllZ9GBaTUdgYAAAAAEAAAABAAClcKjgXw889QALBAAAAAAA0QNQ3gAAAADRA1DeAAD/2gQAA4gAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAACAAAABAAAOAQAAAAEAAAAAAAAAAAKABQAHgBmAKYA5gABAAAABwAuAAIAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAADgCuAAEAAAAAAAEADgAAAAEAAAAAAAIADgBHAAEAAAAAAAMADgAkAAEAAAAAAAQADgBVAAEAAAAAAAUAFgAOAAEAAAAAAAYABwAyAAEAAAAAAAoANABjAAMAAQQJAAEADgAAAAMAAQQJAAIADgBHAAMAAQQJAAMADgAkAAMAAQQJAAQADgBVAAMAAQQJAAUAFgAOAAMAAQQJAAYADgA5AAMAAQQJAAoANABjAGkAYwBvAG0AbwBvAG4AVgBlAHIAcwBpAG8AbgAgADEALgAwAGkAYwBvAG0AbwBvAG5pY29tb29uAGkAYwBvAG0AbwBvAG4AUgBlAGcAdQBsAGEAcgBpAGMAbwBtAG8AbwBuAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") format("truetype"), url("data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWYAAsAAAAABUwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgDxIDLGNtYXAAAAFoAAAATAAAAEwaVcxZZ2FzcAAAAbQAAAAIAAAACAAAABBnbHlmAAABvAAAAcwAAAHMMB5UMmhlYWQAAAOIAAAANgAAADYFJeYbaGhlYQAAA8AAAAAkAAAAJAfCA8hobXR4AAAD5AAAABwAAAAcDgAAOGxvY2EAAAQAAAAAEAAAABAAzgFgbWF4cAAABBAAAAAgAAAAIAAKADBuYW1lAAAEMAAAAUUAAAFFVxmm7nBvc3QAAAV4AAAAIAAAACAAAwAAAAMEAAGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAQAAA5gIDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAgAAAAMAAAAUAAMAAQAAABQABAA4AAAACgAIAAIAAgABACDmAv/9//8AAAAAACDmAP/9//8AAf/jGgQAAwABAAAAAAAAAAAAAAABAAH//wAPAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAOP/aA8gDiAAmAAAJATY0JyYGBwkBJiIHBhYXCQEGFBceATMyNjcJAR4BMzI2NzY0JwECigE+GxsbTyD+wv7CG08gHwQbAT7+whsbEiQSEiIOAT4BPg0jEhIiDhsb/sgBwAE+G08gHwQb/sIBOBsbG08g/sj+whtPIAkPEA4BOP7CDREQDhtPIAE+AAAAAAIAAAAABAACgAAQAC0AAAEhIgYVERQWMyEyNjURNCYjByMVMxUhNTM1IRUzFSE1MzUjNSEVIxUhNSM1IRUD8/waBQgIBQPmBQgIBYBtbf66ef60ef66bW0BRnkBTHkBRgKACAX9mgUICAUCZgUIxvpaYFpaWVn0YFpNR2BgAAAAAgAAAIAEAAMAABAALQAAASEiBhURFBYzITI2NRE0JiMHIxUzFSE1MzUhFTMVITUzNSM1IRUjFSE1IzUhFQPz/BoFCAgFA+YFCAgFgG1t/rp5/rR5/rptbQFGeQFMeQFGAwAIBf2aBQgIBQJmBQjG+lpgWlpZWfRgWk1HYGAAAAABAAAAAQAApXCo4F8PPPUACwQAAAAAANEDUN4AAAAA0QNQ3gAA/9oEAAOIAAAACAACAAAAAAAAAAEAAAPA/8AAAAQAAAAAAAQAAAEAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAgAAAAQAADgEAAAABAAAAAAAAAAACgAUAB4AZgCmAOYAAQAAAAcALgACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAA4AAAABAAAAAAACAA4ARwABAAAAAAADAA4AJAABAAAAAAAEAA4AVQABAAAAAAAFABYADgABAAAAAAAGAAcAMgABAAAAAAAKADQAYwADAAEECQABAA4AAAADAAEECQACAA4ARwADAAEECQADAA4AJAADAAEECQAEAA4AVQADAAEECQAFABYADgADAAEECQAGAA4AOQADAAEECQAKADQAYwBpAGMAbwBtAG8AbwBuAFYAZQByAHMAaQBvAG4AIAAxAC4AMABpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuAFIAZQBnAHUAbABhAHIAaQBjAG8AbQBvAG8AbgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==") format("woff");
+}
+*, *:after, *:before { box-sizing: border-box; }
+html, body { margin: 0px; padding: 0px; font-size: 14px; font-family: 'Open Sans','Helvetica',sans-serif; overflow: hidden; }
+#hellobar-bar, #hellobar-modal, #hellobar-slider, #hellobar-takeover { width: 100%; color: rgb(92, 94, 96); position: relative; background-color: white; box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.15); }
+.hb-content-wrapper { text-align: center; position: relative; }
+.hb-cta-style-button { opacity: 1; color: rgb(255, 255, 255); display: block; cursor: pointer; line-height: 1.4; max-width: 22.5em; text-align: center; position: relative; border-radius: 3px 3px 3px 3px; white-space: nowrap; margin: 1.75em auto 0px; text-decoration: none; padding: 0.67em 1.33em; overflow: hidden; }
+.hb-cta-style-button:hover { opacity: 0.9; }
+.hb-text-wrapper { line-height: 1.3; }
+.hb-text-wrapper .hb-headline-text { font-size: 1.25em; }
+.hb-logo-wrapper { opacity: 0.3; }
+.hb-logo-wrapper:hover { opacity: 0.6; }
+.hb-logo-wrapper a { color: rgb(92, 94, 96); text-decoration: none; }
+.hb-logo-wrapper { font-family: 'Open Sans',sans-serif; transition: opacity 0.2s ease 0s; }
+.hb-logo-wrapper .animated { animation: 10.5s ease-in-out 0s normal none infinite logo-spin; transform-style: preserve-3d; backface-visibility: visible; }
+.hb-logo-wrapper .animated:hover { animation-play-state: paused; }
+@keyframes logo-spin {
+90% { transform: rotate3d(0, 1, 0, 0deg); }
+100% { transform: rotate3d(0, 1, 0, -180deg); }
+}
+@keyframes logo-spin {
+90% { transform: rotate3d(0, 1, 0, 0deg); }
+100% { transform: rotate3d(0, 1, 0, -180deg); }
+}
+.hb-editable-block, .hb-editable-block > .fr-wrapper, .hb-editable-block > .fr-wrapper > .fr-element { outline: medium none; }
+.hb-editable-block > .fr-wrapper p, .hb-editable-block p { margin-top: 0px; margin-bottom: 0px; }
+#hellobar-bar { width: 100%; margin: 0px; height: 50px; display: table; font-size: 17px; font-weight: 400; padding: 0.33em 0.5em; background-color: rgb(255, 0, 0); }
+#hellobar-bar .hb-logo-wrapper, #hellobar-bar .hb-content-wrapper, #hellobar-bar .hb-arrow-wrapper { display: table-cell; vertical-align: middle; }
+#hellobar-bar .hb-content-wrapper { text-align: center; }
+#hellobar-bar .hb-cta { display: inline-block; vertical-align: middle; margin: 5px 0px; }
+#hellobar-bar .hb-cta-style-button { margin: 0px; line-height: 1.05; padding: 0px; }
+#hellobar-bar .hb-cta-style-button .hb-text-holder { border-radius: inherit; padding: 5px 15px; }
+#hellobar-bar .hb-arrow-wrapper { padding-left: 1rem; text-align: right; float: right; }
+#hellobar-bar .hb-arrow-wrapper a { display: block; }
+#hellobar-bar .hb-arrow-wrapper svg { fill: rgb(255, 255, 255); height: 29px; opacity: 0.3; width: 28px; }
+#hellobar-bar .hb-arrow-wrapper svg:hover { opacity: 0.6; }
+#hellobar-bar .hb-text-wrapper { margin-right: 0.67em; display: inline-block; }
+#hellobar-bar .hb-text-wrapper .hb-headline-text { font-size: 1em; display: inline-block; vertical-align: middle; }
+#hellobar-bar .hb-logo-wrapper { width: 8rem; margin-top: 0px; font-size: 12px; text-align: left; font-weight: normal; padding-right: 1rem; }
+#hellobar-bar .hb-logo-wrapper a { color: rgb(255, 255, 255); display: block; }
+#hellobar-bar .hb-logo-wrapper svg { fill: rgb(255, 255, 255); }
+#hellobar-bar .hb-logo-wrapper.original svg, #hellobar-bar .hb-logo-wrapper.animated svg { width: 4em; height: 2.6em; border-radius: 3px 3px 3px 3px; }
+#hellobar-bar.regular { height: 30px; font-size: 14px; padding: 0.2em 0.5em; }
+#hellobar-bar.regular .hb-logo-wrapper { font-size: 9px; }
+#hellobar-bar.regular .hb-cta-style-button { padding: 3px 8px; }
+@keyframes wiggle {
+2% { transform: translateX(3px) rotate(2deg); }
+4% { transform: translateX(-3px) rotate(-2deg); }
+6% { transform: translateX(3px) rotate(2deg); }
+8% { transform: translateX(-3px) rotate(-2deg); }
+10% { transform: translateX(2px) rotate(1deg); }
+12% { transform: translateX(-2px) rotate(-1deg); }
+14% { transform: translateX(2px) rotate(1deg); }
+16% { transform: translateX(-2px) rotate(-1deg); }
+18% { transform: translateX(1px) rotate(0deg); }
+20% { transform: translateX(-1px) rotate(0deg); }
+}
+.evergreen-meadow #hellobar-bar .hb-cta-style-button { border-radius: 20px 20px 20px 20px; font-weight: 400; }
+</style><link type="text/css" rel="stylesheet" href="intlTelInput.css"><style type="text/css">
+/* Code tidied up by ScrapBook */
+</style><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style></head><body class="Bar evergreen-meadow"><div id="hellobar-bar" class="js-hellobar-element regular  remains_in_place bar-top" style="background-color: rgb(15, 203, 128); color: rgb(255, 255, 255); font-family: Helvetica,sans-serif; border-color: rgb(255, 255, 255); height: 30px;">
+  <div class="hb-logo-wrapper  animated">
+    <a href="http://www.hellobar.com/?sid=308593&amp;hbt=animated" target="_parent" style="">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 40 26.1" enable-background="new 0 0 40 26.1" xml:space="preserve" class="hellobar-logo animated">
+    <g>
+      <path d="M39.5 0h-39C0.2 0 0 0.2 0 0.5v25.1c0 0.3 0.2 0.5 0.5 0.5h39c0.3 0 0.5-0.2 0.5-0.5V0.5C40 0.2 39.8 0 39.5 0z M33.8 8.6 h-4.3v9h4.3v2.8H21.7v-2.8h4.7V14H13.6v3.6h4.7v2.8h-12v-2.8h4.3v-9H6.2V5.7h12v2.8h-4.7v2.9h12.9V8.6h-4.7V5.7h12.1V8.6z"></path>
+    </g>
+  </svg>
+</a>
+
+  </div>
+
+  <div class="hb-content-wrapper">
+    <div class="hb-text-wrapper">
+      <div id="hb_msg_container" class="hb-headline-text hb-editable-block hb-editable-block-with-full-formatting" data-hb-editable-block="headline" data-hb-inline-editor-placeholder="Headline">
+        <p><strong>敬請支持我的新書《（全新增訂版）Evernote 100個做筆記的好方法》</strong></p>
+      </div>
+    </div>
+    <div class="hb-arrow-wrapper ">
+      <a href="#" style="" id="close_bar">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="315px" height="315px" viewBox="43.611 92.5 315 315" enable-background="new 43.611 92.5 315 315" xml:space="preserve">
+          <g>
+            <path d="M49.611,92.5c-3.3,0-6,2.7-6,6v303c0,3.3,2.7,6,6,6h303c3.3,0,6-2.7,6-6v-303c0-3.3-2.7-6-6-6H49.611z M229.611,254.334
+            c-3.3,0-6,2.7-6,6V360c0,3.3-2.7,6-6,6h-33c-3.3,0-6-2.7-6-6v-99.666c0-3.3-2.7-6-6-6H99.195c-3.3,0-4.197-2.01-1.994-4.467
+            l99.904-111.4c2.203-2.457,5.809-2.457,8.012,0l99.903,111.4c2.203,2.457,1.306,4.467-1.994,4.467H229.611z"></path>
+          </g>
+        </svg>
+      </a>
+    </div>
+    
+<a id="hb-traffic-cta" class="hb-cta hb-cta-style-button " href="http://www.books.com.tw/products/0010724090" target="_blank" style="color: rgb(6, 125, 77); background-color: rgb(255, 255, 255); border-color: rgb(255, 255, 255);" rel="nofollow">
+  <div class="hb-text-holder hb-editable-block hb-editable-block-with-simple-formatting" data-hb-editable-block="action_link" data-hb-inline-editor-placeholder="Action">
+    歡迎選購
+  </div>
+</a>
+  </div>
+</div>
+</body>
+</html>
