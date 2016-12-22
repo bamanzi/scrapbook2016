@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta property="qc:admins" content="13522245776343636">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="印象笔记,markdown,evernote,笔记,企业服务,开发者,企业服务">        <meta name="description" content="SDK.cn，为开发者提供最全面的API服务，汇集了国内外应用开发所需要的Android API/SDK，iOS SDK，WindowsPhone SDK，涉及设计开发，运维服务，云服务，市场推广，数据服务等多种服务，旨在向开发者提供最全面，最便捷的API/SDK相关服务。">    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="SW91NzYyT2QdDB5AWHU/KSZcR3RPZjpXIzUcGnxwfTR5DVhQcmQfFQ==">
+    <title>从 Evernote 开始官方支持 Markdown 说起 - SDK.CN - 中国领先的开发者服务平台</title>
+    <meta name="keywords" content="印象笔记,markdown,evernote,笔记,企业服务,开发者,企业服务">
+<link href="highlightjs.css" rel="stylesheet">
+<link href="app.css" rel="stylesheet"><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head>
+<body>
+
+    
+        <!--google 统计-->
+        <script src="about:blank" async=""></script><script>/* Code removed by ScrapBook */</script>
+    
+        <img src="JxD9OIct775KeatYYuTU.png" style="width: 0px; height: 0px; overflow: hidden; position: absolute;">
+        <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://www.sdk.cn/">
+                    <img src="app_logo.png" alt="logo">                </a>
+                <!-- 搜索-适应手机-->
+                <form class="navbar-form" id="phone-show" ajax="false" action="https://www.sdk.cn/search">
+                    <input name="keyword" class="form-control" placeholder="输入关键词" type="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <!-- 搜索-适应手机  End-->
+            </div>
+            <div id="collapse" class="navbar-collapse collapse">
+                <ul id="main-nav" class="nav navbar-nav">
+                    <!--<li><a href="/">首页</a></li>-->
+                    <li><a href="https://www.sdk.cn/services">API/SDK</a></li>
+                    <li><a href="https://www.sdk.cn/datas/trending">趋势<span class="new"><i>hot</i></span></a></li>
+                    <li><a href="https://bbs.freecodecamp.cn/" style="color: rgb(98, 107, 251);">BBS</a></li>
+                    <li><a href="https://www.sdk.cn/datas">全部工具</a></li>
+                    <li><a href="https://www.sdk.cn/companies">技术栈</a></li>
+                    <li><a href="https://www.sdk.cn/datas/categories">分类</a></li>
+                    <li><a href="https://www.sdk.cn/videos">视频</a></li>
+                    <li><a href="https://www.sdk.cn/activities">活动<span class="new"><i>hot</i></span></a></li>
+                    <!--<li><a href="https://bbs.freecodecamp.cn">论坛</a></li>-->
+                    <!--<li><a href="/nav/index">名站导航</a></li>-->
+                </ul>
+                <div class="dropdown navbar-text user-info" id="second-nav">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        导航菜单 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://www.sdk.cn/services">开发者服务</a></li>
+                        <li><a href="https://www.sdk.cn/data/trending">趋势</a></li>
+                        <li><a href="https://bbs.freecodecamp.cn/" style="color: rgb(98, 107, 251);">BBS</a></li>
+                        <li><a href="https://www.sdk.cn/datas">全栈工具</a></li>
+                        <li><a href="https://www.sdk.cn/companies">技术栈</a></li>
+                        <li><a href="https://www.sdk.cn/datas/categories">分类</a></li>
+                        <li><a href="https://www.sdk.cn/videos">视频教程</a></li>
+                        <li><a href="https://www.sdk.cn/activities">活动</a></li>
+                        <li><a href="https://www.sdk.cn/nav/index">名站导航</a></li>
+                    </ul>
+                </div>
+                <div id="user-info"></div>
+                                <!-- 搜索-适应PC-->
+                <form class="navbar-form navbar-right phone-hidden" ajax="false" action="https://www.sdk.cn/search">
+                    <input name="keyword" class="form-control phone-hidden" placeholder="输入关键词搜索" type="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <!-- 搜索-适应PC End-->
+            </div>
+        </div>
+    </nav>
+        <div class="content-wrapper container" id="news-view">
+        <div class="row">
+    <div class="article col-md-9">
+        <header class="header">
+            <h3 class="title">从 Evernote 开始官方支持 Markdown 说起</h3>
+            <p>
+                <span class="category">业界资讯</span>
+                                <span class="time">来源：<a target="_blank" href="http://blog.ernest.me/post/evernote-starts-support-markdown?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">blog.ernest.me</a></span>
+                                <span class="time">发布：2016-01-18</span>
+                <span class="time">浏览：6786</span>
+            </p>
+        </header>
+        <section>
+            <div class="summary">
+                <span class="zhaiyao">摘要：</span>2015 年 9 月，Evernote 开始发起对内置支持 Markdown 快捷输入的公测邀请。在 2015 年 11 月，Evernote 发布正式版本。但诡异的是，不管是公测，还是正式发布，都显得不那么重视。            </div>
+                        <div class="img">
+                <img src="JxD9OIct775KeatYYuTU_001.png">
+            </div>
+                        <div class="content editor">
+                <p>2015 年 9 月，Evernote 开始发起对内置支持 Markdown 快捷输入的<a href="https://blog.evernote.com/blog/2015/09/22/the-future-of-writing-in-evernote/">公测邀请</a>。    <br></p><p>在 2015 年 11 月，Evernote&nbsp;<a href="http://blog.yinxiang.com/blog/2015/11/19/windows-5-9-5/">发布正式版本</a>。    <br>但诡异的是，不管是公测，还是正式发布，都显得不那么重视。举例来说，在正式发布的官方博客中，只提到了 Windows 版本的更新，附加对特性的介绍。并未在官方渠道中，对 Mac 版更新进行说明。</p><h2>Evernote 支持 Markdown 的漫漫长路</h2><p>作为一个许多年的 Evernote Premium 用户，以及一个 Markdown 用户。</p><blockquote>    <p>Member Since August 18th, 2010</p></blockquote><p data-align="left">我对 Evernote 不支持 Markdown 这件事一直耿耿于怀，也尝试了诸多方案。    <br>当然，必须要说明的是，Evernote 不支持 Markdown 这件事，有一半原因是由于 Evernote 最开始选用的基于 XML 的富文本存储结构&nbsp;<a href="https://dev.evernote.com/doc/articles/enml.php">ENML</a>。这个存储结构在 08 年 ~ 10 年时，是个杀手级特性，它允许你在一个 note 里的任何地方插入附件（图片、音频、附件），而不是像普通的笔记应用，给一个附件栏，在里面管理附件。</p><p data-align="center"><img src="3YaXRZJ5AlbmWeGE0qti.jpg" alt="" data-image-size="792,612"></p><p data-align="left">在这个复杂的、完善的格式系统上，如何加上对 Markdown 的支持，是一个值得思考的问题。</p><h3>支持 Markdown，其实要做些什么</h3><p>考虑到编辑文本这个过程本身，Evernote 这个平台如果支持 Markdown ，其本身是承载了编辑、多端同步的角色。而一旦 Evernote 自己不支持，那第三方想去做，只能从编辑器出发。    <br>如果一个编辑器，能做到，我用 Markdown 写完，会以输出后的格式同步到 Evernote，完成笔记的存储。然后，当我想编辑旧笔记的时候，又能以 Markdown 的格式来编辑。    <br>这个听起来很简单。    <br>但在这 5 年看到的方案，我们发现，能完美完成这个流程的，几乎没有。    <br>为什么呢？还得归功于实际操作的难度。    <br><strong>流程主要分成四步：</strong>    <br>第一步，存储笔记的 Markdown 格式的原始文本；    <br>第二步，生成 ENML 格式的 Evenrote 笔记；    <br>第三步，同步 ENML 文本到 Evernote；    <br>第四步，绑定同步到 Evernote 中的笔记和 Markdown 格式的原始文本之间的关系。    <br><strong>其中有两大难题要解决：</strong></p><ol>    <li>绑定关系；</li>    <li>响应来自 Evernote app 的笔记更新（如在 Evernote 中对笔记进行更新，第三方编辑器能对绑定的 Markdown 文本进行同步更新）。</li></ol><p>而第二点需要反向解析 ENML 到 Markdown，有明显的不可逆的格式的兼容性，一来无法做到一对一的转换，二来要付出的成本相当高。因此，我们也没有看到任何一个做到这一点。    <br>我们重点看第一点。    <br>目前完成第一点的，有两个案例：</p><ol>    <li><a href="https://packagecontrol.io/packages/Evernote">Sublime text Evernote plugin</a></li>    <li><a href="https://marxi.co/">马克飞象 Marxico</a></li></ol><p data-align="center"><img src="pfUkVuyJpVG0v42K9PuD.jpg" alt="" data-image-size="1280,897"></p><p>Sublime text Evernote plugin 做到的是在 Sublime text 中编辑 Markdown 文本，本地保存（可用 Dropbox 等云盘做同步）原始文本和 Evernote 笔记 ID 及两者的关联关系。这样，在 Sublime 中可以浏览由 Sublime 创建同步到 Evernote 的笔记列表，并对其进行编辑再次同步。在使用过程中，一旦在 Evernote 中对笔记进行了更新，则有一定几率导致笔记同步冲突。应该是 plugin 的 bug。</p><p data-align="center"><img src="H_TKK2twNs_KM7wnMD8m.jpg" alt="" data-image-size="1280,544"></p><p>Marxico 很聪明地利用 ENML 中的隐藏标签来存储 Markdown 格式的原始文本。通过提供在线的跳转服务，在 Evernote 笔记中，插入绑定关系的链接。这样，在点击笔记中的编辑按钮后，将会直接调转到编辑器，编辑器读取隐藏标签中存储的原始文本，用来编辑。这个和 Sublime text Evernote plugin 在原始文本的存储同步上就是巨大的区别，实在是方便了不少。</p><h3>这次 Evernote 做了些什么</h3><p>    </p><p>印象笔记 Windows 最新版增加了 7 个能让你一秒钟变高效的快捷键，键盘侠们速度 get 起来吧！        <br>马上输入下列 Markdown 语言，然后按下回车键，体验快捷键的神奇魔法。&nbsp;&nbsp;</p><p>新增快捷键：</p><p>    </p><ul>        <li>创建数字列表：<strong>1.</strong></li>        <li>创建项目符号列表：<strong>＊</strong></li>        <li>创建未勾选的复选框：<strong>[]或[ ]</strong></li>        <li>创建已勾选的复选框:&nbsp;<strong>[x]</strong></li>        <li>添加一条水平分割线: ****或 —*</li>        <li>创建一个 3 列的表格:&nbsp;<strong>[][][]</strong></li>        <li>创建一个 2 行 4 列的表格：<strong>[][][][]x2</strong></li>    </ul><p>    </p><p>温馨提示：请在段首输入上述快捷键，并在输入之后按下回车键，全面体验更高效的笔记编辑方式。</p><p>可以看到，这种支持，本质上是为了满足喜欢 Markdown 的用户的输入习惯，而非编辑习惯。给了你快捷键，用 Markdown 的手法完成初始输入，然后，只能在输出后的 ENML 上进行编辑更新，这个和 Markdown 倡导的文本格式并不相符。    <br>可以说，Evernote 这次的支持，无非就是对 Alternote 的借鉴，表面上迎合一下 Markdown 用户。</p><blockquote class="info"><font color="#999">原&nbsp;&nbsp;&nbsp;&nbsp;文：<a href="http://blog.ernest.me/post/evernote-starts-support-markdown?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io">blog.ernest.me</a></font><br></blockquote>
+            </div>
+        </section>
+        <section class="line-margin editor">
+            <h3 class="statement">免责声明：</h3>
+            <ol>
+                <li>SDK.cn遵循行业规范，所有转载文章均征得作者同意授权并明确标注来源和链接。</li>
+                <li>我们十分尊重原创作者的付出，本站禁止二次转载如需转载请与原作者取得联系。</li>
+                <li>转载SDK.cn的原创文章需注明文章作者、链接和"来源：SDK.cn"并保留文章及标题完整性未经作者同意不得擅自修改。</li>
+                <li>作者投稿可能会经SDK.cn适当编辑修改或补充。</li>
+            </ol>
+        </section>
+        <div class="comments">
+    <div class="header-bar">
+        <h2 class="title"><i class="fa fa-comments"></i> 评论 (<span id="comment-count">100</span>)</h2>
+    </div>
+    <div id="comment-list" class="be comment-group">
+    </div>
+    <div class="be comment-form">
+        <form id="comment-form" method="post" action="https://www.sdk.cn/comment/create">
+            <input id="parent_id" name="parent_id" value="0" type="hidden">
+            <input name="owner_group_id" value="4" type="hidden">
+            <input name="owner_id" value="1991" type="hidden">
+            <p id="reply" style="display: none;"><i class="fa fa-share"></i> 回复 @<span class="username"></span></p>
+            <textarea id="form-content" name="content" class="form-control" rows="4" placeholder="请输入评论内容"></textarea>
+            <div class="meta">
+                  <span class="user">
+                                      </span>
+                <button type="submit" class="btn btn-primary btn-submit" disabled="">发表评论</button>
+            </div>
+        </form>
+    </div>
+</div>
+            </div>
+    <div id="right-section" class="col-md-3">
+                <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong class="text-primary">热门资讯</strong>
+            </div>
+            <div class="panel-body">
+                <ul class="text-list clone" clone="10">
+                                    <li class="item"><i class="fa fa-newspaper-o"></i> <a href="https://www.sdk.cn/news/6206" title="警惕那些产生负价值的开发者">警惕那些产生负价值的开发者</a></li>
+                                    <li class="item"><i class="fa fa-newspaper-o"></i> <a href="https://www.sdk.cn/news/6200" title="React元素 VS React组件">React元素 VS React组件</a></li>
+                                    <li class="item"><i class="fa fa-newspaper-o"></i> <a href="https://www.sdk.cn/news/6208" title="互联网的好消息，互联网的坏消息">互联网的好消息，互联网的坏消息</a></li>
+                                    <li class="item"><i class="fa fa-newspaper-o"></i> <a href="https://www.sdk.cn/news/6207" title="如何利用Docker、AWS和深度学习伪装成一个艺术家">如何利用Docker、AWS和深度学习伪装成一个艺术家</a></li>
+                                    <li class="item"><i class="fa fa-newspaper-o"></i> <a href="https://www.sdk.cn/news/6205" title="支付宝今年不让你抢“敬业福”了，但设计出一个更拉仇恨的…">支付宝今年不让你抢“敬业福”了，但设计出一个更拉仇恨的…</a></li>
+                                </ul>
+            </div>
+        </div>
+                        <div class="actv-slide">
+            <div id="index-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                                            <div class="item active">
+                            <a href="https://www.sdk.cn/activities/45">
+                                <img src="MJQbw5cqZeiaNKcghLep.png" alt="SDK.CN">                                <div class="carousel-caption">
+                                    热门活动:<br><small>FreeBuf2017互联网安全...</small>
+                                </div>
+                            </a>
+                        </div>
+                                    </div>
+                <a class="left carousel-control" href="#index-carousel" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#index-carousel" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+                        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong class="text-primary">相关工具</strong>
+            </div>
+            <div class="panel-body common-list side-list">
+                                    <article class="item">
+                        <a href="https://www.sdk.cn/datas/757" title="Markdown" class="img"><img src="PmfZv4E49KyeqE6vfak4.png" alt="SDK.CN"></a>
+                        <div class="right">
+                            <h3 class="title"><a href="https://www.sdk.cn/datas/757" title="Markdown">Markdown</a></h3>
+                            <p class="content">一种可以使用普通文本编辑器编...</p>
+                        </div>
+                    </article>
+                            </div>
+        </div>
+    </div>
+</div>
+<div id="share">
+    <a id="relation-0" class="star" title="收藏新闻" type_id="3" source_id="0" target_id="1991"><i class="fa fa-star-o fa-2x"></i></a>    <a class="weibo">
+        <i class="fa fa-weibo"></i>
+    </a>
+    <a id="weixin-panel" class="weixin">
+        <i class="fa fa-weixin"></i>
+    </a>
+    <a class="qq">
+        <i class="fa fa-qq"></i>
+    </a>
+    <a class="twitter">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+<div id="share-phone" class="phone-show">
+    <a class="weibo">
+        <i class="fa fa-weibo"></i>
+    </a>
+    <a class="qq">
+        <i class="fa fa-qq"></i>
+    </a>
+    <a class="twitter">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+    </div>
+    <footer id="footer" class="footer">
+        <div class="container row">
+            <section class="col-sm-4">
+                <h2 class="title">SDK.CN开发者服务平台</h2>
+                <ul>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/pages/about">关于我们</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/pages/contact">联系我们</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/pages/hire">加入我们</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/site/link#friendly">友情链接</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/site/link">合作伙伴</a></li>
+                    <li class="col-md-12">SDK.cn交流群：416190531</li>
+                    <li class="col-md-12">FCC中文交流群：526289580</li>
+                    <!--<li>运营客服：<i class="fa fa-qq text-primary"></i> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2594320540&site=qq&menu=yes">2594320540</a></li>-->
+                </ul>
+            </section>
+            <section class="col-sm-4 partners">
+                <h2 class="title">热门板块</h2>
+                <ul>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/services">API/SDK</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/datas">全栈工具</a></li>
+                    <li class="col-md-4"><a href="https://bbs.freecodecamp.cn/" target="_blank">BBS</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/companies">技术栈</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/datas/categories">分类</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/videos">视频教程</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/data/trending">趋势</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/activities">活动</a></li>
+                    <li class="col-md-4"><a href="https://www.sdk.cn/nav/index">名站导航</a></li>
+                </ul>
+            </section>
+            <section class="col-sm-4 copyright">
+                <h2 class="title">版权所有</h2>
+                <p>本站由 <a href="http://www.aliyun.com/" target="_blank">阿里云</a>
+                    提供云服务器，开发协作工具由 <a href="https://worktile.com/" target="_blank">Worktile</a> 提供。我们使用 <a class="external" href="https://lesschat.com/" target="_blank">纷云</a> 进行沟通。</p>
+                <p>Copyright © <a target="_blank" href="http://www.miitbeian.gov.cn/">京ICP备15049884号-1</a><br>
+                    北京斯蒂克科技有限公司 版权所有
+                </p>
+            </section>
+        </div>
+    </footer>
+    <div id="totop">
+        
+        <a class="feedback recommend"><i class="fa fa-share-alt"></i>推荐工具</a>
+        <a href="https://www.sdk.cn/site/feedback" class="feedback"><i class="fa fa-pencil"></i>意见反馈</a>
+        <a title="返回顶部"><i class="fa totop fa-arrow-up"></i></a>
+    </div>
+            <script src="about:blank"></script>
+<script src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+</body>
+</html>
