@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/Article" itemscope="">
+<head>
+<meta charset="UTF-8">
+<link href="https://plus.google.com/100292833634918081724" rel="publisher">
+<title>How to Turn a Raspberry Pi into a Cheap Plex Player with RasPlex</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="fb:page_id" content="65878196434">
+<meta name="verify-v1" content="WiU7236KQY8e6jcxePbZscPXDuMvJ3b9ydseGd4G5AE=">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta name="REVISIT-AFTER" content="1 DAYS">
+<link rel="alternate" type="application/rss+xml" title="How-To Geek RSS Feed" href="http://feeds.howtogeek.com/HowToGeek">
+<meta property="og:title" itemprop="name" name="title" content="How to Turn a Raspberry Pi into a Cheap Plex Player with RasPlex">
+<meta property="og:type" content="article">
+<meta property="og:description" name="og:description" itemprop="og:description" content="If you’re looking for a robust little Plex client for your HDTV, RasPlex offers a polished experience with snappy playback that’s always on, stable, and easy to control.">
+<meta property="og:image" content="http://www.howtogeek.com/thumbcache/280/160/3ae417040f606890bf6246fc677149a1/wp-content/uploads/2016/12/img_5841bd047c68d.png">
+<link rel="image_src" href="http://www.howtogeek.com/thumbcache/280/160/3ae417040f606890bf6246fc677149a1/wp-content/uploads/2016/12/img_5841bd047c68d.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@howtogeek">
+<meta name="twitter:title" content="How to Turn a Raspberry Pi into a Cheap Plex Player with RasPlex">
+<meta name="twitter:description" content="If you’re looking for a robust little Plex client for your HDTV, RasPlex offers a polished experience with snappy playback that’s always on, stable, and easy to control.">
+<meta name="twitter:image:src" content="http://www.howtogeek.com/thumbcache/648/248/4e291e51d3bfaecb448783e1ccdfc36c/wp-content/uploads/2016/12/img_5841bd047c68d.png">
+<link rel="stylesheet" href="A.howtogeek.css,q1466298260.pagespeed.gp+jp+jw+pj+ec+ei+fc+if+ii+js+rj+rp+rw+ri+cp+md.cf.8phhU3MPa4.css" type="text/css">
+<link href="css.dat" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script type="text/javascript" async="" src="about:blank"></script><script src="about:blank" async=""></script><script src="about:blank" async=""></script><script src="about:blank" id="twitter-wjs"></script><script src="about:blank" async="" type="text/javascript"></script><script src="about:blank" id="facebook-jssdk"></script><script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>	<script type="text/javascript" src="about:blank"></script>
+<link rel="https://api.w.org/" href="http://www.howtogeek.com/wp-json/">
+<link rel="shortlink" href="http://www.howtogeek.com/?p=283136">
+<link rel="alternate" type="application/json+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F283136%2Fhow-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F283136%2Fhow-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex%2F&amp;format=xml">
+<link rel="canonical" href="http://www.howtogeek.com/283136/how-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex/">
+<meta property="og:url" content="http://www.howtogeek.com/283136/how-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex/"><link rel="amphtml" href="http://www.howtogeek.com/283136/how-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex/amp/">
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script pagespeed_no_defer="">/* Code removed by ScrapBook */</script><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+  #diigotb-imagepanel { height: 22px ! important; position: absolute ! important; z-index: 11000022 ! important; margin: 0px ! important; }
+  #diigotb-imagepanel .diigotb-btn { cursor: pointer ! important; width: 20px ! important; height: 20px ! important; margin: 2px ! important; float: left ! important; background: url("chrome://diigotb/skin/save-image-action-icons.png") no-repeat scroll 0% 0% transparent ! important; }
+  #diigotb-imagepanel #diigotb-quick-save { background-position: 0px 0px ! important; }
+  .diigotb-border { position: absolute ! important; z-index: 11000000 ! important; margin: 0px ! important; background-color: rgb(75, 140, 220) ! important; }
+  .diigotb-left { width: 1px ! important; }
+  .diigotb-right { width: 1px ! important; }
+  .diigotb-top { height: 1px ! important; }
+  .diigotb-bottom { height: 1px ! important; }
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head>
+<body class="v3">
+<div style="text-align: center; min-height: 90px; z-index: 999999; margin-right: auto; margin-left: auto; position: relative;" class="adslot adslot970">
+<div id="htgyl11">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>
+<div id="doc4" class="yui-t7">
+<div id="hd">
+<div id="htgHeader" style="border-top: 4px solid rgb(23, 34, 50);">
+<div class="logo" style="">
+<h1 id="printH1">How-To Geek</h1><a href="http://www.howtogeek.com/" class="home"><img src="data:image/gif;base64,R0lGODlhAQABAIAAADoSLQAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="How-To Geek"></a>
+<div style="float: right; width: 450px;">
+<ul class="bigmenu">
+<li class="menubaritem">Articles <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu">
+<div class="subMenuArticles">
+<div class="smawrap">
+<a href="http://www.howtogeek.com/284948/what-is-nvram-and-when-should-i-reset-it-on-my-mac/" align="left" class="title" rel="bookmark"><span><img src="xmacbook-logic-board.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.SgYTBWHFr9.jpg"></span></a>
+<a href="http://www.howtogeek.com/284948/what-is-nvram-and-when-should-i-reset-it-on-my-mac/" class="title" rel="bookmark">What Is NVRAM, and When Should I Reset It On My Mac?</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/285082/how-to-run-windows-programs-from-windows-10s-bash-shell/" align="left" class="title" rel="bookmark"><span><img src="ximg_585322b274b86.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.nMlD4WPB9r.png"></span></a>
+<a href="http://www.howtogeek.com/285082/how-to-run-windows-programs-from-windows-10s-bash-shell/" class="title" rel="bookmark">How to Run Windows Programs from Windows 10’s Bash Shell</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/198135/how-to-optimize-your-android-phones-battery-life-using-greenify/" align="left" class="title" rel="bookmark"><span><img src="xIMG_0294-650x300.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.oS9eyoxAae.jpg"></span></a>
+<a href="http://www.howtogeek.com/198135/how-to-optimize-your-android-phones-battery-life-using-greenify/" class="title" rel="bookmark">How to Optimize Your Android Phone’s Battery Life with Greenify</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/285361/the-complete-guide-to-giving-better-family-tech-support/" align="left" class="title" rel="bookmark"><span><img src="xslack-imgs-1.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.lIkCHYiUxe.jpg"></span></a>
+<a href="http://www.howtogeek.com/285361/the-complete-guide-to-giving-better-family-tech-support/" class="title" rel="bookmark">The Complete Guide to Giving Better Family Tech Support</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</li>
+<li class="menubaritem">Subscribe <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu" style="padding-bottom: 10px;">
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>FOLLOW US</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-twitter" href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0" target="_blank">TWITTER</a></h2></li>
+<li><h2><a class="icon-google-plus" href="http://plus.google.com/+howtogeek">GOOGLE+</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-facebook" href="http://facebook.com/howtogeek" rel="nofollow">FACEBOOK</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<div id="subemsub" class="submenudetail sm400 noclick" style="padding-bottom: 20px;">
+<div id="emquest"><div class="fs1" aria-hidden="true" data-icon=""></div></div>
+<span>GET UPDATES BY EMAIL</span>
+<form action="http://www.howtogeek.com/em/subscribe" method="post">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="topmenu" type="hidden">
+<input id="fromaddress" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<p style="font-family: 'Open Sans'; text-transform: none;">Enter your email below to get exclusive access to our best articles and tips before everybody else.</p>
+<p><input id="from" name="email" value="Enter Your Email Here" style="width: 200px; color: rgb(187, 187, 187); margin-left: 59px; font-family: 'Open Sans'; text-transform: none;" type="text"><input id="sub1" name="sub1" value="Get Your Newsletter Now" style="background: none repeat scroll 0% 0% rgb(85, 168, 223); margin-left: 59px; width: 212px; margin-top: 6px; font-family: 'Open Sans'; text-transform: none;" type="submit"></p>
+<div style="clear: both;"></div>
+</form>
+</div>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>RSS</h4>
+<ul style="width: 130px;">
+<li><h2><a class="icon-feed" href="http://feeds.howtogeek.com/howtogeek">ALL ARTICLES</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/features/feed/" rel="nofollow">FEATURES ONLY</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 150px;">
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/trivia/feed/" rel="nofollow">TRIVIA</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+<li class="menubaritem">Search <span class="icon-magnifying-glass" style="padding-left: 10px; font-size: 16px;"></span>
+<div class="subMenu" style="padding: 20px; text-align: center;">
+<form action="http://www.howtogeek.com/search/" method="get" id="sea">
+<input name="q" id="s" value="" style="width: 900px; height: 40px; line-height: 40px; border: 1px solid rgb(204, 204, 204);" type="text">
+<input id="searchsubmit" value="Go" style="height: 42px; border: 1px solid rgb(204, 204, 204); font-family: 'Open Sans'; font-size: 16px; padding: 10px; background: none repeat scroll 0% 0% rgba(196, 230, 237, 0.99); border-radius: 0px 5px 5px 0px;" type="submit">
+</form>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="bd">
+<div class="yui-g" id="headerpanel"></div>
+<div class="yui-ge">
+<div class="yui-u first">
+<div class="content" id="htgArticle">
+<h1 id="printHeader" style="display: none;">How-To Geek</h1>
+<!-- abovepost -->
+<div class="thepost" id="post-283136">
+<style>
+/* Code tidied up by ScrapBook */
+p + .relatedside { margin-top: 8px ! important; }
+</style>
+<h2 style="margin-top: 10px;"><a style="font-family: 'Open Sans',sans-serif;" href="#" rel="bookmark" title="How to Turn a Raspberry Pi into a Cheap Plex Player with RasPlex">How to Turn a Raspberry Pi into a Cheap Plex Player with RasPlex</a></h2>
+<div class="thecontent">
+<!-- google_ad_section_start -->
+<p><img class="alignnone size-full wp-image-283144" alt="" src="ximg_5841bd047c68d.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.MPdi-vE2Aj.png"></p>
+<p>If you’re looking for a robust little Plex client for your HDTV, RasPlex offers a polished experience with snappy playback that’s always on, stable, and easy to control.</p>
+<div id="div-thetop1" style="margin-top: 5px; margin-bottom: 15px;">
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script async="" src="about:blank"></script>
+<!-- htg-desktop-top -->
+<ins class="adsbygoogle" style="display: inline-block; width: 650px; height: 141px;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="1477883008"></ins>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<h3>Why Use a Pi?</h3>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/"><img src="xraspheader1.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.add7KiAEhU.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/">Everything You Need to Know About Getting Started with the Raspberry Pi</a></span><div style="clear: both;"></div></div></div>
+<p>There are a wide variety of ways you can use&nbsp;Plex&nbsp;on your HDTV, but many of them have shortcomings that are easily overcome by using <a href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/all/">an inexpensive Raspberry Pi</a>. Some Smart TVs, for example, have a built in Plex client, but the performance is usually lackluster and updates are sparse. You <a href="http://www.howtogeek.com/256382/how-to-cast-videos-from-plex-media-server-to-your-chromecast/">can also pair Plex and the Chromecast</a>, but this solution lacks a&nbsp;physical remote, which isn’t very family-friendly.</p>
+<p>A Raspberry Pi running <a href="http://www.rasplex.com/index.html">RasPlex</a>, however, erases all those issues in one swoop. The heart of RasPlex is the open source Plex Home Theater (a branch of the XBMC/Kodi development tree) and it’s nice and snappy. The user interface is polished and light years ahead of the sluggish and dated looking Plex interfaces you find on too many Smart TVs. The Pi supports traditional remote controls through either&nbsp;<a href="http://www.howtogeek.com/207186/how-to-enable-hdmi-cec-on-your-tv-and-why-you-should/">HDMI-CEC</a>, an <a href="http://www.howtogeek.com/217587/how-to-use-flirc-to-add-any-remote-to-any-media-center/">infrared receiver</a>, or the Plex app <a href="https://geo.itunes.apple.com/us/app/plex/id383457673?mt=8&amp;at=1010loXs&amp;ct=283136">for iOS</a> <a href="https://play.google.com/store/apps/details?id=com.plexapp.android&amp;hl=en">and Android</a>. And to top it all off, it’s cheap—the Pi is only $35, and you can leave it running 24/7 because it&nbsp;uses less than a penny of electricity a day.</p>
+<div class="relatedfull"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLES</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 0px;"><div style="clear: both;"><div class="leftitem" style="float: left; width: 310px; margin-right: 20px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/207186/how-to-enable-hdmi-cec-on-your-tv-and-why-you-should/"><img src="data:image/jpeg;base64,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"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/207186/how-to-enable-hdmi-cec-on-your-tv-and-why-you-should/">How to Enable HDMI-CEC on Your TV, and Why You Should</a></span></div><div class="leftitem" style="float: left; width: 310px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/217587/how-to-use-flirc-to-add-any-remote-to-any-media-center/"><img src="data:image/jpeg;base64,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"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/217587/how-to-use-flirc-to-add-any-remote-to-any-media-center/">How to Use Flirc to Add Any Remote to Any Media Center</a></span></div><div style="clear: both;"> </div></div></div><div style="clear: both;"> </div></div>
+<h3>What You Need</h3>
+<p>To follow along with our RasPlex tutorial you’ll need to square a few things away before diving in. First and foremost, this tutorial presumes that this is not your first home media center rodeo and you already have a Plex server up and running. If you don’t, hit up <a href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/">our guide to getting started with Plex</a> to set up your server.</p>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/"><img src="ximg_571fe01808391.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.8FPPSKJAhf.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/">How to Set Up Plex (and Watch Your Movies on Any Device)</a></span><div style="clear: both;"></div></div></div>
+<p>Second, and more obviously, you’ll need a Raspberry Pi—the newer the better. While we tested RasPlex on multiple editions of the Pi, including the Raspberry Pi 1, 2, and 3, we really recommend using a Raspberry Pi 2 or newer for the smoothest experience. You’ll also need all the necessary Pi accessories—an SD card, a power source, etc. If you’re new to the Raspberry Pi, <a href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/all/">be sure to visit our Pi guide</a>&nbsp;to make sure you get the best stuff.</p>
+<p>Third, and finally, you’ll need something to control the RasPlex. A keyboard will work fine for setup, but as mentioned above, you’ll want a remote that either works with&nbsp;<a href="http://www.howtogeek.com/207186/how-to-enable-hdmi-cec-on-your-tv-and-why-you-should/">HDMI-CEC</a>, an infrared receiver like&nbsp;<a href="http://www.howtogeek.com/217587/how-to-use-flirc-to-add-any-remote-to-any-media-center/">the Flirc</a>, or the Plex app for your phone.</p>
+<p>With all the prerequisites met, it’s time to dive into actually installing and configuring RasPlex.</p>
+<h3>Installing RasPlex: One Shot SD Card Setup and Easy Startup Wizard</h3>
+<p>The days of command-line work and headaches are gone when it comes to Raspberry Pi setup. Just about every major project under the sun, RasPlex included, has a user-friendly installer. Head over to <a href="http://www.rasplex.com/get-started/rasplex-installers.html">the downloads page</a> and grab the installer. You’ll need a PC for this first step, so grab the installer that matches the OS on your PC (we’re grabbing the Windows edition). Insert the SD you’re using for RasPlex into your computer and launch the installer.</p>
+<p>Everything in the installer happens in a single pane, so let’s break it down. In step one, select “Raspberry Pi1” if you have the Pi 1, and “Raspberry Pi2” if you have the Pi 2 or 3. Select the most current version (1.7.1) as of this writing. Click “Download” under the “Step 2” section to download the disk image.</p>
+<p>Confirm in the “Step 3” section that the correct drive is selected and then, under “Step 4” click “Write SD card”.</p>
+<p><img class="alignnone size-full wp-image-283137" alt="" src="ximg_5841b9e72cc6e.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.orQLHpIyvF.png"></p>
+<p>The whole process, from start to finish should be under five minutes with a decent broadband connection. Once the write process is complete, safely eject the SD card from your computer and insert it into your powered-down Raspberry Pi. Plug in your Pi to boot it up and start the process. For a minute or two, you’ll see the RasPlex logo and some text in the upper corner as the disk image unpacks and creates partitions. Once that process is complete, you can continue with the configuration process below.</p>
+<h3>Configuring RasPlex: Tweak the Basics and Get Watching</h3>
+<p>After the unpacking process mentioned above, you’ll be kicked right into the RasPlex setup wizard. Every setting in the wizard can be changed in the system menu later on, but there’s no reason not to take care of everything in one shot here. Click “Next” to get started.</p>
+<p><img class="alignnone size-full wp-image-283168" alt="" src="ximg_5841e7a1d8547.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.12UskEF-Ce.jpg"></p>
+<p>First you’ll configure your Wi-Fi connection (this step won’t appear if you’re using a wired Ethernet connection). Select your network’s SSID and input your passcode.</p>
+<p><img class="alignnone size-full wp-image-283170" alt="" src="ximg_5841e8007da1c.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.9qnjR9QKik.jpg"></p>
+<p>After the network setup, you’ll be prompted to calibrate your screen. This is a simple process wherein you adjust a series of right angles to fit the corners of your screen, check for squareness, and decide where you want the subtitles to sit on the screen. It only takes a moment and it really improves how things look. The only reason we’d recommend skipping this step is if you’re setting up the RasPlex box on a device that isn’t the final display (e.g. you’re setting it up using your desktop monitor but you’re going to move it to your living room).</p>
+<p><img class="alignnone size-full wp-image-283171" alt="" src="ximg_5841e8625a353.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.rBxNM3ADe9.png"></p>
+<p>Next, you’ll be prompted to log in to your Plex account. As the help text notes on the screen, you don’t&nbsp;<em>have</em> to log in to your Plex account, but come on—Plex accounts are free and they’re the primary reason Plex is so great. Click “Sign in to Plex.” and then take the resulting 4 character PIN and head over to <a href="https://www.plex.tv/pin">plex.tv/pin</a> to complete the process.</p>
+<p>After signing in, you’ll be prompted to “precache” your library’s thumbnails, fanart, and other images, which we recommend. Select “Start precaching” then select the server (or servers if you have multiple). The server selection box has such a low opacity that it looks like you’re supposed to click “Start precaching” again but that’s just an odd display trick; instead, click over with your remote and select “OK” instead.</p>
+<p><img class="alignnone size-full wp-image-283180" alt="" src="ximg_5841eb5c6a20a.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.PpgJDhgTE5.png"></p>
+<p>Even with a large library, it should only take a minute or two to churn through everything (slightly slower on older Pi hardware), and then you’re done with the setup wizard. At that point you’ll see your Plex library right at your fingertips, like so:</p>
+<p><img class="alignnone size-full wp-image-283197" alt="" src="ximg_5841f155a9376.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.gIY6dsMH98.jpg"></p>
+<p>All your movies, TV shows, movies, “Watch Later” content, and everything else on your Plex server is easily accessible from the left-hand navigation pane. You can dive right into watching your content now or, if you want to do <a href="http://www.howtogeek.com/252261/how-to-set-up-plex-and-watch-your-movies-on-any-device/">some further tweaking</a> (like downloading new skins for RasPlex) you can click left and pull up the Settings or Preferences menus to make further adjustments—but you’re likely to find that everything runs so smoothly right out of the box that there’s little need to tweak anything.</p>
+<hr>
+<p>In the mood to squeeze in some more Plex customization and fun? Check out <a href="http://www.howtogeek.com/259529/how-to-share-your-plex-media-library-with-friends/">our tutorial on sharing your media library with friends</a> and <a href="http://www.howtogeek.com/261048/how-to-optimize-your-movies-and-tv-shows-for-smooth-plex-playback/">how to optimize your content for remote streaming</a>.</p>
+<!-- google_ad_section_end -->
+</div>
+<div style="clear: both; height: 0px;"></div>
+<!-- discourse comments begin -->
+<style>
+/* Code tidied up by ScrapBook */
+#discusslink { color: rgb(88, 88, 88); text-decoration: none; }
+#discusslink:hover { color: rgb(0, 0, 255); text-decoration: none; }
+</style>
+<div style="max-width: 650px; width: 100%; padding-top: 10px;"><span style="font-family: bebas_neueregular; font-size: 19px; position: relative; top: -9px; padding-right: 10px; float: left; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(134, 134, 134);"><a id="discusslink" href="#">JOIN THE DISCUSSION (8 REPLIES)</a></span><div style="border-top: 4px solid rgb(204, 204, 204);"></div></div>
+<div id="discusscomments" style="display: none;"><style>
+/* Code tidied up by ScrapBook */
+</style>
+<div style="clear: both;"></div>
+<ul class="commentlist"><li class="comment-def">
+<div class="commentmetadata date"><a href="#">December 6, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Andrew T</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>What would you say about using this on a pi zero v1.3? Because I have an extra one just laying around and would love to make this happen with it.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">December 6, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Eduardo Osorio</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Nice article. I'd like to add that the Chromecast can be controlled by HDMI-CEC. Looks like in the article the Chromecast is listed as devices that cannot be controlled remotely. It supports pause, play and stop as far as I know.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">December 6, 2016</a></div>
+<div class="commentauthor"><div class="ca2"></div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>On a somewhat related note, I use my Raspberry Pi 3 as a low power (as in electricity usage) plex server. It's a bit difficult to setup, and there's some drawbacks (settings up your own agents for cases of shows with different broadcast/dvd order is difficult for instance). But once it is all setup, it works very well. Started with a Raspberry Pi 2, but made the switch to the 3 and honestly I wouldn't recommend less than the 3.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">December 6, 2016</a></div>
+<div class="commentauthor"><div class="ca2"></div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>You can get Rasplex onto a Pi Zero, yes. Use the Pi 1 option in the setup dialog (this works well since they are actually similar devices on a hardware level).</p>
+<p>As the article mentions though, the Pi 1 (and therefore Zero) will not perform as well as the Pi 2 or 3.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">December 6, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Jared Theurer</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I am extremely interested in using a Pi as my main plex server. The price point and functionality are unprecedented. However, this can be difficult today when it comes to the Pi's processing power (for transcoding multiple HD streams, 4K transcoding/upscaling), HHD data rates (no USB 3.0 or direct sata support), and 10/100 ethernet limitations (must use USB adapter for speeds greater than 100Mbps).</p>
+<p>I know there are some that currently use a Pi for their media server but I can't get over the limitations. But those may or may not be a big deal to everyone.</p>
+<p>WD makes some awesome NAS servers built for Plex, but selling them for north of $1000. Maybe the Pi 4 will alleviate some of these challenges.</p><p></p></div>
+</li></ul>
+<div id="discourselink">
+<h3 id="reply-title"><a href="https://discuss.howtogeek.com/t/how-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex/54547">Got Feedback? Click Here to Join the Discussion</a></h3>
+</div>
+</div>
+<div style="clear: both; height: 0px;"></div>
+<div id="socialmediabuttons" style="margin-bottom: 0px;">
+<div id="fb-root"></div>
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script>/* Code removed by ScrapBook */</script>
+<div style="padding-right: 20px; float: left;">
+<div class="fb-like" data-href="http://www.howtogeek.com/283136/how-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex/" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+</div>
+<div style="padding-right: 20px; float: left;">
+<div class="g-plusone" data-size="tall"></div>
+</div>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<div style="padding-right: 20px; float: left;">
+<a data-pocket-label="pocket" data-pocket-count="vertical" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="padding-right: 20px; float: left;">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.howtogeek.com/283136/how-to-turn-a-raspberry-pi-into-a-cheap-plex-player-with-rasplex/" data-via="howtogeek" data-lang="en" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div id="postiddiv" post="283136"></div>
+<div style="clear: both;"></div>
+<div class="articleExtras" style="background: none repeat scroll 0% 0% rgb(254, 254, 254); border-top: medium none;">
+<div style="width: 450px; float: left;" id="authorinfobox">
+<p style="font-weight: normal; color: rgb(51, 51, 51);"><a href="http://www.howtogeek.com/author/jasonfitzpatrick/"><strong>Jason Fitzpatrick</strong></a> is a warranty-voiding DIYer who spends his days cracking opening cases and wrestling with code so you don't have to. If it can be modded, optimized, repurposed, or torn apart for fun he's interested (and probably already at the workbench taking it apart). You can follow him on <a href="https://twitter.com/jasonfitzpatric" rel="author">Twitter</a> if you'd like.</p>
+</div>
+<div style="width: 130px; float: right;">
+<ul class="normul" style="margin-bottom: 6px;">
+<li>Published 12/5/16</li>
+<!--<li><span id="pv3"></span></li>-->
+</ul>
+<div style="margin-left: -14px;"><a href="https://twitter.com/jasonfitzpatric" class="twitter-follow-button" data-show-count="false"></a></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div class="below-post-features" style="width: 650px; overflow: hidden; max-height: 250px; margin-bottom: 20px;">
+<div id="outbrain-below-article" style="">
+<style>
+/* Code tidied up by ScrapBook */
+.below-post-features:hover { box-shadow: 0px 0px 3pt 2pt rgb(98, 128, 156); }
+#sb3 { padding-top: 0px; }
+.content { padding-bottom: 0px; margin-bottom: 0px; }
+</style>
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" border="0" height="1">
+</div>
+</div>
+<div style="width: 100%; max-width: 650px; margin-bottom: 0px;">
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div class="yui-u">
+<div class="sidebar">
+<div style="margin-top: 24px; clear: both;"></div>
+<div class="sidebar-glossary">
+<h4 class="sidebarh4">DID YOU KNOW?</h4><div class="glossaryhomebox" style="padding: 10px;"><p>India has the world’s largest postal network with over 154,000 post offices; size is no substitute for speed, however, as despite having the largest postal network in the world, it can still take a long time for a letter to reach its destination.</p>
+</div>
+</div>
+<div id="side78"><div id="htgyr11">
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>	<div class="sidebar-glossary lazyloaddiv">
+<style>
+/* Code tidied up by ScrapBook */
+</style>
+<h4 class="sidebarh4">BEST OF HOW-TO GEEK</h4>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/185217/cutting-the-cord-can-buying-episodes-and-watching-tv-online-be-cheaper-than-cable/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAcEBQYIAQP/xAA0EAACAQMDAQYEBQMFAAAAAAABAgMEBREABhIhBxMxQVGBFCJhcQgVQpGhIzKCosHC0fD/xAAYAQEAAwEAAAAAAAAAAAAAAAADAgQFAf/EAB8RAAICAgMAAwAAAAAAAAAAAAECAAMREgQxQSJRcf/aAAwDAQACEQMRAD8ARthnAYqx6MMHIz1Gnz+C65sL1f8AajLyJ4VkCt4qP7HOPeL9tc52yoxIGB+cHJHrrQUF7rNubihvtuutZbneExyNSsVklUkBowwI45U+PljWnQ29JX6lK9Pn+xs/iIkodv8AbLeR3/ftV0tLOUhwzBxHwcEDopIQHr6g6zfY2zz3ncIaHu2laKUxk9VOZAffJ1KqV27vKg/M6WllpK16Ud9BBGmGYHKyY6lySDyGc+PzeI1P2fGYN4pKiUipcbT8QBEAjclkCnkgPy5ySMgZHX10tykUjMjURuZsu74dCGT6eWoNPCapq2IyYMNTwHTxBjR/+f8AGpyVqtcmtsn9OUx94nL9Yzg4+o/3GoVskki3Jeqbo/OOmqF+2JEY/wCldZ6YwZZbM+M9vkX9Ib7ap6qhJlPj7jWwZ0boy8depbp5xzhglkXwyqEjXQoPU4WI7nMu6bTNbKv4uJcQuevHwVv+jqHXy/E2nofmjIdfb/x01b1akqqeSN0DI4ww9dKy40M1rq5KOUFk8UY/qXUeNZo2p9k7V2GZqtl9oKbcoKSro0iFyoLglRAjRZLxHlzjD+CLnJ8CSWHpp8bI3PsTtHulPU1UZ2humON1eBlBpKot8zMDgFScZOcf5a5BizFOR0JU9MjTM7IZ6pt32WT4dVhiMkfNVwX5K/j64zqzkuCCYDKFOROjt6dl26a6jp6+wLR1ddRTCWnaGqThKp6MhLEdCP5A1ApNmX+DtEElbHSUKT2XupRPVJiJxMH6lSfLkM6soYY+A8VY+Y0qPy1dn9qdLLNK8VskM81K/XivexlHjI9AxU/TA9ToUA9kmJPUdEsdisfVO6vFd5OyH4aI/QHq5+/T76hT7h3BK/JLvVRLjASBu7QD6KuAP21WvMCoOc58CPPXgGRnih9tGGiaRbIWAxjkvmNUe77BDdKBniAWdPmTPr6e+jRoYkWNr21dbveGpaenKFG4yu/RYz9Tp47AslHtqEd3K1RU8eLvIfL0UeQ0aNK9jSIUGb+hucT4BYo3ofDVBvGO2XPdVit9xjMkJjqCwDYHzIFU5Ho3X2GjRobLCq5EempXfBmdsu4arat3fbu4OT06HFPMxzhfIg+mthNfrBGwV73RxkqCFaZc4Pvo0aqce1g7J2BNG/jo6I/RI8n/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/185217/cutting-the-cord-can-buying-episodes-and-watching-tv-online-be-cheaper-than-cable/" class="title" rel="bookmark">Cutting the Cord: Can Buying Episodes and Watching TV Online Be Cheaper Than Cable?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" border="0" height="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/221929/how-to-choose-the-best-vpn-service-for-your-needs/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAABwAFBgQI/8QANBAAAQMDAwICBwcFAAAAAAAAAQIDBAAFEQYSIQcxE0EUIjJRYYGRCBUjcaHR8ENSksHx/8QAGgEAAgMBAQAAAAAAAAAAAAAABgcDBAUCCP/EACgRAAEDAwMDAwUAAAAAAAAAAAECAxEABAUSITEGE0EUIlEyYXGh8P/aAAwDAQACEQMRAD8AANMusojK8dSSrHG5ZHmBjHz/AEq5vNtQ7DXIQ+tTaVJxt9n2Rk59+cj5VR2KMypcbehDhUoFYCjk5Bx9O9I+stQPWsyNOQ0NJhtIDAT4Q9YHGTnvnk0Q9xQAQBNCyLNpeu4cWUgQNhMkzHkbbUW3WHFPturJyAr4cU0aU0h056V6Mg6z19B+95l2JcgQnGQ8UowCkBtWElW0hRUrgZAHPcbuLjaCseK2o+1gcn8qQftc3R1676XYKEJbatQCG924DKva/PAA+VQOJABXHFVVLUtxu2KiNU/qrzWELp11Q0xNveibN6Bd4XCo6Y6WFA4JCVIbJSQrBwofuK8/x5be9R9GaOEg4JzntSF9nqS2nUtyQ5IQ20qIN6QnAP4ieSfn/qjOZt+9pe09nlhIA7jca4uCC0hwCCZmpcS0pm6ftioqSIInxPIrTabbmXN0w4UJsr2+s52CQeMk1qTpq98JS9D9UY9pf7VR2Se9a+nr78JampEqSW1rSCFAZA4Py/WqZD6lZUuS4lROT6xFY6Xbh8q7atIBjiaYTtliMY016tkurWnV9UATwOK12n0RmNWNNhotsrd4SpZARtHrAn+d6Q72ixXaeltiGn0p2N6QFrcyDjjnJznI+lE9uuLCdRR35UpIhuyFOZSs5SnKc5H0+hpOmajtSHESGbg2434JZbBWnscHnIznirF4t0AETx4+au9OM2S+624UQVz7o3H2rOaPscJPVeC3OjsOww4StpzCklXgqWMjzGRTJrSHoqJYHbvc7TZorDCBl4wUHCTwnA2888DFDNvu0ib1UiGCW3MNqaQtsg5yyQrnt5kUma5skW59JrxHcLri2YRkbE5yHUeuCPhxyPcaIcYJs9cSY8/ikj102lGf0BelGqPb8ajuK4Dp7Tci0IvFptkOVEdSA0+1ESgEbhnPHfhQ55GKF+uFpgWTWEJNqjtx0PQUPKCAACsrWM4HA4SK9I9NLGzb+mNityGFKadhNyHPFI3b3E71+X9yuPhQ39pOBERriI3HjEhNuaKdznl4ixjy/hqXIoC7QKiDtWf0vkCMwpjUSBPPkeKrrbbrO5am4XhrU0kBwpLysb8ZyRnHvquMXSbxK2pUfvhQLihg/M1a2SF4SCqUklbiUndny2g4P+VV1l0nby1JNxh4UZK/B/F/p8bex/Oly0vtqUFKNetr+29Wyytm3Qdo3HERHFHMSS56SlJKkp3DcD3Azz3rWvux1NsJS64E4UCVNg4HOO3fipUort1GDSRvECRXdpy7MWjU0O6JbStuOvctKcJKklJScZ8+c0vQOqulm4qir7wiqWlIBW3u2gH4E/wVKlaTF24yCE0MZPDW18pKnZkbbGu2F1OskpLbbN5YClYyXh4Xc4xz7u//AGjjrg/BvWphNizo0lMe3oQpTJ3JUoLUrAI7nChUqVPcXKn2IUBWZj8Rb2GQCmZmP7xWHRq6dAw34TSwlsJQSMEfTFcT2r5illSWGwD5ZP71KlCjtu1qnTTct81fpbCQ6Yr/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/221929/how-to-choose-the-best-vpn-service-for-your-needs/" class="title" rel="bookmark">How to Choose the Best VPN Service for Your Needs</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/220986/how-to-use-all-of-windows-10%e2%80%99s-backup-and-recovery-tools/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/220986/how-to-use-all-of-windows-10%e2%80%99s-backup-and-recovery-tools/" class="title" rel="bookmark">How to Use All of Windows 10’s Backup and Recovery Tools</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" border="0" height="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/225385/what%e2%80%99s-the-best-antivirus-for-windows-10-is-windows-defender-good-enough/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAABAYABQECAwf/xAAzEAABAwMDAwIEAgsAAAAAAAABAgMRAAQSBQYhEzFRYYEUIkGRB3EWMjM0QkOCkqGx8P/EABsBAAMAAgMAAAAAAAAAAAAAAAABBQYHAgME/8QAKhEAAQIEBAQHAQAAAAAAAAAAAQACAwQREwUhUZESQlKBBhUWIjNBofD/2gAMAwEAAhEDEQA/AEdpY80U2pBiYpMVuWxZdU2t1YUhRSqEHuK3G7NNA/auH+g1uMY1Ig0MVu4WpnYLOOzEM7FP1s6wnvE0e3qNqymVFIry5zd9r/Atf9poG73Oh0QlxZ9q4RMfkAPkB7rp9MTcU+5hHZer3O/29JPUssesnsYBikPeW+9f3G6oanqdzcNg/I2pw4J/IdhSe9qaHVSpaj7UI5coUZyP2qFM4zLxDVrmjaqu4f4dMoKBh/UU67JJ80OXBNcS+knvXMuieBUx09BPON1cbJxRylX22b3QrXW7t7XrI3bCssEj6Knv/wB35EiZHPbmpqsL28XauWbbLv8AJvGuo2tIVKZHkGDVG5ytRnuZrdi66DbrYQ0sOCCVoCing8jweaxSJJxL74nCc9llnmgfJQpQ8NGVz+89T/fgoznUrhTVy2XduDqJTk58KjKSCmEnHgjGfcGiXtbdcJDh2w6nNCxFmE8JWFBPABAMAR4kUsOayVFM2lhwZ/dxyee/3rKNcdQ042GLPFapINunjtwPTifzmixF6SvLdZqEyp3FdFDjGO2ClwYk/ApA47EGPlMHgjkenehtb1J7VbEt3FzoCZWFFTFtg6TP1VEwJ8+3c1RXGtl5tSFWliMk4ym3AI4jg/Tiujm4XnAQu2sVSZOVskkn8zyaLEXpKLrNVlGmWy7joI1W2ktZhauEZTymf9GOfSoxpbTqCpWrac18xELWqTBieEnihNQ1P43DNi2awEDotBHHrHf3oQut+aLEXpKLrNUrlavJ+9YKleT96lSiqdFu2pvpr6inM+MMYj1mi3xpg0u3Uw/dG+KVddC0gISrMxj5GMEk/XiI5qVKVSnRaupsUi0KLh5eQHxPEFPaQn2/yKYfw/OxBvMI3k5qn6PlpYztky6Fx8pIBEiZ7elSpTqkqy6VoC9a1NVmp9vTjdLNgLhJU4GMlY5Yn9bHGee81UXBR13OkolvI4T4nipUoqii/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/225385/what%e2%80%99s-the-best-antivirus-for-windows-10-is-windows-defender-good-enough/" class="title" rel="bookmark">What’s the Best Antivirus for Windows 10? (Is Windows Defender Good Enough?)</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/236719/whats-the-difference-between-bitlocker-and-efs-encrypting-file-system-on-windows/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAYEBQcDCAH/xAAvEAACAQMDAgUDAwUBAAAAAAABAgMEBREAEiEGMRMiQVFxFIGhB2HhJTKCkbHw/8QAGgEAAgMBAQAAAAAAAAAAAAAABAUCBgcBA//EACERAAICAgEEAwAAAAAAAAAAAAECAAMEESEFEjFRQYGx/9oADAMBAAIRAxEAPwBGpoauw1JoYaVK+pYnDtjI8oOCSMjvnA/PGimu1XLL4N9sCfTc5kCY2j/IZ/0c6+2W1Vc9vmqpLhA9SJycNWcnOMnB7/Ou1ttF4uFQqrPEWQsF83bGM/j9+daMGbQiBsfHYksRv3FyZ4YqoyR0jCn2kqxQHtzjIPI576jy3SlZdhUqSSCCh5507xUFyqenJoJEp5JkyUw2cDcvGfgkdtK9xooI2eN6VVmUkYQ9sHHoBqL2sviE04tdh1vxFyukMjbFU+HnPbGuNMs6OQpdRn31bpHtRyvJ9sfydTKOnaVgHgIz6kaDexSdk6jSvDsHCjcmdM1k8M6EsGI75Xv8+utTobhFPRxPLDBuAxxx/wBzpPtliBWGRIGUNkMRg+n20x09FNChiYMu04GVPI0szG9GPMGogaZSJawdJTTxivnt1LGsY2smMggKTuJb51R2OzQVlG80FElUY5dpaGXJAxxnGtM6ydqrpitMaskRjwdhwc4z7/Gkv9PPqZoa2tttO+9FjiKoQByCScZ78D86e13MyFjMpG+wkGU1u6Ymopj9dQ1e1xsQJIf7sr/OkeotbJfq+lnerpKWOpcRBl3YXJ4zz7DXoGG51Et4KSQuaVFDoSuMNxn0+dIsqpceoLo01K6JFVSbZF44Jb3Guqe86cT3xMuxCSGmSPS1KU0bzT08bksGWRNhGCMd/udcIup5LZVohpoZsY5R8jWo340MtO1SUicqd2MDB7DH41n9+stoipVBCq0pyCEAK9j99QyMJLF1qWDC6zfW3LRu6P8A1Tt8UixVlqYqMZzzrT6XrzpWeLxXtzgsTjyjXmGlt1timH9RQFRnuQx040Rp5aSN4LlKibezPzpBZ0hCdbI+5aKurvYNn8muy1N2e1tGlS80BYCQhdw3Y5B8vwNWMMdZZLSzWylp6dXkUttgC58uOQAPjRo0/fXA18zJQx1Le20VW8kzSHC7DhimOcjnP/u2s3vdyudsul2MMKuHqWIMikZHiN7fP50aNRxW7rCDCKeDFmv6mq7dC0QoYHCHdy/ckjS1f+rm+pV5rRAxKKMeKCRwP20aNGXEqOI4xkViNiUQvlLLWMJLSnI48wPp8anC40k6I0FF4KhcFRjv9tGjSt7GJ5lhx6wo4n//2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/236719/whats-the-difference-between-bitlocker-and-efs-encrypting-file-system-on-windows/" class="title" rel="bookmark">What’s the Difference Between BitLocker and EFS (Encrypting File System) on Windows?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/213474/how-to-quickly-search-and-replace-text-on-any-computer/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABAUAAgYHA//EAC4QAAIBAwMBBwQBBQAAAAAAAAECAwAEEQUSITETIkFRcYGhBhRhkSMyUrHR4f/EABkBAQACAwAAAAAAAAAAAAAAAAMAAQIEBf/EABwRAQEBAQADAQEAAAAAAAAAAAEAAhESEzEhUf/aAAwDAQACEQMRAD8Awqww3DFZI1fAziVcnH4Iww/Rr1i0qFkEltJPCCMhkPbJ8d4e9MYBa3C4mjCnzxxRaaXkh4WWTy3c/Oc/NVlH7TQktgtdUjXfbmK7QeMMmSPUHn25qltr+s6exhntnkdEJGe6zkeBXHHjzjyp0kU8ZXtbdZCDjc27cBknhl7wPOOmMAUwSWF4Ns0gMWFyl0gmjLHjaHXnPqKXw/kPsT7U0b61tXYJLKI2H9QkG3afWtnp2vQyqGDAg+IORWPfQtLu4hI1nLEp7wkt27aPOODjkr+lr2sNEuYIAulXFrdQrnCo2xhz5HI+arjTzy3R7PUoXxiQe9M0ulKgk1y37u7sSBeQTQeGXXCn0bofY0wh1kiMYf5rMqbm1rIy8MNw8x1pxYzHgo5Hnik8KlcUdABkHoR0IrVy25otNaXKuAsyBvzR62VtP/JGdr46gkN+xzWetJXXG4bh5jrTa1mVlyjf7FOPINZH7XbSZIbj7iN3VgGGUbszk9TuUdfbxoi7nmZxNLbpKwCgdriNjyMkSLgZxnjcOg9K9oLxxgEhhVdPs2b6kutQa7k7C4t44uwJG1GUsdwHmdxzU8uP7F6+xNlqipbK0tzPZsVG6G9hZk5/tkwCR+Tn84otNOt7he2H0/BPuz/JbSoEbn1H+KtJpcbIRGBtJyVUDBPmVOVNU+2kQBOzhwvTEkkXwDj3pxGNylx+1mMCJ2rblPGcYH/KbwBXGUPtUqVzhukkdBkYo6HoSDg4xkVKlLlh1B2FxJJJK1hNIm2YiSOZDgnknAz48nI/VaS1mVh3WB86lSl2c1yDGlOzW1unQDDZHkaOS9BXvK2fxUqVZZX/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/213474/how-to-quickly-search-and-replace-text-on-any-computer/" class="title" rel="bookmark">How to Quickly Search-and-Replace Text on Any Computer</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/218505/how-to-fax-a-document-from-your-smartphone/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABQYABAcDAf/EADcQAAEDAwIDAgwFBQAAAAAAAAECAwQFBhEAIQcSMRMUCCIjMkFCUWFxgZGhQ1KCkrEVFsHh8P/EABoBAAIDAQEAAAAAAAAAAAAAAAIEAAMFAQb/xAAiEQABBAICAgMBAAAAAAAAAAABAAIDBBEhBRITMRUycYH/2gAMAwEAAhEDEQA/ADk7jVw0pcdthuUp3s0BJCUjJI29J0lVrj9w351FmzY09zmyFPspO/t83SxSuGFtRUJdciB85/EUVZHw9B02WzaVAgONxGKIuQ8oczJipZQVJGPOU4pO4yM9TuPTnGezgYu3ZziSmTyWBhrV474Ul2SYgg25ZqAwE8qUtxiUgfLVGTxd4+10ju0VmnoIwCeQED4ddaRBt4tLCRSKXFx678lclY+LaQlP0XouilMutYmVnug9CYcZphvHv5gpQ/drQHGxAb3/AFLm88nWljCqZxruUhNUvp+K2rqlhSyB/Gk++OH14w2kLYqqK+4jPbpYldpIznqWslWPr8tb9Uq9wmtzIqU+LU3k7lD7yppSfcklQH01QneExS6TTXBbFmy5kaMAC64EsMN5OAfFCsDJGxx11HVIGj0AutszE62sQ4a27fVKlOTnqPMiQH2iHHJQEdJA3BSXCnmPuGeuiMm4fLKA5ttt+uuN0cTq9edzJq1Qo9PgtzcNtFptSGgE7EkknmVpthWdR58VEr+5HWysZKRFCh9eYaSFSxISYxkfqcF+KEYk0VTpF1U1yhxZM2XEjKKUqc5lgK5wMEY69d9VLg4rUaFDKqaZEqWwS6wtKOVAc95ODg9DgbgnWU12DORISliI46CNiB01zhWnXqn5MNFOfVSMn7aubyTegJKX+PPYgBbbRbk4r3zFRKoMBiLDcykSEpSE7HB8ZWc4IxsNH4nBq56yQ5d13SHEnzmGFKUPkVbD9uu/gvf1G2rfqNuVlKEpS93qKC4CsBQAWCAdhkJP6jrU51wMNg4I0bbHlb2ByF3weM4ISrQeENkUcJUaYma6PxJiu1z+k+L9tMVWpFCkUSRR5UZnuL7SmVtJSEjlIxt7NL9YvFtoK8qBj2HWTXjxiiMyDApy1zpilcgQ0fFCverp9M6DBcrMhvtBrmrUe2UybZhxUSW4zpbPeEJUhQB2ISR89IdQuyqOzHF96U10HIyAhIwANgND+I0yeu5pgefVlxYcBTtkEA/6+WhkaM9IjodATuN/jnQVK4rEuJ9obUonADWraKlXbciKIaZMxwfm836D/Ogk68Kg62WoqURGT6raeX+NTU156OFuMlbvY5XtjV6VAulua7IV2fYuJcUpW2CBj740z1i93n+YRyoj8x2Gpqae8zoowGJRzA9+Skev3BJdCkrfUrI6Z20n8Mqc/V7uSGo7j60pWsJSMkn/AI6mpp6gS4ElJW9YARbi9R51JrsJuoxXGHXoaXAF9SOdSc/Y6p0mmSHoSFNIykbH46mpq25poClP7Er/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/218505/how-to-fax-a-document-from-your-smartphone/" class="title" rel="bookmark">How to Fax a Document From Your Smartphone</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/212117/how-to-use-programmable-nfc-tags-with-your-android-phone/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHQAAAgICAwEAAAAAAAAAAAAAAAgFBgMJAQIEB//EAC8QAAEDAgUCBQQBBQAAAAAAAAECAwQAEQUGEiExQWEHEyJRcRQVgZEIIzJS0eH/xAAZAQACAwEAAAAAAAAAAAAAAAACAwABBAX/xAAeEQACAgIDAQEAAAAAAAAAAAAAAQIRAyEEEhMFIv/aAAwDAQACEQMRAD8AVidEm4RiC4kxpyO+0og3FuDyK80papCte6iB6juSe9PPnfwuyzmpanpUYMyFblxCRufcggi/fmqZD/jzgMd5ZE13yXLeYhOoBYBuAoFRSRcA2ItXUx/Xh1/a2P8AMWPImVsRzbjrOF4cm7ji0hStJslJO6iQLCwud7cU/n22IvC2sOksNvsIbS3odSFAgC296i8kZGwLKkbysKhIQq3qc0jUf0AB+AKsoSlclyOG3wptCVFam7IVfoD1I61z+ZynyWqWkWlRU3clZPjhcpeEQ2m2wVLumyABuSRxale8YPFZnMWKfa8Fh/QYJhxWIzflg/UruAFLSbBKeoG5G3XhqvEiNIk5ExuNGKg65DcQnTzuk8Vr6mpkCW99UVl8LPmlRudV97n5rPiV7BySZ9Qyl4958wJqPFdkxsUiMgJDcpq6tPtrTZX7vX2/LX8g8i4hhLcjFnZGEzL2cjqaU6AfdKkjcfNj2pOgK7i/Q0yWKLAU2jZK0fQm53rK1ZSwknvUWhRKieayQntUqQ3f1JCf0Qf+1kirZponA4kI0CwHxQHLcGq69hS3ZDjpnSkhawopQuwTsoWTbjkE9xeuicOnILZ+6PnQsqPNlXKTY3PFgR+a0AtFhkNtvtqSoDcWPelk8ZfBqS1Nm4tl6G3JZkoIWzpJU1uDcAWO1tiLkDayhYBhcKanNOqEual5KgnTdOnQQLE9wdj83rl5xRWbKNutA31dorrejX3LyxjcZ5bTmHulTfKRbVzbjn8WvU4nJOYcUjR5GD5RnpZDSUOKLmvW4P7lcC19tunvTuOwIchwLejMrI4KkA1KxoP9EBtsaRsLCr92D5pEe2Nt96j8WVKw+U3i0dhx9hCSiU22m6tH+QHUpte3tfraiikxGJ7JzC50CYy1JQ+HYzg1BxohVx2rlx9lTy0MlZQD6SpOkkfFFFNsj0eWfOajJAKgp1ezbY5Uf9e5rG2SEDWbq5PzRRQSZEZmSNVWHD32kRgk2veiihBZ/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/212117/how-to-use-programmable-nfc-tags-with-your-android-phone/" class="title" rel="bookmark">How to Use Programmable NFC Tags With Your Android Phone</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/97085/how-to-upgrade-or-install-mac-os-x-lion-on-a-hackintosh-using-unibeast/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYFBwMECAL/xAAzEAABAwMDAgMFBwUAAAAAAAABAgMEAAURBhIhMUEHIlETFGGBkSMkMnGhseEIF3OCwf/EABkBAAMBAQEAAAAAAAAAAAAAAAECAwAEBf/EAB4RAAICAgMBAQAAAAAAAAAAAAABAhEDBBITUSEy/9oADAMBAAIRAxEAPwDpgW2yloOpgwVIOMEMJPU4Hb1NeXLbZQXAYED7MAq+wTwCM+laq0w4Tzxb05IO9kFK0pUScebaT2O44/iiUi2vIIe07PWEoShHCzwngd/QD4mq9aI9jK5/qTK7J4eon2NpiFJTNQC4yylJKShfBOOmcfSuYGNfeIBJCLnFWAtxGRGJB2AEHzJHBzx3GOQK6k8fnm5nh4YPuMiOQ+xtS4ngAKCcc89DVF6dc0dBShMtLklCVh1SUtedZHVJUegP5V26euppuSbrw5tnZ4NJNK/SEh638R3EEty4yyOT9xb4GOvI9eKdLP4w3mHZmIT+nbFNmtA+0lSYwy4SSRlKdoGAQPlUVqvVpu8z3SyxkQWlqUlDbRyop7DsPnSs+2pNxbSc5cS2rnrykVXa14QhF8afl/Qa2x2TajLkva+F9/3Ft7B2TLbZgtP4tlqwM/Al2rB0bLtF+sqLibRbkhavKUxkgKGAQcHp19aotET27h23R5CjzsTt8v6Vanh1IMbTDTJcUspcWNyuqsHGT9K8ycUkdyY9xRJkxHHWYzBSkjeoOOFIAA/n96wKmQkIW280hK+FD2by8Y/Mnr1+tZvDkx5ei2HVupQuXv3+YZXhZT0PboOPhVXTr2oSH+SnCihIz2BNDk2DgkyV8RJMaVp9+Ewj8brBKQckpQ6k/oAapK6WrSFkU01NhXCQ68kkBCwSdvVRG8AdRTnfZbkxlSESVMrPRYGcfKkp2AmNeUyH5rbhxtJloCW1jrtHOSfyxVMWeeP8uhMmDHk/Ss0p9w0hAU08xpwPqcAcBL4BQfQnBwenSoVc6Pcb9CMWEmEykttIZDhXtAOByQKb7tbLHLbWq02n2Tx5+5yHHEqPxQQoftWtbtLzi+xIYsbjjrSkr3O4Z5Bz0yBRlklN23Y0YKKpKiVUG4is5PtBT7peUqNZGWlkhQUsqB65K1Gkm9P3mDibM0415ACFtnf9TnaP9qjouvo4bV76h6O6VE7Q3uyDznt+1JN2FIfNJ+Ldvslji29+0W2c9DKjHkLkbSjKirpg9z2IpLkahjuuLcMtgFaiogODv86KKkOazl4iq6TGM/5BUXc5LclbLrdxabdZXuQpLoBB+tFFZOjDDA1WyISUTJraXk8KW2UncP8Anyr2dXx0cNO7j2K5Ix+hFFFPzYKMbuspTiSlMyG0PQuBYP1NQsyRCmPl9+bHDh/EW1JSD8cCiilcmzUf/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/97085/how-to-upgrade-or-install-mac-os-x-lion-on-a-hackintosh-using-unibeast/" class="title" rel="bookmark">How to Upgrade or Install Mac OS X Lion on a Hackintosh Using UniBeast</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div style="clear: both;"></div>	<div style="width: 300px; min-height: 20px; margin-top: 30px;">
+<div style="text-align: center; margin-left: auto; margin-right: auto;">
+<div id="htgys01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="padding-top: 10px;"></div>
+</div>
+<div id="sidebar-float-widget">
+<div class="sidebar-float-widget-internal">
+<div class="adSystem_ads">
+<div class="html"><div style="margin-bottom: 0px;"></div>
+<div class="g-page" data-width="320" data-href="//plus.google.com/100292833634918081724" data-layout="landscape" data-rel="publisher"></div>
+<div style="margin-top: 8px;">
+<a href="https://twitter.com/howtogeek" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @howtogeek</a>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div id="fb-root"></div>
+<script>/* Code removed by ScrapBook */</script>
+<div style="margin-bottom: 10px;"></div>
+<div class="fb-like" data-href="https://www.facebook.com/howtogeek" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div style="margin-bottom: 15px;"></div></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both; margin-bottom: 20px;"></div>
+<div style="clear: both;"></div>
+<div id="htgyr01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<div class="yui-g" id="sb2">
+<div id="sb3">
+<div id="ns_ad8">
+<div id="sb4">
+<div style="padding: 0px 20px 20px;">
+<h3 style="text-align: left; font-size: 30px; color: rgb(35, 70, 113); font-family: bebas_neueregular; text-transform: uppercase; font-weight: normal;">More Articles You Might Like</h3>
+<script async="" src="about:blank"></script>
+<!-- htg-below-article-content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="8688851009" data-ad-format="autorelaxed"></ins>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div id="htgyl01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+<div class="yui-g" style=""></div>
+</div>
+<div class="footer" id="ft">
+<div style="width: 18%;" class="ftdiv">
+<div class="ftsection" style="">ABOUT</div>
+<ul class="bottomul">
+<li><a href="http://www.howtogeek.com/about/" rel="nofollow">About Us</a></li>
+<li><a href="http://www.howtogeek.com/contact/" rel="nofollow">Contact Us</a></li>
+<li><a href="https://discuss.howtogeek.com/">Discussion Forum</a></li>
+<li><a href="http://purch.com/" rel="nofollow">Advertising</a></li>
+<li><a href="http://www.howtogeek.com/privacy-policy/" rel="nofollow">Privacy Policy</a></li>
+</ul>
+</div>
+<div style="width: 45%;" class="ftdiv">
+<div class="ftsection" style="color: rgb(255, 152, 84);">GET ARTICLES BY EMAIL</div>
+<p id="ftemp">Enter your email address to get our daily newsletter.</p>
+<p>
+</p><form action="http://www.howtogeek.com/em/subscribe" method="post">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="footer" type="hidden">
+<input id="fromaddress2" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<input name="email" id="ftemtxt" style="color: rgb(187, 187, 187);" value="Enter Your Email Here" type="text">
+<input id="ftemsub" value="Get Articles by Email" style="background: none repeat scroll 0% 0% rgb(85, 168, 223);" type="submit">
+</form>
+<p></p>
+<div style="clear: both;"></div>
+</div>
+<div style="width: 280px; float: left;">
+<div class="ftsection">FOLLOW US</div>
+<ul class="ftsub" style="float: left;">
+<li class="icon-twitter"><a href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0">Twitter</a></li>
+<li class="icon-facebook"><a href="http://facebook.com/howtogeek" rel="nofollow">Facebook</a></li>
+</ul>
+<ul class="ftsub" style="float: left; margin-left: 20px;">
+<li class="icon-google-plus"><a href="http://plus.google.com/+howtogeek">Google+</a></li>
+<li class="icon-feed"><a href="http://feeds.howtogeek.com/howtogeek">RSS Feed</a></li>
+</ul>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="font-style: italic; font-size: 11px; text-align: center;">Disclaimer: Most of the pages on the internet include affiliate links, including some on this site.</div>
+<br>
+<div class="copyright" style="font-size: 11px;">Copyright © 2006-2016 How-To Geek, LLC&nbsp; All Rights Reserved</div>
+</div>
+</div><script src="about:blank" id="pocket-btn-js"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<!-- Begin comScore Tag -->
+<script>/* Code removed by ScrapBook */</script>
+<noscript>
+<img src="http://b.scorecardresearch.com/p?c1=2&c2=6035753&cv=2.0&cj=1"/>
+</noscript>
+<!-- End comScore Tag -->
+<script>/* Code removed by ScrapBook */</script>
+<!-- Quantcast Tag -->
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<noscript>
+<div style="display:none;">
+<img src="//pixel.quantserve.com/pixel/p-e1gWzoEHleH1I.gif" height="1" width="1" alt="Quantcast"/>
+</div>
+</noscript>
+<!-- End Quantcast tag -->
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+</body><div style="display: none; width: 24px;" id="diigotb-imagepanel"><div class="diigotb-btn enabled" title="Save this image to Diigo" id="diigotb-quick-save"></div></div><div style="display: none;" class="diigotb-border diigotb-left"></div><div style="display: none;" class="diigotb-border diigotb-top"></div><div style="display: none;" class="diigotb-border diigotb-right"></div><div style="display: none;" class="diigotb-border diigotb-bottom"></div>
+</html>
