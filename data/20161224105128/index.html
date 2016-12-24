@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html itemtype="http://schema.org/Article" itemscope="">
+<head>
+<meta charset="UTF-8">
+<link href="https://plus.google.com/100292833634918081724" rel="publisher">
+<title>How to Use a Raspberry Pi as a Networked Time Machine Drive For Your Mac</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="fb:page_id" content="65878196434">
+<meta name="verify-v1" content="WiU7236KQY8e6jcxePbZscPXDuMvJ3b9ydseGd4G5AE=">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta name="REVISIT-AFTER" content="1 DAYS">
+<link rel="alternate" type="application/rss+xml" title="How-To Geek RSS Feed" href="http://feeds.howtogeek.com/HowToGeek">
+<meta property="og:title" itemprop="name" name="title" content="How to Use a Raspberry Pi as a Networked Time Machine Drive For Your Mac">
+<meta property="og:type" content="article">
+<meta property="og:description" name="og:description" itemprop="og:description" content="Why spend $300 on an AirPort Time Capsule when you can make one yourself with a Raspberry Pi and an external hard drive? It takes a little tweaking, but once it’s all set up, your Mac will back up automatically, without any effort on your part. No more having to plug a drive into your computer.">
+<meta property="og:image" content="http://www.howtogeek.com/thumbcache/280/160/ae98d80f7371555745878e4162c7a91b/wp-content/uploads/2016/10/raspberry-pi-time-machine-mac.png">
+<link rel="image_src" href="http://www.howtogeek.com/thumbcache/280/160/ae98d80f7371555745878e4162c7a91b/wp-content/uploads/2016/10/raspberry-pi-time-machine-mac.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@howtogeek">
+<meta name="twitter:title" content="How to Use a Raspberry Pi as a Networked Time Machine Drive For Your Mac">
+<meta name="twitter:description" content="Why spend $300 on an AirPort Time Capsule when you can make one yourself with a Raspberry Pi and an external hard drive? It takes a little tweaking, but once it’s all set up, your Mac will back up automatically, without any effort on your part. No more having to plug a drive into your computer.">
+<meta name="twitter:image:src" content="http://www.howtogeek.com/thumbcache/280/160/ae98d80f7371555745878e4162c7a91b/wp-content/uploads/2016/10/raspberry-pi-time-machine-mac.png">
+<link rel="stylesheet" href="A.howtogeek.css,q1466298260.pagespeed.gp+jp+jw+pj+ec+ei+fc+if+ii+js+rj+rp+rw+ri+cp+md.cf.8phhU3MPa4.css" type="text/css">
+<link href="css.dat" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script type="text/javascript" async="" src="about:blank"></script><script src="about:blank" async=""></script><script src="about:blank" async=""></script><script src="about:blank" id="twitter-wjs"></script><script src="about:blank" async="" type="text/javascript"></script><script src="about:blank" id="facebook-jssdk"></script><script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>	<script type="text/javascript" src="about:blank"></script>
+<link rel="https://api.w.org/" href="http://www.howtogeek.com/wp-json/">
+<link rel="shortlink" href="http://www.howtogeek.com/?p=276468">
+<link rel="alternate" type="application/json+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F276468%2Fhow-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.howtogeek.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.howtogeek.com%2F276468%2Fhow-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac%2F&amp;format=xml">
+<link rel="canonical" href="http://www.howtogeek.com/276468/how-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac/">
+<meta property="og:url" content="http://www.howtogeek.com/276468/how-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac/"><link rel="amphtml" href="http://www.howtogeek.com/276468/how-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac/amp/">
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script pagespeed_no_defer="">/* Code removed by ScrapBook */</script><style type="text/css">
+/* Code tidied up by ScrapBook */
+@media screen {
+}
+@media print {
+}
+</style><style id="diigo-activeHighlight" type="text/css">
+/* Code tidied up by ScrapBook */
+</style><script>/* Code removed by ScrapBook */</script></head>
+<body class="v3">
+<div style="text-align: center; min-height: 90px; z-index: 999999; margin-right: auto; margin-left: auto; position: relative;" class="adslot adslot970">
+<div id="htgyl11">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>
+<div id="doc4" class="yui-t7">
+<div id="hd">
+<div id="htgHeader" style="border-top: 4px solid rgb(23, 34, 50);">
+<div class="logo" style="">
+<h1 id="printH1">How-To Geek</h1><a href="http://www.howtogeek.com/" class="home"><img src="data:image/gif;base64,R0lGODlhAQABAIAAADoSLQAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="How-To Geek"></a>
+<div style="float: right; width: 450px;">
+<ul class="bigmenu">
+<li class="menubaritem">Articles <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu">
+<div class="subMenuArticles">
+<div class="smawrap">
+<a href="http://www.howtogeek.com/282798/what-are-the-found000-folder-and-file0000chk-file-in-windows/" align="left" class="title" rel="bookmark"><span><img src="ximg_583f850a2831e.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.rgU3lBRkRp.png"></span></a>
+<a href="http://www.howtogeek.com/282798/what-are-the-found000-folder-and-file0000chk-file-in-windows/" class="title" rel="bookmark">What Are the FOUND.000 Folder and FILE0000.CHK File in Windows?</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/281635/are-my-smarthome-devices-secure/" align="left" class="title" rel="bookmark"><span><img src="xIMG_2974-copy-650x300.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.IFAvQrQpNh.jpg"></span></a>
+<a href="http://www.howtogeek.com/281635/are-my-smarthome-devices-secure/" class="title" rel="bookmark">Are My Smarthome Devices Secure?</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/281953/how-to-take-care-of-your-homes-appliances-so-they-last-longer/" align="left" class="title" rel="bookmark"><span><img src="x14393751444_e12e6118ca_k-copy-650x300.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.wPE3_aGeG3.jpg"></span></a>
+<a href="http://www.howtogeek.com/281953/how-to-take-care-of-your-homes-appliances-so-they-last-longer/" class="title" rel="bookmark">How to Take Care of Your Home’s Appliances So They Last Longer</a>
+</div>
+<div class="smawrap">
+<a href="http://www.howtogeek.com/180987/5-things-you-need-to-do-immediately-after-plugging-in-your-new-router/" align="left" class="title" rel="bookmark"><span><img src="ximg_52eac74fe8b0f.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.awls4APdE_.jpg"></span></a>
+<a href="http://www.howtogeek.com/180987/5-things-you-need-to-do-immediately-after-plugging-in-your-new-router/" class="title" rel="bookmark">Six Things You Need to Do Immediately After Plugging In Your New Router</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</li>
+<li class="menubaritem">Subscribe <span class="nc4"><span class="nc4l"> l </span><span class="nc4r"> l </span></span>
+<div class="subMenu" style="padding-bottom: 10px;">
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>FOLLOW US</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-twitter" href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0" target="_blank">TWITTER</a></h2></li>
+<li><h2><a class="icon-google-plus" href="http://plus.google.com/+howtogeek">GOOGLE+</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 100px;">
+<li><h2><a class="icon-facebook" href="http://facebook.com/howtogeek" rel="nofollow">FACEBOOK</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<div id="subemsub" class="submenudetail sm400 noclick" style="padding-bottom: 20px;">
+<div id="emquest"><div class="fs1" aria-hidden="true" data-icon=""></div></div>
+<span>GET UPDATES BY EMAIL</span>
+<form action="http://www.howtogeek.com/em/subscribe" method="post">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="topmenu" type="hidden">
+<input id="fromaddress" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<p style="font-family: 'Open Sans'; text-transform: none;">Enter your email below to get exclusive access to our best articles and tips before everybody else.</p>
+<p><input id="from" name="email" value="Enter Your Email Here" style="width: 200px; color: rgb(187, 187, 187); margin-left: 59px; font-family: 'Open Sans'; text-transform: none;" type="text"><input id="sub1" name="sub1" value="Get Your Newsletter Now" style="background: none repeat scroll 0% 0% rgb(85, 168, 223); margin-left: 59px; width: 212px; margin-top: 6px; font-family: 'Open Sans'; text-transform: none;" type="submit"></p>
+<div style="clear: both;"></div>
+</form>
+</div>
+</div>
+<div class="subMenuSection" style="margin-left: 20px;">
+<h4>RSS</h4>
+<ul style="width: 130px;">
+<li><h2><a class="icon-feed" href="http://feeds.howtogeek.com/howtogeek">ALL ARTICLES</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/features/feed/" rel="nofollow">FEATURES ONLY</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left: 0px;">
+<h4>&nbsp;</h4>
+<ul style="width: 150px;">
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/trivia/feed/" rel="nofollow">TRIVIA</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+<li class="menubaritem">Search <span class="icon-magnifying-glass" style="padding-left: 10px; font-size: 16px;"></span>
+<div class="subMenu" style="padding: 20px; text-align: center;">
+<form action="http://www.howtogeek.com/search/" method="get" id="sea">
+<input name="q" id="s" value="" style="width: 900px; height: 40px; line-height: 40px; border: 1px solid rgb(204, 204, 204);" type="text">
+<input id="searchsubmit" value="Go" style="height: 42px; border: 1px solid rgb(204, 204, 204); font-family: 'Open Sans'; font-size: 16px; padding: 10px; background: none repeat scroll 0% 0% rgba(196, 230, 237, 0.99); border-radius: 0px 5px 5px 0px;" type="submit">
+</form>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="bd">
+<div class="yui-g" id="headerpanel"></div>
+<div class="yui-ge">
+<div class="yui-u first">
+<div class="content" id="htgArticle">
+<h1 id="printHeader" style="display: none;">How-To Geek</h1>
+<!-- abovepost -->
+<div class="thepost" id="post-276468">
+<style>
+/* Code tidied up by ScrapBook */
+.thecontent > pre { text-align: left; clear: both; margin: 0px 0px 10px; border: 1px dashed rgb(47, 111, 171); color: rgb(0, 0, 0); background-color: rgb(249, 249, 249); line-height: 1.1em; font-family: monospace; max-width: 618px; padding: 20px 10px; overflow-x: auto; }
+</style>
+<h2 style="margin-top: 10px;"><a style="font-family: 'Open Sans',sans-serif;" href="#" rel="bookmark" title="How to Use a Raspberry Pi as a Networked Time Machine Drive For Your Mac">How to Use a Raspberry Pi as a Networked Time Machine Drive For Your Mac</a></h2>
+<div class="thecontent">
+<!-- google_ad_section_start -->
+<p><img class="alignnone size-full wp-image-276483" alt="raspberry-pi-time-machine-mac" src="raspberry-pi-time-machine-mac.png" width="650" height="300"></p>
+<p>Why spend $300 on an AirPort Time Capsule when you can make one yourself with a <a href="https://smile.amazon.com/Raspberry-Pi-RASP-PI-3-Model-Motherboard/dp/B01CD5VC92?tag=823814-20">Raspberry Pi</a> and an <a href="https://smile.amazon.com/Seagate-Backup-Desktop-External-STDT5000100/dp/B00HFRWXV0?tag=823814-20">external hard drive</a>? It takes a little tweaking, but once it’s all set up, your Mac will back up automatically, without any effort on your part. No more having to plug a drive into your computer.</p>
+<p>Even better: when it comes time to restore files, you can unplug the hard drive from the Pi and plug it directly into your Mac, allowing you to recover from a total system failure using System Recovery. Similar hacks do not work this way.</p>
+<div id="div-thetop1" style="margin-top: 5px; margin-bottom: 15px;">
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script async="" src="about:blank"></script>
+<!-- htg-desktop-top -->
+<ins class="adsbygoogle" style="display: inline-block; width: 650px; height: 141px;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="1477883008"></ins>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<h3>What You’ll Need</h3>
+<p>We’ve shown you <a href="http://www.howtogeek.com/192533/how-to-back-up-your-mac-and-restore-files-with-time-machine/">how to back your Mac with Time Machine</a>, and even <a href="http://www.howtogeek.com/192533/how-to-back-up-your-mac-and-restore-files-with-time-machine/">how to perform Time Machine backups over the network</a>. But in those tutorials, backing up over the network required another Mac acting as a server. So if you live in a single-Mac household, you might think your only option it to plug in a USB hard drive or buy a $300 Apple Time Capsule.</p>
+<p>That’s not true. The Raspberry Pi connected to an external hard drive makes for a great improvised alternative to a Time Capsule or another Mac, and it’s much cheaper. (Yes, the Time Capsule does include router functionality, so it’s actually a decent price for what it offers–but this method lets you use whatever router you want, and offers more room for upgrades&nbsp;when your drive runs out of space.)</p>
+<p>This tutorial assumes you already know the basics of <a href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/all/">how to set up a Raspberry Pi</a>. It also requires a little bit of equipment:</p>
+<ul>
+<li>A Raspberry Pi. Any model will do, but the current model is the <a href="https://smile.amazon.com/Raspberry-Pi-RASP-PI-3-Model-Motherboard/dp/B01CD5VC92?tag=823814-20">Raspberry Pi 3 Model B</a>.</li>
+<li>An SD card, for the Raspberry Pi’s operating system. Older Raspberry Pis will use a standard SD card, while newer ones will require a microSD card, so make sure to get the right kind. <a href="http://elinux.org/RPi_SD_cards">Here’s a great list of cards</a> tested&nbsp;to work well&nbsp;the Pi.</li>
+<li>A Power supply for the Pi. The Pis power port is just microUSB, but we&nbsp;recommend getting&nbsp;a power supply designed for the Pi for reliable performance–<a href="https://smile.amazon.com/CanaKit-Raspberry-Supply-Adapter-Charger/dp/B00MARDJZ4?tag=823814-20">this one from CanaKit</a> works well.</li>
+<li>A wired network connection for your Pi (you could use Wi-Fi, but it takes more setup and wired is going to be much better for those big over-the-network backups)</li>
+<li>An <a href="https://smile.amazon.com/Seagate-Backup-Desktop-External-STDT5000100/dp/B00HFRWXV0?tag=823814-20">external hard drive</a>, which you’ll connect to the Pi over&nbsp;USB. We recommend getting a desktop external hard drive with its own dedicated power supply, unless you have a USB-powered drive that’s been tested working with the Pi.</li>
+</ul>
+<p>You can get most of this stuff (and more) in one fell swoop with <a href="https://smile.amazon.com/CanaKit-Raspberry-Complete-Starter-Kit/dp/B01C6Q2GSY?tag=823814-20">a good Raspberry Pi starter kit like this one</a>, or you can buy them separately. Your call.</p>
+<p>I found out about this method from <a href="https://www.calebwoods.com/2015/04/06/diy-time-capsule-raspberry-pi/">a blog post by Caleb Woods</a>, and filled in a few things that didn’t work for me by reading <a href="http://www.badbox.de/2016/10/netatalk-on-raspberry-jessie/">this post on Badbox.de</a>. My sincere thanks to both of you.</p>
+<p>One final note: this hack works quite well in my experience, but at the end of the day it’s still just that: a hack. For this reason, I recommend having some sort of backup besides this, preferably something offsite. (You should <a href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/">always have an offsite backup anyway</a>, in case of fire or other natural disaster.)</p>
+<div class="relatedfull"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLES</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 0px;"><div style="clear: both;"><div class="leftitem" style="float: left; width: 310px; margin-right: 20px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/192533/how-to-back-up-your-mac-and-restore-files-with-time-machine/"><img src="xmac-os-x-time-machine-backup.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.2U5t1KXv27.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/192533/how-to-back-up-your-mac-and-restore-files-with-time-machine/">How to Back Up Your Mac and Restore Files With Time Machine</a></span></div><div class="leftitem" style="float: left; width: 310px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/"><img src="data:image/jpeg;base64,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"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/">What’s the Best Way to Back Up My Computer?</a></span></div><div style="clear: both;"> </div></div></div><div style="clear: both;"> </div></div>
+<h3>Step One: Prepare the External Drive for Time Machine</h3>
+<p>The first thing you need to do is prepare the external drive to work with Time Machine. Plug the drive into your Mac, then <a href="http://www.howtogeek.com/212836/how-to-use-your-macs-disk-utility-to-partition-wipe-repair-restore-and-copy-drives/">launch Disk Utility</a>. Select&nbsp;your external drive, then click the “Erase” button. You’re going to want to format the drive as “Mac OS Extended”, also known as&nbsp;HFS+.</p>
+<p><img class="alignnone size-full wp-image-276469" alt="time-machine-create-partition" src="time-machine-create-partition.png" width="650" height="331"></p>
+<p>Next, we’re going to want to ensure that your Raspberry Pi, and every device, will have permission to control the drive. Head to the Finder, then right-click the drive in the sidebar. Click “Get Info”.</p>
+<p><img class="alignnone size-full wp-image-276470" alt="mac-finder-get-info" src="mac-finder-get-info.png" width="533" height="281"></p>
+<p>At the bottom of the window that opens, you’ll find the permission settings.</p>
+<p><img class="alignnone size-full wp-image-276471" alt="mac-finder-permissions" src="mac-finder-permissions.png" width="589" height="232"></p>
+<p>Click the lock at bottom right, then enter your password. Next, check “Ignore ownership on this volume.” And with that, you’re ready to connect your external drive to the Pi.</p>
+<h3>Step Two: Install Raspbian on Your Pi and Connect to It Over SSH</h3>
+<div class="relatedside" style="margin-top: 25px;"><span class="relatedtext" style="font-family: bebas_neueregular; font-size: 16px; z-index: 1; position: relative; top: -7px; padding-left: 10px; float: right; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(136, 136, 136);">RELATED ARTICLE</span><div class="relateditemwrap" style="border-top: 3px solid rgb(221, 221, 221); border-bottom: 3px solid rgb(221, 221, 221); margin-left: 6px; padding: 8px 8px 8px 0px;"><div class="relateditemimg" style="float: left; width: 128px; margin-left: 2px;"><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/"><img src="xraspheader1.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.add7KiAEhU.jpg"></a></div><span><a style="text-decoration: none; font-weight: bold;" href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/">Everything You Need to Know About Getting Started with the Raspberry Pi</a></span><div style="clear: both;"></div></div></div>
+<p>Next, you’ll&nbsp;need to set up your Raspberry Pi with Raspbian, as <a href="http://www.howtogeek.com/138281/the-htg-guide-to-getting-started-with-raspberry-pi/all/">outlined in this article</a>. We won’t detail the process here, since it’s a project in and of itself, so go check out that guide to get Raspbian set up on your Pi. I used Raspbian Core for my setup, as I’ve not connected the Pi to a display, but there’s no reason the full, GUI version of Raspbian wouldn’t also work.</p>
+<p>Speaking of which: you have two choices when it comes to the rest of this tutorial. You could hook your Raspberry Pi up to a keyboard and monitor and set things up that way, or you can connect to your Pi over SSH and run every step from the comfort of your Mac. We think the SSH method is much easier than finding a random monitor, so here’s how to do that.</p>
+<p><img class="alignnone size-full wp-image-276472" alt="mac-raspberry-pi-ssh" src="mac-raspberry-pi-ssh.png" width="650" height="285"></p>
+<p>Launch the Terminal on your Mac, then enter the following command:</p>
+<p><code>ssh pi@192.168.1.11</code></p>
+<p>Replacing <code>192.168.1.11</code> &nbsp;with the IP address of your Pi.&nbsp;You can <a href="http://www.howtogeek.com/204057/how-to-see-who%E2%80%99s-connected-to-your-wi-fi-network/">find the IP address of any device connected to your network</a>, including your Raspberry Pi, by heading to your router’s web interface.</p>
+<p>You’ll then be asked for a password for the default user, <code>pi</code> .&nbsp;The password for <code>pi</code> is, by default, <code>raspberry</code> .</p>
+<p>If you’re connecting to a fresh system for the first time, I suggest you configure a few things before proceeding. First, run <code>sudo raspi-config</code> and change your default password. You can also expand your default filesystem here, if you have a large SD card (though this is not necessary for this tutorial.) Your Raspberry Pi will restart, at which point you’re ready to get to work.</p>
+<h3>Step Three: Mount Your External Drive</h3>
+<p>Before you&nbsp;can set up your Time Machine, you&nbsp;need to mount the drive so your Raspberry Pi can read and write to it. Doing this requires installing some software. First, make sure all the software on the Pi is up to date. Run these two commands, one after the other:</p>
+<p><code>sudo apt-get update</code></p>
+<p><code>sudo apt-get upgrade</code></p>
+<p>Next, install two packages: hfsprogs and hfsplus. These will let your Raspberry Pi read your Mac-formatted drive.</p>
+<p><code>sudo apt-get install hfsprogs hfsplus</code></p>
+<p><img class="alignnone size-full wp-image-276473" alt="time-pi-install-hfs-plus" src="time-pi-install-hfs-plus.png" width="650" height="281"></p>
+<p>You&nbsp;now have software capable of mounting your&nbsp;drive, but it needs to know which drive to mount, so you’ll need to&nbsp;do some research. Start&nbsp;by launching Parted.</p>
+<p><code>sudo /sbin/parted</code></p>
+<p>Next, type <code>print</code> to see a list of currently connected drives. You should see your external drive here.</p>
+<p><img class="alignnone size-full wp-image-276474" alt="time-pi-hard-drive" src="time-pi-hard-drive.png" width="650" height="249"></p>
+<p>From this screenshot, we can see that my drive is a 164GB Maxtor drive (I’ll get a bigger one later, I promise.) The important bit of information here is <code>/dev/sda</code>. your drive will have a similar name, which you should write down.</p>
+<p>Next, look at the&nbsp;table below that block of text. In my case, it’s obvious that the second, larger partition is what I’m looking for. Therefore, I make note that the partition I want to mount is <code>sda2</code>. You might need a slightly different figure, if you have more than one drive or more than one partition on your drive.</p>
+<p>Now that you&nbsp;have the information you&nbsp;need, type <code>quit</code>&nbsp;and press Enter. Next, we’re going to make a folder that will serve as our mount point…</p>
+<p><code>sudo mkdir -p /media/tm</code></p>
+<p>…and then add some information to the&nbsp;fstab file. Use this command to open a text editor:</p>
+<p><code>sudo nano /etc/fstab</code></p>
+<p>Paste&nbsp;the following line&nbsp;into the document, replacing <code>/dev/sda2</code>&nbsp;with your drive’s partition, if different from /dev/sda2.</p>
+<p><code>/dev/sda2 /media/tm hfsplus force,rw,user,auto 0 0</code></p>
+<p><img class="alignnone size-full wp-image-276475" alt="time-pi-fstab" src="time-pi-fstab.png" width="650" height="200"></p>
+<p>Once you’ve pasted the text, press Control+X to leave the editor, making sure to save when you do.</p>
+<p>Then, mount the drive with:</p>
+<p><code>sudo mount -a</code></p>
+<p>If you don’t see an error message, congratulations! You’ve successfully mounted your drive.</p>
+<h3>Step Three: Compile and Install Netatalk</h3>
+<p>Netatalk is a piece of software that simulates&nbsp;AFP, the network protocol Apple currently users for Time Machine backups. You can install an ancient version of Netatalk using <code>sudo apt-get install netatalk</code> , but&nbsp;<strong>I highly recommend that you do not do that</strong>. For (largely political) complex reasons, Debian–which Raspbian is built on–offers a&nbsp;very outdated&nbsp;version of Netatalk in its repositories. You can kind of get Time Machine to work using this outdated version of Netatalk, but in my experience it’s frustrating.</p>
+<p>So, I recommend you compile the latest version instead. It is more of a hassle to&nbsp;install, but it’s worth it.</p>
+<p>First, you&nbsp;need to install the dependencies. Here’s everything you need to install, in one command:</p>
+<p><code>sudo aptitude install build-essential libevent-dev libssl-dev libgcrypt11-dev libkrb5-dev libpam0g-dev libwrap0-dev libdb-dev libtdb-dev libmysqlclient-dev avahi-daemon libavahi-client-dev libacl1-dev libldap2-dev libcrack2-dev systemtap-sdt-dev libdbus-1-dev libdbus-glib-1-dev libglib2.0-dev libio-socket-inet6-perl tracker libtracker-sparql-1.0-dev libtracker-miner-1.0-dev</code></p>
+<p>This might take a while to install.&nbsp;Next, download the latest version of Netatalk. As of this writing, that’s 3.1.10, though you may want to check <a href="http://netatalk.sourceforge.net/">netatalk’s home&nbsp;page</a> to get the latest version number. Then, run this command to download it:</p>
+<p><code>wget http://prdownloads.sourceforge.net/netatalk/netatalk-3.1.10.tar.gz</code></p>
+<p>Replace the version number if you find a later version on their site.</p>
+<p>Now, unpack the file you&nbsp;downloaded with:</p>
+<p><code>tar -xf netatalk-3.1.10.tar.gz</code></p>
+<p>Then switch to the new folder you just created.</p>
+<p><code>cd netatalk-3.1.10</code></p>
+<p>Next, you can configure all of netatalk’s settings before compiling the program, by using this command:</p>
+<pre lang="undefined">./configure \
+        --with-init-style=debian-systemd \
+        --without-libevent \
+        --without-tdb \
+        --with-cracklib \
+        --enable-krbV-uam \
+        --with-pam-confdir=/etc/pam.d \
+        --with-dbus-daemon=/usr/bin/dbus-daemon \
+        --with-dbus-sysconf-dir=/etc/dbus-1/system.d \
+        --with-tracker-pkgconfig-version=1.0
+</pre>
+<p><img class="alignnone size-full wp-image-276476" alt="time-pi-compile-netatalk" src="time-pi-compile-netatalk.png" width="650" height="317"></p>
+<p>Assuming you don’t see any error messages, you can move on to the next stage and run:</p>
+<p><code>make</code></p>
+<p>This is going to take a while. You might as well make yourself a coffee, some scones, and a three course meal. A Raspberry Pi is not fast at compiling software.</p>
+<p>When everything is done, you can finally install Netatalk:</p>
+<p><code>sudo make install</code></p>
+<p>Wasn’t that fun? Quickly check that Netatalk is actually running:</p>
+<p><code>netatalk -V</code></p>
+<p>You’ll see a bunch of information about your Netatalk setup. If everything looks good, let’s configure things!</p>
+<h3>Step Four: Configure Netatalk</h3>
+<p>Now that Netatalk is installed, you&nbsp;need to tell it to share your drive. First up, you’ll need to&nbsp;edit <code>nsswitch.conf</code>.</p>
+<p><code>sudo nano /etc/nsswitch.conf</code></p>
+<p>Here you need to add <code>mdns4</code> and <code>mdns</code> to the line that starts with “hosts:”, so that it looks like this:</p>
+<p><code>hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4 mdns</code></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img class="alignnone size-full wp-image-276718" alt="time-pi-fstab" src="urn:scrapbook-download-error:http://www.howtogeek.com/wp-content/uploads/2016/10/time-pi-fstab-3.png" width="650" height="293"></p>
+<p>This tweak means your Time Machine drive will show up in Finder’s sidebar&nbsp;as soon as you connect your Raspberry Pi to the network.</p>
+<p>Next, you’ll need to&nbsp;edit <code>afpd.service</code>:</p>
+<p><code>sudo nano /etc/avahi/services/afpd.service</code></p>
+<p>Copy this block of text and paste it into that file:</p>
+<pre lang="undefined">&lt;?xml version="1.0" standalone='no'?&gt;&lt;!--*-nxml-*--&gt;
+&lt;!DOCTYPE service-group SYSTEM "avahi-service.dtd"&gt;
+&lt;service-group&gt;
+    &lt;name replace-wildcards="yes"&gt;%h&lt;/name&gt;
+    &lt;service&gt;
+        &lt;type&gt;_afpovertcp._tcp&lt;/type&gt;
+        &lt;port&gt;548&lt;/port&gt;
+    &lt;/service&gt;
+    &lt;service&gt;
+        &lt;type&gt;_device-info._tcp&lt;/type&gt;
+        &lt;port&gt;0&lt;/port&gt;
+        &lt;txt-record&gt;model=TimeCapsule&lt;/txt-record&gt;
+    &lt;/service&gt;
+&lt;/service-group&gt;
+</pre>
+<p>Among other things, this information makes&nbsp;your Raspberry Pi mimic an actual Apple Time Capsule, complete with the appropriate icon.</p>
+<p>Finally, it’s time to&nbsp;set up your external drive as a network share.</p>
+<p><code>sudo nano /usr/local/etc/afp.conf</code></p>
+<p>At the bottom of this document,&nbsp;paste the following text:</p>
+<pre lang="undefined">[Global]
+  mimic model = TimeCapsule6,106
+
+[Time Machine]
+  path = /media/tm
+  time machine = yes
+</pre>
+<p>You can put a different name than “Time Machine” between the second brackets, if you want. This will change the name of the drive you back up to, as shown in Finder and Time Machine itself.</p>
+<p>Finally, go ahead and launch the network services. In order, run these two commands:</p>
+<p><code>sudo service avahi-daemon start</code><br>
+<code>sudo service netatalk start</code></p>
+<p>Your drive is now offered on the network. To make sure this happens every time you start up your Raspberry Pi, enter these commands, again, one after the other:</p>
+<p><code>sudo systemctl enable avahi-daemon</code><br>
+<code>sudo systemctl enable netatalk</code></p>
+<p>We’re really close now!</p>
+<h3>Step Five: Connect to Your Time Machine</h3>
+<p>Head to the Finder on your Mac and you should see your Raspberry Pi here.</p>
+<p><img class="alignnone size-full wp-image-276478" alt="finder-raspberry-pi" src="finder-raspberry-pi.png" width="650" height="379"></p>
+<p>You can actually connect from here, by clicking “Connect As” and entering the same username and password you use to connect over SSH.</p>
+<p>In my experience, however, Time Machine works better if you connect to the drive through its IP address, especially if you’ve <a href="http://www.howtogeek.com/184310/ask-htg-should-i-be-setting-static-ip-addresses-on-my-router/">set up static IP addresses with your router</a>&nbsp;(which you probably should). To connect, open Finder, then hit Command+K on your keyboard.</p>
+<p><img class="alignnone size-full wp-image-276479" alt="time-machine-pi-ip-address" src="time-machine-pi-ip-address.png" width="600" height="298"></p>
+<p>Once you’ve mounted the drive, head to System Preferences &gt; Time Machine, then select the drive as your Time Machine backup.</p>
+<p><img class="alignnone size-full wp-image-276480" alt="time-machine-working" src="time-machine-working.png" width="650" height="355"></p>
+<p>The initial backup will run, and after that backups will happen every hour. You now have a networked Time Machine drive. Enjoy!</p>
+<!-- google_ad_section_end -->
+</div>
+<div style="clear: both; height: 0px;"></div>
+<!-- discourse comments begin -->
+<style>
+/* Code tidied up by ScrapBook */
+#discusslink { color: rgb(88, 88, 88); text-decoration: none; }
+#discusslink:hover { color: blue; text-decoration: none; }
+.commenttext img { max-width: 618px; }
+</style>
+<div style="max-width: 650px; width: 100%; padding-top: 10px;"><span style="font-family: bebas_neueregular; font-size: 19px; position: relative; top: -9px; padding-right: 10px; float: left; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(134, 134, 134);"><a id="discusslink" href="#">JOIN THE DISCUSSION (12 REPLIES)</a></span><div style="border-top: 4px solid rgb(204, 204, 204);"></div></div>
+<div id="discusscomments" style="display: none;"><style>
+/* Code tidied up by ScrapBook */
+img.avatar { display: none; }
+</style>
+<div style="clear: both;"></div>
+<ul class="commentlist"><li class="comment-def">
+<div class="commentmetadata date"><a href="#">October 31, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Ryan</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>A couple typos. Step Four:... "Here you need to add mdns4 and mans"</p>
+<aside class="quote" data-post="1" data-topic="53286"><div class="title">
+<div class="quote-controls"></div>
+<img alt="" class="avatar" src="29396_1.png" width="20" height="20">justinpot:</div>
+<blockquote><p>sudo systemctl enable enable avahi-daemonsudo systemctl enable netatalk</p></blockquote></aside>
+<p>Should remove one of the 'enable' commands.</p>
+<p>Thanks for this write up. Trying to mimic this for a Ubuntu VM with direct access to an HFS+ formatted drive. Not having success getting the Mac to connect to it once starting the service though.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">October 31, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Justin Pot</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Good catches! Fixing now. </p>
+<p>Not sure how well this would work in a virtual machine, but please let me know if you get things working. I could do a generic Ubuntu version of this tutorial if there's enough interest.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 1, 2016</a></div>
+<div class="commentauthor"><div class="ca2"></div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Thanks a lot of the tutorial! I've been struggling to get this working and I was able to do the first backup today. Just a couple of observations that may help some people:</p>
+<p>After mounting the Volume check the owner of the folder with ls -l /mediaIf it is different from the ssh user you may want to do (assuming the user is pi)sudo chown pi:pi /media/tm </p>
+<p>Also, it is recommended to use the UUID for the automatic mounting in the fstab in case the disk number changes. So instead of /dev/sda you would have UUID="your-uuid" you can get it with the command sudo blkid</p><div class="lightbox-wrapper"><a rel="nofollow" data-download-href="https://discuss.howtogeek.com/uploads/default/2c408bd80df9c5b7334502c0d505599558bdb15d" href="https://discuss.howtogeek.com/uploads/default/original/3X/2/c/2c408bd80df9c5b7334502c0d505599558bdb15d.png" class="lightbox" title="Screen Shot 2016-10-31 at 9.34.20 PM.png"><img src="2c408bd80df9c5b7334502c0d505599558bdb15d_1_690x79.png" width="690" height="79"><div class="meta">
+Screen Shot 2016-10-31 at 9.34.20 PM.png2004x230 56.8 KB
+</div></a></div><p></p>
+<p>And the fstab would look like thisUUID="9c2f83c9-6ac7-3950-92c7-90b8ae89d45f" /media/tm hfsplus force,rw,user,auto 0 0</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2"></div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Thanks for the tutorial! I followed the guide step by step (I thought) but I am unable to connect to my pi IP on my mac. I keep getting an error stating "There are no shares available or you are not allowed to access them on the server."</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Justin Pot</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Hey! That's weird, I wonder what's up. Does the Pi show up in Finder, even without attempting to connect via IP? Are you prefexing the IP with afp://, like in the screenshot?</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Ryan</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>I did end up getting it to work with a Ubuntu VM. Using Netatalk's <a rel="nofollow" href="http://netatalk.sourceforge.net/wiki/index.php/Install_Netatalk_3.1.10_on_Ubuntu_14.04_Trusty">wiki</a> helped. Recorded the process here: <a rel="nofollow" href="https://thatvirtualboy.com/2016/11/03/send-time-machine-backups-to-a-vm-hosted-in-windows/">https://thatvirtualboy.com/2016/11/03/send-time-machine-backups-to-a-vm-hosted-in-windows/</a></p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Justin Pot</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>This is really cool! Let me know if it works for you long-term. </p>
+<p>What I'd really like to do at some point is get this working in Windows 10's version of Bash. It seems like a pipe dream now but I'll keep looking into it.</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Ryan</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Will do! Would be great to use Windows' native bash somehow. Been a long time reader of HTG - keep up the great work!</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2"></div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Looks like I had a typo when setting up my external drive as a network share. The path for [Time Machine] was incorrect. Got it working now! Thanks!</p><p></p></div>
+</li><li class="comment-def">
+<div class="commentmetadata date"><a href="#">November 3, 2016</a></div>
+<div class="commentauthor"><div class="ca2">Justin Pot</div></div>
+<div style="clear: both;"></div>
+<div class="commenttext"><p></p><p>Glad you got it working!</p><p></p></div>
+</li></ul>
+<div id="discourselink">
+<h3 id="reply-title"><a href="https://discuss.howtogeek.com/t/how-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac/53286">Got Feedback? Click Here to Join the Discussion</a></h3>
+</div>
+</div>
+<div style="clear: both; height: 0px;"></div>
+<div id="socialmediabuttons" style="margin-bottom: 0px;">
+<div id="fb-root"></div>
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script>/* Code removed by ScrapBook */</script>
+<div style="padding-right: 20px; float: left;">
+<div class="fb-like" data-href="http://www.howtogeek.com/276468/how-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac/" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+</div>
+<div style="padding-right: 20px; float: left;">
+<div class="g-plusone" data-size="tall"></div>
+</div>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<div style="padding-right: 20px; float: left;">
+<a data-pocket-label="pocket" data-pocket-count="vertical" class="pocket-btn" data-lang="en"></a>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="padding-right: 20px; float: left;">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.howtogeek.com/276468/how-to-use-a-raspberry-pi-as-a-networked-time-machine-drive-for-your-mac/" data-via="howtogeek" data-lang="en" data-related="anywhereTheJavascriptAPI" data-count="vertical">Tweet</a>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div id="postiddiv" post="276468"></div>
+<div style="clear: both;"></div>
+<div class="articleExtras" style="background: none repeat scroll 0% 0% rgb(254, 254, 254); border-top: medium none;">
+<div style="width: 450px; float: left;" id="authorinfobox">
+<p style="font-weight: normal; color: rgb(51, 51, 51);"><b><a href="http://www.howtogeek.com/author/justinpot/">Justin Pot</a></b>&nbsp;is a technology writer and enthusiast who lives in Portland, Oregon. Follow him on&nbsp;<a href="https://twitter.com/jhpot">Twitter</a>&nbsp;and&nbsp;<a href="https://www.facebook.com/justin.pot">Facebook</a>, if you want. You don't have to.</p>
+</div>
+<div style="width: 130px; float: right;">
+<ul class="normul" style="margin-bottom: 6px;">
+<li>Published 10/31/16</li>
+<!--<li><span id="pv3"></span></li>-->
+</ul>
+<div style="margin-left: -14px;"><a href="https://twitter.com/jhpot" class="twitter-follow-button" data-show-count="false"></a></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div class="below-post-features" style="width: 650px; overflow: hidden; max-height: 250px; margin-bottom: 20px;">
+<div id="outbrain-below-article" style="">
+<style>
+/* Code tidied up by ScrapBook */
+.below-post-features:hover { box-shadow: 0px 0px 3pt 2pt rgb(98, 128, 156); }
+#sb3 { padding-top: 0px; }
+.content { padding-bottom: 0px; margin-bottom: 0px; }
+</style>
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" border="0" height="1">
+</div>
+</div>
+<div style="width: 100%; max-width: 650px; margin-bottom: 0px;">
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div class="yui-u">
+<div class="sidebar">
+<div style="margin-top: 24px; clear: both;"></div>
+<div class="sidebar-glossary">
+<h4 class="sidebarh4">DID YOU KNOW?</h4><div class="glossaryhomebox" style="padding: 10px;"><p>Harry Truman was the only 20th century U.S. President to serve without a college degree under his belt.</p>
+</div>
+</div>
+<div id="side78"><div id="htgyr11">
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>	<div class="sidebar-glossary lazyloaddiv">
+<style>
+/* Code tidied up by ScrapBook */
+</style>
+<h4 class="sidebarh4">BEST OF HOW-TO GEEK</h4>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/260848/how-to-get-more-meaningful-battery-stats-on-your-android-phone/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAwUABAECBgf/xAAyEAACAQMCAwYEBQUAAAAAAAABAgMABBEFIRIxUQYTMkFhgRQicaEzQlJikXKx0eHw/8QAFwEBAQEBAAAAAAAAAAAAAAAAAgEAA//EABsRAQADAAMBAAAAAAAAAAAAAAABAhESMUFx/9oADAMBAAIRAxEAPwDh5JQTttmhEtIwVcsx2AAzmrMFjNJmR3EUajiZmIGF6nJAA9SQDyGTtV63jQJw2kfynxTSrkH+lT4vqwA/Z50fhqMVmqhGuCWLeGNNy3+fbbqRRNUsdQmtlW2SGFFH4anDfz/31NONPikjuQ9qJHueIN3m7OSPMnnt9qdW62dnPcp2jsLybvvBcwTAFDnJYZHC+eXPr51YpPqTaOnlGJLK7T4mGeLByeE8Dexp1onb7XNJmUv8PqUAyDFexCUYPkT4vvXa3ugJfGQaRNHq0AXi7vhCzAesZ3Jx+nP964rVezls7usfHayqSCpGQD0wdxWmjcm+u672X7QyLIujxaDccPzPbZeJmzzKjwj6KaUNozSHjttQ0+WM8m+JRc+zEEe4FLtR0e+tss0PeoPzx7/7FKWdgcZPvRxderiz+SOa4mjmbiLLGuQsbdQp8/3Elj5mm9pZNqDYJhtm4DwZGA7eQO+Fz1/nbcL0IVsnnVtLsIMs2PWu9aw42tPgZmnsu8srq1RgrHijlTDK2OuxFXZbqfU9P+Ej1BWcuHdLpwrNhQBhycEDocHYey7V9RN+0TNGqyRRiMuOcijln1A2+gHSl5ZSOhp4GbG+tkmlglWWGRo5EPErKcFT1BrW+vLi7mM11cSzykAccjljgDAGT6UOQkc6A5o8T1h3qlPbWksheS2hdjzLICaNIcCglsGpja6O7vDO6uUjRwMMVGOL1PrVd3Dcjv0qVK6YMgElH4gd+lZkAYcSHGfLpUqVR0Euy7fY0Nip5bHoalSq2gSnGxqux3qVKia//9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/260848/how-to-get-more-meaningful-battery-stats-on-your-android-phone/" class="title" rel="bookmark">How to Get More Meaningful Battery Stats on Your Android Phone</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" border="0" height="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/228570/10-quick-ways-to-speed-up-a-slow-windows-pc/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMAAwAAAAAAAAAAAAAABgcAAwgCBAX/xAAzEAABAwMCAggFAwUAAAAAAAABAgMEAAURBhIhMQcIExQiQWGBMlFxcpMVRMFSVGKRof/EABgBAAMBAQAAAAAAAAAAAAAAAAECAwUE/8QAHxEAAgICAQUAAAAAAAAAAAAAAAECAxExIQQTIiNB/9oADAMBAAIRAxEAPwDV0P8AcHPnVt0bS5D2LAKcjIPI1XC5P/cal/kx40RIecAUpQ2NgFS148kpHE+woS0GOxMzGNA267/qSp0VDjzqkMbfg3IPjHDzB5ii7oheUnUF9j7CWX0syGVIRhAGCDn1Oc+1C3SJcbvp64W3DFukwlqdJR2aQ4hZ8W5QJxtA5keLOPcGa1je2paJMS7TISbhvKiwRk7DgE5GeOeH0rgpj7DV6jHZyzVqasHKspztQ6zDfaIveoH0nzZm/wAAg0b9VvWt2vs/U1ivUqa+7EdRIjd8WpTqUHKFA7uIGUpOP8jWgZWB6OHDaj6GhDRt8RqLTzF2RGEdLqnEhsqKiNqynn7UXL4oUPQ0ttMag0ppyzNWuRdbTBUhbigwiYp4JBWT8RAyScn05UGDn4El2kOR9O3d9hfZPNtOKQvHJWOB/wB0pdGyZ1w1d36S688WY7rq3XFnlt25yfuo2RcLhy77I/IauROn/wB7I/IaWTysDw8XkSDFgud7usi2s3WVc0wMPdnIaAQUrJARnhlQCAd3nniOORbrm1iDMt1tehiOxHg4QUnBcCnFlSvclXtTt77OP72R+Q0pesBLebFuffeWvIU3uWSSMlI/mkrgo6KW3Ss2DZuqIkBT7q9rbaMnHHHpXc6t9wcb6bI8kkI/V4Ehh1vfkpUja4AfXCcemCPnSv1NeS9FYtjS+zL8hCVOKJ/qHyIP/RR70XTbfYNYWi6HcWojo7RasAoSQUEgY+SjwHCrkcmxV/Ar6GsiPaIddmyirU+l2SHleFy4gHyPkPXHsa1zvCm9ySCCMgjzpDs6gnP3K6tlMRCY09xhATGQPCnGM8OfGnrqlY8RGhFy0FTahVyCKlSoALBSc6zDE2TH0+1BiSZS1S17kMNlaiAgnkB88VKlFbAhB6h09qhV9jd/tMyIy0A52ctBYzzwcKwSCfavXtLbkAYmXEtqA3YjvKSEn7eCcD6calSqBSNh9XjVj2q+jdtyUSuRbXTBW7tx2oQlJSoj57VAH1BPDOK53G03h+Wt+2SbPGaX4lJetyXFKX5kkEelSpSNtPgeC5P/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/228570/10-quick-ways-to-speed-up-a-slow-windows-pc/" class="title" rel="bookmark">10 Quick Ways to Speed Up a Slow PC Running Windows 7, 8, or 10</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/163464/bill-shock-how-to-avoid-22000-or-more-in-international-roaming-fees/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAUCAwYEAQf/xAAoEAACAQMDAgYDAQAAAAAAAAABAgMABBEFEiETMRQiQVFhcQYygZH/xAAZAQACAwEAAAAAAAAAAAAAAAACAwABBAb/xAAZEQADAQEBAAAAAAAAAAAAAAAAAQIREiH/2gAMAwEAAhEDEQA/AJw3gYhT69663us7W+MVnUkIIIOCKlc6pbWaLLdyBdx2om7BkY9gK6K4SWnPRTp4aNHSZsEDAroEJUAk5FKLS6RmUY2H7p9AsbQbnbj4pNLBkvSyNkCrzVxukU4UnApV11EzbTx7VNW6nlyAPWgcBKhlC3iZ8Z8uKYgRIApYA0ngljiI6ZyRxXbw3myDmlUgkz4Xqsf5l4WXE9gU2nPRO1sfbdv9rLW2savJfW2qXUT3iWpwu5PJx35Axn1z9VvtatdZvLCW1hWDpzDa7I2GC/3/ACmGk2kNtpsMEMJhjRdvTccj3z7/AHWzO6wWrURuFX41qqarp6XKvH1cnqIh/Q54HPxWqtryToqntWXh0axiv1vbaHw8w/YxHaHHsw7Gn9sRGoBwSaa589Eqlvh1GVkJkI4NWRyLIoIOD8VztKBGQxzzVMc+1wB+uaDnUX0MYYpBJkEn6ppEXRApcilUd0ETdu5qqTVmLngn+0tw6DVJCNZSF2ijOaKK2GYmpqZY+9FFUQ83n1Neg896KKohJpCVxntVLNzRRULZ/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/163464/bill-shock-how-to-avoid-22000-or-more-in-international-roaming-fees/" class="title" rel="bookmark">Bill Shock: How to Avoid $22,000 or More in International Roaming Fees</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="max-width: 330px; max-height: 80px; overflow: hidden;">
+<script async="" type="text/javascript" src="about:blank" class="bt-script"></script><img style="border: 1px solid rgba(0, 0, 0, 0.05) ! important; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAAACoWZBhAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH3wwIAAgyL/YaPAAAACJJREFUCFtjfMbOAAQ/gZiFnQPEBAEmGIMIJgtIL8QEgtoAIn4D/96X1KAAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTUtMTItMDhUMDA6MDg6NTArMDM6MDAasuuJAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE1LTEyLTA4VDAwOjA4OjUwKzAzOjAwa+9TNQAAAABJRU5ErkJggg==&quot;) repeat scroll 0% 0% rgb(255, 255, 255) ! important;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" border="0" height="1">
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAUGBwIECAED/8QAMhAAAQMDAgQEBAUFAAAAAAAAAQIDBAAFEQYhEjFBUQcTMoEUUmGRCEJicaEiIzSx8P/EABcBAQEBAQAAAAAAAAAAAAAAAAMEAgX/xAAhEQACAgIBBAMAAAAAAAAAAAABAgADESExBBITQRQiUf/aAAwDAQACEQMRAD8Aq/WWrYusbSLfcR8MtKgpLzaOIA/tmoa5oW4OMh6BLjyW1bp4gWyfYipfaYCYzKRJdElYPFkoAAO/L7nnTlpwHauCtnj0nE6LIG2ZUM3TF/i5LlsfUB1bHGP4pQ6260oocbW2odFDBq5LxqRqCFtQ2Fz5KQcttgkDAyRsCSQOYA264p7pmzaj1NbkSJ2i5EWMtOUrlFvy1D6FZFUre4GWEEoo9znvJ60Z5Yq8rr4f2d1uS/IgsQWmHA0p0FQK3OjbaUetf6enWoFA01ZL5Lls2yVJiFkAsh0BwuJzgqOCOHpyJ59aZb1IzMhO4ZEhYJ71kFkU61Rp1dhU2lydHeU56UJyF47kcse9JMUqkMMiZIxzLakT48RgvSHUoQNsk8z2A6n6V5pmLddbXJcGBKj2m3tf5El90JXw9cDOSf0j3I5VFrxapc534iLP4HPldGQB2T2+2T3pXMvOurPHVEbucqDFcwlXwYDSFDoD5YHflUNNSsNHcW5m44nWGkLV4YaMhoEZk3GekYXKUyFq9lOcKUDrhOBS3Wvihp2DHecuF6blrCSY9sgKG5ztxuc/tjAzgneuPbhPflsoU/KmvyB6y64VD+TWrEeDLyFgqOfWCP8AVUfDJ2xk7FSACJb2s/Ep9cViTb3lCY4xwFaEhtEJC/UxHT+U8+Jz1K+g56dm1NYbLpP4iG0ozXNltuepa++flH/b1XkdozHw9KX5bQOB9B2FXRbfw96lu+l49+tcy3z3/L8xy0rUWn0pPpAzsT14SR7nattSmApiCwjiU5LuEm6XB2bKdLjrm5PQDsPpWOKZ3y1tWiW5AcjvR57S+F5lYILWOhB3znf9sd6X8BNKAPUxv3JRZ9QW+XhHm+S6fyOHH2PI0/bcStJSQFJI3B5Giiud1Fa1t9ZXWxYbiK92aHISpEdtDbh3OE7Coc/anYzx+J/pSk8+h/aiin6axs9uYdqDGZkErlLQkYS0ByB5DtU/s+vdbWxLYZ1RPajsp9RwpaRjGyiCrsMZ6423NFFVt+SYT6I1AvxHfRC1XIQm9n+1b7usBJX8rMjAAUk5wHMZSTvkcobcIUqBOfgzGFsSWHFNutrGChQOCD70UUZ0cTY2J//Z"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/" class="title" rel="bookmark">What’s the Best Way to Back Up My Computer?</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/235185/how-to-wipe-drives-from-windows-mac-or-a-bootable-disk/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAYFBwgDBAn/xAAxEAABAwIEBQMDAgcAAAAAAAABAgMEBREABhIhBxMxQWEUIlEIcYEVIzIzQnKCobH/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQMCBf/EACARAAICAgICAwAAAAAAAAAAAAABAhEDIQQxBRIUQWH/2gAMAwEAAhEDEQA/AL2yNxPplV5cedIQlSjYOXAt8XxZPUdMZ5ruQcm0mnn9J9RT5sZJc2luKDlt9Kwonr4thioXG+HpQ1VaMtpCRYuRXdVh/aq3/cT4GLNmcoJXR0fMfG48Y5Y6UnRcowEgC52GI6m1um1CnszoklLjTyErT2IBSFAEdQbEbH5wmZ1pdWzK201JzIafDRKClwoKTaS0Lexxw2O5vcgWttpJ3xWSp7OanatDjUKxGjx3Hw80GW0lS3VK9qQOpvhZzRTMu1RKXMxRYEgajoXKCRa4sQCfHbCNU8mcRI0+ozMucUoDSZ7ilrjS6QCG7iwDaytRSAOgAtfe2+ILhlw+rdCotXl8QawmdXJlSDEWcJa5SSytI0oQVAKTqWVXSEjona2J7ZvouKBMbotNZai8x6GiyWmworuFH2pSo9B2FzYd/nHqoeccv1WKt5uoMxnGnVMvsSXEtutOJ6pUL+RuCQb7E4x7xHzllyi8Umf06rVijxoUBtqrM05tbHqFrd/cTyyQElCFAlRFyU9Sfdhbz/mfhFPr/qKTTZ0hsspDrscuJStYvc+9N7kabna583w9jSTLnqwrGZqFVpOWjCdfito9Y/Mmoa5bagf4dVgCQk7qI+4wg0xupyaWxJNIqKIr6tCJfIKmFEK0k8xN02uDvftinpuYnhFchNzVPB97W+tLh95SVAXHx3F+1sOtC4j58qEWFljLy6k622hLEeMw/pNr7e1u6iL9zi/jM0uJdffdj8xGPNqL6j1RsDIDKRQlyEfy5El1bR+WgrQ2fsUISfzieUi589sL3CzK8rLGT2INQeD9Tdu/OdCioKdUBcAncgABI+bX74kp/PeihTMgMAOrKnQoAjTqGkEggbgC9j9r7ieR+02yUF6xSPQ4ncggixtuCMcJ0hcSmhTCkKkB39pq41a1DShdvge4/wCJxG5Vm1V+mxue5HmqdTd8peSrk7mxCklV7ixtqVb532lmaWwuaqcoqLhASmxIBA7kdD1Nj5OJTtaRRfpm36heCkVMWVnfL4kiWga6hHbXYOj+p0X6HuodCLnqDfOzUehpBRVWKil9JsOTZSdP32ub37Y+kk+K1IirZWgKSpJSpKhcEHqMYZzzRYlMzhVqazHQ21FlOMoSCT7UmwNySd7X/ONxgnoPdrorqq5fl0iuORlsutNFR0hY3Hi/fG7fpNm0afwXprMBYMqApcae2ba0OhRVv4KVJI8G3Y4MGEugetFpulO2kEYgq9RTNQ45Bmrp8hagpauQh5pxQGylNrBGoWHuFjsBewGDBhmbo50+nzdCE1SpGcpKbFKGEsNL8qSLk/Yq0+MSYJuQTc4MGBA2cp8piBT5E+a8liNGaU684s7IQkXJP4GMN5kqBrOYajVygp9bKcf0nsFKJA/3gwYpBGWf/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/235185/how-to-wipe-drives-from-windows-mac-or-a-bootable-disk/" class="title" rel="bookmark">How to Wipe Drives From Windows, Mac, or a Bootable Disk</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/196655/how-to-configure-the-grub2-boot-loaders-settings/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMAAwAAAAAAAAAAAAAABQYAAwcBAgT/xAAwEAABAwMCBAUDBAMBAAAAAAABAgMEAAURBhIHITFBExRRYZEicYFVlKGxFTKS0f/EABoBAAIDAQEAAAAAAAAAAAAAAAQGAQMFAAf/xAAoEQABBAEDAQkBAQAAAAAAAAABAAIDBAURITHRBhITFCJBcZGhQ1P/2gAMAwEAAhEDEQA/AB4BqxABJ3KIGOwzTCH4BOP8WrOOY8df/lea6XCLCtsmW3ZFPKYbU54fmVp3ADJ54P8AVepSZF7WkmI7fHVIrKTCQA8fqElKQjIUSr0xXO1HZZ/5pLd40W3yrr8bRUmUmOoCUpuc5sYSeQKlFvlzyMHFac1PtzjaVothKVAEESVcxQlXMi3r4LCdOeFfYxZr6eI4DX5QYJSeqz+BXCkADkon8Uc85A/TD+4VVUm62qM34kiEhlHTc5LKR8mizblbuYj9jqhxWjOweP3ogpBrqUmj6J9uWgLRbdySMgiSog1POW/9LP7lVT5uU/xP2Oq7y0f+g/eiowd2cJ+KHagmPxmYkaKyh2VPltw2UlAIys/Uoj0CApX4o0/4cdlTrqglCepx8Aep9q8+l7RPvHEC3XJ9CGoNrbdcSznK/EWkJSV9gdpVgDpjmeeAHlr0deEjX1HhX46rJNIDp6RytP4daV05bIT9matURm2T9wlR2mglDu4YO4DryOPtSNqfTqtL3p6yjC2o4AZWR/u3j6T8fzmtQt6ChxO0YpZ4thpV9t7y8h16Lsyc4VtUo49M8/uR9uSj2euCO4WHhyYMxXL6/eHISEEkdk/FZpxg4Zaov7MnU8V9uQ3GbSiLbQk7i3gblgggbtxJxjmAOeeVa5GjpVIQk45noe/em2xlXiIQsJKAehrU7T5ARxiJvJ3QGCrFzzIVg3By13i2aVMS+MvxZQd3pivYC221JBSSnqndnOD2we9Onh+1Xcf/AC2l+NGn7pHjJZh6jtojy1JJwXm1bUrPbIBQn7Gr/B9q0sDeE1No9xshMtXMdgn2KdLPodd7vUtDUgKhwHSz4pHV0clbR6g5HsPvRO2WBiy3GVHjgkbwVKPVSsDOf6/FSpSbbnfKC551KZYIWRgNbsEyQGeYNLnFS1+ZRGluOANNp8PbnB3Ekgj3GM/ipUrLgGrtUW5xCXNP6Snm3Oamfw42n6UuK7gq2/QOwz8+9FLcoB9SB1HOpUqbznPb3nHUqIGhh0aNEN4g6QOvDEiH6pURh5MRRPJBUAf5UlPwK62/TF1lQI8oMoIeaS4CFeozUqVo4G3LCHBpQmTrRy90uX//2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/196655/how-to-configure-the-grub2-boot-loaders-settings/" class="title" rel="bookmark">How to Configure the GRUB2 Boot Loader’s Settings</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/200962/how-to-find-and-remove-duplicate-files-on-windows/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,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"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/200962/how-to-find-and-remove-duplicate-files-on-windows/" class="title" rel="bookmark">How to Find and Remove Duplicate Files on Windows</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/220152/what-to-do-when-you-forget-your-wi-fi-password/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAABQYAAwIEB//EADgQAAEDAwEFBAcGBwAAAAAAAAECAwQABREhBhIxQWEUIlGBEyMyUnGhwQczQoKR8BViY4Ox0eH/xAAXAQEBAQEAAAAAAAAAAAAAAAAGBQQH/8QAIhEAAgIBBAIDAQAAAAAAAAAAAQIAAwQFERIhMUETImEU/9oADAMBAAIRAxEAPwDo4bb/AIgtxPdWoA5HOrY2+20+0vTLhweWCMfShjMsLQzIB0IwqiTT4CsqPdUMGnORVzSclxrzVZufE37E6ZuxvZ0n1qULaI8FDP8AymCwzW51rRhQSpSRnP4VjkfMUoQli2TnXUFQjSDl1PEIV73wNEEsOtyDMtkhKC5qtB1bc66cD1FDtVwnJJjjS89CoA8jqNKHHn3pbK0BCQpKVK3wRjdBOP16UJ2nlpffjw2zlbrySQOSUneJ+VBbdcLy/NuzaW4yCmSlO8VqUPukcsCs1Lj2oPTp0kuvkd5ahqfBKRyFRtPwGVt/0yrl5q8dpltVI3rlbIqTlSSp1XQAaUHvDqlSUhJHdQAfmfrVQll2U9c5iwhxwbqUk+wgcB8T5VgENSSX3HlhSznupKtPIYpzh08FAPqCs/ILsSvsxc2bmZYVEf0AxxOd3w15jwPlTDFdI9UvJweJ5/Hr1pTs0hmY2HjhiSwMrIGhHvY8DzH7Lhs629eISH7dFSWlj7x1Y3UnoBkkdDiqNuXXUv3Mwfw23MeAm6wXBorewOOmoHX/AGK22IYjKSpmZ6He13Qd4K/Lz+Iotb9mXigGXOWrHBDI3Ejpn2vnRy3WaDDHqWENk8Skamo1+oI+4QSpj6Y9fbmJVgtG0wuF6fUjdjyZQcjOKSBlAbSnJB14g6EVjPtHoXfS3QkKHB1wlaPI/g89K6ahruhO8rHhmhd5m2eJEcflyGUtJ0UtS0hAPgVEhOemc1NS74juJWbHa8bbTnEiC2j22yUcgo8fpVDrykrIQ22B4EYx+taUzaeyXC/9hsXan4+6vtC2Wz2ZsAEgkqAPLGAANeJoJP2pgx5BabKnUge0kjHzINJMHKrur5Q1n6fdRbxbv3LrBDhxCjCN5wDAUvUqH+Dp4UG2Hvlw+yraNqx3Z5UrZ2YvdgTFnRP9Jw8lDkfpoJUrPqlSmvl7E36NcxuKHwZ3l68T5ZaTZIkZbLgSRJkPgJGc5AbTlalDjjGvjS9ctooOzsrte0W1S5Exs5TEjjcQnTG76JJJP9xSalSid1jIOo0wsWu1vtANz282nvrahY7WmDDKc9ruJ0KfeS2Bgj8q/jQKRbIT603G/wB0lbQPgaKdWUsI/l3QcjHU46CpUqrpeHXeoezsyLrWoXYrmqnZR+eZZKmBbYixWUpYQMpYYSEFvqnAA/emeNLcmBClvF51qG8s8VOLLa/MAgZ66/GpUpMtaKNgOoT+V2YsT3P/2Q=="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/220152/what-to-do-when-you-forget-your-wi-fi-password/" class="title" rel="bookmark">What to Do When You Forget Your Wi-Fi Password</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/168841/how-to-send-and-receive-faxes-online-without-a-fax-machine-or-phone-line/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAABQYABwMECAL/xAAxEAABAwMCBAQFAwUAAAAAAAABAgMEAAUREiEGBxMxQWGBkRQiI1FxMpKhQrGy0fD/xAAZAQACAwEAAAAAAAAAAAAAAAAEBQIDBgH/xAAkEQACAgICAQMFAAAAAAAAAAABAgADBBESIRMFFCIxM0Fhcf/aAAwDAQACEQMRAD8A6OvXKbg245XHiP21w/1RHSB+1WUj0AqtePeT4sltfu4u0OVGaxkPsltwZOAEkZyd/KrGt3FyykBSgfzShzT4kVfH4tnbV9Bg9Z7B2UsjYeg/y8qjkUeIbYS0KRKqVaYEOIHlOyWipQSnQoqKieyQDmssKTLeTEEC7MywE62GXchWN1Y0+h28jXq/NuXSc3aIaY8lKMLdaXoKBpUkr1hQycJPZG4JGcChEnomNKlSbfJghTY+FSMx221dJQWAFkatKEhIIODqOMbmgdbk4xSbvcFXQzrnbDhR+YsJBGwwO3p3rBb7ja5dyWqS+iMNJILn2z+nz2o1wWxAtsZlc/rTYzyS+W2k9HQpeDgIztgeGe/jW5xOxwy9bUvxoxkydeFsOslOlO+4UAR9vv3oOy/jYK9Hv8j6SXDY3Kg5oG2v2zTlH1nUaS2NISoKCvXGP5FD+afNSdZOLXLVafh1tR2kJcUsZ+puSB+BgfkGgHOK6MquybfBbEZmPlASF6tJ/UtWfYelIDrj7rzj7zDkl51RcdWdzqO+D54x7059sGC8oF5NE6naabgGYxe6moJGdj38qCl9bcaRNWnqvFKnMZxqOMgVXFi5ocOTV/CzHV2+R2U3JQUEGm+4xbXxVYFxF3JKG1KC0qbAcSvHhgf774qzOyjkkbGhCA0FSXI7aJc2XDWmQ64VtLWhbSVNgtqXhlxR3Us6cbaseGRktaor5uUaBFmh6JFIeHWC0AgOKU5ob06FgqUADn5R28DQWXab/FeckQ5c5yLFjpbhJaUhwNlKQAVtncnvuAc/2YeWUaQ+GF3SIGpi1KCz827QVkAIUToBJ/SMDxxQDsFUkmdGz0Bsx0juWgMtiW3JYcUT1HtHUbUM+AGT9hsKUeLr03ZY86Uy11WG0qLDg+TUTsnKFbjenPipES322SY7hC+mNCE/LlSsgHSNjvnOQdgaoPm7xDIdZZtZUkafqK0+JOyc/gZPtVODjiyzkCSJCzKJUoV0w6lU3lx2ZcXpD2pwajqPckDc+qlfxRqzWtkQErlNuKdcJWrQe2fD/vDFakCOHHUpUSE91H7JG5PtRpu4x22W+p8hUnUEgZwMkAewxWjRAx2Yudio1HC8xrLfm8PMxJycbEgKI9e4ofbbHPtCNHDt5lQGs5EZwB9j9qtx6GpUrE+R6+gY8ChuzDDfEnGNuZUZthZuaUg4dt72FH8tr39iasbkZNlX6K9xBcrVJtxQsxkMPpIUSMFSsHcDsPepUrt1zPSQYZ6fUvmBgnibjaIzzMv8aQ4y7FgtNtpZ1AHIRqUR55WoVzFzQvr134hdWVacLK1BJ7E9h6DAqVK0eAirSCP1E+b99v6YM4XmyzcAwqU8W1JOUFZwaZ332ELAecCVY2HlUqUzpPxgNg+U/9k="></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/168841/how-to-send-and-receive-faxes-online-without-a-fax-machine-or-phone-line/" class="title" rel="bookmark">How to Send and Receive Faxes Online Without a Fax Machine or Phone Line</a>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+<div style="clear: both;"></div>	<div style="width: 300px; min-height: 20px; margin-top: 30px;">
+<div style="text-align: center; margin-left: auto; margin-right: auto;">
+<div id="htgys01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="padding-top: 10px;"></div>
+</div>
+<div id="sidebar-float-widget">
+<div class="sidebar-float-widget-internal">
+<div class="adSystem_ads">
+<div class="html"><div style="margin-bottom: 0px;"></div>
+<div class="g-page" data-width="320" data-href="//plus.google.com/100292833634918081724" data-layout="landscape" data-rel="publisher"></div>
+<div style="margin-top: 8px;">
+<a href="https://twitter.com/howtogeek" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @howtogeek</a>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div id="fb-root"></div>
+<script>/* Code removed by ScrapBook */</script>
+<div style="margin-bottom: 10px;"></div>
+<div class="fb-like" data-href="https://www.facebook.com/howtogeek" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div style="margin-bottom: 15px;"></div></div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both; margin-bottom: 20px;"></div>
+<div style="clear: both;"></div>
+<div id="htgyr01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<div class="yui-g" id="sb2">
+<div id="sb3">
+<div id="ns_ad8">
+<div id="sb4">
+<div style="padding: 0px 20px 20px;">
+<h3 style="text-align: left; font-size: 30px; color: rgb(35, 70, 113); font-family: bebas_neueregular; text-transform: uppercase; font-weight: normal;">More Articles You Might Like</h3>
+<script async="" src="about:blank"></script>
+<!-- htg-below-article-content -->
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-9173525300015284" data-ad-slot="8688851009" data-ad-format="autorelaxed"></ins>
+<script>/* Code removed by ScrapBook */</script>
+</div>
+<div id="htgyl01">
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+</div>
+</div>
+<div style="clear: both;"></div>
+</div>
+</div>
+</div>
+<div class="yui-g" style=""></div>
+</div>
+<div class="footer" id="ft">
+<div style="width: 18%;" class="ftdiv">
+<div class="ftsection" style="">ABOUT</div>
+<ul class="bottomul">
+<li><a href="http://www.howtogeek.com/about/" rel="nofollow">About Us</a></li>
+<li><a href="http://www.howtogeek.com/contact/" rel="nofollow">Contact Us</a></li>
+<li><a href="https://discuss.howtogeek.com/">Discussion Forum</a></li>
+<li><a href="http://purch.com/" rel="nofollow">Advertising</a></li>
+<li><a href="http://www.howtogeek.com/privacy-policy/" rel="nofollow">Privacy Policy</a></li>
+</ul>
+</div>
+<div style="width: 45%;" class="ftdiv">
+<div class="ftsection" style="color: rgb(255, 152, 84);">GET ARTICLES BY EMAIL</div>
+<p id="ftemp">Enter your email address to get our daily newsletter.</p>
+<p>
+</p><form action="http://www.howtogeek.com/em/subscribe" method="post">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="footer" type="hidden">
+<input id="fromaddress2" name="emailaddress" style="z-index: -9; height: 1px; width: 1px; position: absolute;" type="text">
+<input name="email" id="ftemtxt" style="color: rgb(187, 187, 187);" value="Enter Your Email Here" type="text">
+<input id="ftemsub" value="Get Articles by Email" style="background: none repeat scroll 0% 0% rgb(85, 168, 223);" type="submit">
+</form>
+<p></p>
+<div style="clear: both;"></div>
+</div>
+<div style="width: 280px; float: left;">
+<div class="ftsection">FOLLOW US</div>
+<ul class="ftsub" style="float: left;">
+<li class="icon-twitter"><a href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeek&amp;tw_p=followbutton&amp;variant=2.0">Twitter</a></li>
+<li class="icon-facebook"><a href="http://facebook.com/howtogeek" rel="nofollow">Facebook</a></li>
+</ul>
+<ul class="ftsub" style="float: left; margin-left: 20px;">
+<li class="icon-google-plus"><a href="http://plus.google.com/+howtogeek">Google+</a></li>
+<li class="icon-feed"><a href="http://feeds.howtogeek.com/howtogeek">RSS Feed</a></li>
+</ul>
+<div style="clear: both;"></div>
+</div>
+<div style="clear: both;"></div>
+<div style="font-style: italic; font-size: 11px; text-align: center;">Disclaimer: Most of the pages on the internet include affiliate links, including some on this site.</div>
+<br>
+<div class="copyright" style="font-size: 11px;">Copyright © 2006-2016 How-To Geek, LLC&nbsp; All Rights Reserved</div>
+</div>
+</div><script src="about:blank" id="pocket-btn-js"></script>
+<style>
+/* Code tidied up by ScrapBook */
+#subscribeoverlay { background: url("emailoverlay4.jpg") no-repeat scroll 0% 0% transparent; }
+#emailoverlaylist { color: rgb(34, 34, 34); }
+#emailoverlayformbutton { background: none repeat scroll 0% 0% rgb(111, 198, 255); }
+#emailoverlayformbutton:hover { background: none repeat scroll 0% 0% rgb(41, 167, 250); }
+#emfh2 { color: rgb(0, 0, 0); top: 100px; }
+</style>
+<div class="overlay-bg">
+<div id="subscribeoverlay">
+<a href="#" id="ovclose"></a>
+<h2 id="emfh2"></h2>
+<div id="emftag"></div>
+<ul id="emailoverlaylist">
+<li>Get exclusive articles before everybody else.</li>
+<li>Get downloadable ebooks for free!</li>
+<li>Get geeky trivia, fun facts, and much more.</li>
+</ul>
+<form id="emailoverlayform" method="GET" action="http://www.howtogeek.com/em/subscribe">
+<p>
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="overlay1" type="hidden">
+</p><p id="emoflbl" style="position: absolute; left: 20px; top: 240px; font-weight: bold; font-size: 120%; color: rgb(0, 0, 0);">Enter Your Email Here to Get Access for Free:</p>
+<input style="color: rgb(187, 187, 187);" id="overlayfrom" name="email" value="Enter Your Email Here" type="text">
+<input id="emailoverlayformbutton" value="Get Free Content Now" style="" type="submit">
+<p></p>
+</form>
+<div id="overlayformsuccess">Go check your email!</div>
+<img id="overlayimage" style="position: absolute; left: -9000px; top: -9000px;" src="xemailoverlay4.jpg.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.bdAMUqnBuz.jpg">
+</div>
+</div>
+<script type="text/javascript" pagespeed_no_defer="">/* Code removed by ScrapBook */</script><script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<!-- Begin comScore Tag -->
+<script>/* Code removed by ScrapBook */</script>
+<noscript>
+<img src="http://b.scorecardresearch.com/p?c1=2&c2=6035753&cv=2.0&cj=1"/>
+</noscript>
+<!-- End comScore Tag -->
+<script>/* Code removed by ScrapBook */</script>
+<!-- Quantcast Tag -->
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+<noscript>
+<div style="display:none;">
+<img src="//pixel.quantserve.com/pixel/p-e1gWzoEHleH1I.gif" height="1" width="1" alt="Quantcast"/>
+</div>
+</noscript>
+<!-- End Quantcast tag -->
+<script type="text/javascript" src="about:blank"></script>
+<script type="text/javascript">/* Code removed by ScrapBook */</script>
+
+
+</body>
+</html>
